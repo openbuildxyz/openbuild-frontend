@@ -91,14 +91,14 @@ export const APP_NAVS = [
     link: '/learn/courses',
     children: [
       {
-        desc: 'Carefully selected open courses for anyone',
+        desc: 'Carefully selected open courses for \n anyone',
         name: 'Open Courses',
         link: '/learn/courses',
         slug: 'learn',
         icon: CoursesIcon,
       },
       {
-        desc: 'Learning paths designed for different levels of builder',
+        desc: 'Learning paths designed for different \n levels of builder',
         link: '/learn/career_path',
         slug: 'learn',
         icon: GrowthPathIcon,
@@ -142,7 +142,7 @@ export const APP_NAVS = [
         icon: TwitterIcon,
       },
       {
-        desc: 'Join the community, make friends, and get more surprise!',
+        desc: 'Join the community, make friends, \n and get more surprise!',
         link: 'https://discord.gg/cbmteR7yRN',
         slug: 'community',
         icon: DiscordIcon,
@@ -156,7 +156,7 @@ export const APP_NAVS = [
         name: 'GitHub',
       },
       {
-        desc: 'Join the community and get our latest updates!',
+        desc: 'Join the community and get our \n latest updates!',
         link: 'https://t.me/OpenBuildxyz/1',
         slug: 'community',
         icon: TelegramIcon,
@@ -170,7 +170,7 @@ export const APP_NAVS = [
         name: 'LinkedIn',
       },
       {
-        desc: 'Subscribe and get the weekly newsletter!',
+        desc: 'Subscribe and get the weekly \n newsletter!',
         link: 'https://openbuildxyz.substack.com',
         slug: 'community',
         icon: SubstackIcon,

@@ -90,9 +90,9 @@ export function Navs({data}) {
                       {i.children.map((ci, ck) => <li key={`header-menus-dropdownItem-${ck}`}>
                         <a onClick={() => setOpenMenu(!openMenu)} href={ci.link} target={ci.slug === 'community' ? '_blank' : '_self'} rel="noreferrer" className="flex items-start">
                           <Image src={ci.icon} alt="" className="mt-[3px] mr-2" />
-                          <div>
+                          <div className="flex-1">
                             <h6 className="mb-1 text-sm">{ci.name}</h6>
-                            <p className="text-xs opacity-60">{ci.desc}</p>
+                            <p className="text-xs opacity-60 whitespace-pre-line">{ci.desc}</p>
                           </div>
                         </a>
                       </li>)}
@@ -143,7 +143,7 @@ export function Navs({data}) {
                     <Image src={ci.icon} alt="" className="mt-[3px] mr-2" />
                     <div>
                       <h6 className="mb-1 text-sm">{ci.name}</h6>
-                      <p className="text-xs opacity-60">{ci.desc}</p>
+                      <p className="text-xs opacity-60 whitespace-pre-line">{ci.desc}</p>
                     </div>
                   </a>
                 </li>)}
