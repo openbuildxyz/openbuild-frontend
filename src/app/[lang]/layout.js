@@ -33,8 +33,11 @@ import { getConfigs } from '#/services/common'
 import { GoogleAnalytics } from '@/components/GoogleAnalytics'
 // import { StartOnOpenBuild } from '@/components/StartOnOpenBuild'
 
-import DefaultLayout from '../entry/layouts/default'
-import ClientEntry from '../entry'
+import DefaultLayout from '../../entry/layouts/default'
+import ClientEntry from '../../entry'
+import { LinguiClientProvider } from './providers/LinguiClientProvider'
+import { setI18n } from "@lingui/react/server";
+import { getI18nInstance } from '../../i18n'
 
 export const metadata = {
   title: {
@@ -77,17 +80,23 @@ export const metadata = {
   },
 }
 
-export default async function RootLayout({ children }) {
+export default async function RootLayout({ params, children }) {
+  const { lang } = await params;
+  const i18n = getI18nInstance(lang);
+  setI18n(i18n);
+
   const configRes = await getConfigs()
 
   return (
-    <html lang="en" data-theme="light" className={`${nunito_sans.className} light`} suppressHydrationWarning>
+    <html lang={lang} data-theme="light" className={`${nunito_sans.className} light`} suppressHydrationWarning>
       <body>
-        <ClientEntry config={configRes}>
-          <DefaultLayout>{children}</DefaultLayout>
-        </ClientEntry>
-        <GoogleAnalytics />
-        <SpeedInsights />
+        <LinguiClientProvider initialLocale={lang} initialMessages={i18n.messages}>
+          <ClientEntry config={configRes}>
+            <DefaultLayout>{children}</DefaultLayout>
+          </ClientEntry>
+          <GoogleAnalytics />
+          <SpeedInsights />
+        </LinguiClientProvider>
       </body>
     </html>
   )

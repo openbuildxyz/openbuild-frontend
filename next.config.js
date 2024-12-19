@@ -14,22 +14,20 @@
  * limitations under the License.
  */
 
-/** @type {import('next').NextConfig} */
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true'
 })
 
-module.exports = withBundleAnalyzer({
+/** @type {import('next').NextConfig} */
+const config = {
   // env: {
   //     NEXT_PUBLIC_ENV: 'PRODUCTION', //your next configs goes here
   // },
   output: 'standalone',
   reactStrictMode: true,
-  swcMinify: true,
   staticPageGenerationTimeout: 180,
   experimental: {
-    appDir: true,
-    serverActions: true
+    swcPlugins: [["@lingui/swc-plugin", {}]],
   },
   env: {
     NEXT_PUBLIC_DOMAIN_ENV: process.env.NEXT_PUBLIC_DOMAIN_ENV,
@@ -49,9 +47,19 @@ module.exports = withBundleAnalyzer({
   },
   webpack: config => {
     config.externals.push('pino-pretty', 'lokijs', 'encoding')
+
+    config.module.rules.push({
+      test: /\.po$/,
+      use: {
+        loader: '@lingui/loader',
+      },
+    });
+
     return config
   },
   compiler: {
     styledComponents: true,
   },
-})
+}
+
+module.exports = withBundleAnalyzer(config)
