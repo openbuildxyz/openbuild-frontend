@@ -6,6 +6,7 @@
   },
   "scripts": {
     "dev": "NEXT_PUBLIC_DOMAIN_ENV=development next dev -p 3000",
+    "win:dev":"cross-env NEXT_PUBLIC_DOMAIN_ENV=development next dev -p 3000",
     "build": "next build",
     "build:test": "NODE_ENV=test NEXT_PUBLIC_DOMAIN_ENV=test next build",
     "start": "NEXT_PUBLIC_DOMAIN_ENV=development next dev -p 3000",
