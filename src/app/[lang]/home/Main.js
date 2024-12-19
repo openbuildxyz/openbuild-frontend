@@ -31,21 +31,29 @@ import Aos from 'aos'
 
 import { useEffect } from 'react'
 import Typed from 'react-typed'
+import { Trans, useLingui } from "@lingui/react/macro";
 
 export function HomeMain({data}) {
+  const { t } = useLingui()
+
   useEffect(() => {
     Aos.init({
       delay: 100, // values from 0 to 3000, with step 50ms
       duration: 800, // values from 0 to 3000, with step 50ms
     })
   }, [])
+
   return (
     <div className="mt-14 [&>div]:px-6 md:[&>div]:px-11 bg-white" >
       <div data-aos="fade-up">
         <Image className="opacity-10 absolute top-[-100px] z-[-1]" src={HomeTopBg} alt="" />
         <div className="text-[28px] leading-9 md:text-[58px] font-bold md:leading-[64px] text-center">
-          <h1>Help ✦ Developers ✦</h1>
-          <h1>get on the Success Way to Web3</h1>
+          <h1>
+            <Trans>Help ✦ Developers ✦</Trans> 
+          </h1>
+          <h1>
+            <Trans>get on the Success Way to Web3</Trans>
+          </h1>
         </div>
         <div className="mt-4 md:mt-5 text-lg md:text-[26px] leading-9 text-center">
           <Typed
@@ -62,7 +70,7 @@ export function HomeMain({data}) {
           </a>
           <Link href="/learn/courses">
             <button className="max-md:relative max-md:mt-3 max-md:w-full max-md:font-normal h-14 text-lg relative btn btn-primary text-white pl-9 pr-2 hover:!opacity-90">
-              Get Started
+              {t`Get Started`}
               <span className="max-md:absolute max-md:top-3 max-md:right-3 p-2 bg-white rounded ml-14">
                 <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M1 12L12 1" stroke="#1A1A1A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -72,7 +80,7 @@ export function HomeMain({data}) {
               <svg className="max-md:hidden absolute right-[-15px] top-[-20px]" xmlns="http://www.w3.org/2000/svg" width="15" height="19" viewBox="0 0 15 19" fill="none">
                 <path d="M11.774 7.6202L12.837 6.6604L11.584 6.6908L5.841 6.5427L2.02802 2.7393L1.168 1.8501L1.14899 3.0161L1.01999 15.7924L1 16.9584L1.76599 16.2852L11.774 7.6202Z" fill="#1A1A1A" stroke="#1A1A1A" strokeLinecap="square"/>
               </svg>
-              <span className="max-md:hidden absolute text-xs bg-primary right-[-53px] top-[-40px] p-[2px]">Builder</span>
+              <span className="max-md:hidden absolute text-xs bg-primary right-[-53px] top-[-40px] p-[2px]">{t`Builder`}</span>
             </button>
           </Link>
 
