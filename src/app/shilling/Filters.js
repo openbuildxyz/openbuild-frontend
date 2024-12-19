@@ -93,6 +93,7 @@ export function ShillingFilters() {
           <ReactSelect
             placeholder="Select your experience"
             isClearable={true}
+            isSearchable={false}
             styles={{
               control: base => ({
                 ...base,
@@ -131,6 +132,7 @@ export function ShillingFilters() {
           placeholder={'Sort by'}
           options={SORT_BYS}
           isClearable={true}
+          isSearchable={false}
           onChange={e => {
             if (e === null) {
               dispatch(setSortBy(null))
