@@ -17,7 +17,7 @@
 import { Suspense } from 'react'
 
 import { Title } from '../learn/Title'
-import { SartOnOpenBuild } from '../learn/SartOnOpenBuild'
+import { StartOnOpenBuild } from '../learn/StartOnOpenBuild'
 import { Filter } from '@/components/Filter'
 import { BountyFilter } from './Filter'
 import { Container } from './Container'
@@ -39,7 +39,7 @@ export default function Page({ params, searchParams }) {
         </div>
       </div>
       {/* {status !== } */}
-      <SartOnOpenBuild />
+      <StartOnOpenBuild />
     </div>
   )
 }

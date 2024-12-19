@@ -31,7 +31,7 @@ import { siteConfig } from '#/lib/site'
 import { getConfigs } from '#/services/common'
 
 import { GoogleAnalytics } from '@/components/GoogleAnalytics'
-// import { SartOnOpenBuild } from '@/components/SartOnOpenBuild'
+// import { StartOnOpenBuild } from '@/components/StartOnOpenBuild'
 
 import DefaultLayout from '../entry/layouts/default'
 import ClientEntry from '../entry'
