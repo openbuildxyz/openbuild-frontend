@@ -60,8 +60,9 @@ export function Navs({data}) {
         <div className={clsx(
           'fixed w-full left-0 transition-all !duration-500 px-6 bg-white',
           {
-            'h-0 overflow-hidden top-[73px]': !openMenu,
-            'h-[calc(100vh-73px)] overflow-y-auto top-[72px] pt-6': openMenu
+            'h-0 overflow-hidden': !openMenu,
+            'h-[calc(100vh-64px)] overflow-y-auto top-[64px] pt-6': openMenu,
+            'h-[calc(100vh-61px)] top-[61px]': fullHeader
           }
         )}>
           <ul>
