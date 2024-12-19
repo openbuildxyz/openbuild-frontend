@@ -43,6 +43,7 @@ export function Sort() {
       <ReactSelect
         id="learn-order-select"
         isClearable
+        isSearchable={false}
         value={options.find(f => f.value === value)}
         className="no-bg showDropdownIndicator w-full bg-transparent height-sm"
         onChange={e => {

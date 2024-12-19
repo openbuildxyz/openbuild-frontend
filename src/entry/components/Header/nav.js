@@ -60,8 +60,9 @@ export function Navs({data}) {
         <div className={clsx(
           'fixed w-full left-0 transition-all !duration-500 px-6 bg-white',
           {
-            'h-0 overflow-hidden top-[73px]': !openMenu,
-            'h-[calc(100vh-73px)] overflow-y-auto top-[72px] pt-6': openMenu
+            'h-0 overflow-hidden': !openMenu,
+            'h-[calc(100vh-64px)] overflow-y-auto top-[64px] pt-6': openMenu,
+            'h-[calc(100vh-61px)] top-[61px]': fullHeader
           }
         )}>
           <ul>
@@ -90,7 +91,7 @@ export function Navs({data}) {
                       {i.children.map((ci, ck) => <li key={`header-menus-dropdownItem-${ck}`}>
                         <a onClick={() => setOpenMenu(!openMenu)} href={ci.link} target={ci.slug === 'community' ? '_blank' : '_self'} rel="noreferrer" className="flex items-start">
                           <Image src={ci.icon} alt="" className="mt-[3px] mr-2" />
-                          <div>
+                          <div className="flex-1 text-pretty">
                             <h6 className="mb-1 text-sm">{ci.name}</h6>
                             <p className="text-xs opacity-60">{ci.desc}</p>
                           </div>
@@ -141,7 +142,7 @@ export function Navs({data}) {
                 {i.children.map((ci, ck) => <li key={`header-menus-dropdownItem-${ck}`}>
                   <a href={ci.link} target={ci.slug === 'community' ? '_blank' : '_self'}  rel="noreferrer" className="flex items-start">
                     <Image src={ci.icon} alt="" className="mt-[3px] mr-2" />
-                    <div>
+                    <div className="flex-1 text-pretty">
                       <h6 className="mb-1 text-sm">{ci.name}</h6>
                       <p className="text-xs opacity-60">{ci.desc}</p>
                     </div>

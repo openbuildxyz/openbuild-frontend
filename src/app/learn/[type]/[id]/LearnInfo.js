@@ -22,7 +22,7 @@ export function LearnInfo({ data }) {
   return (
     <div
       id="learn-info"
-      className="[&>div>a]:font-bold [&>div>a]:underline [&>div>*]:text-gray-50"
+      className="[&>div>a]:font-bold [&>div>a]:underline"
     >
       {data && <OViewer value={data?.base?.course_series_introduction} />}
     </div>

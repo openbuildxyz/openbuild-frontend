@@ -110,6 +110,7 @@ export function TopFilters({type}) {
             <ReactSelect
               id="learn-order-select"
               isClearable
+              isSearchable={false}
               value={langOptions.find(f => f.value === lang)}
               className="no-bg showDropdownIndicator w-full bg-transparent height-sm"
               onChange={e => changeParams('lang', e ? e.value : null)}
