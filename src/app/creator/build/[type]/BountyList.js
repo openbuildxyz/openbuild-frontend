@@ -167,7 +167,7 @@ export function BountyList({ data, mutate }) {
       {current && (
         <AppliedModal applyCallback={() => changeStatusCallback(current.id, 6)} open={appliedModalOpen} closeModal={() => setAppliedModalOpen(false)} bounty={current} />
       )}
-      {current && <ManageModal succesCallback={(status) => changeStatusCallback(current.id, status)} bounty={current} open={manageModalOpen} closeModal={() => setManageModalOpen(false)} type={'Manage'} />}
+      {current && <ManageModal successCallback={(status) => changeStatusCallback(current.id, status)} bounty={current} open={manageModalOpen} closeModal={() => setManageModalOpen(false)} type={'Manage'} />}
 
     </div>
   )
