@@ -45,7 +45,7 @@ import { writeContract } from '@wagmi/core';
 
 export function AppliedModal({ open, closeModal, bounty, applyCallback }) {
   const _contracts = contracts[BOUNTY_SUPPORTED_CHAIN()];
-  const paytoken = payTokens[BOUNTY_SUPPORTED_CHAIN()].usdt;
+  const payToken = payTokens[BOUNTY_SUPPORTED_CHAIN()].usdt;
 
   const { isConnected, address } = useAccount();
   const { openConnectModal } = useConnectModal();
@@ -66,12 +66,12 @@ export function AppliedModal({ open, closeModal, bounty, applyCallback }) {
   const [currUser, setCurrUser] = useState();
 
   const { allowance } = useAllowance(
-    paytoken.address,
+    payToken.address,
     _contracts.bounty,
     address
   );
   const { approveAsync } = useApprove(
-    paytoken.address,
+    payToken.address,
     _contracts.bounty,
     address
   );
@@ -161,8 +161,8 @@ export function AppliedModal({ open, closeModal, bounty, applyCallback }) {
         args: [
           bounty.task,
           currUser?.user_wallet,
-          paytoken.address,
-          parseUnits((bounty.amount / 100).toString(), paytoken.decimals),
+          payToken.address,
+          parseUnits((bounty.amount / 100).toString(), payToken.decimals),
         ],
       })
 
@@ -194,7 +194,7 @@ export function AppliedModal({ open, closeModal, bounty, applyCallback }) {
     }
     setApproveConfirmLoading(true);
     if (
-      Number(allowance.toString()) < Number(parseUnits((bounty.amount / 100).toString(), paytoken.decimals).toString())
+      Number(allowance.toString()) < Number(parseUnits((bounty.amount / 100).toString(), payToken.decimals).toString())
       &&
       approveAsync
     ) {

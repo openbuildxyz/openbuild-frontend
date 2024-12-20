@@ -75,8 +75,8 @@ export default function CreatorLearn({ params, searchParams }) {
 
   const itemTags = (tagIds) => {
     const filters = config?.find(f => f.config_id === 1)?.config_value[params.type]
-    const allLables = filters?.map(f => f.labels).flat(2)
-    const _tags = tagIds?.map(s => allLables?.find(f => f.id === Number(s)))
+    const allLabels = filters?.map(f => f.labels).flat(2)
+    const _tags = tagIds?.map(s => allLabels?.find(f => f.id === Number(s)))
     return Array.from(new Set(_tags))
   }
 

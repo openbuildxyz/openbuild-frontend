@@ -37,7 +37,7 @@ export function CourseCard({ data, target, from }) {
     if (data.base.course_series_label_ids?.length > 0) {
       const _tag = data.base.course_series_label_ids.map(i => {
         const f = _filters?.config_value['open_course']?.map(cv => {
-          const findedTag = cv.labels.find(
+          const foundTag = cv.labels.find(
             cvf =>
               cvf.id === i &&
               cvf.id !== 2113 &&
@@ -46,7 +46,7 @@ export function CourseCard({ data, target, from }) {
               cvf.id !== 1212 &&
               cvf.id !== 1308
           )
-          return findedTag?.name
+          return foundTag?.name
         })
         return f
       })

@@ -190,7 +190,7 @@ export function LearnRightCard({ data, type, permission }) {
 
   const [surveyOpen, setSurveyOpen] = useState(false)
   const [surveyJson, setSurveyJson] = useState('')
-  const [emailModalopen, setEmailModalopen] = useState(false)
+  const [emailModalOpen, setEmailModalOpen] = useState(false)
   const [isEmailVerify, setIsEmailVerify] = useState(false)
 
   const [payLoading, setPayLoading] = useState(false)
@@ -222,7 +222,7 @@ export function LearnRightCard({ data, type, permission }) {
       if (cExtra?.course_challenges_extra_need_login) {
         router.push(`/signin?from=${sourceFrom}`)
       } else {
-        setEmailModalopen(true)
+        setEmailModalOpen(true)
         return
       }
     } else {
@@ -597,11 +597,11 @@ export function LearnRightCard({ data, type, permission }) {
       )}
 
       <EmailModal
-        open={emailModalopen}
-        closeModal={() => setEmailModalopen(false)}
+        open={emailModalOpen}
+        closeModal={() => setEmailModalOpen(false)}
         data={data}
         successCallback={() => {
-          setEmailModalopen(false)
+          setEmailModalOpen(false)
           setIsEmailVerify(true)
           setSurveyJson(data.challenges_extra?.course_challenges_extra_check_schema)
         }}

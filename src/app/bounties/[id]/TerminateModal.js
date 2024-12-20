@@ -39,7 +39,7 @@ export function TerminateModal({open, close, bounty, type}) {
   const { data: walletClient } = useWalletClient()
 
   const _contracts = contracts[BOUNTY_SUPPORTED_CHAIN()]
-  const paytoken = payTokens[BOUNTY_SUPPORTED_CHAIN()].usdt
+  const payToken = payTokens[BOUNTY_SUPPORTED_CHAIN()].usdt
 
 
   const confirm = async () => {
@@ -52,7 +52,7 @@ export function TerminateModal({open, close, bounty, type}) {
       _contracts.bounty,
       walletClient,
       bounty.task,
-      parseUnits(amount.toString(), paytoken.decimals),
+      parseUnits(amount.toString(), payToken.decimals),
       _deadline
     );
     if (_s === 'error') {
@@ -108,7 +108,7 @@ export function TerminateModal({open, close, bounty, type}) {
       fullWidth
       loading={loading}
     >
-      Confrim
+      Confirm
     </Button>
   </Modal>
 }

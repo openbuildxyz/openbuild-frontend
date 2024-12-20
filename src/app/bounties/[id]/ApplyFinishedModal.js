@@ -34,7 +34,7 @@ import { useBountyEnvCheck } from '#/domain/bounty/hooks'
 
 export function ApplyFinishedModal({open, close, bounty}) {
   const _contracts = contracts[BOUNTY_SUPPORTED_CHAIN()]
-  const paytoken = payTokens[BOUNTY_SUPPORTED_CHAIN()].usdt
+  const payToken = payTokens[BOUNTY_SUPPORTED_CHAIN()].usdt
   const wrapBountyEnvCheck = useBountyEnvCheck()
 
   const [amount, setAmount] = useState('')
@@ -47,7 +47,7 @@ export function ApplyFinishedModal({open, close, bounty}) {
     setLoading(true)
     const _deadline = currentTime() + 7 * 24 * 60 * 60
     // bounty withdraw
-    const _s = await signBounty(chain?.id, _contracts.bounty, walletClient, bounty.task, parseUnits(amount.toString(), paytoken.decimals), _deadline)
+    const _s = await signBounty(chain?.id, _contracts.bounty, walletClient, bounty.task, parseUnits(amount.toString(), payToken.decimals), _deadline)
     if (_s === 'error') {
       setLoading(false)
       return
@@ -80,7 +80,7 @@ export function ApplyFinishedModal({open, close, bounty}) {
       </div>
       <p className="text-xs opacity-60 my-4">If you have negotiated a new bounty with your employer, you can make changes, otherwise, please do not make changes to avoid disputes</p>
       <Button disabled={Number(amount) < 1} onClick={finished} variant="contained" fullWidth loading={loading}>
-        Confrim
+        Confirm
         {/* {chain?.id !== BOUNTY_SUPPORTED_CHAIN() ? 'Switch' : ''} */}
       </Button>
     </Modal>

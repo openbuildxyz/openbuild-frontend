@@ -42,7 +42,7 @@ export function Newest({data}) {
     ]
   }
 
-  const datas = useMemo(() => {
+  const newest = useMemo(() => {
     if (data.bounties.last.length > 0) {
       return data.learn.last.concat(data.bounties.last[0])
     } else {
@@ -55,7 +55,7 @@ export function Newest({data}) {
     <div className="text-center newest" >
       <h1 className="text-[42px] leading-[52px] mb-9 max-md:text-[28px] max-md:leading-9" data-aos="fade-up" data-aos-delay="300">Newest on OpenBuild</h1>
       <Slider {...settings} >
-        {datas.map((i, k) => (
+        {newest.map((i, k) => (
           <div key={`home-Newest-${k}`} data-aos="flip-left" data-aos-delay="300" className="">
             <div className="h-[50px] ph max-md:hidden"></div>
             {mediaUrl && <Image className="rounded-xl w-[95%] aspect-video object-cover" width={500} height={281} src={mediaUrl + i.img} alt="" />}

@@ -46,7 +46,7 @@ export function Author({ data }) {
   const [cmOpen, setCMOpen] = useState(false)
   const [comment, setComment] = useState('')
   const { data: permission, doFetch } = useDetailsPermission(data?.uid)
-  const [applyloading, setApplyloading] = useState(false)
+  const [applyLoading, setApplyLoading] = useState(false)
   const [openToken, setOpenToken] = useState(false)
   const [token, setToken] = useState('')
   const skills = useAllSkills()
@@ -162,9 +162,9 @@ export function Author({ data }) {
             </p>
           </div>
           <Button
-            loading={applyloading}
+            loading={applyLoading}
             onClick={async () => {
-              setApplyloading(true)
+              setApplyLoading(true)
               if (!data || !selectSkills) return
               const res = await applyGetContact(data.uid, comment, selectSkills, token)
               if (res.code === 200) {

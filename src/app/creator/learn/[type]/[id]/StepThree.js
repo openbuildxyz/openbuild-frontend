@@ -174,7 +174,7 @@ export function CreatorLearnStepThree({ data, change }) {
     setAddLessonModalOpen(false)
   }
 
-  const eidtLesson = (course, chapterName) => {
+  const editLesson = (course, chapterName) => {
     setCurrentEditCourse(course.base)
     setConfirmType('edit')
     setAddLessonModalOpen(true)
@@ -274,13 +274,13 @@ export function CreatorLearnStepThree({ data, change }) {
                         <li className="text-right">{Number(v.base?.course_single_estimated_time) / 60} mins</li>
                         <li className="flex items-center justify-end">
                           <DeleteIcon onClick={() => deleteLesson(v)} className="h-4 w-4 cursor-pointer text-sm" />
-                          <EditIcon onClick={() => eidtLesson(v, i)} className="ml-4 h-4 w-4 cursor-pointer text-sm" />
+                          <EditIcon onClick={() => editLesson(v, i)} className="ml-4 h-4 w-4 cursor-pointer text-sm" />
                         </li>
                       </ul>
                     )
                 )}
               {forms?.courses && forms?.courses.filter(f => f.base.course_single_chapter === i).length === 0 && (
-                <div className="py-4 text-center text-sm opacity-60">No Contetnt</div>
+                <div className="py-4 text-center text-sm opacity-60">No Content</div>
               )}
             </div>
           </div>

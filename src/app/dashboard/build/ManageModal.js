@@ -49,7 +49,7 @@ export function ManageModal({
   const { data: walletClient } = useWalletClient()
   const { openConnectModal } = useConnectModal()
   const _contracts = contracts[BOUNTY_SUPPORTED_CHAIN()]
-  const paytoken = payTokens[BOUNTY_SUPPORTED_CHAIN()].usdt
+  const payToken = payTokens[BOUNTY_SUPPORTED_CHAIN()].usdt
   const mediaUrl = useMediaUrl()
   const [confirmOpen, setConfirmOpen] = useState(false)
   const [agreeType, setAgreeType] = useState()
@@ -154,7 +154,7 @@ export function ManageModal({
     sNetwork()
     const sign = async () => {
       const _deadline = currentTime() + 7 * 24 * 60 * 60
-      const _s = await signBounty(chain?.id, _contracts.bounty, signer, bounty.task, parseUnits(amount.toString(), paytoken.decimals), _deadline)
+      const _s = await signBounty(chain?.id, _contracts.bounty, signer, bounty.task, parseUnits(amount.toString(), payToken.decimals), _deadline)
       if (_s === 'error') {
         setFinishedLoading(false)
         return
@@ -176,7 +176,7 @@ export function ManageModal({
     if (finishedLoading) {
       sign()
     }
-  }, [signer, chain, _contracts.bounty, finishedLoading, amount, bounty, callback, closeModal, fetchList, paytoken.decimals, close, sNetwork])
+  }, [signer, chain, _contracts.bounty, finishedLoading, amount, bounty, callback, closeModal, fetchList, payToken.decimals, close, sNetwork])
 
   const arbitrateEvent = async () => {
     if (details.data) {
