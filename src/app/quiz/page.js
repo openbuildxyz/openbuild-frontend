@@ -19,7 +19,7 @@
 import Image from 'next/image'
 import { ArrowRightIcon } from '@/components/Icons'
 import { useEffect } from 'react'
-import { SartOnOpenBuild } from '../learn/SartOnOpenBuild'
+import { StartOnOpenBuild } from '../learn/StartOnOpenBuild'
 import { QuizList } from './List'
 
 import QuizBannerPic from 'public/images/quiz-banner.svg'
@@ -123,7 +123,7 @@ export default function Quiz() {
           </div>
         </div>
       </div>
-      <SartOnOpenBuild />
+      <StartOnOpenBuild />
     </div>
   )
 }

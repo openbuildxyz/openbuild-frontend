@@ -77,7 +77,7 @@ export function TerminateModal({ open, closeModal, data }) {
         </div>
 
         <Button onClick={terminate} disabled={comment === ''} loading={confirmimg} fullWidth variant="contained">
-          Confirm temination
+          Confirm termination
         </Button>
       </div>
     </Modal>

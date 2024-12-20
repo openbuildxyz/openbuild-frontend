@@ -26,7 +26,7 @@ import { Contributor } from './Contributor'
 import { BuildWith } from './BuildWith'
 import { Newest } from './Newest'
 import { Trusted } from './Trusted'
-import { SartOnOpenBuild } from '../learn/SartOnOpenBuild'
+import { StartOnOpenBuild } from '../learn/StartOnOpenBuild'
 import Aos from 'aos'
 
 import { useEffect } from 'react'
@@ -121,7 +121,7 @@ export function HomeMain({data}) {
       <BuildWith />
       <Newest data={data?.items} />
       <Trusted />
-      <SartOnOpenBuild />
+      <StartOnOpenBuild />
     </div>
   )
 }

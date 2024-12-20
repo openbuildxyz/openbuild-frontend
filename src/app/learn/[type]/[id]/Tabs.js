@@ -60,7 +60,7 @@ export function Tabs({ data }) {
     });
   }, []);
   return (
-    <div className="sticky top-[85px] z-10 bg-gray-1000 py-4 md:top-[84px]">
+    <div className="sticky top-[61px] z-10 bg-gray-1000 py-4 md:top-[73px]">
       <div className="flex border-b border-gray-400 [&>button]:mr-3 [&>button]:px-4">
         <button
           className={clsx(

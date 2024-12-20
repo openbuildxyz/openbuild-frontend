@@ -35,10 +35,10 @@ export function HireOnChainModal({ open, closeModal, data, id, callback }) {
   // console.log(data)
   const skills = useAllSkills()
   const opts = useMemo(() => {
-    const findedList = data?.map(i => {
+    const foundList = data?.map(i => {
       return { ...i, value: i.skill, label: skills?.find(f => f.value === Number(i.skill))?.label }
     })
-    return findedList
+    return foundList
   }, [skills, data])
   const [skill, setSkill] = useState()
   const [comment, setComment] = useState('')

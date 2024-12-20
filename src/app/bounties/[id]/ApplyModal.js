@@ -24,7 +24,7 @@ import { applyAction } from './actions'
 export function ApplyModal({ open, closeModal, id }) {
   const [checked, setChecked] = useState(false)
   const [comment, setComment] = useState('')
-  const [appling,  setAppling] = useState(false)
+  const [applying,  setApplying] = useState(false)
   return (
     <Modal isOpen={open} title={'Apply Bounty'} closeModal={closeModal} mode={'base'}>
       <div>
@@ -38,21 +38,21 @@ export function ApplyModal({ open, closeModal, id }) {
       <div className="my-6 flex">
         <label className="label cursor-pointer flex items-center">
           <input onChange={() => setChecked(!checked)} type="checkbox" checked={checked} className="checkbox" />
-          <span className="label-text ml-2">I agree send my profie and contact information the employer</span>
+          <span className="label-text ml-2">I agree send my profile and contact information the employer</span>
         </label>
       </div>
       <Button
-        loading={appling}
+        loading={applying}
         disabled={!checked || comment === ''}
 
         fullWidth
         onClick={async () => {
-          setAppling(true)
+          setApplying(true)
           const res = await applyAction(id, comment)
           if (res) {
             toast.error(res.message)
           }
-          setAppling(false)
+          setApplying(false)
           closeModal()
         }}
       >

@@ -16,7 +16,7 @@
 
 import { Suspense } from 'react'
 import { Title } from '../Title'
-import { SartOnOpenBuild } from '../SartOnOpenBuild'
+import { StartOnOpenBuild } from '../StartOnOpenBuild'
 import { Filter } from '@/components/Filter'
 import { ChallengesFilter } from '../ChallengesFilter'
 import { Container } from './Container'
@@ -58,7 +58,7 @@ export default async function Page({ params, searchParams }) {
           </Suspense>
         </div>
       </div>
-      <SartOnOpenBuild />
+      <StartOnOpenBuild />
     </div>
   )
 }

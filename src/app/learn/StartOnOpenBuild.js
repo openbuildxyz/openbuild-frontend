@@ -22,7 +22,7 @@ import { Button } from '@/components/Button'
 import Link from 'next/link'
 import TaskPic from 'public/images/svg/task.svg'
 
-export function SartOnOpenBuild() {
+export function StartOnOpenBuild() {
   const { status } = useSession()
   return (
     <div className="md:flex justify-between bg-green max-md:pt-4 md:py-[30px] px-11 relative">

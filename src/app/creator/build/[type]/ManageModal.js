@@ -52,12 +52,12 @@ export function ManageModal({
   closeModal,
   type,
   bounty,
-  succesCallback,
+  successCallback,
 }) {
   const { chain } = useNetwork();
   const { data: walletClient } = useWalletClient()
   const _contracts = contracts[BOUNTY_SUPPORTED_CHAIN()];
-  const paytoken = payTokens[BOUNTY_SUPPORTED_CHAIN()].usdt;
+  const payToken = payTokens[BOUNTY_SUPPORTED_CHAIN()].usdt;
   const mediaUrl = useMediaUrl();
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [addProgressOpen, setAddProgressOpen] = useState(false);
@@ -106,7 +106,7 @@ export function ManageModal({
       _contracts.bounty,
       walletClient,
       bounty.task,
-      parseUnits(amount.toString(), paytoken.decimals),
+      parseUnits(amount.toString(), payToken.decimals),
       _deadline
     );
     if (_s === 'error') {
@@ -123,7 +123,7 @@ export function ManageModal({
     setTerminateLoading(false);
     if (res.code === 200) {
       toast.success('Termination successful');
-      succesCallback(18);
+      successCallback(18);
       close();
     } else {
       toast.error('Termination failed');
@@ -154,7 +154,7 @@ export function ManageModal({
       if (res.code === 200) {
         toast.success('Successful');
         fetchList();
-        succesCallback(15);
+        successCallback(15);
         close();
       } else {
         toast.error('Agree failed');
@@ -172,7 +172,7 @@ export function ManageModal({
     if (res.code === 200) {
       toast.success('successful');
       fetchList();
-      succesCallback(7);
+      successCallback(7);
       close();
     } else {
       toast.error('DisAgree failed');
@@ -186,7 +186,7 @@ export function ManageModal({
         if (res.code === 200) {
           toast.success('Successful');
           fetchList();
-          succesCallback(10);
+          successCallback(10);
           close();
         } else {
           toast.error('Completed failed');

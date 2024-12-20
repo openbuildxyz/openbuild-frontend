@@ -65,7 +65,7 @@ const DATAS = [
 
 export function Contributor({data}) {
   // const mediaUrl = useMediaUrl()
-  const customeSlider = createRef()
+  const customSlider = createRef()
 
   const settings = {
     dots: false,
@@ -100,11 +100,11 @@ export function Contributor({data}) {
   }
 
   const next = () => {
-    customeSlider.current.slickNext()
+    customSlider.current.slickNext()
   }
 
   const prev = () => {
-    customeSlider.current.slickPrev()
+    customSlider.current.slickPrev()
   }
 
   const chunkData = chunk(DATAS, 2)
@@ -131,7 +131,7 @@ export function Contributor({data}) {
           </span>
         </div>
         <div className="mt-[50px] max-md:mt-8 mb-[150px] max-md:mb-14 pl-11">
-          <Slider {...settings} ref={customeSlider}>
+          <Slider {...settings} ref={customSlider}>
             {chunkData.map((i, k) => (
               <div key={`contributor-slider-box-${k}`} className="!grid grid-cols-1 gap-10 pr-11">
                 {i.map((j, t) => (

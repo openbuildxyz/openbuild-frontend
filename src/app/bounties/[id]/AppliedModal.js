@@ -50,7 +50,7 @@ export function AppliedModal({ open, closeModal, bounty }) {
   // const { chain } = useNetwork()
   const wrapBountyEnvCheck = useBountyEnvCheck()
   const _contracts = contracts[BOUNTY_SUPPORTED_CHAIN()];
-  const paytoken = payTokens[BOUNTY_SUPPORTED_CHAIN()].usdt;
+  const payToken = payTokens[BOUNTY_SUPPORTED_CHAIN()].usdt;
 
   // const { data: walletClient } = useWalletClient()
 
@@ -67,13 +67,13 @@ export function AppliedModal({ open, closeModal, bounty }) {
   const [currUser, setCurrUser] = useState();
 
   const { allowance } = useAllowance(
-    paytoken.address,
+    payToken.address,
     _contracts.bounty,
     address
   );
 
   const { approveAsync } = useApprove(
-    paytoken.address,
+    payToken.address,
     _contracts.bounty,
     address
   );
@@ -126,8 +126,8 @@ export function AppliedModal({ open, closeModal, bounty }) {
         args: [
           bounty.task,
           currUser?.user_wallet,
-          paytoken.address,
-          parseUnits((bounty.amount / 100).toString(), paytoken.decimals),
+          payToken.address,
+          parseUnits((bounty.amount / 100).toString(), payToken.decimals),
         ],
       })
       // console.log(hash)
@@ -153,7 +153,7 @@ export function AppliedModal({ open, closeModal, bounty }) {
       setApproveConfirmLoading(false);
       toast.error(err.message);
     }
-  }, [_contracts, approveConfirmIds, bounty, currUser, paytoken, updateList])
+  }, [_contracts, approveConfirmIds, bounty, currUser, payToken, updateList])
 
   const approve = async (bountyId, bid) => {
     setConfirmModalOpen(true);
@@ -164,7 +164,7 @@ export function AppliedModal({ open, closeModal, bounty }) {
     setApproveConfirmLoading(true);
     try {
       if (
-        Number(allowance.toString()) < Number(parseUnits((bounty.amount / 100).toString(), paytoken.decimals).toString())
+        Number(allowance.toString()) < Number(parseUnits((bounty.amount / 100).toString(), payToken.decimals).toString())
         &&
         approveAsync
       ) {
@@ -178,7 +178,7 @@ export function AppliedModal({ open, closeModal, bounty }) {
       toast.error(error.message)
     }
 
-  }, [allowance, approveAsync, bounty, paytoken, write])
+  }, [allowance, approveAsync, bounty, payToken, write])
 
   return (
     <Modal

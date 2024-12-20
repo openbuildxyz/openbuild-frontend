@@ -55,18 +55,18 @@ export function Content({ type, id, single, data, menuData }) {
   const dispatch = useAppDispatch()
 
   const bothSides = useMemo(() => {
-    const currnetIndex = menuData.courses.findIndex((element) => element.base.course_single_id === single.base.course_single_id)
+    const currentIndex = menuData.courses.findIndex((element) => element.base.course_single_id === single.base.course_single_id)
     let _prev
     let _next
-    if (currnetIndex === 0) {
+    if (currentIndex === 0) {
       // not prev
-      _next = menuData.courses[currnetIndex + 1]
-    } else if (currnetIndex === menuData.courses.length - 1) {
+      _next = menuData.courses[currentIndex + 1]
+    } else if (currentIndex === menuData.courses.length - 1) {
       // not next
-      _prev = menuData.courses[currnetIndex - 1]
+      _prev = menuData.courses[currentIndex - 1]
     } else {
-      _next = menuData.courses[currnetIndex + 1]
-      _prev = menuData.courses[currnetIndex - 1]
+      _next = menuData.courses[currentIndex + 1]
+      _prev = menuData.courses[currentIndex - 1]
     }
     return {
       prev: _prev,
