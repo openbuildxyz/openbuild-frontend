@@ -92,7 +92,7 @@ export function Navs({data}) {
                           <Image src={ci.icon} alt="" className="mt-[3px] mr-2" />
                           <div>
                             <h6 className="mb-1 text-sm">{ci.name}</h6>
-                            <p className="text-xs opacity-60">{ci.desc}</p>
+                            <p className="text-xs opacity-60 text-pretty">{ci.desc}</p>
                           </div>
                         </a>
                       </li>)}
@@ -143,7 +143,7 @@ export function Navs({data}) {
                     <Image src={ci.icon} alt="" className="mt-[3px] mr-2" />
                     <div>
                       <h6 className="mb-1 text-sm">{ci.name}</h6>
-                      <p className="text-xs opacity-60">{ci.desc}</p>
+                      <p className="text-xs opacity-60 text-pretty">{ci.desc}</p>
                     </div>
                   </a>
                 </li>)}
