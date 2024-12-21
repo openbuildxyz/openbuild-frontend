@@ -207,7 +207,7 @@ export default function Profile() {
         setShowSave(false)
       }
     }
-  }, [forms, info])
+  }, [forms, info, showSave])
 
   return (
     <div className="flex flex-col md:flex-row min-h-screen px-4 pb-12 md:px-[67px]">
