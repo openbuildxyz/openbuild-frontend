@@ -1,28 +1,21 @@
 {
   "extends": [
-    "next",
-    "react-app",
-    "plugin:react/recommended",
-    "plugin:react-hooks/recommended",
-    "eslint:recommended"
+    "next/core-web-vitals" // Use next/core-web-vitals for best Next.js defaults
   ],
   "rules": {
     "unused-imports/no-unused-imports": "error",
-    "no-empty-function": "off",
-    "@next/next/no-img-element": "off",
-    "react/react-in-jsx-scope": "off",
-    "no-script-url": "off",
+    "no-empty-function": "off", // Only if absolutely necessary
     "object-shorthand": ["error", "always"],
-    "no-unused-expressions": "off",
+    "quotes": ["error", "single"],
+    "no-unused-vars": "warn", // Use "warn" instead of turning off completely
     "react/display-name": "off",
-    "react/no-unknown-property": "off",
-    "react/prop-types": "off",
-    "quotes": ["error", "single"]
+        "react/no-unknown-property": "off",
+        "react/prop-types": "off"
   },
   "plugins": ["unused-imports"],
   "settings": {
-    "next": {
-      "rootDir": true
+    "react": {
+      "version": "detect" // Automatically detect React version
     }
   }
 }
