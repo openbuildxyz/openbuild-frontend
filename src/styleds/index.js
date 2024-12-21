@@ -26,7 +26,7 @@ export const ProfileTitle = styled.h2`
     font-size: 24px;
   }
 `
-export const ProfileLable = styled.p`
+export const ProfileLabel = styled.p`
   font-size: 14px;
   line-height: 1;
   margin-bottom: 8px;

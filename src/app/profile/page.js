@@ -24,7 +24,7 @@ import { SelectCountry } from './SelectCountry'
 import { MySkill } from './MySkill'
 import SocialSettingsFormView from '#/domain/profile/views/social-settings-form'
 import { Setting } from './Setting'
-import { ProfileTitle, ProfileLable } from '#/styleds'
+import { ProfileTitle, ProfileLabel } from '#/styleds'
 import { BASE_INPUT_STYLE } from '@/constants/config'
 import { useUser } from '#/state/application/hooks'
 import { postUserInfo } from '#/services/user'
@@ -219,7 +219,7 @@ export default function Profile() {
         <div id="about">
           <ProfileTitle>About Me</ProfileTitle>
           <div className="mt-6">
-            <ProfileLable className="text-gray-50">Avatar</ProfileLable>
+            <ProfileLabel className="text-gray-50">Avatar</ProfileLabel>
             <div className="flex items-center">
               {!userAvatarLoaded && (
                 <span className="mr-9 inline-block h-[96px] w-[96px] rounded-full bg-gray-400"></span>
@@ -258,10 +258,10 @@ export default function Profile() {
               </div>
             </div>
 
-            <ProfileLable className="mt-9 text-gray-50 flex items-center justify-between">
+            <ProfileLabel className="mt-9 text-gray-50 flex items-center justify-between">
               <span>E-mail</span>
               <Switch checked={forms.emailVisible} onChange={checked => changeForms('emailVisible', checked)} />
-            </ProfileLable>
+            </ProfileLabel>
             <input
               type="text"
               value={forms.email}
@@ -270,12 +270,12 @@ export default function Profile() {
               className={`${BASE_INPUT_STYLE}`}
             />
             <div>
-              <ProfileLable className="mt-9 flex justify-between text-gray-50">
+              <ProfileLabel className="mt-9 flex justify-between text-gray-50">
                 <span>
                   Full Name <span className="text-red">*</span>
                 </span>
                 <span className="text-xs opacity-80">{forms.fullName.length}/50</span>
-              </ProfileLable>
+              </ProfileLabel>
               <input
                 type="text"
                 value={forms.fullName}
@@ -284,10 +284,10 @@ export default function Profile() {
                 className={classNames(BASE_INPUT_STYLE, formsError && forms.fullName === '' && 'border-red')}
               />
             </div>
-            <ProfileLable className="mt-9 text-gray-50">
+            <ProfileLabel className="mt-9 text-gray-50">
               Username<span className="text-red"> *</span><span className="text-xs opacity-60"> (Allows input of uppercase and lowercase letters plus numbers and _-)</span>
 
-            </ProfileLable>
+            </ProfileLabel>
             <input
               type="text"
               value={forms.userHandle}
@@ -305,9 +305,9 @@ export default function Profile() {
             />
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <ProfileLable className="mt-9 text-gray-50">
+                <ProfileLabel className="mt-9 text-gray-50">
                   Country/Area <span className="text-red">*</span>
-                </ProfileLable>
+                </ProfileLabel>
                 <SelectCountry
                   selected={forms.country}
                   setSelected={s => changeForms('country', s)}
@@ -316,9 +316,9 @@ export default function Profile() {
                 />
               </div>
               <div>
-                <ProfileLable className="mt-9 text-gray-50">
+                <ProfileLabel className="mt-9 text-gray-50">
                   City/State <span className="text-red">*</span>
-                </ProfileLable>
+                </ProfileLabel>
                 <input
                   type="text"
                   value={forms.city}
@@ -327,7 +327,7 @@ export default function Profile() {
                 />
               </div>
             </div>
-            <ProfileLable className="mt-9 text-gray-50">Your Bio</ProfileLable>
+            <ProfileLabel className="mt-9 text-gray-50">Your Bio</ProfileLabel>
             <textarea
               value={forms.bio}
               onChange={e => changeForms('bio', e.target.value)}
