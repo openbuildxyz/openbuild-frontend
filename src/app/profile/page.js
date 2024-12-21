@@ -126,7 +126,7 @@ export default function Profile() {
     }
   }
 
-  const changeFroms = (type, value) => {
+  const changeForms = (type, value) => {
     const _forms = Object.assign({ ...forms }, {})
     _forms[type] = value
     setForms(_forms)
@@ -260,13 +260,13 @@ export default function Profile() {
 
             <ProfileLable className="mt-9 text-gray-50 flex items-center justify-between">
               <span>E-mail</span>
-              <Switch checked={forms.emailVisible} onChange={checked => changeFroms('emailVisible', checked)} />
+              <Switch checked={forms.emailVisible} onChange={checked => changeForms('emailVisible', checked)} />
             </ProfileLable>
             <input
               type="text"
               value={forms.email}
               readOnly
-              // onChange={e => changeFroms('email', e.target.value)}
+              // onChange={e => changeForms('email', e.target.value)}
               className={`${BASE_INPUT_STYLE}`}
             />
             <div>
@@ -280,7 +280,7 @@ export default function Profile() {
                 type="text"
                 value={forms.fullName}
                 maxLength={50}
-                onChange={e => changeFroms('fullName', e.target.value)}
+                onChange={e => changeForms('fullName', e.target.value)}
                 className={classNames(BASE_INPUT_STYLE, formsError && forms.fullName === '' && 'border-red')}
               />
             </div>
@@ -296,7 +296,7 @@ export default function Profile() {
                 const r = pattern.test(e.target.value)
                 console.log(r)
                 if (r) {
-                  changeFroms('userHandle', e.target.value)
+                  changeForms('userHandle', e.target.value)
                 }
 
               }}
@@ -310,7 +310,7 @@ export default function Profile() {
                 </ProfileLable>
                 <SelectCountry
                   selected={forms.country}
-                  setSelected={s => changeFroms('country', s)}
+                  setSelected={s => changeForms('country', s)}
                   placeholder="Select country"
                   className={classNames(BASE_INPUT_STYLE, formsError && forms.country === '' && 'border-red')}
                 />
@@ -322,7 +322,7 @@ export default function Profile() {
                 <input
                   type="text"
                   value={forms.city}
-                  onChange={e => changeFroms('city', e.target.value)}
+                  onChange={e => changeForms('city', e.target.value)}
                   className={classNames(BASE_INPUT_STYLE, formsError && forms.city === '' && 'border-red')}
                 />
               </div>
@@ -330,19 +330,19 @@ export default function Profile() {
             <ProfileLable className="mt-9 text-gray-50">Your Bio</ProfileLable>
             <textarea
               value={forms.bio}
-              onChange={e => changeFroms('bio', e.target.value)}
+              onChange={e => changeForms('bio', e.target.value)}
               placeholder={'Brief description for your profile.'}
               className={classNames(BASE_INPUT_STYLE, 'h-14 pt-2 focus:!ring-0')}
             />
           </div>
         </div>
-        <MySkill formsError={formsError} forms={forms} set={(type, val) => changeFroms(type, val)} />
+        <MySkill formsError={formsError} forms={forms} set={(type, val) => changeForms(type, val)} />
         <SocialSettingsFormView
           id="social"
           className="mt-14"
           binds={info?.binds}
           values={forms}
-          onFieldChange={changeFroms}
+          onFieldChange={changeForms}
         />
         <Setting />
       </div>
