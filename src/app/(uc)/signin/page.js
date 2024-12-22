@@ -1,48 +1,48 @@
 /*
  * Copyright 2024 OpenBuild
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
+ * Licensed under the Apache License, Version 2.0 (the 'License');
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
+ * distributed under the License is distributed on an 'AS IS' BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
 
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import { isEmpty } from "lodash";
-import clsx from "clsx";
-import { useSearchParams } from "next/navigation";
-import Link from "next/link";
-import { signIn } from "next-auth/react";
-import { useForm } from "react-hook-form";
-import { toast } from "react-toastify";
-import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
-import isEmail from "validator/lib/isEmail";
+import { useState, useEffect } from 'react';
+import { isEmpty } from 'lodash';
+import clsx from 'clsx';
+import { useSearchParams } from 'next/navigation';
+import Link from 'next/link';
+import { signIn } from 'next-auth/react';
+import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
+import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
+import isEmail from 'validator/lib/isEmail';
 
-import { signin, sendCode, emailCodeLogin } from "#/services/auth";
-import { wrapOnChange } from "@/utils/form";
-import Loader from "@/components/Loader";
-import { SvgIcon } from "@/components/Image";
+import { signin, sendCode, emailCodeLogin } from '#/services/auth';
+import { wrapOnChange } from '@/utils/form';
+import Loader from '@/components/Loader';
+import { SvgIcon } from '@/components/Image';
 
 export function NavButtonStyle() {
-  return "h-12 relative rounded-t-xl text-gray-100 px-6 [&.active]:bg-gray-1400 [&.active]:!text-gray";
+  return 'h-12 relative rounded-t-xl text-gray-100 px-6 [&.active]:bg-gray-1400 [&.active]:!text-gray';
 }
 const SigninAfterStyle =
-  "after:content-[''] after:absolute after:right-[-12px] after:bottom-0 after:w-3 after:h-3 after:bg-signin-gradient";
+  'after:content-[''] after:absolute after:right-[-12px] after:bottom-0 after:w-3 after:h-3 after:bg-signin-gradient';
 
 export default function Login() {
   const searchParams = useSearchParams();
   const [loading, setLoading] = useState(false);
-  const [passwordType, setPasswordType] = useState("password");
-  const [loginType, setLoginType] = useState("verifyCode");
+  const [passwordType, setPasswordType] = useState('password');
+  const [loginType, setLoginType] = useState('verifyCode');
   const [cdMss, setCdMss] = useState(0);
   const [sendLoading, setSendLoading] = useState(false);
 
@@ -63,28 +63,28 @@ export default function Login() {
     }
   }, [cdMss]);
 
-  const emailField = register("Email", {
+  const emailField = register('Email', {
     required: true,
     pattern: /^\S+@\S+$/i,
   });
   emailField.onChange = wrapOnChange(emailField.onChange);
 
-  const pwdField = register("Password", {
-    required: loginType === "password" ? true : false,
+  const pwdField = register('Password', {
+    required: loginType === 'password' ? true : false,
     minLength: 6,
     maxLength: 20,
   });
   pwdField.onChange = wrapOnChange(pwdField.onChange);
 
-  const verifyCodeField = register("VerifyCode", {
-    required: loginType === "verifyCode" ? true : false,
+  const verifyCodeField = register('VerifyCode', {
+    required: loginType === 'verifyCode' ? true : false,
   });
   verifyCodeField.onChange = wrapOnChange(verifyCodeField.onChange);
 
   const handleChangeLoginType = () => {
     setLoginType((prevLoginType) => {
       const loginType =
-        prevLoginType === "verifyCode" ? "password" : "verifyCode";
+        prevLoginType === 'verifyCode' ? 'password' : 'verifyCode';
       clearErrors();
       reset();
       return loginType;
@@ -93,21 +93,21 @@ export default function Login() {
 
   const handleSendCode = async () => {
     if (!watchAllFields.Email || !isEmail(watchAllFields.Email)) {
-      toast.error("Please enter a valid email address.");
+      toast.error('Please enter a valid email address.');
       return;
     }
 
     setSendLoading(true);
     try {
-      const res = await sendCode(watchAllFields.Email, "bind");
+      const res = await sendCode(watchAllFields.Email, 'bind');
       if (res.code === 200) {
         setCdMss(59);
-        toast.success("Code sent successfully!");
+        toast.success('Code sent successfully!');
       } else {
         toast.error(res.message);
       }
     } catch (error) {
-      toast.error("Failed to send code.");
+      toast.error('Failed to send code.');
     } finally {
       setSendLoading(false);
     }
@@ -117,21 +117,21 @@ export default function Login() {
     setLoading(true);
     try {
       const response =
-        loginType === "verifyCode"
+        loginType === 'verifyCode'
           ? await emailCodeLogin(data.Email, data.VerifyCode)
           : await signin(data.Email, data.Password);
 
       if (response.code === 200) {
-        const signType = loginType === "verifyCode" ? "verifyCode" : "email";
-        window.localStorage.setItem("signType", signType);
+        const signType = loginType === 'verifyCode' ? 'verifyCode' : 'email';
+        window.localStorage.setItem('signType', signType);
 
-        const signInResponse = await signIn("credentials", {
+        const signInResponse = await signIn('credentials', {
           token: response.data.token,
           redirect: false,
           callbackUrl: decodeURIComponent(
-            searchParams?.get("from") ||
-            searchParams?.get("callbackUrl") ||
-            "/profile"
+            searchParams?.get('from') ||
+            searchParams?.get('callbackUrl') ||
+            '/profile'
           ),
         });
 
@@ -142,7 +142,7 @@ export default function Login() {
         toast.error(response.message);
       }
     } catch (error) {
-      toast.error("Sign in failed. Please try again.");
+      toast.error('Sign in failed. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -151,108 +151,108 @@ export default function Login() {
   return (
     <>
       <div>
-        <button className={clsx(NavButtonStyle(), SigninAfterStyle, "active")}>
+        <button className={clsx(NavButtonStyle(), SigninAfterStyle, 'active')}>
           Sign in
         </button>
       </div>
       <div>
         <form onSubmit={handleSubmit(onSubmit)}>
           <input
-            type="text"
+            type='text'
             className={
-              "h-12 w-full rounded-tr-xl border-0 bg-[#f1f1f1] px-6 text-sm placeholder:text-gray-1100"
+              'h-12 w-full rounded-tr-xl border-0 bg-[#f1f1f1] px-6 text-sm placeholder:text-gray-1100'
             }
-            placeholder="Email Address"
+            placeholder='Email Address'
             {...emailField}
           />
-          {loginType === "verifyCode" ? (
-            <div className="mt-[2px] flex items-center bg-[#f1f1f1] pr-3">
+          {loginType === 'verifyCode' ? (
+            <div className='mt-[2px] flex items-center bg-[#f1f1f1] pr-3'>
               <input
-                type="text"
+                type='text'
                 className={
-                  "h-12 w-full flex-1 border-0 bg-[#f1f1f1] px-6 text-sm placeholder:text-gray-1100"
+                  'h-12 w-full flex-1 border-0 bg-[#f1f1f1] px-6 text-sm placeholder:text-gray-1100'
                 }
-                placeholder="Verify Code"
+                placeholder='Verify Code'
                 {...verifyCodeField}
               />
               {cdMss === 0 ? (
                 <button
-                  type="button"
+                  type='button'
                   disabled={sendLoading}
                   onClick={handleSendCode}
-                  className="w-[76px] text-sm hover:opacity-80 disabled:opacity-20"
+                  className='w-[76px] text-sm hover:opacity-80 disabled:opacity-20'
                 >
-                  {sendLoading ? "Sending..." : "Send Code"}
+                  {sendLoading ? 'Sending...' : 'Send Code'}
                 </button>
               ) : (
-                <p className="text-sm leading-[48px]">{cdMss}s</p >
+                <p className='text-sm leading-[48px]'>{cdMss}s</p >
               )}
             </div>
           ) : (
             <div
-              key="passwordInput"
-              className="mt-[2px] flex items-center bg-[#f1f1f1] pr-3 input-transition input-visible"
+              key='passwordInput'
+              className='mt-[2px] flex items-center bg-[#f1f1f1] pr-3 input-transition input-visible'
             >
               <input
                 type={passwordType}
-                placeholder="Password"
+                placeholder='Password'
                 {...pwdField}
-                className="mt-[2px] h-12 w-full border-0 bg-[#f1f1f1] px-6 text-sm placeholder:text-gray-1100"
+                className='mt-[2px] h-12 w-full border-0 bg-[#f1f1f1] px-6 text-sm placeholder:text-gray-1100'
               />
-              {passwordType === "password" ? (
+              {passwordType === 'password' ? (
                 <EyeIcon
-                  onClick={() => setPasswordType("text")}
-                  className="w-5 h-5 cursor-pointer"
+                  onClick={() => setPasswordType('text')}
+                  className='w-5 h-5 cursor-pointer'
                 />
               ) : (
                 <EyeSlashIcon
-                  onClick={() => setPasswordType("password")}
-                  className="w-5 h-5 cursor-pointer"
+                  onClick={() => setPasswordType('password')}
+                  className='w-5 h-5 cursor-pointer'
                 />
               )}
             </div>
           )}
           <button
-            type="submit"
+            type='submit'
             disabled={
-              watchAllFields.Email === "" ||
-              (loginType === "password" && watchAllFields.Password === "") ||
-              (loginType === "verifyCode" &&
-                watchAllFields.VerifyCode === "") ||
+              watchAllFields.Email === '' ||
+              (loginType === 'password' && watchAllFields.Password === '') ||
+              (loginType === 'verifyCode' &&
+                watchAllFields.VerifyCode === '') ||
               isEmpty(watchAllFields) ||
               loading
             }
-            className="flex items-center justify-center w-full h-12 text-white rounded-t-none rounded-xl bg-gray disabled:opacity-20"
+            className='flex items-center justify-center w-full h-12 text-white rounded-t-none rounded-xl bg-gray disabled:opacity-20'
           >
-            {loading && <Loader classname="mr-2" />}
+            {loading && <Loader classname='mr-2' />}
             <a>Continue</a >
           </button>
         </form>
 
-        {!isEmpty(errors) && watchAllFields.Email !== "" && (
-          <p className="mt-4 text-xs text-center text-red">
-            {loginType === "password"
-              ? "The email or password is wrong."
-              : "The email or code is wrong."}
+        {!isEmpty(errors) && watchAllFields.Email !== '' && (
+          <p className='mt-4 text-xs text-center text-red'>
+            {loginType === 'password'
+              ? 'The email or password is wrong.'
+              : 'The email or code is wrong.'}
           </p >
         )}
 
-        <p className="flex mt-4 text-sm">
-          Switch to {loginType === "verifyCode" ? "password" : "verify code"}{" "}
+        <p className='flex mt-4 text-sm'>
+          Switch to {loginType === 'verifyCode' ? 'password' : 'verify code'}{' '}
           login
           <SvgIcon
-            name="change"
+            name='change'
             size={14}
-            className="ml-2 cursor-pointer"
+            className='ml-2 cursor-pointer'
             onClick={handleChangeLoginType}
           />
         </p >
-        {loginType == "password" && (
-          <div className="mt-6 text-center">
+        {loginType == 'password' && (
+          <div className='mt-6 text-center'>
             Forget your password?&nbsp;
             <Link
-              href="/forgot"
-              className="cursor-pointer text-sm font-bold text-[#01DB83] hover:underline"
+              href='/forgot'
+              className='cursor-pointer text-sm font-bold text-[#01DB83] hover:underline'
             >
               Reset
             </Link>
