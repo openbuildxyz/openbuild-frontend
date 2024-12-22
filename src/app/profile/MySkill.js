@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { ProfileTitle, ProfileLable } from '#/styleds'
+import { ProfileTitle, ProfileLabel } from '#/styleds'
 import { Select } from '@/components/Select'
 import { useState, useMemo, useRef } from 'react'
 import { UploadIcon } from '@/components/Icons'
@@ -104,9 +104,9 @@ export function MySkill({ forms, set, formsError }) {
     <div id="skill" className="mt-14">
       <ProfileTitle>My Skill</ProfileTitle>
       <div>
-        <ProfileLable className="mt-9 text-gray-50">
+        <ProfileLabel className="mt-9 text-gray-50">
           Role <span className="text-red">*</span>
-        </ProfileLable>
+        </ProfileLabel>
         {rolesOpts && (
           <Select
             placeholder="Select your role"
@@ -117,9 +117,9 @@ export function MySkill({ forms, set, formsError }) {
           />
         )}
 
-        <ProfileLable className="mt-9 text-gray-50">
+        <ProfileLabel className="mt-9 text-gray-50">
           Skills <span className="text-red">*</span>
-        </ProfileLable>
+        </ProfileLabel>
         <ReactSelect
           value={forms.skills.map(i => allSkills?.find(f => f.value === i))}
           isMulti
@@ -234,9 +234,9 @@ export function MySkill({ forms, set, formsError }) {
         <p className="mt-2 text-xs opacity-40">Press enter after typing a skill</p>
         <div className="flex">
           <div className="mr-4 flex-1">
-            <ProfileLable className="mt-9 text-gray-50">
+            <ProfileLabel className="mt-9 text-gray-50">
               Experience <span className="text-red">*</span>
-            </ProfileLable>
+            </ProfileLabel>
             {EXPERIENCE_OPTIONS && (
               <Select
                 placeholder="Select your experience"
@@ -248,9 +248,9 @@ export function MySkill({ forms, set, formsError }) {
             )}
           </div>
           <div className="flex-1">
-            <ProfileLable className="mt-9 text-gray-50">
+            <ProfileLabel className="mt-9 text-gray-50">
               Company <span className="text-red">*</span>
-            </ProfileLable>
+            </ProfileLabel>
             <input
               value={forms.company}
               type="text"
@@ -260,7 +260,7 @@ export function MySkill({ forms, set, formsError }) {
           </div>
         </div>
 
-        <ProfileLable className="mt-9 text-gray-50">Resume</ProfileLable>
+        <ProfileLabel className="mt-9 text-gray-50">Resume</ProfileLabel>
         <div className="group relative w-fit">
           <input
             className="hidden"

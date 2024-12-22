@@ -15,7 +15,7 @@
  */
 
 import { useMemo } from 'react'
-import { ProfileTitle, ProfileLable } from '#/styleds'
+import { ProfileTitle, ProfileLabel } from '#/styleds'
 import WalletIcon from './wallet.svg'
 // import StackoverflowIcon from 'public/images/svg/stackoverflow.svg'
 import DiscordIcon from './discord.svg'
@@ -88,10 +88,10 @@ function SocialSettingsFormView({ id, className, binds, values, onFieldChange })
       <div className="mt-6">
         {list.map(i => (
           <div key={`profile-social-${i.name}`}>
-            <ProfileLable className="flex items-center justify-between">
+            <ProfileLabel className="flex items-center justify-between">
               <span>{i.showName || i.name}</span>
               {i.enableBy && <Switch checked={values[i.enableBy]} onChange={onFieldChange.bind(null, i.enableBy)} />}
-            </ProfileLable>
+            </ProfileLabel>
             {i.bindable ? (
               <BindableField data={i} />
             ) : (
