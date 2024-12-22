@@ -36,7 +36,7 @@ export function NavButtonStyle() {
   return 'h-12 relative rounded-t-xl text-gray-100 px-6 [&.active]:bg-gray-1400 [&.active]:!text-gray';
 }
 const SigninAfterStyle =
-  'after:content-[''] after:absolute after:right-[-12px] after:bottom-0 after:w-3 after:h-3 after:bg-signin-gradient';
+  "after:content-[''] after:absolute after:right-[-12px] after:bottom-0 after:w-3 after:h-3 after:bg-signin-gradient";
 
 export default function Login() {
   const searchParams = useSearchParams();
