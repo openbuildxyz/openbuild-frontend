@@ -25,7 +25,7 @@ jobs:
     steps:
       - name: Checkout your repository using git
         uses: actions/checkout@v4
-      - run: cp package.json .knosys/sites/default/
+      - run: mv .knosys/sites/default/package-deploy.json .knosys/sites/default/package.json
       - name: Install, build, and upload your site output
         uses: withastro/action@v2
         with:
