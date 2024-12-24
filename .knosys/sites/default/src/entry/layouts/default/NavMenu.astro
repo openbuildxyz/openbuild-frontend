@@ -18,6 +18,10 @@ const getLocaleUrl = getRelativeLocaleUrl.bind(null, locale);
 const navs: SiteNav[] = [
   { key: 'guides', path: '/guides' },
 ];
+
+if (locale === 'zh') {
+  navs.push({ key: 'community', path: '/community' });
+}
 ---
 
 <div class="internal-links">

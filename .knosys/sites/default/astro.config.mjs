@@ -34,6 +34,7 @@ export default defineConfig({
       ],
       components: {
         SiteTitle: './src/shared/controls/astro-brand-logo',
+        SocialIcons: './src/entry/layouts/default/NavMenu.astro',
       },
       sidebar: [
         {

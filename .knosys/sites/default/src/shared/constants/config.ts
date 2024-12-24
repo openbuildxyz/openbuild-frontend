@@ -14,6 +14,7 @@ const I18N_CONFIG: LocaleValue<LocaleConfig> = {
     },
     navs: {
       guides: 'Guides',
+      community: 'Community',
     },
   },
   zh: {
@@ -23,6 +24,7 @@ const I18N_CONFIG: LocaleValue<LocaleConfig> = {
     },
     navs: {
       guides: '指南',
+      community: '社区',
     },
   },
 };

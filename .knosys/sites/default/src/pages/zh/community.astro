@@ -1,0 +1,21 @@
+---
+import StarlightLayout from '@astrojs/starlight/components/StarlightPage.astro';
+---
+
+<StarlightLayout
+  frontmatter={{ title: "社区" }}
+  sidebar={[
+    {
+      label: '关于',
+      items: [
+        { label: '社区', link: '/community/' },
+      ],
+    }
+  ]}
+  headings={[
+    { depth: 2, slug: '讨论群组', text: '讨论群组' },
+  ]}
+>
+  <h2>讨论群组</h2>
+  <p>为方便大家能够及时交流，建了个专门的开源共建兴趣组微信群，可加微信 <code>fxxkol</code> 申请进群。</p>
+</StarlightLayout>

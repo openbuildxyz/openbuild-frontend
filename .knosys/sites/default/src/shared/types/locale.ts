@@ -9,6 +9,7 @@ type SiteConfig = {
 
 type NavConfig = {
   guides: string;
+  community: string;
 };
 
 type LocaleConfig = {

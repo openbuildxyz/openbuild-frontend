@@ -19,7 +19,9 @@ function PostCardWidget({ dataSource, className, headerClassName, bodyClassName,
         <span className="text-lg/tight font-semibold">{dataSource.title}</span>
       </CardHeader>
       <CardBody className={clsx('py-0 text-sm font-light break-all', bodyClassName)}>{dataSource.description || 'No description'}</CardBody>
-      <CardFooter className={footerClassName}>{dataSource.date.toLocaleDateString()}</CardFooter>
+      <CardFooter className={footerClassName}>
+        {[dataSource.date.getFullYear(), (dataSource.date.getMonth() + 1), dataSource.date.getDate()].join('-')}
+      </CardFooter>
       <a
         className="absolute inset-0 z-50"
         href={dataSource.url}
