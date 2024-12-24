@@ -1,0 +1,23 @@
+---
+import type { SupportedLocale } from '@/types';
+
+import { getList } from '../../repository';
+import PostCardWidget from '../../widgets/post-card';
+
+const locale = Astro.currentLocale as SupportedLocale;
+const posts = getList(locale).slice(0, 3);
+---
+
+{posts.length > 0 && (
+  <div class="grid gap-4 lg:gap-9 grid-cols-1 sm:grid-cols-3">
+    {posts.map(post => (
+      <PostCardWidget
+        dataSource={post}
+        headerClassName="p-6 pb-1.5"
+        bodyClassName="p-6 pt-1.5"
+        footerClassName="px-6"
+        client:visible
+      />
+    ))}
+  </div>
+)}
