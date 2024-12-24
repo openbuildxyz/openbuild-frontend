@@ -6,7 +6,7 @@ const srcDirPath = 'src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}';
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    process.env.OB_SITE === 'DOC' ? `./${srcDirPath}` : `./.knosys/sites/default/${srcDirPath}`,
+    process.env.OB_SITE === 'DOC' ? `./.knosys/sites/default/${srcDirPath}` : `./${srcDirPath}`,
     './node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
