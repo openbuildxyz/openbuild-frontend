@@ -1,21 +1,37 @@
 ---
 import StarlightLayout from '@astrojs/starlight/components/StarlightPage.astro';
+
+const title = '社区';
+const sidebar = [
+  {
+    label: '关于',
+    items: [
+      { label: title, link: '/community/' },
+    ],
+  }
+];
+const headings = [
+  { depth: 2, slug: '行为规范', text: '行为规范' },
+  { depth: 2, slug: '获取新闻', text: '获取新闻' },
+  { depth: 2, slug: '讨论交流', text: '讨论交流' },
+];
 ---
 
-<StarlightLayout
-  frontmatter={{ title: "社区" }}
-  sidebar={[
-    {
-      label: '关于',
-      items: [
-        { label: '社区', link: '/community/' },
-      ],
-    }
-  ]}
-  headings={[
-    { depth: 2, slug: '讨论群组', text: '讨论群组' },
-  ]}
->
-  <h2>讨论群组</h2>
-  <p>为方便大家能够及时交流，建了个专门的开源共建兴趣组微信群，可加微信 <code>fxxkol</code> 申请进群。</p>
+<StarlightLayout frontmatter={{ title }} sidebar={sidebar} headings={headings}>
+  <p>OpenBuild 官网是一个社区驱动的 <a href="https://openbuildxyz.github.io/eco/zh/" target="_blank" rel="external">OpenBuild 生态</a>项目，在 2023 年由 OpenBuild 核心团队创建并研发了初始版本，<a href="https://openbuildxyz.github.io/eco/zh/posts/the-openbuild-official-website-frontend-codebase-is-open-now/" target="_blank" rel="external">于 2024 年 12 月开放源码</a>后引入社区力量协同共建。</p>
+  <p>现如今，该项目由 OpenBuild 核心团队成员与来自世界各地的志愿者共同推进，并由<a href="https://x.com/fxxkol" target="_blank" rel="external">欧雷</a>担当项目负责人。</p>
+  <h2 id={headings[0].slug}>{headings[0].text}</h2>
+  <p>作为由 OpenBuild 核心团队发起的项目，沿用 <a href="https://github.com/openbuildxyz/.github/blob/main/.github/CODE_OF_CONDUCT.md" target="_blank" rel="external">OpenBuild 官方统一的行为规范</a>；强烈建议在参与社区活动前仔细阅读，我们希望所有社区成员都能遵守其中的准则。</p>
+  <h2 id={headings[1].slug}>{headings[1].text}</h2>
+  <p>在下列地点能取得有关 OpenBuild 官网的最新动态：</p>
+  <ul>
+    <li>关注微信公众号「<a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzU4Mjk1MTI2NA==" target="_blank" rel="external">OpenBuild</a>」；</li>
+    <li>关注<a href="https://x.com/OpenBuildxyz" target="_blank" rel="external">官方推特账号</a>。</li>
+  </ul>
+  <h2 id={headings[2].slug}>{headings[2].text}</h2>
+  <p>可通过以下渠道与他人讨论 OpenBuild 官网相关话题及获得帮助等：</p>
+  <ul>
+    <li>微信群——专门的开源共建兴趣组微信群，可加微信 <code>fxxkol</code> 申请进群；</li>
+    <li><a href="https://github.com/openbuildxyz/openbuild-frontend" target="_blank" rel="external">GitHub</a>——借由 issue 报告缺陷或提出想法，也十分欢迎 pull request。</li>
+  </ul>
 </StarlightLayout>

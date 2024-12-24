@@ -23,7 +23,7 @@ export default defineConfig({
       applyBaseStyles: false,
     }),
     starlight({
-      title: 'OpenBuild Dev Docs',
+      title: 'OpenBuild Development',
       favicon: '/favicon.png',
       social: {
         github: 'https://github.com/openbuildxyz/openbuild-frontend',

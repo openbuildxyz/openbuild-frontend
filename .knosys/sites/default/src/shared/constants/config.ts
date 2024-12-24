@@ -3,7 +3,7 @@
 
 import type { LocaleValue, LocaleConfig } from '../types';
 
-const SITE_TITLE = 'OpenBuild Dev Docs';
+const SITE_TITLE = 'OpenBuild Development';
 const SITE_DESCRIPTION = 'All about developing the OpenBuild official website';
 
 const I18N_CONFIG: LocaleValue<LocaleConfig> = {
@@ -19,7 +19,7 @@ const I18N_CONFIG: LocaleValue<LocaleConfig> = {
   },
   zh: {
     site: {
-      title: 'OpenBuild 开发文档',
+      title: 'OpenBuild 开发',
       description: '关于开发 OpenBuild 官网的一切',
     },
     navs: {
