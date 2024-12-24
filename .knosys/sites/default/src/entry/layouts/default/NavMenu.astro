@@ -1,0 +1,39 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+
+import type { SupportedLocale, NavKey } from '@/types';
+import { I18N_CONFIG } from '@/constants/config';
+
+import HeaderLink from './HeaderLink.astro';
+
+type SiteNav = {
+  key: NavKey;
+  path: string;
+}
+
+const locale = (Astro.currentLocale || 'en') as SupportedLocale;
+const i18n = I18N_CONFIG[locale];
+const getLocaleUrl = getRelativeLocaleUrl.bind(null, locale);
+
+const navs: SiteNav[] = [
+  { key: 'guides', path: '/guides' },
+];
+---
+
+<div class="internal-links">
+  {navs.map(nav => (
+    <HeaderLink href={getLocaleUrl(nav.path)}>{i18n.navs[nav.key]}</HeaderLink>
+  ))}
+</div>
+<style>
+  .internal-links a {
+    padding: 1em 0.5em;
+    color: var(--black);
+    border-bottom: 4px solid transparent;
+    text-decoration: none;
+  }
+  .internal-links a.active {
+    text-decoration: none;
+    border-bottom-color: var(--accent);
+  }
+</style>

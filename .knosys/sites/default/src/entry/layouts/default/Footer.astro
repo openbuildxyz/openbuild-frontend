@@ -1,0 +1,20 @@
+---
+interface Props {
+  style?: string;
+}
+
+const { style } = Astro.props;
+const today = new Date();
+---
+
+<footer style={style}>
+  &copy; {today.getFullYear()} <a href="https://openbuild.xyz/" target="_blank" rel="external">OpenBuild</a>. All rights reserved.
+</footer>
+<style>
+  footer {
+    padding: 2em 1em 6em 1em;
+    background: linear-gradient(var(--gray-gradient)) no-repeat;
+    color: rgb(var(--gray));
+    text-align: center;
+  }
+</style>

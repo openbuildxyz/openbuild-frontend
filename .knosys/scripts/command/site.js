@@ -4,7 +4,7 @@ const { resolveRootPath } = require('../helper');
 
 module.exports = {
   execute: (subCmd = 'dev') => {
-    const cmds = ['astro --root .knosys/sites/default'];
+    const cmds = ['cross-env OB_SITE=DOC astro --root .knosys/sites/default'];
 
     if (subCmd) {
       cmds.push(subCmd);

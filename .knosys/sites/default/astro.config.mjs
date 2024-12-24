@@ -1,5 +1,7 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
+import react from '@astrojs/react';
+import tailwind from '@astrojs/tailwind';
 import starlight from '@astrojs/starlight';
 
 // https://astro.build/config
@@ -16,14 +18,23 @@ export default defineConfig({
     locales: ['en', 'zh'],
   },
   integrations: [
+    react({ experimentalReactChildren: true }),
+    tailwind({
+      applyBaseStyles: false,
+    }),
     starlight({
-      title: 'OpenBuild Official Website Dev Docs',
+      title: 'OpenBuild Dev Docs',
+      favicon: '/favicon.png',
       social: {
         github: 'https://github.com/openbuildxyz/openbuild-frontend',
       },
       customCss: [
+        './src/shared/styles/tailwind-starlight.css',
         './src/shared/styles/doc.css',
       ],
+      components: {
+        SiteTitle: './src/shared/controls/astro-brand-logo',
+      },
       sidebar: [
         {
           label: 'Guides',

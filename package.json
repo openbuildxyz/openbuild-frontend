@@ -14,7 +14,7 @@
     "analyze:server": "cross-env BUNDLE_ANALYZE=server next build",
     "analyze:browser": "cross-env BUNDLE_ANALYZE=browser next build",
     "license": "node .knosys/scripts license add",
-    "docs": "node .knosys/scripts site"
+    "doc": "node .knosys/scripts site"
   },
   "dependencies": {
     "@bytemd/plugin-breaks": "^1.21.0",
@@ -58,6 +58,7 @@
     "github-markdown-css": "^5.2.0",
     "html-to-image": "^1.11.11",
     "lodash": "^4.17.21",
+    "lucide-react": "0.454.0",
     "nanoid": "^5.0.6",
     "next": "^13.4.12",
     "next-auth": "^4.22.1",
@@ -102,7 +103,10 @@
     "yarn": "^1.22.19"
   },
   "devDependencies": {
-    "@astrojs/starlight": "^0.30.3",
+    "@astrojs/react": "3.6.2",
+    "@astrojs/starlight": "0.28.5",
+    "@astrojs/starlight-tailwind": "2.0.3",
+    "@astrojs/tailwind": "5.1.2",
     "@knosys/sdk": "^0.0.3",
     "@tailwindcss/line-clamp": "^0.4.2",
     "@types/node": "18.11.3",
@@ -110,7 +114,7 @@
     "@types/react": "18.0.21",
     "@types/react-dom": "18.0.6",
     "@types/sha256": "^0.2.0",
-    "astro": "^5.1.1",
+    "astro": "4.16.7",
     "autoprefixer": "^10.4.12",
     "eslint": "^8.7.0",
     "eslint-config-next": "^13.1.1",

@@ -1,0 +1,25 @@
+---
+import { Divider } from '@/controls';
+
+import BrandLogo from '@/controls/astro-brand-logo';
+import NavMenu from './NavMenu.astro';
+import LocaleSelector from './LocaleSelector';
+
+interface Props {
+  style?: string;
+}
+
+const { style } = Astro.props;
+const { pathname } = Astro.url;
+---
+
+<header class="flex items-center m-0 px-5 bg-white shadow-md" style={style}>
+  <nav class="max-w-screen-xl my-0 mx-auto flex grow items-center justify-between">
+    <BrandLogo />
+    <div class="flex items-center gap-3">
+      <NavMenu />
+      <Divider className="h-6" orientation="vertical" client:visible />
+      <LocaleSelector pathname={pathname} client:visible />
+    </div>
+  </nav>
+</header>
