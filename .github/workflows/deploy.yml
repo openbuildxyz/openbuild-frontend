@@ -30,9 +30,11 @@ jobs:
         with:
           path: repo-src
       - name: Move site source code out
+        run: mv repo-src/.knosys/sites/default/* ./
+      - name: View folders
+        run: ls -al
+      - name: Config files
         run: |
-          mv repo-src/.knosys/sites/default/* ./
-          ls -al
           mv package-deploy.json package.json
           cp repo-src/.knosys/presets/tailwind/doc.js tailwind.config.js
       - name: Install, build, and upload your site output
