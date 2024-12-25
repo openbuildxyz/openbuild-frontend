@@ -1,0 +1,43 @@
+---
+import type { SupportedLocale } from '@/types';
+import { I18N_CONFIG } from '@/constants/config';
+import { setCurrentLocale } from '@/utils';
+import AppProvider from '@/controls/react-app-provider';
+
+import BaseHead from './BaseHead.astro';
+import Header from './Header.astro';
+import Footer from './Footer.astro';
+
+interface Props {
+  meta?: {
+    title?: string;
+    description?: string;
+  };
+}
+
+const locale = (Astro.currentLocale || 'en') as SupportedLocale;
+const i18n = I18N_CONFIG[locale];
+const { meta = {} } = Astro.props;
+const {
+  title = i18n.site.title,
+  description = i18n.site.description,
+} = meta;
+
+setCurrentLocale(locale);
+---
+
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <BaseHead title={title} description={description} />
+    <slot name="custom-style" />
+  </head>
+  <body>
+    <AppProvider locale={locale} client:only="react" />
+    <Header style="height: 64px; margin-bottom: -64px;" />
+    <main class="min-h-full m-auto pt-[120px] pb-[236px] px-5">
+      <slot />
+    </main>
+    <Footer style="height: 180px; margin-top: -180px;" />
+  </body>
+</html>

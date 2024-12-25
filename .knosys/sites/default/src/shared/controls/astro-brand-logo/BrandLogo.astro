@@ -1,0 +1,17 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+
+import { OFFICIAL_WEBSITE_URL } from '@/constants/config';
+
+import logo from './logo.png';
+
+const getLocaleUrl = getRelativeLocaleUrl.bind(null, Astro.currentLocale || 'en');
+---
+
+<div class="flex items-center">
+  <a class="size-10" href={OFFICIAL_WEBSITE_URL} target="_blank" rel="noreferrer">
+    <img class="size-full" src={logo.src} alt="OpenBuild" />
+  </a>
+  <span class="w-[1px] h-6 ml-3 mr-3.5 bg-slate-300"></span>
+  <a class="no-underline text-2xl/none text-gray-800 hover:text-gray-500" href={getLocaleUrl('/')}>Dev</a>
+</div>

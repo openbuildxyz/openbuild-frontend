@@ -1,0 +1,34 @@
+{
+  "name": "@openbuild/frontend-dev-docs",
+  "type": "module",
+  "version": "0.0.1",
+  "private": true,
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/react": "3.6.2",
+    "@astrojs/starlight": "0.28.5",
+    "@astrojs/starlight-tailwind": "2.0.3",
+    "@astrojs/tailwind": "5.1.2",
+    "@nextui-org/react": "2.4.8",
+    "@types/react": "18.3.12",
+    "@types/react-dom": "18.3.1",
+    "astro": "4.16.7",
+    "autoprefixer": "10.4.19",
+    "clsx": "2.1.1",
+    "framer-motion": "10.18.0",
+    "lucide-react": "0.454.0",
+    "postcss": "8.4.47",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "tailwindcss": "3.4.14"
+  }
+}

@@ -1,0 +1,17 @@
+---
+import StarlightLayout from '@astrojs/starlight/components/StarlightPage.astro';
+
+import { CoreMemberListView } from '~/contributor';
+import { getSidebar } from '#/layouts/guide';
+
+const headings = [
+  { depth: 2, slug: '核心团队成员', text: '核心团队成员' },
+];
+---
+
+<StarlightLayout frontmatter={{ title: '认识团队' }} sidebar={getSidebar('about')} headings={headings}>
+  <p>本页面所展示的是由以「社区共建者」身份参与 OpenBuild 官网项目研发的人员所组成的团队，与 OpenBuild 核心团队不同。</p>
+  <h2 id={headings[0].slug}>{headings[0].text}</h2>
+  <p>这些是积极参与维护 OpenBuild 官网及关联项目的人，他们做出了重大贡献，并对项目及其用户的成功做出了长期的承诺。</p>
+  <CoreMemberListView />
+</StarlightLayout>

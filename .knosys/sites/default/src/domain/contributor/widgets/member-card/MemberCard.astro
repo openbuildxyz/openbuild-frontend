@@ -1,0 +1,26 @@
+---
+import clsx from 'clsx';
+
+import AstroLink from '@/controls/astro-link';
+
+import type { Contributor } from '../../typing';
+import SocialList from './SocialList.astro';
+
+interface Props {
+  contributor: Contributor;
+  class?: string;
+}
+
+const { contributor, ...others } = Astro.props;
+---
+
+<div class={clsx('flex !m-0 py-4 border rounded-lg shadow-sm text-sm', others.class)}>
+  <div class="flex-shrink-0 px-4">
+    <img class="!size-20 border rounded-full" src={contributor.avatar} alt={contributor.nickname} />
+  </div>
+  <div class="flex-grow !mt-0 pr-4">
+    <h3 class="!text-xl">{contributor.homepage ? (<AstroLink class="no-underline" url={contributor.homepage}>{contributor.nickname}</AstroLink>) : contributor.nickname}</h3>
+    <p class="!mt-1 text-neutral-500">{contributor.title}{contributor.org && (<> @ {contributor.org.name}</>)}</p>
+    <SocialList class="!mt-4" contributor={contributor} />
+  </div>
+</div>

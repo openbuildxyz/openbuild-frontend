@@ -1,0 +1,31 @@
+---
+import StarlightLayout from '@astrojs/starlight/components/StarlightPage.astro';
+
+import AstroLink from '@/controls/astro-link';
+import { getSidebar } from '#/layouts/guide';
+
+const headings = [
+  { depth: 2, slug: '行为规范', text: '行为规范' },
+  { depth: 2, slug: '获取新闻', text: '获取新闻' },
+  { depth: 2, slug: '讨论交流', text: '讨论交流' },
+];
+---
+
+<StarlightLayout frontmatter={{ title: '社区' }} sidebar={getSidebar('about')} headings={headings}>
+  <p>OpenBuild 官网是一个社区驱动的 <AstroLink url="https://openbuildxyz.github.io/eco/zh/">OpenBuild 生态</AstroLink>项目，在 2023 年由 OpenBuild 核心团队创建并研发了初始版本，<AstroLink url="https://openbuildxyz.github.io/eco/zh/posts/the-openbuild-official-website-frontend-codebase-is-open-now/">于 2024 年 12 月开放源码</AstroLink>后引入社区力量协同共建。</p>
+  <p>现如今，该项目由 <AstroLink url="/team/">OpenBuild 核心团队成员与来自世界各地的志愿者</AstroLink>共同推进，并由<AstroLink url="https://x.com/fxxkol">欧雷</AstroLink>担当项目负责人。</p>
+  <h2 id={headings[0].slug}>{headings[0].text}</h2>
+  <p>作为由 OpenBuild 核心团队发起的项目，沿用 <AstroLink url="https://github.com/openbuildxyz/.github/blob/main/.github/CODE_OF_CONDUCT.md">OpenBuild 官方统一的行为规范</AstroLink>；强烈建议在参与社区活动前仔细阅读，我们希望所有社区成员都能遵守其中的准则。</p>
+  <h2 id={headings[1].slug}>{headings[1].text}</h2>
+  <p>在下列地点能取得有关 OpenBuild 官网的最新动态：</p>
+  <ul>
+    <li>关注<AstroLink url="https://linktr.ee/openbuild">官方社交媒体账号</AstroLink>；</li>
+    <li>关注<AstroLink url="/team/">团队成员</AstroLink>的推特或 GitHub 等账号。</li>
+  </ul>
+  <h2 id={headings[2].slug}>{headings[2].text}</h2>
+  <p>可通过以下渠道与他人讨论 OpenBuild 官网相关话题及获得帮助等：</p>
+  <ul>
+    <li>微信群——专门的开源共建兴趣组微信群，可加微信 <code>fxxkol</code> 申请进群；</li>
+    <li><AstroLink url="https://github.com/openbuildxyz/openbuild-frontend">GitHub</AstroLink>——借由 issue 报告缺陷或提出想法，也十分欢迎 pull request。</li>
+  </ul>
+</StarlightLayout>

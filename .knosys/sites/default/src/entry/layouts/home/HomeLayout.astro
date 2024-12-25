@@ -1,0 +1,23 @@
+---
+import type { SupportedLocale } from '@/types';
+
+import { LatestListView } from '~/post';
+
+import DefaultLayout from '../default';
+
+import { resolveLocale } from './helper';
+import ActionBar from './ActionBar';
+
+const locale = resolveLocale((Astro.currentLocale || 'en') as SupportedLocale);
+---
+
+<DefaultLayout>
+  <article class="max-w-screen-xl mx-auto">
+    <div class="h-96 mb-16 flex flex-col items-center justify-center">
+      <h1 class="mb-6 text-6xl sm:text-8xl font-extrabold text-center">{locale.heading}</h1>
+      <p class="m-0 text-xl sm:text-2xl text-neutral-500 text-center">{locale.slogan}</p>
+      <ActionBar className="mt-12" locale={locale} client:visible />
+    </div>
+    <LatestListView />
+  </article>
+</DefaultLayout>

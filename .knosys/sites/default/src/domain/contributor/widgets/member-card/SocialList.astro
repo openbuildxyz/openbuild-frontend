@@ -1,0 +1,21 @@
+---
+import clsx from 'clsx';
+import { Icon } from '@astrojs/starlight/components';
+
+import AstroLink from '@/controls/astro-link';
+
+import type { Contributor } from '../../typing';
+
+interface Props {
+  contributor: Contributor;
+  class?: string;
+}
+
+const { contributor: { github, twitter }, ...others } = Astro.props;
+---
+
+<div class={clsx('flex items-center gap-4', others.class)}>
+  <AstroLink class="inline-flex gap-1 no-underline" url={`https://github.com/${github}`}><Icon name="github" />{github}</AstroLink>{twitter && (
+    <AstroLink class="inline-flex gap-1 no-underline" url={`https://x.com/${twitter}`}><Icon name="x.com" />{twitter}</AstroLink>
+  )}
+</div>
