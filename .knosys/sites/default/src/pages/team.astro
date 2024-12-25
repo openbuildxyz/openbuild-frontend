@@ -1,0 +1,17 @@
+---
+import StarlightLayout from '@astrojs/starlight/components/StarlightPage.astro';
+
+import { CoreMemberListView } from '~/contributor';
+import { getSidebar } from '#/layouts/guide';
+
+const headings = [
+  { depth: 2, slug: 'core-team-members', text: 'Core Team Members' },
+];
+---
+
+<StarlightLayout frontmatter={{ title: 'Meet the Team' }} sidebar={getSidebar('about')} headings={headings}>
+  <p>The team displayed on this page is composed of individuals who participate in the development of the OpenBuild official website project as "community co-builders", distinct from the OpenBuild core team.</p>
+  <h2 id={headings[0].slug}>{headings[0].text}</h2>
+  <p>These are the people who actively maintain the OpenBuild official website and related projects. They have made significant contributions, with a long-term commitment to the success of the project and its users.</p>
+  <CoreMemberListView />
+</StarlightLayout>
