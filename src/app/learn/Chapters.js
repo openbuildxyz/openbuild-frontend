@@ -88,9 +88,9 @@ export function Chapters({ type, data, id }) {
       <div className="overflow-x-auto">
         <ul className="grid min-w-[500px] grid-cols-12 gap-4 px-4 [&>li]:text-xs [&>li]:leading-[55px]">
           <li className="col-span-6">Chapters</li>
-          <li className="col-span-1 flex justify-center">Lessons</li>
-          <li className="col-span-2 flex justify-center">Duration</li>
-          <li className="col-span-2 flex justify-center">Progress</li>
+          <li className="col-span-1 text-center">Lessons</li>
+          <li className="col-span-2 text-center">Duration</li>
+          <li className="col-span-2 text-center">Progress</li>
           <li className="col-span-1"></li>
         </ul>
         <div>
