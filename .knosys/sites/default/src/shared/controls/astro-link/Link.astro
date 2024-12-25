@@ -1,0 +1,24 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+
+import type { SupportedLocale } from '../../types';
+
+interface Props {
+  url: string;
+  external?: boolean;
+  class?: string;
+}
+
+const { url, external, ...others } = Astro.props;
+const locale = (Astro.currentLocale || 'en') as SupportedLocale;
+const linkExternal = url.toLowerCase().startsWith('http');
+
+const resolvedExternal = typeof external === 'boolean' ? external : linkExternal;
+const resolvedUrl = linkExternal ? url : getRelativeLocaleUrl(locale, url);
+---
+
+{resolvedExternal ? (
+  <a class={others.class} href={resolvedUrl} target="_blank" rel="external"><slot /></a>
+) : (
+  <a class={others.class} href={resolvedUrl}><slot /></a>
+)}
