@@ -7,7 +7,7 @@ description: A guide to answer How to contribute to OpenBuild Official Website f
 
 在开始大展身手之前，为保证能顺利地参与共建及异步协作，请按顺序通读下列所有内容（已看过并熟悉了解的可跳过）：
 
-- [行为规范](https://openbuildxyz.github.io/eco/zh/guides/code-of-conduct/)
+- [行为规范](/zh/community/#行为规范)
 - [协作指南](https://github.com/openbuildxyz/.github/blob/main/docs/collaboration/zh.md)
 - [技术栈](#技术栈)
 - [环境准备](#环境准备)

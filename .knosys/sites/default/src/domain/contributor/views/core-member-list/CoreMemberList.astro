@@ -1,0 +1,16 @@
+---
+import type { SupportedLocale } from '@/types';
+
+import { getCoreTeamMemberList } from '../../repository';
+import MemberCardWidget from '../../widgets/member-card';
+
+const members = getCoreTeamMemberList(Astro.currentLocale as SupportedLocale);
+---
+
+<ul class="list-none pl-0 grid grid-cols-1 gap-4 md:grid-cols-2">
+  {members.map(m => (
+    <li class="!m-0">
+      <MemberCardWidget contributor={m} />
+    </li>
+  ))}
+</ul>
