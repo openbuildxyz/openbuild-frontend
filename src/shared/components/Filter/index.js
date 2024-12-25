@@ -53,7 +53,7 @@ export function Filter({ type, children }) {
   return (
     <div
       className={clsx(
-        'top-[72px] z-10 mb-6 h-full max-h-screen w-full overflow-x-auto transition-transform md:mr-10 md:h-fit md:w-[360px] md:pr-0',
+        'top-[72px] z-10 mb-6 h-full max-h-screen w-full overflow-x-auto transition-transform md:mr-10 md:h-fit md:w-[360px] md:pr-0 bg-[#F8F8F8]',
         {
           'fixed left-0 translate-x-[0] px-6 pb-14 pr-6 md:sticky md:px-0': openFilter,
           'absolute top-[268px] translate-x-[100%] md:translate-x-[-400px]': !openFilter,
