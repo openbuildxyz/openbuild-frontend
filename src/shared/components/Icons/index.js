@@ -167,7 +167,7 @@ export const LinkedInFilled = props => (
 
 export const SubstackFilled = props => (
   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <g clip-path="url(#clip0_2709_73)">
+    <g clipPath="url(#clip0_2709_73)">
       <path fillRule="evenodd" clipRule="evenodd" d="M2 0H14C15.3333 0 16 0.666667 16 2V14C16 15.3333 15.3333 16 14 16H2C0.666667 16 0 15.3333 0 14V2C0 0.666667 0.666667 0 2 0ZM4.5 4H11.5V5H4.5V4ZM4.5 6H11.5V7H4.5V6ZM4.5 8H11.5V11.732L8 10L4.5 11.732V8Z" fill="currentColor"/>
     </g>
     <defs>
@@ -1739,7 +1739,7 @@ export const LockedIcon = props => {
 export const HistoryIcon = props => {
   return (
     <svg {...props} width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <g clip-path="url(#clip0_869_12714)">
+      <g clipPath="url(#clip0_869_12714)">
         <path d="M1.93945 2.24219V4.66642H4.3637" stroke="#1A1A1A" strokeLinecap="round" strokeLinejoin="round"/>
         <path d="M1.33331 7.9987C1.33331 11.6806 4.31808 14.6654 7.99998 14.6654C11.6819 14.6654 14.6666 11.6806 14.6666 7.9987C14.6666 4.3168 11.6819 1.33203 7.99998 1.33203C5.53265 1.33203 3.37835 2.6724 2.22557 4.66473" stroke="#1A1A1A" strokeLinecap="round" strokeLinejoin="round"/>
         <path d="M8.00168 4L8.00128 8.00293L10.8277 10.8294" stroke="#1A1A1A" strokeLinecap="round" strokeLinejoin="round"/>
