@@ -16,7 +16,7 @@
 
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useMemo, useState, useEffect } from 'react'
 import clsx from 'clsx'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -39,13 +39,19 @@ function CardVerticalSlider({data, type, href}) {
     autoplay: true,
     adaptiveHeight: true
   };
-  return <div
-      className={
-        clsx('flex-1 truncate px-3 py-2 text-xs text-gray-50 bg-[rgba(255,255,255,0.2)] rounded-full',
-          { '!text-white opacity-80': type === 'Community' }
-        )
-      }
-    >
+
+  const [isClient, setIsClient] = useState(false)
+
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
+  return isClient && <div
+    className={
+      clsx('flex-1 truncate px-3 py-2 text-xs text-gray-50 bg-[rgba(255,255,255,0.2)] rounded-full',
+        { '!text-white opacity-80': type === 'Community' }
+      )
+    }
+  >
     <Slider {...settings}>
       {data?.map((i, k) => (
         (type === 'Community' && mediaUrl) ? <div key={`BuilderWay-CardVerticalSlider-${k}`} className="!flex items-center">
@@ -69,14 +75,14 @@ function Card({onMouseEnter, active, item, index}) {
       href={item.href}
       onMouseEnter={onMouseEnter}
       className={clsx('group p-8 overflow-hidden rounded-xl cursor-pointer', {
-          'text-white': item.type === 'Community',
-          'h-[400px] pb-0 transition-all !duration-500 mt-[-50px]': active === index,
-          'h-[350px] p-8 transition-all !duration-500 mt-0': active !== index,
-          'bg-[#01DB83]': item.type === 'Learn',
-          'bg-[#0A0A0A]': item.type === 'Community',
-          'bg-[#CB9BFA]': item.type === 'Bounties',
-          'bg-[#F8FD91]': item.type === 'SkillHub'
-        },
+        'text-white': item.type === 'Community',
+        'h-[400px] pb-0 transition-all !duration-500 mt-[-50px]': active === index,
+        'h-[350px] p-8 transition-all !duration-500 mt-0': active !== index,
+        'bg-[#01DB83]': item.type === 'Learn',
+        'bg-[#0A0A0A]': item.type === 'Community',
+        'bg-[#CB9BFA]': item.type === 'Bounties',
+        'bg-[#F8FD91]': item.type === 'SkillHub'
+      },
       )}
     >
       <div className="h-[41px] flex justify-between items-center [&>div]:flex-1 [&>div]:truncate">
