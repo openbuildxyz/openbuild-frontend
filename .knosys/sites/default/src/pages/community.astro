@@ -1,0 +1,31 @@
+---
+import StarlightLayout from '@astrojs/starlight/components/StarlightPage.astro';
+
+import AstroLink from '@/controls/astro-link';
+import { getSidebar } from '#/layouts/guide';
+
+const headings = [
+  { depth: 2, slug: 'code-of-conduct', text: 'Code of Conduct' },
+  { depth: 2, slug: 'getting-news', text: 'Getting News' },
+  { depth: 2, slug: 'discussion', text: 'Discussion' },
+];
+---
+
+<StarlightLayout frontmatter={{ title: 'Community' }} sidebar={getSidebar('about')} headings={headings}>
+  <p>The OpenBuild official website is a community-driven <AstroLink url="https://openbuildxyz.github.io/eco/">OpenBuild ecosystem</AstroLink> project, initially created and developed by the OpenBuild core team in 2023, and <AstroLink url="https://openbuildxyz.github.io/eco/posts/the-openbuild-official-website-frontend-codebase-is-open-now/">opened its source code in December 2024</AstroLink> to introduce community collaboration.</p>
+  <p>Nowadays, the project is jointly advanced by <AstroLink url="/team/">members of the OpenBuild core team and volunteers from around the world</AstroLink>, with <AstroLink url="https://x.com/ntksol">Ourai L.</AstroLink> serving as the project leader.</p>
+  <h2 id={headings[0].slug}>{headings[0].text}</h2>
+  <p>As a project initiated by the OpenBuild core team, it adheres to <AstroLink url="https://github.com/openbuildxyz/.github/blob/main/.github/CODE_OF_CONDUCT.md">the unified code of conduct of the OpenBuild official team</AstroLink>.</p>
+  <p>It is strongly recommended to read it carefully before participating in community activities, and we hope that all community members can follow the guidelines.</p>
+  <h2 id={headings[1].slug}>{headings[1].text}</h2>
+  <p>You can obtain the latest news about the OpenBuild official website at the following places:</p>
+  <ul>
+    <li>Follow our <AstroLink url="https://linktr.ee/openbuild">official social media accounts</AstroLink>.</li>
+    <li>Follow our <AstroLink url="/team/">team members</AstroLink> on X (Twitter) or GitHub.</li>
+  </ul>
+  <h2 id={headings[2].slug}>{headings[2].text}</h2>
+  <p>You can discuss topics related to the OpenBuild official website and get help through the following channels:</p>
+  <ul>
+    <li><AstroLink url="https://github.com/openbuildxyz/openbuild-frontend">GitHub</AstroLink> - Report bugs or propose ideas through issues, and pull requests are also very welcome.</li>
+  </ul>
+</StarlightLayout>
