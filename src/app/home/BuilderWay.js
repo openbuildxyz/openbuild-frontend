@@ -44,10 +44,15 @@ function CardVerticalSlider({data, type, href}) {
 
   const [isClient, setIsClient] = useState(false)
 
+  const handleClick = (e) => {
+    e.stopPropagation()
+  }
+  
   useEffect(() => {
     setIsClient(true)
   }, [])
   return isClient && <div
+    onClick={handleClick}
     className={
       clsx('flex-1 truncate px-3 py-2 text-xs text-gray-50 bg-[rgba(255,255,255,0.2)] rounded-full',
         { '!text-white opacity-80': type === 'Community' }
