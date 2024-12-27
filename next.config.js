@@ -28,7 +28,6 @@ module.exports = withBundleAnalyzer({
   swcMinify: true,
   staticPageGenerationTimeout: 180,
   experimental: {
-    appDir: true,
     serverActions: true
   },
   env: {
