@@ -16,14 +16,15 @@
 
 import Image from './Image'
 
-function SvgIcon({ className, style, size, name }) {
+function SvgIcon({ className, style, size, name, src, onClick }) {
   return (
     <Image
       className={className}
       style={style}
       width={size}
       height={size}
-      src=""
+      src={src}
+      onClick={onClick}
       defaultSrc={`/images/svg/${name}.svg`}
       alt={name}
     />
