@@ -75,7 +75,7 @@ function CardVerticalSlider({data, type, href}) {
   </div>
 }
 
-function Card({onMouseEnter, active, item, index}) {
+function Card({onMouseEnter, onMouseLeave, active, item, index}) {
   const router = useRouter()
   const mediaUrl = useMediaUrl()
   
@@ -86,6 +86,7 @@ function Card({onMouseEnter, active, item, index}) {
         router.push(item.href)
       }}
       onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
       className={clsx('group p-8 overflow-hidden rounded-xl cursor-pointer', {
         'text-white': item.type === 'Community',
         'h-[400px] pb-0 transition-all !duration-500 mt-[-50px]': active === index,
@@ -195,6 +196,7 @@ export function BuilderWay({data}) {
           <Card
             key={`BuilderWay-card-${k}`}
             onMouseEnter={() => !media && setActive(k)}
+            onMouseLeave={() => !media && setActive(-1)}
             active={active}
             item={i}
             index={k}
