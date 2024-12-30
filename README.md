@@ -12,9 +12,36 @@
 
 This project is a part of [OpenBuild Ecosystem](https://openbuildxyz.github.io/eco/), and hosts the front-end codebase of [OpenBuild.xyz](https://openbuild.xyz).
 
+## Quick start
+
+For more information, see [here](https://openbuildxyz.github.io/openbuild-frontend/guides/#environment-setup).
+
+### Prerequisites
+
+- node >= 20.0.0
+- [pnpm](https://pnpm.io/)
+
+### Install Dependencies
+
+```bash
+pnpm install
+```
+
+### Copy Environment Variables File
+
+```bash
+cp .env.example .env.local
+```
+
+### Run
+
+```bash
+pnpm start
+```
+
 ## Contributing
 
-Contributions are welcome! But before starting to build, please read the [contributing guide](.github/contributing.md).
+Contributions are welcome! But before starting to build, please read the [contributing guide](https://openbuildxyz.github.io/openbuild-frontend/guides/).
 
 <a href="https://github.com/openbuildxyz/openbuild-frontend/graphs/contributors" target="_blank" style="display: block">
   <picture>
