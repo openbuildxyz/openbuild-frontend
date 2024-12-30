@@ -19,11 +19,13 @@
 import { useMemo, useState, useEffect } from 'react'
 import clsx from 'clsx'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import Slider from 'react-slick'
 import { useMediaUrl } from '#/state/application/hooks'
 import MorePic from 'public/images/svg/more.svg'
 import { useMediaQuery } from '@/hooks/useMediaQuery'
+import NProgress from 'nprogress'
 
 function CardVerticalSlider({data, type, href}) {
   const mediaUrl = useMediaUrl()
@@ -42,10 +44,15 @@ function CardVerticalSlider({data, type, href}) {
 
   const [isClient, setIsClient] = useState(false)
 
+  const handleClick = (e) => {
+    e.stopPropagation()
+  }
+  
   useEffect(() => {
     setIsClient(true)
   }, [])
   return isClient && <div
+    onClick={handleClick}
     className={
       clsx('flex-1 truncate px-3 py-2 text-xs text-gray-50 bg-[rgba(255,255,255,0.2)] rounded-full',
         { '!text-white opacity-80': type === 'Community' }
@@ -69,10 +76,15 @@ function CardVerticalSlider({data, type, href}) {
 }
 
 function Card({onMouseEnter, active, item, index}) {
+  const router = useRouter()
   const mediaUrl = useMediaUrl()
+  
   return (
-    <Link
-      href={item.href}
+    <div
+      onClick={() => {
+        NProgress.start()
+        router.push(item.href)
+      }}
       onMouseEnter={onMouseEnter}
       className={clsx('group p-8 overflow-hidden rounded-xl cursor-pointer', {
         'text-white': item.type === 'Community',
@@ -127,7 +139,7 @@ function Card({onMouseEnter, active, item, index}) {
         <hr className={clsx('mt-[30px] mb-[14px]', item.type === 'Community' ? 'border-[rgba(255,255,255,0.2)]' : 'border-gray-1100')} />
         Get started your {item.title}
       </div>
-    </Link>
+    </div>
   )
 }
 
