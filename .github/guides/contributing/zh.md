@@ -1,4 +1,4 @@
-[English](../../contributing.md) | 简体中文
+[English](./en.md) | 简体中文
 
 # 贡献指南
 
@@ -45,7 +45,7 @@
 
 ## 环境准备
 
-确保本地 Node.js 版本号符合 [`package.json`](../../package.json) 中 `engines` 字段所指定的，在根目录用包管理器安装依赖，建议使用 [pnpm](https://pnpm.io)。
+确保本地 Node.js 版本号符合 [`package.json`](../../../package.json) 中 `engines` 字段所指定的，在根目录用包管理器安装依赖，建议使用 [pnpm](https://pnpm.io)。
 
 在根目录执行 `cp .env.example .env` 或 `cp .env.example .env.local` 以使运行应用所需环境变量能够正常注入：
 
