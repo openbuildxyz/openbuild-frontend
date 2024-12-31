@@ -71,6 +71,16 @@ export function ReactSelect({
           borderRadius: '8px',
           ...(styles && isFunction(styles.control) && styles.control())
         }),
+        option: (styles) => ({
+          ...styles,
+          whiteSpace: 'nowrap',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+        }),
+        menu: (styles) => ({
+          ...styles,
+          width: '100%!important',
+        }),
       }}
       isSearchable={isSearchable}
       components={{ MultiValueRemove, ClearIndicator, DropdownIndicator }}
