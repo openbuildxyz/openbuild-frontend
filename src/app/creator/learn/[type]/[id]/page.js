@@ -31,8 +31,6 @@ import { ArrowLeftIcon } from '@/components/Icons'
 import { ChevronDoubleLeftIcon } from '@heroicons/react/20/solid'
 // import PreviewIcon from 'public/images/svg/preview.svg'
 
-import useSWR from 'swr'
-import { fetcher } from '@/utils/request'
 import { addSeries, seriesStatus } from '#/services/creator'
 import { Button } from '@/components/Button'
 import { toast } from 'react-toastify'
@@ -42,11 +40,15 @@ import { Sections } from './Sections'
 import { useAsyncState } from '@/hooks/useAsyncState'
 import useInterval from '@/hooks/useInterval'
 
+import { fetchOne as fetchCourse } from '#/domain/course/repository'
+import { fetchOne as fetchChallenge } from '#/domain/challenge/repository'
+
 export default function LearnPublish({ params }) {
   const [open, setOpen] = useState(true)
   const { replace, push } = useRouter()
+  const [isLoading, setIsLoading] = useState(false)
+  const [data, setData] = useState(undefined)
 
-  const { data, isLoading } = useSWR(`v1/learn/course/${params.type}/${params.id}`, fetcher)
   const [contents, setContents] = useAsyncState()
   const [saved, setSaved] = useState(false)
   const [saving, setSaving] = useState(false)
@@ -177,6 +179,16 @@ export default function LearnPublish({ params }) {
         setVisibleSection('five')
       }
     })
+
+    if (isLoading) {
+      return
+    }
+
+    const fetchDetail = params.type === 'challenges' ? fetchChallenge : fetchCourse
+
+    fetchDetail(params.id)
+      .then(res => res.success && setData(res.data))
+      .finally(() => setIsLoading(false))
   }, [])
 
   useInterval(() => {
