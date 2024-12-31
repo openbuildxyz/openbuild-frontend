@@ -5,7 +5,7 @@ on:
   # Using a different branch name? Replace `main` with your branch’s name
   push:
     branches:
-      - test
+      - main
     paths:
       - .knosys/sites/default/**
       - .github/guides/**
