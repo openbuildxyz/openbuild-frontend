@@ -20,6 +20,8 @@ import Select, { components } from 'react-select'
 import { XMarkIcon, ChevronDownIcon } from '@heroicons/react/20/solid'
 import { classNames } from '@/utils'
 
+let valueLimit;
+
 export const DropdownIndicator = props => {
   return (
     <components.DropdownIndicator {...props}>
@@ -43,6 +45,13 @@ export const MultiValueRemove = props => {
     </components.MultiValueRemove>
   )
 }
+export const MultiValue = (props) => {
+  const { getValue } = props;
+  valueLimit = getValue().length;
+  return (
+    <components.MultiValue {...props} />
+  ) 
+};
 
 export function ReactSelect({
   value,
@@ -55,7 +64,7 @@ export function ReactSelect({
   className,
   classNamePrefix,
   isClearable,
-  isSearchable = true
+  isSearchable = true,
 }) {
   return (
     <Select
@@ -83,11 +92,12 @@ export function ReactSelect({
         }),
       }}
       isSearchable={isSearchable}
-      components={{ MultiValueRemove, ClearIndicator, DropdownIndicator }}
+      components={{ MultiValueRemove, ClearIndicator, DropdownIndicator, MultiValue }}
       onChange={onChange}
       className={classNames('react-select-container', className)}
       classNamePrefix={classNames(classNamePrefix, 'react-select')}
       isClearable={isClearable}
+      isOptionDisabled={() => valueLimit >= 3}
     />
-  )
-}
+  );
+};
