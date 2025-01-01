@@ -25,10 +25,10 @@ export function Author({ data }) {
       <div className="flex items-center" suppressHydrationWarning>
         <Avatar size={56} user={data?.team_user} />
         <div className="ml-4 flex-1">
-          <h4 className="text-sm font-bold md:text-lg max-md:text-lg">
+          <h4 className="font-bold text-lg">
             <a href={`/u/${data?.team_user?.user_handle}`}>{data?.team_user?.user_nick_name}</a>
           </h4>
-          <p className="text-xs text-gray-500 md:text-sm max-md:text-sm">
+          <p className="text-gray-500 text-sm">
             Posted on <span className="text-gray-50">{formatTime(Number(data?.base?.cs_created_at) * 1000, 'MMM D, YYYY HH:mm')}</span> · Latest update on{' '}
             <span className="text-gray-50">{formatTime(data?.base?.cs_updated_at * 1000, 'MMM D, YYYY')}</span>
           </p>
