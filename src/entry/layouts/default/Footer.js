@@ -168,11 +168,11 @@ export function Footer() {
               key={`footer-menus-${k}`}
               className="max-md:mb-4 max-md:border-t max-md:border-[rgba(255,255,255,0.06)] max-md:pt-6 md:ml-[64px]"
             >
-              <h4 className="mb-0 text-sm font-semibold max-md:mb-2 md:mb-12 md:text-lg max-md:text-base">{i.name}</h4>
+              <h4 className="mb-0 font-semibold max-md:mb-2 md:mb-12 md:text-lg">{i.name}</h4>
               <ul>
                 {i.items.map(subItem => (
                   <li
-                    className="text-xs leading-7 transition-all duration-300 hover:text-green hover:underline md:text-sm max-md:leading-7 max-md:text-sm md:leading-10"
+                    className="leading-7 transition-all duration-300 hover:text-green hover:underline text-sm md:leading-10"
                     key={`footer-menus-sub-${subItem.name}`}
                   >
                     {/* href={subItem.link} */}

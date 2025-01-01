@@ -74,14 +74,14 @@ export function Navs({data}) {
                 onClick={() => setOpenMenu(!openMenu)}
                 href={i.link}
               >
-                <li className="flex justify-between items-center font-bold h-14 text-base">
+                <li className="flex justify-between items-center font-bold h-14">
                   {i.name}
                   <ChevronRightIcon className="h-4 w-4 opacity-60" />
                 </li>
               </Link> : (
                 <div key={`header-menu-${k}`} className="collapse">
                   <input type="radio" name={`my-accordion-${k}`} checked="checked" readOnly />
-                  <div className="collapse-title collapse-title-sm min-h-0 h-14 text-base font-bold flex justify-between items-center">
+                  <div className="collapse-title collapse-title-sm min-h-0 h-14 font-bold flex justify-between items-center">
                     {i.name}
                     <ChevronDownIcon className="h-4 w-4 opacity-60" />
                   </div>

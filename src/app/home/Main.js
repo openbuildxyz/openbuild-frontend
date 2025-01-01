@@ -63,7 +63,7 @@ export function HomeMain({data}) {
             <button className="max-md:w-full max-md:font-normal h-14 text-lg btn btn-outline btn-primary hover:bg-gray hover:text-white md:mr-3 px-9">🎉 Join Community</button>
           </a>
           <Link href="/learn/courses">
-            <button className="max-md:relative max-md:mt-3 max-md:w-full max-md:font-normal h-14 text-lg relative btn btn-primary text-white pl-9 max-md:pl-0 pr-2 max-md:pr-0 hover:!opacity-90">
+            <button className="max-md:relative max-md:mt-3 max-md:w-full max-md:font-normal h-14 text-lg relative btn btn-primary text-white pl-9 max-md:px-0 pr-2 hover:!opacity-90">
               Get Started
               <span className="max-md:absolute max-md:top-3 max-md:right-3 p-2 bg-white rounded ml-14">
                 <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
