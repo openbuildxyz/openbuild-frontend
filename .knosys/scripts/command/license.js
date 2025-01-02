@@ -66,7 +66,7 @@ function traverseDirectory(directoryPath) {
 
     if (file.isDirectory()) {
       traverseDirectory(filePath);
-    } else if (file.isFile() && ['.js', '.scss'].includes(path.extname(file.name))) {
+    } else if (file.isFile() && ['.js', '.css', '.scss'].includes(path.extname(file.name))) {
       addLicenseHeader(filePath);
     }
   });
