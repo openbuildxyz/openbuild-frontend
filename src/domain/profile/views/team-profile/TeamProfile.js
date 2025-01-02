@@ -94,7 +94,7 @@ function TeamProfileView({ data, activities }) {
 
   return (
     <div className="md:pl-[410px] md:pb-14 md:pr-14">
-      <BlockEditorWidget data={blockContent} onChange={handleBlockChange} />
+      <BlockEditorWidget data={blockContent} onChange={handleBlockChange} editable />
       <TabBarWidget
         tabs={['Info', 'Activities']}
         tabClassName="h-14 md:h-9 md:w-[111px] md:first:hidden"

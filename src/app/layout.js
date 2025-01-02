@@ -15,6 +15,7 @@
  */
 
 import '@/styles/all.scss'
+import '@/styles/prosemirror.css'
 import 'animate.css'
 import 'react-toastify/scss/main.scss'
 import 'bytemd/dist/index.css'

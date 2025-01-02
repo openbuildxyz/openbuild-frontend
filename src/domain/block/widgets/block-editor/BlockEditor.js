@@ -19,7 +19,7 @@ import { EditorRoot, EditorContent } from 'novel'
 
 import { defaultExtensions } from './helper'
 
-function BlockEditor({ data, onChange }) {
+function BlockEditor({ data, onChange, editable = false }) {
   const handleUpdate = ({ editor }) => {
     isFunction(onChange) && onChange(editor.getJSON())
   }
@@ -28,9 +28,16 @@ function BlockEditor({ data, onChange }) {
     <div>
       <EditorRoot>
         <EditorContent
+          className="relative min-h-[500px] w-full max-w-screen-lg border-muted bg-background sm:rounded-lg sm:border sm:shadow-lg"
           immediatelyRender={false}
           initialContent={data}
           extensions={defaultExtensions}
+          editorProps={{
+            attributes: {
+              class: 'prose prose-lg dark:prose-invert prose-headings:font-title font-default focus:outline-none max-w-full',
+            }
+          }}
+          editable={editable}
           onUpdate={handleUpdate}
         />
       </EditorRoot>
