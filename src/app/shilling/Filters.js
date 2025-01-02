@@ -85,6 +85,7 @@ export function ShillingFilters() {
             dispatch(setRequiredSkills(_skills))
           }}
           className="react-select-noborder !h-12 border-0 "
+          limit={3}
         />
       </div>
       <div className="mr-6 w-[240px]">
