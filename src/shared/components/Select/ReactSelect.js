@@ -58,7 +58,7 @@ export function ReactSelect({
   isSearchable = true,
   limit,  // to limit the max count of selectable options in multiple mode
 }) {
-  const [selectedOpts, setSelectedOpts] = React.useState([]);
+  const [selectedOpts, setSelectedOpts] = React.useState([])
 
   const resolvedLimit = isInteger(limit) && limit > 0 ? limit : 0
 
@@ -102,5 +102,5 @@ export function ReactSelect({
       isClearable={isClearable}
       isOptionDisabled={resolveOptionDisabled}
     />
-  );
-};
+  )
+}
