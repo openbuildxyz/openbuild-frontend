@@ -18,6 +18,7 @@ import { useState, useEffect } from 'react'
 import { useDebouncedCallback } from 'use-debounce'
 
 import BlockEditorWidget from '../../../block/widgets/block-editor'
+import { useViewingSelf } from '../../../auth/hooks'
 import PublishedCourseListView from '../../../course/views/published-course-list'
 import PublishedChallengeListView from '../../../challenge/views/published-challenge-list'
 import PublishedBountyListView from '../../../bounty/views/published-bounty-list'
@@ -76,6 +77,7 @@ const tabs = [
 function TeamProfileView({ data, activities }) {
   const [tabActive, setTabActive] = useState(1)
   const [blockContent, setBlockContent] = useState(null)
+  const viewingSelf = useViewingSelf(data?.base.user_id)
 
   useEffect(() => {
     fetchBlockContent().then(res => {
@@ -94,7 +96,12 @@ function TeamProfileView({ data, activities }) {
 
   return (
     <div className="md:pl-[410px] md:pb-14 md:pr-14">
-      <BlockEditorWidget data={blockContent} onChange={handleBlockChange} editable />
+      <BlockEditorWidget
+        key={`${viewingSelf ? 'editable' : 'readonly'}BlockEditor`}
+        data={blockContent}
+        onChange={handleBlockChange}
+        editable={viewingSelf}
+      />
       <TabBarWidget
         tabs={['Info', 'Activities']}
         tabClassName="h-14 md:h-9 md:w-[111px] md:first:hidden"
