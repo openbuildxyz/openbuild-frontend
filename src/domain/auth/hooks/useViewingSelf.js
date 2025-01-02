@@ -14,6 +14,12 @@
  * limitations under the License.
  */
 
-export { default as useBindWallet } from './useBindWallet'
-export { default as useSignInWithWallet } from './useSignInWithWallet'
-export { default as useViewingSelf } from './useViewingSelf'
+import { useUser } from '#/state/application/hooks'
+
+function useViewingSelf(userId) {
+  const currentUser = useUser()
+
+  return userId && currentUser ? userId === currentUser.base.user_id : false
+}
+
+export default useViewingSelf
