@@ -14,13 +14,16 @@
  * limitations under the License.
  */
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useDebouncedCallback } from 'use-debounce'
 
+import BlockEditorWidget from '../../../block/widgets/block-editor'
 import PublishedCourseListView from '../../../course/views/published-course-list'
 import PublishedChallengeListView from '../../../challenge/views/published-challenge-list'
 import PublishedBountyListView from '../../../bounty/views/published-bounty-list'
 import PublishedQuizListView from '../../../quiz/views/published-quiz-list'
 
+import { fetchBlockContent, updateBlockContent } from '../../repository'
 import TabBarWidget from '../../widgets/tab-bar'
 import SocialInfoWidget from '../../widgets/social-info'
 import ActivityTabListWidget from '../../widgets/activity-tab-list'
@@ -72,6 +75,17 @@ const tabs = [
 
 function TeamProfileView({ data, activities }) {
   const [tabActive, setTabActive] = useState(1)
+  const [blockContent, setBlockContent] = useState(null)
+
+  useEffect(() => {
+    fetchBlockContent().then(res => {
+      if (res.success) {
+        setBlockContent(res.data)
+      }
+    })
+  }, [])
+
+  const handleBlockChange = useDebouncedCallback(updateBlockContent, 3000)
 
   const tabContent = [
     <SocialInfoWidget key="social" data={data} />,
@@ -80,6 +94,7 @@ function TeamProfileView({ data, activities }) {
 
   return (
     <div className="md:pl-[410px] md:pb-14 md:pr-14">
+      <BlockEditorWidget data={blockContent} onChange={handleBlockChange} />
       <TabBarWidget
         tabs={['Info', 'Activities']}
         tabClassName="h-14 md:h-9 md:w-[111px] md:first:hidden"
