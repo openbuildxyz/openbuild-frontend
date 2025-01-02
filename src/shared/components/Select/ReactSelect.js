@@ -56,6 +56,7 @@ export function ReactSelect({
   classNamePrefix,
   isClearable,
   isSearchable = true,
+  limit = 3,
 }) {
   const [selectedOpts, setSelectedOpts] = React.useState([]);
 
@@ -80,7 +81,8 @@ export function ReactSelect({
       className={classNames('react-select-container', className)}
       classNamePrefix={classNames(classNamePrefix, 'react-select')}
       isClearable={isClearable}
-      isOptionDisabled={() => setSelectedOpts.length >= 3}
+      limit={limit}
+      isOptionDisabled={() => selectedOpts.length >= limit}
     />
   );
 };
