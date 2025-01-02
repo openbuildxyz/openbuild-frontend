@@ -64,7 +64,7 @@ export function ReactSelect({
 
   const handleChange = isMulti ? (...args) => {
     setSelectedOpts(args[0])
-    onChange(...args)
+    isFunction(onChange) && onChange(...args)
   } : onChange
 
   const resolveOptionDisabled = () => isMulti && resolvedLimit > 0 ? selectedOpts.length >= resolvedLimit : false
