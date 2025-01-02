@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { isFunction } from 'lodash'
+import { isInteger, isFunction } from 'lodash'
 import React from 'react'
 import Select, { components } from 'react-select'
 import { XMarkIcon, ChevronDownIcon } from '@heroicons/react/20/solid'
@@ -56,13 +56,22 @@ export function ReactSelect({
   classNamePrefix,
   isClearable,
   isSearchable = true,
-  limit = 3,
+  limit,  // to limit the max count of selectable options in multiple mode
 }) {
   const [selectedOpts, setSelectedOpts] = React.useState([]);
 
+  const resolvedLimit = isInteger(limit) && limit > 0 ? limit : 0
+
+  const handleChange = isMulti ? (...args) => {
+    setSelectedOpts(args[0])
+    onChange(...args)
+  } : onChange
+
+  const resolveOptionDisabled = () => isMulti && resolvedLimit > 0 ? selectedOpts.length >= resolvedLimit : false
+
   return (
     <Select
-      value={selectedOpts}
+      value={value}
       isMulti={isMulti}
       name={name}
       options={options}
@@ -87,12 +96,11 @@ export function ReactSelect({
       }}
       isSearchable={isSearchable}
       components={{ MultiValueRemove, ClearIndicator, DropdownIndicator }}
-      onChange={(e) => setSelectedOpts(e)}
+      onChange={handleChange}
       className={classNames('react-select-container', className)}
       classNamePrefix={classNames(classNamePrefix, 'react-select')}
       isClearable={isClearable}
-      limit={limit}
-      isOptionDisabled={() => selectedOpts.length >= limit}
+      isOptionDisabled={resolveOptionDisabled}
     />
   );
 };
