@@ -14,7 +14,10 @@
  * limitations under the License.
  */
 
+import '@/styles/prosemirror.css'
+
 import { isFunction } from 'lodash'
+import clsx from 'clsx'
 import { EditorRoot, EditorContent, EditorCommand, EditorCommandEmpty, EditorCommandList, EditorCommandItem } from 'novel'
 import { ImageResizer, handleCommandNavigation } from 'novel/extensions'
 
@@ -30,7 +33,7 @@ function BlockEditor({ className, data, onChange, editable = false }) {
   }
 
   return isBlockDataValid(data) && (
-    <div className={className}>
+    <div className={clsx('relative w-full max-w-screen-lg', className)}>
       <EditorRoot>
         <EditorContent
           className="relative min-h-[500px] w-full max-w-screen-lg border-muted bg-background sm:rounded-lg sm:border sm:shadow-lg"
@@ -56,7 +59,7 @@ function BlockEditor({ className, data, onChange, editable = false }) {
                 <EditorCommandItem
                   value={item.title}
                   onCommand={(val) => item.command(val)}
-                  className="flex w-full items-center space-x-2 rounded-md px-2 py-1 text-left text-sm hover:bg-accent aria-selected:bg-accent"
+                  className="flex w-full items-center space-x-2 rounded-md px-2 py-1 text-left text-sm hover:bg-neutral-200 aria-selected:bg-neutral-200"
                   key={item.title}
                 >
                   <div className="flex h-10 w-10 items-center justify-center rounded-md border border-muted bg-background">
