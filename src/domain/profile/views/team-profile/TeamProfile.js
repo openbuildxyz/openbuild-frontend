@@ -17,7 +17,7 @@
 import { useState, useEffect } from 'react'
 import { useDebouncedCallback } from 'use-debounce'
 
-import BlockEditorWidget from '../../../block/widgets/block-editor'
+import { isBlockDataValid } from '../../../block/helper'
 import { useViewingSelf } from '../../../auth/hooks'
 import PublishedCourseListView from '../../../course/views/published-course-list'
 import PublishedChallengeListView from '../../../challenge/views/published-challenge-list'
@@ -29,6 +29,7 @@ import TabBarWidget from '../../widgets/tab-bar'
 import SocialInfoWidget from '../../widgets/social-info'
 import ActivityTabListWidget from '../../widgets/activity-tab-list'
 
+import CustomContent from './CustomContent'
 import LatestActivityList from './LatestActivityList'
 
 const tabs = [
@@ -94,10 +95,17 @@ function TeamProfileView({ data, activities }) {
     <LatestActivityList key="activity" activities={activities} />,
   ]
 
+  const rerenderKey = [
+    'CustomContent',
+    `${viewingSelf ? 'editable' : 'readonly'}`,
+    isBlockDataValid(blockContent),
+  ].join('-')
+
   return (
     <div className="md:pl-[410px] md:pb-14 md:pr-14">
-      <BlockEditorWidget
-        key={`${viewingSelf ? 'editable' : 'readonly'}BlockEditor`}
+      <CustomContent
+        key={rerenderKey}
+        className="mb-6"
         data={blockContent}
         onChange={handleBlockChange}
         editable={viewingSelf}
