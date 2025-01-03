@@ -59,6 +59,40 @@ export function BountiesCard({ data }) {
             {filters?.find(f => f.name === 'Ecosystem')?.labels.find(f => f.id === data.ecosystem)?.name}
           </span>
         </div>
+        <div className="flex items-center gap-2">
+          <div className="flex items-center">
+            {data.status === 3 && (
+              <div className="flex items-center gap-2 bg-[#807DFB] bg-opacity-10 rounded-full">
+                <span className="w-[24px] h-[24px] rounded-full flex items-center justify-center border-2 border-[#807DFB]">
+                  🧱
+                </span>
+                <span className="w-[65px] text-xs font-semibold text-[#807DFB] font-nunito leading-[12px] text-left">
+                  Recruiting
+                </span>
+              </div>
+            )}
+            {data.status > 6 && data.status < 24 && (
+              <div className="flex items-center gap-2 bg-[#01DB83] bg-opacity-10 rounded-full">
+                <span className="w-[24px] h-[24px] rounded-full flex items-center justify-center border-2 border-[#01DB83]">
+                  🔫
+                </span>
+                <span className="w-[54px] text-xs font-semibold text-[#00C475] font-nunito leading-[12px]">
+                  Building
+                </span>
+              </div>
+            )}
+            {data.status === 30 && (
+              <div className="flex items-center gap-2 bg-[#82ADD8] bg-opacity-10 rounded-full">
+                <span className="w-[24px] h-[24px] rounded-full flex items-center justify-center border-2 border-[#82ADD8]">
+                  🔚
+                </span>
+                <span className="w-[70px] text-xs font-semibold text-[#82ADD8] font-nunito leading-[12px] text-left">
+                  Completed
+                </span>
+              </div>
+            )}
+          </div>
+        </div>
       </div>
 
       <hr className="mb-4 mt-2 border-gray-400" />
