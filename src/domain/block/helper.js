@@ -14,7 +14,17 @@
  * limitations under the License.
  */
 
+import { isPlainObject } from 'lodash'
+
 const BLOCK_DATA_SPEC_VERSION = '0.0.1'
+
+function getInitialBlockData() {
+  return { type: 'doc', content: [] }
+}
+
+function isBlockDataValid(data) {
+  return isPlainObject(data) && data.type === 'doc' && Array.isArray(data.content)
+}
 
 function unwrapBlockData({ data }) {
   return data
@@ -24,4 +34,4 @@ function wrapBlockData(data) {
   return { version: BLOCK_DATA_SPEC_VERSION, data }
 }
 
-export { wrapBlockData, unwrapBlockData }
+export { getInitialBlockData, isBlockDataValid, wrapBlockData, unwrapBlockData }

@@ -18,18 +18,20 @@ import { isFunction } from 'lodash'
 import { EditorRoot, EditorContent, EditorCommand, EditorCommandEmpty, EditorCommandList, EditorCommandItem } from 'novel'
 import { ImageResizer, handleCommandNavigation } from 'novel/extensions'
 
+import { isBlockDataValid } from '../../helper'
+
 import { defaultExtensions } from './extensions'
 import { slashCommand, suggestionItems } from './slash'
 
 const extensions = [...defaultExtensions, slashCommand]
 
-function BlockEditor({ data, onChange, editable = false }) {
+function BlockEditor({ className, data, onChange, editable = false }) {
   const handleUpdate = ({ editor }) => {
     isFunction(onChange) && onChange(editor.getJSON())
   }
 
-  return data ? (
-    <div>
+  return isBlockDataValid(data) && (
+    <div className={className}>
       <EditorRoot>
         <EditorContent
           className="relative min-h-[500px] w-full max-w-screen-lg border-muted bg-background sm:rounded-lg sm:border sm:shadow-lg"
@@ -72,8 +74,6 @@ function BlockEditor({ data, onChange, editable = false }) {
         </EditorContent>
       </EditorRoot>
     </div>
-  ) : (
-    <div>Empty</div>
   )
 }
 
