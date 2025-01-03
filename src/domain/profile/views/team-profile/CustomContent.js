@@ -17,15 +17,12 @@
 import clsx from 'clsx'
 import { useState } from 'react'
 
-import { getInitialBlockData, isBlockDataValid } from '../../../block/helper'
-import BlockEditorWidget from '../../../block/widgets/block-editor'
+import BlockEditor, { getInitialBlockData, isBlockDataValid } from '@/components/block-editor'
 
 function CustomContent({ className, data, onChange, editable }) {
   const [content, setContent] = useState(data)
 
-  let dataValid = isBlockDataValid(content)
-
-  if (!dataValid) {
+  if (!isBlockDataValid(content)) {
     return editable ? (
       <div
         className={clsx('p-4 border border-dashed rounded text-center hover:cursor-pointer', className)}
@@ -37,7 +34,7 @@ function CustomContent({ className, data, onChange, editable }) {
   }
 
   return (
-    <BlockEditorWidget className={className} data={content} onChange={onChange} editable={editable} />
+    <BlockEditor className={className} data={content} onChange={onChange} editable={editable} />
   )
 }
 

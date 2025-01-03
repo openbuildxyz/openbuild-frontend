@@ -18,8 +18,7 @@ import { isFunction } from 'lodash'
 import { EditorRoot, EditorContent, EditorCommand, EditorCommandEmpty, EditorCommandList, EditorCommandItem } from 'novel'
 import { ImageResizer, handleCommandNavigation } from 'novel/extensions'
 
-import { isBlockDataValid } from '../../helper'
-
+import { isBlockDataValid } from './helper'
 import { defaultExtensions } from './extensions'
 import { slashCommand, suggestionItems } from './slash'
 
