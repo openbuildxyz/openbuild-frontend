@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import 'bytemd/dist/index.css'
 import { Editor, Viewer } from '@bytemd/react'
 
 import { upload } from '#/services/common'

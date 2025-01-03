@@ -16,7 +16,7 @@
 
 import LoadableList from '@/components/loadable-list'
 
-import { useUser } from '#/state/application/hooks'
+import { useViewingSelf } from '../../../auth/hooks'
 
 import { fetchAnsweredQuizList } from '../../repository'
 import QuizItem from '../../widgets/quiz-item'
@@ -39,8 +39,7 @@ function AnsweredQuizList({ list, viewingSelf }) {
 }
 
 function AnsweredQuizListView({ params }) {
-  const currentUser = useUser()
-  const viewingSelf = params && currentUser ? params.userId === currentUser.base.user_id : false
+  const viewingSelf = useViewingSelf(params?.userId)
 
   return (
     <LoadableList

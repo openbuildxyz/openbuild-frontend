@@ -16,7 +16,7 @@
 
 import LoadableList from '@/components/loadable-list'
 
-import { useUser } from '#/state/application/hooks'
+import { useViewingSelf } from '../../../auth/hooks'
 
 import { fetchPublishedChallengeList } from '../../repository'
 import PublishedChallengeItem from './PublishedChallengeItem'
@@ -30,8 +30,7 @@ function PublishedChallengeList({ list, viewingSelf }) {
 }
 
 function PublishedChallengeListView({ params }) {
-  const currentUser = useUser()
-  const viewingSelf = params && currentUser ? params.userId === currentUser.base.user_id : false
+  const viewingSelf = useViewingSelf(params?.userId)
 
   return (
     <LoadableList

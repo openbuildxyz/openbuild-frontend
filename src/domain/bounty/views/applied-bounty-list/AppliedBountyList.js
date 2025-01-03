@@ -16,7 +16,7 @@
 
 import LoadableList from '@/components/loadable-list'
 
-import { useUser } from '#/state/application/hooks'
+import { useViewingSelf } from '../../../auth/hooks'
 
 import { fetchAppliedBountyList } from '../../repository'
 import BountyItem from '../../widgets/bounty-item'
@@ -35,8 +35,7 @@ function AppliedBountyList({ list, viewingSelf }) {
 }
 
 function AppliedBountyListView({ params }) {
-  const currentUser = useUser()
-  const viewingSelf = params && currentUser ? params.userId === currentUser.base.user_id : false
+  const viewingSelf = useViewingSelf(params?.userId)
 
   return (
     <LoadableList

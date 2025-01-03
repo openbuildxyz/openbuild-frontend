@@ -14,6 +14,16 @@
  * limitations under the License.
  */
 
-export { default as useBindWallet } from './useBindWallet'
-export { default as useSignInWithWallet } from './useSignInWithWallet'
-export { default as useViewingSelf } from './useViewingSelf'
+import { unwrapBlockData, wrapBlockData } from '@/components/block-editor'
+
+async function fetchBlockContent() {
+  return Promise.resolve({ success: true, data: unwrapBlockData({ data: null }) })
+}
+
+async function updateBlockContent(data) {
+  console.log('block content updated', wrapBlockData(data))
+
+  return Promise.resolve({ success: true })
+}
+
+export { fetchBlockContent, updateBlockContent }

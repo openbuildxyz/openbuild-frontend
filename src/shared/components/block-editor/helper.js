@@ -14,6 +14,24 @@
  * limitations under the License.
  */
 
-export { default as useBindWallet } from './useBindWallet'
-export { default as useSignInWithWallet } from './useSignInWithWallet'
-export { default as useViewingSelf } from './useViewingSelf'
+import { isPlainObject } from 'lodash'
+
+const BLOCK_DATA_SPEC_VERSION = '0.0.1'
+
+function getInitialBlockData() {
+  return { type: 'doc', content: [] }
+}
+
+function isBlockDataValid(data) {
+  return isPlainObject(data) && data.type === 'doc' && Array.isArray(data.content)
+}
+
+function unwrapBlockData({ data }) {
+  return data
+}
+
+function wrapBlockData(data) {
+  return { version: BLOCK_DATA_SPEC_VERSION, data }
+}
+
+export { getInitialBlockData, isBlockDataValid, wrapBlockData, unwrapBlockData }
