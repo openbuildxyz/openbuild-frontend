@@ -33,15 +33,6 @@ import { createSuggestionItems, Command, renderItems } from 'novel/extensions'
 
 const suggestionItems = createSuggestionItems([
   {
-    title: 'Send Feedback',
-    description: 'Let us know how we can improve.',
-    icon: <MessageSquarePlus size={18} />,
-    command: ({ editor, range }) => {
-      editor.chain().focus().deleteRange(range).run()
-      window.open('/feedback', '_blank')
-    },
-  },
-  {
     title: 'Text',
     description: 'Just start typing with plain text.',
     searchTerms: ['p', 'paragraph'],
@@ -135,6 +126,7 @@ const suggestionItems = createSuggestionItems([
           const file = input.files[0]
           const pos = editor.view.state.selection.from
           console.log(file, editor.view, pos)
+          alert('Isn\'t implemented yet.')
         }
       }
       input.click()
