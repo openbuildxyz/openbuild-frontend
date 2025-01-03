@@ -17,7 +17,8 @@
 import { useState, useEffect } from 'react'
 import { useDebouncedCallback } from 'use-debounce'
 
-import { isBlockDataValid } from '../../../block/helper'
+import { isBlockDataValid } from '@/components/block-editor'
+
 import { useViewingSelf } from '../../../auth/hooks'
 import PublishedCourseListView from '../../../course/views/published-course-list'
 import PublishedChallengeListView from '../../../challenge/views/published-challenge-list'

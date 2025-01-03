@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { unwrapBlockData, wrapBlockData } from '../block/helper'
+import { unwrapBlockData, wrapBlockData } from '@/components/block-editor'
 
 const defaultBlockContent = {
   type: 'doc',

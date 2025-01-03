@@ -149,6 +149,7 @@ const suggestionItems = createSuggestionItems([
       const videoLink = prompt('Please enter Youtube Video Link')
       //From https://regexr.com/3dj5t
       const ytregex = new RegExp(
+        // eslint-disable-next-line no-useless-escape
         /^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$/,
       )
 
