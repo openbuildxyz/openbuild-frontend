@@ -43,7 +43,7 @@ function QuizQuestionListView({ id }) {
   return (
     <QuizLimiterWidget id={id} type={quizIndex?.limit?.limit_type} check={!!quizIndex}>
       <div className="min-h-screen bg-gray text-white flex">
-        <div className="max-w-[520px] px-14 py-9 flex flex-col justify-between">
+        <div className="max-w-[520px] px-14 py-9 hidden md:flex flex-col justify-between">
           <div>
             <BrandLogo className="h-9" />
             <div className="mt-14 mb-6 flex items-center">
@@ -53,7 +53,7 @@ function QuizQuestionListView({ id }) {
           </div>
           <Image src="" defaultSrc={quizEco} alt="" />
         </div>
-        <div className="bg-white text-gray flex-1 px-14 py-10 relative">
+        <div className="bg-white text-gray flex-1 p-6 pb-[128px] md:px-14 md:py-10 relative">
           <QuizComponents id={id} data={data} />
         </div>
       </div>

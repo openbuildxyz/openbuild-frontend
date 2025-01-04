@@ -81,7 +81,7 @@ export function CourseCard({ data, target, from }) {
       <CardTitle img={data.base.course_series_img} tags={tags} type={params.type} />
 
       <div className="border-b border-gray-400 px-6 py-4 flex-1">
-        <h6 className="h-12 text-lg font-bold leading-6 line-clamp-2 mb-2">
+        <h6 className="max-h-12 text-lg font-bold leading-6 line-clamp-2 mb-2">
           <ContentEditable
             html={HTMLDecode ? HTMLDecode(data?.base?.course_series_title) : ''} // innerHTML of the editable div
             disabled={true}
