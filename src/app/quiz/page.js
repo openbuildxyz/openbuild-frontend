@@ -103,7 +103,7 @@ export default function Quiz() {
                 className={`w-5 h-5 flex-shrink-0 ${isNotLast ? '' : 'opacity-[.2]'}`} 
                 onClick={()=>{
                   if(isNotLast){
-                    setActiveStep(k+1)
+                    setActiveStep(k+1);
                   }
                 }}
               />
