@@ -46,21 +46,21 @@ export function OPagination({ total, changeCallback }) {
     return Math.ceil(total / PAGE_SIZE)
   }, [total])
 
-  const textItemRender = (current, type, element) => {
-    if (type === 'prev' && current !== 0) {
-      return 'Previous';
-    }
-    if (type === 'next') {
-      return 'Next';
-    }
-    return element;
-  };
+  // const textItemRender = (current, type, element) => {
+  //   if (type === 'prev' && current !== 0) {
+  //     return 'Previous';
+  //   }
+  //   if (type === 'next') {
+  //     return 'Next';
+  //   }
+  //   return element;
+  // };
 
-  <Pagination total={100} itemRender={textItemRender} />
+  // <Pagination total={100} itemRender={textItemRender} />
 
   return total > 0 ? (
     <div className="flex justify-end">
-      <div className="flex mt-4">
+      <div className="flex mt-5 md:mt-4">
         {
           currentPage > 1 && <Button
             variant="light"
