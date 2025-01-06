@@ -19,15 +19,15 @@
 import { SvgIcon } from '@/components/Image'
 
 export default function LoginTypeSwitcher({ loginType, handleChangeLoginType }) {
-	return (
-		<p className="flex mt-4 text-sm">
-			Switch to {loginType === 'verifyCode' ? 'password' : 'verify code'} login
-			<SvgIcon
-				name="change"
-				size={14}
-				className="ml-2 cursor-pointer"
-				onClick={handleChangeLoginType}
-			/>
-		</p>
-	)
+  return (
+    <p className="flex mt-4 text-sm">
+      Switch to {loginType === 'verifyCode' ? 'password' : 'verify code'} login
+      <SvgIcon
+        name="change"
+        size={14}
+        className="ml-2 cursor-pointer"
+        onClick={handleChangeLoginType}
+      />
+    </p>
+  )
 }
