@@ -82,7 +82,7 @@ function TeamProfileView({ data, activities }) {
   const viewingSelf = useViewingSelf(data?.base.user_id)
 
   useEffect(() => {
-    fetchBlockContent().then(res => {
+    fetchBlockContent(data?.base.user_id).then(res => {
       if (res.success) {
         setBlockContent(res.data)
       }

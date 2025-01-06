@@ -17,8 +17,8 @@
 import httpClient from '@/utils/http'
 import { unwrapBlockData, wrapBlockData } from '@/components/block-editor'
 
-async function fetchBlockContent() {
-  return httpClient.get('/user/devplaza').then(res => res.success ? ({
+async function fetchBlockContent(uid) {
+  return httpClient.get('/user/devplaza', { params: { uid } }).then(res => res.success ? ({
     ...res,
     data: res.data ? unwrapBlockData(res.data.body) : null,
   }) : res)
