@@ -18,12 +18,16 @@ import '@/styles/prosemirror.css'
 
 import { isFunction } from 'lodash'
 import clsx from 'clsx'
-import { EditorRoot, EditorContent, EditorCommand, EditorCommandEmpty, EditorCommandList, EditorCommandItem } from 'novel'
+import {
+  EditorRoot, EditorContent,
+  EditorCommand, EditorCommandEmpty, EditorCommandList, EditorCommandItem,
+} from 'novel'
 import { ImageResizer, handleCommandNavigation } from 'novel/extensions'
 
 import { isBlockDataValid } from './helper'
 import { defaultExtensions } from './extensions'
 import { slashCommand, suggestionItems } from './slash'
+import BlockEditorBubble from './bubble'
 
 const extensions = [...defaultExtensions, slashCommand]
 
@@ -73,6 +77,7 @@ function BlockEditor({ className, data, onChange, editable = false }) {
               ))}
             </EditorCommandList>
           </EditorCommand>
+          <BlockEditorBubble className="flex w-fit max-w-[90vw] overflow-hidden rounded-md border border-muted bg-background shadow-xl" />
         </EditorContent>
       </EditorRoot>
     </div>
