@@ -16,7 +16,7 @@
 
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { isEmpty } from 'lodash'
 import clsx from 'clsx'
 import { useSearchParams } from 'next/navigation'
@@ -25,12 +25,13 @@ import { signIn } from 'next-auth/react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline'
-import isEmail from 'validator/lib/isEmail'
 
-import { signin, sendCode, emailCodeLogin } from '#/services/auth'
+import { signin, emailCodeLogin } from '#/services/auth'
 import { wrapOnChange } from '@/utils/form'
 import Loader from '@/components/Loader'
-import { SvgIcon } from '@/components/Image'
+
+import LoginTypeSwitcher from './components/LoginTypeSwitcher'
+import VerifyCodeLogin from './components/VerifyCodeLogin'
 
 export function NavButtonStyle() {
   return 'h-12 relative rounded-t-xl text-gray-100 px-6 [&.active]:bg-gray-1400 [&.active]:!text-gray'
@@ -42,8 +43,6 @@ export default function Login() {
   const [loading, setLoading] = useState(false)
   const [passwordType, setPasswordType] = useState('password')
   const [loginType, setLoginType] = useState('verifyCode')
-  const [cdMss, setCdMss] = useState(0)
-  const [sendLoading, setSendLoading] = useState(false)
 
   const {
     register,
@@ -55,13 +54,6 @@ export default function Login() {
   } = useForm()
   const watchAllFields = watch()
 
-  useEffect(() => {
-    if (cdMss > 0) {
-      const timerId = setInterval(() => setCdMss(cdMss - 1), 1000)
-      return () => clearInterval(timerId)
-    }
-  }, [cdMss])
-
   const handleChangeLoginType = () => {
     setLoginType((prevLoginType) => {
       const loginType = prevLoginType === 'verifyCode' ? 'password' : 'verifyCode'
@@ -71,30 +63,9 @@ export default function Login() {
     })
   }
 
-  const handleSendCode = async () => {
-    if (!watchAllFields.Email || !isEmail(watchAllFields.Email)) {
-      toast.error('Please enter a valid email address.')
-      return
-    }
-
-    setSendLoading(true)
-    try {
-      const res = await sendCode(watchAllFields.Email, 'bind')
-      if (res.code === 200) {
-        setCdMss(59)
-        toast.success('Code sent successfully!')
-      } else {
-        toast.error(res.message)
-      }
-    } catch (error) {
-      toast.error('Failed to send code.')
-    } finally {
-      setSendLoading(false)
-    }
-  }
-
   const onSubmit = async data => {
     setLoading(true)
+
     try {
       const response =
         loginType === 'verifyCode'
@@ -138,11 +109,6 @@ export default function Login() {
   })
   pwdField.onChange = wrapOnChange(pwdField.onChange)
 
-  const verifyCodeField = register('VerifyCode', {
-    required: loginType === "verifyCode" ? true : false,
-  })
-  verifyCodeField.onChange = wrapOnChange(verifyCodeField.onChange)
-
   return (
     <>
       <div>
@@ -158,28 +124,11 @@ export default function Login() {
               {...emailField}
             />
             {loginType === 'verifyCode' ? (
-              <div className="mt-[2px] flex items-center bg-[#f1f1f1] pr-3">
-                <input
-                  type="text"
-                  className={
-                    "h-12 w-full flex-1 border-0 bg-[#f1f1f1] px-6 text-sm placeholder:text-gray-1100"
-                  }
-                  placeholder="Verify Code"
-                  {...verifyCodeField}
-                />
-                {cdMss === 0 ? (
-                  <button
-                    type="button"
-                    disabled={sendLoading}
-                    onClick={handleSendCode}
-                    className="w-[76px] text-sm hover:opacity-80 disabled:opacity-20"
-                  >
-                    {sendLoading ? 'Sending...' : 'Send Code'}
-                  </button>
-                ) : (
-                  <p className="text-sm leading-[48px]">{cdMss}s</p>
-                )}
-              </div>
+              <VerifyCodeLogin
+                register={register}
+                loginType={loginType}
+                email={watchAllFields.Email}
+              />
             ) : (
               <div className="mt-[2px] flex items-center bg-[#f1f1f1] pr-3 ">
                 <input
@@ -220,15 +169,10 @@ export default function Login() {
             </p>
           )}
 
-          <p className="flex mt-4 text-sm">
-            Switch to {loginType === 'verifyCode' ? 'password' : 'verify code'} login
-            <SvgIcon
-              name="change"
-              size={14}
-              className="ml-2 cursor-pointer"
-              onClick={handleChangeLoginType}
-            />
-          </p>
+          <LoginTypeSwitcher
+            loginType={loginType}
+            handleChangeLoginType={handleChangeLoginType}
+          />
 
           {loginType == 'password' && (
             <div className="mt-6 text-center">
