@@ -147,11 +147,9 @@ export default function Login() {
             <button
               type="submit"
               disabled={
-                watchAllFields.Email === '' ||
-                (loginType === "password" && watchAllFields.Password === '') ||
-                (loginType === 'verifyCode' &&
-                  watchAllFields.VerifyCode === '') ||
-                isEmpty(watchAllFields) ||
+                !watchAllFields.Email ||
+                (loginType === "password" && !watchAllFields.Password) ||
+                (loginType === "verifyCode" && !watchAllFields.VerifyCode) ||
                 loading
               }
               className="flex items-center justify-center w-full h-12 text-white rounded-t-none rounded-xl bg-gray disabled:opacity-20"
