@@ -14,16 +14,18 @@
  * limitations under the License.
  */
 
+import httpClient from '@/utils/http'
 import { unwrapBlockData, wrapBlockData } from '@/components/block-editor'
 
 async function fetchBlockContent() {
-  return Promise.resolve({ success: true, data: unwrapBlockData({ data: null }) })
+  return httpClient.get('/user/devplaza').then(res => res.success ? ({
+    ...res,
+    data: res.data ? unwrapBlockData(res.data.body) : null,
+  }) : res)
 }
 
 async function updateBlockContent(data) {
-  console.log('block content updated', wrapBlockData(data))
-
-  return Promise.resolve({ success: true })
+  return httpClient.post('/user/devplaza', { body: wrapBlockData(data) })
 }
 
 export { fetchBlockContent, updateBlockContent }
