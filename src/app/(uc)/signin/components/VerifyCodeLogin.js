@@ -24,64 +24,64 @@ import { wrapOnChange } from '@/utils/form'
 import { sendCode } from '#/services/auth'
 
 export default function VerifyCodeLogin({ register, loginType, email }) {
-	const [sendLoading, setSendLoading] = useState(false)
-	const [countdown, setCountdown] = useState(0)
+  const [sendLoading, setSendLoading] = useState(false)
+  const [countdown, setCountdown] = useState(0)
 
-	useEffect(() => {
-		if (countdown > 0) {
-			const timerId = setInterval(() => setCountdown(countdown - 1), 1000)
-			return () => clearInterval(timerId)
-		}
-	}, [countdown])
+  useEffect(() => {
+    if (countdown > 0) {
+      const timerId = setInterval(() => setCountdown(countdown - 1), 1000)
+      return () => clearInterval(timerId)
+    }
+  }, [countdown])
 
-	const verifyCodeField = register('VerifyCode', {
-		required: loginType === 'verifyCode' ? true : false,
-	})
-	verifyCodeField.onChange = wrapOnChange(verifyCodeField.onChange)
+  const verifyCodeField = register('VerifyCode', {
+    required: loginType === 'verifyCode' ? true : false,
+  })
+  verifyCodeField.onChange = wrapOnChange(verifyCodeField.onChange)
 
-	const handleSendCode = async () => {
-		if (!email || !isEmail(email)) {
-			toast.error('Please enter a valid email address.')
-			return
-		}
-		setSendLoading(true)
+  const handleSendCode = async () => {
+    if (!email || !isEmail(email)) {
+      toast.error('Please enter a valid email address.')
+      return
+    }
+    setSendLoading(true)
 
-		try {
-			const res = await sendCode(email, 'bind')
-			if (res.code === 200) {
-				setCountdown(59)
-				toast.success('Code sent successfully!')
-			} else {
-				toast.error(res.message)
-			}
-		} catch (error) {
-			toast.error('Failed to send code.')
-		} finally {
-			setSendLoading(false)
-		}
-	}
+    try {
+      const res = await sendCode(email, 'bind')
+      if (res.code === 200) {
+        setCountdown(59)
+        toast.success('Code sent successfully!')
+      } else {
+        toast.error(res.message)
+      }
+    } catch (error) {
+      toast.error('Failed to send code.')
+    } finally {
+      setSendLoading(false)
+    }
+  }
 
-	return (
-		<div className="mt-[2px] flex items-center bg-[#f1f1f1] pr-3">
-			<input
-				type="text"
-				className="h-12 w-full flex-1 border-0 bg-[#f1f1f1] px-6 text-sm placeholder:text-gray-1100"
-				placeholder="Verify Code"
-				{...verifyCodeField}
-			/>
-			{countdown === 0 ? (
-				<button
-					type="button"
-					disabled={sendLoading}
-					onClick={handleSendCode}
-					className="w-[76px] text-sm hover:opacity-80 disabled:opacity-20"
-				>
-					{sendLoading ? 'Sending...' : 'Send Code'}
-				</button>
-			) : (
-				<p className="text-sm leading-[48px]">{countdown}s</p>
-			)}
-		</div>
-	)
+  return (
+    <div className="mt-[2px] flex items-center bg-[#f1f1f1] pr-3">
+      <input
+        type="text"
+        className="h-12 w-full flex-1 border-0 bg-[#f1f1f1] px-6 text-sm placeholder:text-gray-1100"
+        placeholder="Verify Code"
+        {...verifyCodeField}
+      />
+      {countdown === 0 ? (
+        <button
+          type="button"
+          disabled={sendLoading}
+          onClick={handleSendCode}
+          className="w-[76px] text-sm hover:opacity-80 disabled:opacity-20"
+        >
+          {sendLoading ? 'Sending...' : 'Send Code'}
+        </button>
+      ) : (
+        <p className="text-sm leading-[48px]">{countdown}s</p>
+      )}
+    </div>
+  )
 }
 
