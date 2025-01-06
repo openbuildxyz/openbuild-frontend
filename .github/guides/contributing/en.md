@@ -33,8 +33,8 @@ The entire project relies on [React](https://react.dev/), [Next.js](https://next
   - [Heroicons](https://heroicons.com/)
   - [Headless UI](https://headlessui.com/v1)
   - [daisyUI](https://daisyui.com/)
-  - [styled-components](https://styled-components.com/)
   - [NextUI](https://nextui.org/)
+  - [Novel](https://novel.sh)
   - [ByteMD](https://bytemd.js.org/)
   - [SurveyJS](https://surveyjs.io/)
 - Animation
