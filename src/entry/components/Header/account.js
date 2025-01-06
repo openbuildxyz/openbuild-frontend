@@ -54,10 +54,10 @@ export function Account() {
 
   return (
     <div className="flex">
-      {(status === 'loading' || (status === 'authenticated' && info === null)) && <div className="flex flex-col gap-4 w-40">
+      {(status === 'loading' || (status === 'authenticated' && info === null)) && <div className="flex flex-col gap-4 w-40 max-md:w-auto">
         <div className="flex gap-1 items-center">
           <div className="skeleton w-8 h-8 rounded-full shrink-0"></div>
-          <div className="flex flex-col gap-1">
+          <div className="flex flex-col gap-1 max-md:hidden">
             <div className="skeleton h-4 w-20 rounded-md"></div>
             <div className="skeleton h-4 w-24 rounded-md"></div>
           </div>
@@ -75,7 +75,7 @@ export function Account() {
                 src={mediaUrl + info.base.user_avatar}
               />
             )}
-            <div className="mr-8">
+            <div className="mr-8 max-md:hidden">
               <p className="text-sm font-semibold">{info.base.user_nick_name}</p>
               <p className="text-xs mt-[2px]">
                 <span className="opacity-40">{shortenAddress(address)}</span>
