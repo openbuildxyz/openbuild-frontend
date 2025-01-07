@@ -36,6 +36,7 @@ import DefaultLayout from '../entry/layouts/default'
 import ClientEntry from '../entry'
 
 export const metadata = {
+  metadataBase: new URL('https://openbuild.xyz'),
   title: {
     default: siteConfig.name,
     template: `%s | ${siteConfig.name}`,

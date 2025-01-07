@@ -65,6 +65,20 @@ export function Share({ img, title, type, id }) {
     }
   } : undefined
 
+  const combineUrl = (type, user_code) => {
+    let baseUrl = ''
+    if(type === 'facebook'){
+      baseUrl = `https://www.facebook.com/sharer/sharer.php?u=${window.location.href}`
+    }else {
+      baseUrl = `https://twitter.com/intent/tweet?&url=${window.location.href}`
+    }
+    
+    if (user_code) {
+      return `${baseUrl}?code=${user_code}`
+    }
+    return baseUrl
+  }
+
   return <>
     <div onClick={() => setOpen(true)} className={clsx('inline-flex items-center py-2 px-4 text-sm rounded cursor-pointer hover:opacity-80 transition-opacity', {
       'bg-[#EFEFEF]': type !== 'career_path',
@@ -92,8 +106,8 @@ export function Share({ img, title, type, id }) {
           />
         </h5>
         <div className="flex items-center justify-center gap-4">
-          <Image className="cursor-pointer" src={FacebookSvg} alt=""  onClick={() => window.open(`https://www.facebook.com/sharer/sharer.php?u=${window.location.href}?code=${user?.base.user_code}`)} />
-          <Image className="cursor-pointer" src={XSvg} alt="" onClick={() => window.open(`https://twitter.com/intent/tweet?&url=${window.location.href}?code=${user?.base.user_code}`)} />
+          <Image className="cursor-pointer" src={FacebookSvg} alt=""  onClick={() => window.open(combineUrl('facebook', user?.base.user_code))} />
+          <Image className="cursor-pointer" src={XSvg} alt="" onClick={() => window.open(combineUrl('x', user?.base.user_code))} />
         </div>
         <p className="mt-6 text-sm opacity-40 w-full pl-[30px]">or use your invitation code</p>
         <div className="flex bg-[#F3F3F3] rounded h-12 items-center justify-between px-4 w-[320px] mt-3 mb-9">
