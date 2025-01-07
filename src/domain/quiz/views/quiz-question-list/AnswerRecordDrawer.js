@@ -110,8 +110,8 @@ function ModalCloseIcon(props = {}) {
   return (
     <svg {...props} width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
       <g opacity="0.6">
-      <path d="M14 14L22 22" stroke="#1A1A1A" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M14 22L22 14" stroke="#1A1A1A" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M14 14L22 22" stroke="#1A1A1A" stroke-linecap="round" strokeLinejoin="round"/>
+      <path d="M14 22L22 14" stroke="#1A1A1A" stroke-linecap="round" strokeLinejoin="round"/>
       </g>
       <path d="M35.5 12C35.5 5.64873 30.3513 0.5 24 0.5H12C5.64872 0.5 0.5 5.64873 0.5 12V24C0.5 30.3513 5.64873 35.5 12 35.5H24C30.3513 35.5 35.5 30.3513 35.5 24V12Z" stroke="#F1F1F1"/>
     </svg>

@@ -51,7 +51,7 @@ export default function Quiz({params}) {
       quiz
       onReset={() => setCheckLimit(false)}
     >
-      <div className="flex md:block flex-col gap-y-4 h-[250px] md:h-[360px] bg-cover bg-center bg-no-repeat relative" style={{ backgroundImage: `url(${QuizBannerPic.src})`,  }}>
+      <div className="max-md:flex max-md:flex-col max-md:gap-y-4 h-[250px] md:h-[360px] bg-cover bg-center bg-no-repeat relative" style={{ backgroundImage: `url(${QuizBannerPic.src})`,  }}>
         <div className="md:absolute flex items-center mt-[15px] md:mt-6 mx-4 md:mx-14">
           <span
             onClick={() => window.history.back()}
@@ -78,9 +78,9 @@ export default function Quiz({params}) {
                 src={mediaUrl + data?.quiz_user?.user_avatar}
               />
             )}
-            <p className="opacity-90 text-[18px] md:text-inherit">by <a href={`/u/${data?.quiz_user?.user_handle}`}><strong>{data?.quiz_user?.user_nick_name}</strong></a></p>
+            <p className="opacity-90 max-md:text-[18px]">by <a href={`/u/${data?.quiz_user?.user_handle}`}><strong>{data?.quiz_user?.user_nick_name}</strong></a></p>
         </div>
-        <h1 className="text-[28px] md:text-[42px] leading-[32px] md:leading-[52px] text-center max-w-[380px] md:max-w-[692px] mx-auto">{data?.title}</h1>
+        <h1 className="text-[28px] md:text-[42px] leading-[32px] md:leading-[52px] text-center max-md:px-6 md:max-w-[692px] mx-auto">{data?.title}</h1>
       </div>
       <div className="max-w-[800px] mx-auto bg-white rounded-xl p-6 md:px-9 md:pt-10 md:pb-6  relative z-[2] md:top-[-155px]">
         <h5 className="text-lg mb-4 md:mb-3">Quiz Describe</h5>
@@ -89,7 +89,7 @@ export default function Quiz({params}) {
         </p>
         <Button
           onClick={() => setCheckLimit(true)}
-          className="mt-4 md:mt-6 mb-9 md:mb-10 !font-bold px-[64px] !text-base w-full md:w-auto">
+          className="mt-4 md:mt-6 mb-9 md:mb-10 !font-bold px-[64px] !text-base max-md:w-full">
             Challenge now
         </Button>
         <div>
@@ -116,9 +116,9 @@ export default function Quiz({params}) {
                       alt={'user_avatar'}
                       src={mediaUrl + i?.user?.user_avatar}
                     />
-                    <p className="text-[12px] leading-[20px] md:text-sm"><a href={`/u/${i?.user?.user_handle}`}>{i?.user?.user_nick_name}</a></p>
+                    <p className="text-[12px] max-md:leading-[20px] md:text-sm"><a href={`/u/${i?.user?.user_handle}`}>{i?.user?.user_nick_name}</a></p>
                   </div>
-                  <p className='text-[12px] leading-[20px] md:text-inherit md:leading-inherit'>{i.score}</p>
+                  <p className="max-md:text-[12px] max-md:leading-[24px]">{i.score}</p>
                 </li>
               ))}
             </ul>
@@ -126,8 +126,8 @@ export default function Quiz({params}) {
           <p className="text-sm text-center mt-6"><strong>{data?.user_num}</strong> builders have participated</p>
         </div>
       </div>
-      <div className="max-w-[800px] mt-9 md:mt-0 mx-6 md:mx-auto relative md:top-[-105px] pb-14 md:pb-0">
-        <h3 className="text-[18px] leading-[24px] md:text-lg mb-6">Related courses</h3>
+      <div className="max-w-[800px] max-md:mt-9 mx-6 md:mx-auto relative md:top-[-105px] max-md:pb-14">
+        <h3 className="text-[18px] max-md:leading-[24px] md:text-lg mb-6">Related courses</h3>
         <div className="grid gap-y-6 md:gap-4 md:grid-cols-2">
           {coursesList?.list?.map(i => <CourseCard data={i} key={`open-courses-${i.base.course_series_id}`} />)}
         </div>

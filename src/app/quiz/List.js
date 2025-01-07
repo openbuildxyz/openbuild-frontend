@@ -32,7 +32,7 @@ import Input from '@/components/Input'
 function List({data}) {
   const mediaUrl = useMediaUrl()
   return (
-    <Link href={`/quiz/${data.id}`} className="p-6 bg-white flex flex-col md:flex-row gap-4 md:gap-9 mb-4 rounded-xl transition-all hover:shadow-[0_4px_24px_rgba(0,0,0,0.08)]">
+    <Link href={`/quiz/${data.id}`} className="p-6 bg-white flex max-md:flex-col gap-4 md:gap-9 mb-4 rounded-xl transition-all hover:shadow-[0_4px_24px_rgba(0,0,0,0.08)]">
       <div className="relative">
         <Image width={370} height={200} src={mediaUrl + data?.img} alt="" className="rounded-xl" />
 
@@ -41,7 +41,7 @@ function List({data}) {
         <div>
           <h3 className="text-2xl mb-2">{data?.title}</h3>
           <p className="text-base md:mb-2 opacity-60 md:line-clamp-2">{data?.describe}</p>
-          {data?.reward_text && <div className="flex w-fit pr-2 items-center h-6 bg-[rgba(239,78,22,0.1)] rounded-full mt-2 md:mt-0">
+          {data?.reward_text && <div className="flex w-fit pr-2 items-center h-6 bg-[rgba(239,78,22,0.1)] rounded-full max-md:mt-2">
             <div className="w-6 h-6 rounded-full flex items-center justify-center bg-[#EF4E16] mr-2">
               <Image width={16} height={16} src={TrophiesSvg} alt="Trophies" />
             </div>
@@ -83,7 +83,7 @@ export function QuizList() {
   return (
     <>
       <div className="md:flex md:justify-between md:items-center mb-8 md:mb-7">
-        <h1 className="text-[24px] md:text-[32px] mb-4 md:mb-0">Time to prove your Web3 skills</h1>
+        <h1 className="text-[24px] md:text-[32px] max-md:leading-[40px] max-md:mb-4">Time to prove your Web3 skills</h1>
         <>
           <Input
             defaultValue={query}
