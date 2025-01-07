@@ -44,7 +44,7 @@ export async function generateMetadata({ params }) {
       card: 'summary_large_image',
       title: data?.base?.course_series_title,
       description: data?.base?.course_series_summary,
-      images: previousImages,
+      images: [previousImages],
     },
   }
 }
