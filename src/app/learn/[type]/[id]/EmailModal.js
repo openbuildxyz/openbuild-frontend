@@ -65,7 +65,7 @@ export function EmailModal({ open, closeModal, successCallback, data }) {
 
   return (
     <Modal isOpen={open} closeModal={closeModal}>
-      <div className="max-h-[500px] overflow-auto">
+      <div className="max-h-[500px]">
         <div>
           <input
             type="text"

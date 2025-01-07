@@ -14,6 +14,9 @@
  * limitations under the License.
  */
 
-export { default as useBindWallet } from './useBindWallet'
-export { default as useSignInWithWallet } from './useSignInWithWallet'
-export { default as useViewingSelf } from './useViewingSelf'
+import { clsx } from 'clsx'
+import { twMerge } from 'tailwind-merge'
+
+export function cn(...inputs) {
+  return twMerge(clsx(inputs))
+}

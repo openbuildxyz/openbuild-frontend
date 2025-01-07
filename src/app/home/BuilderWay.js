@@ -64,7 +64,7 @@ function CardVerticalSlider({data, type, href}) {
         (type === 'Community' && mediaUrl) ? <div key={`BuilderWay-CardVerticalSlider-${k}`} className="!flex items-center">
           <Image className={clsx('mr-[6px] border-1 rounded-full object-cover aspect-square border-white')} width={16} height={16} src={mediaUrl + i.user_avatar} alt="" />
           <p>
-            <a className="underline" href={`/u/${i.user_handle}`}>{i.user_nick_name}</a>
+            {i.user_handle ? <a className="underline" href={`/u/${i.user_handle}`}>{i.user_nick_name}</a> : <span className='underline'>{i.user_nick_name}</span>}
           </p>
 
         </div> : <div  key={`BuilderWay-CardVerticalSlider-${k}`}>

@@ -18,6 +18,10 @@ import { merge } from 'lodash'
 
 import { legacyClient } from '@/utils/http'
 
+async function fetchOne(id) {
+  return legacyClient.get(`/learn/course/opencourse/${id}`)
+}
+
 async function fetchPublishedCourseList(params = {}) {
   const { userId, sort, ...others } = params
 
@@ -41,4 +45,4 @@ async function fetchEnrolledCourseList(params = {}) {
   })
 }
 
-export { fetchPublishedCourseList, fetchEnrolledCourseList }
+export { fetchOne, fetchPublishedCourseList, fetchEnrolledCourseList }

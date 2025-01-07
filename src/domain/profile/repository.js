@@ -14,6 +14,18 @@
  * limitations under the License.
  */
 
-export { default as useBindWallet } from './useBindWallet'
-export { default as useSignInWithWallet } from './useSignInWithWallet'
-export { default as useViewingSelf } from './useViewingSelf'
+import httpClient from '@/utils/http'
+import { unwrapBlockData, wrapBlockData } from '@/components/block-editor'
+
+async function fetchBlockContent(uid) {
+  return httpClient.get('/user/devplaza', { params: { uid } }).then(res => res.success ? ({
+    ...res,
+    data: res.data ? unwrapBlockData(res.data.body) : null,
+  }) : res)
+}
+
+async function updateBlockContent(data) {
+  return httpClient.post('/user/devplaza', { body: wrapBlockData(data) })
+}
+
+export { fetchBlockContent, updateBlockContent }

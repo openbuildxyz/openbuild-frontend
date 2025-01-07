@@ -12,7 +12,7 @@
 
 This project is a part of [OpenBuild Ecosystem](https://openbuildxyz.github.io/eco/), and hosts the front-end codebase of [OpenBuild.xyz](https://openbuild.xyz).
 
-## Quick start
+## Quick Start
 
 For more information, see [here](https://openbuildxyz.github.io/openbuild-frontend/guides/#environment-setup).
 
@@ -27,13 +27,19 @@ For more information, see [here](https://openbuildxyz.github.io/openbuild-fronte
 pnpm install
 ```
 
-### Copy Environment Variables File
+### Setting Environment Variables
 
 ```bash
 cp .env.example .env.local
 ```
 
-### Run
+then
+
+```bash
+pnpm dlx auth secret
+```
+
+### Run 🚀
 
 ```bash
 pnpm start
