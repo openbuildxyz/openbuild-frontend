@@ -45,7 +45,7 @@ const Steps = [
 
 export default function Quiz() {
   const [activeStep, setActiveStep] = useState(0)
-  
+
   useEffect(() => {
     Aos.init({
       delay: 100, // values from 0 to 3000, with step 50ms
@@ -84,8 +84,8 @@ export default function Quiz() {
           const isFirst = k === 0
           return (
             <div key={`quiz-step-${k}`} className={`${activeStep === k ? 'flex' : 'hidden'} gap-[20px] items-center`}>
-              <ArrowRightIcon 
-                className={`w-5 h-5 rotate-180 flex-shrink-0 ${isFirst ? 'opacity-[.2]':''}`} 
+              <ArrowRightIcon
+                className={`w-5 h-5 rotate-180 flex-shrink-0 ${isFirst ? 'opacity-[.2]':''}`}
                 onClick={() => {
                   if(k > 0){
                     setActiveStep(k-1)
@@ -99,8 +99,8 @@ export default function Quiz() {
                   <h3>{i.name}</h3>
                 </div>
               </div>
-              <ArrowRightIcon 
-                className={`w-5 h-5 flex-shrink-0 ${isNotLast ? "" : "opacity-[.2]"}`} 
+              <ArrowRightIcon
+                className={`w-5 h-5 flex-shrink-0 ${isNotLast ? '' : 'opacity-[.2]'}`}
                 onClick={()=>{
                   if(isNotLast){
                     setActiveStep(k+1)
