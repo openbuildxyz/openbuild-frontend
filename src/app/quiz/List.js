@@ -41,7 +41,7 @@ function List({data}) {
         <div>
           <h3 className="text-2xl mb-2">{data?.title}</h3>
           <p className="text-base md:mb-2 opacity-60 md:line-clamp-2">{data?.describe}</p>
-          {data?.reward_text && <div className="flex w-fit pr-2 items-center h-6 bg-[rgba(239,78,22,0.1)] rounded-full max-md:mt-2">
+          {data?.reward_text && <div className="flex w-fit pr-2 items-center h-6 bg-[rgba(239,78,22,0.1)] rounded-full max-md:mt-4">
             <div className="w-6 h-6 rounded-full flex items-center justify-center bg-[#EF4E16] mr-2">
               <Image width={16} height={16} src={TrophiesSvg} alt="Trophies" />
             </div>
