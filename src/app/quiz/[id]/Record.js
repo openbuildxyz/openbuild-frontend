@@ -46,7 +46,7 @@ export function Record({id, openModal, closeModal}) {
             <div className="max-h-[300px] mt-2 md:mt-4 overflow-y-auto">
               {data?.map((i, k) => (
                 <div key={`challenge-record-${k}`} className=" mb-4 ">
-                  <ul className="grid md:grid-cols-4 gap-y-4 md:gap-y-0 items-center">
+                  <ul className="grid md:grid-cols-4 max-md:gap-y-4 md:gap-x-4 items-center">
                     <li className="md:col-span-2">
                       <Link href={`/quiz/${i.quiz_id}`} className="text-sm font-bold hover:underline">{i.quiz_info.title}</Link>
                       <div className="flex items-center mt-1">
@@ -65,7 +65,7 @@ export function Record({id, openModal, closeModal}) {
                       <div>
                         <p className='md:hidden opacity-60 mb-1'>Time</p>
                         <p>{formatTime(i.created_at * 1000, 'YYYY-MM-DD hh:mm:ss')}&nbsp;
-                          <span className='hidden md:inline'>{formatTimeMeridiem(i.created_at * 1000)}  
+                          <span className='max-md:hidden'>{formatTimeMeridiem(i.created_at * 1000)}  
                             <span className="text-xs">
                               (UTC+{fromUtcOffset()})
                             </span>
@@ -77,7 +77,7 @@ export function Record({id, openModal, closeModal}) {
                         <p className='text-right'><strong>{i.score}</strong></p>
                       </div>
                     </li>
-                    <li className="hidden md:block text-right">
+                    <li className="max-md:hidden text-right">
                       <strong>{i.score}</strong>
                     </li>
                   </ul>

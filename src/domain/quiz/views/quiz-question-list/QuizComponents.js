@@ -80,14 +80,14 @@ export function QuizComponents({id, data}) {
       <div className="flex justify-center">
         <div className="md:w-[680px]">
           <QuizCore quiz={quiz} setQuiz={setQuiz} page={page} submitData={submitData} />
-          <div className="absolute bottom-0 md:bottom-14 left-0 md:left-auto right-0 md:right-auto md:flex md:items-center md:justify-between md:w-[680px]">
-            <div className="flex items-center justify-center md:justify-normal mb-4 md:mb-0">
+          <div className="absolute bottom-0 md:bottom-14 max-md:left-0 max-md:right-0 md:flex md:items-center md:justify-between md:w-[680px]">
+            <div className="flex items-center max-md:justify-center max-md:mb-4">
               <progress class="progress w-56" value={_progress.toFixed(0)} max="100"></progress>
               <span className="text-xs ml-2">{_progress.toFixed(0)}%</span>
             </div>
-            <div className="flex items-center h-24 md:h-auto px-6 md:px-0 shadow-[0_-4px_14px_rgba(0,0,0,0.08)] md:shadow-none">
+            <div className="flex items-center max-md:h-24 max-md:px-6 max-md:shadow-[0_-4px_14px_rgba(0,0,0,0.08)]">
               {page > 1 && <Button variant="outlined" onClick={() => setPage(page - 1)}><ChevronLeftIcon className="w-5 h-5" /></Button>}
-              {page < data?.quiz_body?.length && <Button className="ml-2 px-12 flex-1 md:flex-none" onClick={() => setPage(page + 1)}>Next</Button>}
+              {page < data?.quiz_body?.length && <Button className="ml-2 px-12 max-md:flex-1" onClick={() => setPage(page + 1)}>Next</Button>}
             </div>
           </div>
         </div>

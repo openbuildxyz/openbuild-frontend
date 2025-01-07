@@ -26,7 +26,7 @@ export function QuizCore({
 }) {
   return quiz && quiz.length > 0 ? (
     <>
-      <p className="text-[14px] leading-[32px] md:text-sm mb-3 md:mb-4">Question {page} / {quiz?.length}</p>
+      <p className="text-[14px] max-md:leading-[32px] md:text-sm mb-3 md:mb-4">Question {page} / {quiz?.length}</p>
       <div>
         {quiz && <h2 className="text-2xl">
           <span className={clsx('rounded relative top-[-3px] px-2 py-1 mr-2 font-normal text-sm', {
@@ -38,7 +38,7 @@ export function QuizCore({
         <>
           {
             quiz ? quiz[page - 1].quiz_item.map((item) => {
-              const checked = quiz[page - 1].answer?.includes(item.id);
+              const checked = quiz[page - 1].answer?.includes(item.id)
               return (
                 <button
                   key={nanoid()}
@@ -77,7 +77,7 @@ function Radio({ checked,className }) {
   return checked 
   ? <div className={clsx(className,'w-[18px] h-[18px] rounded-[50%] bg-[#01DB83] flex items-center justify-center')}>
       <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M2.5 6L5 8.5L10 3.5" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M2.5 6L5 8.5L10 3.5" stroke="white" strokeLinecap="round" strokeLinejoin="round"/>
       </svg>
   </div>
   : (
