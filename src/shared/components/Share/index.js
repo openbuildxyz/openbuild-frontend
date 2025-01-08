@@ -40,25 +40,18 @@ import { resolvePathWithSearch } from '@/utils/url'
 
 const combineUrl = (type, user_code, summary) => {
   let baseUrl = ''
-  let text = ''
-
-  if(summary){
-    text = `text=${encodeURIComponent(summary)}&`
-  }
 
   if(type === 'facebook') {
     baseUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`
   }else {
+    let text = summary ? `text=${encodeURIComponent(summary)}&` : ''
     baseUrl = `https://twitter.com/intent/tweet?${text}url=${encodeURIComponent(window.location.href)}`
   }
-  
-  if (user_code) {
-    return `${baseUrl}?code=${encodeURIComponent(user_code)}`
-  }
-  return baseUrl
+
+  return user_code ? `${baseUrl}?code=${encodeURIComponent(user_code)}` : baseUrl
 }
 
-export function Share({ img, title, type, id }) {
+export function Share({ img, title, type, id, excerpt }) {
   const [open, setOpen] = useState(false)
   const [recordOpen, setRecordOpen] = useState(false)
   const mediaUrl = useMediaUrl()
@@ -74,7 +67,6 @@ export function Share({ img, title, type, id }) {
     }
   }, [user, pathname, searchParams])
   const { data, isLoading } = useSWR((id && recordOpen) ? `ts/v1/user/invite/export?type=challenges&id=${id}` : null, fetcher)
-  console.log('data', data);
   
   const invitationRecordsAvailable = type === 'challenges'
   const handleViewRecords = invitationRecordsAvailable ? () => {
@@ -113,8 +105,8 @@ export function Share({ img, title, type, id }) {
           />
         </h5>
         <div className="flex items-center justify-center gap-4">
-          <Image className="cursor-pointer" src={FacebookSvg} alt=""  onClick={() => window.open(combineUrl('facebook', user?.base.user_code, data?.base?.course_series_summary))} />
-          <Image className="cursor-pointer" src={XSvg} alt="" onClick={() => window.open(combineUrl('x', user?.base.user_code, data?.base?.course_series_summary))} />
+          <Image className="cursor-pointer" src={FacebookSvg} alt=""  onClick={() => window.open(combineUrl('facebook', user?.base.user_code, excerpt))} />
+          <Image className="cursor-pointer" src={XSvg} alt="" onClick={() => window.open(combineUrl('x', user?.base.user_code, excerpt))} />
         </div>
         <p className="mt-6 text-sm opacity-40 w-full pl-[30px]">or use your invitation code</p>
         <div className="flex bg-[#F3F3F3] rounded h-12 items-center justify-between px-4 w-[320px] mt-3 mb-9">

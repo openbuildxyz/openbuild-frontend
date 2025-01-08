@@ -71,7 +71,7 @@ export default async function LearnDetailsPage({ params, searchParams }) {
           <div className="w-full">
             <div className="flex justify-between">
               <Back params={params} />
-              <Share img={data?.base?.course_series_img} title={data?.base?.course_series_title} type={params.type} id={params.id} />
+              <Share img={data?.base?.course_series_img} title={data?.base?.course_series_title} type={params.type} id={params.id} excerpt={data?.base?.course_series_summary}/>
             </div>
             <Title data={data} />
             {params.type === 'challenges' && <ChallengesTags data={data} />}
