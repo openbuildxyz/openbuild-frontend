@@ -63,8 +63,6 @@ export default async function LearnDetailsPage({ params, searchParams }) {
   }
   const [{ data }, { data: permission }] = [...datas]
 
-  // console.log(data, 'data')
-
   return params.type !== 'career_path' ? (
     <>
       <PreviewAlert searchParams={searchParams} />
