@@ -24,6 +24,8 @@ import useSWR from 'swr'
 import { fetcher } from '@/utils/request'
 import { OPagination } from '@/components/Pagination'
 import { useState } from 'react'
+import { useSearchParams } from 'next/navigation'
+import { useDebouncedCallback } from 'use-debounce'
 
 import { SearchIcon } from '@/components/Icons'
 import Input from '@/components/Input'
@@ -74,10 +76,25 @@ function List({data}) {
   )
 }
 
+const pageSize = 10
+
 export function QuizList() {
-  const [page, setPage] = useState(0)
+  const [page, setPage] = useState(1)
+  const [pageOffset, setPageOffset] = useState(0)
+  const searchParams = useSearchParams()
   const [query, setQuery] = useState('')
-  const { data, isLoading } = useSWR(`ts/v1/quiz?skip=${page}&take=${10}&query=${query}`, fetcher)
+  const { data, isLoading } = useSWR(`ts/v1/quiz?skip=${pageOffset}&take=${pageSize}&search=${query}&team_uid=${searchParams?.get('uid') || ''}`, fetcher)
+
+  const handleSearchChange = useDebouncedCallback(e => {
+    setPage(1)
+    setPageOffset(0)
+    setQuery(e.target.value)
+  }, 500)
+
+  const handlePageChange = currentPage => {
+    setPage(currentPage)
+    setPageOffset((currentPage - 1) * pageSize)
+  }
 
   return (
     <>
@@ -89,7 +106,7 @@ export function QuizList() {
             type="search"
             placeholder="Search"
             startContent={<SearchIcon />}
-            onChange={(e) => setQuery(e.target.value)}
+            onChange={handleSearchChange}
             className="h-10 [&>div]:pb-0"
           />
         </>
@@ -103,7 +120,7 @@ export function QuizList() {
           {data?.list.map((i, k) => (
             <List key={`quiz-list-${k}`} data={i} />
           ))}
-          <OPagination total={data?.total} changeCallback={(page) => setPage(page)} />
+          <OPagination page={page} pageSize={pageSize} total={data?.total} changeCallback={handlePageChange} />
         </>
       )}
     </>
