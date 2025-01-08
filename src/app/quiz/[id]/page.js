@@ -51,11 +51,11 @@ export default function Quiz({params}) {
       quiz
       onReset={() => setCheckLimit(false)}
     >
-      <div className="h-[360px] bg-cover bg-center bg-no-repeat relative" style={{ backgroundImage: `url(${QuizBannerPic.src})`,  }}>
-        <div className="absolute flex items-center mt-6 mx-14">
+      <div className="max-md:flex max-md:flex-col max-md:gap-y-4 h-[250px] md:h-[360px] bg-cover bg-center bg-no-repeat relative" style={{ backgroundImage: `url(${QuizBannerPic.src})`,  }}>
+        <div className="md:absolute flex items-center mt-[15px] md:mt-6 mx-4 md:mx-14">
           <span
             onClick={() => window.history.back()}
-            className="transition-all flex items-center cursor-pointer text-sm opacity-80 rounded py-2 px-3 border border-gray-1100 text-black mr-2 hover:border-gray">
+            className="transition-all hidden md:flex items-center cursor-pointer text-sm opacity-80 rounded py-2 px-3 border border-gray-1100 text-black mr-2 hover:border-gray">
             <ArrowUturnLeftIcon className="h-4 w-4 mr-2" />Return
           </span>
           <span onClick={() => {
@@ -68,7 +68,7 @@ export default function Quiz({params}) {
             <HistoryIcon className="mr-2" />Challenge Record
           </span>
         </div>
-        <div className="flex items-center justify-center pt-9 pb-4">
+        <div className="flex items-center justify-center md:pt-9 md:pb-4">
           {data?.quiz_user?.user_avatar && mediaUrl && (
               <Image
                 className="h-7 w-7 rounded object-cover mr-2"
@@ -78,18 +78,18 @@ export default function Quiz({params}) {
                 src={mediaUrl + data?.quiz_user?.user_avatar}
               />
             )}
-            <p className="opacity-90">by <a href={`/u/${data?.quiz_user?.user_handle}`}><strong>{data?.quiz_user?.user_nick_name}</strong></a></p>
+            <p className="opacity-90 max-md:text-[18px]">by <a href={`/u/${data?.quiz_user?.user_handle}`}><strong>{data?.quiz_user?.user_nick_name}</strong></a></p>
         </div>
-        <h1 className="text-[42px] leading-[52px] text-center max-w-[692px] mx-auto">{data?.title}</h1>
+        <h1 className="text-[28px] md:text-[42px] leading-[32px] md:leading-[52px] text-center max-md:px-6 md:max-w-[692px] mx-auto">{data?.title}</h1>
       </div>
-      <div className="max-w-[800px] mx-auto bg-white rounded-xl px-9 pt-10 pb-6  relative z-[2] top-[-155px]">
-        <h5 className="text-lg mb-3">Quiz Describe</h5>
+      <div className="max-w-[800px] mx-auto bg-white rounded-xl p-6 md:px-9 md:pt-10 md:pb-6  relative z-[2] md:top-[-155px]">
+        <h5 className="text-lg mb-4 md:mb-3">Quiz Describe</h5>
         <p dangerouslySetInnerHTML={{__html: data?.describe.replace('\n', '<br>')}}>
           {/* {data?.describe} */}
         </p>
         <Button
           onClick={() => setCheckLimit(true)}
-          className="mt-6 mb-10 !font-bold px-[64px] !text-base">
+          className="mt-4 md:mt-6 mb-9 md:mb-10 !font-bold px-[64px] !text-base max-md:w-full">
             Challenge now
         </Button>
         <div>
@@ -116,9 +116,9 @@ export default function Quiz({params}) {
                       alt={'user_avatar'}
                       src={mediaUrl + i?.user?.user_avatar}
                     />
-                    <p className="text-sm"><a href={`/u/${i?.user?.user_handle}`}>{i?.user?.user_nick_name}</a></p>
+                    <p className="text-[12px] max-md:leading-[20px] md:text-sm"><a href={`/u/${i?.user?.user_handle}`}>{i?.user?.user_nick_name}</a></p>
                   </div>
-                  <p>{i.score}</p>
+                  <p className="max-md:text-[12px] max-md:leading-[24px]">{i.score}</p>
                 </li>
               ))}
             </ul>
@@ -126,9 +126,9 @@ export default function Quiz({params}) {
           <p className="text-sm text-center mt-6"><strong>{data?.user_num}</strong> builders have participated</p>
         </div>
       </div>
-      <div className="max-w-[800px] mx-auto relative top-[-105px]">
-        <h3 className="text-lg mb-6">Related courses</h3>
-        <div className="grid gap-4 grid-cols-2">
+      <div className="max-w-[800px] max-md:mt-9 mx-6 md:mx-auto relative md:top-[-105px] max-md:pb-14">
+        <h3 className="text-[18px] max-md:leading-[24px] md:text-lg mb-6">Related courses</h3>
+        <div className="grid gap-y-6 md:gap-4 md:grid-cols-2">
           {coursesList?.list?.map(i => <CourseCard data={i} key={`open-courses-${i.base.course_series_id}`} />)}
         </div>
       </div>

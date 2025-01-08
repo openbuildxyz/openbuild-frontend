@@ -18,7 +18,7 @@
 
 import Image from 'next/image'
 import { ArrowRightIcon } from '@/components/Icons'
-import { useEffect } from 'react'
+import { useEffect,useState } from 'react'
 import { StartOnOpenBuild } from '../learn/StartOnOpenBuild'
 import { QuizList } from './List'
 
@@ -44,6 +44,8 @@ const Steps = [
 ]
 
 export default function Quiz() {
+  const [activeStep, setActiveStep] = useState(0)
+
   useEffect(() => {
     Aos.init({
       delay: 100, // values from 0 to 3000, with step 50ms
@@ -52,16 +54,16 @@ export default function Quiz() {
   }, [])
   return (
     <div>
-      <div className="flex bg-white justify-center pb-14">
-        <div className="w-[1200px] flex justify-between pr-[120px] py-6" data-aos="fade-left">
-          <div className="pt-[58px] max-w-[420px]" data-aos="fade-right">
-            <h1 className="text-[48px] leading-[64px] mb-4">Learn & Earn</h1>
-            <p className="text-[22px] leading-8 font-normal">Discover cutting-edge protocols and ecosystems, <strong>earn prizes</strong> and <strong>thrive</strong> in the crypto space!</p>
+      <div className="md:flex bg-white md:justify-center pb-14">
+        <div className="md:w-[1200px] md:flex md:justify-between md:pr-[120px] py-6" data-aos="fade-left">
+          <div className="md:pt-[58px] md:max-w-[420px]" data-aos="fade-right">
+            <h1 className="text-[32px] md:text-[48px] leading-[42px] md:leading-[64px] max-md:text-center mb-3 md:mb-4">Learn & Earn</h1>
+            <p className="max-md:px-6 mx-auto max-md:mb-6 max-md:text-center text-[20px] md:text-[22px] leading-[26px] md:leading-8 font-normal">Discover cutting-edge protocols and ecosystems, <strong>earn prizes</strong> and <strong>thrive</strong> in the crypto space!</p>
           </div>
-          <Image src={QuizBannerPic} alt='' />
+          <Image className='max-md:w-[360px] max-md:mx-auto' src={QuizBannerPic} alt='' />
         </div>
       </div>
-      <div data-aos="fade-bottom" className="w-[1200px] h-[110px] mx-auto shadow-[0_4px_24px_rgba(0,0,0,0.08)] bg-white !translate-y-[-50%] rounded-xl flex justify-center items-center gap-[96px]">
+      <div data-aos="fade-bottom" className="w-[1200px] h-[110px] mx-auto shadow-[0_4px_24px_rgba(0,0,0,0.08)] bg-white !translate-y-[-50%] rounded-xl hidden md:flex justify-center items-center gap-[96px]">
         {Steps.map((i, k) => (
           <div key={`quiz-step-${k}`} className="flex gap-[96px] items-center">
             <div className="flex">
@@ -75,11 +77,45 @@ export default function Quiz() {
           </div>
         ))}
       </div>
-      <div className="w-[1200px] mx-auto mb-[110px]">
+      {/* mobile steps */}
+      <div className="md:hidden h-[110px] mx-6 py-6 px-4 shadow-[0_4px_24px_rgba(0,0,0,0.08)] bg-white !translate-y-[-50%] rounded-xl">
+        {Steps.map((i, k) => {
+          const isNotLast = k < Steps.length - 1
+          const isFirst = k === 0
+          return (
+            <div key={`quiz-step-${k}`} className={`${activeStep === k ? 'flex' : 'hidden'} gap-[20px] items-center`}>
+              <ArrowRightIcon
+                className={`w-5 h-5 rotate-180 flex-shrink-0 ${isFirst ? 'opacity-[.2]':''}`}
+                onClick={() => {
+                  if(k > 0){
+                    setActiveStep(k-1)
+                  }
+                }}
+              />
+              <div className="flex flex-1">
+                <Image src={i.icon} alt="" className='h-[60px]'/>
+                <div className="ml-4">
+                  <p>Step {k + 1}</p>
+                  <h3>{i.name}</h3>
+                </div>
+              </div>
+              <ArrowRightIcon
+                className={`w-5 h-5 flex-shrink-0 ${isNotLast ? '' : 'opacity-[.2]'}`}
+                onClick={()=>{
+                  if(isNotLast){
+                    setActiveStep(k+1)
+                  }
+                }}
+              />
+            </div>
+          )
+        })}
+      </div>
+      <div className="md:w-[1200px] mx-6 md:mx-auto mb-14 md:mb-[110px]">
         <QuizList />
-        <div className="flex mt-14">
-          <h3 className="flex-1 text-[32px]">Quiz FAQ</h3>
-          <div className="w-[640px]">
+        <div className="md:flex mt-14">
+          <h3 className="md:flex-1 text-[24px] md:text-[32px] max-md:leading-10 max-md:pb-4">Quiz FAQ</h3>
+          <div className="md:w-[640px]">
             <div className="collapse rounded-none collapse-plus border-t border-gray-1100">
               <input type="radio" name="my-accordion-3" defaultChecked />
               <div className="collapse-title font-bold h-[80px] flex items-center text-xl">
