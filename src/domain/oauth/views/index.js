@@ -14,18 +14,19 @@
  * limitations under the License.
  */
 
+'use client'
+
 import Image from 'next/image';
 import { SvgIcon } from '@/components/Image'
 import { Button } from '@/components/Button'
 import Logo from 'public/images/svg/logo-black.svg';
-
-function LogoComponent({url}) {
-  return (
-    <div className="relative bg-white rounded-full size-[60px] md:size-[100px]">
-      <img src={url} alt="Logo" className="" />
-    </div>
-  )
-}
+import { useQuery } from '@tanstack/react-query';
+import { getOauthClientInfo, getOauthClientCode } from '../../auth/repository';
+import { useSearchParams } from 'next/navigation';
+import Loader from '@/components/Loader'
+import { useSession } from 'next-auth/react'
+import { usePathname, useRouter } from 'next/navigation'
+import { useEffect } from 'react';
 
 function NoteItem({title, description, icon}) {
   return (
@@ -46,27 +47,61 @@ function Link({url, children}) {
 }
 
 function Oauth() {
-  const name = 'Midjourney Bot'
+  const router = useRouter()
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
+  const client_id = searchParams?.get('client_id')
+  const redirect_uri = searchParams?.get('redirect_uri')
+
+  const { status } = useSession()
+
+  const { data: clientInfo, isLoading } = useQuery({
+    queryKey: ['oauth-client-info', client_id],
+    queryFn: () => client_id ? getOauthClientInfo(client_id) : null,
+  })
+
+  const url = clientInfo?.data?.url
+
+  async function handleAuthorize() {
+    const data = await getOauthClientCode(client_id)
+    window.location.href = `${redirect_uri}&code=${data.data.code}`
+  }
+
+  function handleCancel() {
+    window.location.href = redirect_uri
+  }
+
+  useEffect(() => {
+    if (status !== 'loading' && status !== 'authenticated') {
+      const encodedParams = `client_id=${encodeURIComponent(client_id)}&redirect_uri=${encodeURIComponent(redirect_uri)}`;
+      router.push(`/signin?from=${encodeURIComponent(`${pathname}?${encodedParams}`)}`)
+    }
+  }, [status])
   
   return (
-    <div className="flex min-h-screen flex-col items-center pt-9 md:pt-[60px] p-4 font-['Nunito_Sans'] relative">
+    isLoading ? <Loader /> : (
+      <div className="flex min-h-screen flex-col items-center pt-9 md:pt-[60px] p-4 font-['Nunito_Sans'] relative">
       <div className="relative w-[192px] md:w-[320px]">
         <div className="absolute top-1/2 left-0 w-full border-b-2 border-dashed border-[#d1d9e0]" />
         <div className="flex items-center justify-between py-9">
-          <LogoComponent url="/favicon.ico" />
+          <div className="relative bg-white rounded-full size-[60px] md:size-[100px]">
+            <img src={clientInfo?.data?.logo} alt="Logo"/>
+          </div>
           <div className="flex items-center gap-2 relative">
             <SvgIcon name='circle-check' size={20} />
           </div>
-          <LogoComponent url="/favicon.ico" />
+          <div className="relative bg-white rounded-full size-[60px] md:size-[100px]">
+            <SvgIcon name='oauth-logo' size={100} />
+          </div>
         </div>
       </div>
-      <h1 className="text-[1.5rem] text-center pb-4">Authorize <span>{name}</span></h1>
+      <h1 className="text-[1.5rem] text-center pb-4">Authorize <span>{clientInfo?.data?.name}</span></h1>
       <div className="flex flex-col items-center justify-center text-base md:text-lg leading-6 text-center pb-6 md:pb-9">
         <p className="text-[#1A1A1ACC]">
           Log in with OpenBuild, Authorizing will redirect to
         </p>
-        <Link url='https://midjourney.com'>
-          midjourney.com
+        <Link url={url}>
+          {url}
         </Link>
       </div>
       <div className="rounded-lg border border-gray-600 bg-white p-6 shadow-lg mb-[210px]">
@@ -75,17 +110,17 @@ function Oauth() {
           <NoteItem icon='international' title="Public data only" description="Limited access to your public data" />
         </div>
         <div className="flex gap-3 border-y border-gray-600 p-6 mx-[-24px]">
-            <Button variant='outlined' className='flex-1'>
+            <Button variant='outlined' className='flex-1' onClick={handleCancel}>
               Cancel
             </Button>
-          <Button variant='contained' className='flex-1'>
+          <Button variant='contained' className='flex-1' onClick={handleAuthorize}>
             Authorize
           </Button>
         </div>
         <div className='py-6 flex items-center gap-3'>
           <SvgIcon name='lock' size={16} />
           <span className="text-sm leading-6 text-[#1A1A1A99]">
-            Developer's <Link url='https://midjourney.com'>Privacy Policy</Link> and <Link url='https://midjourney.com'>Terms</Link> of Service
+            Developer's <Link url='#'>Privacy Policy</Link> and <Link url='#'>Terms</Link> of Service
           </span>
         </div>
       </div>
@@ -96,6 +131,7 @@ function Oauth() {
         </span>
       </footer>
     </div>
+    )
   )
 }
 
