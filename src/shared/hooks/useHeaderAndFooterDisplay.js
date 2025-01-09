@@ -18,7 +18,7 @@
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
-const hiddenPath = ['/signin', 'signup', '/forgot', '/reset', '/change', '/questions']
+const hiddenPath = ['/signin', 'signup', '/forgot', '/reset', '/change', '/questions', '/oauth']
 
 export function useHeaderAndFooterDisplay() {
   const pathname = usePathname()
@@ -31,7 +31,7 @@ export function useHeaderAndFooterDisplay() {
   }, [pathname])
   return hidden
 }
-const footerHiddenPath = ['/signin', 'signup', '/forgot', '/reset', '/change', '/profile', '/creator', '/questions']
+const footerHiddenPath = ['/signin', 'signup', '/forgot', '/reset', '/change', '/profile', '/creator', '/questions', '/oauth']
 export function useFooterDisplay() {
   const pathname = usePathname()
   const [hidden, setHidden] = useState(false)
