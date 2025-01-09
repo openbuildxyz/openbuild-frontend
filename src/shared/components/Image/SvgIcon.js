@@ -16,7 +16,7 @@
 
 import Image from './Image'
 
-function SvgIcon({ className, style, size, name, src, onClick }) {
+function SvgIcon({ className, style, size, name, src = '', onClick }) {
   return (
     <Image
       className={className}
