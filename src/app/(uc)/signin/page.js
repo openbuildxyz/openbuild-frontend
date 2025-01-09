@@ -30,8 +30,8 @@ import { signin, emailCodeLogin } from '#/services/auth'
 import { wrapOnChange } from '@/utils/form'
 import Loader from '@/components/Loader'
 
-import LoginTypeSwitcher from './components/LoginTypeSwitcher'
-import VerifyCodeLogin from './components/VerifyCodeLogin'
+import LoginTypeSwitcher from './LoginTypeSwitcher'
+import VerifyCodeLogin from './VerifyCodeLogin'
 
 export function NavButtonStyle() {
   return 'h-12 relative rounded-t-xl text-gray-100 px-6 [&.active]:bg-gray-1400 [&.active]:!text-gray'
