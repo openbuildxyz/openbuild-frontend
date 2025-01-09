@@ -103,7 +103,7 @@ export default function Login() {
   emailField.onChange = wrapOnChange(emailField.onChange)
 
   const pwdField = register('Password', {
-    required: loginType === 'password' ? true : false,
+    required: loginType === 'password',
     minLength: 6,
     maxLength: 20
   })
