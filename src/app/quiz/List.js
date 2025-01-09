@@ -24,14 +24,16 @@ import useSWR from 'swr'
 import { fetcher } from '@/utils/request'
 import { OPagination } from '@/components/Pagination'
 import { useState } from 'react'
-import { useSearchParams } from 'next/navigation'
+import { useSearchParams, useRouter } from 'next/navigation'
 import { useDebouncedCallback } from 'use-debounce'
-
+import { fetchTeamList } from '#/domain/quiz/repository'
+import { ReactSelect } from '@/components/Select/ReactSelect'
 import { SearchIcon } from '@/components/Icons'
 import Input from '@/components/Input'
+import { useEffect } from 'react'
 
 
-function List({data}) {
+function List({ data }) {
   const mediaUrl = useMediaUrl()
   return (
     <Link href={`/quiz/${data.id}`} className="p-6 bg-white flex max-md:flex-col gap-4 md:gap-9 mb-4 rounded-xl transition-all hover:shadow-[0_4px_24px_rgba(0,0,0,0.08)]">
@@ -66,8 +68,8 @@ function List({data}) {
           </div>
           <span className={'hidden md:inline-flex h-10 w-10 justify-center items-center rounded bg-gray'}>
             <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M1 12L12 1" stroke={'white'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              <path d="M2.57143 1H12V10.4286" stroke={'white'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M1 12L12 1" stroke={'white'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M2.57143 1H12V10.4286" stroke={'white'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </span>
         </div>
@@ -80,28 +82,77 @@ function List({data}) {
 const pageSize = 10
 
 export function QuizList() {
+  const searchParams = useSearchParams()
+  const router = useRouter()
+  const [query, setQuery] = useState(searchParams?.get('search') || '')
+  const [teamUid, setTeamUid] = useState(searchParams?.get('team_uid') || '')
   const [page, setPage] = useState(1)
   const [pageOffset, setPageOffset] = useState(0)
-  const searchParams = useSearchParams()
-  const [query, setQuery] = useState('')
-  const { data, isLoading } = useSWR(`ts/v1/quiz?skip=${pageOffset}&take=${pageSize}&search=${query}&team_uid=${searchParams?.get('uid') || ''}`, fetcher)
+  const [selectedTeam, setSelectedTeam] = useState(null)
+  const [teamOptions, setTeamOptions] = useState([])
+  const { data, isLoading } = useSWR(`ts/v1/quiz?skip=${pageOffset}&take=${pageSize}&search=${query}&team_uid=${teamUid}`, fetcher)
+
+  const updateUrlParams = (search, teamUid) => {
+    const params = new URLSearchParams()
+    if (search) params.set('search', search)
+    if (teamUid) params.set('team_uid', teamUid)
+    router.push(`/quiz?${params.toString()}`)
+  }
 
   const handleSearchChange = useDebouncedCallback(e => {
     setPage(1)
     setPageOffset(0)
     setQuery(e.target.value)
+    updateUrlParams(e.target.value, teamUid)
   }, 500)
+
+  const handleTeamChange = (option) => {
+    const newTeamUid = option?.value || ''
+    setPage(1)
+    setPageOffset(0)
+    setSelectedTeam(option)
+    setTeamUid(newTeamUid)
+    updateUrlParams(query, newTeamUid)
+  }
 
   const handlePageChange = currentPage => {
     setPage(currentPage)
     setPageOffset((currentPage - 1) * pageSize)
   }
 
+  useEffect(() => {
+    fetchTeamList().then(res => {
+      if (res?.data) {
+        const options = res.data.map(team => ({
+          value: team.team_uid,
+          label: team.nickname
+        }))
+        if (teamUid) {
+          const selectedOption = options.find(option => option.value == Number(teamUid))
+          if (selectedOption) {
+            setSelectedTeam(selectedOption)
+          }
+        }
+        setTeamOptions(options)
+      }
+    })
+  }, [])
+
   return (
     <>
       <div className="md:flex md:justify-between md:items-center mb-8 md:mb-7">
         <h1 className="text-[24px] md:text-[32px] max-md:leading-[40px] max-md:mb-4">Time to prove your Web3 skills</h1>
-        <>
+        <div className="flex gap-3 items-center">
+          <ReactSelect
+            value={selectedTeam}
+            onChange={handleTeamChange}
+            options={teamOptions}
+            placeholder="Select Team"
+            isClearable
+            isSearchable={false}
+            className="w-[200px] [&>div]:pb-0"
+            styles={{ control: () => ({ backgroundColor: 'transparent' }) }}
+          />
           <Input
             defaultValue={query}
             type="search"
@@ -110,7 +161,7 @@ export function QuizList() {
             onChange={handleSearchChange}
             className="h-10 [&>div]:pb-0"
           />
-        </>
+        </div>
       </div>
       {isLoading ? (
         <div className="flex justify-center items-center h-[200px]">

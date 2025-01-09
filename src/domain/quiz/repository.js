@@ -41,4 +41,8 @@ async function fetchAnsweredQuizList(params = {}) {
   })
 }
 
-export { updateRespondentContacts, fetchPublishedQuizList, fetchAnsweredQuizList }
+async function fetchTeamList(){
+  return httpClient.get('/quiz/team')
+}
+
+export { updateRespondentContacts, fetchPublishedQuizList, fetchAnsweredQuizList, fetchTeamList }
