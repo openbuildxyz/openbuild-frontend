@@ -23,14 +23,13 @@ import TrophiesSvg from 'public/images/trophies.svg'
 import useSWR from 'swr'
 import { fetcher } from '@/utils/request'
 import { OPagination } from '@/components/Pagination'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { useDebouncedCallback } from 'use-debounce'
 import { fetchTeamList } from '#/domain/quiz/repository'
 import { ReactSelect } from '@/components/Select/ReactSelect'
 import { SearchIcon } from '@/components/Icons'
 import Input from '@/components/Input'
-import { useEffect } from 'react'
 
 
 function List({ data }) {
@@ -85,7 +84,7 @@ export function QuizList() {
   const searchParams = useSearchParams()
   const router = useRouter()
   const [query, setQuery] = useState(searchParams?.get('search') || '')
-  const [teamUid, setTeamUid] = useState(searchParams?.get('team_uid') || '')
+  const [teamUid, setTeamUid] = useState(searchParams?.get('uid') || '')
   const [page, setPage] = useState(1)
   const [pageOffset, setPageOffset] = useState(0)
   const [selectedTeam, setSelectedTeam] = useState(null)
@@ -95,8 +94,8 @@ export function QuizList() {
   const updateUrlParams = (search, teamUid) => {
     const params = new URLSearchParams()
     if (search) params.set('search', search)
-    if (teamUid) params.set('team_uid', teamUid)
-    router.push(`/quiz?${params.toString()}`)
+    if (teamUid) params.set('uid', teamUid)
+    router.replace(`/quiz?${params.toString()}`)
   }
 
   const handleSearchChange = useDebouncedCallback(e => {
@@ -149,7 +148,7 @@ export function QuizList() {
             options={teamOptions}
             placeholder="Select Team"
             isClearable
-            isSearchable={false}
+            isSearchable
             className="w-[200px] [&>div]:pb-0"
             styles={{ control: () => ({ backgroundColor: 'transparent' }) }}
           />
