@@ -17,7 +17,6 @@
 import '@/styles/all.scss'
 import 'animate.css'
 import 'react-toastify/scss/main.scss'
-import 'bytemd/dist/index.css'
 import 'highlight.js/styles/vs.css'
 import 'github-markdown-css/github-markdown-light.css'
 import 'slick-carousel/slick/slick.css';
@@ -37,6 +36,7 @@ import DefaultLayout from '../entry/layouts/default'
 import ClientEntry from '../entry'
 
 export const metadata = {
+  metadataBase: new URL('https://openbuild.xyz'),
   title: {
     default: siteConfig.name,
     template: `%s | ${siteConfig.name}`,

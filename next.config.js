@@ -47,7 +47,7 @@ module.exports = withBundleAnalyzer({
     ],
   },
   webpack: config => {
-    config.externals.push('pino-pretty', 'lokijs', 'encoding')
+    config.externals.push('pino-pretty', 'lokijs', 'encoding', 'bufferutil', 'utf-8-validate')
     return config
   },
   compiler: {

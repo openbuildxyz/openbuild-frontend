@@ -14,21 +14,5 @@
  * limitations under the License.
  */
 
-import Image from './Image'
-
-function SvgIcon({ className, style, size, name, src = '', onClick }) {
-  return (
-    <Image
-      className={className}
-      style={style}
-      width={size}
-      height={size}
-      src={src}
-      onClick={onClick}
-      defaultSrc={`/images/svg/${name}.svg`}
-      alt={name}
-    />
-  )
-}
-
-export default SvgIcon
+export * from './helper'
+export { default } from './BlockEditor'

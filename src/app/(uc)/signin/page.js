@@ -26,9 +26,12 @@ import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline'
 
-import { signin } from '#/services/auth'
+import { signin, emailCodeLogin } from '#/services/auth'
 import { wrapOnChange } from '@/utils/form'
 import Loader from '@/components/Loader'
+
+import LoginTypeSwitcher from './LoginTypeSwitcher'
+import VerifyCodeLogin from './VerifyCodeLogin'
 
 export function NavButtonStyle() {
   return 'h-12 relative rounded-t-xl text-gray-100 px-6 [&.active]:bg-gray-1400 [&.active]:!text-gray'
@@ -39,32 +42,59 @@ export default function Login() {
   const searchParams = useSearchParams()
   const [loading, setLoading] = useState(false)
   const [passwordType, setPasswordType] = useState('password')
+  const [loginType, setLoginType] = useState('verifyCode')
+
   const {
     register,
     handleSubmit,
     formState: { errors },
     watch,
+    clearErrors,
+    reset
   } = useForm()
   const watchAllFields = watch()
+
+  const handleChangeLoginType = () => {
+    setLoginType((prevLoginType) => {
+      const loginType = prevLoginType === 'verifyCode' ? 'password' : 'verifyCode'
+      clearErrors()
+      reset()
+      return loginType
+    })
+  }
+
   const onSubmit = async data => {
     setLoading(true)
+
     try {
-      const signRes = await signin(data.Email, data.Password)
-      if (signRes.code === 200) {
-        window.localStorage.setItem('signType', 'email')
-        const data = await signIn('credentials', {
-          token: signRes.data.token,
+      const response =
+        loginType === 'verifyCode'
+          ? await emailCodeLogin(data.Email, data.VerifyCode)
+          : await signin(data.Email, data.Password)
+
+      if (response.code === 200) {
+        const signType = loginType === 'verifyCode' ? 'verifyCode' : 'email'
+        window.localStorage.setItem('signType', signType)
+
+        const signInResponse = await signIn('credentials', {
+          token: response.data.token,
           redirect: false,
-          callbackUrl: decodeURIComponent(searchParams?.get('from') || searchParams?.get('callbackUrl') || '/profile'),
+          callbackUrl: decodeURIComponent(
+            searchParams?.get('from') ||
+            searchParams?.get('callbackUrl') ||
+            '/profile'
+          )
         })
-        if (data?.ok && data.url) {
-          window.location.href = data?.url
+
+        if (signInResponse?.ok && signInResponse.url) {
+          window.location.href = signInResponse.url
         }
       } else {
-        toast.error(signRes.message)
+        toast.error(response.message)
       }
-      setLoading(false)
     } catch (error) {
+      toast.error('Sign in failed. Please try again.')
+    } finally {
       setLoading(false)
     }
   }
@@ -72,7 +102,11 @@ export default function Login() {
   const emailField = register('Email', { required: true, pattern: /^\S+@\S+$/i })
   emailField.onChange = wrapOnChange(emailField.onChange)
 
-  const pwdField = register('Password', { required: true, minLength: 6, maxLength: 20 })
+  const pwdField = register('Password', {
+    required: loginType === 'password',
+    minLength: 6,
+    maxLength: 20
+  })
   pwdField.onChange = wrapOnChange(pwdField.onChange)
 
   return (
@@ -80,9 +114,6 @@ export default function Login() {
       <div>
         <div>
           <button className={clsx(NavButtonStyle(), SigninAfterStyle, 'active')}>Sign in</button>
-          <Link href="/signup">
-            <button className={clsx(NavButtonStyle())}>Sign up</button>
-          </Link>
         </div>
         <div>
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -92,40 +123,63 @@ export default function Login() {
               placeholder="Email Address"
               {...emailField}
             />
-            <div className="mt-[2px] flex items-center bg-[#f1f1f1] pr-3 ">
-              <input
-                type={passwordType}
-                placeholder="Password"
-                {...pwdField}
-                className="mt-[2px] h-12 w-full border-0 bg-[#f1f1f1] px-6 text-sm placeholder:text-gray-1100"
+            {loginType === 'verifyCode' ? (
+              <VerifyCodeLogin
+                register={register}
+                loginType={loginType}
+                email={watchAllFields.Email}
               />
-              {passwordType === 'password' ? (
-                <EyeIcon onClick={() => setPasswordType('text')} className="h-5 w-5 cursor-pointer" />
-              ) : (
-                <EyeSlashIcon onClick={() => setPasswordType('password')} className="h-5 w-5 cursor-pointer" />
-              )}
-            </div>
+            ) : (
+              <div className="mt-[2px] flex items-center bg-[#f1f1f1] pr-3 ">
+                <input
+                  type={passwordType}
+                  placeholder="Password"
+                  {...pwdField}
+                  className="mt-[2px] h-12 w-full border-0 bg-[#f1f1f1] px-6 text-sm placeholder:text-gray-1100"
+                />
+                {passwordType === 'password' ? (
+                  <EyeIcon onClick={() => setPasswordType('text')} className="w-5 h-5 cursor-pointer" />
+                ) : (
+                  <EyeSlashIcon onClick={() => setPasswordType('password')} className="w-5 h-5 cursor-pointer" />
+                )}
+              </div>
+            )}
             <button
               type="submit"
               disabled={
-                watchAllFields.Email === '' || watchAllFields.Password === '' || isEmpty(watchAllFields) || loading
+                !watchAllFields.Email ||
+                (loginType === 'password' && !watchAllFields.Password) ||
+                (loginType === 'verifyCode' && !watchAllFields.VerifyCode) ||
+                loading
               }
-              className="flex h-12 w-full items-center justify-center rounded-xl rounded-t-none bg-gray text-white disabled:opacity-20"
+              className="flex items-center justify-center w-full h-12 text-white rounded-t-none rounded-xl bg-gray disabled:opacity-20"
             >
               {loading && <Loader classname="mr-2" />}
               <span>Continue</span>
             </button>
           </form>
 
-          {!isEmpty(errors) && watchAllFields.Email !== '' && watchAllFields.Password !== '' && (
-            <p className="mt-4 text-center text-xs text-red">The email or password is wrong.</p>
+          {!isEmpty(errors) && watchAllFields.Email !== '' && (
+            <p className="mt-4 text-xs text-center text-red">
+              {loginType === 'password'
+                ? 'The email or password is wrong.'
+                : 'The email or code is wrong.'}
+            </p>
           )}
-          <div className="mt-6 text-center">
-            Forget your password?&nbsp;
-            <Link href="/forgot" className="cursor-pointer text-sm font-bold text-[#01DB83] hover:underline">
-              Reset
-            </Link>
-          </div>
+
+          <LoginTypeSwitcher
+            loginType={loginType}
+            handleChangeLoginType={handleChangeLoginType}
+          />
+
+          {loginType == 'password' && (
+            <div className="mt-6 text-center">
+              Forget your password?&nbsp;
+              <Link href="/forgot" className="cursor-pointer text-sm font-bold text-[#01DB83] hover:underline">
+                Reset
+              </Link>
+            </div>
+          )}
         </div>
       </div>
     </>

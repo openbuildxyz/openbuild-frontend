@@ -14,21 +14,17 @@
  * limitations under the License.
  */
 
-import Image from './Image'
+import { SvgIcon } from '@/components/Image'
 
-function SvgIcon({ className, style, size, name, src = '', onClick }) {
+export default function LoginTypeSwitcher({ loginType, handleChangeLoginType }) {
   return (
-    <Image
-      className={className}
-      style={style}
-      width={size}
-      height={size}
-      src={src}
-      onClick={onClick}
-      defaultSrc={`/images/svg/${name}.svg`}
-      alt={name}
-    />
+    <p className="flex mt-4 text-sm cursor-pointer" onClick={handleChangeLoginType}>
+      Switch to {loginType === 'verifyCode' ? 'password' : 'verify code'} login
+      <SvgIcon
+        name="change"
+        size={14}
+        className="ml-2"
+      />
+    </p>
   )
 }
-
-export default SvgIcon

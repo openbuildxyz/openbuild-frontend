@@ -14,21 +14,18 @@
  * limitations under the License.
  */
 
-import Image from './Image'
+import httpClient from '@/utils/http'
+import { unwrapBlockData, wrapBlockData } from '@/components/block-editor'
 
-function SvgIcon({ className, style, size, name, src = '', onClick }) {
-  return (
-    <Image
-      className={className}
-      style={style}
-      width={size}
-      height={size}
-      src={src}
-      onClick={onClick}
-      defaultSrc={`/images/svg/${name}.svg`}
-      alt={name}
-    />
-  )
+async function fetchBlockContent(uid) {
+  return httpClient.get('/user/devplaza', { params: { uid } }).then(res => res.success ? ({
+    ...res,
+    data: res.data ? unwrapBlockData(res.data.body) : null,
+  }) : res)
 }
 
-export default SvgIcon
+async function updateBlockContent(data) {
+  return httpClient.post('/user/devplaza', { body: wrapBlockData(data) })
+}
+
+export { fetchBlockContent, updateBlockContent }

@@ -184,6 +184,13 @@ export function LearnRightCard({ data, type, permission }) {
   const { status } = useSession()
   const pathname = usePathname()
   const router = useRouter()
+
+  let courseOrChallengeUrl = ''
+
+  if(typeof window !== 'undefined'){
+    courseOrChallengeUrl = window.location.href
+  }
+
   const { isConnected } = useAccount()
 
   const [loading, setLoading] = useState(false)
@@ -479,7 +486,7 @@ export function LearnRightCard({ data, type, permission }) {
                                 </div>
                               </div>
                               <div className="h-[60px] w-[60px] rounded bg-white p-1 overflow-hidden">
-                                <QRCode size={256}  style={{ maxWidth: '100%', width: '100%', height: '100%' }} value={window.location.href} />
+                                <QRCode size={256}  style={{ maxWidth: '100%', width: '100%', height: '100%' }} value={courseOrChallengeUrl} />
                               </div>
                             </div>
                           </div>
@@ -488,7 +495,7 @@ export function LearnRightCard({ data, type, permission }) {
                           <div className="h-[64px] mt-8 flex text-sm w-[470px] bg-white rounded-xl p-[6px]">
                             <span
                               onClick={
-                                () => window.open(`https://twitter.com/intent/tweet?&url=${window.location.href}`)
+                                () => window.open(`https://twitter.com/intent/tweet?&url=${courseOrChallengeUrl}`)
                               }
                               className="flex items-center flex-1 justify-center rounded-xl hover:bg-[#E9E9E9] cursor-pointer">
                               <TwitterIcon className="w-4 h-4 mr-2" /> Share with Twitter

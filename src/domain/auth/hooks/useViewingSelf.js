@@ -14,21 +14,12 @@
  * limitations under the License.
  */
 
-import Image from './Image'
+import { useUser } from '#/state/application/hooks'
 
-function SvgIcon({ className, style, size, name, src = '', onClick }) {
-  return (
-    <Image
-      className={className}
-      style={style}
-      width={size}
-      height={size}
-      src={src}
-      onClick={onClick}
-      defaultSrc={`/images/svg/${name}.svg`}
-      alt={name}
-    />
-  )
+function useViewingSelf(userId) {
+  const currentUser = useUser()
+
+  return userId && currentUser ? userId === currentUser.base.user_id : false
 }
 
-export default SvgIcon
+export default useViewingSelf

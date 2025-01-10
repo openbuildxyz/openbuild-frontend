@@ -18,17 +18,23 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import { ArrowRightLineIcon } from '@/components/Icons'
 import { useMediaUrl, useAllSkills } from '#/state/application/hooks'
 import { fromNow } from '@/utils/date'
+import NProgress from 'nprogress'
 
 export function ShillingCard({ data }) {
   const mediaUrl = useMediaUrl()
   const skills = useAllSkills()
+  const router = useRouter()
 
   return (
-    <Link
-      href={`/shilling/${data.uid}`}
+    <div
+      onClick={() => {
+        NProgress.start()
+        router.push(`/shilling/${data.uid}`)
+      }}
       className="group flex flex-col relative top-0 cursor-pointer overflow-hidden rounded-2xl bg-white py-4 transition-all duration-500 hover:top-[-8px] hover:shadow-lg [&>div]:px-6"
     >
       <h5 className="text-2xl font-bold line-clamp-2 px-6">{data.title}</h5>
@@ -59,7 +65,7 @@ export function ShillingCard({ data }) {
           />
           <div className="text-sm text-gray-500">
             <p className="truncate">
-              <a href={`/u/${data.skill_user?.user_handle}`} className="text-gray">{data.skill_user.user_nick_name}</a> · {fromNow(data.created_at * 1000)}
+              <Link onClick={(e) => e.stopPropagation()} href={`/u/${data.skill_user?.user_handle}`} className="text-gray">{data.skill_user.user_nick_name}</Link> · {fromNow(data.created_at * 1000)}
             </p>
           </div>
         </div>
@@ -68,6 +74,6 @@ export function ShillingCard({ data }) {
           <ArrowRightLineIcon className="h-5 w-5 -rotate-45" />
         </div>
       </div>
-    </Link>
+    </div>
   )
 }

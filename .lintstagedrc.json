@@ -1,0 +1,3 @@
+{
+  "src/**/*.{js,css,scss}": "npm run license src"
+}

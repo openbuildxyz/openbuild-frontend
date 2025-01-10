@@ -14,21 +14,9 @@
  * limitations under the License.
  */
 
-import Image from './Image'
+import { clsx } from 'clsx'
+import { twMerge } from 'tailwind-merge'
 
-function SvgIcon({ className, style, size, name, src = '', onClick }) {
-  return (
-    <Image
-      className={className}
-      style={style}
-      width={size}
-      height={size}
-      src={src}
-      onClick={onClick}
-      defaultSrc={`/images/svg/${name}.svg`}
-      alt={name}
-    />
-  )
+export function cn(...inputs) {
+  return twMerge(clsx(inputs))
 }
-
-export default SvgIcon

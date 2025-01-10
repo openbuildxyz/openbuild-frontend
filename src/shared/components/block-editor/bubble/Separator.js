@@ -14,21 +14,20 @@
  * limitations under the License.
  */
 
-import Image from './Image'
+import * as React from 'react';
+import * as SeparatorPrimitive from '@radix-ui/react-separator';
 
-function SvgIcon({ className, style, size, name, src = '', onClick }) {
-  return (
-    <Image
-      className={className}
-      style={style}
-      width={size}
-      height={size}
-      src={src}
-      onClick={onClick}
-      defaultSrc={`/images/svg/${name}.svg`}
-      alt={name}
-    />
-  )
-}
+import { cn } from './helper';
 
-export default SvgIcon
+const Separator = React.forwardRef(({ className, orientation = 'horizontal', decorative = true, ...props }, ref) => (
+  <SeparatorPrimitive.Root
+    ref={ref}
+    decorative={decorative}
+    orientation={orientation}
+    className={cn('shrink-0 bg-border', orientation === 'horizontal' ? 'h-[1px] w-full' : ' w-[1px]', className)}
+    {...props}
+  />
+));
+Separator.displayName = SeparatorPrimitive.Root.displayName;
+
+export { Separator };

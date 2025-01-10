@@ -32,26 +32,26 @@ export function Record({id, openModal, closeModal}) {
   return (
     <Modal isOpen={openModal} closeModal={closeModal} container mode="640">
       <div >
-        <ModalCloseIcon onClick={closeModal} className="absolute top-[-32px] right-[-32px] cursor-pointer" />
+        <ModalCloseIcon onClick={closeModal} className="absolute top-[-48px] md:top-[-32px] right-0 md:right-[-32px] cursor-pointer" />
         <div>
           <h3 className="text-center py-4 border-b border-gray-600">
             Challenge Record
           </h3>
           <div className="px-6 py-4">
-            <ul className="grid grid-cols-4 gap-4 text-xs opacity-60">
+            <ul className="hidden md:grid grid-cols-4 gap-4 text-xs opacity-60">
               <li className="col-span-2">Quiz</li>
               <li className="text-right">Time</li>
               <li className="text-right">Score</li>
             </ul>
-            <div className="max-h-[300px] mt-4 overflow-y-auto">
+            <div className="max-h-[300px] mt-2 md:mt-4 overflow-y-auto">
               {data?.map((i, k) => (
                 <div key={`challenge-record-${k}`} className=" mb-4 ">
-                  <ul className="grid grid-cols-4 gap-4items-center items-center">
-                    <li className="col-span-2">
+                  <ul className="grid md:grid-cols-4 max-md:gap-y-4 md:gap-x-4 items-center">
+                    <li className="md:col-span-2">
                       <Link href={`/quiz/${i.quiz_id}`} className="text-sm font-bold hover:underline">{i.quiz_info.title}</Link>
-                      <div className="flex items-center">
+                      <div className="flex items-center mt-1">
                         {mediaUrl && <Image
-                          className="h-[18px] w-[18px] rounded object-cover mr-2 mt-1"
+                          className="h-[18px] w-[18px] rounded object-cover mr-2"
                           height={18}
                           width={18}
                           alt={'user_avatar'}
@@ -61,10 +61,23 @@ export function Record({id, openModal, closeModal}) {
                       </div>
 
                     </li>
-                    <li className="text-right text-xs">
-                      <p>{formatTime(i.created_at * 1000, 'YYYY-MM-DD hh:mm:ss')}&nbsp;{formatTimeMeridiem(i.created_at * 1000)} <span className="text-xs">(UTC+{fromUtcOffset()})</span></p>
+                    <li className="flex md:block justify-between md:text-right text-xs">
+                      <div>
+                        <p className='md:hidden opacity-60 mb-1'>Time</p>
+                        <p>{formatTime(i.created_at * 1000, 'YYYY-MM-DD hh:mm:ss')}&nbsp;
+                          <span className='max-md:hidden'>{formatTimeMeridiem(i.created_at * 1000)}  
+                            <span className="text-xs">
+                              (UTC+{fromUtcOffset()})
+                            </span>
+                          </span>
+                          </p>
+                      </div>
+                      <div className='md:hidden'>
+                        <p className='opacity-60 mb-1'>Score</p>
+                        <p className='text-right'><strong>{i.score}</strong></p>
+                      </div>
                     </li>
-                    <li className="text-right">
+                    <li className="max-md:hidden text-right">
                       <strong>{i.score}</strong>
                     </li>
                   </ul>
