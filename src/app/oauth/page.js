@@ -24,7 +24,7 @@ import { fetchOauthClientInfo, fetchOauthClientCode } from '#/domain/auth/reposi
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import Loader from '@/components/Loader'
 import { useSession } from 'next-auth/react'
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState } from 'react';
 import NoteItem from './NoteItem'
 import Link from './Link'
 
