@@ -21,10 +21,9 @@ import { SvgIcon } from '@/components/Image'
 import { Button } from '@/components/Button'
 import Logo from 'public/images/svg/logo-black.svg';
 import { fetchOauthClientInfo, fetchOauthClientCode } from '#/domain/auth/repository';
-import { useSearchParams } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import Loader from '@/components/Loader'
 import { useSession } from 'next-auth/react'
-import { usePathname, useRouter } from 'next/navigation'
 import { useEffect, useState, useCallback } from 'react';
 import NoteItem from './NoteItem'
 import Link from './Link'
@@ -45,11 +44,11 @@ export default function Page() {
   function handleAuthorize() {
     setDisabled(true)
 
-    fetchOauthClientCode(clientId).then(data => {
-      const code = data.data.code ? `&code=${data.data.code}` : ''
-      window.location.href = `${decodeURIComponent(redirectUri)}${code}`
-    }).catch(error => {
-      console.error(error)
+    fetchOauthClientCode(clientId).then(res => {
+      const url = decodeURIComponent(redirectUri)
+      const tag = url.includes('?') ? '&' : '?'
+      const code = res.data.code ? `${tag}code=${res.data.code}` : ''
+      window.location.href = `${url}${code}`
     }).finally(() => {
       setDisabled(false)
     })
@@ -59,22 +58,16 @@ export default function Page() {
     window.location.href = decodeURIComponent(redirectUri)
   }
 
-  const fetchClientInfo = useCallback(() => {
+  useEffect(() => {
     if(clientId) {
       setLoading(true)
-      fetchOauthClientInfo(clientId).then(data => {
-        setClientInfo(data)
-      }).catch(error => {
-        console.error(error)
+      fetchOauthClientInfo(clientId).then(res => {
+        setClientInfo(res.data)
       }).finally(() => {
         setLoading(false)
       })
     }
-  }, [clientId])
-
-  useEffect(() => {
-    fetchClientInfo()
-  }, [fetchClientInfo])
+  }, [])
 
   useEffect(() => {
     if (status !== 'loading' && status !== 'authenticated') {
@@ -90,7 +83,7 @@ export default function Page() {
         <div className="absolute top-1/2 left-0 w-full border-b-2 border-dashed border-[#d1d9e0]" />
         <div className="flex items-center justify-between py-9">
           <div className="relative bg-white rounded-full size-[60px] md:size-[100px]">
-            <img src={clientInfo?.data?.logo} alt="Logo" className="!size-full" />
+            <img src={clientInfo?.logo} alt="Logo" className="!size-full" />
           </div>
           <div className="flex items-center gap-2 relative">
             <SvgIcon name='circle-check' size={20} />
@@ -100,13 +93,13 @@ export default function Page() {
           </div>
         </div>
       </div>
-      <h1 className="text-[1.5rem] text-center pb-4">Authorize <span>{clientInfo?.data?.name}</span></h1>
+      <h1 className="text-[1.5rem] text-center pb-4">Authorize <span>{clientInfo?.name}</span></h1>
       <div className="flex flex-col items-center justify-center text-base md:text-lg leading-6 text-center pb-6 md:pb-9">
         <p className="text-[#1A1A1ACC]">
           Log in with OpenBuild, Authorizing will redirect to
         </p>
-        <Link url={clientInfo?.data?.url}>
-          {clientInfo?.data?.url}
+        <Link url={clientInfo?.url}>
+          {clientInfo?.url}
         </Link>
       </div>
       <div className="rounded-lg bg-white p-6 shadow-sm mb-[210px] md:w-[500px]">
