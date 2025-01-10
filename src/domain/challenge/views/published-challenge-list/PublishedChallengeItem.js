@@ -46,9 +46,7 @@ function PublishedChallengeItem({ data, viewingSelf }) {
             className="gap-2"
             dataSource={data?.enrool_users}
             total={data?.base.course_series_learn_num}
-            limit={10}
             dataKeys={{ id: 'user_id', avatar: 'user_avatar' }}
-            showMore
           />
         </div>
         <p className="mt-4 text-sm opacity-80 md:mt-0">

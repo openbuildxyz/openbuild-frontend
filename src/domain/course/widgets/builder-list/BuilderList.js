@@ -28,12 +28,12 @@ function BuilderList({
   dataSource = [],
   dataKeys = { id: idKey, avatar: avatarKey },
   total,
-  limit = 0,
-  showMore = false,
+  limit = 10,
+  hideMore = false,
 }) {
   const resolvedTotal = total || dataSource.length
   const greaterThanLimit = isInteger(limit) && resolvedTotal > limit
-  const builders = greaterThanLimit ? dataSource.slice(0, showMore ? limit - 1 : limit) : dataSource
+  const builders = greaterThanLimit ? dataSource.slice(0, hideMore ? limit : limit - 1) : dataSource
 
   return resolvedTotal > 0 && (
     <div className={clsx('flex items-center text-sm', className)}>
@@ -49,7 +49,7 @@ function BuilderList({
               className="h-6 w-6 object-cover"
             />
           ))}
-          {greaterThanLimit && showMore && <span className="ml-[-8px] w-6 h-6 inline-block rounded-full bg-white text-center leading-4">...</span>}
+          {greaterThanLimit && !hideMore && <span className="ml-[-8px] w-6 h-6 inline-block rounded-full bg-white text-center leading-4">...</span>}
         </div>
       </div>
       {children || `${resolvedTotal} builder${resolvedTotal > 1 ? 's' : ''}`}
