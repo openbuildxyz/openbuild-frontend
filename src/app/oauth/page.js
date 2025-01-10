@@ -21,32 +21,16 @@ import { SvgIcon } from '@/components/Image'
 import { Button } from '@/components/Button'
 import Logo from 'public/images/svg/logo-black.svg';
 import { useQuery } from '@tanstack/react-query';
-import { getOauthClientInfo, getOauthClientCode } from '../../auth/repository';
+import { fetchOauthClientInfo, fetchOauthClientCode } from '#/domain/auth/repository';
 import { useSearchParams } from 'next/navigation';
 import Loader from '@/components/Loader'
 import { useSession } from 'next-auth/react'
 import { usePathname, useRouter } from 'next/navigation'
 import { useEffect } from 'react';
+import NoteItem from './components/NoteItem'
+import Link from './components/Link'
 
-function NoteItem({title, description, icon}) {
-  return (
-    <div className="flex items-start gap-3">
-      <SvgIcon name={icon} size={24} className="mt-1" />
-      <div className="leading-6">
-        <div className="text-base font-bold">{title}</div>
-        <div className="text-sm text-[#1A1A1ACC]">{description}</div>
-      </div>
-    </div>
-  )
-}
-
-function Link({url, children}) {
-  return (
-    <a href={url} className="text-[#4000E0]">{children}</a>
-  )
-}
-
-function Oauth() {
+export default function Page() {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
@@ -57,13 +41,13 @@ function Oauth() {
 
   const { data: clientInfo, isLoading } = useQuery({
     queryKey: ['oauth-client-info', client_id],
-    queryFn: () => client_id ? getOauthClientInfo(client_id) : null,
+    queryFn: () => client_id ? fetchOauthClientInfo(client_id) : null,
   })
 
   const url = clientInfo?.data?.url
 
   async function handleAuthorize() {
-    const data = await getOauthClientCode(client_id)
+    const data = await fetchOauthClientCode(client_id)
     window.location.href = `${redirect_uri}&code=${data.data.code}`
   }
 
@@ -117,10 +101,10 @@ function Oauth() {
             Authorize
           </Button>
         </div>
-        <div className='py-6 flex items-center gap-3'>
+        <div className='pt-6 flex items-center gap-3'>
           <SvgIcon name='lock' size={16} />
           <span className="text-sm leading-6 text-[#1A1A1A99]">
-            Developer's <Link url='#'>Privacy Policy</Link> and <Link url='#'>Terms</Link> of Service
+            Developer&apos;s <Link url='#'>Privacy Policy</Link> and <Link url='#'>Terms</Link> of Service
           </span>
         </div>
       </div>
@@ -134,5 +118,3 @@ function Oauth() {
     )
   )
 }
-
-export default Oauth
