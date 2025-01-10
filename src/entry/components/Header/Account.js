@@ -18,7 +18,7 @@
 
 import { useMediaUrl } from '#/state/application/hooks'
 import Link from 'next/link'
-import { usePathname, useSearchParams } from 'next/navigation'
+import { usePathname, useSearchParams, useRouter } from 'next/navigation'
 import { useUser } from '#/state/application/hooks'
 import Image from 'next/image'
 import { useEffect, useMemo } from 'react'
@@ -31,11 +31,12 @@ import { resolvePathWithSearch } from '@/utils/url'
 import { Button } from '@/components/Button'
 import { CustomConnectButton } from './CustomConnectButton'
 
-export function Account() {
+function Account() {
   const { isConnected, address, } = useAccount()
   const { disconnectAsync } = useDisconnect()
   const pathname = usePathname()
   const searchParams = useSearchParams()
+  const router = useRouter()
   const info = useUser()
   const { status } = useSession()
   const mediaUrl = useMediaUrl()
@@ -51,6 +52,12 @@ export function Account() {
   }, [info])
 
   const sourceFrom = encodeURIComponent(resolvePathWithSearch(pathname, searchParams))
+  const userProfileUrl = `/u/${info?.base.user_handle}`
+
+  const gotoUserProfile = e => {
+    e.stopPropagation()
+    router.push(userProfileUrl)
+  }
 
   return (
     <div className="flex">
@@ -75,7 +82,7 @@ export function Account() {
                 src={mediaUrl + info.base.user_avatar}
               />
             )}
-            <div className="mr-8 max-md:hidden">
+            <div className="mr-8 max-md:hidden" onClick={gotoUserProfile}>
               <p className="text-sm font-semibold">{info.base.user_nick_name}</p>
               <p className="text-xs mt-[2px]">
                 <span className="opacity-40">{shortenAddress(address)}</span>
@@ -91,7 +98,7 @@ export function Account() {
              <CustomConnectButton />
             </div>
             <li>
-              <Link href={`/u/${info.base.user_handle}`}>
+              <Link href={userProfileUrl}>
                 <ProfileIcon />
                 <div className="ml-3">
                   <p>Profile</p>
@@ -142,7 +149,8 @@ export function Account() {
           </Link>
         </div>
       )}
-
     </div>
   )
 }
+
+export default Account
