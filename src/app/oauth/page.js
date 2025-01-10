@@ -20,50 +20,72 @@ import Image from 'next/image';
 import { SvgIcon } from '@/components/Image'
 import { Button } from '@/components/Button'
 import Logo from 'public/images/svg/logo-black.svg';
-import { useQuery } from '@tanstack/react-query';
 import { fetchOauthClientInfo, fetchOauthClientCode } from '#/domain/auth/repository';
 import { useSearchParams } from 'next/navigation';
 import Loader from '@/components/Loader'
 import { useSession } from 'next-auth/react'
 import { usePathname, useRouter } from 'next/navigation'
-import { useEffect } from 'react';
-import NoteItem from './components/NoteItem'
-import Link from './components/Link'
+import { useEffect, useState, useCallback } from 'react';
+import NoteItem from './NoteItem'
+import Link from './Link'
 
 export default function Page() {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
-  const client_id = searchParams?.get('client_id')
-  const redirect_uri = searchParams?.get('redirect_uri')
+  const clientId = searchParams?.get('client_id')
+  const redirectUri = searchParams?.get('redirect_uri')
 
   const { status } = useSession()
 
-  const { data: clientInfo, isLoading } = useQuery({
-    queryKey: ['oauth-client-info', client_id],
-    queryFn: () => client_id ? fetchOauthClientInfo(client_id) : null,
-  })
-
-  const url = clientInfo?.data?.url
+  const [disabled, setDisabled] = useState(false)
+  const [loading, setLoading] = useState(true)
+  const [clientInfo, setClientInfo] = useState(null)
 
   async function handleAuthorize() {
-    const data = await fetchOauthClientCode(client_id)
-    window.location.href = `${redirect_uri}&code=${data.data.code}`
+    setDisabled(true)
+    try {
+      const data = await fetchOauthClientCode(clientId)
+      const code = data.data.code ? `&code=${data.data.code}` : ''
+      window.location.href = `${decodeURIComponent(redirectUri)}${code}`
+    } catch (error) {
+      console.error(error)
+    } finally {
+      setDisabled(false)
+    }
   }
 
   function handleCancel() {
-    window.location.href = redirect_uri
+    window.location.href = decodeURIComponent(redirectUri)
   }
+
+  const fetchClientInfo = useCallback(async () => {
+    if(clientId) {
+      setLoading(true)
+      try {
+        const data = await fetchOauthClientInfo(clientId)
+        setClientInfo(data)
+      } catch (error) {
+        console.error(error)
+      } finally {
+        setLoading(false)
+      }
+    }
+  }, [clientId])
+
+  useEffect(() => {
+    fetchClientInfo()
+  }, [fetchClientInfo])
 
   useEffect(() => {
     if (status !== 'loading' && status !== 'authenticated') {
-      const encodedParams = `client_id=${encodeURIComponent(client_id)}&redirect_uri=${encodeURIComponent(redirect_uri)}`;
+      const encodedParams = `client_id=${encodeURIComponent(clientId)}&redirect_uri=${encodeURIComponent(redirectUri)}`;
       router.push(`/signin?from=${encodeURIComponent(`${pathname}?${encodedParams}`)}`)
     }
   }, [status])
   
   return (
-    isLoading ? <Loader /> : (
+    loading ? <Loader /> : (
       <div className="flex min-h-screen flex-col items-center pt-9 md:pt-[60px] p-4 font-['Nunito_Sans'] relative">
       <div className="relative w-[192px] md:w-[320px]">
         <div className="absolute top-1/2 left-0 w-full border-b-2 border-dashed border-[#d1d9e0]" />
@@ -84,11 +106,11 @@ export default function Page() {
         <p className="text-[#1A1A1ACC]">
           Log in with OpenBuild, Authorizing will redirect to
         </p>
-        <Link url={url}>
-          {url}
+        <Link url={clientInfo?.data?.url}>
+          {clientInfo?.data?.url}
         </Link>
       </div>
-      <div className="rounded-lg border border-gray-600 bg-white p-6 shadow-lg mb-[210px]">
+      <div className="rounded-lg bg-white p-6 shadow-sm mb-[210px] md:w-[500px]">
         <div className="space-y-4 rounded-md mb-6">
           <NoteItem icon='personal' title="Personal user data" description="Email addresses (read-only), profile information (read-only)" />
           <NoteItem icon='international' title="Public data only" description="Limited access to your public data" />
@@ -97,7 +119,7 @@ export default function Page() {
             <Button variant='outlined' className='flex-1' onClick={handleCancel}>
               Cancel
             </Button>
-          <Button variant='contained' className='flex-1' onClick={handleAuthorize}>
+          <Button variant='contained' className='flex-1' onClick={handleAuthorize} disabled={disabled}>
             Authorize
           </Button>
         </div>
