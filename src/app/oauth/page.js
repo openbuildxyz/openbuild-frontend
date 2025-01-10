@@ -42,34 +42,33 @@ export default function Page() {
   const [loading, setLoading] = useState(true)
   const [clientInfo, setClientInfo] = useState(null)
 
-  async function handleAuthorize() {
+  function handleAuthorize() {
     setDisabled(true)
-    try {
-      const data = await fetchOauthClientCode(clientId)
+
+    fetchOauthClientCode(clientId).then(data => {
       const code = data.data.code ? `&code=${data.data.code}` : ''
       window.location.href = `${decodeURIComponent(redirectUri)}${code}`
-    } catch (error) {
+    }).catch(error => {
       console.error(error)
-    } finally {
+    }).finally(() => {
       setDisabled(false)
-    }
+    })
   }
 
   function handleCancel() {
     window.location.href = decodeURIComponent(redirectUri)
   }
 
-  const fetchClientInfo = useCallback(async () => {
+  const fetchClientInfo = useCallback(() => {
     if(clientId) {
       setLoading(true)
-      try {
-        const data = await fetchOauthClientInfo(clientId)
+      fetchOauthClientInfo(clientId).then(data => {
         setClientInfo(data)
-      } catch (error) {
+      }).catch(error => {
         console.error(error)
-      } finally {
+      }).finally(() => {
         setLoading(false)
-      }
+      })
     }
   }, [clientId])
 
@@ -91,13 +90,13 @@ export default function Page() {
         <div className="absolute top-1/2 left-0 w-full border-b-2 border-dashed border-[#d1d9e0]" />
         <div className="flex items-center justify-between py-9">
           <div className="relative bg-white rounded-full size-[60px] md:size-[100px]">
-            <img src={clientInfo?.data?.logo} alt="Logo"/>
+            <img src={clientInfo?.data?.logo} alt="Logo" className="!size-full" />
           </div>
           <div className="flex items-center gap-2 relative">
             <SvgIcon name='circle-check' size={20} />
           </div>
           <div className="relative bg-white rounded-full size-[60px] md:size-[100px]">
-            <SvgIcon name='oauth-logo' size={100} />
+            <SvgIcon name='oauth-logo' size={100} className="!size-full" />
           </div>
         </div>
       </div>
