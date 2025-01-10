@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
-'use client'
-
-export { default } from '#/domain/oauth/views'
+export default function Link({url, children}) {
+  return (
+    <a href={url||'#'} className="text-[#4000E0]">{children}</a>
+  )
+}
