@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-export default function Link({url, children}) {
+export default function Link({url = '#', children}) {
   return (
-    <a href={url||'#'} className="text-[#4000E0]">{children}</a>
+    <a href={url} className="text-[#4000E0]">{children}</a>
   )
 }
