@@ -28,7 +28,13 @@ export function BountiesCard({ data }) {
   return (
     <Link
       href={`/bounties/${data.id}`}
-      className="group flex flex-col relative cursor-pointer overflow-hidden rounded-2xl bg-white py-4 transition-shadow hover:shadow-lg [&>div]:px-4"
+      className={`
+        group flex flex-col relative cursor-pointer overflow-hidden rounded-2xl
+        bg-gradient-to-b ${
+          data.status === 3 ? "from-[#E5E5FE] to-[#FFFFFF]" : "bg-white"
+        }
+        py-4 transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-2 [&>div]:px-4
+      `}
     >
       <div>
         <h5 className="mb-2 text-lg line-clamp-2">
