@@ -15,7 +15,7 @@
  */
 
 const publishedTypes = [
-  { key: 'open_course_num', text: 'Opencourse' },
+  { key: 'open_course_num', text: 'Open Course' },
   { key: 'bounty_num', text: 'Bounty' },
   { key: 'challenge_num', text: 'Challange' },
   { key: 'quiz_num', text: 'Quiz' },
