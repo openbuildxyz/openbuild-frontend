@@ -22,6 +22,19 @@ import Avatar from '@/components/Avatar'
 import { useConfig } from '#/state/application/hooks'
 import { fromNow } from '@/utils/date'
 
+const StatusBadge = ({ icon, color, text, borderColor, textColor }) => {
+  return (
+    <div className={`inline-flex items-center gap-2 ${color} bg-opacity-10 rounded-full`}>
+      <span className={`w-[24px] h-[24px] rounded-full flex items-center justify-center border-2 ${borderColor}`}>
+        {icon}
+      </span>
+      <span className={`text-xs font-semibold ${textColor} font-nunito leading-[12px] text-left pr-2`}>
+        {text}
+      </span>
+    </div>
+  );
+};
+
 export function BountiesCard({ data }) {
   const config = useConfig()
   const filters = config?.find(f => f.config_id === 1)?.config_value['bounty']
@@ -30,9 +43,7 @@ export function BountiesCard({ data }) {
       href={`/bounties/${data.id}`}
       className={`
         group flex flex-col relative cursor-pointer overflow-hidden rounded-2xl
-        bg-gradient-to-b ${
-          data.status === 3 ? "from-[#E5E5FE] to-[#FFFFFF]" : "bg-white"
-        }
+        bg-gradient-to-b ${ data.status === 3 ? 'from-[#E5E5FE] to-[#FFFFFF]' : 'bg-white'}
         py-4 transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-2 [&>div]:px-4
       `}
     >
@@ -68,34 +79,13 @@ export function BountiesCard({ data }) {
         <div className="flex items-center gap-2">
           <div className="flex items-center">
             {data.status === 3 && (
-              <div className="flex items-center gap-2 bg-[#807DFB] bg-opacity-10 rounded-full">
-                <span className="w-[24px] h-[24px] rounded-full flex items-center justify-center border-2 border-[#807DFB]">
-                  🧱
-                </span>
-                <span className="w-[65px] text-xs font-semibold text-[#807DFB] font-nunito leading-[12px] text-left">
-                  Recruiting
-                </span>
-              </div>
+              <StatusBadge icon="🧱" color="bg-[#807DFB]" borderColor="border-[#807DFB]" textColor="text-[#807DFB]" text="Recruiting"/>
             )}
             {data.status > 6 && data.status < 24 && (
-              <div className="flex items-center gap-2 bg-[#01DB83] bg-opacity-10 rounded-full">
-                <span className="w-[24px] h-[24px] rounded-full flex items-center justify-center border-2 border-[#01DB83]">
-                  🔫
-                </span>
-                <span className="w-[54px] text-xs font-semibold text-[#00C475] font-nunito leading-[12px]">
-                  Building
-                </span>
-              </div>
+              <StatusBadge icon="🔫" color="bg-[#01DB83]" borderColor="border-[#01DB83]" textColor="text-[#00C475]" text="Building"/>
             )}
             {data.status === 30 && (
-              <div className="flex items-center gap-2 bg-[#82ADD8] bg-opacity-10 rounded-full">
-                <span className="w-[24px] h-[24px] rounded-full flex items-center justify-center border-2 border-[#82ADD8]">
-                  🔚
-                </span>
-                <span className="w-[70px] text-xs font-semibold text-[#82ADD8] font-nunito leading-[12px] text-left">
-                  Completed
-                </span>
-              </div>
+              <StatusBadge icon="🔚" color="bg-[#82ADD8]" borderColor="border-[#82ADD8]" textColor="text-[#82ADD8]" text="Completed"/>
             )}
           </div>
         </div>
