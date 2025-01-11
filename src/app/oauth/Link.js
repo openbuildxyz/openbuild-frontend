@@ -14,13 +14,8 @@
  * limitations under the License.
  */
 
-import Navs from './Navs'
-import { APP_NAVS } from '#/lib/nav'
-
-export function Header() {
+export default function Link({url = '#', children}) {
   return (
-    <>
-      <Navs data={APP_NAVS} />
-    </>
-  );
+    <a href={url} className="text-[#4000E0]">{children}</a>
+  )
 }

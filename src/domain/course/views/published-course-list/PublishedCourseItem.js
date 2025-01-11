@@ -19,6 +19,8 @@ import Link from 'next/link'
 
 import Image, { SvgIcon } from '@/components/Image'
 
+import BuilderListWidget from '../../widgets/builder-list'
+
 function PublishedCourseItem({ data, viewingSelf }) {
   const router = useRouter()
 
@@ -39,25 +41,12 @@ function PublishedCourseItem({ data, viewingSelf }) {
           >
             {data?.base.course_series_title}
           </h3>
-          {data?.enrool_users?.length > 0 && <div className="flex gap-2 text-sm items-center">
-            <div className="flex">
-              <div suppressHydrationWarning className="flex [&>img]:ml-[-8px] [&>img]:rounded-full [&>img]:border [&>img]:border-white [&>img:first-child]:ml-0">
-                {data?.enrool_users?.slice(0, 10).map(i => (
-                  <Image
-                    key={`course-${data.base.course_series_id}-enrolled-user-${i.user_id}`}
-                    width={24}
-                    height={24}
-                    src={i.user_avatar}
-                    alt=""
-                    className="h-6 w-6 object-cover"
-                  />
-                ))}
-                {data?.enrool_users?.length > 10 && <span className="ml-[-8px] w-6 h-6 inline-block rounded-full bg-white text-center leading-4">...</span>}
-              </div>
-            </div>
-            {data?.enrool_users.length}+ Builders Enroll
-          </div>}
-
+          <BuilderListWidget
+            className="gap-2"
+            dataSource={data?.enrool_users}
+            total={data?.base.course_series_learn_num}
+            dataKeys={{ id: 'user_id', avatar: 'user_avatar' }}
+          />
         </div>
         <p className="mt-4 text-sm opacity-80 md:mt-0">
           Course Sections <strong>{data?.base.course_series_single_num}</strong>

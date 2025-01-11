@@ -14,13 +14,16 @@
  * limitations under the License.
  */
 
-import Navs from './Navs'
-import { APP_NAVS } from '#/lib/nav'
+import { SvgIcon } from '@/components/Image'
 
-export function Header() {
+export default function NoteItem({title, description, icon}) {
   return (
-    <>
-      <Navs data={APP_NAVS} />
-    </>
-  );
+    <div className="flex items-start gap-3">
+      <SvgIcon name={icon} size={24} className="mt-1" />
+      <div className="leading-6">
+        <div className="text-base font-bold">{title}</div>
+        <div className="text-sm text-[#1A1A1ACC]">{description}</div>
+      </div>
+    </div>
+  )
 }

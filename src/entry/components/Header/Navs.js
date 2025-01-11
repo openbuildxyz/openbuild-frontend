@@ -19,7 +19,7 @@
 import Image from 'next/image';
 import { usePathname } from 'next/navigation'
 import { ChevronDownIcon, Bars3Icon, ChevronRightIcon, XMarkIcon } from '@heroicons/react/20/solid';
-import { Account } from './account';
+import Account from './Account';
 import Link from 'next/link';
 import clsx from 'clsx'
 import { useHeaderAndFooterDisplay } from '@/hooks/useHeaderAndFooterDisplay'
@@ -27,7 +27,7 @@ import { useHeaderAndFooterDisplay } from '@/hooks/useHeaderAndFooterDisplay'
 import Logo from 'public/images/svg/logo-black.svg';
 import { useEffect, useState } from 'react';
 
-export function Navs({data}) {
+function Navs({data}) {
   const pathname = usePathname()
   const hidden = useHeaderAndFooterDisplay()
   const [openMenu, setOpenMenu] = useState(false)
@@ -160,3 +160,5 @@ export function Navs({data}) {
     </header>
   );
 }
+
+export default Navs

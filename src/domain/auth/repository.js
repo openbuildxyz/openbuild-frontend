@@ -36,7 +36,16 @@ async function sendEmailCode({ email, type }) {
   return httpClient.post('/auth/user/verification/code/email', { email, type })
 }
 
+async function fetchOauthClientInfo(client_id) {
+  return httpClient.get('/oauth/client/info', { params: { client_id } })
+}
+
+async function fetchOauthClientCode(client_id) {
+  return httpClient.get('/oauth/client/code', { params: { client_id } })
+}
+
 export {
   signWallet, signInWithWallet, bindWallet, unbindWallet,
   sendEmailCode,
+  fetchOauthClientInfo , fetchOauthClientCode
 }
