@@ -15,6 +15,8 @@
     "analyze:browser": "cross-env BUNDLE_ANALYZE=browser next build",
     "license": "node .knosys/scripts license add",
     "doc": "node .knosys/scripts site",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
     "prepare": "husky"
   },
   "dependencies": {

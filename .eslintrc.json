@@ -1,21 +1,33 @@
 {
-  "extends": [
-    "next/core-web-vitals" // Use next/core-web-vitals for best Next.js defaults
-  ],
+  "extends": ["next/core-web-vitals"],
   "rules": {
     "unused-imports/no-unused-imports": "error",
-    "no-empty-function": "off", // Only if absolutely necessary
+    "no-empty-function": "error",
     "object-shorthand": ["error", "always"],
     "quotes": ["error", "single"],
-    "no-unused-vars": "warn", // Use "warn" instead of turning off completely
+    "no-unused-vars": "error",
+    "semi": ["warn", "always"],
+    "indent": ["error", 2],
+    "comma-dangle": ["warn", "always-multiline"],
+    "prefer-const": "error",
+    "arrow-parens": ["error", "as-needed"],
+    "eol-last": ["error", "always"],
     "react/display-name": "off",
-        "react/no-unknown-property": "off",
-        "react/prop-types": "off"
+    "react/no-unknown-property": "off",
+    "react/prop-types": "off",
+    "jsx-quotes": ["error", "prefer-double"],
+    "react/self-closing-comp": [
+      "error",
+      {
+        "component": true,
+        "html": true
+      }
+    ]
   },
   "plugins": ["unused-imports"],
   "settings": {
     "react": {
-      "version": "detect" // Automatically detect React version
+      "version": "detect"
     }
   }
 }
