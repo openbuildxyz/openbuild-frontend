@@ -67,7 +67,7 @@
     "lowlight": "^3.3.0",
     "lucide-react": "0.454.0",
     "nanoid": "^5.0.6",
-    "next": "^13.4.12",
+    "next": "13.4.12",
     "next-auth": "^4.22.1",
     "nextjs-toploader": "^1.4.2",
     "novel": "0.5.0",
@@ -116,7 +116,7 @@
     "@astrojs/starlight-tailwind": "2.0.3",
     "@astrojs/tailwind": "5.1.2",
     "@knosys/sdk": "^0.0.3",
-    "@tailwindcss/line-clamp": "^0.4.2",
+    "@tailwindcss/line-clamp": "0.4.4",
     "@types/node": "18.11.3",
     "@types/qs": "^6.9.15",
     "@types/react": "18.0.21",
@@ -126,12 +126,12 @@
     "autoprefixer": "^10.4.12",
     "eslint": "^8.7.0",
     "eslint-config-next": "^13.1.1",
-    "eslint-plugin-tailwindcss": "^3.8.0",
+    "eslint-plugin-tailwindcss": "^3.8.3",
     "husky": "9.1.7",
     "ksio": "^0.0.3",
     "lint-staged": "15.3.0",
     "postcss": "^8.4.18",
     "prettier": "^2.5.1",
-    "tailwindcss": "^3.2.4"
+    "tailwindcss": "3.2.4"
   }
 }
