@@ -17,7 +17,6 @@
 'use client'
 import { ArrowRightIcon } from '@heroicons/react/20/solid'
 import Typed from 'react-typed'
-import styled from 'styled-components'
 import Image from 'next/image'
 import topPic from 'public/images/banner-top.png'
 import bottomPic from 'public/images/banner-bottom.png'
@@ -28,17 +27,9 @@ import scrollDownPic from 'public/images/svg/scroll-down.svg'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 
-const Pointer = styled.span`
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-  border: 1px solid #fff;
-  transform: rotate(45deg);
-  margin-right: 10px;
-  &:last-child {
-    margin-right: 0;
-  }
-`
+const Pointer = () => {
+  return <span className="inline-block w-[10px] h-[10px] border border-white rotate-45 mr-[10px] [&:last-child]:mr-0" />
+}
 
 export function Banner() {
   const [showTyped, setShowTyped] = useState(true)
