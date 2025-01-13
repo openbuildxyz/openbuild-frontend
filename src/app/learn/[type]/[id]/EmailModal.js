@@ -16,7 +16,7 @@
 
 import React, { useState, useEffect } from 'react'
 import { Modal } from '@/components/Modal'
-import { baseInputStyles } from '#/styleds'
+import { baseInputStyles } from '#/domain/profile/widgets/blocks'
 
 import { toast } from 'react-toastify'
 import isEmail from 'validator/lib/isEmail'

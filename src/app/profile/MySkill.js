@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { ProfileTitle, ProfileLabel } from '#/styleds'
+import { ProfileTitle, ProfileLabel } from '#/domain/profile/widgets/blocks'
 import { Select } from '@/components/Select'
 import { useState, useMemo, useRef } from 'react'
 import { UploadIcon } from '@/components/Icons'

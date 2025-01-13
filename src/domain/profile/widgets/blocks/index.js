@@ -16,21 +16,32 @@
 
 'use client'
 
-import styled from 'styled-components'
+import clsx from 'clsx'
 
-export const ProfileTitle = styled.h2`
-  font-size: 44px;
-  line-height: 1;
-  font-weight: bold;
-  @media screen and (max-width: 768px) {
-    font-size: 24px;
-  }
-`
-export const ProfileLabel = styled.p`
-  font-size: 14px;
-  line-height: 1;
-  margin-bottom: 8px;
-`
+export const ProfileTitle = ({ className, children, ...props }) => {
+  return (
+    <h2
+      className={clsx(
+        "text-[24px] leading-none font-bold md:text-[44px]",
+        className
+      )}
+      {...props}
+    >
+      {children}
+    </h2>
+  );
+};
+
+export const ProfileLabel = ({ className, children, ...props }) => {
+  return (
+    <p
+      className={clsx("text-[14px] leading-none mb-2", className)}
+      {...props}
+    >
+      {children}
+    </p>
+  );
+};
 
 export const baseInputStyles =
-  'block w-full rounded border border-gray-600 bg-transparent px-3 py-3 text-sm text-gray placeholder:text-gray-500'
+  "block w-full rounded border border-gray-600 bg-transparent px-3 py-3 text-sm text-gray placeholder:text-gray-500";

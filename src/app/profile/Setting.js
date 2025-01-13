@@ -16,7 +16,7 @@
 
 'use client'
 
-import { ProfileTitle } from '#/styleds'
+import { ProfileTitle } from '#/domain/profile/widgets/blocks'
 import { Button } from '@/components/Button'
 import Link from 'next/link'
 // import { useState } from 'react'

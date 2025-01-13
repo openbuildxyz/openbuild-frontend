@@ -18,7 +18,7 @@ import { Modal } from '@/components/Modal'
 import { ModalCloseIcon, TipsIcon } from '@/components/Icons'
 import { ReactSelect } from '@/components/Select/ReactSelect'
 import { classNames } from '@/utils'
-import { baseInputStyles } from '#/styleds'
+import { baseInputStyles } from '#/domain/profile/widgets/blocks'
 
 import { useState, useMemo } from 'react'
 import { useAllSkills } from '#/state/application/hooks'
