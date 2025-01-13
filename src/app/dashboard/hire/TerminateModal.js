@@ -25,7 +25,7 @@ import { waitForTransaction } from '@wagmi/core'
 // import { writeContract, prepareWriteContract } from '@wagmi/core'
 import { hireCancel } from '#/services/shilling'
 import { writeContract } from '@wagmi/core';
-import { baseInputStyles } from '#/styleds'
+import { baseInputStyles } from '#/domain/profile/widgets/blocks'
 
 export function TerminateModal({ open, closeModal, data }) {
   const slillhubChain = useSlillhubChain()

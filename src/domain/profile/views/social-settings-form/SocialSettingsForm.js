@@ -15,7 +15,7 @@
  */
 
 import { useMemo } from 'react'
-import { ProfileTitle, ProfileLabel } from '#/styleds'
+import { ProfileTitle, ProfileLabel } from '#/domain/profile/widgets/blocks'
 import WalletIcon from './wallet.svg'
 // import StackoverflowIcon from 'public/images/svg/stackoverflow.svg'
 import DiscordIcon from './discord.svg'

@@ -17,7 +17,7 @@
 'use client'
 
 import { classNames } from '@/utils'
-import { baseInputStyles } from '#/styleds'
+import { baseInputStyles } from '#/domain/profile/widgets/blocks'
 // import Switch from '@/components/Switch'
 import { EditIcon, DeleteIcon } from '@/components/Icons'
 import { useState, useMemo, useEffect } from 'react'
