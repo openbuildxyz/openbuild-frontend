@@ -27,19 +27,17 @@ For more information, see [here](https://openbuildxyz.github.io/openbuild-fronte
 pnpm install
 ```
 
-### Setting Environment Variables
+### First-Time Setup
+
+For the initial setup, run:
 
 ```bash
-cp .env.example .env.local
-```
-
-then
-
-```bash
-pnpm dlx auth secret
+pnpm run setup
 ```
 
 ### Run 🚀
+
+After the initial setup, use the following command to start the application:
 
 ```bash
 pnpm start
