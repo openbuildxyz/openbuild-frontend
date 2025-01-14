@@ -71,6 +71,10 @@ export function QuizComponents({ id, version, data }) {
     return noAnswer ? (noAnswer.length / quiz.length) * 100 : 0
   }, [quiz])
 
+  const handleAnsweredCheck = idx => {
+    setPage(idx + 1)
+  }
+
   const submit = async () => {
     const sendParams = quiz?.map(i => ({ 'quiz_body_id': i.id, 'quiz_item_id': i.answer }))
     setSubmiting(true)
@@ -92,7 +96,7 @@ export function QuizComponents({ id, version, data }) {
           <XMarkIcon className="h-4 w-4 mr-2" /> Close
         </Link>
         <div className="flex items-center">
-          <AnswerRecordDrawer questions={quiz} result={submitData} submitting={submiting} onSubmit={submit} />
+          <AnswerRecordDrawer questions={quiz} result={submitData} submitting={submiting} onCheck={handleAnsweredCheck} onSubmit={submit} />
           {!submitData && <Button className="min-w-[120px] ml-3" onClick={submit} loading={submiting}>Submit</Button>}
         </div>
       </div>
