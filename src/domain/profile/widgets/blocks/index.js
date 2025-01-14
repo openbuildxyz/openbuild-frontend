@@ -22,7 +22,7 @@ export const ProfileTitle = ({ className, children, ...props }) => {
   return (
     <h2
       className={clsx(
-        "text-[24px] leading-none font-bold md:text-[44px]",
+        'text-[24px] leading-none font-bold md:text-[44px]',
         className
       )}
       {...props}
@@ -35,7 +35,7 @@ export const ProfileTitle = ({ className, children, ...props }) => {
 export const ProfileLabel = ({ className, children, ...props }) => {
   return (
     <p
-      className={clsx("text-[14px] leading-none mb-2", className)}
+      className={clsx('text-[14px] leading-none mb-2', className)}
       {...props}
     >
       {children}

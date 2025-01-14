@@ -28,7 +28,7 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 
 const Pointer = () => {
-  return <span className="inline-block w-[10px] h-[10px] border border-white rotate-45 mr-[10px] [&:last-child]:mr-0" />
+  return <span className='inline-block w-[10px] h-[10px] border border-white rotate-45 mr-[10px] [&:last-child]:mr-0' />
 }
 
 export function Banner() {
