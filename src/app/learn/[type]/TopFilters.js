@@ -70,13 +70,13 @@ export function TopFilters({type}) {
   }
 
   return (
-    <div className="flex items-center">
+    <div className="flex flex-wrap gap-2 items-center sm:flex-nowrap sm:gap-0">
       {type==='courses' && (
-        <div className="flex mr-2">
+        <div className="flex flex-wrap gap-2 mr-2 sm:flex-nowrap">
           <button
             onClick={() => changeParams('recommend_type', recommendType === 'choice' ? null : 'choice')}
             className={clsx(
-              'group border border-gray-600 text-sm h-10 px-4 flex items-center rounded mr-2 hover:border-gray',
+              'group border border-gray-600 text-sm h-10 px-4 flex items-center rounded hover:border-gray',
               {'!border-gray' : recommendType === 'choice'}
             )}
           >
@@ -106,7 +106,7 @@ export function TopFilters({type}) {
               Text
             </span>
           </div>
-          <div className="w-[140px] ml-2">
+          <div className="w-[140px]">
             <ReactSelect
               id="learn-order-select"
               isClearable
@@ -120,8 +120,10 @@ export function TopFilters({type}) {
           </div>
         </div>
       )}
-      <Search />
-      <Sort />
+      <div className="flex">
+        <Search />
+        <Sort />
+      </div>
     </div>
   )
 }
