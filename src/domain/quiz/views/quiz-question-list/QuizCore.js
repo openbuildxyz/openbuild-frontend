@@ -23,8 +23,13 @@ export function QuizCore({
   quiz,
   setQuiz,
   page,
-  submitData
+  submitData,
+  marked = false,
 }) {
+  if (!quiz || quiz.length === 0) {
+    return
+  }
+
   const multiple = quiz[page - 1].type === 2
 
   const checkAnswer = item => {
@@ -47,7 +52,7 @@ export function QuizCore({
     setQuiz(_quiz)
   }
 
-  return quiz && quiz.length > 0 && (
+  return (
     <>
       <p className="text-[14px] max-md:leading-[32px] md:text-sm mb-3 md:mb-4">Question {page} / {quiz?.length}</p>
       <div>
@@ -62,13 +67,17 @@ export function QuizCore({
             </h2>
             {quiz[page - 1].quiz_item.map((item) => {
               const checked = quiz[page - 1].answer?.includes(item.id)
+              const markable = checked && marked
+              const correct = quiz[page - 1].correct?.includes(item.id)
 
               return (
                 <button
                   key={nanoid()}
                   type="button"
                   className={clsx('flex items-center gap-x-4 md:block min-h-[48px] py-3 border text-[15px] transition-all rounded mt-6 w-full text-left px-4 border-gray-600 hover:border-gray', {
-                    '!border-gray': checked
+                    '!border-gray': checked,
+                    '!border-green': markable && correct,
+                    '!border-red': markable && !correct,
                   })}
                   onClick={() => checkAnswer(item)}
                 >

@@ -28,8 +28,13 @@ import FeedbackDialog from '../../widgets/feedback-dialog'
 import AnswerRecordDrawer from './AnswerRecordDrawer'
 import { QuizCore } from './QuizCore'
 
-function resolveAnsweredQuiz(quiz, answered) {
-  return answered.quiz_user_answer.map((i, k) => ({ ...quiz[k], judgment: i.judgment }))
+function resolveAnsweredQuiz(quiz, answered, overridable = false) {
+  return answered.quiz_user_answer.map((i, k) => ({
+    ...quiz[k],
+    answer: overridable ? i.answer : quiz[k].answer,
+    judgment: i.judgment,
+    correct: i.correct_answer,
+  }))
 }
 
 export function QuizComponents({ id, version, data }) {
@@ -54,7 +59,7 @@ export function QuizComponents({ id, version, data }) {
         .then(res => {
           if (res.success) {
             setSubmitData(res.data)
-            setQuiz(resolveAnsweredQuiz(initialQuiz, res.data))
+            setQuiz(resolveAnsweredQuiz(initialQuiz, res.data, true))
           }
         })
         .finally(() => setSubmiting(false))
@@ -93,7 +98,7 @@ export function QuizComponents({ id, version, data }) {
       </div>
       <div className="flex justify-center">
         <div className="md:w-[680px]">
-          <QuizCore quiz={quiz} setQuiz={setQuiz} page={page} submitData={submitData} />
+          <QuizCore quiz={quiz} setQuiz={setQuiz} page={page} submitData={submitData} marked={!!version} />
           <div className="absolute bottom-0 md:bottom-14 max-md:left-0 max-md:right-0 md:flex md:items-center md:justify-between md:w-[680px]">
             <div className="flex items-center max-md:justify-center max-md:mb-4">
               <progress class="progress w-56" value={_progress.toFixed(0)} max="100"></progress>
