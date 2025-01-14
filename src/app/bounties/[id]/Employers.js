@@ -18,6 +18,8 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
+import { usePathname, useSearchParams, useRouter } from 'next/navigation'
+import { useSession } from 'next-auth/react'
 // import { toast } from 'react-toastify';
 import { CertifiedIcon } from '@/components/Icons'
 import clsx from 'clsx'
@@ -39,6 +41,7 @@ import { ArrowTopRightOnSquareIcon } from '@/components/Icons'
 // import { Confirm } from '@/components/Modal/Confirm'
 // import { withdraw } from '@/constants/bounty'
 import { formatTime } from '@/utils/date' // currentTime, fromNow,
+import { resolvePathWithSearch } from '@/utils/url'
 
 // import { builderTerminationConfirm, builderTerminationDeny, arbitrate } from '#/services/bounties'
 import { useBountyBuildersList } from '#/services/bounties/hooks'
@@ -75,6 +78,10 @@ const process = [
 ]
 
 export function Employers({ id, list, data, mobile }) {
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
+  const router = useRouter()
+  const { status } = useSession()
   const [openModal, setOpenModal] = useState(false)
   const [needOpen, setNeedOpen] = useState(false)
   const [notBindWallet, setNotBindWallet] = useState(false)
@@ -85,7 +92,10 @@ export function Employers({ id, list, data, mobile }) {
   const { loading: buildersLoading, list: builderList = [], doFetch } = useBountyBuildersList(id)
 
   const apply = () => {
-    if (
+    if (status !== 'authenticated') {
+      const sourceFrom = encodeURIComponent(resolvePathWithSearch(pathname, searchParams))
+      router.push(`/signin?from=${sourceFrom}`)
+    } else if (
       user?.base.user_nick_name === '' ||
       !user?.binds.find(f => f.auth_user_bind_type === 'wallet') ||
       user?.base.user_skills.length === 0 ||
