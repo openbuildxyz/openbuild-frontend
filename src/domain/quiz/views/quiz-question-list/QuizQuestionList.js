@@ -36,12 +36,12 @@ function QuizCreator({ creator }) {
   )
 }
 
-function QuizQuestionListView({ id }) {
+function QuizQuestionListView({ id, version }) {
   const { data } = useSWR(`/ts/v1/quiz/${id}/info`, fetcher)
-  const { data:quizIndex } = useSWR(`/ts/v1/quiz/${id}/index`, fetcher)
+  const { data: quizIndex } = useSWR(`/ts/v1/quiz/${id}/index`, fetcher)
 
   return (
-    <QuizLimiterWidget id={id} type={quizIndex?.limit?.limit_type} check={!!quizIndex}>
+    <QuizLimiterWidget id={id} type={quizIndex?.limit?.limit_type} check={!version && !!quizIndex}>
       <div className="min-h-screen bg-gray text-white flex">
         <div className="max-w-[520px] px-14 py-9 hidden md:flex flex-col justify-between">
           <div>
@@ -54,7 +54,7 @@ function QuizQuestionListView({ id }) {
           <Image src="" defaultSrc={quizEco} alt="" />
         </div>
         <div className="bg-white text-gray flex-1 p-6 pb-[128px] md:px-14 md:py-10 relative">
-          <QuizComponents id={id} data={data} />
+          <QuizComponents id={id} version={version} data={data} />
         </div>
       </div>
     </QuizLimiterWidget>

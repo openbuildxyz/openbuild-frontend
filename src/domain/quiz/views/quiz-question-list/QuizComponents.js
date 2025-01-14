@@ -14,31 +14,52 @@
  * limitations under the License.
  */
 
+import { useEffect, useMemo, useState } from 'react'
+import { toast } from 'react-toastify'
 import Link from 'next/link'
 import { XMarkIcon, ChevronLeftIcon } from '@heroicons/react/20/solid'
-import { Button } from '@/components/Button'
-import { QuizCore } from './QuizCore'
-import { useEffect, useMemo, useState } from 'react'
-import { post } from '@/utils/request'
-import { toast } from 'react-toastify'
-import FeedbackDialog from '../../widgets/feedback-dialog'
-import AnswerRecordDrawer from './AnswerRecordDrawer'
 
-export function QuizComponents({id, data}) {
+import { post } from '@/utils/request'
+import { Button } from '@/components/Button'
+
+import { fetchAnsweredResult } from '../../repository'
+import FeedbackDialog from '../../widgets/feedback-dialog'
+
+import AnswerRecordDrawer from './AnswerRecordDrawer'
+import { QuizCore } from './QuizCore'
+
+function resolveAnsweredQuiz(quiz, answered) {
+  return answered.quiz_user_answer.map((i, k) => ({ ...quiz[k], judgment: i.judgment }))
+}
+
+export function QuizComponents({ id, version, data }) {
   const [page, setPage] = useState(1)
   const [quiz, setQuiz] = useState()
   const [submiting, setSubmiting] = useState(false)
   const [openModal, setOpenModal] = useState(false)
-  const [submitData, setSubmitData] = useState()
+  const [submitData, setSubmitData] = useState(version ? {} : undefined)
 
   useEffect(() => {
-    if (data) {
-      const arr = (data.quiz_body || []).map(i => {
-        return {...i, answer: []}
-      })
-      setQuiz(arr)
+    const initialQuiz = data && (data.quiz_body || []).map(i => ({ ...i, answer: [] }))
+
+    if (!initialQuiz) {
+      return
     }
-  }, [data])
+
+    setQuiz(initialQuiz)
+
+    if (version) {
+      setSubmiting(true)
+      fetchAnsweredResult({ id, quid: version })
+        .then(res => {
+          if (res.success) {
+            setSubmitData(res.data)
+            setQuiz(resolveAnsweredQuiz(initialQuiz, res.data))
+          }
+        })
+        .finally(() => setSubmiting(false))
+    }
+  }, [data, id, version])
 
   const _progress = useMemo(() => {
     const noAnswer = quiz?.filter(f => f.answer?.length !== 0)
@@ -46,26 +67,19 @@ export function QuizComponents({id, data}) {
   }, [quiz])
 
   const submit = async () => {
-    const sendParams = quiz?.map(i => {
-      return {
-        'quiz_body_id': i.id,
-        'quiz_item_id': i.answer
-      }
-    })
+    const sendParams = quiz?.map(i => ({ 'quiz_body_id': i.id, 'quiz_item_id': i.answer }))
     setSubmiting(true)
     const res = await post(`ts/v1/quiz/${id}/answer`, {data: sendParams})
     setSubmiting(false)
     if (res.code === 200) {
       setSubmitData(res.data)
       setOpenModal(true)
-      const arr = res.data.quiz_user_answer.map((i, k) => {
-        return {...quiz[k], judgment: i.judgment}
-      })
-      setQuiz(arr)
+      setQuiz(resolveAnsweredQuiz(quiz, res.data))
     } else {
       toast.error(res.message)
     }
   }
+
   return (
     <>
       <div className="flex items-center justify-end md:justify-between mb-[24px] md:mb-[64px]">
