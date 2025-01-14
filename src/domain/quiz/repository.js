@@ -41,8 +41,12 @@ async function fetchAnsweredQuizList(params = {}) {
   })
 }
 
+async function fetchAnsweredResult({ id, quid }) {
+  return httpClient.get(`/quiz/${id}/answer/${quid}`)
+}
+
 async function fetchTeamList(){
   return httpClient.get('/quiz/team')
 }
 
-export { updateRespondentContacts, fetchPublishedQuizList, fetchAnsweredQuizList, fetchTeamList }
+export { updateRespondentContacts, fetchPublishedQuizList, fetchAnsweredQuizList, fetchAnsweredResult, fetchTeamList }
