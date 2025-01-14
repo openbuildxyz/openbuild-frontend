@@ -5,6 +5,7 @@
     "node": ">=20.0.0"
   },
   "scripts": {
+    "setup": "cross-env cp .env.example .env.local && npx pnpm dlx auth secret",
     "dev": "cross-env NEXT_PUBLIC_DOMAIN_ENV=development next dev -p 3000",
     "build": "next build",
     "build:test": "NODE_ENV=test NEXT_PUBLIC_DOMAIN_ENV=test next build",
