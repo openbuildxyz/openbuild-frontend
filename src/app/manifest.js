@@ -14,30 +14,30 @@
  * limitations under the License.
  */
 
-import { siteConfig } from "#/lib/site";
+import { siteConfig } from '#/lib/site'
 
 export default function manifest() {
   return {
     name: siteConfig.name,
     short_name: siteConfig.name,
     description: siteConfig.description,
-    start_url: "/",
-    display: "standalone",
-    background_color: "#fff",
-    theme_color: "#fff",
+    start_url: '/',
+    display: 'standalone',
+    background_color: '#fff',
+    theme_color: '#fff',
     icons: [
       {
-        src: "/web-app-manifest-192x192.png",
-        sizes: "192x192",
-        type: "image/png",
-        purpose: "any",
+        src: '/web-app-manifest-192x192.png',
+        sizes: '192x192',
+        type: 'image/png',
+        purpose: 'any',
       },
       {
-        src: "/web-app-manifest-512x512.png",
-        sizes: "512x512",
-        type: "image/png",
-        purpose: "maskable",
+        src: '/web-app-manifest-512x512.png',
+        sizes: '512x512',
+        type: 'image/png',
+        purpose: 'maskable',
       },
     ],
-  };
+  }
 }
