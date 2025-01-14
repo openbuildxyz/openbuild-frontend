@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 
-import { nanoid } from 'nanoid'
 import clsx from 'clsx'
-// import { OViewer } from '@/components/MarkDown'
+import { nanoid } from 'nanoid'
+
+import RadioIcon from './RadioIcon'
 
 export function QuizCore({
   quiz,
@@ -24,21 +25,44 @@ export function QuizCore({
   page,
   submitData
 }) {
-  return quiz && quiz.length > 0 ? (
+  const multiple = quiz[page - 1].type === 2
+
+  const checkAnswer = item => {
+    if (submitData) {
+      return
+    }
+
+    const _quiz = [...quiz]
+
+    if (multiple) {
+      if (_quiz[page - 1].answer.includes(item.id)) {
+        _quiz[page - 1].answer.splice( _quiz.indexOf(item.id), 1)
+      } else {
+        _quiz[page - 1].answer.push(item.id)
+      }
+    } else {
+      _quiz[page - 1].answer = [item.id]
+    }
+
+    setQuiz(_quiz)
+  }
+
+  return quiz && quiz.length > 0 && (
     <>
       <p className="text-[14px] max-md:leading-[32px] md:text-sm mb-3 md:mb-4">Question {page} / {quiz?.length}</p>
       <div>
-        {quiz && <h2 className="text-2xl">
-          <span className={clsx('rounded relative top-[-3px] px-2 py-1 mr-2 font-normal text-sm', {
-            'bg-[rgba(58,171,118,0.1)] text-[#3AAB76]': quiz[page - 1].type !== 2,
-            'bg-[rgba(118,82,237,0.1)] text-[#7652ED]': quiz[page - 1].type === 2
-          })}>{quiz[page - 1].type === 2 ? 'Multiple' : 'Single'}</span>
-          {quiz[page - 1].question}
-        </h2>}
-        <>
-          {
-            quiz ? quiz[page - 1].quiz_item.map((item) => {
+        {quiz && (
+          <>
+            <h2 className="text-2xl">
+              <span className={clsx('rounded relative top-[-3px] px-2 py-1 mr-2 font-normal text-sm', {
+                'bg-[rgba(58,171,118,0.1)] text-[#3AAB76]': !multiple,
+                'bg-[rgba(118,82,237,0.1)] text-[#7652ED]': multiple
+              })}>{multiple ? 'Multiple' : 'Single'}</span>
+              {quiz[page - 1].question}
+            </h2>
+            {quiz[page - 1].quiz_item.map((item) => {
               const checked = quiz[page - 1].answer?.includes(item.id)
+
               return (
                 <button
                   key={nanoid()}
@@ -46,43 +70,17 @@ export function QuizCore({
                   className={clsx('flex items-center gap-x-4 md:block min-h-[48px] py-3 border text-[15px] transition-all rounded mt-6 w-full text-left px-4 border-gray-600 hover:border-gray', {
                     '!border-gray': checked
                   })}
-                  onClick={() => {
-                    if (submitData) return
-                    const _quiz = [...quiz]
-                    if (quiz[page - 1].type === 2) {
-                      if (_quiz[page - 1].answer.includes(item.id)) {
-                        _quiz[page - 1].answer.splice( _quiz.indexOf(item.id), 1)
-                      } else {
-                        _quiz[page - 1].answer.push(item.id)
-                      }
-                    } else {
-                      _quiz[page - 1].answer = [item.id]
-                    }
-                    setQuiz(_quiz)
-                  }}
+                  onClick={() => checkAnswer(item)}
                 >
-                  <Radio checked={checked} className={'flex-shrink-0 md:hidden'}/>
+                  <RadioIcon className="flex-shrink-0 md:hidden" checked={checked} />
                   {item.item_text}
                 </button>
               )
-            }) : null
-          }
-        </>
+            })}
+          </>
+        )}
       </div>
     </>
-  ) : null
-}
-
-function Radio({ checked,className }) {
-  return checked 
-  ? <div className={clsx(className,'w-[18px] h-[18px] rounded-[50%] bg-[#01DB83] flex items-center justify-center')}>
-      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M2.5 6L5 8.5L10 3.5" stroke="white" strokeLinecap="round" strokeLinejoin="round"/>
-      </svg>
-  </div>
-  : (
-    <svg className={className} width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect opacity="0.1" x="0.5" y="0.5" width="17" height="17" rx="8.5" stroke="black"/>
-    </svg>
   )
 }
+
