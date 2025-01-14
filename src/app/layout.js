@@ -65,10 +65,33 @@ export const metadata = {
     description: siteConfig.description,
     images: [`${siteConfig.url}/t_image.jpg`],
   },
-  icons: {
-    icon: '/favicon.png',
-    shortcut: '/favicon-16x16.png',
+  appleWebApp: {
+    title: siteConfig.name,
   },
+  icons: [
+    {
+      rel: 'icon',
+      url: '/favicon-96x96.png',
+      sizes: '96x96',
+      type: 'image/png',
+    },
+    {
+      rel: 'icon',
+      url: '/favicon.svg',
+      type: 'image/svg+xml',
+    },
+    {
+      rel: 'shortcut icon',
+      url: '/favicon.ico',
+      type: 'image/x-icon',
+    },
+    {
+      rel: 'apple-touch-icon',
+      url: '/apple-touch-icon.png',
+      sizes: '180x180',
+      type: 'image/png',
+    },
+  ],
   viewport: {
     width: 'device-width',
     initialScale: 1,
