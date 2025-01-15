@@ -5,6 +5,7 @@
   "engines": {
     "node": ">=20.0.0"
   },
+  "packageManager": "pnpm@9.4.0",
   "scripts": {
     "setup": "cross-env cp .env.example .env.local && npx auth secret",
     "dev": "cross-env NEXT_PUBLIC_DOMAIN_ENV=development next dev -p 3000",
