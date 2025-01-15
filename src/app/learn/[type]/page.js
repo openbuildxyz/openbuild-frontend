@@ -51,7 +51,7 @@ export default async function Page({ params, searchParams }) {
           />
         )}
         {/* <LearnNavBar /> */}
-        <div className="flex">
+        <div className="relative flex max-md:overflow-x-hidden">
           <Filter type={params.type === 'courses' ? 'open_course' : params.type}>{params.type === 'challenges' && <ChallengesFilter />}</Filter>
           <Suspense fallback={<ListSkeleton />}>
             <Container type={params.type} searchParams={searchParams}  />

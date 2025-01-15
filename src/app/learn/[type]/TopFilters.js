@@ -70,9 +70,9 @@ export function TopFilters({type}) {
   }
 
   return (
-    <div className="flex flex-wrap gap-2 items-center sm:flex-nowrap sm:gap-0">
+    <div className="flex gap-2 items-center max-md:flex-wrap">
       {type==='courses' && (
-        <div className="flex flex-wrap gap-2 mr-2 sm:flex-nowrap">
+        <div className="flex gap-2 max-md:flex-wrap">
           <button
             onClick={() => changeParams('recommend_type', recommendType === 'choice' ? null : 'choice')}
             className={clsx(
