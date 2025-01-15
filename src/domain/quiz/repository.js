@@ -18,10 +18,6 @@ import { merge } from 'lodash'
 
 import httpClient from '@/utils/http'
 
-async function updateRespondentContacts({ id, quid, ...others }) {
-  return httpClient.post(`/quiz/${id}/answer/${quid}/address`, others)
-}
-
 async function fetchPublishedQuizList(params = {}) {
   const { userId, sort, ...others } = params
 
@@ -41,8 +37,16 @@ async function fetchAnsweredQuizList(params = {}) {
   })
 }
 
+async function fetchAnsweredResult({ id, quid }) {
+  return httpClient.get(`/quiz/${id}/answer/${quid}`)
+}
+
+async function updateRespondentContacts({ id, quid, ...others }) {
+  return httpClient.post(`/quiz/${id}/answer/${quid}/address`, others)
+}
+
 async function fetchTeamList(){
   return httpClient.get('/quiz/team')
 }
 
-export { updateRespondentContacts, fetchPublishedQuizList, fetchAnsweredQuizList, fetchTeamList }
+export { updateRespondentContacts, fetchPublishedQuizList, fetchAnsweredQuizList, fetchAnsweredResult, fetchTeamList }

@@ -28,7 +28,7 @@ import Link from 'next/link'
 export function Record({id, openModal, closeModal}) {
   const mediaUrl = useMediaUrl()
   const { data } = useSWR(openModal ? `/ts/v1/quiz/${id}/answer` : null, fetcher)
-  // console.log(data)
+
   return (
     <Modal isOpen={openModal} closeModal={closeModal} container mode="640">
       <div >
@@ -48,7 +48,7 @@ export function Record({id, openModal, closeModal}) {
                 <div key={`challenge-record-${k}`} className=" mb-4 ">
                   <ul className="grid md:grid-cols-4 max-md:gap-y-4 md:gap-x-4 items-center">
                     <li className="md:col-span-2">
-                      <Link href={`/quiz/${i.quiz_id}`} className="text-sm font-bold hover:underline">{i.quiz_info.title}</Link>
+                      <Link href={`/quiz/${i.quiz_id}/questions/${i.id}`} className="text-sm font-bold hover:underline">{i.quiz_info.title}</Link>
                       <div className="flex items-center mt-1">
                         {mediaUrl && <Image
                           className="h-[18px] w-[18px] rounded object-cover mr-2"
@@ -59,13 +59,12 @@ export function Record({id, openModal, closeModal}) {
                         />}
                         <p className="opacity-90 text-xs">by  <a href={`/u/${i.quiz_user?.user_handle}`}><strong>{i.quiz_user?.user_nick_name}</strong></a> </p>
                       </div>
-
                     </li>
                     <li className="flex md:block justify-between md:text-right text-xs">
                       <div>
                         <p className='md:hidden opacity-60 mb-1'>Time</p>
                         <p>{formatTime(i.created_at * 1000, 'YYYY-MM-DD hh:mm:ss')}&nbsp;
-                          <span className='max-md:hidden'>{formatTimeMeridiem(i.created_at * 1000)}  
+                          <span className='max-md:hidden'>{formatTimeMeridiem(i.created_at * 1000)}
                             <span className="text-xs">
                               (UTC+{fromUtcOffset()})
                             </span>

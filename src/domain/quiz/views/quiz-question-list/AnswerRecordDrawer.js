@@ -31,7 +31,9 @@ const AnswerIcon = (props) => {
   )
 }
 
-function AnswerRecordDrawer({ questions = [], result, submitting, onSubmit }) {
+function AnswerRecordDrawer({ questions = [], result, submitting, onSubmit, onCheck }) {
+  const answeredCheckable = typeof onCheck === 'function'
+
   return (
     <div className="drawer drawer-end z-10">
       <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
@@ -60,11 +62,13 @@ function AnswerRecordDrawer({ questions = [], result, submitting, onSubmit }) {
                 <span
                   key={`Answer-record-${k}`}
                   className={clsx('inline-flex w-12 h-12 items-center justify-center border rounded', {
+                    'hover:cursor-pointer': answeredCheckable,
                     'border-gray-600': i.answer.length === 0,
                     '!border-[#0084FF] bg-[rgba(76,163,255,0.06)] text-[#0084FF]': i.answer.length > 0 && !result,
                     '!border-[#009C8E] bg-[rgba(0,156,142,0.06)] text-[#009C8E]': i.judgment,
                     '!border-[#E43150] bg-[rgba(228,49,80,0.06)] text-[#E43150]': !i.judgment && result,
                   })}
+                  onClick={() => answeredCheckable && onCheck(k)}
                 >{k + 1}</span>)
               }
             </div>
