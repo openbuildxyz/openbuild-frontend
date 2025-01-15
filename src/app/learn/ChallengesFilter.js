@@ -14,21 +14,21 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import Image from 'next/image'
-import clsx from 'clsx'
-import { useState } from 'react'
-import { useSearchParams, useRouter, usePathname } from 'next/navigation'
-import { ChevronUpIcon, ChevronDownIcon } from '@heroicons/react/20/solid'
-import { challengesFilterList } from '#/lib/challengesFilterList'
-import { createQueryString } from '@/utils'
+import Image from 'next/image';
+import clsx from 'clsx';
+import { useState } from 'react';
+import { useSearchParams, useRouter, usePathname } from 'next/navigation';
+import { ChevronUpIcon, ChevronDownIcon } from '@heroicons/react/20/solid';
+import { challengesFilterList } from '#/lib/challengesFilterList';
+import { createQueryString } from '@/utils';
 
 export function ChallengesFilter() {
-  const [list, setList] = useState(challengesFilterList)
-  const router = useRouter()
-  const searchParams = useSearchParams()
-  const pathname = usePathname()
+  const [list, setList] = useState(challengesFilterList);
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
 
   return (
     <div>
@@ -39,18 +39,18 @@ export function ChallengesFilter() {
             {i.open ? (
               <ChevronUpIcon
                 onClick={() => {
-                  const curr = [...list]
-                  curr[k].open = !curr[k].open
-                  setList(curr)
+                  const curr = [...list];
+                  curr[k].open = !curr[k].open;
+                  setList(curr);
                 }}
                 className="h-4 w-4 cursor-pointer fill-gray-500 text-gray-500"
               />
             ) : (
               <ChevronDownIcon
                 onClick={() => {
-                  const curr = [...list]
-                  curr[k].open = !curr[k].open
-                  setList(curr)
+                  const curr = [...list];
+                  curr[k].open = !curr[k].open;
+                  setList(curr);
                 }}
                 className="h-4 w-4 cursor-pointer fill-gray-500 text-gray-500"
               />
@@ -83,5 +83,5 @@ export function ChallengesFilter() {
         </div>
       ))}
     </div>
-  )
+  );
 }

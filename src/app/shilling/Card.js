@@ -14,26 +14,26 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import Link from 'next/link'
-import Image from 'next/image'
-import { useRouter } from 'next/navigation'
-import { ArrowRightLineIcon } from '@/components/Icons'
-import { useMediaUrl, useAllSkills } from '#/state/application/hooks'
-import { fromNow } from '@/utils/date'
-import NProgress from 'nprogress'
+import Link from 'next/link';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { ArrowRightLineIcon } from '@/components/Icons';
+import { useMediaUrl, useAllSkills } from '#/state/application/hooks';
+import { fromNow } from '@/utils/date';
+import NProgress from 'nprogress';
 
 export function ShillingCard({ data }) {
-  const mediaUrl = useMediaUrl()
-  const skills = useAllSkills()
-  const router = useRouter()
+  const mediaUrl = useMediaUrl();
+  const skills = useAllSkills();
+  const router = useRouter();
 
   return (
     <div
       onClick={() => {
-        NProgress.start()
-        router.push(`/shilling/${data.uid}`)
+        NProgress.start();
+        router.push(`/shilling/${data.uid}`);
       }}
       className="group flex flex-col relative top-0 cursor-pointer overflow-hidden rounded-2xl bg-white py-4 transition-all duration-500 hover:top-[-8px] hover:shadow-lg [&>div]:px-6"
     >
@@ -65,7 +65,7 @@ export function ShillingCard({ data }) {
           />
           <div className="text-sm text-gray-500">
             <p className="truncate">
-              <Link onClick={(e) => e.stopPropagation()} href={`/u/${data.skill_user?.user_handle}`} className="text-gray">{data.skill_user.user_nick_name}</Link> · {fromNow(data.created_at * 1000)}
+              <Link onClick={e => e.stopPropagation()} href={`/u/${data.skill_user?.user_handle}`} className="text-gray">{data.skill_user.user_nick_name}</Link> · {fromNow(data.created_at * 1000)}
             </p>
           </div>
         </div>
@@ -75,5 +75,5 @@ export function ShillingCard({ data }) {
         </div>
       </div>
     </div>
-  )
+  );
 }

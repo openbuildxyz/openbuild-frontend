@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import { ArrowRightIcon } from '@/components/Icons'
-import { ProgressBar } from '@/components/ProgressBar'
+import { ArrowRightIcon } from '@/components/Icons';
+import { ProgressBar } from '@/components/ProgressBar';
 
 export function CardProgress({ value }) {
   return (
@@ -33,5 +33,5 @@ export function CardProgress({ value }) {
       </div>
       <ArrowRightIcon className="h-3 w-[18px]" />
     </div>
-  )
+  );
 }

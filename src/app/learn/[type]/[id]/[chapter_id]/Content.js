@@ -14,76 +14,76 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import { useMemo } from 'react'
-import { useRouter } from 'next/navigation'
-import { updateLessonMenu } from '#/state/application/reducer'
-import { useAppDispatch } from '#/state/hooks'
+import { useMemo } from 'react';
+import { useRouter } from 'next/navigation';
+import { updateLessonMenu } from '#/state/application/reducer';
+import { useAppDispatch } from '#/state/hooks';
 
-import { OViewer } from '@/components/MarkDown'
-import { FilterIcon } from '@/components/Icons'
-import { Share } from '@/components/Share'
-import { Menu } from './Menu'
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline'
-import Link from 'next/link'
-import { Player } from '@/components/Player'
-import { resolveChapter } from '../../../helper'
-import LockedPlaceholder from './Locked'
+import { OViewer } from '@/components/MarkDown';
+import { FilterIcon } from '@/components/Icons';
+import { Share } from '@/components/Share';
+import { Menu } from './Menu';
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
+import Link from 'next/link';
+import { Player } from '@/components/Player';
+import { resolveChapter } from '../../../helper';
+import LockedPlaceholder from './Locked';
 
 // FIXME: 临时方案
 function resolveContent(rawContent) {
   if (!rawContent) {
-    return rawContent
+    return rawContent;
   }
 
-  const matchedSrc = /src="([^"]*)"/i.exec(rawContent)
+  const matchedSrc = /src="([^"]*)"/i.exec(rawContent);
 
   // FIXME: 暂且这么不严谨地判断视频地址
   if (!matchedSrc || matchedSrc[1].toLowerCase().indexOf('youtube') > -1) {
-    return rawContent
+    return rawContent;
   }
 
-  const videoUrl = matchedSrc[1]
-  const videoStr = `<video autoplay controls controlslist="nodownload"><source src="${videoUrl}" type="video/${videoUrl.split('.').pop().toLowerCase()}"></source></video>`
+  const videoUrl = matchedSrc[1];
+  const videoStr = `<video autoplay controls controlslist="nodownload"><source src="${videoUrl}" type="video/${videoUrl.split('.').pop().toLowerCase()}"></source></video>`;
 
-  return rawContent.replace(/<iframe\s+([^>]*)><\/iframe>/i, videoStr)
+  return rawContent.replace(/<iframe\s+([^>]*)><\/iframe>/i, videoStr);
 }
 
 export function Content({ type, id, single, data, menuData }) {
-  const router = useRouter()
-  const dispatch = useAppDispatch()
+  const router = useRouter();
+  const dispatch = useAppDispatch();
 
   const bothSides = useMemo(() => {
-    const currentIndex = menuData.courses.findIndex((element) => element.base.course_single_id === single.base.course_single_id)
-    let _prev
-    let _next
+    const currentIndex = menuData.courses.findIndex(element => element.base.course_single_id === single.base.course_single_id);
+    let _prev;
+    let _next;
     if (currentIndex === 0) {
       // not prev
-      _next = menuData.courses[currentIndex + 1]
+      _next = menuData.courses[currentIndex + 1];
     } else if (currentIndex === menuData.courses.length - 1) {
       // not next
-      _prev = menuData.courses[currentIndex - 1]
+      _prev = menuData.courses[currentIndex - 1];
     } else {
-      _next = menuData.courses[currentIndex + 1]
-      _prev = menuData.courses[currentIndex - 1]
+      _next = menuData.courses[currentIndex + 1];
+      _prev = menuData.courses[currentIndex - 1];
     }
     return {
       prev: _prev,
-      next: _next
-    }
-  }, [menuData, single])
+      next: _next,
+    };
+  }, [menuData, single]);
 
   // FIXME:
   // 由于课程中的章节信息与直接获取的章节信息内容字段返回结果不一致，
   // 故与外面章节列表一样使用课程中的章节信息进行判断，
   // 最好统一数据返回逻辑
-  const chapterFromCourse = menuData && (menuData.courses || []).find(chapter => chapter.base.course_single_id === single?.base?.course_single_id)
+  const chapterFromCourse = menuData && (menuData.courses || []).find(chapter => chapter.base.course_single_id === single?.base?.course_single_id);
 
   return !resolveChapter(chapterFromCourse, data).isLock ? (
     <div className="flex-1 pt-[30px] lg:border-l lg:border-gray-400 lg:px-14">
       <div className="mb-2 items-center justify-between lg:flex">
-      <p className="items-center text-sm text-gray-200 lg:flex">
+        <p className="items-center text-sm text-gray-200 lg:flex">
           <span onClick={() => router.push(`/learn/${type}/`)} className="cursor-pointer hover:underline">
             {type === 'courses' ? 'Open Courses' : 'Challenges'}
           </span>
@@ -138,10 +138,10 @@ export function Content({ type, id, single, data, menuData }) {
           </Link>}
         </div>
       </div>
-      <div className="h-14"></div>
-      <div className="h-[72px]"></div>
+      <div className="h-14" />
+      <div className="h-[72px]" />
     </div>
   ) : (
     <LockedPlaceholder type={type} id={id} />
-  )
+  );
 }

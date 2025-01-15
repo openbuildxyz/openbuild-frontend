@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { Modal } from '@/components/Modal'
-import { Button } from '@/components/Button'
+import { Modal } from '@/components/Modal';
+import { Button } from '@/components/Button';
 
 export function Confirm({ title, info, open, closeModal, confirmEvt, loading }) {
   return (
@@ -32,5 +32,5 @@ export function Confirm({ title, info, open, closeModal, confirmEvt, loading }) 
         </div>
       </div>
     </Modal>
-  )
+  );
 }

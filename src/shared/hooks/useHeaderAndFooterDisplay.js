@@ -15,29 +15,29 @@
  */
 
 
-import { usePathname } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { usePathname } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
-const hiddenPath = ['/signin', 'signup', '/forgot', '/reset', '/change', '/questions', '/oauth']
+const hiddenPath = ['/signin', 'signup', '/forgot', '/reset', '/change', '/questions', '/oauth'];
 
 export function useHeaderAndFooterDisplay() {
-  const pathname = usePathname()
+  const pathname = usePathname();
   
-  const [hidden, setHidden] = useState(false)
+  const [hidden, setHidden] = useState(false);
 
   useEffect(() => {
-    const h = hiddenPath.map(i => pathname.includes(i) ? 1 : 0)
-    h.includes(1) ? setHidden(true) : setHidden(false)
-  }, [pathname])
-  return hidden
+    const h = hiddenPath.map(i => pathname.includes(i) ? 1 : 0);
+    h.includes(1) ? setHidden(true) : setHidden(false);
+  }, [pathname]);
+  return hidden;
 }
-const footerHiddenPath = ['/signin', 'signup', '/forgot', '/reset', '/change', '/profile', '/creator', '/questions', '/oauth']
+const footerHiddenPath = ['/signin', 'signup', '/forgot', '/reset', '/change', '/profile', '/creator', '/questions', '/oauth'];
 export function useFooterDisplay() {
-  const pathname = usePathname()
-  const [hidden, setHidden] = useState(false)
+  const pathname = usePathname();
+  const [hidden, setHidden] = useState(false);
   useEffect(() => {
-    const h = footerHiddenPath.map(i => pathname.includes(i) ? 1 : 0)
-    h.includes(1) ? setHidden(true) : setHidden(false)
-  }, [pathname])
-  return hidden
+    const h = footerHiddenPath.map(i => pathname.includes(i) ? 1 : 0);
+    h.includes(1) ? setHidden(true) : setHidden(false);
+  }, [pathname]);
+  return hidden;
 }

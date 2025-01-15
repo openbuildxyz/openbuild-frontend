@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import sitePng from '../../public/images/favicon.png'
+import sitePng from '../../public/images/favicon.png';
 
 export const siteConfig = {
   name: 'OpenBuild',
@@ -25,4 +25,4 @@ export const siteConfig = {
     twitter: 'https://twitter.com/shadcn',
     github: 'https://github.com/shadcn/taxonomy',
   },
-}
+};

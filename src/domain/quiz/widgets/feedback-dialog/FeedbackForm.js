@@ -14,36 +14,36 @@
  * limitations under the License.
  */
 
-import { useState } from 'react'
-import Link from 'next/link'
-import { useForm } from 'react-hook-form'
+import { useState } from 'react';
+import Link from 'next/link';
+import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
-import { wrapOnChange } from '@/utils/form'
-import { Button } from '@/components/Button'
+import { wrapOnChange } from '@/utils/form';
+import { Button } from '@/components/Button';
 
-import { updateRespondentContacts } from '../../repository'
-import style from './style.module.scss'
+import { updateRespondentContacts } from '../../repository';
+import style from './style.module.scss';
 
 function FeedbackForm({ result, quiz }) {
-  const [loading, setLoading] = useState(false)
-  const { register, handleSubmit } = useForm()
+  const [loading, setLoading] = useState(false);
+  const { register, handleSubmit } = useForm();
 
   const onSubmit = async data => {
-    setLoading(true)
+    setLoading(true);
     updateRespondentContacts({ ...data, id: result.quiz_id, quid: result.id })
       .then(res => {
         if (res.code === 200) {
-          toast.success('Wallet updated')
+          toast.success('Wallet updated');
         } else {
-          toast.error(res.message)
+          toast.error(res.message);
         }
       })
-      .finally(() => setLoading(false))
-  }
+      .finally(() => setLoading(false));
+  };
 
-  const walletField = register('address', { required: true })
-  walletField.onChange = wrapOnChange(walletField.onChange)
+  const walletField = register('address', { required: true });
+  walletField.onChange = wrapOnChange(walletField.onChange);
 
   return (
     <form className={style.FeedbackForm} onSubmit={handleSubmit(onSubmit)}>
@@ -66,7 +66,7 @@ function FeedbackForm({ result, quiz }) {
       </div>
       <Link className={style['FeedbackForm-link']} href={`/quiz/${quiz.id}`}>Re-practice</Link>
     </form>
-  )
+  );
 }
 
-export default FeedbackForm
+export default FeedbackForm;

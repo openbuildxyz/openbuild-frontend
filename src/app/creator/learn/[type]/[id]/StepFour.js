@@ -14,21 +14,21 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import { PlusIcon, MinusCircleIcon } from '@heroicons/react/20/solid'
-import { Button } from '@/components/Button'
-import { useState, useRef, useEffect } from 'react'
-import { upload } from '#/services/common'
-import Image from 'next/image'
-import { useMediaUrl } from '#/state/application/hooks'
-import { toast } from 'react-toastify'
-import Loader from '@/components/Loader'
-import { TwitterIcon } from '@/components/Icons'
-import GithubIcon from 'public/images/svg/github_p.svg'
-import { Modal } from '@/components/Modal'
-import { NoData } from '@/components/NoData'
-import  { BASE_INPUT_STYLE } from '@/constants/config'
+import { PlusIcon, MinusCircleIcon } from '@heroicons/react/20/solid';
+import { Button } from '@/components/Button';
+import { useState, useRef, useEffect } from 'react';
+import { upload } from '#/services/common';
+import Image from 'next/image';
+import { useMediaUrl } from '#/state/application/hooks';
+import { toast } from 'react-toastify';
+import Loader from '@/components/Loader';
+import { TwitterIcon } from '@/components/Icons';
+import GithubIcon from 'public/images/svg/github_p.svg';
+import { Modal } from '@/components/Modal';
+import { NoData } from '@/components/NoData';
+import  { BASE_INPUT_STYLE } from '@/constants/config';
 
 const initSpeakers = {
   course_speaker_index: 0,
@@ -37,85 +37,85 @@ const initSpeakers = {
   course_speaker_name: '',
   course_speaker_github: '',
   course_speaker_x: '',
-}
+};
 
-export function CreatorLearnStepFour({ params, data, change }) {
-  const uploadRef = useRef(null)
-  const mediaUrl = useMediaUrl()
-  const [uploadAvatarLoading, setUploadAvatarLoading] = useState(false)
-  const [modalOpen, setModalOpen] = useState(false)
-  const [currentSpeaker, setCurrentSpeaker] = useState(initSpeakers)
-  const [speakerFlag, setSpeakerFlag] = useState(initSpeakers)
-  const [currentIndex, setCurrentIndex] = useState(null)
-  const [forms, setForms] = useState()
+export function CreatorLearnStepFour({ data, change }) {
+  const uploadRef = useRef(null);
+  const mediaUrl = useMediaUrl();
+  const [uploadAvatarLoading, setUploadAvatarLoading] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [currentSpeaker, setCurrentSpeaker] = useState(initSpeakers);
+  const [speakerFlag, setSpeakerFlag] = useState(initSpeakers);
+  const [currentIndex, setCurrentIndex] = useState(null);
+  const [forms, setForms] = useState();
 
   useEffect(() => {
     if (data) {
-      setForms(data)
+      setForms(data);
     }
-  }, [data])
+  }, [data]);
 
-  const handleImageFileChange = (event, index) => {
-    setUploadAvatarLoading(true)
-    const files = event.target.files
+  const handleImageFileChange = event => {
+    setUploadAvatarLoading(true);
+    const files = event.target.files;
     if (files && files[0]) {
-      const file = files[0]
+      const file = files[0];
       if (file.size > 1024 * 1024 * 2) {
-        event.target.value = ''
-        toast.error('The file is too large')
-        return
+        event.target.value = '';
+        toast.error('The file is too large');
+        return;
       }
-      const formData = new FormData()
-      formData.append('file', files[0], files[0].name)
-      formData.append('intent', 'course_series')
+      const formData = new FormData();
+      formData.append('file', files[0], files[0].name);
+      formData.append('intent', 'course_series');
       upload({ file: formData }).then(res => {
-        setUploadAvatarLoading(false)
-        const _cs = Object.assign({ ...currentSpeaker }, {})
-        _cs.course_speaker_img = res.data.user_upload_path
-        setCurrentSpeaker(_cs)
-        const current = uploadRef.current
-        current.value = ''
-      })
+        setUploadAvatarLoading(false);
+        const _cs = Object.assign({ ...currentSpeaker }, {});
+        _cs.course_speaker_img = res.data.user_upload_path;
+        setCurrentSpeaker(_cs);
+        const current = uploadRef.current;
+        current.value = '';
+      });
     }
-  }
+  };
 
   const changeCurrentSpeaker = (value, type) => {
-    const _cs = Object.assign({ ...currentSpeaker }, {})
+    const _cs = Object.assign({ ...currentSpeaker }, {});
     if (type === 'course_speaker_index') {
-      console.log(value)
-      _cs[type] = Number(value)
+      console.log(value);
+      _cs[type] = Number(value);
     } else {
-      _cs[type] = value
+      _cs[type] = value;
     }
-    setCurrentSpeaker(_cs)
-  }
+    setCurrentSpeaker(_cs);
+  };
 
   const confirm = () => {
-    const _forms = Object.assign({ ...forms }, {})
+    const _forms = Object.assign({ ...forms }, {});
     if (speakerFlag === 'add') {
       if (_forms.speaker.find(f => f.course_speaker_name === currentSpeaker.course_speaker_name)){
-        toast.error('Speaker already exists')
-        return
+        toast.error('Speaker already exists');
+        return;
       }
       if (_forms.speaker.find(f => f.course_speaker_index === currentSpeaker.course_speaker_index)) {
-        toast.error('Position already exists')
-        return
+        toast.error('Position already exists');
+        return;
       }
     }
     if (speakerFlag === 'add') {
-      _forms.speaker.push(currentSpeaker)
+      _forms.speaker.push(currentSpeaker);
     } else {
-      _forms.speaker.splice(currentIndex, 1, currentSpeaker)
+      _forms.speaker.splice(currentIndex, 1, currentSpeaker);
     }
     // setForms(_forms)
-    change('speaker', _forms.speaker)
-    setModalOpen(false)
-  }
+    change('speaker', _forms.speaker);
+    setModalOpen(false);
+  };
 
-  const deleteSpeaker = (i) => {
-    const _speakers = forms.speaker.filter(f => f.course_speaker_name !== i.course_speaker_name)
-    change('speaker', _speakers)
-  }
+  const deleteSpeaker = i => {
+    const _speakers = forms.speaker.filter(f => f.course_speaker_name !== i.course_speaker_name);
+    change('speaker', _speakers);
+  };
 
   return (
     <>
@@ -124,9 +124,9 @@ export function CreatorLearnStepFour({ params, data, change }) {
           <p>Speakers</p>
           <Button
             onClick={() => {
-              setSpeakerFlag('add')
-              setCurrentSpeaker(initSpeakers)
-              setModalOpen(true)
+              setSpeakerFlag('add');
+              setCurrentSpeaker(initSpeakers);
+              setModalOpen(true);
             }}
             className="h-7 px-3 text-xs"
           >
@@ -146,12 +146,12 @@ export function CreatorLearnStepFour({ params, data, change }) {
                   <div
                     key={`speakers-${k}`}
                     className="mt-6 transition-all group flex justify-between items-center relative hover:bg-white px-3 py-2 rounded hover:drop-shadow-3xl"
-                    onClick={(e) => {
-                      e.stopPropagation()
-                      setSpeakerFlag('edit')
-                      setCurrentSpeaker(i)
-                      setCurrentIndex(k)
-                      setModalOpen(true)
+                    onClick={e => {
+                      e.stopPropagation();
+                      setSpeakerFlag('edit');
+                      setCurrentSpeaker(i);
+                      setCurrentIndex(k);
+                      setModalOpen(true);
                     }}
                   >
                     <div className="flex items-center">
@@ -178,9 +178,9 @@ export function CreatorLearnStepFour({ params, data, change }) {
                       </a>}
                     </div>
                     <div className="flex itemtransition-all opacity-0 group-hover:opacity-40 absolute right-[-24px] cursor-pointer">
-                      <MinusCircleIcon className="h-4 w-4" onClick={(e) => {
-                        e.stopPropagation()
-                        deleteSpeaker(i)
+                      <MinusCircleIcon className="h-4 w-4" onClick={e => {
+                        e.stopPropagation();
+                        deleteSpeaker(i);
                       }} />
                     </div>
                   </div>
@@ -211,7 +211,7 @@ export function CreatorLearnStepFour({ params, data, change }) {
               id={'creator-upload-cover'}
               type="file"
             />
-             <div>
+            <div>
               <label
                 htmlFor={'creator-upload-cover'}
                 className="inline-flex h-9 cursor-pointer items-center justify-center rounded-full bg-[#EBEBEB] px-4 py-2 text-sm hover:opacity-80 disabled:opacity-20"
@@ -224,18 +224,18 @@ export function CreatorLearnStepFour({ params, data, change }) {
             </div>
           </div>
           <p className="mb-2 mt-6 text-sm opacity-80">Name <span className="text-red">*</span></p>
-          <input value={currentSpeaker.course_speaker_name} className={BASE_INPUT_STYLE} onChange={(e) => changeCurrentSpeaker(e.target.value, 'course_speaker_name')} />
+          <input value={currentSpeaker.course_speaker_name} className={BASE_INPUT_STYLE} onChange={e => changeCurrentSpeaker(e.target.value, 'course_speaker_name')} />
           <p className="mb-2 mt-6 text-sm opacity-80">Title <span className="text-red">*</span><span className="text-xs opacity-60">(Title @ Company)</span></p>
-          <input value={currentSpeaker.course_speaker_from} className={BASE_INPUT_STYLE} onChange={(e) => changeCurrentSpeaker(e.target.value, 'course_speaker_from')} />
+          <input value={currentSpeaker.course_speaker_from} className={BASE_INPUT_STYLE} onChange={e => changeCurrentSpeaker(e.target.value, 'course_speaker_from')} />
           <p className="mb-2 mt-6 text-sm opacity-80">Index <span className="text-red">*</span></p>
-          <input value={currentSpeaker.course_speaker_index} type="number" className={BASE_INPUT_STYLE} onChange={(e) => changeCurrentSpeaker(Number(e.target.value), 'course_speaker_index')} />
+          <input value={currentSpeaker.course_speaker_index} type="number" className={BASE_INPUT_STYLE} onChange={e => changeCurrentSpeaker(Number(e.target.value), 'course_speaker_index')} />
           <p className="mb-2 mt-6 text-sm opacity-80">X <span className="text-xs opacity-60">(Twitter)</span></p>
           <div className="px-4 mt-2 flex items-center rounded border border-gray-600 bg-transparent hover:border hover:border-gray transition-all">
             <TwitterIcon className="h-6 w-6" />
             <input
               type="text"
               value={currentSpeaker.course_speaker_x}
-              onChange={(e) => changeCurrentSpeaker(e.target.value, 'course_speaker_x')}
+              onChange={e => changeCurrentSpeaker(e.target.value, 'course_speaker_x')}
               className={`${BASE_INPUT_STYLE} !border-0`}
             />
           </div>
@@ -245,7 +245,7 @@ export function CreatorLearnStepFour({ params, data, change }) {
             <input
               type="text"
               value={currentSpeaker.course_speaker_github}
-              onChange={(e) => changeCurrentSpeaker(e.target.value, 'course_speaker_github')}
+              onChange={e => changeCurrentSpeaker(e.target.value, 'course_speaker_github')}
               className={`${BASE_INPUT_STYLE} !border-0`}
             />
           </div>
@@ -269,5 +269,5 @@ export function CreatorLearnStepFour({ params, data, change }) {
         </div>
       </Modal>
     </>
-  )
+  );
 }

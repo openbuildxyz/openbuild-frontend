@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import Link from 'next/link'
-import Image from 'next/image'
+import Link from 'next/link';
+import Image from 'next/image';
 // import { LanguageSwither } from './languageSwitcher'
-import { classNames } from '@/utils'
-import Logo from 'public/images/svg/logo-black.svg'
-import { Bars3Icon } from '@heroicons/react/24/outline'
+import { classNames } from '@/utils';
+import Logo from 'public/images/svg/logo-black.svg';
+import { Bars3Icon } from '@heroicons/react/24/outline';
 
 export function MobileHeader({ className }) {
   return (
@@ -32,5 +32,5 @@ export function MobileHeader({ className }) {
       </Link>
       <Bars3Icon className="absolute right-6 h-5 w-5" />
     </div>
-  )
+  );
 }

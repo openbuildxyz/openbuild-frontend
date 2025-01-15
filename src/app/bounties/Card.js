@@ -14,23 +14,23 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import Link from 'next/link'
+import Link from 'next/link';
 
-import { fromNow } from '@/utils/date'
-import { ArrowRightLineIcon } from '@/components/Icons'
-import Avatar from '@/components/Avatar'
-import Image from '@/components/Image'
+import { fromNow } from '@/utils/date';
+import { ArrowRightLineIcon } from '@/components/Icons';
+import Avatar from '@/components/Avatar';
+import Image from '@/components/Image';
 
-import { useConfig } from '#/state/application/hooks'
+import { useConfig } from '#/state/application/hooks';
 
-import StatusBadge from './StatusBadge'
+import StatusBadge from './StatusBadge';
 
 export function BountiesCard({ data }) {
-  const config = useConfig()
-  const filters = config?.find(f => f.config_id === 1)?.config_value['bounty']
-  const ecosystem = filters?.find(f => f.name === 'Ecosystem')?.labels.find(f => f.id === data.ecosystem)
+  const config = useConfig();
+  const filters = config?.find(f => f.config_id === 1)?.config_value['bounty'];
+  const ecosystem = filters?.find(f => f.name === 'Ecosystem')?.labels.find(f => f.id === data.ecosystem);
 
   return (
     <Link
@@ -82,5 +82,5 @@ export function BountiesCard({ data }) {
         </div>
       </div>
     </Link>
-  )
+  );
 }

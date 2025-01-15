@@ -14,5 +14,5 @@
  * limitations under the License.
  */
 
-export * from './helper'
-export { default } from './BlockEditor'
+export * from './helper';
+export { default } from './BlockEditor';

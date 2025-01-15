@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { Banner } from './Banner'
-import { Content } from './Content'
+import { Banner } from './Banner';
+import { Content } from './Content';
 
 export default function Page() {
   return (
@@ -23,5 +23,5 @@ export default function Page() {
       <Banner />
       <Content />
     </>
-  )
+  );
 }

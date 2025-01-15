@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import { ProfileTitle } from '#/domain/profile/widgets/blocks'
-import { Button } from '@/components/Button'
-import Link from 'next/link'
+import { ProfileTitle } from '#/domain/profile/widgets/blocks';
+import { Button } from '@/components/Button';
+import Link from 'next/link';
 // import { useState } from 'react'
 // import Switch from '@/components/Switch'
 
@@ -60,5 +60,5 @@ export function Setting() {
         </div>
       </div> */}
     </div>
-  )
+  );
 }

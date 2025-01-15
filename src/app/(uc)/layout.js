@@ -14,4 +14,4 @@
  * limitations under the License.
  */
 
-export { default } from '#/entry/layouts/session'
+export { default } from '#/entry/layouts/session';

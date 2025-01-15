@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-'use client'
-import { classNames } from '@/utils'
+'use client';
+import { classNames } from '@/utils';
 
 export default function Dots({ children = <span />, className }) {
   return (
@@ -33,5 +33,5 @@ export default function Dots({ children = <span />, className }) {
         {children}
       </span>
     </>
-  )
+  );
 }

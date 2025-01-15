@@ -14,5 +14,5 @@
  * limitations under the License.
  */
 
-export { default } from './Image'
-export { default as SvgIcon } from './SvgIcon'
+export { default } from './Image';
+export { default as SvgIcon } from './SvgIcon';

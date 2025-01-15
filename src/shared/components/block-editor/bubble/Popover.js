@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import * as React from 'react'
-import * as PopoverPrimitive from '@radix-ui/react-popover'
+import * as React from 'react';
+import * as PopoverPrimitive from '@radix-ui/react-popover';
 
-import { cn } from './helper'
+import { cn } from './helper';
 
-const Popover = PopoverPrimitive.Root
+const Popover = PopoverPrimitive.Root;
 
-const PopoverTrigger = PopoverPrimitive.Trigger
+const PopoverTrigger = PopoverPrimitive.Trigger;
 
 const PopoverContent = React.forwardRef(({ className, align = 'center', sideOffset = 4, ...props }, ref) => (
   <PopoverPrimitive.Portal>
@@ -36,7 +36,7 @@ const PopoverContent = React.forwardRef(({ className, align = 'center', sideOffs
       {...props}
     />
   </PopoverPrimitive.Portal>
-))
-PopoverContent.displayName = PopoverPrimitive.Content.displayName
+));
+PopoverContent.displayName = PopoverPrimitive.Content.displayName;
 
-export { Popover, PopoverTrigger, PopoverContent }
+export { Popover, PopoverTrigger, PopoverContent };

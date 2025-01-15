@@ -14,20 +14,20 @@
  * limitations under the License.
  */
 
-import { Modal } from '@/components/Modal'
-import { ModalCloseIcon } from '@/components/Icons'
-import useSWR from 'swr'
-import { fetcher } from '@/utils/request'
-import Image from 'next/image'
-import { useMediaUrl } from '#/state/application/hooks'
-import { formatTime, fromUtcOffset, formatTimeMeridiem } from '@/utils/date'
+import { Modal } from '@/components/Modal';
+import { ModalCloseIcon } from '@/components/Icons';
+import useSWR from 'swr';
+import { fetcher } from '@/utils/request';
+import Image from 'next/image';
+import { useMediaUrl } from '#/state/application/hooks';
+import { formatTime, fromUtcOffset, formatTimeMeridiem } from '@/utils/date';
 // import clsx from 'clsx'
-import { NoData } from '@/components/NoData'
-import Link from 'next/link'
+import { NoData } from '@/components/NoData';
+import Link from 'next/link';
 
 export function Record({id, openModal, closeModal}) {
-  const mediaUrl = useMediaUrl()
-  const { data } = useSWR(openModal ? `/ts/v1/quiz/${id}/answer` : null, fetcher)
+  const mediaUrl = useMediaUrl();
+  const { data } = useSWR(openModal ? `/ts/v1/quiz/${id}/answer` : null, fetcher);
 
   return (
     <Modal isOpen={openModal} closeModal={closeModal} container mode="640">
@@ -62,18 +62,18 @@ export function Record({id, openModal, closeModal}) {
                     </li>
                     <li className="flex md:block justify-between md:text-right text-xs">
                       <div>
-                        <p className='md:hidden opacity-60 mb-1'>Time</p>
+                        <p className="md:hidden opacity-60 mb-1">Time</p>
                         <p>{formatTime(i.created_at * 1000, 'YYYY-MM-DD hh:mm:ss')}&nbsp;
-                          <span className='max-md:hidden'>{formatTimeMeridiem(i.created_at * 1000)}
+                          <span className="max-md:hidden">{formatTimeMeridiem(i.created_at * 1000)}
                             <span className="text-xs">
                               (UTC+{fromUtcOffset()})
                             </span>
                           </span>
-                          </p>
+                        </p>
                       </div>
-                      <div className='md:hidden'>
-                        <p className='opacity-60 mb-1'>Score</p>
-                        <p className='text-right'><strong>{i.score}</strong></p>
+                      <div className="md:hidden">
+                        <p className="opacity-60 mb-1">Score</p>
+                        <p className="text-right"><strong>{i.score}</strong></p>
                       </div>
                     </li>
                     <li className="max-md:hidden text-right">
@@ -89,5 +89,5 @@ export function Record({id, openModal, closeModal}) {
         </div>
       </div>
     </Modal>
-  )
+  );
 }

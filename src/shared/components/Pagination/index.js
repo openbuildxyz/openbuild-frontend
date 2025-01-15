@@ -14,38 +14,38 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import { isInteger } from 'lodash'
-import { useMemo } from 'react'
-import { useSearchParams, usePathname, useRouter } from 'next/navigation'
+import { isInteger } from 'lodash';
+import { useMemo } from 'react';
+import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 import { Pagination } from '@nextui-org/pagination';
 
-import { PAGE_SIZE } from '../../constants/config'
-import { Button } from '../Button'
+import { PAGE_SIZE } from '../../constants/config';
+import { Button } from '../Button';
 
 export function OPagination({ page, pageSize = PAGE_SIZE, total, changeCallback }) {
-  const pathname = usePathname()
-  const searchParams = useSearchParams()
-  const { replace } = useRouter()
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const { replace } = useRouter();
   const currentPage = useMemo(() => {
-    return Number(searchParams?.get('page')) || (isInteger(page) && page > 0 ? page : 1)
-  }, [page, searchParams])
+    return Number(searchParams?.get('page')) || (isInteger(page) && page > 0 ? page : 1);
+  }, [page, searchParams]);
 
-  const change = (pageNumber) => {
+  const change = pageNumber => {
     if (!changeCallback) {
-      const params = new URLSearchParams(searchParams)
-      params.set('page', pageNumber.toString())
-      replace(`${pathname}?${params.toString()}`)
+      const params = new URLSearchParams(searchParams);
+      params.set('page', pageNumber.toString());
+      replace(`${pathname}?${params.toString()}`);
     } else {
-      changeCallback(pageNumber)
+      changeCallback(pageNumber);
     }
 
   };
 
   const totalPage = useMemo(() => {
-    return Math.ceil(total / pageSize)
-  }, [pageSize, total])
+    return Math.ceil(total / pageSize);
+  }, [pageSize, total]);
 
   // const textItemRender = (current, type, element) => {
   //   if (type === 'prev' && current !== 0) {
@@ -77,7 +77,7 @@ export function OPagination({ page, pageSize = PAGE_SIZE, total, changeCallback 
           total={totalPage}
           initialPage={currentPage}
           page={currentPage}
-          onChange={(page) => change(page)}
+          onChange={page => change(page)}
         />
         <Button
           variant="light"
@@ -89,5 +89,5 @@ export function OPagination({ page, pageSize = PAGE_SIZE, total, changeCallback 
         </Button>
       </div>
     </div>
-  ) : null
+  ) : null;
 }

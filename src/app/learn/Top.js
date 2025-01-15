@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import { Select } from '@/components/Select'
-import { useOpenFilter } from '#/state/application/hooks'
-import { updateOpenFilter } from '#/state/application/reducer'
-import { useAppDispatch } from '#/state/hooks'
-import { ChevronLeftIcon } from '@heroicons/react/20/solid'
-import { baseInputStyles } from '#/domain/profile/widgets/blocks'
-import { SearchIcon, FilterIcon } from '@/components/Icons'
-import clsx from 'clsx'
+import { Select } from '@/components/Select';
+import { useOpenFilter } from '#/state/application/hooks';
+import { updateOpenFilter } from '#/state/application/reducer';
+import { useAppDispatch } from '#/state/hooks';
+import { ChevronLeftIcon } from '@heroicons/react/20/solid';
+import { baseInputStyles } from '#/domain/profile/widgets/blocks';
+import { SearchIcon, FilterIcon } from '@/components/Icons';
+import clsx from 'clsx';
 
 const options = [
   {
@@ -34,10 +34,10 @@ const options = [
     name: 'Most learned',
     key: 'most_learned',
   },
-]
+];
 export function Top({ num, selected, sortChange, search, setSearch, type, online, setOnLine }) {
-  const openFilter = useOpenFilter()
-  const dispatch = useAppDispatch()
+  const openFilter = useOpenFilter();
+  const dispatch = useAppDispatch();
   return (
     <div className="mt-[-6px] flex flex-col-reverse justify-between md:flex-row md:items-center">
       <div className="mt-4 flex items-center text-sm md:mt-0">
@@ -123,5 +123,5 @@ export function Top({ num, selected, sortChange, search, setSearch, type, online
         )}
       </div>
     </div>
-  )
+  );
 }

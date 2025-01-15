@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-'use server'
+'use server';
 
-import { revalidatePath } from 'next/cache'
+import { revalidatePath } from 'next/cache';
 
 export async function revalidatePathAction() {
-  return revalidatePath('/')
+  return revalidatePath('/');
 }

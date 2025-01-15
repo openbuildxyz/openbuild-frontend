@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import { ReactSelect } from '@/components/Select/ReactSelect'
-import { useMemo } from 'react'
+import { ReactSelect } from '@/components/Select/ReactSelect';
+import { useMemo } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 const options = [
@@ -29,15 +29,15 @@ const options = [
     label: 'Most learned',
     value: 'most_learned',
   },
-]
+];
 
 export function Sort() {
   const searchParams = useSearchParams();
   const { replace } = useRouter();
   const pathname = usePathname();
   const value = useMemo(() => {
-    return searchParams?.get('order') || null
-  }, [searchParams])
+    return searchParams?.get('order') || null;
+  }, [searchParams]);
   return (
     <div className="w-[180px] ml-2">
       <ReactSelect
@@ -50,9 +50,9 @@ export function Sort() {
           const params = new URLSearchParams(searchParams);
           params.set('page', '1');
           if (e === null) {
-            params.delete('order')
+            params.delete('order');
           } else {
-            params.set('order', e.value)
+            params.set('order', e.value);
           }
 
           replace(`${pathname}?${params.toString()}`);
@@ -61,5 +61,5 @@ export function Sort() {
         placeholder={'Sorts'}
       />
     </div>
-  )
+  );
 }

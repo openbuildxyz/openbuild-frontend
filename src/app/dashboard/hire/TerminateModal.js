@@ -14,27 +14,27 @@
  * limitations under the License.
  */
 
-import { classNames } from '@/utils'
+import { classNames } from '@/utils';
 
-import { Button } from '@/components/Button'
-import { Modal } from '@/components/Modal'
-import { useState } from 'react'
-import { toast } from 'react-toastify'
-import { useSlillhubChain } from '#/state/application/hooks'
-import { waitForTransaction } from '@wagmi/core'
+import { Button } from '@/components/Button';
+import { Modal } from '@/components/Modal';
+import { useState } from 'react';
+import { toast } from 'react-toastify';
+import { useSlillhubChain } from '#/state/application/hooks';
+import { waitForTransaction } from '@wagmi/core';
 // import { writeContract, prepareWriteContract } from '@wagmi/core'
-import { hireCancel } from '#/services/shilling'
+import { hireCancel } from '#/services/shilling';
 import { writeContract } from '@wagmi/core';
-import { baseInputStyles } from '#/domain/profile/widgets/blocks'
+import { baseInputStyles } from '#/domain/profile/widgets/blocks';
 
 export function TerminateModal({ open, closeModal, data }) {
-  const slillhubChain = useSlillhubChain()
-  const [confirmimg, setConfirmimg] = useState(false)
-  const [comment, setComment] = useState('')
+  const slillhubChain = useSlillhubChain();
+  const [confirmimg, setConfirmimg] = useState(false);
+  const [comment, setComment] = useState('');
   const terminate = async () => {
-    if (!slillhubChain) return
+    if (!slillhubChain) return;
     try {
-      setConfirmimg(true)
+      setConfirmimg(true);
       // const _config = await prepareWriteContract({
       //   address: slillhubChain.contract_address,
       //   abi: JSON.parse(slillhubChain?.abi),
@@ -47,21 +47,21 @@ export function TerminateModal({ open, closeModal, data }) {
         abi: JSON.parse(slillhubChain?.abi),
         functionName: 'cancelEmployment',
         args: [Number(data.contract_index_id)],
-      })
-      await waitForTransaction({ hash })
+      });
+      await waitForTransaction({ hash });
       // wait()
-      const res = await hireCancel(data.uid, data.id, hash, comment)
+      const res = await hireCancel(data.uid, data.id, hash, comment);
       if (res.code === 200) {
-        closeModal()
+        closeModal();
       } else {
-        toast.error(res.message)
+        toast.error(res.message);
       }
-      setConfirmimg(false)
+      setConfirmimg(false);
     } catch (err) {
-      console.log(err)
-      setConfirmimg(false)
+      console.log(err);
+      setConfirmimg(false);
     }
-  }
+  };
 
   return (
     <Modal title={'Terminate Hire'} isOpen={open} closeModal={closeModal} mode={'base'}>
@@ -81,5 +81,5 @@ export function TerminateModal({ open, closeModal, data }) {
         </Button>
       </div>
     </Modal>
-  )
+  );
 }

@@ -14,4 +14,4 @@
  * limitations under the License.
  */
 
-export { default as useBountyEnvCheck } from './useBountyEnvCheck'
+export { default as useBountyEnvCheck } from './useBountyEnvCheck';

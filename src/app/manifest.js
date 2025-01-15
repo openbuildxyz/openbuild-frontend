@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { siteConfig } from '#/lib/site'
+import { siteConfig } from '#/lib/site';
 
 export default function manifest() {
   return {
@@ -39,5 +39,5 @@ export default function manifest() {
         purpose: 'maskable',
       },
     ],
-  }
+  };
 }

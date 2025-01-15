@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import LoadableList from '@/components/loadable-list'
+import LoadableList from '@/components/loadable-list';
 
-import { useViewingSelf } from '../../../auth/hooks'
+import { useViewingSelf } from '../../../auth/hooks';
 
-import { fetchAppliedBountyList } from '../../repository'
-import BountyItem from '../../widgets/bounty-item'
-import AppliedBountyAction from '../../widgets/applied-bounty-action'
+import { fetchAppliedBountyList } from '../../repository';
+import BountyItem from '../../widgets/bounty-item';
+import AppliedBountyAction from '../../widgets/applied-bounty-action';
 
 function AppliedBountyList({ list, viewingSelf }) {
   return (
@@ -31,11 +31,11 @@ function AppliedBountyList({ list, viewingSelf }) {
         </BountyItem>
       ))}
     </div>
-  )
+  );
 }
 
 function AppliedBountyListView({ params }) {
-  const viewingSelf = useViewingSelf(params?.userId)
+  const viewingSelf = useViewingSelf(params?.userId);
 
   return (
     <LoadableList
@@ -44,7 +44,7 @@ function AppliedBountyListView({ params }) {
       resolveResponse={res => ({ list: res.data.list, total: res.data.count })}
       renderList={list => <AppliedBountyList list={list} viewingSelf={viewingSelf} />}
     />
-  )
+  );
 }
 
-export default AppliedBountyListView
+export default AppliedBountyListView;

@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import { SvgIcon } from '@/components/Image'
-import LoadableList from '@/components/loadable-list'
+import { SvgIcon } from '@/components/Image';
+import LoadableList from '@/components/loadable-list';
 
-import { useViewingSelf } from '../../../auth/hooks'
+import { useViewingSelf } from '../../../auth/hooks';
 
-import { fetchPublishedQuizList } from '../../repository'
-import QuizItem from '../../widgets/quiz-item'
+import { fetchPublishedQuizList } from '../../repository';
+import QuizItem from '../../widgets/quiz-item';
 
 function PublishedQuizList({ list, viewingSelf }) {
   return (
@@ -36,11 +36,11 @@ function PublishedQuizList({ list, viewingSelf }) {
         </QuizItem>
       ))}
     </div>
-  )
+  );
 }
 
 function PublishedQuizListView({ params }) {
-  const viewingSelf = useViewingSelf(params?.userId)
+  const viewingSelf = useViewingSelf(params?.userId);
 
   return (
     <LoadableList
@@ -49,7 +49,7 @@ function PublishedQuizListView({ params }) {
       resolveResponse={res => ({ list: res.data.list, total: res.data.count })}
       renderList={list => <PublishedQuizList list={list} viewingSelf={viewingSelf} />}
     />
-  )
+  );
 }
 
-export default PublishedQuizListView
+export default PublishedQuizListView;

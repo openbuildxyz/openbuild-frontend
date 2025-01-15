@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import clsx from 'clsx'
-import Link from 'next/link'
-import { useFooterDisplay } from '@/hooks/useHeaderAndFooterDisplay'
+import clsx from 'clsx';
+import Link from 'next/link';
+import { useFooterDisplay } from '@/hooks/useHeaderAndFooterDisplay';
 
-import { GithubSolidIcon, TwitterIcon, YoutobeIcon, DiscordIcon, LinkedInFilled, SubstackFilled } from '@/components/Icons'
-import BrandLogo from '@/components/brand-logo'
+import { GithubSolidIcon, TwitterIcon, YoutobeIcon, DiscordIcon, LinkedInFilled, SubstackFilled } from '@/components/Icons';
+import BrandLogo from '@/components/brand-logo';
 
 const mediasLinkStyle =
-  '[&>a]:flex [&>a]:h-8 [&>a]:w-8 [&>a]:items-center [&>a]:justify-center [&>a]:rounded [&>a]:bg-gray-700'
-const mediasStyle = '[&>a>svg]:h-4 [&>a>svg]:w-4 [&>a>svg]:cursor-pointer'
+  '[&>a]:flex [&>a]:h-8 [&>a]:w-8 [&>a]:items-center [&>a]:justify-center [&>a]:rounded [&>a]:bg-gray-700';
+const mediasStyle = '[&>a>svg]:h-4 [&>a>svg]:w-4 [&>a>svg]:cursor-pointer';
 
 const menus = [
   {
@@ -103,9 +103,9 @@ const menus = [
       },
     ],
   },
-]
+];
 export function Footer() {
-  const hidden = useFooterDisplay()
+  const hidden = useFooterDisplay();
   return (
     <div className={clsx('bg-gray p-6 text-white md:p-14', { hidden })}>
       <div className="mx-auto justify-between pb-0 md:flex md:pb-10">
@@ -180,7 +180,7 @@ export function Footer() {
                       className="cursor-pointer"
                       onClick={() => {
                         if (subItem.type !== 'Soon') {
-                          window.open(subItem.link, '_blank')
+                          window.open(subItem.link, '_blank');
                           // router.push(subItem.link)
                         }
                       }}
@@ -207,5 +207,5 @@ export function Footer() {
         </div> */}
       </div>
     </div>
-  )
+  );
 }

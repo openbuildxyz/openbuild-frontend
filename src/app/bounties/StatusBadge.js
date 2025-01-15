@@ -47,10 +47,10 @@ const badgeList = [
     borderColor: 'border-[#82ADD8]',
     isMatched: status => status === 24 || status === 20,
   },
-]
+];
 
 function StatusBadge({ status }) {
-  const badge = badgeList.find(({ isMatched }) => isMatched(status))
+  const badge = badgeList.find(({ isMatched }) => isMatched(status));
 
   return badge && (
     <div className={`inline-flex items-center gap-2 p-[3px] ${badge.bgColor} bg-opacity-10 rounded-full`}>
@@ -61,7 +61,7 @@ function StatusBadge({ status }) {
         {badge.label}
       </span>
     </div>
-  )
+  );
 }
 
-export default StatusBadge
+export default StatusBadge;

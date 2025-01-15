@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import CredentialsProvider from 'next-auth/providers/credentials'
+import CredentialsProvider from 'next-auth/providers/credentials';
 
 export const authOptions = {
   providers: [
@@ -28,26 +28,26 @@ export const authOptions = {
         return {
           id: '1',
           token: credentials?.token,
-        }
+        };
       },
     }),
   ],
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token.accessToken = user?.token
+        token.accessToken = user?.token;
       }
-      return token
+      return token;
     },
     async session({ session, token }) {
       if (token) {
-        session.user.accessToken = token.accessToken
+        session.user.accessToken = token.accessToken;
       }
-      return session
+      return session;
     },
   },
   pages: {
     error: '/signin',
     signIn: '/signin',
   },
-}
+};

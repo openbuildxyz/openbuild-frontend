@@ -14,4 +14,4 @@
  * limitations under the License.
  */
 
-export { default } from './QuizLimiter'
+export { default } from './QuizLimiter';

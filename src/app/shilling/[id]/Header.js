@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-import { ArrowLeftIcon, EditIcon } from '@/components/Icons'
-import { useRouter } from 'next/navigation'
-import { Button } from '@/components/Button'
-import { Share } from '@/components/Share'
-import Link from 'next/link'
-import { useUser } from '#/state/application/hooks'
+import { ArrowLeftIcon, EditIcon } from '@/components/Icons';
+import { useRouter } from 'next/navigation';
+import { Button } from '@/components/Button';
+import { Share } from '@/components/Share';
+import Link from 'next/link';
+import { useUser } from '#/state/application/hooks';
 
 export function Header({ id, setOpen, data }) {
-  const router = useRouter()
-  const user = useUser()
+  const router = useRouter();
+  const user = useUser();
   // console.log(data)
   return (
     <div className="mb-8 flex justify-between">
@@ -49,5 +49,5 @@ export function Header({ id, setOpen, data }) {
         <Share img={null} title={data.title} />
       </div>
     </div>
-  )
+  );
 }

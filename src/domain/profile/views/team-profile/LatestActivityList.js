@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import { formatTime } from '@/utils/date'
+import { formatTime } from '@/utils/date';
 
 const typeTextMap = {
   open_course: 'Open Course',
   bounty: 'Bounty',
   challenges: 'Challanges',
   quiz: 'Quiz',
-}
+};
 
 function LatestActivityList({ activities }) {
   return (
@@ -38,7 +38,7 @@ function LatestActivityList({ activities }) {
         </div>
       ))}
     </div>
-  )
+  );
 }
 
-export default LatestActivityList
+export default LatestActivityList;

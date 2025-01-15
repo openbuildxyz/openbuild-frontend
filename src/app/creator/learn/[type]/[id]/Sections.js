@@ -30,7 +30,7 @@ export function Sections({ section, change, data, type, id }) {
   //   }
   // });
 
-  const RenderDom = content
+  const RenderDom = content;
   // ref={ref} 
   return (
     <section id={title} className="pb-[100px] mb-[100px] border-b border-gray-600">

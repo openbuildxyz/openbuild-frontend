@@ -14,48 +14,48 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import { useUser } from '#/state/application/hooks'
-import { upload } from '#/services/common'
-import { toast } from 'react-toastify'
-import { useRef, useState } from 'react'
-import { changeBanner } from '#/services/user'
-import { revalidatePathAction } from '#/app/actions'
-import clsx from 'clsx'
-import Image from '@/components/Image'
+import { useUser } from '#/state/application/hooks';
+import { upload } from '#/services/common';
+import { toast } from 'react-toastify';
+import { useRef, useState } from 'react';
+import { changeBanner } from '#/services/user';
+import { revalidatePathAction } from '#/app/actions';
+import clsx from 'clsx';
+import Image from '@/components/Image';
 
 export function Banner({data}) {
-  const user = useUser()
-  const uploadRef = useRef(null)
-  const [loading, setLoading] = useState(false)
+  const user = useUser();
+  const uploadRef = useRef(null);
+  const [loading, setLoading] = useState(false);
   const handleImageFileChange = event => {
-    const files = event.target.files
+    const files = event.target.files;
     if (files && files[0]) {
-      const file = files[0]
+      const file = files[0];
       if (file.size > 1024 * 1024 * 20) {
-        toast.error('The file is too large')
-        event.target.value = ''
-        return
+        toast.error('The file is too large');
+        event.target.value = '';
+        return;
       }
       // setUploading(true)
-      const formData = new FormData()
-      formData.append('file', files[0], files[0].name)
-      formData.append('intent', 'avatar')
-      setLoading(true)
+      const formData = new FormData();
+      formData.append('file', files[0], files[0].name);
+      formData.append('intent', 'avatar');
+      setLoading(true);
       upload({ file: formData })
         .then(async res => {
-          await changeBanner(res.data.user_upload_path)
-          setLoading(false)
-          revalidatePathAction()
+          await changeBanner(res.data.user_upload_path);
+          setLoading(false);
+          revalidatePathAction();
         })
         .catch(() => {
-          toast.error('Upload error')
+          toast.error('Upload error');
           // setUploading(false)
-          setLoading(false)
-        })
+          setLoading(false);
+        });
     }
-  }
+  };
 
   return <div className="relative">
     <div className="h-[160px] md:h-[200px]">
@@ -85,5 +85,5 @@ export function Banner({data}) {
         />
       </button>
     )}
-  </div>
+  </div>;
 }

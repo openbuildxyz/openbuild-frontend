@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import Image from 'next/image'
+import Image from 'next/image';
 
-import build1Pic from 'public/images/build-1.svg'
-import build2Pic from 'public/images/build-2.svg'
-import build3Pic from 'public/images/build-3.svg'
-import build4Pic from 'public/images/build-4.svg'
+import build1Pic from 'public/images/build-1.svg';
+import build2Pic from 'public/images/build-2.svg';
+import build3Pic from 'public/images/build-3.svg';
+import build4Pic from 'public/images/build-4.svg';
 
 const data = [
   {
@@ -44,7 +44,7 @@ const data = [
     text: 'OpenBuild SIG',
     href:'https://github.com/openbuildxyz/build_web3_together?tab=readme-ov-file#bounty--grants',
   },
-]
+];
 
 export function BuildWith() {
   return (
@@ -76,5 +76,5 @@ export function BuildWith() {
         ))}
       </div>
     </div>
-  )
+  );
 }

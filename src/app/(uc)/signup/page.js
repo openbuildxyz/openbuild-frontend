@@ -14,65 +14,65 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import Link from 'next/link'
-import clsx from 'clsx'
-import { useEffect, useState } from 'react'
-import { registerEmail, sendCode } from '#/services/auth'
-import { useForm } from 'react-hook-form'
-import { useRouter } from 'next/navigation'
-import { toast } from 'react-toastify'
-import Loader from '@/components/Loader'
-import { useAccount } from 'wagmi'
-import { useSearchParams } from 'next/navigation'
-import { useSession } from 'next-auth/react'
-import isEmail from 'validator/lib/isEmail'
-import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline'
+import Link from 'next/link';
+import clsx from 'clsx';
+import { useEffect, useState } from 'react';
+import { registerEmail, sendCode } from '#/services/auth';
+import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
+import { toast } from 'react-toastify';
+import Loader from '@/components/Loader';
+import { useAccount } from 'wagmi';
+import { useSearchParams } from 'next/navigation';
+import { useSession } from 'next-auth/react';
+import isEmail from 'validator/lib/isEmail';
+import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 
-import { NavButtonStyle } from '../signin/page'
-const SignupAfterStyle = 'after:content-[\'\'] after:absolute after:left-[-12px] after:bottom-0 after:w-3 after:h-3 after:bg-signup-gradient'
+import { NavButtonStyle } from '../signin/page';
+const SignupAfterStyle = 'after:content-[\'\'] after:absolute after:left-[-12px] after:bottom-0 after:w-3 after:h-3 after:bg-signup-gradient';
 
 export default function SignUp() {
-  const { status } = useSession()
-  const router = useRouter()
-  const [cdMss, setCdMss] = useState(0)
-  const [loading, setLoading] = useState(false)
-  const { address } = useAccount()
-  const searchParams = useSearchParams()
-  const [sendLoading, setSendLoading] = useState(false)
-  const [passwordType, setPasswordType] = useState('password')
-  const [confirmPasswordType, setConfirmPasswordType] = useState('password')
+  const { status } = useSession();
+  const router = useRouter();
+  const [cdMss, setCdMss] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const { address } = useAccount();
+  const searchParams = useSearchParams();
+  const [sendLoading, setSendLoading] = useState(false);
+  const [passwordType, setPasswordType] = useState('password');
+  const [confirmPasswordType, setConfirmPasswordType] = useState('password');
 
   useEffect(() => {
     if (cdMss > 0) {
-      const timerId = setInterval(() => setCdMss(cdMss - 1), 1000)
-      return () => clearInterval(timerId)
+      const timerId = setInterval(() => setCdMss(cdMss - 1), 1000);
+      return () => clearInterval(timerId);
     }
-  }, [cdMss])
+  }, [cdMss]);
 
   const {
     register,
     handleSubmit,
     formState: { errors },
     watch,
-  } = useForm()
-  const watchAllFields = watch()
+  } = useForm();
+  const watchAllFields = watch();
   const onSubmit = async data => {
-    setLoading(true)
-    const res = await registerEmail(data.Email, data.Password, data.VerificationCode)
+    setLoading(true);
+    const res = await registerEmail(data.Email, data.Password, data.VerificationCode);
     if (res.code === 200) {
-      toast.success('🎉 Congratulations, you have successfully registered')
+      toast.success('🎉 Congratulations, you have successfully registered');
       if (address && searchParams?.get('from') !== null && status === 'authenticated') {
-        router.push(searchParams?.get('from'))
+        router.push(searchParams?.get('from'));
       } else {
-        router.push('/signin')
+        router.push('/signin');
       }
     } else {
-      toast.error(res.message)
+      toast.error(res.message);
     }
-    setLoading(false)
-  }
+    setLoading(false);
+  };
   return (
     <>
       <div>
@@ -127,13 +127,13 @@ export default function SignUp() {
                 disabled={(watchAllFields.Email === '' && !isEmail(watchAllFields.Email)) || sendLoading}
                 className="w-[76px] text-sm hover:opacity-80 disabled:opacity-20"
                 onClick={async () => {
-                  setSendLoading(true)
-                  const res = await sendCode(watchAllFields.Email, 'register')
-                  setSendLoading(false)
+                  setSendLoading(true);
+                  const res = await sendCode(watchAllFields.Email, 'register');
+                  setSendLoading(false);
                   if (res.code === 200) {
-                    setCdMss(59)
+                    setCdMss(59);
                   } else {
-                    toast.error(res.message)
+                    toast.error(res.message);
                   }
                 }}
               >
@@ -177,5 +177,5 @@ export default function SignUp() {
         </form>
       </div>
     </>
-  )
+  );
 }

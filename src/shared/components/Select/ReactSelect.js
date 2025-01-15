@@ -14,35 +14,35 @@
  * limitations under the License.
  */
 
-import { isInteger, isFunction } from 'lodash'
-import React from 'react'
-import Select, { components } from 'react-select'
-import { XMarkIcon, ChevronDownIcon } from '@heroicons/react/20/solid'
-import { classNames } from '@/utils'
+import { isInteger, isFunction } from 'lodash';
+import React from 'react';
+import Select, { components } from 'react-select';
+import { XMarkIcon, ChevronDownIcon } from '@heroicons/react/20/solid';
+import { classNames } from '@/utils';
 
 export const DropdownIndicator = props => {
   return (
     <components.DropdownIndicator {...props}>
       <ChevronDownIcon className="h-5 w-5" />
     </components.DropdownIndicator>
-  )
-}
+  );
+};
 
 export const ClearIndicator = props => {
   return (
     <components.ClearIndicator {...props}>
       <XMarkIcon className="h-4 w-4" />
     </components.ClearIndicator>
-  )
-}
+  );
+};
 
 export const MultiValueRemove = props => {
   return (
     <components.MultiValueRemove {...props}>
       <XMarkIcon className="h-3 w-3" />
     </components.MultiValueRemove>
-  )
-}
+  );
+};
 
 export function ReactSelect({
   value,
@@ -58,16 +58,16 @@ export function ReactSelect({
   isSearchable = true,
   limit,  // to limit the max count of selectable options in multiple mode
 }) {
-  const [selectedOpts, setSelectedOpts] = React.useState([])
+  const [selectedOpts, setSelectedOpts] = React.useState([]);
 
-  const resolvedLimit = isInteger(limit) && limit > 0 ? limit : 0
+  const resolvedLimit = isInteger(limit) && limit > 0 ? limit : 0;
 
   const handleChange = isMulti ? (...args) => {
-    setSelectedOpts(args[0])
-    isFunction(onChange) && onChange(...args)
-  } : onChange
+    setSelectedOpts(args[0]);
+    isFunction(onChange) && onChange(...args);
+  } : onChange;
 
-  const resolveOptionDisabled = () => isMulti && resolvedLimit > 0 ? selectedOpts.length >= resolvedLimit : false
+  const resolveOptionDisabled = () => isMulti && resolvedLimit > 0 ? selectedOpts.length >= resolvedLimit : false;
 
   return (
     <Select
@@ -77,19 +77,19 @@ export function ReactSelect({
       options={options}
       placeholder={placeholder}
       styles={{
-        control: (baseStyles) => ({
+        control: baseStyles => ({
           ...baseStyles,
           height: '40px',
           borderRadius: '8px',
-          ...(styles && isFunction(styles.control) && styles.control())
+          ...(styles && isFunction(styles.control) && styles.control()),
         }),
-        option: (styles) => ({
+        option: styles => ({
           ...styles,
           whiteSpace: 'nowrap',
           overflow: 'hidden',
           textOverflow: 'ellipsis',
         }),
-        menu: (styles) => ({
+        menu: styles => ({
           ...styles,
           width: '100%!important',
         }),
@@ -102,5 +102,5 @@ export function ReactSelect({
       isClearable={isClearable}
       isOptionDisabled={resolveOptionDisabled}
     />
-  )
+  );
 }

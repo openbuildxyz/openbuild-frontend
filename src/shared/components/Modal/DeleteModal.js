@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { Modal } from '@/components/Modal'
-const buttonStyle = 'px-[28px] py-[11px] rounded-full text-sm font-medium hover:opacity-80 leading-[16px]'
+import { Modal } from '@/components/Modal';
+const buttonStyle = 'px-[28px] py-[11px] rounded-full text-sm font-medium hover:opacity-80 leading-[16px]';
 
 export function DeleteModal({ title, info, open, closeModal }) {
   return (
@@ -32,5 +32,5 @@ export function DeleteModal({ title, info, open, closeModal }) {
         </div>
       </div>
     </Modal>
-  )
+  );
 }

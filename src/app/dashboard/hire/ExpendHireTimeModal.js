@@ -14,54 +14,54 @@
  * limitations under the License.
  */
 
-import { useMemo, useState } from 'react'
-import { Button } from '@/components/Button'
-import { Modal } from '@/components/Modal'
-import { toast } from 'react-toastify'
+import { useMemo, useState } from 'react';
+import { Button } from '@/components/Button';
+import { Modal } from '@/components/Modal';
+import { toast } from 'react-toastify';
 
-import { TipsIcon } from '@/components/Icons'
-import { MouseoverTooltip } from '@/components/Tooltip'
+import { TipsIcon } from '@/components/Icons';
+import { MouseoverTooltip } from '@/components/Tooltip';
 
-import { ReactSelect } from '@/components/Select/ReactSelect'
+import { ReactSelect } from '@/components/Select/ReactSelect';
 
-import { Estimated } from '../../shilling-myself/ShillingMyselfTwo'
-import { BigNumber } from 'bignumber.js'
-import { useAccount, useBalance } from 'wagmi'
-import { waitForTransaction } from '@wagmi/core'
-import { useSlillhubChain } from '#/state/application/hooks'
+import { Estimated } from '../../shilling-myself/ShillingMyselfTwo';
+import { BigNumber } from 'bignumber.js';
+import { useAccount, useBalance } from 'wagmi';
+import { waitForTransaction } from '@wagmi/core';
+import { useSlillhubChain } from '#/state/application/hooks';
 
-import { hireExtend } from '#/services/shilling'
+import { hireExtend } from '#/services/shilling';
 
 import { writeContract } from '@wagmi/core';
 
 // import { writeContract, prepareWriteContract } from '@wagmi/core'
 
-import { parseUnits } from '@ethersproject/units'
+import { parseUnits } from '@ethersproject/units';
 
 export function ExpendHireTimeModal({ open, closeModal, data }) {
-  const { address } = useAccount()
+  const { address } = useAccount();
   // const { data: walletClient } = useWalletClient()
-  const [estimatedType, setEstimatedType] = useState(Estimated[1])
-  const [time, setTime] = useState('')
-  const [confirmimg, setConfirmimg] = useState(false)
-  const slillhubChain = useSlillhubChain()
+  const [estimatedType, setEstimatedType] = useState(Estimated[1]);
+  const [time, setTime] = useState('');
+  const [confirmimg, setConfirmimg] = useState(false);
+  const slillhubChain = useSlillhubChain();
   const coin = useMemo(() => {
-    return slillhubChain?.use_coins[0]
-  }, [slillhubChain])
+    return slillhubChain?.use_coins[0];
+  }, [slillhubChain]);
 
   const balance = useBalance({
     address,
     token: coin?.address,
-  })
+  });
 
   const addTime = async () => {
-    if (!slillhubChain) return
+    if (!slillhubChain) return;
     const totalSeconds =
       estimatedType.value === 1
         ? new BigNumber(data.daily_hours).times(time).times(60 * 60)
-        : new BigNumber(data.daily_hours).times(time).times(60 * 60 * 22)
+        : new BigNumber(data.daily_hours).times(time).times(60 * 60 * 22);
     try {
-      setConfirmimg(true)
+      setConfirmimg(true);
       // const _config = await prepareWriteContract({
       //   address: slillhubChain.contract_address,
       //   abi: JSON.parse(slillhubChain?.abi),
@@ -74,29 +74,29 @@ export function ExpendHireTimeModal({ open, closeModal, data }) {
         abi: JSON.parse(slillhubChain?.abi),
         functionName: 'extendEmployment',
         args: [Number(data.contract_index_id), totalSeconds.toNumber()],
-      })
-      await waitForTransaction({ hash })
-      const res = await hireExtend(data.uid, data.id, hash)
+      });
+      await waitForTransaction({ hash });
+      const res = await hireExtend(data.uid, data.id, hash);
       if (res.code === 200) {
-        closeModal()
+        closeModal();
       } else {
-        toast.error(res.message)
+        toast.error(res.message);
       }
-      setConfirmimg(false)
+      setConfirmimg(false);
     } catch (err) {
-      console.log(err)
-      setConfirmimg(false)
+      console.log(err);
+      setConfirmimg(false);
     }
-  }
+  };
 
   const totalFees = useMemo(() => {
     if (time === '') {
-      return new BigNumber(0)
+      return new BigNumber(0);
     }
     return estimatedType.value === 1
       ? new BigNumber(data.daily_hours).times(time).times(data.hourly_wage)
-      : new BigNumber(data.daily_hours).times(time).times(22).times(data.hourly_wage)
-  }, [time, estimatedType, data])
+      : new BigNumber(data.daily_hours).times(time).times(22).times(data.hourly_wage);
+  }, [time, estimatedType, data]);
 
   return (
     <Modal title={'Expend Hire Time'} isOpen={open} closeModal={closeModal} mode={'base'}>
@@ -112,8 +112,8 @@ export function ExpendHireTimeModal({ open, closeModal, data }) {
             <input
               value={time}
               onChange={e => {
-                const val = e.target.value.replace(/[^\d]/g, '')
-                setTime(val)
+                const val = e.target.value.replace(/[^\d]/g, '');
+                setTime(val);
               }}
               type="text"
               className="h-12 w-full flex-1 border-none bg-transparent p-0 pr-3"
@@ -142,5 +142,5 @@ export function ExpendHireTimeModal({ open, closeModal, data }) {
         )}
       </div>
     </Modal>
-  )
+  );
 }

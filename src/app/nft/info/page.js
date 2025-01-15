@@ -14,24 +14,24 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import { Button } from '@/components/Button'
-import Image from 'next/image'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { Button } from '@/components/Button';
+import Image from 'next/image';
+import { useRouter, useSearchParams } from 'next/navigation';
 
-import { useSession } from 'next-auth/react'
-import { useNftInfo } from '#/services/nft/hooks'
-import { useMediaUrl } from '#/state/application/hooks'
-import { formatTime } from '@/utils/date'
-import { Skeleton } from './Skeleton'
+import { useSession } from 'next-auth/react';
+import { useNftInfo } from '#/services/nft/hooks';
+import { useMediaUrl } from '#/state/application/hooks';
+import { formatTime } from '@/utils/date';
+import { Skeleton } from './Skeleton';
 
 export default function NftInfo() {
-  const { status } = useSession()
-  const router = useRouter()
-  const params = useSearchParams()
-  const { info, loading } = useNftInfo(params?.get('ticket'))
-  const mediaUrl = useMediaUrl()
+  const { status } = useSession();
+  const router = useRouter();
+  const params = useSearchParams();
+  const { info, loading } = useNftInfo(params?.get('ticket'));
+  const mediaUrl = useMediaUrl();
 
   return (
     <div>
@@ -69,9 +69,9 @@ export default function NftInfo() {
                 <Button
                   onClick={() => {
                     if (status === 'unauthenticated') {
-                      router.push('/signin?from=%2Fen%2Fdashboard%2Fachievements')
+                      router.push('/signin?from=%2Fen%2Fdashboard%2Fachievements');
                     } else {
-                      router.push('/dashboard/achievements')
+                      router.push('/dashboard/achievements');
                     }
                   }}
                   variant="contained"
@@ -85,5 +85,5 @@ export default function NftInfo() {
         )}
       </div>
     </div>
-  )
+  );
 }

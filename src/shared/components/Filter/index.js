@@ -14,41 +14,41 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import Image from 'next/image'
-import clsx from 'clsx'
-import React, { useEffect, useState } from 'react'
-import { useRouter, useSearchParams, usePathname } from 'next/navigation'
-import { ChevronUpIcon, XMarkIcon, ChevronLeftIcon } from '@heroicons/react/20/solid'
-import { useConfig, useMediaUrl, useOpenFilter } from '#/state/application/hooks'
-import { updateOpenFilter } from '#/state/application/reducer'
-import { useAppDispatch } from '#/state/hooks'
-import { motion } from 'framer-motion'
-import { FilterIcon } from '@/components/Icons'
-import { createQueryString } from '@/utils'
+import Image from 'next/image';
+import clsx from 'clsx';
+import React, { useEffect, useState } from 'react';
+import { useRouter, useSearchParams, usePathname } from 'next/navigation';
+import { ChevronUpIcon, XMarkIcon, ChevronLeftIcon } from '@heroicons/react/20/solid';
+import { useConfig, useMediaUrl, useOpenFilter } from '#/state/application/hooks';
+import { updateOpenFilter } from '#/state/application/reducer';
+import { useAppDispatch } from '#/state/hooks';
+import { motion } from 'framer-motion';
+import { FilterIcon } from '@/components/Icons';
+import { createQueryString } from '@/utils';
 
 export function Filter({ type, children }) {
-  const config = useConfig()
-  const openFilter = useOpenFilter()
-  const dispatch = useAppDispatch()
-  const [list, setList] = useState([])
-  const filters = config?.find(f => f.config_id === 1)?.config_value[type]
-  const mediaUrl = useMediaUrl()
-  const router = useRouter()
-  const searchParams = useSearchParams()
-  const pathname = usePathname()
+  const config = useConfig();
+  const openFilter = useOpenFilter();
+  const dispatch = useAppDispatch();
+  const [list, setList] = useState([]);
+  const filters = config?.find(f => f.config_id === 1)?.config_value[type];
+  const mediaUrl = useMediaUrl();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
 
   // console.log(filters)
 
   useEffect(() => {
     if (filters) {
       const item = filters?.map(i => {
-        return { ...i, open: true }
-      })
-      item && setList(item)
+        return { ...i, open: true };
+      });
+      item && setList(item);
     }
-  }, [filters])
+  }, [filters]);
 
   return (
     <div
@@ -84,9 +84,9 @@ export function Filter({ type, children }) {
           <motion.button
             whileTap={{ scale: 0.97 }}
             onClick={() => {
-              const curr = [...list]
-              curr[k].open = !curr[k].open
-              setList(curr)
+              const curr = [...list];
+              curr[k].open = !curr[k].open;
+              setList(curr);
             }}
             className="w-full"
           >
@@ -95,7 +95,7 @@ export function Filter({ type, children }) {
             >
               {i.name}
               <ChevronUpIcon
-                  className={clsx('transition-all h-4 w-4 cursor-pointer fill-gray-500 text-gray-500', {'rotate-180' : i.open})}
+                className={clsx('transition-all h-4 w-4 cursor-pointer fill-gray-500 text-gray-500', {'rotate-180' : i.open})}
               />
             </h4>
           </motion.button>
@@ -103,7 +103,7 @@ export function Filter({ type, children }) {
             animate={i.open ? 'open' : 'closed'}
             variants={{
               open: { opacity: 1, height: 'auto' },
-              closed: { opacity: 0, height: '0' }
+              closed: { opacity: 0, height: '0' },
             }}
             className="overflow-hidden"
           >
@@ -142,5 +142,5 @@ export function Filter({ type, children }) {
       ))}
       {children}
     </div>
-  )
+  );
 }

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { currentTime } from '@/utils/date'
+import { currentTime } from '@/utils/date';
 
 export const InitForms = {
   course_series_title: '',
@@ -26,8 +26,8 @@ export const InitForms = {
   course_series_introduction: '',
   course_series_id: null,
   course_series_discussion: [],
-  course_series_type: ''
-}
+  course_series_type: '',
+};
 
 export const InitChallengesForms = {
   course_challenges_extra_online: true,
@@ -42,14 +42,14 @@ export const InitChallengesForms = {
   course_challenges_extra_start_date: currentTime(),
   course_challenges_extra_time_zone: {
     'utc': [
-        'Asia/Hong_Kong',
-        'Asia/Macau',
-        'Asia/Shanghai'
+      'Asia/Hong_Kong',
+      'Asia/Macau',
+      'Asia/Shanghai',
     ],
     'abbr': 'CST',
     'isdst': false,
     'label': '(UTC+08:00) Beijing, Chongqing, Hong Kong, Urumqi',
     'value': 'China Standard Time',
-    'offset': 8
-  }
-}
+    'offset': 8,
+  },
+};

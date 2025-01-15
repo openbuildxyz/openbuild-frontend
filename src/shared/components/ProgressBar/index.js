@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { classNames } from '@/utils'
+import { classNames } from '@/utils';
 
 export const ProgressBar = ({ progress, className, hasNum, mainClassname }) => {
   return (
@@ -31,5 +31,5 @@ export const ProgressBar = ({ progress, className, hasNum, mainClassname }) => {
       {}
       {hasNum && <p className="text-xs opacity-80">{progress}%</p>}
     </div>
-  )
-}
+  );
+};

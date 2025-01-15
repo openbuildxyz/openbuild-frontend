@@ -14,20 +14,19 @@
  * limitations under the License.
  */
 
-'use client' // Error components must be Client Components
+'use client'; // Error components must be Client Components
 
-import { useEffect } from 'react'
-import Link from 'next/link'
-import { DiscordIcon } from '@/components/Icons'
+import { useEffect } from 'react';
+import Link from 'next/link';
+import { DiscordIcon } from '@/components/Icons';
 
 export default function Error({
   error,
-  reset,
 }) {
   useEffect(() => {
     // Log the error to an error reporting service
-    console.log(error)
-  }, [error])
+    console.log(error);
+  }, [error]);
 
   return (
     <div className="flex justify-center items-center h-screen">
@@ -120,9 +119,9 @@ export default function Error({
               <path d="M16.615 55.7833C16.4073 55.7833 16.1996 55.7833 16.0334 55.7418C14.8704 55.5756 13.7905 54.9941 13.0843 54.0388C12.3782 53.0834 12.0459 51.9204 12.2121 50.7573C12.5443 48.3067 14.7873 46.6037 17.1965 46.9359C18.3595 47.1021 19.4395 47.6836 20.1456 48.639C20.8517 49.5943 21.184 50.7573 21.0179 51.9204C20.7271 54.1634 18.7749 55.7833 16.615 55.7833ZM16.615 47.3098C14.6212 47.3098 12.8766 48.8051 12.5859 50.7989C12.4613 51.8788 12.7105 52.9173 13.3751 53.7895C14.0397 54.6618 14.995 55.2018 16.0334 55.3264C16.1996 55.3679 16.4073 55.3679 16.5734 55.3679C18.5672 55.3679 20.3117 53.8726 20.6025 51.8788C20.7271 50.7989 20.4779 49.7605 19.8133 48.8882C19.1487 48.0159 18.1934 47.4759 17.1549 47.3513C16.9473 47.3098 16.7811 47.3098 16.615 47.3098Z" fill="#707070"/>
             </g>
             <defs>
-            <clipPath id="clip0_291_39856">
-              <rect width="120" height="120" fill="white"/>
-            </clipPath>
+              <clipPath id="clip0_291_39856">
+                <rect width="120" height="120" fill="white"/>
+              </clipPath>
             </defs>
           </svg>
         </div>
@@ -131,10 +130,10 @@ export default function Error({
           Please contact the operation staff
         </p>
         <Link className="flex items-center mt-2" href="https://discord.gg/cbmteR7yRN" target={'_blank'}>
-        <DiscordIcon className="h-5 w-5 cursor-pointer" />&nbsp;&nbsp;Contact
+          <DiscordIcon className="h-5 w-5 cursor-pointer" />&nbsp;&nbsp;Contact
         </Link>
       </div>
 
     </div>
-  )
+  );
 }

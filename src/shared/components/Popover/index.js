@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-import { Popover as HeadlessuiPopover } from '@headlessui/react'
-import { classNames } from '@/utils'
-import useInterval from '@/hooks/useInterval'
-import React, { Fragment, useCallback, useEffect, useState } from 'react'
-import ReactDOM from 'react-dom'
-import { usePopper } from 'react-popper'
+import { Popover as HeadlessuiPopover } from '@headlessui/react';
+import { classNames } from '@/utils';
+import useInterval from '@/hooks/useInterval';
+import React, { Fragment, useCallback, useEffect, useState } from 'react';
+import ReactDOM from 'react-dom';
+import { usePopper } from 'react-popper';
 
 export default function Popover({ content, children, placement = 'auto', show, modifiers }) {
-  const [referenceElement, setReferenceElement] = useState(null)
-  const [popperElement, setPopperElement] = useState(null)
-  const [arrowElement, setArrowElement] = useState(null)
+  const [referenceElement, setReferenceElement] = useState(null);
+  const [popperElement, setPopperElement] = useState(null);
+  const [arrowElement, setArrowElement] = useState(null);
   const { styles, update, attributes } = usePopper(referenceElement, popperElement, {
     placement,
     strategy: 'fixed',
@@ -32,21 +32,21 @@ export default function Popover({ content, children, placement = 'auto', show, m
       { name: 'offset', options: { offset: [0, 8] } },
       { name: 'arrow', options: { element: arrowElement } },
     ],
-  })
+  });
 
   const updateCallback = useCallback(() => {
-    update && update()
-  }, [update])
+    update && update();
+  }, [update]);
 
-  useInterval(updateCallback, show ? 100 : null)
+  useInterval(updateCallback, show ? 100 : null);
 
   // Add portal to end of page for popover
   useEffect(() => {
     if (!document.getElementById('popover-portal')) {
-      const node = document.body.appendChild(document.createElement('div'))
-      node.setAttribute('id', 'popover-portal')
+      const node = document.body.appendChild(document.createElement('div'));
+      node.setAttribute('id', 'popover-portal');
     }
-  }, [])
+  }, []);
 
   return (
     <HeadlessuiPopover as={Fragment}>
@@ -57,7 +57,7 @@ export default function Popover({ content, children, placement = 'auto', show, m
               <HeadlessuiPopover.Button className={'Popover-button'} {...{ ref: setReferenceElement }}>
                 {child}
               </HeadlessuiPopover.Button>
-            )
+            );
           })}
           {(show ?? open) &&
             ReactDOM.createPortal(
@@ -81,5 +81,5 @@ export default function Popover({ content, children, placement = 'auto', show, m
         </>
       )}
     </HeadlessuiPopover>
-  )
+  );
 }

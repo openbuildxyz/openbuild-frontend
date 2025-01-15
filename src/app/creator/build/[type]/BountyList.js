@@ -14,56 +14,56 @@
  * limitations under the License.
  */
 
-import { useConfig } from '#/state/application/hooks'
-import { useCallback, useState } from 'react'
-import { changeBountyStatus } from '#/services/creator'
-import { EyeIcon } from '@heroicons/react/24/outline'
-import { AppliedModal } from './AppliedModal'
-import { useRouter } from 'next/navigation'
-import { formatTime } from '@/utils/date'
-import { ManageModal } from './ManageModal'
-import Link from 'next/link'
+import { useConfig } from '#/state/application/hooks';
+import { useCallback, useState } from 'react';
+import { changeBountyStatus } from '#/services/creator';
+import { EyeIcon } from '@heroicons/react/24/outline';
+import { AppliedModal } from './AppliedModal';
+import { useRouter } from 'next/navigation';
+import { formatTime } from '@/utils/date';
+import { ManageModal } from './ManageModal';
+import Link from 'next/link';
 
-import { Button } from '@/components/Button'
+import { Button } from '@/components/Button';
 
 export function BountyList({ data, mutate }) {
   //   const pathname = usePathname()
-  const config = useConfig()
-  const filters = config?.find(f => f.config_id === 1)?.config_value['bounty']?.find(f => f.name === 'Ecosystem')?.labels
+  const config = useConfig();
+  const filters = config?.find(f => f.config_id === 1)?.config_value['bounty']?.find(f => f.name === 'Ecosystem')?.labels;
   // console.log(list)
 
-  const router = useRouter()
+  const router = useRouter();
 
-  const [appliedModalOpen, setAppliedModalOpen] = useState(false)
-  const [manageModalOpen, setManageModalOpen] = useState(false)
-  const [current, setCurrent] = useState()
-  const [operationLoading, setOperationLoading] = useState()
+  const [appliedModalOpen, setAppliedModalOpen] = useState(false);
+  const [manageModalOpen, setManageModalOpen] = useState(false);
+  const [current, setCurrent] = useState();
+  const [operationLoading, setOperationLoading] = useState();
 
   const changeStatusCallback = useCallback((id, status) => {
-    const _list = [...data.list]
-      const item = _list.find(f => f.id === id)
-      if (item) {
-        item.status = status
-        const fixedList = _list.map(m => {
-          if (m.id === id) {
-            return { ...item }
-          } else {
-            return m
-          }
-        })
-        mutate({...data, list: fixedList})
-      }
-  }, [mutate, data])
+    const _list = [...data.list];
+    const item = _list.find(f => f.id === id);
+    if (item) {
+      item.status = status;
+      const fixedList = _list.map(m => {
+        if (m.id === id) {
+          return { ...item };
+        } else {
+          return m;
+        }
+      });
+      mutate({...data, list: fixedList});
+    }
+  }, [mutate, data]);
 
   const changeStatus = async (id, status) => {
-    if (!id) return
-    setOperationLoading(id)
-    const res = await changeBountyStatus(id, status)
+    if (!id) return;
+    setOperationLoading(id);
+    const res = await changeBountyStatus(id, status);
     if (res.code === 200) {
-      changeStatusCallback(id, status)
+      changeStatusCallback(id, status);
     }
-    setOperationLoading(9999999999)
-  }
+    setOperationLoading(9999999999);
+  };
 
   return (
     <div className="mt-6">
@@ -100,8 +100,8 @@ export function BountyList({ data, mutate }) {
                 <strong>{i.builders_num}</strong>
                 <EyeIcon
                   onClick={() => {
-                    setCurrent(i)
-                    setAppliedModalOpen(true)
+                    setCurrent(i);
+                    setAppliedModalOpen(true);
                   }}
                   className="ml-2 h-4 w-4 cursor-pointer"
                 />
@@ -131,16 +131,16 @@ export function BountyList({ data, mutate }) {
                   <Button size="sm" variant="outlined" className="mr-2">Preview</Button>
                 </Link>
                 {i.status === 0 && <Button
-                    className="mr-2"
-                    size="sm"
-                    variant="outlined"
-                    onClick={() => {
-                      window.localStorage.setItem('creatorBounty', JSON.stringify(i))
-                      router.push(`/creator/build/bounty/${i.id}`)
-                    }}
-                  >
+                  className="mr-2"
+                  size="sm"
+                  variant="outlined"
+                  onClick={() => {
+                    window.localStorage.setItem('creatorBounty', JSON.stringify(i));
+                    router.push(`/creator/build/bounty/${i.id}`);
+                  }}
+                >
                     Edit
-                  </Button>}
+                </Button>}
                 {i.status === 0 && <Button
                   size="sm"
                   onClick={() => changeStatus(i.id, 1)}
@@ -148,11 +148,11 @@ export function BountyList({ data, mutate }) {
                 >
                   Publish
                 </Button>}
-              {(i.status === 7 || i.status === 18 || i.status === 22 || i.status === 14 || i.status === 15) && <Button
+                {(i.status === 7 || i.status === 18 || i.status === 22 || i.status === 14 || i.status === 15) && <Button
                   size="sm"
                   onClick={() => {
-                    setCurrent(i)
-                    setManageModalOpen(true)
+                    setCurrent(i);
+                    setManageModalOpen(true);
                   }}
                 >
                   Manage
@@ -162,13 +162,13 @@ export function BountyList({ data, mutate }) {
             </div>
             <hr className="my-6 border-gray-400" />
           </div>
-        )
+        );
       })}
       {current && (
         <AppliedModal applyCallback={() => changeStatusCallback(current.id, 6)} open={appliedModalOpen} closeModal={() => setAppliedModalOpen(false)} bounty={current} />
       )}
-      {current && <ManageModal successCallback={(status) => changeStatusCallback(current.id, status)} bounty={current} open={manageModalOpen} closeModal={() => setManageModalOpen(false)} type={'Manage'} />}
+      {current && <ManageModal successCallback={status => changeStatusCallback(current.id, status)} bounty={current} open={manageModalOpen} closeModal={() => setManageModalOpen(false)} type={'Manage'} />}
 
     </div>
-  )
+  );
 }

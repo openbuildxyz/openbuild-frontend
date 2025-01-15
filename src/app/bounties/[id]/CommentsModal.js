@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { Modal } from '@/components/Modal'
+import { Modal } from '@/components/Modal';
 
 export function CommentsModal({
   open,
@@ -28,5 +28,5 @@ export function CommentsModal({
       </div>
 
     </Modal>
-  )
+  );
 }

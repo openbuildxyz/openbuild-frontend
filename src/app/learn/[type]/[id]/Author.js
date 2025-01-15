@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import { formatTime } from '@/utils/date'
-import Avatar from '@/components/Avatar'
+import { formatTime } from '@/utils/date';
+import Avatar from '@/components/Avatar';
 
 export function Author({ data }) {
   return (
@@ -35,5 +35,5 @@ export function Author({ data }) {
         </div>
       </div>
     </div>
-  )
+  );
 }

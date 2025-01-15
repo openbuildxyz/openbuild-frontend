@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-import Image from 'next/image'
-import { Modal } from '@/components/Modal'
-import { ModalCloseIcon, TipsIcon, TriangleIcon } from '@/components/Icons'
+import Image from 'next/image';
+import { Modal } from '@/components/Modal';
+import { ModalCloseIcon, TipsIcon, TriangleIcon } from '@/components/Icons';
 
-import { useMediaUrl, useAllSkills, useSlillhubChain } from '#/state/application/hooks'
-import { Button } from '@/components/Button'
-import { formatTime } from '@/utils/date'
-import { MouseoverTooltip } from '@/components/Tooltip'
-import { OViewer } from '@/components/MarkDown'
-import BigNumber from 'bignumber.js'
-import { formatUnits } from '@ethersproject/units'
+import { useMediaUrl, useAllSkills, useSlillhubChain } from '#/state/application/hooks';
+import { Button } from '@/components/Button';
+import { formatTime } from '@/utils/date';
+import { MouseoverTooltip } from '@/components/Tooltip';
+import { OViewer } from '@/components/MarkDown';
+import BigNumber from 'bignumber.js';
+import { formatUnits } from '@ethersproject/units';
 
 export function ManageModal({
   open,
@@ -38,9 +38,9 @@ export function ManageModal({
   availableFund,
   claim,
 }) {
-  const mediaUrl = useMediaUrl()
-  const skills = useAllSkills()
-  const slillhubChain = useSlillhubChain()
+  const mediaUrl = useMediaUrl();
+  const skills = useAllSkills();
+  const slillhubChain = useSlillhubChain();
 
   return (
     <Modal isOpen={open} closeModal={closeModal} container>
@@ -48,37 +48,37 @@ export function ManageModal({
         <ModalCloseIcon onClick={closeModal} className="absolute top-[-32px] right-[-32px] cursor-pointer" />
         {data.status === -1 && (
           <span className="absolute top-4 right-4 inline-flex items-center rounded-md bg-[rgba(216,97,65,0.06)] p-2 text-sm text-[#D86141]">
-            <i className="mr-1 inline-block h-1 w-1 rounded-full bg-[#D86141]"></i>Declined
+            <i className="mr-1 inline-block h-1 w-1 rounded-full bg-[#D86141]" />Declined
           </span>
         )}
         {data.status === 2 && (
           <span className="absolute top-4 right-4 inline-flex items-center rounded-md bg-[rgba(243,186,47,0.06)] p-2 text-sm text-[#F3BA2F]">
-            <i className="mr-1 inline-block h-1 w-1 rounded-full bg-[#F3BA2F]"></i>Waiting deposit
+            <i className="mr-1 inline-block h-1 w-1 rounded-full bg-[#F3BA2F]" />Waiting deposit
           </span>
         )}
         {(data.status === 1 || data.status === 0) && (
           <span className="absolute top-4 right-4 inline-flex h-7 items-center rounded-md bg-[rgba(118,82,237,0.06)] p-2  text-sm text-[#7652ED]">
-            <i className="mr-1 inline-block h-1 w-1 rounded-full bg-[#7652ED]"></i>Under-Review
+            <i className="mr-1 inline-block h-1 w-1 rounded-full bg-[#7652ED]" />Under-Review
           </span>
         )}
         {(data.status === 3 || data.status === 8 || data.status === 9) && (
           <span className="absolute top-4 right-4 inline-flex items-center rounded-md bg-[rgba(243,186,47,0.06)] p-2 text-sm text-[#F3BA2F]">
-            <i className="mr-1 inline-block h-1 w-1 rounded-full bg-[#F3BA2F]"></i>Pending
+            <i className="mr-1 inline-block h-1 w-1 rounded-full bg-[#F3BA2F]" />Pending
           </span>
         )}
         {data.status === 6 && (
           <span className="absolute top-4 right-4 inline-flex items-center rounded-md bg-[rgba(58,171,118,0.06)] p-2 text-sm text-[#3AAB76]">
-            <i className="mr-1 inline-block h-1 w-1 rounded-full bg-[#3AAB76]"></i>In progress
+            <i className="mr-1 inline-block h-1 w-1 rounded-full bg-[#3AAB76]" />In progress
           </span>
         )}
         {data.status === 24 && (
           <span className="absolute top-4 right-4 inline-flex items-center rounded-md bg-[rgba(124,124,124,0.06)] p-2 text-sm text-[#7C7C7C]">
-            <i className="mr-1 inline-block h-1 w-1 rounded-full bg-[#7C7C7C]"></i>Termination
+            <i className="mr-1 inline-block h-1 w-1 rounded-full bg-[#7C7C7C]" />Termination
           </span>
         )}
         {data.status === 30 && (
           <span className="absolute top-4 right-4 inline-flex items-center rounded-md bg-[rgba(24,160,251,0.06)] p-2 text-sm text-[#18A0FB]">
-            <i className="mr-1 inline-block h-1 w-1 rounded-full bg-[#18A0FB]"></i>Completed
+            <i className="mr-1 inline-block h-1 w-1 rounded-full bg-[#18A0FB]" />Completed
           </span>
         )}
         <div>
@@ -320,5 +320,5 @@ export function ManageModal({
         </div>
       </div>
     </Modal>
-  )
+  );
 }

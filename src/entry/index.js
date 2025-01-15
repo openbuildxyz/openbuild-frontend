@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import { ReduxProviders } from '#/state/provider'
+import { ReduxProviders } from '#/state/provider';
 
-import setInterceptorsForHttpClients from './aspects/http'
+import setInterceptorsForHttpClients from './aspects/http';
 
-import { Providers } from './components/Providers'
-import { Toast } from './components/Toast'
-import { RouterProgress } from './components/RouterProgress'
-import { RouteIntercept } from './components/RouteIntercept'
+import { Providers } from './components/Providers';
+import { Toast } from './components/Toast';
+import { RouterProgress } from './components/RouterProgress';
+import { RouteIntercept } from './components/RouteIntercept';
 
-setInterceptorsForHttpClients()
+setInterceptorsForHttpClients();
 
 function ClientEntry({ config, children }) {
   return (
@@ -38,7 +38,7 @@ function ClientEntry({ config, children }) {
         </ReduxProviders>
       </RouterProgress>
     </Providers>
-  )
+  );
 }
 
-export default ClientEntry
+export default ClientEntry;

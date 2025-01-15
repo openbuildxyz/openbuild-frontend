@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-import { useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation';
 
-import { formatTime } from '@/utils/date'
-import { ChallengesStatus } from '#/app/learn/[type]/ChallengesStatus'
+import { formatTime } from '@/utils/date';
+import { ChallengesStatus } from '#/app/learn/[type]/ChallengesStatus';
 
-import Image from '@/components/Image'
-import Avatar from '@/components/Avatar'
+import Image from '@/components/Image';
+import Avatar from '@/components/Avatar';
 
 function EnrolledChallengeItem({ data }) {
-  const router = useRouter()
+  const router = useRouter();
 
   return data ? (
     <div className="flex flex-col gap-6 pb-6 border-b border-gray-400 mb-6 md:flex-row">
@@ -73,7 +73,7 @@ function EnrolledChallengeItem({ data }) {
         </div>
       </div>
     </div>
-  ) : null
+  ) : null;
 }
 
-export default EnrolledChallengeItem
+export default EnrolledChallengeItem;

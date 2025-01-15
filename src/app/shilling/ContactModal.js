@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import copy from 'copy-to-clipboard'
-import { Button } from '@/components/Button'
-import { Modal } from '@/components/Modal'
-import { ArrowTopRightIcon, CopyIcon } from '@/components/Icons'
+import copy from 'copy-to-clipboard';
+import { Button } from '@/components/Button';
+import { Modal } from '@/components/Modal';
+import { ArrowTopRightIcon, CopyIcon } from '@/components/Icons';
 
 export function ContactModal({ open, closeModal, permission }) {
   return (
@@ -31,7 +31,7 @@ export function ContactModal({ open, closeModal, permission }) {
               <CopyIcon className="cursor-pointer" onClick={() => copy(permission.extra.email)} />
               <ArrowTopRightIcon
                 onClick={() => {
-                  window.location.href = `mailto:${permission?.extra?.email}`
+                  window.location.href = `mailto:${permission?.extra?.email}`;
                 }}
                 className="ml-2 cursor-pointer"
               />
@@ -45,7 +45,7 @@ export function ContactModal({ open, closeModal, permission }) {
                 <CopyIcon className="cursor-pointer" onClick={() => copy(permission?.extra?.telegram)} />
                 <ArrowTopRightIcon
                   onClick={() => {
-                    window.open(`https://t.me/${permission?.extra?.telegram}`)
+                    window.open(`https://t.me/${permission?.extra?.telegram}`);
                   }}
                   className="ml-2 cursor-pointer"
                 />
@@ -60,7 +60,7 @@ export function ContactModal({ open, closeModal, permission }) {
                 <CopyIcon className="cursor-pointer" onClick={() => copy(permission?.extra?.discord)} />
                 <ArrowTopRightIcon
                   onClick={() => {
-                    window.open(`https://discordapp.com/users/${permission?.extra?.discord}`)
+                    window.open(`https://discordapp.com/users/${permission?.extra?.discord}`);
                   }}
                   className="ml-2 cursor-pointer"
                 />
@@ -74,5 +74,5 @@ export function ContactModal({ open, closeModal, permission }) {
         </div>
       )}
     </Modal>
-  )
+  );
 }

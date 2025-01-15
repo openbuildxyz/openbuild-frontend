@@ -14,20 +14,20 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import { PlusIcon } from '@heroicons/react/24/outline'
-import { Button } from '@/components/Button'
-import { EditIcon, DeleteIcon, AddIcon } from '@/components/Icons'
-import { useState, useEffect, useMemo } from 'react'
-import { toast } from 'react-toastify'
+import { PlusIcon } from '@heroicons/react/24/outline';
+import { Button } from '@/components/Button';
+import { EditIcon, DeleteIcon, AddIcon } from '@/components/Icons';
+import { useState, useEffect, useMemo } from 'react';
+import { toast } from 'react-toastify';
 // import { useCourseDetails } from '#/services/learn/hooks'
-import { Modal } from '@/components/Modal'
-import { OEditor } from '@/components/MarkDown'
-import { currentTime } from '@/utils/date'
-import { Select } from '@/components/Select'
+import { Modal } from '@/components/Modal';
+import { OEditor } from '@/components/MarkDown';
+import { currentTime } from '@/utils/date';
+import { Select } from '@/components/Select';
 
-import  { BASE_INPUT_STYLE } from '@/constants/config'
+import  { BASE_INPUT_STYLE } from '@/constants/config';
 
 const bodyTypeOptions = [
   {
@@ -38,29 +38,29 @@ const bodyTypeOptions = [
     name: 'Text',
     key: 'text',
   },
-]
-const defaultContentForm = bodyTypeOptions[0].key
+];
+const defaultContentForm = bodyTypeOptions[0].key;
 
 function getContentFormLabel(type) {
-  let label = '-'
+  let label = '-';
 
   if (type) {
-    const found = bodyTypeOptions.find(opt => opt.key === type)
+    const found = bodyTypeOptions.find(opt => opt.key === type);
 
     if (found) {
-      label = found.name
+      label = found.name;
     }
   }
 
-  return label
+  return label;
 }
 
 export function CreatorLearnStepThree({ data, change }) {
 
-  const [currentRenderNumber, setCurrentRenderNumber] = useState(0)
-  const [addChapterModalOpen, setAddChapterModalOpen] = useState(false)
+  const [currentRenderNumber, setCurrentRenderNumber] = useState(0);
+  const [addChapterModalOpen, setAddChapterModalOpen] = useState(false);
 
-  const [forms, setForms] = useState()
+  const [forms, setForms] = useState();
 
 
 
@@ -80,75 +80,75 @@ export function CreatorLearnStepThree({ data, change }) {
   //   }
   // }, [params.id, data, params, forms, formStatus])
 
-  const [chapterKeys, setChapterKeys] = useState([])
-  const [addChapterNameValue, setAddChapterNameValue] = useState('')
+  const [chapterKeys, setChapterKeys] = useState([]);
+  const [addChapterNameValue, setAddChapterNameValue] = useState('');
 
-  const [addLessonModalOpen, setAddLessonModalOpen] = useState(false)
+  const [addLessonModalOpen, setAddLessonModalOpen] = useState(false);
 
-  const [currentChapterName, setCurrentChapterName] = useState('')
-  const [addLessonSerialNumber, setAddLessonSerialNumber] = useState('')
-  const [addLessonTitle, setAddLessonTitle] = useState('')
-  const [addLessonTime, setAddLessonTime] = useState('')
-  const [addLessonContentForm, setAddLessonContentForm] = useState(defaultContentForm)
-  const [addLessonDetails, setAddLessonDetails] = useState('')
-  const [confirmType, setConfirmType] = useState('add')
-  const [currentEditCourse, setCurrentEditCourse] = useState()
-  const [addOrEditChapter, setAddOrEditChapter] = useState('add')
-  const [currentEditChapterName, setCurrentEditChapterName] = useState()
+  const [currentChapterName, setCurrentChapterName] = useState('');
+  const [addLessonSerialNumber, setAddLessonSerialNumber] = useState('');
+  const [addLessonTitle, setAddLessonTitle] = useState('');
+  const [addLessonTime, setAddLessonTime] = useState('');
+  const [addLessonContentForm, setAddLessonContentForm] = useState(defaultContentForm);
+  const [addLessonDetails, setAddLessonDetails] = useState('');
+  const [confirmType, setConfirmType] = useState('add');
+  const [currentEditCourse, setCurrentEditCourse] = useState();
+  const [addOrEditChapter, setAddOrEditChapter] = useState('add');
+  const [currentEditChapterName, setCurrentEditChapterName] = useState();
 
   useEffect(() => {
     if (data) {
-      setForms({...data})
+      setForms({...data});
     }
-  }, [data])
+  }, [data]);
 
   useMemo(() => {
     if (forms?.courses) {
-      const _csd = forms?.courses?.map(i => i.base.course_single_chapter) || []
+      const _csd = forms?.courses?.map(i => i.base.course_single_chapter) || [];
       if (currentRenderNumber === 0) {
-        setChapterKeys(Array.from(new Set(_csd)))
+        setChapterKeys(Array.from(new Set(_csd)));
       }
     }
-  }, [forms?.courses, currentRenderNumber])
+  }, [forms?.courses, currentRenderNumber]);
 
   const addChapter = () => {
     if (chapterKeys.filter(f => f === addChapterNameValue).length > 0) {
-      toast.error('Chapter already exists')
-      return
+      toast.error('Chapter already exists');
+      return;
     }
     if (addOrEditChapter === 'add') {
-      const currentChapterKeys = [...chapterKeys]
-      currentChapterKeys.push(addChapterNameValue)
-      setChapterKeys(currentChapterKeys)
-      setAddChapterModalOpen(false)
+      const currentChapterKeys = [...chapterKeys];
+      currentChapterKeys.push(addChapterNameValue);
+      setChapterKeys(currentChapterKeys);
+      setAddChapterModalOpen(false);
     } else {
-      const currentChapterKeys = [...chapterKeys]
+      const currentChapterKeys = [...chapterKeys];
       const _edited = currentChapterKeys.map(i => {
         if (i === currentEditChapterName) {
-          return addChapterNameValue
+          return addChapterNameValue;
         } else {
-          return i
+          return i;
         }
-      })
-      const _forms = Object.assign({ ...forms }, {})
+      });
+      const _forms = Object.assign({ ...forms }, {});
       const _editedForms = _forms.courses.map(i => {
         if (i.base.course_single_chapter === currentEditChapterName) {
-          const _edit = i
-          _edit.base.course_single_chapter = addChapterNameValue
-          return _edit
+          const _edit = i;
+          _edit.base.course_single_chapter = addChapterNameValue;
+          return _edit;
         } else {
-          return i
+          return i;
         }
-      })
-      change('courses', _editedForms)
+      });
+      change('courses', _editedForms);
       // setForms(_forms)
-      setAddChapterModalOpen(false)
-      setChapterKeys(_edited)
+      setAddChapterModalOpen(false);
+      setChapterKeys(_edited);
     }
-  }
+  };
 
   const addLesson = () => {
-    let allCourses = forms?.courses ? [...forms.courses] : []
+    let allCourses = forms?.courses ? [...forms.courses] : [];
     const _course = {
       course_single_index: Number(addLessonSerialNumber),
       course_single_chapter: currentChapterName,
@@ -156,56 +156,56 @@ export function CreatorLearnStepThree({ data, change }) {
       course_single_estimated_time: Number(addLessonTime),
       course_single_type: addLessonContentForm,
       course_single_content: addLessonDetails,
-    }
+    };
     if (confirmType === 'add') {
-      allCourses.push({base: {..._course, course_single_id: currentTime()}})
+      allCourses.push({base: {..._course, course_single_id: currentTime()}});
     } else {
       const arrs = allCourses.map(i => {
         if (i.base.course_single_id === currentEditCourse.course_single_id) {
-          return { base: {...i.base, ..._course}}
+          return { base: {...i.base, ..._course}};
         } else {
-          return { ...i }
+          return { ...i };
         }
-      })
-      allCourses = arrs
+      });
+      allCourses = arrs;
     }
-    change('courses', allCourses)
-    setCurrentRenderNumber(1)
-    setAddLessonModalOpen(false)
-  }
+    change('courses', allCourses);
+    setCurrentRenderNumber(1);
+    setAddLessonModalOpen(false);
+  };
 
   const editLesson = (course, chapterName) => {
-    setCurrentEditCourse(course.base)
-    setConfirmType('edit')
-    setAddLessonModalOpen(true)
-    setCurrentChapterName(chapterName)
-    setAddLessonSerialNumber(course.base.course_single_index)
-    setAddLessonTitle(course.base.course_single_name)
-    setAddLessonTime(course.base.course_single_estimated_time)
-    setAddLessonContentForm(course.base.course_single_type)
-    setAddLessonDetails(course.base.course_single_content)
-  }
+    setCurrentEditCourse(course.base);
+    setConfirmType('edit');
+    setAddLessonModalOpen(true);
+    setCurrentChapterName(chapterName);
+    setAddLessonSerialNumber(course.base.course_single_index);
+    setAddLessonTitle(course.base.course_single_name);
+    setAddLessonTime(course.base.course_single_estimated_time);
+    setAddLessonContentForm(course.base.course_single_type);
+    setAddLessonDetails(course.base.course_single_content);
+  };
 
   const deleteLesson = item => {
-    const filtered = forms.courses.filter(f => f.base.course_single_id !== item.base.course_single_id)
-    setCurrentRenderNumber(1)
-    change('courses', filtered)
-  }
+    const filtered = forms.courses.filter(f => f.base.course_single_id !== item.base.course_single_id);
+    setCurrentRenderNumber(1);
+    change('courses', filtered);
+  };
 
   const deleteChapter = item => {
-    const _forms = Object.assign({ ...forms }, {})
-    const filtered = _forms.courses.filter(f => f.base.course_single_chapter !== item)
-    setCurrentRenderNumber(1)
-    change('courses', filtered)
-  }
+    const _forms = Object.assign({ ...forms }, {});
+    const filtered = _forms.courses.filter(f => f.base.course_single_chapter !== item);
+    setCurrentRenderNumber(1);
+    change('courses', filtered);
+  };
 
   const editChapter = item => {
-    setAddChapterModalOpen(true)
-    setAddChapterNameValue(item)
-    setCurrentEditChapterName(item)
-    setAddOrEditChapter('edit')
-    setCurrentRenderNumber(1)
-  }
+    setAddChapterModalOpen(true);
+    setAddChapterNameValue(item);
+    setCurrentEditChapterName(item);
+    setAddOrEditChapter('edit');
+    setCurrentRenderNumber(1);
+  };
 
   return (
     <>
@@ -215,9 +215,9 @@ export function CreatorLearnStepThree({ data, change }) {
           <div className="flex">
             <Button
               onClick={() => {
-                setAddChapterModalOpen(true)
-                setAddOrEditChapter('add')
-                setAddChapterNameValue('')
+                setAddChapterModalOpen(true);
+                setAddOrEditChapter('add');
+                setAddChapterNameValue('');
               }}
 
               className="h-7 px-3 text-xs rounded-md"
@@ -239,14 +239,14 @@ export function CreatorLearnStepThree({ data, change }) {
                 <DeleteIcon onClick={() => deleteChapter(i)} className="h-4 w-4 cursor-pointer [&>g>path]:stroke-white"/>
                 <AddIcon
                   onClick={() => {
-                    setConfirmType('add')
-                    setAddLessonModalOpen(true)
-                    setCurrentChapterName(i)
-                    setAddLessonSerialNumber('')
-                    setAddLessonTitle('')
-                    setAddLessonTime('')
-                    setAddLessonContentForm(defaultContentForm)
-                    setAddLessonDetails('')
+                    setConfirmType('add');
+                    setAddLessonModalOpen(true);
+                    setCurrentChapterName(i);
+                    setAddLessonSerialNumber('');
+                    setAddLessonTitle('');
+                    setAddLessonTime('');
+                    setAddLessonContentForm(defaultContentForm);
+                    setAddLessonDetails('');
                   }}
                   className="ml-4 h-4 w-4 cursor-pointer [&>g>path]:stroke-white"
                 />
@@ -322,8 +322,8 @@ export function CreatorLearnStepThree({ data, change }) {
               name="title"
               value={addLessonSerialNumber}
               onChange={e => {
-                const val = e.target.value.replace(/[^\d]/g, '')
-                setAddLessonSerialNumber(val)
+                const val = e.target.value.replace(/[^\d]/g, '');
+                setAddLessonSerialNumber(val);
               }}
               className={BASE_INPUT_STYLE}
             />
@@ -335,7 +335,7 @@ export function CreatorLearnStepThree({ data, change }) {
               name="title"
               value={addLessonTitle}
               onChange={e => {
-                setAddLessonTitle(e.target.value)
+                setAddLessonTitle(e.target.value);
               }}
               className={BASE_INPUT_STYLE}
             />
@@ -352,8 +352,8 @@ export function CreatorLearnStepThree({ data, change }) {
                 name="title"
                 value={Number(addLessonTime) / 60}
                 onChange={e => {
-                  const val = e.target.value.replace(/[^\d]/g, '')
-                  setAddLessonTime((Number(val) * 60).toFixed(0))
+                  const val = e.target.value.replace(/[^\d]/g, '');
+                  setAddLessonTime((Number(val) * 60).toFixed(0));
                 }}
                 className={BASE_INPUT_STYLE}
               />
@@ -362,7 +362,7 @@ export function CreatorLearnStepThree({ data, change }) {
           <div className="OEditor-hidden-rightbar mt-3">
             <OEditor value={addLessonDetails} onChange={setAddLessonDetails} />
           </div>
-          <div className="clear-both"></div>
+          <div className="clear-both" />
           <div className="mt-4 flex justify-center">
             <Button  variant="outlined" className="mr-2" onClick={() => setAddLessonModalOpen(false)}>
               Cancel
@@ -374,5 +374,5 @@ export function CreatorLearnStepThree({ data, change }) {
         </div>
       </Modal>
     </>
-  )
+  );
 }

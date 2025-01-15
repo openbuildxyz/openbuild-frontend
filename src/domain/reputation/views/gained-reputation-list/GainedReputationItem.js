@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { formatTime } from '@/utils/date'
-import Avatar from '@/components/Avatar'
+import { formatTime } from '@/utils/date';
+import Avatar from '@/components/Avatar';
 
 function GainedReputationItem({ data }) {
   return (
@@ -26,7 +26,7 @@ function GainedReputationItem({ data }) {
       <h3 className="text-sm truncate leading-5 flex-1 mt-2">{data.title}</h3>
       <p className="text-xs opacity-40">{formatTime(data.updated_at * 1000, 'MMM D, YYYY')}</p>
     </div>
-  )
+  );
 }
 
-export default GainedReputationItem
+export default GainedReputationItem;

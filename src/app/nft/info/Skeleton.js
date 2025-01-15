@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-import { skeleton } from '@/constants/config'
+import { skeleton } from '@/constants/config';
 
 export function Skeleton() {
   return (
     <div className="flex py-6">
-      <div className={`mr-4 h-[120px] rounded-full ${skeleton} !w-[120px]`}></div>
+      <div className={`mr-4 h-[120px] rounded-full ${skeleton} !w-[120px]`} />
       <div className="bottom-3 flex-1 px-3">
-        <div className={`mb-2 text-lg ${skeleton} h-[28px]`}></div>
+        <div className={`mb-2 text-lg ${skeleton} h-[28px]`} />
         <p className="flex items-center text-[13px]">
-          <span className={`mb-1 text-lg ${skeleton} h-[28px]`}></span>
+          <span className={`mb-1 text-lg ${skeleton} h-[28px]`} />
         </p>
-        <div className={`mt-5 ${skeleton} h-9 !w-[120px]`}></div>
+        <div className={`mt-5 ${skeleton} h-9 !w-[120px]`} />
       </div>
     </div>
-  )
+  );
 }

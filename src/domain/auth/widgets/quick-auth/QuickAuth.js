@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-import { useEffect } from 'react'
-import { useConnectModal } from '@rainbow-me/rainbowkit'
-import { useAccount } from 'wagmi'
-import { useSession } from 'next-auth/react'
-import Image from 'next/image'
+import { useEffect } from 'react';
+import { useConnectModal } from '@rainbow-me/rainbowkit';
+import { useAccount } from 'wagmi';
+import { useSession } from 'next-auth/react';
+import Image from 'next/image';
 
-import GoogleIcon from 'public/images/svg/google-line.png'
-import { GithubIcon, WalletIcon } from '@/components/Icons'
+import GoogleIcon from 'public/images/svg/google-line.png';
+import { GithubIcon, WalletIcon } from '@/components/Icons';
 
-import { authWithGoogle, authWithGithub } from '../../helper'
-import useSignInWithWallet from '../../hooks/useSignInWithWallet'
+import { authWithGoogle, authWithGithub } from '../../helper';
+import useSignInWithWallet from '../../hooks/useSignInWithWallet';
 
 const signInTypeMap = {
   web3: {
@@ -39,30 +39,30 @@ const signInTypeMap = {
     name: 'GitHub',
     icon: <GithubIcon />,
   },
-}
+};
 
 function QuickAuthWidget({ pathname, search, from }) {
-  const { openConnectModal } = useConnectModal()
-  const { isConnected, address } = useAccount()
-  const { status } = useSession()
-  const signInWithWallet = useSignInWithWallet()
-  const signin = signInWithWallet.bind(null, { pathname, search })
+  const { openConnectModal } = useConnectModal();
+  const { isConnected, address } = useAccount();
+  const { status } = useSession();
+  const signInWithWallet = useSignInWithWallet();
+  const signin = signInWithWallet.bind(null, { pathname, search });
 
   useEffect(() => {
-    signin()
-  }, [isConnected, status, address])
+    signin();
+  }, [isConnected, status, address]);
 
   const signInHandlerMap = {
     web3: () => {
       if (isConnected || address) {
-        signin(address)
+        signin(address);
       } else {
-        openConnectModal()
+        openConnectModal();
       }
     },
     google: authWithGoogle.bind(null, from),
     github: authWithGithub.bind(null, from),
-  }
+  };
 
   return (
     <div className="flex">
@@ -77,7 +77,7 @@ function QuickAuthWidget({ pathname, search, from }) {
         </div>
       ))}
     </div>
-  )
+  );
 }
 
-export default QuickAuthWidget
+export default QuickAuthWidget;

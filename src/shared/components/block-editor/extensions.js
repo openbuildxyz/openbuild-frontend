@@ -199,4 +199,4 @@ const defaultExtensions = [
   GlobalDragHandle,
 ];
 
-export { defaultExtensions }
+export { defaultExtensions };

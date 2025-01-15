@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import clsx from 'clsx'
-import Image from 'next/image'
+import clsx from 'clsx';
+import Image from 'next/image';
 
-import nodataPic from './nodata.svg'
+import nodataPic from './nodata.svg';
 
 export function NoData({ className, style }) {
   return (
@@ -28,5 +28,5 @@ export function NoData({ className, style }) {
       <Image src={nodataPic} alt="No data" />
       <p className="mt-5 text-sm opacity-60">No content yet</p>
     </div>
-  )
+  );
 }

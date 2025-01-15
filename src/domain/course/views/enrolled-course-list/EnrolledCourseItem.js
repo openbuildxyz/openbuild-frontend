@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import { useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation';
 
-import Image from '@/components/Image'
-import Avatar from '@/components/Avatar'
+import Image from '@/components/Image';
+import Avatar from '@/components/Avatar';
 
 function EnrolledCourseItem({ data }) {
-  const router = useRouter()
+  const router = useRouter();
 
   return data ? (
     <div className="flex flex-col gap-6 pb-6 border-b border-gray-400 mb-6 md:flex-row">
@@ -55,7 +55,7 @@ function EnrolledCourseItem({ data }) {
         </p>
       </div>
     </div>
-  ) : null
+  ) : null;
 }
 
-export default EnrolledCourseItem
+export default EnrolledCourseItem;

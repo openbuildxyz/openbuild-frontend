@@ -14,44 +14,44 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import Image from 'next/image'
-import { ArrowRightIcon } from '@/components/Icons'
-import { useEffect,useState } from 'react'
-import { StartOnOpenBuild } from '../learn/StartOnOpenBuild'
-import { QuizList } from './List'
+import Image from 'next/image';
+import { ArrowRightIcon } from '@/components/Icons';
+import { useEffect,useState } from 'react';
+import { StartOnOpenBuild } from '../learn/StartOnOpenBuild';
+import { QuizList } from './List';
 
-import QuizBannerPic from 'public/images/quiz-banner.svg'
-import QuizS1 from 'public/images/quiz-s-1.svg'
-import QuizS2 from 'public/images/quiz-s-2.svg'
-import QuizS3 from 'public/images/quiz-s-3.svg'
-import Aos from 'aos'
+import QuizBannerPic from 'public/images/quiz-banner.svg';
+import QuizS1 from 'public/images/quiz-s-1.svg';
+import QuizS2 from 'public/images/quiz-s-2.svg';
+import QuizS3 from 'public/images/quiz-s-3.svg';
+import Aos from 'aos';
 
 const Steps = [
   {
     name: 'Learn Courses',
-    icon: QuizS1
+    icon: QuizS1,
   },
   {
     name: 'Complete Quizzes',
-    icon: QuizS2
+    icon: QuizS2,
   },
   {
     name: 'Earn Prizes',
-    icon: QuizS3
-  }
-]
+    icon: QuizS3,
+  },
+];
 
 export default function Quiz() {
-  const [activeStep, setActiveStep] = useState(0)
+  const [activeStep, setActiveStep] = useState(0);
 
   useEffect(() => {
     Aos.init({
       delay: 100, // values from 0 to 3000, with step 50ms
       duration: 800, // values from 0 to 3000, with step 50ms
-    })
-  }, [])
+    });
+  }, []);
   return (
     <div>
       <div className="md:flex bg-white md:justify-center pb-14">
@@ -60,7 +60,7 @@ export default function Quiz() {
             <h1 className="text-[32px] md:text-[48px] leading-[42px] md:leading-[64px] max-md:text-center mb-3 md:mb-4">Learn & Earn</h1>
             <p className="max-md:px-6 mx-auto max-md:mb-6 max-md:text-center text-[20px] md:text-[22px] leading-[26px] md:leading-8 font-normal">Discover cutting-edge protocols and ecosystems, <strong>earn prizes</strong> and <strong>thrive</strong> in the crypto space!</p>
           </div>
-          <Image className='max-md:w-[360px] max-md:mx-auto' src={QuizBannerPic} alt='' />
+          <Image className="max-md:w-[360px] max-md:mx-auto" src={QuizBannerPic} alt="" />
         </div>
       </div>
       <div data-aos="fade-bottom" className="w-[1200px] h-[110px] mx-auto shadow-[0_4px_24px_rgba(0,0,0,0.08)] bg-white !translate-y-[-50%] rounded-xl hidden md:flex justify-center items-center gap-[96px]">
@@ -80,20 +80,20 @@ export default function Quiz() {
       {/* mobile steps */}
       <div className="md:hidden h-[110px] mx-6 py-6 px-4 shadow-[0_4px_24px_rgba(0,0,0,0.08)] bg-white !translate-y-[-50%] rounded-xl">
         {Steps.map((i, k) => {
-          const isNotLast = k < Steps.length - 1
-          const isFirst = k === 0
+          const isNotLast = k < Steps.length - 1;
+          const isFirst = k === 0;
           return (
             <div key={`quiz-step-${k}`} className={`${activeStep === k ? 'flex' : 'hidden'} gap-[20px] items-center`}>
               <ArrowRightIcon
                 className={`w-5 h-5 rotate-180 flex-shrink-0 ${isFirst ? 'opacity-[.2]':''}`}
                 onClick={() => {
                   if(k > 0){
-                    setActiveStep(k-1)
+                    setActiveStep(k-1);
                   }
                 }}
               />
               <div className="flex flex-1">
-                <Image src={i.icon} alt="" className='h-[60px]'/>
+                <Image src={i.icon} alt="" className="h-[60px]"/>
                 <div className="ml-4">
                   <p>Step {k + 1}</p>
                   <h3>{i.name}</h3>
@@ -103,12 +103,12 @@ export default function Quiz() {
                 className={`w-5 h-5 flex-shrink-0 ${isNotLast ? '' : 'opacity-[.2]'}`}
                 onClick={()=>{
                   if(isNotLast){
-                    setActiveStep(k+1)
+                    setActiveStep(k+1);
                   }
                 }}
               />
             </div>
-          )
+          );
         })}
       </div>
       <div className="md:w-[1200px] mx-6 md:mx-auto mb-14 md:mb-[110px]">
@@ -161,5 +161,5 @@ export default function Quiz() {
       </div>
       <StartOnOpenBuild />
     </div>
-  )
+  );
 }

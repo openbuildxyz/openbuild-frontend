@@ -28,7 +28,7 @@ export const contracts = {
     bounty: '0x728206E44A0AD7E4226D3Ca6f2a3E79e344373E3',
   },
   
-}
+};
 
 // nft: `0x${string}`
 
@@ -75,4 +75,4 @@ export const payTokens = {
       decimals: '18',
     },
   },
-}
+};

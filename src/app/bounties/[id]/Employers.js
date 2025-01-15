@@ -14,38 +14,38 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import Image from 'next/image'
-import Link from 'next/link'
-import { usePathname, useSearchParams, useRouter } from 'next/navigation'
-import { useSession } from 'next-auth/react'
+import Image from 'next/image';
+import Link from 'next/link';
+import { usePathname, useSearchParams, useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 // import { toast } from 'react-toastify';
-import { CertifiedIcon } from '@/components/Icons'
-import clsx from 'clsx'
-import { Button } from '@/components/Button'
-import Avatar from '@/components/Avatar'
-import { useState } from 'react'
-import { useMediaUrl, useUser } from '#/state/application/hooks'
-import CompleteProfileDialogWidget from '#/domain/profile/widgets/complete-profile-dialog'
-import DepositBg from 'public/images/deposit-bg.png'
+import { CertifiedIcon } from '@/components/Icons';
+import clsx from 'clsx';
+import { Button } from '@/components/Button';
+import Avatar from '@/components/Avatar';
+import { useState } from 'react';
+import { useMediaUrl, useUser } from '#/state/application/hooks';
+import CompleteProfileDialogWidget from '#/domain/profile/widgets/complete-profile-dialog';
+import DepositBg from 'public/images/deposit-bg.png';
 
-import { AppliedModal } from './AppliedModal'
-import { ApplyModal } from './ApplyModal'
-import { ApplyFinishedModal } from './ApplyFinishedModal'
-import { AgreeFinishedModal } from './AgreeFinishedModal'
+import { AppliedModal } from './AppliedModal';
+import { ApplyModal } from './ApplyModal';
+import { ApplyFinishedModal } from './ApplyFinishedModal';
+import { AgreeFinishedModal } from './AgreeFinishedModal';
 // import { TerminateModal } from './TerminateModal'
-import { useBountyEnvCheck } from '#/domain/bounty/hooks'
+import { useBountyEnvCheck } from '#/domain/bounty/hooks';
 // WarningIcon
-import { ArrowTopRightOnSquareIcon } from '@/components/Icons'
+import { ArrowTopRightOnSquareIcon } from '@/components/Icons';
 // import { Confirm } from '@/components/Modal/Confirm'
 // import { withdraw } from '@/constants/bounty'
-import { formatTime } from '@/utils/date' // currentTime, fromNow,
-import { resolvePathWithSearch } from '@/utils/url'
+import { formatTime } from '@/utils/date'; // currentTime, fromNow,
+import { resolvePathWithSearch } from '@/utils/url';
 
 // import { builderTerminationConfirm, builderTerminationDeny, arbitrate } from '#/services/bounties'
-import { useBountyBuildersList } from '#/services/bounties/hooks'
-import { isBountyApplied } from '#/domain/bounty/helper'
+import { useBountyBuildersList } from '#/services/bounties/hooks';
+import { isBountyApplied } from '#/domain/bounty/helper';
 // import {  useNetwork, useWalletClient } from 'wagmi'
 
 // import { revalidatePathAction } from '../../actions'
@@ -75,58 +75,58 @@ const process = [
     name: 'Completed',
     status: 30,
   },
-]
+];
 
 export function Employers({ id, list, data, mobile }) {
-  const pathname = usePathname()
-  const searchParams = useSearchParams()
-  const router = useRouter()
-  const { status } = useSession()
-  const [openModal, setOpenModal] = useState(false)
-  const [needOpen, setNeedOpen] = useState(false)
-  const [notBindWallet, setNotBindWallet] = useState(false)
-  const [notComplete, setNotComplete] = useState(false)
-  const mediaUrl = useMediaUrl()
-  const user = useUser()
-  const wrapBountyEnvCheck = useBountyEnvCheck()
-  const { loading: buildersLoading, list: builderList = [], doFetch } = useBountyBuildersList(id)
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const { status } = useSession();
+  const [openModal, setOpenModal] = useState(false);
+  const [needOpen, setNeedOpen] = useState(false);
+  const [notBindWallet, setNotBindWallet] = useState(false);
+  const [notComplete, setNotComplete] = useState(false);
+  const mediaUrl = useMediaUrl();
+  const user = useUser();
+  const wrapBountyEnvCheck = useBountyEnvCheck();
+  const { loading: buildersLoading, list: builderList = [], doFetch } = useBountyBuildersList(id);
 
   const apply = () => {
     if (status !== 'authenticated') {
-      const sourceFrom = encodeURIComponent(resolvePathWithSearch(pathname, searchParams))
-      router.push(`/signin?from=${sourceFrom}`)
+      const sourceFrom = encodeURIComponent(resolvePathWithSearch(pathname, searchParams));
+      router.push(`/signin?from=${sourceFrom}`);
     } else if (
       user?.base.user_nick_name === '' ||
       !user?.binds.find(f => f.auth_user_bind_type === 'wallet') ||
       user?.base.user_skills.length === 0 ||
       typeof user?.base.user_roles !== 'number'
     ) {
-      setNeedOpen(true)
+      setNeedOpen(true);
       if (!user?.binds.find(f => f.auth_user_bind_type === 'wallet')) {
-        setNotBindWallet(true)
+        setNotBindWallet(true);
       }
       if (user?.base.user_nick_name === '' || user?.base.user_skills.length === 0) {
-        setNotComplete(true)
+        setNotComplete(true);
       }
     } else {
-      setOpenModal(true)
+      setOpenModal(true);
     }
-  }
+  };
   const openChat = () => {
     if (data?.chat_provide === 'email') {
-      window.location.href = `mailto:${data.chat_handle}`
+      window.location.href = `mailto:${data.chat_handle}`;
     } else if (data?.chat_provide === 'twitter') {
-      window.open(`https://twitter.com/${data.chat_handle}`)
+      window.open(`https://twitter.com/${data.chat_handle}`);
     } else if (data?.chat_provide === 'discord') {
-      window.open(`https://discordapp.com/users/${data.chat_handle}`)
+      window.open(`https://discordapp.com/users/${data.chat_handle}`);
     } else if (data?.chat_provide === 'telegram') {
-      window.open(`https://t.me/${data.chat_handle}`)
+      window.open(`https://t.me/${data.chat_handle}`);
     }
-  }
+  };
 
-  const [appliedModalOpen, setAppliedModalOpen] = useState(false)
-  const [applyFinishedModalOpen, setApplyFinishedModalOpen] = useState(false)
-  const [agreeFinishedModalOpen, setAgreeFinishedModalOpen] = useState(false)
+  const [appliedModalOpen, setAppliedModalOpen] = useState(false);
+  const [applyFinishedModalOpen, setApplyFinishedModalOpen] = useState(false);
+  const [agreeFinishedModalOpen, setAgreeFinishedModalOpen] = useState(false);
   // const [terminateModalOpen, setTerminateModalOpen] = useState(false)
   // const [terminateType, setTerminateType] = useState()
 
@@ -187,11 +187,11 @@ export function Employers({ id, list, data, mobile }) {
   //     toast.info(`${fromNow(data?.last_event.extra_6)} can initiate arbitration.`)
   //   }
   // }
-  const currentUserApplied = !buildersLoading && builderList.some(({ builder_uid }) => builder_uid === user?.base.user_id)
+  const currentUserApplied = !buildersLoading && builderList.some(({ builder_uid }) => builder_uid === user?.base.user_id);
   const handleApplyDialogClose = () => {
-    setOpenModal(false)
-    doFetch()
-  }
+    setOpenModal(false);
+    doFetch();
+  };
 
   return (
     <div
@@ -305,7 +305,7 @@ export function Employers({ id, list, data, mobile }) {
             user?.base.user_id === data?.employer_user?.user_id ?
               <Link className="text-xs underline opacity-80" href={`/creator/build/bounty/${data.id}`}>View More</Link> :
               (data?.builders && user?.base.user_id === data?.builders[0]?.builder_uid) ?
-             <Link href={'/dashboard/build'}>View More</Link> : <></>
+                <Link href={'/dashboard/build'}>View More</Link> : <></>
           }
         </div>
 
@@ -327,17 +327,17 @@ export function Employers({ id, list, data, mobile }) {
                       <path d="M11 8C11 6.34315 9.65685 5 8 5C6.34315 5 5 6.34315 5 8C5 9.65685 6.34315 11 8 11C9.65685 11 11 9.65685 11 8Z" fill="white"/>
                     </g>
                     <defs>
-                    <clipPath id="clip0_0_3">
-                      <rect width="16" height="16" fill="white"/>
-                    </clipPath>
+                      <clipPath id="clip0_0_3">
+                        <rect width="16" height="16" fill="white"/>
+                      </clipPath>
                     </defs>
                   </svg>
 
-                  // <span className="relative top-[5px] z-10 mr-3 flex h-3 w-3 items-center justify-center rounded-full bg-white ring-1 ring-gray">
-                  //   <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  //     <rect x="0.399902" y="0.400391" width="7.2" height="7.2" rx="3.6" fill="#1A1A1A" />
-                  //   </svg>
-                  // </span>
+                // <span className="relative top-[5px] z-10 mr-3 flex h-3 w-3 items-center justify-center rounded-full bg-white ring-1 ring-gray">
+                //   <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                //     <rect x="0.399902" y="0.400391" width="7.2" height="7.2" rx="3.6" fill="#1A1A1A" />
+                //   </svg>
+                // </span>
                 ) : (
                   <span className="relative top-[3px] left-[1px] z-10 mr-3 flex h-4 w-4 items-center justify-center rounded-full bg-gray-1000 ring-1 ring-gray-1100">
                     {/* 123123213 */}
@@ -355,7 +355,7 @@ export function Employers({ id, list, data, mobile }) {
                       </h5>
                       {data?.status === 3 && <span
                         onClick={wrapBountyEnvCheck(() => {
-                          setAppliedModalOpen(true)
+                          setAppliedModalOpen(true);
                         })} className="cursor-pointer text-xs bg-gray text-white rounded-md px-2 py-1 font-normal">Approve</span>}
                     </div> : <div  className={clsx('flex-1 text-sm', {
                       'opacity-60': data && data?.status < i.status,
@@ -390,7 +390,7 @@ export function Employers({ id, list, data, mobile }) {
                           (data?.builders && data?.builders.length > 0 && user?.base.user_id === data?.builders[0].builder_uid && data?.status === 7 && i.status === 7) ? <div>
                             <span
                               onClick={wrapBountyEnvCheck(() => {
-                                setApplyFinishedModalOpen(true)
+                                setApplyFinishedModalOpen(true);
                               })}
                               className="cursor-pointer text-xs bg-gray text-white rounded-md px-2 py-1 font-normal mr-2"
                             >Apply Completed</span>
@@ -399,7 +399,7 @@ export function Employers({ id, list, data, mobile }) {
                         {user?.base.user_id === data?.employer_user?.user_id && data?.status === 14 && i.status === 7 && <div>
                           <span
                             onClick={wrapBountyEnvCheck(() => {
-                              setAgreeFinishedModalOpen(true)
+                              setAgreeFinishedModalOpen(true);
                             })}
                             className="cursor-pointer text-xs bg-gray text-white rounded-md px-2 py-1 font-normal mr-2"
                           >
@@ -458,5 +458,5 @@ export function Employers({ id, list, data, mobile }) {
         loading={agreeTerminateLoading}
       /> */}
     </div>
-  )
+  );
 }

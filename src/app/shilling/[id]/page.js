@@ -14,36 +14,36 @@
  * limitations under the License.
  */
 
-'use client'
-import { Header } from './Header'
-import { useDetails } from '#/services/shilling/hooks'
-import { Skeleton } from '@/components/Skeleton/details'
-import { OViewer } from '@/components/MarkDown'
-import { useAllSkills } from '#/state/application/hooks'
-import { fromNow } from '@/utils/date'
-import { Author } from './Author'
-import SkillInsight from '#/domain/skill/widgets/skill-insight'
-import { ownedNFTs } from '#/services/common'
+'use client';
+import { Header } from './Header';
+import { useDetails } from '#/services/shilling/hooks';
+import { Skeleton } from '@/components/Skeleton/details';
+import { OViewer } from '@/components/MarkDown';
+import { useAllSkills } from '#/state/application/hooks';
+import { fromNow } from '@/utils/date';
+import { Author } from './Author';
+import SkillInsight from '#/domain/skill/widgets/skill-insight';
+import { ownedNFTs } from '#/services/common';
 
-import clsx from 'clsx'
-import { useEffect, useState } from 'react'
+import clsx from 'clsx';
+import { useEffect, useState } from 'react';
 
 export default function Page({ params }) {
-  const skills = useAllSkills()
-  const { data, loading } = useDetails(params.id)
-  const [nfts, setNfts] = useState([])
+  const skills = useAllSkills();
+  const { data, loading } = useDetails(params.id);
+  const [nfts, setNfts] = useState([]);
 
   useEffect(() => {
     if (data?.onchain_show) {
       ownedNFTs(data.onchain_address).then(res => {
         if (res.code === 200) {
-          setNfts(res.data.list || [])
+          setNfts(res.data.list || []);
         }
-      })
+      });
     }
-  }, [data])
+  }, [data]);
 
-  console.log(nfts)
+  console.log(nfts);
 
   return loading ? (
     <Skeleton />
@@ -127,7 +127,7 @@ export default function Page({ params }) {
                         strokeWidth="40"
                         stroke="rgba(16,16,16,0.1)"
                         fill="none"
-                      ></circle>
+                      />
                       <circle
                         cx="220"
                         cy="220"
@@ -141,12 +141,12 @@ export default function Page({ params }) {
                             i.level === 'generally'
                               ? '267 1069'
                               : i.level === 'well'
-                              ? '534 1069'
-                              : i.level === 'proficient'
-                              ? '801 1069'
-                              : '1069 1069',
+                                ? '534 1069'
+                                : i.level === 'proficient'
+                                  ? '801 1069'
+                                  : '1069 1069',
                         }}
-                      ></circle>
+                      />
                     </svg>
                   </div>
                   <div className="mt-3 flex items-center justify-between border-t border-gray-400 pt-3 text-xs">
@@ -189,5 +189,5 @@ export default function Page({ params }) {
       </div>
       <Author data={data} />
     </div>
-  )
+  );
 }

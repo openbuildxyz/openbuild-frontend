@@ -14,35 +14,35 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import { get } from '@/utils/request'
+import { get } from '@/utils/request';
 
-import { useSession, signOut } from 'next-auth/react'
-import { useAppDispatch } from '#/state/hooks'
-import { updateUser } from '#/state/application/reducer'
-import { useEffect } from 'react'
+import { useSession, signOut } from 'next-auth/react';
+import { useAppDispatch } from '#/state/hooks';
+import { updateUser } from '#/state/application/reducer';
+import { useEffect } from 'react';
 
 export default function UserUpdater() {
-  const dispatch = useAppDispatch()
-  const { status } = useSession()
+  const dispatch = useAppDispatch();
+  const { status } = useSession();
   useEffect(() => {
     const fetchUser = async () => {
       if (status === 'authenticated') {
-        const data = await get('ts/v1/user/info')
+        const data = await get('ts/v1/user/info');
         // console.log(data)
         // debugger
         if (data && data.code === 200) {
-          dispatch(updateUser(data.data))
+          dispatch(updateUser(data.data));
         } else if(data?.code === 401) {
-          dispatch(updateUser(null))
-          signOut()
+          dispatch(updateUser(null));
+          signOut();
         }
       }
 
-    }
-    fetchUser()
+    };
+    fetchUser();
 
-  }, [dispatch, status])
-  return null
+  }, [dispatch, status]);
+  return null;
 }

@@ -21,7 +21,7 @@ import { useEffect, useRef, useState } from 'react';
  * @param state
  * @returns
  */
-export const useSyncState = (state) => {
+export const useSyncState = state => {
   const cbRef = useRef();
   const [data, setData] = useState(state);
 

@@ -14,54 +14,54 @@
  * limitations under the License.
  */
 
-import React, { useState, useEffect } from 'react'
-import { Modal } from '@/components/Modal'
-import { baseInputStyles } from '#/domain/profile/widgets/blocks'
+import React, { useState, useEffect } from 'react';
+import { Modal } from '@/components/Modal';
+import { baseInputStyles } from '#/domain/profile/widgets/blocks';
 
-import { toast } from 'react-toastify'
-import isEmail from 'validator/lib/isEmail'
-import { sendCode, emailCodeLogin } from '#/services/auth'
-import { Button } from '@/components/Button'
-import { revalidatePathAction } from './actions'
-import { signIn } from 'next-auth/react'
-import clsx from 'clsx'
+import { toast } from 'react-toastify';
+import isEmail from 'validator/lib/isEmail';
+import { sendCode, emailCodeLogin } from '#/services/auth';
+import { Button } from '@/components/Button';
+import { revalidatePathAction } from './actions';
+import { signIn } from 'next-auth/react';
+import clsx from 'clsx';
 
-export function EmailModal({ open, closeModal, successCallback, data }) {
-  const [email, setEmail] = useState('')
-  const [verificationCode, setVerificationCode] = useState('')
-  const [cdMss, setCdMss] = useState(0)
-  const [sendLoading, setSendLoading] = useState(false)
-  const [emailVerifyLoading, setEmailVerifyLoading] = useState(false)
+export function EmailModal({ open, closeModal, successCallback }) {
+  const [email, setEmail] = useState('');
+  const [verificationCode, setVerificationCode] = useState('');
+  const [cdMss, setCdMss] = useState(0);
+  const [sendLoading, setSendLoading] = useState(false);
+  const [emailVerifyLoading, setEmailVerifyLoading] = useState(false);
 
   useEffect(() => {
     if (cdMss > 0) {
-      const timerId = setInterval(() => setCdMss(cdMss - 1), 1000)
-      return () => clearInterval(timerId)
+      const timerId = setInterval(() => setCdMss(cdMss - 1), 1000);
+      return () => clearInterval(timerId);
     }
-  }, [cdMss])
+  }, [cdMss]);
 
   const emailVerify = async () => {
     if (email === '' || verificationCode === '') {
-      toast.error('Please enter your email and verification code')
-      return
+      toast.error('Please enter your email and verification code');
+      return;
     }
-    setEmailVerifyLoading(true)
-    const signInRes = await emailCodeLogin(email, verificationCode)
+    setEmailVerifyLoading(true);
+    const signInRes = await emailCodeLogin(email, verificationCode);
     if (signInRes.code === 200) {
-      setCdMss(0)
-      closeModal()
-      window.localStorage.setItem('signType', 'email')
+      setCdMss(0);
+      closeModal();
+      window.localStorage.setItem('signType', 'email');
       const data = await signIn('credentials', {
         token: signInRes.data.token,
         redirect: false,
-      })
+      });
       if (data?.ok) {
-        await revalidatePathAction()
-        successCallback()
+        await revalidatePathAction();
+        successCallback();
       }
     }
-    setEmailVerifyLoading(false)
-  }
+    setEmailVerifyLoading(false);
+  };
 
   return (
     <Modal isOpen={open} closeModal={closeModal}>
@@ -87,13 +87,13 @@ export function EmailModal({ open, closeModal, successCallback, data }) {
                 disabled={email === '' || !isEmail(email) || sendLoading}
                 className="w-[76px] text-sm hover:opacity-80 disabled:opacity-20"
                 onClick={async () => {
-                  setSendLoading(true)
-                  const res = await sendCode(email, 'login')
-                  setSendLoading(false)
+                  setSendLoading(true);
+                  const res = await sendCode(email, 'login');
+                  setSendLoading(false);
                   if (res.code === 200) {
-                    setCdMss(59)
+                    setCdMss(59);
                   } else {
-                    toast.error(res.message)
+                    toast.error(res.message);
                   }
                 }}
               >
@@ -116,5 +116,5 @@ export function EmailModal({ open, closeModal, successCallback, data }) {
         </div>
       </div>
     </Modal>
-  )
+  );
 }

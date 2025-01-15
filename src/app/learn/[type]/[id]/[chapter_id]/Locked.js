@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import Link from 'next/link'
+import Link from 'next/link';
 
 function LockedPlaceholder({ id, type }) {
   return (
@@ -25,7 +25,7 @@ function LockedPlaceholder({ id, type }) {
         <p>The chapter is not unlocked, <Link className="font-bold uppercase" href={`/learn/${type}/${id}`}>return back</Link>.</p>
       </div>
     </div>
-  )
+  );
 }
 
-export default LockedPlaceholder
+export default LockedPlaceholder;

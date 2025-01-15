@@ -14,33 +14,33 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import Slider from 'react-slick'
-import { createRef } from 'react'
-import { chunk } from 'lodash'
-import { clsx } from 'clsx'
+import Slider from 'react-slick';
+import { createRef } from 'react';
+import { chunk } from 'lodash';
+import { clsx } from 'clsx';
 // import { LocationIcon } from '@/components/Icons'
 // import { useMediaUrl } from '#/state/application/hooks'
 
-import P1 from 'public/images/home/shooter.png'
-import P2 from 'public/images/home/Skyhigh.png'
-import P3 from 'public/images/home/Fred.png'
-import P4 from 'public/images/home/jason.svg'
-import P5 from 'public/images/home/Sinka.png'
-import P6 from 'public/images/home/xhyumiracle.png'
-import P7 from 'public/images/home/qc_qizhou.png'
-import P8 from 'public/images/home/HitchhikerW3.png'
-import P9 from 'public/images/home/uvd.png'
-import P10 from 'public/images/home/pseudoyu.png'
-import P11 from 'public/images/home/Frank.png'
-import P13 from 'public/images/home/galois.png'
-import P14 from 'public/images/home/AlongHudson.png'
-import P15 from 'public/images/home/hiCaptainZ.png'
-import P16 from 'public/images/home/GianM.png'
-import P17 from 'public/images/home/Gabin.png'
-import P18 from 'public/images/home/Ivan.png'
-import P19 from 'public/images/home/Leo.jpg'
+import P1 from 'public/images/home/shooter.png';
+import P2 from 'public/images/home/Skyhigh.png';
+import P3 from 'public/images/home/Fred.png';
+import P4 from 'public/images/home/jason.svg';
+import P5 from 'public/images/home/Sinka.png';
+import P6 from 'public/images/home/xhyumiracle.png';
+import P7 from 'public/images/home/qc_qizhou.png';
+import P8 from 'public/images/home/HitchhikerW3.png';
+import P9 from 'public/images/home/uvd.png';
+import P10 from 'public/images/home/pseudoyu.png';
+import P11 from 'public/images/home/Frank.png';
+import P13 from 'public/images/home/galois.png';
+import P14 from 'public/images/home/AlongHudson.png';
+import P15 from 'public/images/home/hiCaptainZ.png';
+import P16 from 'public/images/home/GianM.png';
+import P17 from 'public/images/home/Gabin.png';
+import P18 from 'public/images/home/Ivan.png';
+import P19 from 'public/images/home/Leo.jpg';
 
 const DATAS = [
   { name: 'NPC_Leo', picture: P19, x: 'NPC_Leo', title: 'Founder of DevBase @DevBase' },
@@ -61,11 +61,11 @@ const DATAS = [
   { name: 'Frank@Beosin', picture: P11, x: 'BeosinAlert', title: 'Security Researcher & Leader @Beosin Security Incident Team' },
   { name: 'galois', picture: P13, x: 'YQ996CO28254695', title: 'Backend Developer / EVM & MEV Researcher' },
   { name: 'Frank', picture: P14, x: 'AlongHudson', title: 'Developer advocate @Chainlink' },
-]
+];
 
-export function Contributor({data}) {
+export function Contributor() {
   // const mediaUrl = useMediaUrl()
-  const customSlider = createRef()
+  const customSlider = createRef();
 
   const settings = {
     dots: false,
@@ -79,35 +79,35 @@ export function Contributor({data}) {
         breakpoint: 1280,
         settings: {
           slidesToShow: 5,
-          slidesToScroll: 5
-        }
+          slidesToScroll: 5,
+        },
       },
       {
         breakpoint: 1024,
         settings: {
           slidesToShow: 4,
-          slidesToScroll: 4
-        }
+          slidesToScroll: 4,
+        },
       },
       {
         breakpoint: 768,
         settings: {
           slidesToShow: 2,
           slidesToScroll: 2,
-        }
-      }
-    ]
-  }
+        },
+      },
+    ],
+  };
 
   const next = () => {
-    customSlider.current.slickNext()
-  }
+    customSlider.current.slickNext();
+  };
 
   const prev = () => {
-    customSlider.current.slickPrev()
-  }
+    customSlider.current.slickPrev();
+  };
 
-  const chunkData = chunk(DATAS, 2)
+  const chunkData = chunk(DATAS, 2);
 
   return (
     <div className="pt-14 rounded-t-2xl bg-home-contributor-bg !px-0">
@@ -143,9 +143,9 @@ export function Contributor({data}) {
 
                     <div className={clsx('text-white box-border py-6  absolute top-[1px] left-[1px] w-[99%] h-[99%] transition-width !duration-300 overflow-hidden bg-gray rounded-full z-0',
                       'group-hover:w-[calc(200%+40px)] group-hover:pl-[100%] group-hover:ml-2 group-hover:z-[3]',
-                    {
+                      {
 
-                    })}>
+                      })}>
                       <div className="hidden h-full group-hover:flex flex-col justify-between">
                         <div className="flex-1">
                           <div className="flex items-center">
@@ -181,5 +181,5 @@ export function Contributor({data}) {
         </div>
       </div>
     </div>
-  )
+  );
 }

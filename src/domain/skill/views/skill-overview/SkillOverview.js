@@ -14,22 +14,22 @@
  * limitations under the License.
  */
 
-import clsx from 'clsx'
-import useSWR from 'swr'
+import clsx from 'clsx';
+import useSWR from 'swr';
 
-import { NoData } from '@/components/NoData'
+import { NoData } from '@/components/NoData';
 
-import { fetcher } from '@/utils/request'
-import { useAllSkills } from '#/state/application/hooks'
+import { fetcher } from '@/utils/request';
+import { useAllSkills } from '#/state/application/hooks';
 
-import SkillInsight from '../../widgets/skill-insight'
+import SkillInsight from '../../widgets/skill-insight';
 
-import SkillCircle from './SkillCircle'
+import SkillCircle from './SkillCircle';
 
 function SkillOverviewView({ userId }) {
-  const skills = useAllSkills()
-  const { data } = useSWR(userId ? `ts/v1/hub/general/skills/${userId}` : null, fetcher)
-  const userSkills = data?.skill_datas || []
+  const skills = useAllSkills();
+  const { data } = useSWR(userId ? `ts/v1/hub/general/skills/${userId}` : null, fetcher);
+  const userSkills = data?.skill_datas || [];
 
   return (
     <div>
@@ -88,7 +88,7 @@ function SkillOverviewView({ userId }) {
         />
       )}
     </div>
-  )
+  );
 }
 
-export default SkillOverviewView
+export default SkillOverviewView;

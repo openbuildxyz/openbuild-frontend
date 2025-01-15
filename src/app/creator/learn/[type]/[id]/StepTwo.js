@@ -14,35 +14,35 @@
  * limitations under the License.
  */
 
-import { useState, useEffect } from 'react'
-import  { BASE_INPUT_STYLE } from '@/constants/config'
+import { useState, useEffect } from 'react';
+import  { BASE_INPUT_STYLE } from '@/constants/config';
 
-import { OEditor } from '@/components/MarkDown'
-import { PlusCircleIcon } from '@heroicons/react/20/solid'
-import { MinusCircleIcon } from '@heroicons/react/24/outline'
+import { OEditor } from '@/components/MarkDown';
+import { PlusCircleIcon } from '@heroicons/react/20/solid';
+import { MinusCircleIcon } from '@heroicons/react/24/outline';
 
 export function CreatorLearnStepTwo({data, change}) {
 
-  const [forms, setForms] = useState()
+  const [forms, setForms] = useState();
 
   useEffect(() => {
     if (data) {
-      setForms(data.base)
+      setForms(data.base);
     }
-  }, [data])
+  }, [data]);
 
   const changeRequirementsOrBuilders = (key, type, index, value) => {
-    const _forms = Object.assign({ ...forms }, {})
-    const arr = _forms[key]
+    const _forms = Object.assign({ ...forms }, {});
+    const arr = _forms[key];
     if (type === 'plus') {
-      arr.push('')
+      arr.push('');
     } else if (type === 'change') {
-      arr[index] = value
+      arr[index] = value;
     } else {
-      arr.splice(index, 1)
+      arr.splice(index, 1);
     }
-    change(key, arr)
-  }
+    change(key, arr);
+  };
 
   return forms ? (
     <>
@@ -107,10 +107,10 @@ export function CreatorLearnStepTwo({data, change}) {
         <OEditor
           value={forms.course_series_introduction}
           onChange={e => {
-            change('course_series_introduction', e)
+            change('course_series_introduction', e);
           }}
         />
       </div>
     </>
-  ) : null
+  ) : null;
 }

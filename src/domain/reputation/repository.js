@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import httpClient from '@/utils/http'
+import httpClient from '@/utils/http';
 
 async function fetchGainedReputationList(userId) {
-  return httpClient.get(`/nft/general/public/${userId}/infos`)
+  return httpClient.get(`/nft/general/public/${userId}/infos`);
 }
 
-export { fetchGainedReputationList }
+export { fetchGainedReputationList };

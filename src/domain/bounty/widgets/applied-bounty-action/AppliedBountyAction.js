@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import { SvgIcon } from '@/components/Image'
+import { SvgIcon } from '@/components/Image';
 
-import { isBountyFinished } from '../../helper'
+import { isBountyFinished } from '../../helper';
 
 function AppliedBountyAction({ status }) {
   return isBountyFinished(status) ? (
@@ -26,7 +26,7 @@ function AppliedBountyAction({ status }) {
       <span style={{ marginRight: 8, textTransform: 'uppercase' }}>Continue</span>
       <SvgIcon name="arrow-right-top" size={20} />
     </>
-  )
+  );
 }
 
-export default AppliedBountyAction
+export default AppliedBountyAction;

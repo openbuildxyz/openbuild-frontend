@@ -15,9 +15,9 @@
  */
 
 function resolvePathWithSearch(pathname, params) {
-  const queryStr = params ? params.toString() : ''
+  const queryStr = params ? params.toString() : '';
 
-  return `${pathname || '/'}${queryStr ? '?' + queryStr : ''}`
+  return `${pathname || '/'}${queryStr ? '?' + queryStr : ''}`;
 }
 
-export { resolvePathWithSearch }
+export { resolvePathWithSearch };

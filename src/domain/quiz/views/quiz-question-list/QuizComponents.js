@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-import { useEffect, useMemo, useState } from 'react'
-import { toast } from 'react-toastify'
-import Link from 'next/link'
-import { XMarkIcon, ChevronLeftIcon } from '@heroicons/react/20/solid'
+import { useEffect, useMemo, useState } from 'react';
+import { toast } from 'react-toastify';
+import Link from 'next/link';
+import { XMarkIcon, ChevronLeftIcon } from '@heroicons/react/20/solid';
 
-import { post } from '@/utils/request'
-import { Button } from '@/components/Button'
+import { post } from '@/utils/request';
+import { Button } from '@/components/Button';
 
-import { fetchAnsweredResult } from '../../repository'
-import FeedbackDialog from '../../widgets/feedback-dialog'
+import { fetchAnsweredResult } from '../../repository';
+import FeedbackDialog from '../../widgets/feedback-dialog';
 
-import AnswerRecordDrawer from './AnswerRecordDrawer'
-import { QuizCore } from './QuizCore'
+import AnswerRecordDrawer from './AnswerRecordDrawer';
+import { QuizCore } from './QuizCore';
 
 function resolveAnsweredQuiz(quiz, answered, overridable = false) {
   return answered.quiz_user_answer.map((i, k) => ({
@@ -34,60 +34,60 @@ function resolveAnsweredQuiz(quiz, answered, overridable = false) {
     answer: overridable ? i.answer : quiz[k].answer,
     judgment: i.judgment,
     correct: i.correct_answer,
-  }))
+  }));
 }
 
 export function QuizComponents({ id, version, data }) {
-  const [page, setPage] = useState(1)
-  const [quiz, setQuiz] = useState()
-  const [submiting, setSubmiting] = useState(false)
-  const [openModal, setOpenModal] = useState(false)
-  const [submitData, setSubmitData] = useState(version ? {} : undefined)
+  const [page, setPage] = useState(1);
+  const [quiz, setQuiz] = useState();
+  const [submiting, setSubmiting] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
+  const [submitData, setSubmitData] = useState(version ? {} : undefined);
 
   useEffect(() => {
-    const initialQuiz = data && (data.quiz_body || []).map(i => ({ ...i, answer: [] }))
+    const initialQuiz = data && (data.quiz_body || []).map(i => ({ ...i, answer: [] }));
 
     if (!initialQuiz) {
-      return
+      return;
     }
 
-    setQuiz(initialQuiz)
+    setQuiz(initialQuiz);
 
     if (version) {
-      setSubmiting(true)
+      setSubmiting(true);
       fetchAnsweredResult({ id, quid: version })
         .then(res => {
           if (res.success) {
-            setSubmitData(res.data)
-            setQuiz(resolveAnsweredQuiz(initialQuiz, res.data, true))
+            setSubmitData(res.data);
+            setQuiz(resolveAnsweredQuiz(initialQuiz, res.data, true));
           }
         })
-        .finally(() => setSubmiting(false))
+        .finally(() => setSubmiting(false));
     }
-  }, [data, id, version])
+  }, [data, id, version]);
 
   const _progress = useMemo(() => {
-    const noAnswer = quiz?.filter(f => f.answer?.length !== 0)
-    return noAnswer ? (noAnswer.length / quiz.length) * 100 : 0
-  }, [quiz])
+    const noAnswer = quiz?.filter(f => f.answer?.length !== 0);
+    return noAnswer ? (noAnswer.length / quiz.length) * 100 : 0;
+  }, [quiz]);
 
   const handleAnsweredCheck = idx => {
-    setPage(idx + 1)
-  }
+    setPage(idx + 1);
+  };
 
   const submit = async () => {
-    const sendParams = quiz?.map(i => ({ 'quiz_body_id': i.id, 'quiz_item_id': i.answer }))
-    setSubmiting(true)
-    const res = await post(`ts/v1/quiz/${id}/answer`, {data: sendParams})
-    setSubmiting(false)
+    const sendParams = quiz?.map(i => ({ 'quiz_body_id': i.id, 'quiz_item_id': i.answer }));
+    setSubmiting(true);
+    const res = await post(`ts/v1/quiz/${id}/answer`, {data: sendParams});
+    setSubmiting(false);
     if (res.code === 200) {
-      setSubmitData(res.data)
-      setOpenModal(true)
-      setQuiz(resolveAnsweredQuiz(quiz, res.data))
+      setSubmitData(res.data);
+      setOpenModal(true);
+      setQuiz(resolveAnsweredQuiz(quiz, res.data));
     } else {
-      toast.error(res.message)
+      toast.error(res.message);
     }
-  }
+  };
 
   return (
     <>
@@ -105,7 +105,7 @@ export function QuizComponents({ id, version, data }) {
           <QuizCore quiz={quiz} setQuiz={setQuiz} page={page} submitData={submitData} marked={!!version} />
           <div className="absolute bottom-0 md:bottom-14 max-md:left-0 max-md:right-0 md:flex md:items-center md:justify-between md:w-[680px]">
             <div className="flex items-center max-md:justify-center max-md:mb-4">
-              <progress class="progress w-56" value={_progress.toFixed(0)} max="100"></progress>
+              <progress class="progress w-56" value={_progress.toFixed(0)} max="100" />
               <span className="text-xs ml-2">{_progress.toFixed(0)}%</span>
             </div>
             <div className="flex items-center max-md:h-24 max-md:px-6 max-md:shadow-[0_-4px_14px_rgba(0,0,0,0.08)]">
@@ -122,5 +122,5 @@ export function QuizComponents({ id, version, data }) {
         quiz={data}
       />
     </>
-  )
+  );
 }

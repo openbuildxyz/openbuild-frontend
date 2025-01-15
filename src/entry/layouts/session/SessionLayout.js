@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-import Image from 'next/image'
-import Link from 'next/link'
+import Image from 'next/image';
+import Link from 'next/link';
 
-import { Header } from '../../components/Header'
+import { Header } from '../../components/Header';
 
-import bgImage from './login_bg.png'
-import brandLogo from './logo-g.svg'
-import { UCTop } from './Top'
-import { Close } from './Close'
+import bgImage from './login_bg.png';
+import brandLogo from './logo-g.svg';
+import { UCTop } from './Top';
+import { Close } from './Close';
 
 function SessionLayout({ children }) {
   return (
@@ -47,7 +47,7 @@ function SessionLayout({ children }) {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default SessionLayout
+export default SessionLayout;

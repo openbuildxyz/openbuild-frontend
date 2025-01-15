@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import clsx from 'clsx'
+import clsx from 'clsx';
 
-import { Button } from '@/components/Button'
+import { Button } from '@/components/Button';
 
-const AnswerIcon = (props) => {
+const AnswerIcon = props => {
   return (
     <svg {...props} width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M6.66666 3.33203H14.6667" stroke="#1A1A1A" strokeLinecap="round" strokeLinejoin="round"/>
@@ -28,11 +28,11 @@ const AnswerIcon = (props) => {
       <path d="M2.66668 13.9987C3.40306 13.9987 4.00001 13.4017 4.00001 12.6654C4.00001 11.929 3.40306 11.332 2.66668 11.332C1.9303 11.332 1.33334 11.929 1.33334 12.6654C1.33334 13.4017 1.9303 13.9987 2.66668 13.9987Z" stroke="#1A1A1A" strokeLinecap="round" strokeLinejoin="round"/>
       <path d="M1.33334 3.33203L2.33334 4.33203L4.33334 2.33203" stroke="#1A1A1A" strokeLinecap="round" strokeLinejoin="round"/>
     </svg>
-  )
-}
+  );
+};
 
 function AnswerRecordDrawer({ questions = [], result, submitting, onSubmit, onCheck }) {
-  const answeredCheckable = typeof onCheck === 'function'
+  const answeredCheckable = typeof onCheck === 'function';
 
   return (
     <div className="drawer drawer-end z-10">
@@ -45,10 +45,10 @@ function AnswerRecordDrawer({ questions = [], result, submitting, onSubmit, onCh
         </label>
       </div>
       <div className="drawer-side">
-        <label htmlFor="my-drawer-4" ariaLabel="close sidebar" className="drawer-overlay"></label>
+        <label htmlFor="my-drawer-4" ariaLabel="close sidebar" className="drawer-overlay" />
         <div className="p-6 w-full md:w-96 min-h-full bg-white text-base-content flex flex-col justify-between">
           <div>
-            <div className='flex justify-between'>
+            <div className="flex justify-between">
               <div className="flex items-center">
                 <AnswerIcon className="mr-2" />
                 Answer record
@@ -105,19 +105,19 @@ function AnswerRecordDrawer({ questions = [], result, submitting, onSubmit, onCh
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default AnswerRecordDrawer
+export default AnswerRecordDrawer;
 
 function ModalCloseIcon(props = {}) {
   return (
     <svg {...props} width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
       <g opacity="0.6">
-      <path d="M14 14L22 22" stroke="#1A1A1A" stroke-linecap="round" strokeLinejoin="round"/>
-      <path d="M14 22L22 14" stroke="#1A1A1A" stroke-linecap="round" strokeLinejoin="round"/>
+        <path d="M14 14L22 22" stroke="#1A1A1A" stroke-linecap="round" strokeLinejoin="round"/>
+        <path d="M14 22L22 14" stroke="#1A1A1A" stroke-linecap="round" strokeLinejoin="round"/>
       </g>
       <path d="M35.5 12C35.5 5.64873 30.3513 0.5 24 0.5H12C5.64872 0.5 0.5 5.64873 0.5 12V24C0.5 30.3513 5.64873 35.5 12 35.5H24C30.3513 35.5 35.5 30.3513 35.5 24V12Z" stroke="#F1F1F1"/>
     </svg>
-  )
+  );
 }

@@ -47,7 +47,7 @@ export function AddProgressModal({ id, open, closeModal }) {
         placeholder="Please input the important progress here: achieve a milestone, submit PR, have reached a consensus, etc."
         value={content}
         className="border-1 border-gray-600 flex-1 mb-2 p-4 h-[200px] text-sm w-full rounded"
-        onChange={(e) => {
+        onChange={e => {
           const val = e.target.value.replace(/[^\d]/g, '');
           setContent(val);
         }}

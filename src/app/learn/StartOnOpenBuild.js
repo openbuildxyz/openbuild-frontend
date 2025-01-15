@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import { useSession } from 'next-auth/react'
-import Image from 'next/image'
-import { Button } from '@/components/Button'
-import Link from 'next/link'
-import TaskPic from 'public/images/svg/task.svg'
+import { useSession } from 'next-auth/react';
+import Image from 'next/image';
+import { Button } from '@/components/Button';
+import Link from 'next/link';
+import TaskPic from 'public/images/svg/task.svg';
 
 export function StartOnOpenBuild() {
-  const { status } = useSession()
+  const { status } = useSession();
   return (
     <div className="md:flex justify-between bg-green max-md:pt-4 md:py-[30px] px-11 relative">
       <div className="flex flex-col">
@@ -56,5 +56,5 @@ export function StartOnOpenBuild() {
         <Image className="w-[284px] md:absolute right-11 bottom-0" src={TaskPic} alt={''} />
       </div>
     </div>
-  )
+  );
 }

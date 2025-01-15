@@ -14,38 +14,38 @@
  * limitations under the License.
  */
 
-import httpClient from '@/utils/http'
+import httpClient from '@/utils/http';
 
 async function signWallet(address) {
-  return httpClient.post('/auth/user/verification/code/wallet', { public_address: address })
+  return httpClient.post('/auth/user/verification/code/wallet', { public_address: address });
 }
 
 async function signInWithWallet({ id, signature, address} ) {
-  return httpClient.post('/auth/user/wallet/login', { id, signature, public_address: address }, { isSetJwt: true })
+  return httpClient.post('/auth/user/wallet/login', { id, signature, public_address: address }, { isSetJwt: true });
 }
 
 async function bindWallet({ id, signature, address }) {
-  return httpClient.post('/auth/user/wallet/bind', { id, signature, public_address: address }, { isSetJwt: true })
+  return httpClient.post('/auth/user/wallet/bind', { id, signature, public_address: address }, { isSetJwt: true });
 }
 
 async function unbindWallet() {
-  return httpClient.post('/auth/user/wallet/unbind')
+  return httpClient.post('/auth/user/wallet/unbind');
 }
 
 async function sendEmailCode({ email, type }) {
-  return httpClient.post('/auth/user/verification/code/email', { email, type })
+  return httpClient.post('/auth/user/verification/code/email', { email, type });
 }
 
 async function fetchOauthClientInfo(client_id) {
-  return httpClient.get('/oauth/client/info', { params: { client_id } })
+  return httpClient.get('/oauth/client/info', { params: { client_id } });
 }
 
 async function fetchOauthClientCode(client_id) {
-  return httpClient.get('/oauth/client/code', { params: { client_id } })
+  return httpClient.get('/oauth/client/code', { params: { client_id } });
 }
 
 export {
   signWallet, signInWithWallet, bindWallet, unbindWallet,
   sendEmailCode,
-  fetchOauthClientInfo , fetchOauthClientCode
-}
+  fetchOauthClientInfo , fetchOauthClientCode,
+};

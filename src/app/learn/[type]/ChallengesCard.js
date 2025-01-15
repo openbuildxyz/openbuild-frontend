@@ -14,47 +14,47 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import { USDTIcon } from '@/components/Icons'
-import { CardTitle } from '../CardTitle'
-import { useMemo } from 'react'
-import { useConfig } from '#/state/application/hooks'
-import { formatTime } from '@/utils/date'
-import Link from 'next/link'
-import clsx from 'clsx'
-import { ArrowRightLineIcon } from '@/components/Icons'
-import ContentEditable from 'react-contenteditable'
-import { HTMLDecode } from '@/utils'
-import { ChallengesStatus } from '../[type]/ChallengesStatus'
-import TimeIcon from 'public/images/time.svg'
-import LocationIcon from 'public/images/location.svg'
-import Image from 'next/image'
-import TicketPic from 'public/images/ticket.png'
-import { countries } from '#/lib/countries'
+import { USDTIcon } from '@/components/Icons';
+import { CardTitle } from '../CardTitle';
+import { useMemo } from 'react';
+import { useConfig } from '#/state/application/hooks';
+import { formatTime } from '@/utils/date';
+import Link from 'next/link';
+import clsx from 'clsx';
+import { ArrowRightLineIcon } from '@/components/Icons';
+import ContentEditable from 'react-contenteditable';
+import { HTMLDecode } from '@/utils';
+import { ChallengesStatus } from '../[type]/ChallengesStatus';
+import TimeIcon from 'public/images/time.svg';
+import LocationIcon from 'public/images/location.svg';
+import Image from 'next/image';
+import TicketPic from 'public/images/ticket.png';
+import { countries } from '#/lib/countries';
 
 
-export const typeStyle = 'flex items-center mb-1 text-xs border border-gray-600 rounded-[6px] px-2 h-6 opacity-60 mr-1'
+export const typeStyle = 'flex items-center mb-1 text-xs border border-gray-600 rounded-[6px] px-2 h-6 opacity-60 mr-1';
 
 
 export function useTags(data) {
-  const configs = useConfig()
+  const configs = useConfig();
   const tags = useMemo(() => {
-    const _filters = configs && configs.find(f => f.config_id === 1)
+    const _filters = configs && configs.find(f => f.config_id === 1);
     if (data.base?.course_series_label_ids?.length > 0) {
       const _tag = data.base.course_series_label_ids.map(i => {
         const f = _filters?.config_value['challenges']?.map(cv => {
-          const findedTag = cv.labels.find(cvf => cvf.id === i)
-          return findedTag?.name
-        })
-        return f
-      })
-      return Array.from(new Set(_tag.flat().filter(d => d)))
+          const findedTag = cv.labels.find(cvf => cvf.id === i);
+          return findedTag?.name;
+        });
+        return f;
+      });
+      return Array.from(new Set(_tag.flat().filter(d => d)));
     } else {
-      return []
+      return [];
     }
-  }, [data.base.course_series_label_ids, configs])
-  return tags
+  }, [data.base.course_series_label_ids, configs]);
+  return tags;
 }
 
 export function TimeAndLocation({data, from, openTicket, permission, type}) {
@@ -83,21 +83,21 @@ export function TimeAndLocation({data, from, openTicket, permission, type}) {
         <p className="text-sm text-gray flex-1 text-right flex items-center justify-end gap-1">
           {
             data?.challenges_extra.course_challenges_extra_online ?
-            'Online'
-            :
-            data?.challenges_extra.course_challenges_extra_country ?
-            countries.find(f => f.code === data?.challenges_extra.course_challenges_extra_country)?.name
+              'Online'
+              :
+              data?.challenges_extra.course_challenges_extra_country ?
+                countries.find(f => f.code === data?.challenges_extra.course_challenges_extra_country)?.name
             + ', ' + data?.challenges_extra.course_challenges_extra_city : ''
           }
           {!data?.challenges_extra.course_challenges_extra_online && from === 'rc' && (permission?.course_user_permission_status === 1 && type === 'challenges') && <Image onClick={openTicket} height={12} src={TicketPic} alt="" className="cursor-pointer" />}
         </p>
       </div>
     </>
-  )
+  );
 }
 
 export function ChallengesCard({ data }) {
-  const tags = useTags(data)
+  const tags = useTags(data);
 
   return (
     <Link
@@ -147,8 +147,8 @@ export function ChallengesCard({ data }) {
               ))}
           </div>
           <div>
-              <p className="text-sm font-bold">Builders</p>
-              <p className="text-sm">{data.base.course_series_learn_num === 0 ? '--' : data.base.course_series_learn_num}</p>
+            <p className="text-sm font-bold">Builders</p>
+            <p className="text-sm">{data.base.course_series_learn_num === 0 ? '--' : data.base.course_series_learn_num}</p>
           </div>
         </div>
         <div>
@@ -156,5 +156,5 @@ export function ChallengesCard({ data }) {
         </div>
       </div>
     </Link>
-  )
+  );
 }

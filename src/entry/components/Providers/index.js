@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3'
-import { RainbowKitProviders } from './RainbowKitProviders'
-import { SuiProviders } from './SuiProviders'
-import { SessionProvider } from 'next-auth/react'
+import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
+import { RainbowKitProviders } from './RainbowKitProviders';
+import { SuiProviders } from './SuiProviders';
+import { SessionProvider } from 'next-auth/react';
 
 
-import { wagmiConfig } from '@/constants/chain'
+import { wagmiConfig } from '@/constants/chain';
 import { WagmiConfig } from 'wagmi';
 
 import '@rainbow-me/rainbowkit/styles.css';
@@ -40,5 +40,5 @@ export function Providers({ children }) {
         </WagmiConfig>
       </SessionProvider>
     </GoogleReCaptchaProvider>
-  )
+  );
 }

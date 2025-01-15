@@ -14,41 +14,41 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import { useState } from 'react'
-import Link from 'next/link'
-import { useSearchParams, useRouter } from 'next/navigation'
+import { useState } from 'react';
+import Link from 'next/link';
+import { useSearchParams, useRouter } from 'next/navigation';
 
-import Loader from '@/components/Loader'
+import Loader from '@/components/Loader';
 
-import { useForm } from 'react-hook-form'
-import { reset } from '#/services/auth'
-import { toast } from 'react-toastify'
+import { useForm } from 'react-hook-form';
+import { reset } from '#/services/auth';
+import { toast } from 'react-toastify';
 
 export default function Reset() {
-  const { register, handleSubmit, watch } = useForm()
-  const searchParams = useSearchParams()
-  const router = useRouter()
-  const [loading, setLoading] = useState(false)
+  const { register, handleSubmit, watch } = useForm();
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
 
-  const watchAllFields = watch()
+  const watchAllFields = watch();
 
   const onSubmit = async data => {
-    setLoading(true)
+    setLoading(true);
     if (data.Pass === data.NewPass) {
-      const key = searchParams?.get('key')
+      const key = searchParams?.get('key');
       if (key) {
-        const res = await reset(key, data.Pass)
+        const res = await reset(key, data.Pass);
         if (res.code === 200) {
-          router.push('/signin')
+          router.push('/signin');
         }
-        setLoading(false)
+        setLoading(false);
       }
     } else {
-      toast.error('The two entered passwords do not match')
+      toast.error('The two entered passwords do not match');
     }
-  }
+  };
 
   return (
     <>
@@ -89,5 +89,5 @@ export default function Reset() {
         </div>
       </form>
     </>
-  )
+  );
 }

@@ -16,18 +16,18 @@
 
 
 
-import range from 'lodash/range'
-import { getTime } from '@/utils/date'
-import clsx from 'clsx'
+import range from 'lodash/range';
+import { getTime } from '@/utils/date';
+import clsx from 'clsx';
 
-import { forwardRef } from 'react'
-import DatePicker from 'react-datepicker'
-import 'react-datepicker/dist/react-datepicker.css'
-import { ReactSelect } from '@/components/Select/ReactSelect'
-import { TIME_ZONE } from '@/constants/timezone'
-import  { BASE_INPUT_STYLE } from '@/constants/config'
-import { ChevronLeftIcon, ChevronRightIcon, CalendarDaysIcon } from '@heroicons/react/24/outline'
-import { SelectCountry } from '../../../../profile/SelectCountry'
+import { forwardRef } from 'react';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import { ReactSelect } from '@/components/Select/ReactSelect';
+import { TIME_ZONE } from '@/constants/timezone';
+import  { BASE_INPUT_STYLE } from '@/constants/config';
+import { ChevronLeftIcon, ChevronRightIcon, CalendarDaysIcon } from '@heroicons/react/24/outline';
+import { SelectCountry } from '../../../../profile/SelectCountry';
 
 const RenderCustomInput = forwardRef(({ value, onClick }, ref) => (
   <button
@@ -38,7 +38,7 @@ const RenderCustomInput = forwardRef(({ value, onClick }, ref) => (
     <span className="flex-1">{value}</span>
     <CalendarDaysIcon className="h-5 w-5 mr-2" />
   </button>
-))
+));
 
 const renderCustomHeader = ({
   date,
@@ -77,8 +77,8 @@ const renderCustomHeader = ({
       <ChevronRightIcon className="h-4 w-4" />
     </button>
   </div>
-)
-const years = range(new Date().getFullYear()-5, new Date().getFullYear() + 10)
+);
+const years = range(new Date().getFullYear()-5, new Date().getFullYear() + 10);
 const months = [
   'January',
   'February',
@@ -92,7 +92,7 @@ const months = [
   'October',
   'November',
   'December',
-]
+];
 
 export function ChllengesForms({forms, change}) {
   return (
@@ -104,13 +104,13 @@ export function ChllengesForms({forms, change}) {
             <span
               onClick={() => change('course_challenges_extra_online', true, 'challenges')}
               className={clsx('py-1 px-6 rounded text-sm', {
-                'bg-gray text-white': forms?.course_challenges_extra_online
+                'bg-gray text-white': forms?.course_challenges_extra_online,
               })}
             >Online</span>
             <span
               onClick={() => change('course_challenges_extra_online', false, 'challenges')}
               className={clsx('py-1 px-6 rounded text-sm', {
-                'bg-gray text-white': !forms?.course_challenges_extra_online
+                'bg-gray text-white': !forms?.course_challenges_extra_online,
               })}
             >Offline</span>
           </div>
@@ -210,19 +210,19 @@ export function ChllengesForms({forms, change}) {
             <span
               onClick={() => change('course_challenges_extra_feeds_type', 'free', 'challenges')}
               className={clsx('py-1 px-6 rounded text-sm', {
-                'bg-gray text-white': forms?.course_challenges_extra_feeds_type === 'free'
+                'bg-gray text-white': forms?.course_challenges_extra_feeds_type === 'free',
               })}
             >Free</span>
             <span
               onClick={() => change('course_challenges_extra_feeds_type', 'pay', 'challenges')}
               className={clsx('py-1 px-6 rounded text-sm', {
-                'bg-gray text-white': forms?.course_challenges_extra_feeds_type === 'pay'
+                'bg-gray text-white': forms?.course_challenges_extra_feeds_type === 'pay',
               })}
             >Pay</span>
-             <span
+            <span
               onClick={() => change('course_challenges_extra_feeds_type', 'deposit', 'challenges')}
               className={clsx('py-1 px-6 rounded text-sm', {
-                'bg-gray text-white': forms?.course_challenges_extra_feeds_type === 'deposit'
+                'bg-gray text-white': forms?.course_challenges_extra_feeds_type === 'deposit',
               })}
             >Deposit</span>
           </div>
@@ -239,8 +239,8 @@ export function ChllengesForms({forms, change}) {
                   placeholder="Enter amount"
                   value={forms?.course_challenges_extra_feeds_amount}
                   onChange={e => {
-                    const val = e.target.value.replace(/[^\d]/g, '')
-                    change('course_challenges_extra_feeds_amount', val, 'challenges')
+                    const val = e.target.value.replace(/[^\d]/g, '');
+                    change('course_challenges_extra_feeds_amount', val, 'challenges');
                   }}
                   className={`${BASE_INPUT_STYLE} !border-0`}
                 />
@@ -273,5 +273,5 @@ export function ChllengesForms({forms, change}) {
         />
       </div>
     </div>
-  )
+  );
 }
