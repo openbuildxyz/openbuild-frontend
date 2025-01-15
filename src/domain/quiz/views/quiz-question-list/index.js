@@ -14,4 +14,4 @@
  * limitations under the License.
  */
 
-export { default } from './QuizQuestionList'
+export { default } from './QuizQuestionList';

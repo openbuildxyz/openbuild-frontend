@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-import clsx from 'clsx'
-import { ResponsiveContainer, Treemap } from 'recharts'
-import Image from 'next/image'
+import clsx from 'clsx';
+import { ResponsiveContainer, Treemap } from 'recharts';
+import Image from 'next/image';
 
-import AspectaPic from './aspecta.png'
+import AspectaPic from './aspecta.png';
 
-const COLORS = ['#8889DD', '#9597E4', '#8DC77B', '#A5D297', '#E2CF45', '#F8C12D']
+const COLORS = ['#8889DD', '#9597E4', '#8DC77B', '#A5D297', '#E2CF45', '#F8C12D'];
 
 function CustomizedContent(props) {
-  const { root, depth, x, y, width, height, index, colors, name } = props
+  const { root, depth, x, y, width, height, index, colors, name } = props;
 
   return (
     <g>
@@ -55,7 +55,7 @@ function CustomizedContent(props) {
         </text>
       ) : null}
     </g>
-  )
+  );
 }
 
 function SkillInsight({
@@ -63,7 +63,7 @@ function SkillInsight({
   headerClassName,
   titleClassName,
   data,
-  hideHeader = false
+  hideHeader = false,
 }) {
   return (
     <div className={className}>
@@ -84,11 +84,11 @@ function SkillInsight({
             stroke="#fff"
             fill="#8884d8"
             content={<CustomizedContent colors={COLORS} />}
-          ></Treemap>
+          />
         </ResponsiveContainer>
       </div>
     </div>
-  )
+  );
 }
 
-export default SkillInsight
+export default SkillInsight;

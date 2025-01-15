@@ -14,23 +14,23 @@
  * limitations under the License.
  */
 
-'use client'
-import { useEffect, useState } from 'react'
-import { Tabs } from '../Tabs'
-import Link from 'next/link'
-import Image from 'next/image'
-import { NoData } from '@/components/NoData'
-import Loader from '@/components/Loader'
-import { useAllSkills, useMediaUrl, useUser } from '#/state/application/hooks'
+'use client';
+import { useEffect, useState } from 'react';
+import { Tabs } from '../Tabs';
+import Link from 'next/link';
+import Image from 'next/image';
+import { NoData } from '@/components/NoData';
+import Loader from '@/components/Loader';
+import { useAllSkills, useMediaUrl, useUser } from '#/state/application/hooks';
 // import { useRouter } from 'next/navigation'
-import { EditIcon, EditingIcon, RejectIcon, CommetIcon } from '@/components/Icons'
-import { Paging } from '@/components/Paging'
-import { useSkillsList } from '#/services/dashboard/hooks'
-import { formatTime } from '@/utils/date'
-import { MouseoverTooltip } from '@/components/Tooltip'
-import { permissionsStatus } from '#/services/shilling'
-import { toast } from 'react-toastify'
-import { ContactModal } from '../../shilling/ContactModal'
+import { EditIcon, EditingIcon, RejectIcon, CommetIcon } from '@/components/Icons';
+import { Paging } from '@/components/Paging';
+import { useSkillsList } from '#/services/dashboard/hooks';
+import { formatTime } from '@/utils/date';
+import { MouseoverTooltip } from '@/components/Tooltip';
+import { permissionsStatus } from '#/services/shilling';
+import { toast } from 'react-toastify';
+import { ContactModal } from '../../shilling/ContactModal';
 
 const tabs = [
   {
@@ -41,46 +41,46 @@ const tabs = [
     name: 'I want others',
     key: 'me',
   },
-]
+];
 export default function SkillInsight() {
-  const user = useUser()
-  const skills = useAllSkills()
-  const [active, setActive] = useState('others')
-  const mediaUrl = useMediaUrl()
-  const [page, setPage] = useState(0)
-  const [modalOpen, setModalOpen] = useState(false)
+  const user = useUser();
+  const skills = useAllSkills();
+  const [active, setActive] = useState('others');
+  const mediaUrl = useMediaUrl();
+  const [page, setPage] = useState(0);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const [listParams, setListParams] = useState({
     skip: 0,
     take: 20,
     type: active,
-  })
+  });
 
   useEffect(() => {
-    setListParams({ skip: page * 20, take: 20, type: active })
-  }, [active, page])
+    setListParams({ skip: page * 20, take: 20, type: active });
+  }, [active, page]);
 
   useEffect(() => {
-    setPage(0)
-    setListParams({ skip: 0, take: 20, type: active })
-  }, [active])
+    setPage(0);
+    setListParams({ skip: 0, take: 20, type: active });
+  }, [active]);
 
-  const { list, total, loading, doFetch } = useSkillsList(listParams)
+  const { list, total, loading, doFetch } = useSkillsList(listParams);
 
   const changeStatus = async (pid, status) => {
     if (user?.base.user_id) {
-      const res = await permissionsStatus(user.base.user_id, pid, status)
+      const res = await permissionsStatus(user.base.user_id, pid, status);
       if (res.code === 200) {
-        doFetch()
+        doFetch();
       } else {
-        toast.error(res.message)
+        toast.error(res.message);
       }
     }
-  }
+  };
 
   // console.log(list)
 
-  const [permission, setPermission] = useState()
+  const [permission, setPermission] = useState();
 
   return (
     <div className="min-h-screen pb-12">
@@ -135,17 +135,17 @@ export default function SkillInsight() {
                   <li className="flex items-center">
                     {i.status === -1 && (
                       <span className="flex items-center rounded-md bg-[rgba(216,97,65,0.06)] p-2 text-[#D86141]">
-                        <i className="mr-1 inline-block h-1 w-1 rounded-full bg-[#D86141]"></i>Declined
+                        <i className="mr-1 inline-block h-1 w-1 rounded-full bg-[#D86141]" />Declined
                       </span>
                     )}
                     {(i.status === 1 || i.status === 0) && (
                       <span className="flex items-center rounded-md bg-[rgba(118,82,237,0.06)] p-2 text-[#7652ED]">
-                        <i className="mr-1 inline-block h-1 w-1 rounded-full bg-[#7652ED]"></i>Under-Review
+                        <i className="mr-1 inline-block h-1 w-1 rounded-full bg-[#7652ED]" />Under-Review
                       </span>
                     )}
                     {i.status === 3 && (
                       <span className="flex items-center rounded-md bg-[rgba(58,171,118,0.06)] p-2 text-[#3AAB76]">
-                        <i className="mr-1 inline-block h-1 w-1 rounded-full bg-[#3AAB76]"></i>Approved
+                        <i className="mr-1 inline-block h-1 w-1 rounded-full bg-[#3AAB76]" />Approved
                       </span>
                     )}
                   </li>
@@ -173,8 +173,8 @@ export default function SkillInsight() {
                       <div className="flex">
                         <div
                           onClick={() => {
-                            setModalOpen(true)
-                            setPermission(i.skills_permission_ext)
+                            setModalOpen(true);
+                            setPermission(i.skills_permission_ext);
                           }}
                           className="group mr-3 flex cursor-pointer items-center"
                         >
@@ -203,5 +203,5 @@ export default function SkillInsight() {
       </div>
       <ContactModal open={modalOpen} closeModal={() => setModalOpen(false)} permission={permission} />
     </div>
-  )
+  );
 }

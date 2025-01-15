@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-'use client'
-import { Button } from '@/components/Button'
-import { ViewModal } from './ViewModal'
-import { ManageModal } from './ManageModal'
-import { useState, useCallback } from 'react'
-import { Select } from '@/components/Select'
-import { useBountyList } from '#/services/dashboard/hooks'
-import Loader from '@/components/Loader'
-import useInfiniteScroll from 'react-infinite-scroll-hook'
-import { NoData } from '@/components/NoData'
-import { useConfig } from '#/state/application/hooks'
-import { formatTime } from '@/utils/date'
+'use client';
+import { Button } from '@/components/Button';
+import { ViewModal } from './ViewModal';
+import { ManageModal } from './ManageModal';
+import { useState, useCallback } from 'react';
+import { Select } from '@/components/Select';
+import { useBountyList } from '#/services/dashboard/hooks';
+import Loader from '@/components/Loader';
+import useInfiniteScroll from 'react-infinite-scroll-hook';
+import { NoData } from '@/components/NoData';
+import { useConfig } from '#/state/application/hooks';
+import { formatTime } from '@/utils/date';
 
 const options = [
   {
@@ -52,27 +52,27 @@ const options = [
     name: 'Termination',
     key: 120,
   },
-]
+];
 
 export default function Page() {
-  const config = useConfig()
-  const filters = config?.find(f => f.config_id === 1)?.config_value['bounty']?.find(f => f.name === 'Ecosystem')?.labels
+  const config = useConfig();
+  const filters = config?.find(f => f.config_id === 1)?.config_value['bounty']?.find(f => f.name === 'Ecosystem')?.labels;
 
-  const [current, setCurrent] = useState()
+  const [current, setCurrent] = useState();
 
-  const [viewModalOpen, setViewModalOpen] = useState(false)
-  const [manageModalOpen, setManageModalOpen] = useState(false)
-  const [modalType, setModalType] = useState('Manage')
-  const [status, setStatus] = useState('')
-  const [title, setTitle] = useState('')
+  const [viewModalOpen, setViewModalOpen] = useState(false);
+  const [manageModalOpen, setManageModalOpen] = useState(false);
+  const [modalType, setModalType] = useState('Manage');
+  const [status, setStatus] = useState('');
+  const [title, setTitle] = useState('');
 
   const [listParams, setListParams] = useState({
     title: '',
     status: '',
     skip: 0,
     take: 20,
-  })
-  const { loading, list, hasNextPage, doSetList } = useBountyList(listParams)
+  });
+  const { loading, list, hasNextPage, doSetList } = useBountyList(listParams);
 
   const [sentryRef] = useInfiniteScroll({
     loading,
@@ -80,26 +80,26 @@ export default function Page() {
     onLoadMore,
     delayInMs: 300,
     rootMargin: '0px 0px 400px 0px',
-  })
+  });
   function onLoadMore() {
-    setListParams({ ...listParams, skip: listParams.skip + 20 })
+    setListParams({ ...listParams, skip: listParams.skip + 20 });
   }
 
   const changeStatusCallback = useCallback((id, status) => {
-    const _list = [...list]
-      const item = _list.find(f => f.id === id)
-      if (item) {
-        item.status = status
-        const fixedList = _list.map(m => {
-          if (m.id === id) {
-            return { ...item }
-          } else {
-            return m
-          }
-        })
-        doSetList(fixedList)
-      }
-  }, [doSetList, list])
+    const _list = [...list];
+    const item = _list.find(f => f.id === id);
+    if (item) {
+      item.status = status;
+      const fixedList = _list.map(m => {
+        if (m.id === id) {
+          return { ...item };
+        } else {
+          return m;
+        }
+      });
+      doSetList(fixedList);
+    }
+  }, [doSetList, list]);
 
   return (
     <div className="pb-12">
@@ -152,13 +152,13 @@ export default function Page() {
               <div className="">
                 <h3 className="mb-1">{i.bounty_info.title}</h3>
                 <p className="text-sm opacity-80">
-                {i.bounty_info.ecosystem && (
-                  <span
-                    className="mr-2 rounded-sm bg-gray-600 px-1 py-[2px] text-xs text-gray"
-                  >
-                    {filters?.find(f => f.id === i.bounty_info.ecosystem)?.name}
-                  </span>
-                )}
+                  {i.bounty_info.ecosystem && (
+                    <span
+                      className="mr-2 rounded-sm bg-gray-600 px-1 py-[2px] text-xs text-gray"
+                    >
+                      {filters?.find(f => f.id === i.bounty_info.ecosystem)?.name}
+                    </span>
+                  )}
                 </p>
               </div>
             </li>
@@ -186,8 +186,8 @@ export default function Page() {
                     variant="contained"
                     className="h-9"
                     onClick={() => {
-                      setCurrent(i)
-                      setViewModalOpen(true)
+                      setCurrent(i);
+                      setViewModalOpen(true);
                     }}>
                     View
                   </Button>
@@ -198,9 +198,9 @@ export default function Page() {
                   variant="contained"
                   className="h-9"
                   onClick={() => {
-                    setCurrent(i)
-                    setModalType('Manage')
-                    setManageModalOpen(true)
+                    setCurrent(i);
+                    setModalType('Manage');
+                    setManageModalOpen(true);
                   }}
                 >
                   Manage
@@ -224,7 +224,7 @@ export default function Page() {
       ))}
 
       {current && <ViewModal item={current} open={viewModalOpen} closeModal={() => setViewModalOpen(false)} />}
-      {current && <ManageModal bounty={current?.bounty_info} callback={(status) => changeStatusCallback(current.id, status)} open={manageModalOpen} closeModal={() => setManageModalOpen(false)} type={modalType} />}
+      {current && <ManageModal bounty={current?.bounty_info} callback={status => changeStatusCallback(current.id, status)} open={manageModalOpen} closeModal={() => setManageModalOpen(false)} type={modalType} />}
       {loading && (
         <div className="flex justify-center">
           <Loader color="#1a1a1a" />
@@ -245,5 +245,5 @@ export default function Page() {
 
       {(loading || hasNextPage) && listParams.skip < 80 && <div ref={sentryRef} />}
     </div>
-  )
+  );
 }

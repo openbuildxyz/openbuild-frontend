@@ -14,71 +14,71 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import useSWR from 'swr'
-import { useState } from 'react'
+import useSWR from 'swr';
+import { useState } from 'react';
 
-import { PAGE_SIZE } from '@/constants/config'
-import { OpenCourseList } from './OpenCourseList'
-import { ChallengesList } from './ChallengesList'
-import { NoData } from '@/components/NoData'
-import { Search } from './Search'
-import { CommonListSkeleton } from '@/components/Skeleton/CommonListSkeleton'
-import { OPagination } from '@/components/Pagination'
-import { useConfig } from '#/state/application/hooks'
-import { fetcher } from '@/utils/request'
-import { seriesStatus, deleteSeries } from '#/services/creator'
-import { toast } from 'react-toastify'
+import { PAGE_SIZE } from '@/constants/config';
+import { OpenCourseList } from './OpenCourseList';
+import { ChallengesList } from './ChallengesList';
+import { NoData } from '@/components/NoData';
+import { Search } from './Search';
+import { CommonListSkeleton } from '@/components/Skeleton/CommonListSkeleton';
+import { OPagination } from '@/components/Pagination';
+import { useConfig } from '#/state/application/hooks';
+import { fetcher } from '@/utils/request';
+import { seriesStatus, deleteSeries } from '#/services/creator';
+import { toast } from 'react-toastify';
 
 export default function CreatorLearn({ params, searchParams }) {
-  const page = Number(searchParams?.page) || 1
-  const status = searchParams?.status || ''
-  const query = searchParams?.query || ''
-  const learnType = params.type === 'opencourse' ? 'open_course' : 'challenges'
-  const url = `v1/learn/creator/series?series_type=${learnType}&skip=${(page - 1) * PAGE_SIZE}&take=${PAGE_SIZE}&status=${status}&title=${query}&order=latest`
-  const { data, isLoading, mutate } = useSWR(url, fetcher)
-  const config = useConfig()
+  const page = Number(searchParams?.page) || 1;
+  const status = searchParams?.status || '';
+  const query = searchParams?.query || '';
+  const learnType = params.type === 'opencourse' ? 'open_course' : 'challenges';
+  const url = `v1/learn/creator/series?series_type=${learnType}&skip=${(page - 1) * PAGE_SIZE}&take=${PAGE_SIZE}&status=${status}&title=${query}&order=latest`;
+  const { data, isLoading, mutate } = useSWR(url, fetcher);
+  const config = useConfig();
 
 
-  const [operationLoading, setOperationLoading] = useState(null)
+  const [operationLoading, setOperationLoading] = useState(null);
 
   const changeSeriesStatus = async (id, status, type) => {
-    if (!id) return
-    setOperationLoading(id)
-    let res
+    if (!id) return;
+    setOperationLoading(id);
+    let res;
     if (type === 'delete') {
-      res = await deleteSeries({ id, status })
+      res = await deleteSeries({ id, status });
     } else {
-      res = await seriesStatus({ id, status })
+      res = await seriesStatus({ id, status });
     }
     if (res?.code === 200 || type === 'delete') {
-      let _list
+      let _list;
       if (type === 'delete') {
-        _list = data.list.filter(f => f.base.course_series_id !== id)
+        _list = data.list.filter(f => f.base.course_series_id !== id);
       } else {
         _list = data.list.map(i => {
           if (i.base.course_series_id === id) {
-            i.base.course_series_status = status
-            return { ...i }
+            i.base.course_series_status = status;
+            return { ...i };
           } else {
-            return { ...i }
+            return { ...i };
           }
-        })
+        });
       }
-      mutate({...data, list: _list})
+      mutate({...data, list: _list});
     } else {
-      toast.error(res.message)
+      toast.error(res.message);
     }
-    setOperationLoading(null)
-  }
+    setOperationLoading(null);
+  };
 
-  const itemTags = (tagIds) => {
-    const filters = config?.find(f => f.config_id === 1)?.config_value[params.type]
-    const allLabels = filters?.map(f => f.labels).flat(2)
-    const _tags = tagIds?.map(s => allLabels?.find(f => f.id === Number(s)))
-    return Array.from(new Set(_tags))
-  }
+  const itemTags = tagIds => {
+    const filters = config?.find(f => f.config_id === 1)?.config_value[params.type];
+    const allLabels = filters?.map(f => f.labels).flat(2);
+    const _tags = tagIds?.map(s => allLabels?.find(f => f.id === Number(s)));
+    return Array.from(new Set(_tags));
+  };
 
   return (
     <div className="flex-1 p-10">
@@ -96,5 +96,5 @@ export default function CreatorLearn({ params, searchParams }) {
       </div>}
 
     </div>
-  )
+  );
 }

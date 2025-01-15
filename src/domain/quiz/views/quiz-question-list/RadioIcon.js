@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import clsx from 'clsx'
+import clsx from 'clsx';
 
 function RadioIcon({ className, checked }) {
   return checked ? (
@@ -27,7 +27,7 @@ function RadioIcon({ className, checked }) {
     <svg className={className} width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
       <rect opacity="0.1" x="0.5" y="0.5" width="17" height="17" rx="8.5" stroke="black" />
     </svg>
-  )
+  );
 }
 
-export default RadioIcon
+export default RadioIcon;

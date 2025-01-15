@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import React from 'react'
+import React from 'react';
 
 export const ForesightVenturesIcon = () => {
   return (
@@ -101,8 +101,8 @@ export const ForesightVenturesIcon = () => {
         </clipPath>
       </defs>
     </svg>
-  )
-}
+  );
+};
 export const SuiIcon = () => {
   return (
     <svg width="116" height="60" viewBox="0 0 116 60" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -138,8 +138,8 @@ export const SuiIcon = () => {
         </clipPath>
       </defs>
     </svg>
-  )
-}
+  );
+};
 export const BitKeepIcon = () => {
   return (
     <svg width="208" height="60" viewBox="0 0 208 60" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -190,8 +190,8 @@ export const BitKeepIcon = () => {
         fill="#979797"
       />
     </svg>
-  )
-}
+  );
+};
 export const AlchemyPayIcon = () => {
   return (
     <svg width="280" height="55" viewBox="0 0 280 55" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -286,8 +286,8 @@ export const AlchemyPayIcon = () => {
         fill="#979797"
       />
     </svg>
-  )
-}
+  );
+};
 export const ForesightNewsIcon = () => {
   return (
     <svg width="198" height="61" viewBox="0 0 198 61" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -361,8 +361,8 @@ export const ForesightNewsIcon = () => {
         </clipPath>
       </defs>
     </svg>
-  )
-}
+  );
+};
 export const LinkIcon = () => {
   return (
     <svg width="196" height="60" viewBox="0 0 196 60" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -411,8 +411,8 @@ export const LinkIcon = () => {
         </clipPath>
       </defs>
     </svg>
-  )
-}
+  );
+};
 export const ScrollIcon = () => {
   return (
     <svg width="148" height="60" viewBox="0 0 148 60" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -552,8 +552,8 @@ export const ScrollIcon = () => {
         fill="#999999"
       />
     </svg>
-  )
-}
+  );
+};
 
 export const WalletConnectIcon = () => {
   return (
@@ -645,8 +645,8 @@ export const WalletConnectIcon = () => {
         fill="#979797"
       />
     </svg>
-  )
-}
+  );
+};
 export const ForesightXIcon = () => {
   return (
     <svg width="260" height="56" viewBox="0 0 260 56" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -704,8 +704,8 @@ export const ForesightXIcon = () => {
         </clipPath>
       </defs>
     </svg>
-  )
-}
+  );
+};
 
 export const ProximityIcon = () => {
   return (
@@ -754,8 +754,8 @@ export const ProximityIcon = () => {
         </clipPath>
       </defs>
     </svg>
-  )
-}
+  );
+};
 
 export const SolanaIcon = () => {
   return (
@@ -836,8 +836,8 @@ export const SolanaIcon = () => {
         />
       </g>
     </svg>
-  )
-}
+  );
+};
 
 export const InterchainIcon = props => {
   return (
@@ -947,8 +947,8 @@ export const InterchainIcon = props => {
         strokeWidth="1.09091"
       />
     </svg>
-  )
-}
+  );
+};
 
 export const ConsensysIcon = () => {
   return (
@@ -985,8 +985,8 @@ export const ConsensysIcon = () => {
         </clipPath>
       </defs>
     </svg>
-  )
-}
+  );
+};
 
 export const SubqueryIcon = () => {
   return (
@@ -1039,8 +1039,8 @@ export const SubqueryIcon = () => {
         </clipPath>
       </defs>
     </svg>
-  )
-}
+  );
+};
 
 export const SmartTokenIcon = () => {
   return (
@@ -1123,8 +1123,8 @@ export const SmartTokenIcon = () => {
         </clipPath>
       </defs>
     </svg>
-  )
-}
+  );
+};
 
 export const GitcoinIcon = () => {
   return (
@@ -1157,8 +1157,8 @@ export const GitcoinIcon = () => {
         fill="#979797"
       />
     </svg>
-  )
-}
+  );
+};
 
 export const BNBChainIcon = () => {
   return (
@@ -1204,8 +1204,8 @@ export const BNBChainIcon = () => {
         </clipPath>
       </defs>
     </svg>
-  )
-}
+  );
+};
 
 export const ConfluxIcon = props => {
   return (
@@ -1247,8 +1247,8 @@ export const ConfluxIcon = props => {
         fill="#979797"
       />
     </svg>
-  )
-}
+  );
+};
 
 export const EthStorageIcon = props => {
   return (
@@ -1306,8 +1306,8 @@ export const EthStorageIcon = props => {
         </clipPath>
       </defs>
     </svg>
-  )
-}
+  );
+};
 
 export const SeiIcon = props => {
   return (
@@ -1338,5 +1338,5 @@ export const SeiIcon = props => {
         </clipPath>
       </defs>
     </svg>
-  )
-}
+  );
+};

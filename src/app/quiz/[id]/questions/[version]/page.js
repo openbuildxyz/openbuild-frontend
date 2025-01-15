@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import QuizQuestionListView from '#/domain/quiz/views/quiz-question-list'
+import QuizQuestionListView from '#/domain/quiz/views/quiz-question-list';
 
 export default function QuizDetails({ params }) {
   return (
     <QuizQuestionListView id={params.id} version={params.version} />
-  )
+  );
 }

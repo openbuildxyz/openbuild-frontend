@@ -14,6 +14,6 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-export { default } from '#/domain/profile/views/team-profile'
+export { default } from '#/domain/profile/views/team-profile';

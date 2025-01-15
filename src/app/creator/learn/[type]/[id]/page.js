@@ -14,100 +14,100 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import clsx from 'clsx'
+import clsx from 'clsx';
 // import Image from 'next/image'
-import Link from 'next/link'
-import { useMemo, useState, useCallback, useEffect, useRef } from 'react'
-import { CreatorLearnStepOne } from './StepOne'
-import { CreatorLearnStepTwo } from './StepTwo'
-import { CreatorLearnStepThree } from './StepThree'
-import { CreatorLearnStepFour } from './StepFour'
-import { CreatorLearnStepFive } from './StepFive'
+import Link from 'next/link';
+import { useMemo, useState, useCallback, useEffect, useRef } from 'react';
+import { CreatorLearnStepOne } from './StepOne';
+import { CreatorLearnStepTwo } from './StepTwo';
+import { CreatorLearnStepThree } from './StepThree';
+import { CreatorLearnStepFour } from './StepFour';
+import { CreatorLearnStepFive } from './StepFive';
 
-import { useRouter } from 'next/navigation'
-import { ArrowLeftIcon } from '@/components/Icons'
-import { ChevronDoubleLeftIcon } from '@heroicons/react/20/solid'
+import { useRouter } from 'next/navigation';
+import { ArrowLeftIcon } from '@/components/Icons';
+import { ChevronDoubleLeftIcon } from '@heroicons/react/20/solid';
 // import PreviewIcon from 'public/images/svg/preview.svg'
 
-import { addSeries, seriesStatus } from '#/services/creator'
-import { Button } from '@/components/Button'
-import { toast } from 'react-toastify'
+import { addSeries, seriesStatus } from '#/services/creator';
+import { Button } from '@/components/Button';
+import { toast } from 'react-toastify';
 
-import { Sections } from './Sections'
+import { Sections } from './Sections';
 // import { useDebouncedCallback } from 'use-debounce'
-import { useAsyncState } from '@/hooks/useAsyncState'
-import useInterval from '@/hooks/useInterval'
+import { useAsyncState } from '@/hooks/useAsyncState';
+import useInterval from '@/hooks/useInterval';
 
-import { fetchOne as fetchCourse } from '#/domain/course/repository'
-import { fetchOne as fetchChallenge } from '#/domain/challenge/repository'
+import { fetchOne as fetchCourse } from '#/domain/course/repository';
+import { fetchOne as fetchChallenge } from '#/domain/challenge/repository';
 
 export default function LearnPublish({ params }) {
-  const [open, setOpen] = useState(true)
-  const { replace, push } = useRouter()
-  const [isLoading, setIsLoading] = useState(false)
-  const [data, setData] = useState(undefined)
+  const [open, setOpen] = useState(true);
+  const { replace, push } = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
+  const [data, setData] = useState(undefined);
 
-  const [contents, setContents] = useAsyncState()
-  const [saved, setSaved] = useState(false)
-  const [saving, setSaving] = useState(false)
-  const [publishing, setPublishing] = useState(false)
+  const [contents, setContents] = useAsyncState();
+  const [saved, setSaved] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [publishing, setPublishing] = useState(false);
 
-  const saveCallback = useCallback(async(isLoading) => {
+  const saveCallback = useCallback(async isLoading => {
     if (isLoading) {
-      setSaving(true)
+      setSaving(true);
     }
-    setSaved(false)
+    setSaved(false);
     // console.log(contents)
-    const res = await addSeries({...contents})
-    setSaving(false)
+    const res = await addSeries({...contents});
+    setSaving(false);
     if (res.code !== 200) {
-      toast.error(res.message)
-      setSaved(false)
+      toast.error(res.message);
+      setSaved(false);
     } else {
       // await mutate({ ...res.data })
-      setSaved(true)
+      setSaved(true);
     }
-  }, [contents])
+  }, [contents]);
 
   useEffect(() => {
     if (saved) {
-      const timer = setTimeout(() => setSaved(false), 2000)
+      const timer = setTimeout(() => setSaved(false), 2000);
       return () => {
-        clearTimeout(timer)
-      }
+        clearTimeout(timer);
+      };
     }
-  })
+  });
 
   useEffect(() => {
-    setContents(data)
-  }, [data, setContents])
+    setContents(data);
+  }, [data, setContents]);
 
   const change = useCallback(
     async (key, value, type) => {
-      let forms = { ...data }
+      let forms = { ...data };
       if (type === 'challenges') {
-        forms.challenges_extra[key] = value
+        forms.challenges_extra[key] = value;
       } else if (key === 'courses') {
-        forms.courses = value
+        forms.courses = value;
       } else if (key === 'speaker') {
-        forms.speaker = value
+        forms.speaker = value;
       } else if (key === 'survey') {
-        console.log(value, 'valuevaluevaluevaluevaluevalue')
-        forms = value
+        console.log(value, 'valuevaluevaluevaluevaluevalue');
+        forms = value;
 
       } else {
         if (key === 'course_series_label_ids') {
-          const _val = value.filter(f => f !== '')
-          forms.base[key] = Array.from(new Set(_val))
+          const _val = value.filter(f => f !== '');
+          forms.base[key] = Array.from(new Set(_val));
         } else {
-          forms.base[key] = value
+          forms.base[key] = value;
         }
       }
-      await setContents(prevState => ({...prevState, ...forms}))
+      await setContents(prevState => ({...prevState, ...forms}));
     }, [data, setContents]
-  )
+  );
 
   const Tabs = useMemo(() => {
     const _menus = [{
@@ -124,72 +124,72 @@ export default function LearnPublish({ params }) {
     },{
       name: 'Editorial Speaker',
       id: 'four',
-    }]
-    params.type === 'challenges' && _menus.push({ name: 'Application Forms', id: 'five', })
-    return _menus
-  }, [params])
+    }];
+    params.type === 'challenges' && _menus.push({ name: 'Application Forms', id: 'five' });
+    return _menus;
+  }, [params]);
 
   const sections = [
     {
       title: 'one',
-      content: CreatorLearnStepOne
+      content: CreatorLearnStepOne,
     },
     {
       title: 'two',
-      content: CreatorLearnStepTwo
+      content: CreatorLearnStepTwo,
     },
     {
       title: 'three',
-      content: CreatorLearnStepThree
+      content: CreatorLearnStepThree,
     },
     {
       title: 'four',
-      content: CreatorLearnStepFour
+      content: CreatorLearnStepFour,
     },
     {
       title: 'five',
-      content: CreatorLearnStepFive
-    }
-  ]
+      content: CreatorLearnStepFive,
+    },
+  ];
 
   const [visibleSection, setVisibleSection] = useState('one');
-  const tabsRef = useRef()
+  const tabsRef = useRef();
 
   useEffect(() => {
     window.addEventListener('scroll', () => {
-      const scrollTop = document.documentElement.scrollTop
-      const twoTop = document.getElementById('two')?.offsetTop
-      const threeTop = document.getElementById('three')?.offsetTop
-      const fourTop = document.getElementById('four')?.offsetTop
-      const fiveTop = document.getElementById('five')?.offsetTop
+      const scrollTop = document.documentElement.scrollTop;
+      const twoTop = document.getElementById('two')?.offsetTop;
+      const threeTop = document.getElementById('three')?.offsetTop;
+      const fourTop = document.getElementById('four')?.offsetTop;
+      const fiveTop = document.getElementById('five')?.offsetTop;
 
       if (scrollTop <= 32) {
-        setVisibleSection('one')
+        setVisibleSection('one');
       }
       if (scrollTop >= twoTop && scrollTop < threeTop) {
-        setVisibleSection('two')
+        setVisibleSection('two');
       }
       if (scrollTop >= threeTop && scrollTop < fourTop) {
-        setVisibleSection('three')
+        setVisibleSection('three');
       }
       if (scrollTop >= fourTop) {
-        setVisibleSection('four')
+        setVisibleSection('four');
       }
       if (scrollTop >= fiveTop) {
-        setVisibleSection('five')
+        setVisibleSection('five');
       }
-    })
+    });
 
     if (isLoading) {
-      return
+      return;
     }
 
-    const fetchDetail = params.type === 'challenges' ? fetchChallenge : fetchCourse
+    const fetchDetail = params.type === 'challenges' ? fetchChallenge : fetchCourse;
 
     fetchDetail(params.id)
       .then(res => res.success && setData(res.data))
-      .finally(() => setIsLoading(false))
-  }, [])
+      .finally(() => setIsLoading(false));
+  }, []);
 
   useInterval(() => {
     if (contents) {
@@ -200,32 +200,32 @@ export default function LearnPublish({ params }) {
         .then(res => {
           if (res.code === 403) {
             toast.error(res.message, {
-              onClose: () => replace('/')
-            })
+              onClose: () => replace('/'),
+            });
           }
-        })
+        });
     }
-  }, 10000)
+  }, 10000);
 
   const publish  = async () => {
-    setPublishing(true)
-    const res = await seriesStatus({ id: params.id, status: 4 })
-    setPublishing(false)
+    setPublishing(true);
+    const res = await seriesStatus({ id: params.id, status: 4 });
+    setPublishing(false);
     if (res?.code === 200) {
-      push(`/creator/learn/${params.type}`)
-      console.log('success')
+      push(`/creator/learn/${params.type}`);
+      console.log('success');
     } else {
-      toast.error(res.message)
+      toast.error(res.message);
     }
-  }
+  };
 
   return (
     <div id="creator" className="relative flex w-full">
       {isLoading && <div className="fixed w-screen h-screen top-0 left-0 flex items-center justify-center z-[999999999] bg-gray-1100">
-        <span className="loading loading-spinner loading-lg"></span>
+        <span className="loading loading-spinner loading-lg" />
       </div>}
       <div onClick={() => setOpen(!open)} className={clsx('fixed z-10 left-[405px] top-[110px] w-9 h-9 transition-all !duration-500 border border-gray-400 rounded-full flex items-center justify-center bg-[#F8F8F8] cursor-pointer', {
-        'left-[337px]': open
+        'left-[337px]': open,
       })}>
         <ChevronDoubleLeftIcon className={clsx('h-[14px] w-[14px] opacity-40 transition-all !duration-500', { 'rotate-180': !open })} />
       </div>
@@ -235,10 +235,10 @@ export default function LearnPublish({ params }) {
         )}>
           <div className={clsx('overflow-hidden transition-all !duration-500 pl-1', {
             'w-full': open,
-            'w-0': !open
+            'w-0': !open,
           })}>
             <div className="flex items-center mb-6 text-sm cursor-pointer" onClick={() => {
-              replace(`/creator/learn/${params.type}`)
+              replace(`/creator/learn/${params.type}`);
             }}>
               <ArrowLeftIcon className="mr-2" />
               Back
@@ -247,12 +247,12 @@ export default function LearnPublish({ params }) {
               {Tabs.map((i, k) => (
                 <div
                   onClick={() => {
-                    const ele = document.getElementById(i.id)
+                    const ele = document.getElementById(i.id);
                     window.scrollTo({
                       left: 0,
                       top: ele.offsetTop,
                       behavior: 'smooth',
-                    })
+                    });
                   }}
                   key={`learn-creator-tab-${k}`}
                   className={clsx(
@@ -264,20 +264,20 @@ export default function LearnPublish({ params }) {
                   )}
                 >
                   <span className={clsx(
-                      'h-[42px] w-[42px] top-[5px] z-10 mr-3 flex items-center justify-center rounded-full bg-[#F8F8F8] ring-1 ring-gray text-sm font-bold',
-                      {
-                        '!bg-[#ECECEC] !ring-0': visibleSection !== i.id,
-                        '!bg-gray text-white': visibleSection === i.id,
-                      }
+                    'h-[42px] w-[42px] top-[5px] z-10 mr-3 flex items-center justify-center rounded-full bg-[#F8F8F8] ring-1 ring-gray text-sm font-bold',
+                    {
+                      '!bg-[#ECECEC] !ring-0': visibleSection !== i.id,
+                      '!bg-gray text-white': visibleSection === i.id,
+                    }
 
-                    )}>
-                      {
-                        visibleSection === i.title ?
+                  )}>
+                    {
+                      visibleSection === i.title ?
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path d="M4.16669 10.0007L8.33335 14.1673L16.6667 5.83398" stroke="#1A1A1A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                         </svg>
                         : k + 1
-                      }
+                    }
 
                   </span>
                   <div className="flex-1">
@@ -317,5 +317,5 @@ export default function LearnPublish({ params }) {
         </Button>
       </div>
     </div>
-  )
+  );
 }

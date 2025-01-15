@@ -14,26 +14,26 @@
  * limitations under the License.
  */
 
-import '@/styles/all.scss'
-import 'animate.css'
-import 'react-toastify/scss/main.scss'
-import 'highlight.js/styles/vs.css'
-import 'github-markdown-css/github-markdown-light.css'
+import '@/styles/all.scss';
+import 'animate.css';
+import 'react-toastify/scss/main.scss';
+import 'highlight.js/styles/vs.css';
+import 'github-markdown-css/github-markdown-light.css';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import 'aos/dist/aos.css'
+import 'aos/dist/aos.css';
 
-import { SpeedInsights } from '@vercel/speed-insights/next'
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
-import { nunito_sans } from '#/lib/font'
-import { siteConfig } from '#/lib/site'
-import { getConfigs } from '#/services/common'
+import { nunito_sans } from '#/lib/font';
+import { siteConfig } from '#/lib/site';
+import { getConfigs } from '#/services/common';
 
-import { GoogleAnalytics } from '@/components/GoogleAnalytics'
+import { GoogleAnalytics } from '@/components/GoogleAnalytics';
 // import { StartOnOpenBuild } from '@/components/StartOnOpenBuild'
 
-import DefaultLayout from '../entry/layouts/default'
-import ClientEntry from '../entry'
+import DefaultLayout from '../entry/layouts/default';
+import ClientEntry from '../entry';
 
 export const metadata = {
   metadataBase: new URL('https://openbuild.xyz'),
@@ -98,10 +98,10 @@ export const metadata = {
     maximumScale: 1,
     userScalable: false,
   },
-}
+};
 
 export default async function RootLayout({ children }) {
-  const configRes = await getConfigs()
+  const configRes = await getConfigs();
 
   return (
     <html lang="en" data-theme="light" className={`${nunito_sans.className} light`} suppressHydrationWarning>
@@ -113,5 +113,5 @@ export default async function RootLayout({ children }) {
         <SpeedInsights />
       </body>
     </html>
-  )
+  );
 }

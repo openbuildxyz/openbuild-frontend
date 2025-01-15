@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import { Check, ChevronDown } from 'lucide-react'
-import { EditorBubbleItem, useEditor } from 'novel'
+import { Check, ChevronDown } from 'lucide-react';
+import { EditorBubbleItem, useEditor } from 'novel';
 
-import { Button } from './Button'
-import { Popover, PopoverContent, PopoverTrigger } from './Popover'
+import { Button } from './Button';
+import { Popover, PopoverContent, PopoverTrigger } from './Popover';
 
 const TEXT_COLORS = [
   {
@@ -57,7 +57,7 @@ const TEXT_COLORS = [
     name: 'Gray',
     color: '#A8A29E',
   },
-]
+];
 
 const HIGHLIGHT_COLORS = [
   {
@@ -96,15 +96,15 @@ const HIGHLIGHT_COLORS = [
     name: 'Gray',
     color: 'var(--novel-highlight-gray)',
   },
-]
+];
 
 export const ColorSelector = ({ open, onOpenChange }) => {
-  const { editor } = useEditor()
+  const { editor } = useEditor();
 
-  if (!editor) return null
-  const activeColorItem = TEXT_COLORS.find(({ color }) => editor.isActive('textStyle', { color }))
+  if (!editor) return null;
+  const activeColorItem = TEXT_COLORS.find(({ color }) => editor.isActive('textStyle', { color }));
 
-  const activeHighlightItem = HIGHLIGHT_COLORS.find(({ color }) => editor.isActive('highlight', { color }))
+  const activeHighlightItem = HIGHLIGHT_COLORS.find(({ color }) => editor.isActive('highlight', { color }));
 
   return (
     <Popover modal={true} open={open} onOpenChange={onOpenChange}>
@@ -134,14 +134,14 @@ export const ColorSelector = ({ open, onOpenChange }) => {
             <EditorBubbleItem
               key={name}
               onSelect={() => {
-                editor.commands.unsetColor()
+                editor.commands.unsetColor();
                 name !== 'Default' &&
                   editor
                     .chain()
                     .focus()
                     .setColor(color || '')
-                    .run()
-                onOpenChange(false)
+                    .run();
+                onOpenChange(false);
               }}
               className="flex cursor-pointer items-center justify-between px-2 py-1 text-sm hover:bg-accent"
             >
@@ -160,9 +160,9 @@ export const ColorSelector = ({ open, onOpenChange }) => {
             <EditorBubbleItem
               key={name}
               onSelect={() => {
-                editor.commands.unsetHighlight()
-                name !== 'Default' && editor.chain().focus().setHighlight({ color }).run()
-                onOpenChange(false)
+                editor.commands.unsetHighlight();
+                name !== 'Default' && editor.chain().focus().setHighlight({ color }).run();
+                onOpenChange(false);
               }}
               className="flex cursor-pointer items-center justify-between px-2 py-1 text-sm hover:bg-accent"
             >
@@ -178,5 +178,5 @@ export const ColorSelector = ({ open, onOpenChange }) => {
         </div>
       </PopoverContent>
     </Popover>
-  )
-}
+  );
+};

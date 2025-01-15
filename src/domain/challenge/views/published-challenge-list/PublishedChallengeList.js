@@ -14,23 +14,23 @@
  * limitations under the License.
  */
 
-import LoadableList from '@/components/loadable-list'
+import LoadableList from '@/components/loadable-list';
 
-import { useViewingSelf } from '../../../auth/hooks'
+import { useViewingSelf } from '../../../auth/hooks';
 
-import { fetchPublishedChallengeList } from '../../repository'
-import PublishedChallengeItem from './PublishedChallengeItem'
+import { fetchPublishedChallengeList } from '../../repository';
+import PublishedChallengeItem from './PublishedChallengeItem';
 
 function PublishedChallengeList({ list, viewingSelf }) {
   return (
     <div>
       {list.map((item, idx) => <PublishedChallengeItem key={`challenge-${idx}`} data={item} viewingSelf={viewingSelf} />)}
     </div>
-  )
+  );
 }
 
 function PublishedChallengeListView({ params }) {
-  const viewingSelf = useViewingSelf(params?.userId)
+  const viewingSelf = useViewingSelf(params?.userId);
 
   return (
     <LoadableList
@@ -39,7 +39,7 @@ function PublishedChallengeListView({ params }) {
       resolveResponse={res => ({ list: res.data.list, total: res.data.count })}
       renderList={list => <PublishedChallengeList list={list} viewingSelf={viewingSelf} />}
     />
-  )
+  );
 }
 
-export default PublishedChallengeListView
+export default PublishedChallengeListView;

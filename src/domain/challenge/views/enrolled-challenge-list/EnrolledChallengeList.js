@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-import LoadableList from '@/components/loadable-list'
+import LoadableList from '@/components/loadable-list';
 
-import { fetchEnrolledChallengeList } from '../../repository'
-import EnrolledChallengeItem from './EnrolledChallengeItem'
+import { fetchEnrolledChallengeList } from '../../repository';
+import EnrolledChallengeItem from './EnrolledChallengeItem';
 
 function EnrolledChallengeList({ list }) {
   return (
     <div>
       {list.map(({ series }, idx) => <EnrolledChallengeItem key={`challenge-${idx}`} data={series} />)}
     </div>
-  )
+  );
 }
 
 function EnrolledChallengeListView({ params }) {
@@ -35,7 +35,7 @@ function EnrolledChallengeListView({ params }) {
       resolveResponse={res => ({ list: res.data.list, total: res.data.count })}
       renderList={list => <EnrolledChallengeList list={list} />}
     />
-  )
+  );
 }
 
-export default EnrolledChallengeListView
+export default EnrolledChallengeListView;

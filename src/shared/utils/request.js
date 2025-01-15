@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import { getServerSession } from 'next-auth'
-import { getSession } from 'next-auth/react'
+import { getServerSession } from 'next-auth';
+import { getSession } from 'next-auth/react';
 
-import { authOptions } from '../../lib/auth'
+import { authOptions } from '../../lib/auth';
 
 const DEFAULT_PARAMS = {
   mode: 'cors',
@@ -25,47 +25,47 @@ const DEFAULT_PARAMS = {
   credentials: 'same-origin',
   redirect: 'follow',
   referrerPolicy: 'no-referrer',
-}
+};
 
 function removeEndSlashes(str) {
-  const tailRemoved = str.endsWith('/') ? str.slice(0, -1) : str
+  const tailRemoved = str.endsWith('/') ? str.slice(0, -1) : str;
 
-  return tailRemoved.startsWith('/') ? tailRemoved.slice(1) : tailRemoved
+  return tailRemoved.startsWith('/') ? tailRemoved.slice(1) : tailRemoved;
 }
 
 function resolveRequestUrl(baseUrl, url) {
-  const globalBaseUrl = removeEndSlashes(process.env.NEXT_PUBLIC_API_BASE_URL)
-  const clientBaseUrl = baseUrl && baseUrl !== '/' ? `/${removeEndSlashes(baseUrl)}` : ''
-  const prefixedUrl = url.startsWith('/') ? url : `/${url}`
+  const globalBaseUrl = removeEndSlashes(process.env.NEXT_PUBLIC_API_BASE_URL);
+  const clientBaseUrl = baseUrl && baseUrl !== '/' ? `/${removeEndSlashes(baseUrl)}` : '';
+  const prefixedUrl = url.startsWith('/') ? url : `/${url}`;
 
-  return `${globalBaseUrl}${clientBaseUrl}${prefixedUrl}`
+  return `${globalBaseUrl}${clientBaseUrl}${prefixedUrl}`;
 }
 
 export function isLogicalSuccess(code) {
-  return code >= 200 && code < 300
+  return code >= 200 && code < 300;
 }
 
 export async function request(url, method, data, config) {
-  let session
+  let session;
 
   if (config?.isServer) {
-    session = await getServerSession(authOptions)
+    session = await getServerSession(authOptions);
   } else {
-    session = await getSession()
+    session = await getSession();
   }
 
-  const headers = {}
+  const headers = {};
   if (session && !url?.includes('public')) {
-    headers['Authorization'] = `Bearer ${session.user.accessToken}`
+    headers['Authorization'] = `Bearer ${session.user.accessToken}`;
   }
-  let sendBody
+  let sendBody;
   if (method === 'POST') {
-    sendBody = JSON.stringify(data)
+    sendBody = JSON.stringify(data);
   }
   if (config && config.type === 'upload' && method === 'POST') {
-    sendBody = data
+    sendBody = data;
   } else {
-    headers['Content-Type'] = 'application/json'
+    headers['Content-Type'] = 'application/json';
   }
 
   // console.log(process.env.NEXT_PUBLIC_API_BASE_URL, 'NEXT_PUBLIC_API_BASE_URL')
@@ -75,18 +75,18 @@ export async function request(url, method, data, config) {
     headers,
     method,
     body: sendBody,
-  })
+  });
 }
 
 export async function get(url, config) {
-  const response = await request(url, 'GET', '', config)
-  return response.json()
+  const response = await request(url, 'GET', '', config);
+  return response.json();
 }
 
 export async function post(url, data, config) {
-  const _data = data ? data : {}
-  const response = await request(url, 'POST', _data, config)
-  return response.json()
+  const _data = data ? data : {};
+  const response = await request(url, 'POST', _data, config);
+  return response.json();
 }
 
-export const fetcher = (...args) => get(...args).then((res) => res.data)
+export const fetcher = (...args) => get(...args).then(res => res.data);

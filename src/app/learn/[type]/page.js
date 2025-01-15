@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import { Suspense } from 'react'
-import { Title } from '../Title'
-import { StartOnOpenBuild } from '../StartOnOpenBuild'
-import { Filter } from '@/components/Filter'
-import { ChallengesFilter } from '../ChallengesFilter'
-import { Container } from './Container'
-import { ListSkeleton } from './ListSkeleton'
+import { Suspense } from 'react';
+import { Title } from '../Title';
+import { StartOnOpenBuild } from '../StartOnOpenBuild';
+import { Filter } from '@/components/Filter';
+import { ChallengesFilter } from '../ChallengesFilter';
+import { Container } from './Container';
+import { ListSkeleton } from './ListSkeleton';
 // import { LearnNavBar } from './nav'
 
 
@@ -60,5 +60,5 @@ export default async function Page({ params, searchParams }) {
       </div>
       <StartOnOpenBuild />
     </div>
-  )
+  );
 }

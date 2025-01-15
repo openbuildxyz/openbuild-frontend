@@ -783,4 +783,4 @@ export const NFTAbi = [
     stateMutability: 'view',
     type: 'function',
   },
-]
+];

@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import { Header } from '../../components/Header'
-import { Footer } from './Footer'
+import { Header } from '../../components/Header';
+import { Footer } from './Footer';
 
-import { LayoutModals } from './LayoutModals'
+import { LayoutModals } from './LayoutModals';
 
 function DefaultLayout({ children }) {
   return (
@@ -29,7 +29,7 @@ function DefaultLayout({ children }) {
       <Footer />
       <LayoutModals />
     </div>
-  )
+  );
 }
 
-export default DefaultLayout
+export default DefaultLayout;

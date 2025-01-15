@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-'use client'
-import { formatTime } from '@/utils/date'
-import { ChallengesStatus } from '../ChallengesStatus'
+'use client';
+import { formatTime } from '@/utils/date';
+import { ChallengesStatus } from '../ChallengesStatus';
 
 export function ChallengesTime({ data }) {
   // console.log(data?.challenges_extra.course_challenges_extra_start_date)
@@ -32,5 +32,5 @@ export function ChallengesTime({ data }) {
       </div>
       {data && <ChallengesStatus data={data} />}
     </div>
-  )
+  );
 }

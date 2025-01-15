@@ -14,53 +14,53 @@
  * limitations under the License.
  */
 
-import { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
-import { useForm } from 'react-hook-form'
-import { toast } from 'react-toastify'
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 
-import { BASE_INPUT_STYLE } from '@/constants/config'
-import { renderMarkdown, renderHtml } from '@/utils/markdown'
-import { Button } from '@/components/Button'
-import { OEditor } from '@/components/MarkDown'
+import { BASE_INPUT_STYLE } from '@/constants/config';
+import { renderMarkdown, renderHtml } from '@/utils/markdown';
+import { Button } from '@/components/Button';
+import { OEditor } from '@/components/MarkDown';
 
-import { fetchEmailTemplate, updateEmailTemplate } from '../../repository'
+import { fetchEmailTemplate, updateEmailTemplate } from '../../repository';
 import FormField from './FormField';
 
 function EmailTemplateFormView({ id, className }) {
-  const [fetching, setFetching] = useState(false)
-  const [submitting, setSubmitting] = useState(false)
-  const [content, setContent] = useState('')
-  const { register, reset, handleSubmit } = useForm({ defaultValues: { title: '' } })
-  const router = useRouter()
+  const [fetching, setFetching] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [content, setContent] = useState('');
+  const { register, reset, handleSubmit } = useForm({ defaultValues: { title: '' } });
+  const router = useRouter();
 
   useEffect(() => {
-    setFetching(true)
+    setFetching(true);
 
     fetchEmailTemplate(id)
       .then(res => {
         if (res.code === 200) {
-          reset({ title: res.data.course_challenges_extra_email_pass_title })
-          setContent(renderMarkdown(res.data.course_challenges_extra_email_pass_html || ''))
+          reset({ title: res.data.course_challenges_extra_email_pass_title });
+          setContent(renderMarkdown(res.data.course_challenges_extra_email_pass_html || ''));
         } else {
-          toast.error(res.message)
+          toast.error(res.message);
         }
       })
-      .finally(() => setFetching(false))
-  }, [id])
+      .finally(() => setFetching(false));
+  }, [id]);
 
   const submitCallback = data => {
-    setSubmitting(true)
+    setSubmitting(true);
     updateEmailTemplate(id, { title: data.title, body: renderHtml(content) })
       .then(res => {
         if (res.code === 200) {
-          toast.success('E-mail template updated')
+          toast.success('E-mail template updated');
         } else {
-          toast.error(res.message)
+          toast.error(res.message);
         }
       })
-      .finally(() => setSubmitting(false))
-  }
+      .finally(() => setSubmitting(false));
+  };
 
   return (
     <form className={className} onSubmit={handleSubmit(submitCallback)}>
@@ -77,7 +77,7 @@ function EmailTemplateFormView({ id, className }) {
         </div>
       </div>
     </form>
-  )
+  );
 }
 
-export default EmailTemplateFormView
+export default EmailTemplateFormView;

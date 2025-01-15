@@ -14,21 +14,21 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import { useMemo, useState, useEffect } from 'react'
-import clsx from 'clsx'
-import Link from 'next/link'
-import { useRouter } from 'next/navigation'
-import Image from 'next/image'
-import Slider from 'react-slick'
-import { useMediaUrl } from '#/state/application/hooks'
-import MorePic from 'public/images/svg/more.svg'
-import { useMediaQuery } from '@/hooks/useMediaQuery'
-import NProgress from 'nprogress'
+import { useMemo, useState, useEffect } from 'react';
+import clsx from 'clsx';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import Image from 'next/image';
+import Slider from 'react-slick';
+import { useMediaUrl } from '#/state/application/hooks';
+import MorePic from 'public/images/svg/more.svg';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
+import NProgress from 'nprogress';
 
 function CardVerticalSlider({data, type, href}) {
-  const mediaUrl = useMediaUrl()
+  const mediaUrl = useMediaUrl();
   const settings = {
     dots: false,
     infinite: true,
@@ -39,18 +39,18 @@ function CardVerticalSlider({data, type, href}) {
     arrows: false,
     speed: 500,
     autoplay: true,
-    adaptiveHeight: true
+    adaptiveHeight: true,
   };
 
-  const [isClient, setIsClient] = useState(false)
+  const [isClient, setIsClient] = useState(false);
 
-  const handleClick = (e) => {
-    e.stopPropagation()
-  }
+  const handleClick = e => {
+    e.stopPropagation();
+  };
   
   useEffect(() => {
-    setIsClient(true)
-  }, [])
+    setIsClient(true);
+  }, []);
   return isClient && <div
     onClick={handleClick}
     className={
@@ -64,7 +64,7 @@ function CardVerticalSlider({data, type, href}) {
         (type === 'Community' && mediaUrl) ? <div key={`BuilderWay-CardVerticalSlider-${k}`} className="!flex items-center">
           <Image className={clsx('mr-[6px] border-1 rounded-full object-cover aspect-square border-white')} width={16} height={16} src={mediaUrl + i.user_avatar} alt="" />
           <p>
-            {i.user_handle ? <a className="underline" href={`/u/${i.user_handle}`}>{i.user_nick_name}</a> : <span className='underline'>{i.user_nick_name}</span>}
+            {i.user_handle ? <a className="underline" href={`/u/${i.user_handle}`}>{i.user_nick_name}</a> : <span className="underline">{i.user_nick_name}</span>}
           </p>
 
         </div> : <div  key={`BuilderWay-CardVerticalSlider-${k}`}>
@@ -72,18 +72,18 @@ function CardVerticalSlider({data, type, href}) {
         </div>
       ))}
     </Slider>
-  </div>
+  </div>;
 }
 
 function Card({onMouseEnter, onMouseLeave, active, item, index}) {
-  const router = useRouter()
-  const mediaUrl = useMediaUrl()
+  const router = useRouter();
+  const mediaUrl = useMediaUrl();
   
   return (
     <div
       onClick={() => {
-        NProgress.start()
-        router.push(item.href)
+        NProgress.start();
+        router.push(item.href);
       }}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
@@ -94,7 +94,7 @@ function Card({onMouseEnter, onMouseLeave, active, item, index}) {
         'bg-[#01DB83]': item.type === 'Learn',
         'bg-[#0A0A0A]': item.type === 'Community',
         'bg-[#CB9BFA]': item.type === 'Bounties',
-        'bg-[#F8FD91]': item.type === 'SkillHub'
+        'bg-[#F8FD91]': item.type === 'SkillHub',
       },
       )}
     >
@@ -128,7 +128,7 @@ function Card({onMouseEnter, onMouseLeave, active, item, index}) {
 
         <span className={clsx('inline-flex h-10 w-10 justify-center items-center rounded', {
           'bg-gray': item.type !== 'Community',
-          'bg-white': item.type === 'Community'
+          'bg-white': item.type === 'Community',
         })}>
           <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M1 12L12 1" stroke={item.type === 'Community' ? 'black' : 'white'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -141,7 +141,7 @@ function Card({onMouseEnter, onMouseLeave, active, item, index}) {
         Get started your {item.title}
       </div>
     </div>
-  )
+  );
 }
 
 const dataBase = [
@@ -173,20 +173,20 @@ const dataBase = [
     href: '/shilling',
     subTitle: 'Skills',
   },
-]
+];
 
 export function BuilderWay({data}) {
-  const [active, setActive] = useState()
-  const media = useMediaQuery('(max-width: 768px)')
+  const [active, setActive] = useState();
+  const media = useMediaQuery('(max-width: 768px)');
 
   const DATA_BASE = useMemo(() => {
-    const _dataBase = [...dataBase]
-    _dataBase[0].data = data?.learn
-    _dataBase[1].data = data?.community
-    _dataBase[2].data = data?.bounties
-    _dataBase[3].data = data?.skill_hub
-    return { data: _dataBase, }
-  }, [data])
+    const _dataBase = [...dataBase];
+    _dataBase[0].data = data?.learn;
+    _dataBase[1].data = data?.community;
+    _dataBase[2].data = data?.bounties;
+    _dataBase[3].data = data?.skill_hub;
+    return { data: _dataBase };
+  }, [data]);
 
   return (
     <div className="mb-[30px]" data-aos="fade-up" data-aos-delay="800">
@@ -204,5 +204,5 @@ export function BuilderWay({data}) {
         ))}
       </div>
     </div>
-  )
+  );
 }

@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-import { useState } from 'react'
-import Link from 'next/link'
-import isEmail from 'validator/lib/isEmail'
+import { useState } from 'react';
+import Link from 'next/link';
+import isEmail from 'validator/lib/isEmail';
 
-import Loader from '@/components/Loader'
+import Loader from '@/components/Loader';
 
-import { sendEmailCode } from '../../repository'
+import { sendEmailCode } from '../../repository';
 
 function ChangePasswordFormView() {
-  const [loading, setLoading] = useState(false)
-  const [email, setEmail] = useState('')
-  const [result, setResult] = useState('')
+  const [loading, setLoading] = useState(false);
+  const [email, setEmail] = useState('');
+  const [result, setResult] = useState('');
 
   return (
     <>
@@ -39,12 +39,12 @@ function ChangePasswordFormView() {
       <button
         disabled={email === '' || !isEmail(email) || loading}
         onClick={async () => {
-          setLoading(true)
-          const res = await sendEmailCode({ email, type: 'reset_password' })
+          setLoading(true);
+          const res = await sendEmailCode({ email, type: 'reset_password' });
           if (res.success) {
-            setResult('success')
+            setResult('success');
           }
-          setLoading(false)
+          setLoading(false);
         }}
         className="flex h-12 w-full items-center justify-center rounded-xl rounded-t-none bg-gray text-white disabled:opacity-20"
       >
@@ -63,7 +63,7 @@ function ChangePasswordFormView() {
         </Link>
       </div>
     </>
-  )
+  );
 }
 
-export default ChangePasswordFormView
+export default ChangePasswordFormView;

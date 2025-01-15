@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-import { useRouter } from 'next/navigation'
-import Link from 'next/link'
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
-import Image, { SvgIcon } from '@/components/Image'
+import Image, { SvgIcon } from '@/components/Image';
 
-import { BuilderListWidget } from '../../../course'
+import { BuilderListWidget } from '../../../course';
 
 function PublishedChallengeItem({ data, viewingSelf }) {
-  const router = useRouter()
+  const router = useRouter();
 
   return data ? (
     <div className="flex flex-col gap-6 pb-6 border-b border-gray-400 mb-6 group md:flex-row">
@@ -51,7 +51,7 @@ function PublishedChallengeItem({ data, viewingSelf }) {
         </div>
         <p className="mt-4 text-sm opacity-80 md:mt-0">
           Course Sections <strong>{data?.base.course_series_single_num}</strong>
-           {/* <span className="opacity-40">|</span> <strong>2,132</strong> Builders View */}
+          {/* <span className="opacity-40">|</span> <strong>2,132</strong> Builders View */}
         </p>
       </div>
       {viewingSelf && (
@@ -64,7 +64,7 @@ function PublishedChallengeItem({ data, viewingSelf }) {
         </Link>
       )}
     </div>
-  ) : null
+  ) : null;
 }
 
-export default PublishedChallengeItem
+export default PublishedChallengeItem;

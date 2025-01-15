@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { SvgIcon } from '@/components/Image'
+import { SvgIcon } from '@/components/Image';
 
 function SocialLink({ url, icon, extra, children }) {
   return (
@@ -28,7 +28,7 @@ function SocialLink({ url, icon, extra, children }) {
       </div>
       <SvgIcon style={{ flexShrink: 0 }} name="share" size={14} />
     </a>
-  )
+  );
 }
 
-export default SocialLink
+export default SocialLink;

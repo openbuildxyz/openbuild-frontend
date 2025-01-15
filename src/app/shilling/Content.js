@@ -14,22 +14,22 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import { useState, useEffect } from 'react'
-import { useRequiredSkills, useExperience, useSortBy } from '#/state/shilling/hooks'
-import { ShillingCard } from './Card'
-import { useList } from '#/services/shilling/hooks'
-import useInfiniteScroll from 'react-infinite-scroll-hook'
-import { Button } from '@/components/Button'
-import Loader from '@/components/Loader'
-import clsx from 'clsx'
-import { NoData } from '@/components/NoData'
+import { useState, useEffect } from 'react';
+import { useRequiredSkills, useExperience, useSortBy } from '#/state/shilling/hooks';
+import { ShillingCard } from './Card';
+import { useList } from '#/services/shilling/hooks';
+import useInfiniteScroll from 'react-infinite-scroll-hook';
+import { Button } from '@/components/Button';
+import Loader from '@/components/Loader';
+import clsx from 'clsx';
+import { NoData } from '@/components/NoData';
 
 export function Content() {
-  const requiredSkills = useRequiredSkills()
-  const experience = useExperience()
-  const sort_by = useSortBy()
+  const requiredSkills = useRequiredSkills();
+  const experience = useExperience();
+  const sort_by = useSortBy();
 
   const [params, setParams] = useState({
     skip: 0,
@@ -37,7 +37,7 @@ export function Content() {
     experience: experience === null ? '' : experience,
     sort_by,
     skills: requiredSkills === null ? '' : requiredSkills,
-  })
+  });
 
   useEffect(() => {
     setParams({
@@ -46,19 +46,19 @@ export function Content() {
       experience: experience === null ? '' : experience,
       sort_by,
       skills: requiredSkills === null ? '' : requiredSkills,
-    })
-  }, [experience, sort_by, requiredSkills])
+    });
+  }, [experience, sort_by, requiredSkills]);
 
-  const { loading, list, hasNextPage, total } = useList(params)
+  const { loading, list, hasNextPage, total } = useList(params);
   const [sentryRef] = useInfiniteScroll({
     loading,
     hasNextPage,
     onLoadMore,
     delayInMs: 300,
     rootMargin: '0px 0px 400px 0px',
-  })
+  });
   function onLoadMore() {
-    setParams({ ...params, skip: params.skip + 20 })
+    setParams({ ...params, skip: params.skip + 20 });
   }
 
   return (
@@ -92,5 +92,5 @@ export function Content() {
       {(loading || hasNextPage) && params.skip < 80 && <div ref={sentryRef} />}
       {!loading && list.length === 0 && <NoData />}
     </div>
-  )
+  );
 }

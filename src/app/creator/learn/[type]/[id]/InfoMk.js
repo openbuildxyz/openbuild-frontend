@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import { OEditor } from '@/components/MarkDown'
+import { OEditor } from '@/components/MarkDown';
 
 export default function InfoMk({ value, change }) {
   return (
     <div>
       <OEditor value={value} onChange={e => change(e)} />
     </div>
-  )
+  );
 }

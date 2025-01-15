@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import { LockClosedIcon } from '@heroicons/react/24/outline'
-import { ProgressBar } from '@/components/ProgressBar'
-import { VideoIcon, AgreementIcon } from '@/components/Icons'
-import { useMemo } from 'react'
-import { millisecondFormat } from '@/utils/date'
-import BigNumber from 'bignumber.js'
-import { toast } from 'react-toastify'
-import { useRouter } from 'next/navigation'
+import { LockClosedIcon } from '@heroicons/react/24/outline';
+import { ProgressBar } from '@/components/ProgressBar';
+import { VideoIcon, AgreementIcon } from '@/components/Icons';
+import { useMemo } from 'react';
+import { millisecondFormat } from '@/utils/date';
+import BigNumber from 'bignumber.js';
+import { toast } from 'react-toastify';
+import { useRouter } from 'next/navigation';
 
-import { resolveChapter } from './helper'
+import { resolveChapter } from './helper';
 
 export function reducerList(data) {
   const map = data?.courses?.reduce(
@@ -36,45 +36,45 @@ export function reducerList(data) {
         p,
       ][2],
     {}
-  )
+  );
   const sorted = map
     ? Object.keys(map)
-        .map(i => map[i])
-        .map((j) => {
-          const mapList = j.map(t => resolveChapter(t, data))
-          return mapList.sort((a, b) => a.base.course_single_index - b.base.course_single_index)
-        })
-    : []
-  return sorted
+      .map(i => map[i])
+      .map(j => {
+        const mapList = j.map(t => resolveChapter(t, data));
+        return mapList.sort((a, b) => a.base.course_single_index - b.base.course_single_index);
+      })
+    : [];
+  return sorted;
 }
 
 export function Chapters({ type, data, id }) {
-  const router = useRouter()
+  const router = useRouter();
   const list = useMemo(() => {
-    return reducerList(data)
-  }, [data])
+    return reducerList(data);
+  }, [data]);
 
   const calcChapterTimes = (arr, type) => {
-    let total = 0
-    let userTotal = 0
+    let total = 0;
+    let userTotal = 0;
     arr.forEach(i => {
-      total += i.analytics.analytice_estimated_time
-      userTotal += i.analytics.analytice_user_time
-    })
+      total += i.analytics.analytice_estimated_time;
+      userTotal += i.analytics.analytice_user_time;
+    });
     if (type === 'total') {
-      return total
+      return total;
     } else {
       if (userTotal / total > 100) {
-        return 100
+        return 100;
       } else {
-        return Number(new BigNumber(userTotal).div(total).times(100).toFixed(0))
+        return Number(new BigNumber(userTotal).div(total).times(100).toFixed(0));
       }
     }
-  }
+  };
 
   const allTimes = useMemo(() => {
-    return data?.courses?.reduce((p, c) => p + c.analytics.analytice_estimated_time, 0)
-  }, [data])
+    return data?.courses?.reduce((p, c) => p + c.analytics.analytice_estimated_time, 0);
+  }, [data]);
 
   return (
     <div className="mt-6" id="learn-chapters">
@@ -91,7 +91,7 @@ export function Chapters({ type, data, id }) {
           <li className="col-span-1 text-center">Lessons</li>
           <li className="col-span-2 text-center">Duration</li>
           <li className="col-span-2 text-center">Progress</li>
-          <li className="col-span-1"></li>
+          <li className="col-span-1" />
         </ul>
         <div>
           {list.length > 0 &&list.map((i, k) => (
@@ -119,58 +119,58 @@ export function Chapters({ type, data, id }) {
                 </div>
               </div>
               <div className="collapse-content no-p">
-              {i.map(j => (
-                <div
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    if (j.isLock && j.isCheck) {
-                      toast.info('This content access requires registration or approval. Contact the course publisher for more information.')
-                    } else if (j.isLock && !j.isCheck) {
-                      toast.info('The content has not been made public, please contact the publisher')
-                    } else {
-                      router.push(`/learn/${type}/${id}/${j.base.course_single_id}`)
-                    }
-                  }}
-                  key={`Chapters--sublist-${j.base.course_single_id}`}
-                  className="grid min-w-[500px] text-sm h-[55px] cursor-pointer grid-cols-12 items-center gap-4 border-t border-dashed border-gray-600 hover:opacity-80"
-                >
-                  <div className="col-span-7 flex [&>div]:flex-1 [&>div]:truncate [&>div]:!overflow-y-auto">
-                    <span className="inline-block w-[110px] py-1 text-xs"></span>
-                    {j.isLock ? (
-                      <span className="mt-[1px]">
-                        <LockClosedIcon className="h-4 w-4" />
-                      </span>
-                    ) : (
-                      <span className="mt-[1px]">
-                        {j.base.course_single_type === 'video' ? <VideoIcon /> : <AgreementIcon />}
-                      </span>
-                    )}
-                    <div className="tooltip tooltip-top after:border-t-gray after:border-r-transparent after:border-b-transparent after:border-l-transparent before:bg-gray before:text-white" data-tip={j.base.course_single_name}>
-                      <p className="ml-4 flex-1 truncate text-left">{j.base.course_single_name}</p>
-                    </div>
-                    {/* <MouseoverTooltip
+                {i.map(j => (
+                  <div
+                    onClick={e => {
+                      e.stopPropagation();
+                      if (j.isLock && j.isCheck) {
+                        toast.info('This content access requires registration or approval. Contact the course publisher for more information.');
+                      } else if (j.isLock && !j.isCheck) {
+                        toast.info('The content has not been made public, please contact the publisher');
+                      } else {
+                        router.push(`/learn/${type}/${id}/${j.base.course_single_id}`);
+                      }
+                    }}
+                    key={`Chapters--sublist-${j.base.course_single_id}`}
+                    className="grid min-w-[500px] text-sm h-[55px] cursor-pointer grid-cols-12 items-center gap-4 border-t border-dashed border-gray-600 hover:opacity-80"
+                  >
+                    <div className="col-span-7 flex [&>div]:flex-1 [&>div]:truncate [&>div]:!overflow-y-auto">
+                      <span className="inline-block w-[110px] py-1 text-xs" />
+                      {j.isLock ? (
+                        <span className="mt-[1px]">
+                          <LockClosedIcon className="h-4 w-4" />
+                        </span>
+                      ) : (
+                        <span className="mt-[1px]">
+                          {j.base.course_single_type === 'video' ? <VideoIcon /> : <AgreementIcon />}
+                        </span>
+                      )}
+                      <div className="tooltip tooltip-top after:border-t-gray after:border-r-transparent after:border-b-transparent after:border-l-transparent before:bg-gray before:text-white" data-tip={j.base.course_single_name}>
+                        <p className="ml-4 flex-1 truncate text-left">{j.base.course_single_name}</p>
+                      </div>
+                      {/* <MouseoverTooltip
                       text={j.base.course_single_name}
                     >
                       <p className="ml-4 flex-1 truncate text-left">{j.base.course_single_name}</p>
                     </MouseoverTooltip> */}
 
+                    </div>
+                    <p className="col-span-2 text-center text-xs">
+                      {millisecondFormat(j.analytics.analytice_estimated_time) === '0Min' ? '-' : millisecondFormat(j.analytics.analytice_estimated_time)}
+                    </p>
+                    <div className="col-span-2 flex justify-center">
+                      <ProgressBar
+                        progress={
+                          Number.isNaN(j.analytics.analytice_user_time / j.analytics.analytice_estimated_time)
+                            ? 0
+                            : (j.analytics.analytice_user_time / j.analytics.analytice_estimated_time) * 100
+                        }
+                        className="w-[110px] max-w-[110px]"
+                        mainClassname="justify-center"
+                      />
+                    </div>
                   </div>
-                  <p className="col-span-2 text-center text-xs">
-                    {millisecondFormat(j.analytics.analytice_estimated_time) === '0Min' ? '-' : millisecondFormat(j.analytics.analytice_estimated_time)}
-                  </p>
-                  <div className="col-span-2 flex justify-center">
-                    <ProgressBar
-                      progress={
-                        Number.isNaN(j.analytics.analytice_user_time / j.analytics.analytice_estimated_time)
-                          ? 0
-                          : (j.analytics.analytice_user_time / j.analytics.analytice_estimated_time) * 100
-                      }
-                      className="w-[110px] max-w-[110px]"
-                      mainClassname="justify-center"
-                    />
-                  </div>
-                </div>
-              ))}
+                ))}
               </div>
             </div>
           ))}
@@ -261,5 +261,5 @@ export function Chapters({ type, data, id }) {
         </Accordion> */}
       </div>
     </div>
-  )
+  );
 }

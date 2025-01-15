@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import Link from 'next/link'
-import { useUser } from '#/state/application/hooks'
+import Link from 'next/link';
+import { useUser } from '#/state/application/hooks';
 
-import { Tabs } from './Tabs'
+import { Tabs } from './Tabs';
 
 export default function Layout({ children }) {
-  const user = useUser()
+  const user = useUser();
 
   return (
     <>
@@ -32,10 +32,10 @@ export default function Layout({ children }) {
           <Tabs />
           {children}
         </div>
-        ) : (
-          <div className="text-center text-xl py-7">You have no permissions, go to <Link className="text-red-50 underline" href="/">home page</Link> to continue your journey please.</div>
-        )}
+      ) : (
+        <div className="text-center text-xl py-7">You have no permissions, go to <Link className="text-red-50 underline" href="/">home page</Link> to continue your journey please.</div>
+      )}
       {/* <Footer /> */}
     </>
-  )
+  );
 }

@@ -201,4 +201,4 @@ export const BountyABI = [
     stateMutability: 'nonpayable',
     type: 'function',
   },
-]
+];

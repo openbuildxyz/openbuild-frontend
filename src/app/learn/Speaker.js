@@ -14,23 +14,23 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import Image from 'next/image'
-import { useMediaUrl } from '#/state/application/hooks'
-import { TwitterIcon } from '@/components/Icons'
-import GithubIcon from 'public/images/svg/github_p.svg'
+import Image from 'next/image';
+import { useMediaUrl } from '#/state/application/hooks';
+import { TwitterIcon } from '@/components/Icons';
+import GithubIcon from 'public/images/svg/github_p.svg';
 
 function resolveTwitterUrl(urlOrHandle) {
   if (urlOrHandle.toLowerCase().startsWith('http')) {
-    return urlOrHandle
+    return urlOrHandle;
   }
 
-  return `https://x.com/${urlOrHandle.startsWith('@') ? urlOrHandle.slice(1) : urlOrHandle}`
+  return `https://x.com/${urlOrHandle.startsWith('@') ? urlOrHandle.slice(1) : urlOrHandle}`;
 }
 
 export function Speaker({ data }) {
-  const mediaUrl = useMediaUrl()
+  const mediaUrl = useMediaUrl();
   return (
     <div id="learn-speaker">
       <h3 className="text-lg font-bold">Speaker</h3>
@@ -64,5 +64,5 @@ export function Speaker({ data }) {
           </div>
         ))}
     </div>
-  )
+  );
 }

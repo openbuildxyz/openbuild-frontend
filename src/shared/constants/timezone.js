@@ -1197,4 +1197,4 @@ export const TIME_ZONE = [
     label: '(UTC+13:00) Samoa',
     utc: ['Pacific/Apia'],
   },
-]
+];

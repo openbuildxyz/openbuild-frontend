@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import Image from 'next/image'
-import BotFoundPic from 'public/images/svg/404.svg'
+import Image from 'next/image';
+import BotFoundPic from 'public/images/svg/404.svg';
 
 export default function NotFound() {
   return (
-    <div className='flex flex-col items-center justify-center h-screen'>
+    <div className="flex flex-col items-center justify-center h-screen">
       <Image src={BotFoundPic} alt="" />
-      <p className='mt-6 opacity-60'>404</p>
+      <p className="mt-6 opacity-60">404</p>
     </div>
-  )
+  );
 }

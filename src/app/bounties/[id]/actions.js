@@ -14,20 +14,20 @@
  * limitations under the License.
  */
 
-'use server'
+'use server';
 
-import { revalidatePath } from 'next/cache'
-import { post } from '@/utils/request'
+import { revalidatePath } from 'next/cache';
+import { post } from '@/utils/request';
 
 export async function applyAction(id, comment) {
   try {
-    const res = await post(`ts/v1/build/general/bounties/${id}/builders`, { comment }, { isServer: true })
+    const res = await post(`ts/v1/build/general/bounties/${id}/builders`, { comment }, { isServer: true });
     if (res.code === 200) {
-      return revalidatePath('/')
+      return revalidatePath('/');
     } else {
-      return res
+      return res;
     }
   } catch (e) {
-    return { message: 'Failed to request' }
+    return { message: 'Failed to request' };
   }
 }

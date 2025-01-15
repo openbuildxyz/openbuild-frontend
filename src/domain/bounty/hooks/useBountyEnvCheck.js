@@ -16,14 +16,14 @@
 
 import { BOUNTY_SUPPORTED_CHAIN } from '@/constants/chain';
 
-import useEnsureRightEnv from '../../auth/hooks/useEnsureRightEnv'
+import useEnsureRightEnv from '../../auth/hooks/useEnsureRightEnv';
 
 function useBountyEnvCheck() {
   return useEnsureRightEnv({
     chainId: BOUNTY_SUPPORTED_CHAIN(),
     autoConnect: true,
     walletRequired: true,
-  }).wrap
+  }).wrap;
 }
 
-export default useBountyEnvCheck
+export default useBountyEnvCheck;

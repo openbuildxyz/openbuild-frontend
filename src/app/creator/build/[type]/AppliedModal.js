@@ -40,7 +40,7 @@ import { contracts, payTokens } from '@/constants/contract';
 import { BountyABI } from '@/constants/abis/bounty';
 import { parseUnits } from '@ethersproject/units';
 import { BOUNTY_SUPPORTED_CHAIN } from '@/constants/chain';
-import { useConnectModal } from '@rainbow-me/rainbowkit'
+import { useConnectModal } from '@rainbow-me/rainbowkit';
 import { writeContract } from '@wagmi/core';
 
 export function AppliedModal({ open, closeModal, bounty, applyCallback }) {
@@ -52,7 +52,7 @@ export function AppliedModal({ open, closeModal, bounty, applyCallback }) {
 
   const mediaUrl = useMediaUrl();
   const config = useConfig();
-  const allOpts = config?.find((f) => f.config_id === 3)?.config_value;
+  const allOpts = config?.find(f => f.config_id === 3)?.config_value;
 
   const [commentsModalOpen, setCommentsModalOpen] = useState(false);
   const [confirmModalOpen, setConfirmModalOpen] = useState(false);
@@ -77,14 +77,14 @@ export function AppliedModal({ open, closeModal, bounty, applyCallback }) {
   );
 
   const rolesOpts = useMemo(() => {
-    return allOpts?.roles?.map((i) => ({
+    return allOpts?.roles?.map(i => ({
       key: i.id,
       name: i.name,
     }));
   }, [allOpts]);
 
   const skillOpts = useMemo(() => {
-    return allOpts?.skills?.map((i) => ({
+    return allOpts?.skills?.map(i => ({
       key: i.id,
       name: i.name,
     }));
@@ -123,10 +123,10 @@ export function AppliedModal({ open, closeModal, bounty, applyCallback }) {
     (res, bid, status) => {
       if (res.code === 200) {
         const _list = [...list];
-        const curr = _list.find((f) => f.id === bid);
+        const curr = _list.find(f => f.id === bid);
         if (curr) {
           curr.status = status;
-          const fixedList = _list.map((m) => {
+          const fixedList = _list.map(m => {
             return m.id === bid ? { ...curr } : m;
           });
           doSetList(fixedList);
@@ -164,7 +164,7 @@ export function AppliedModal({ open, closeModal, bounty, applyCallback }) {
           payToken.address,
           parseUnits((bounty.amount / 100).toString(), payToken.decimals),
         ],
-      })
+      });
 
       if (approveConfirmIds.bountyId && approveConfirmIds.bid) {
         const res = await approveBuilder(
@@ -177,7 +177,7 @@ export function AppliedModal({ open, closeModal, bounty, applyCallback }) {
       setApproveConfirmLoading(false);
     } catch (err) {
       setApproveConfirmLoading(false);
-      console.log(err)
+      console.log(err);
       toast.error(err);
     }
   };
@@ -252,7 +252,7 @@ export function AppliedModal({ open, closeModal, bounty, applyCallback }) {
             <li className="text-center">
               <p>
                 {
-                  rolesOpts?.find((f) => f.key === i.builder_user.user_roles)
+                  rolesOpts?.find(f => f.key === i.builder_user.user_roles)
                     ?.name
                 }
               </p>
@@ -262,7 +262,7 @@ export function AppliedModal({ open, closeModal, bounty, applyCallback }) {
                   (s, k) =>
                     s !== 1 && (
                       <span key={`apm-skii-${s}`}>
-                        {skillOpts?.find((f) => f.key === s)?.name}
+                        {skillOpts?.find(f => f.key === s)?.name}
                         {k + 1 < i.builder_user.user_skills.length && ', '}{' '}
                       </span>
                     )
@@ -273,7 +273,7 @@ export function AppliedModal({ open, closeModal, bounty, applyCallback }) {
             <li className="text-center">
               {
                 EXPERIENCE_OPTIONS.find(
-                  (f) => f.key === i.builder_user.user_experience
+                  f => f.key === i.builder_user.user_experience
                 )?.name
               }
             </li>

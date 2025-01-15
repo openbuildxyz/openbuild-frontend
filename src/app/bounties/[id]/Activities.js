@@ -14,20 +14,20 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import { RefetchIcon, StartTimeIcon, PushDoorIcon, AddThreeIcon, FinishedIcon } from '@/components/Icons'
-import clsx from 'clsx'
-import Image from 'next/image'
-import { NoData } from '@/components/NoData'
-import { useMediaUrl } from '#/state/application/hooks'
-import { fromNow } from '@/utils/date'
-import useSWR from 'swr'
-import { fetcher } from '@/utils/request'
+import { RefetchIcon, StartTimeIcon, PushDoorIcon, AddThreeIcon, FinishedIcon } from '@/components/Icons';
+import clsx from 'clsx';
+import Image from 'next/image';
+import { NoData } from '@/components/NoData';
+import { useMediaUrl } from '#/state/application/hooks';
+import { fromNow } from '@/utils/date';
+import useSWR from 'swr';
+import { fetcher } from '@/utils/request';
 
 export function Activities({ id }) {
-  const { data } = useSWR(`ts/v1/build/general/bounties/${id}/events/activities`, fetcher, {suspense: true})
-  const mediaUrl = useMediaUrl()
+  const { data } = useSWR(`ts/v1/build/general/bounties/${id}/events/activities`, fetcher, {suspense: true});
+  const mediaUrl = useMediaUrl();
   // console.log(data)
   return (
     <div>
@@ -147,7 +147,7 @@ export function Activities({ id }) {
                 </>
               )}
               {i.bounty_status === 3 && i.bounty_task > 1 && i.builder_status === 0 && (
-                  <>
+                <>
                   {mediaUrl && <Image width={24} height={24} src={mediaUrl + i.employer_user.user_avatar} alt="" className="ml-4 mr-2 h-6 w-6 rounded-full object-fill"/>}
                   <p className="max-md:inline">
                     Bounty&#39;s recruitment <strong className="mr-1">restarted</strong>
@@ -160,5 +160,5 @@ export function Activities({ id }) {
       </div>
       <div className="pb-14">{(!data || data?.list.length === 0) && <NoData />}</div>
     </div>
-  )
+  );
 }

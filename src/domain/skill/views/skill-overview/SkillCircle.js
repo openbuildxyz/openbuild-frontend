@@ -38,14 +38,14 @@ function SkillCircle({ level }) {
             level === 'generally'
               ? '267 1069'
               : level === 'well'
-              ? '534 1069'
-              : level === 'proficient'
-              ? '801 1069'
-              : '1069 1069',
+                ? '534 1069'
+                : level === 'proficient'
+                  ? '801 1069'
+                  : '1069 1069',
         }}
       />
     </svg>
-  )
+  );
 }
 
-export default SkillCircle
+export default SkillCircle;

@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-import httpClient from '@/utils/http'
-import { unwrapBlockData, wrapBlockData } from '@/components/block-editor'
+import httpClient from '@/utils/http';
+import { unwrapBlockData, wrapBlockData } from '@/components/block-editor';
 
 async function fetchBlockContent(uid) {
   return httpClient.get('/user/devplaza', { params: { uid } }).then(res => res.success ? ({
     ...res,
     data: res.data ? unwrapBlockData(res.data.body) : null,
-  }) : res)
+  }) : res);
 }
 
 async function updateBlockContent(data) {
-  return httpClient.post('/user/devplaza', { body: wrapBlockData(data) })
+  return httpClient.post('/user/devplaza', { body: wrapBlockData(data) });
 }
 
-export { fetchBlockContent, updateBlockContent }
+export { fetchBlockContent, updateBlockContent };

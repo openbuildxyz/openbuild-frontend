@@ -17,5 +17,5 @@
 export default function Link({url = '#', children}) {
   return (
     <a href={url} className="text-[#4000E0]">{children}</a>
-  )
+  );
 }

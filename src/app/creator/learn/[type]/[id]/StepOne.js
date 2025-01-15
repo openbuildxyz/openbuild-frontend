@@ -14,22 +14,22 @@
  * limitations under the License.
  */
 
-import { useConfig, useMediaUrl } from '#/state/application/hooks'
-import { useMemo, useState, useRef, useEffect, useCallback } from 'react'
-import ContentEditable from 'react-contenteditable'
-import Image from 'next/image'
-import { Button } from '@/components/Button'
-import { toast } from 'react-toastify'
-import { Select } from '@/components/Select'
+import { useConfig, useMediaUrl } from '#/state/application/hooks';
+import { useMemo, useState, useRef, useEffect, useCallback } from 'react';
+import ContentEditable from 'react-contenteditable';
+import Image from 'next/image';
+import { Button } from '@/components/Button';
+import { toast } from 'react-toastify';
+import { Select } from '@/components/Select';
 
-import { UploadIcon } from '@/components/Icons'
-import { upload } from '#/services/common'
-import clsx from 'clsx'
-import Loader from '@/components/Loader'
+import { UploadIcon } from '@/components/Icons';
+import { upload } from '#/services/common';
+import clsx from 'clsx';
+import Loader from '@/components/Loader';
 
-import { ChllengesForms } from './Chllenges'
-import { HTMLDecode } from '@/utils'
-import { BASE_INPUT_STYLE } from '@/constants/config'
+import { ChllengesForms } from './Chllenges';
+import { HTMLDecode } from '@/utils';
+import { BASE_INPUT_STYLE } from '@/constants/config';
 
 const bodyTypeOptions = [
   {
@@ -40,7 +40,7 @@ const bodyTypeOptions = [
     name: 'Text',
     key: 'text',
   },
-]
+];
 
 const langOptions = [
   {
@@ -51,100 +51,100 @@ const langOptions = [
     name: 'English',
     key: 'en',
   },
-]
+];
 
-export function CreatorLearnStepOne({change, data, type, id}) {
+export function CreatorLearnStepOne({change, data, type}) {
 
-  const config = useConfig()
-  const mediaUrl = useMediaUrl()
-  const uploadRef = useRef(null)
+  const config = useConfig();
+  const mediaUrl = useMediaUrl();
+  const uploadRef = useRef(null);
 
-  const [uploading, setUploading] = useState(false)
+  const [uploading, setUploading] = useState(false);
 
-  const [ecosystem, setEcosystem] = useState('')
-  const [language, setLanguage] = useState('')
-  const [direction, setDirection] = useState('')
+  const [ecosystem, setEcosystem] = useState('');
+  const [language, setLanguage] = useState('');
+  const [direction, setDirection] = useState('');
 
   // const [lang, setLang] = useState('')
   // const [bodyType, setBodyType] = useState('')
 
-  const [forms, setForms] = useState()
+  const [forms, setForms] = useState();
 
   useEffect(() => {
     if (data) {
-      setForms(data)
+      setForms(data);
     }
-  }, [data])
+  }, [data]);
 
 
   const labels = useMemo(() => {
-    return config?.find(f => f.config_id === 1)
-  }, [config])
+    return config?.find(f => f.config_id === 1);
+  }, [config]);
 
-  const memoOpts = useCallback((name) => {
+  const memoOpts = useCallback(name => {
     return labels?.config_value[forms?.base.course_series_type]?.map(i => {
-        return i.name === name ? i.labels.map(j => ({ name: j.name, key: j.id, img: mediaUrl + j.img })) : []
-      })
-      .flat(2)
-  }, [labels, mediaUrl, forms])
+      return i.name === name ? i.labels.map(j => ({ name: j.name, key: j.id, img: mediaUrl + j.img })) : [];
+    })
+      .flat(2);
+  }, [labels, mediaUrl, forms]);
 
   const ecosystemOpts = useMemo(() => {
-    return memoOpts('Ecosystem')
-  }, [memoOpts])
+    return memoOpts('Ecosystem');
+  }, [memoOpts]);
 
   const directionOpts = useMemo(() => {
-    return memoOpts('Direction')
-  }, [memoOpts])
+    return memoOpts('Direction');
+  }, [memoOpts]);
 
   const languageOpts = useMemo(() => {
-    return memoOpts('Language')
-  }, [memoOpts])
+    return memoOpts('Language');
+  }, [memoOpts]);
 
   useEffect(() => {
-    const lableIds = Array.from(new Set(data?.base?.course_series_label_ids))
+    const lableIds = Array.from(new Set(data?.base?.course_series_label_ids));
     if (ecosystemOpts && directionOpts && languageOpts) {
       const _ecosystem = lableIds.find(f => {
-        return ecosystemOpts.filter(sf => sf.key === f).length > 0 ? f : ''
-      })
+        return ecosystemOpts.filter(sf => sf.key === f).length > 0 ? f : '';
+      });
       const _direction = lableIds.find(f => {
-        return directionOpts.filter(sf => sf.key === f).length > 0 ? f : ''
-      })
+        return directionOpts.filter(sf => sf.key === f).length > 0 ? f : '';
+      });
       const _language = lableIds.find(f => {
-        return languageOpts.filter(sf => sf.key === f).length > 0 ? f : ''
-      })
-      setEcosystem(_ecosystem)
-      setDirection(_direction)
-      setLanguage(_language)
+        return languageOpts.filter(sf => sf.key === f).length > 0 ? f : '';
+      });
+      setEcosystem(_ecosystem);
+      setDirection(_direction);
+      setLanguage(_language);
     }
-  }, [ecosystemOpts, directionOpts, languageOpts, data, type])
+  }, [ecosystemOpts, directionOpts, languageOpts, data, type]);
 
-  const [uploadFileSizeError, setUploadFileSizeError] = useState(false)
+  const [uploadFileSizeError, setUploadFileSizeError] = useState(false);
   const handleImageFileChange = async event => {
-    const files = event.target.files
+    const files = event.target.files;
     if (files && files[0]) {
-      const file = files[0]
-      setUploadFileSizeError(false)
+      const file = files[0];
+      setUploadFileSizeError(false);
       if (file.size > 1024 * 1024 * 2) {
-        event.target.value = ''
-        setUploadFileSizeError(true)
-        return
+        event.target.value = '';
+        setUploadFileSizeError(true);
+        return;
       }
-      setUploading(true)
-      const formData = new FormData()
-      formData.append('file', files[0], files[0].name)
-      formData.append('intent', 'course_series')
-      const res = await upload({ file: formData })
-      setUploading(false)
+      setUploading(true);
+      const formData = new FormData();
+      formData.append('file', files[0], files[0].name);
+      formData.append('intent', 'course_series');
+      const res = await upload({ file: formData });
+      setUploading(false);
       if (res.code === 200) {
-        change('course_series_img', res.data.user_upload_path)
-        const current = uploadRef.current
-        current.value = ''
+        change('course_series_img', res.data.user_upload_path);
+        const current = uploadRef.current;
+        current.value = '';
 
       } else {
-        toast.error(res.message)
+        toast.error(res.message);
       }
     }
-  }
+  };
 
   return (
     <>
@@ -296,5 +296,5 @@ export function CreatorLearnStepOne({change, data, type, id}) {
         </div>
       )}
     </>
-  )
+  );
 }

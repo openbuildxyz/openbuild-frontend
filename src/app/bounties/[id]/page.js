@@ -14,23 +14,23 @@
  * limitations under the License.
  */
 
-import { Suspense } from 'react'
-import { BountiesHeader } from './Header'
-import { BountiesDetail } from './BountiesDetail'
-import { Activities } from './Activities'
-import { Employers } from './Employers'
-import { ChainNetworkTips } from '../Tips'
-import { PreviewAlert } from '@/components/PreviewAlert'
+import { Suspense } from 'react';
+import { BountiesHeader } from './Header';
+import { BountiesDetail } from './BountiesDetail';
+import { Activities } from './Activities';
+import { Employers } from './Employers';
+import { ChainNetworkTips } from '../Tips';
+import { PreviewAlert } from '@/components/PreviewAlert';
 
-import { fromNow } from '@/utils/date'
-import { get } from '@/utils/request'
+import { fromNow } from '@/utils/date';
+import { get } from '@/utils/request';
 
 export default async function Page({ params, searchParams }) {
   const datas = await Promise.all([
     get(`ts/v1/build/general/bounties/${params.id}`, {isServer: true}),
     // get(`ts/v1/build/general/bounties/${params.id}/builders`, {isServer: true})
-  ])
-  const [{ data }] = [...datas]
+  ]);
+  const [{ data }] = [...datas];
 
   return (
     <>
@@ -74,7 +74,7 @@ export default async function Page({ params, searchParams }) {
             <BountiesDetail data={data} />
             <hr className="my-6 border-gray-400" />
             <Suspense fallback={<div className="flex justify-center py-14">
-              <span className="loading loading-spinner loading-md"></span>
+              <span className="loading loading-spinner loading-md" />
             </div>}>
               <Activities id={params.id} />
             </Suspense>
@@ -83,6 +83,6 @@ export default async function Page({ params, searchParams }) {
         <Employers id={params.id} list={data?.builders} data={data} />
       </div>
     </>
-  )
+  );
 
 }

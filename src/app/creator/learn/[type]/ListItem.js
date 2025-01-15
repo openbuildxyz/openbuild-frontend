@@ -14,94 +14,94 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import { useState } from 'react'
-import Link from 'next/link'
+import { useState } from 'react';
+import Link from 'next/link';
 // import { Button } from '@/components/Button'
 
-import { Confirm } from '@/components/Modal/Confirm'
+import { Confirm } from '@/components/Modal/Confirm';
 
 export function ButtonGroup({type, status, id, loading, mutate}) {
-  const [confirmOpen, setConfirmOpen] = useState(false)
+  const [confirmOpen, setConfirmOpen] = useState(false);
   const confirm = async () => {
     // console.log(id)
-    await mutate(id, 4, 'delete')
-    setConfirmOpen(false)
-  }
+    await mutate(id, 4, 'delete');
+    setConfirmOpen(false);
+  };
 
   return (
     <div className="col-span-3 flex justify-center">
-        <div className="dropdown dropdown-hover">
-          <div tabIndex="0" role="button" className="m-1">
-            <svg
-              className="cursor-pointer"
-              width="15"
-              height="3"
-              viewBox="0 0 15 3"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <g opacity="0.2">
-                <rect width="3" height="3" rx="1.5" fill="black" />
-                <rect x="6" width="3" height="3" rx="1.5" fill="black" />
-                <rect x="12" width="3" height="3" rx="1.5" fill="black" />
-              </g>
-            </svg>
-          </div>
-          <ul tabIndex="0" className="dropdown-content z-[30] menu p-2 shadow bg-base-100 rounded-box w-52">
-            <li>
-              <Link href={`/learn/${type === 'opencourse' ? 'courses' : 'challenges'}/${id}?mode=preview`}>
-                Preview
-              </Link>
-            </li>
-            {status === 5 && <li><span className="mr-2">Deny</span></li>}
-            <li className="text-start px-4 py-2 rounded hover:bg-gray-600 cursor-pointer" onClick={() => {setConfirmOpen(true)}}>
-              Delete
-            </li>
-            <li>
-              <Link href={`/creator/learn/${type}/${id}`}>
-                Edit
-              </Link>
-            </li>
-            {status === 1 && (
-              <li className="flex flex-row items-center justify-start px-4 py-2 rounded hover:bg-gray-600 cursor-pointer" onClick={() => mutate(id, 4)}>
-                {loading === id && !confirmOpen && <span className="loading loading-spinner loading-xs h-3 !mask"></span>}
-                Publish
-              </li>
-            )}
-            {status === 2 && (
-              <li className="flex flex-row items-center justify-start px-4 py-2 rounded hover:bg-gray-600 cursor-pointer" onClick={() => mutate(id, 3)}>
-                {loading === id && !confirmOpen && <span className="loading loading-spinner loading-xs h-3 !mask"></span>}
-                Offline
-              </li>
-            )}
-            {status === 3 && (
-              <li className="flex flex-row items-center justify-start px-4 py-2 rounded hover:bg-gray-600 cursor-pointer" onClick={() => mutate(id, 2)}>
-                {loading === id && !confirmOpen && <span className="loading loading-spinner loading-xs h-3 !mask"></span>}
-                Online
-              </li>
-            )}
-            {status === 4 && (
-              <li className="flex flex-row items-center justify-start px-4 py-2 rounded hover:bg-gray-600 cursor-pointer" onClick={() => mutate(id, 1)}>
-                {loading === id && !confirmOpen && <span className="loading loading-spinner loading-xs h-3 !mask"></span>}
-                Cancel
-              </li>
-            )}
-            {type === 'challenges' && (
-              <li>
-                <Link href={`/creator/learn/challenges/${id}/email-template`}>Edit E-mail template</Link>
-              </li>
-            )}
-          </ul>
+      <div className="dropdown dropdown-hover">
+        <div tabIndex="0" role="button" className="m-1">
+          <svg
+            className="cursor-pointer"
+            width="15"
+            height="3"
+            viewBox="0 0 15 3"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g opacity="0.2">
+              <rect width="3" height="3" rx="1.5" fill="black" />
+              <rect x="6" width="3" height="3" rx="1.5" fill="black" />
+              <rect x="12" width="3" height="3" rx="1.5" fill="black" />
+            </g>
+          </svg>
         </div>
+        <ul tabIndex="0" className="dropdown-content z-[30] menu p-2 shadow bg-base-100 rounded-box w-52">
+          <li>
+            <Link href={`/learn/${type === 'opencourse' ? 'courses' : 'challenges'}/${id}?mode=preview`}>
+                Preview
+            </Link>
+          </li>
+          {status === 5 && <li><span className="mr-2">Deny</span></li>}
+          <li className="text-start px-4 py-2 rounded hover:bg-gray-600 cursor-pointer" onClick={() => {setConfirmOpen(true);}}>
+              Delete
+          </li>
+          <li>
+            <Link href={`/creator/learn/${type}/${id}`}>
+                Edit
+            </Link>
+          </li>
+          {status === 1 && (
+            <li className="flex flex-row items-center justify-start px-4 py-2 rounded hover:bg-gray-600 cursor-pointer" onClick={() => mutate(id, 4)}>
+              {loading === id && !confirmOpen && <span className="loading loading-spinner loading-xs h-3 !mask" />}
+                Publish
+            </li>
+          )}
+          {status === 2 && (
+            <li className="flex flex-row items-center justify-start px-4 py-2 rounded hover:bg-gray-600 cursor-pointer" onClick={() => mutate(id, 3)}>
+              {loading === id && !confirmOpen && <span className="loading loading-spinner loading-xs h-3 !mask" />}
+                Offline
+            </li>
+          )}
+          {status === 3 && (
+            <li className="flex flex-row items-center justify-start px-4 py-2 rounded hover:bg-gray-600 cursor-pointer" onClick={() => mutate(id, 2)}>
+              {loading === id && !confirmOpen && <span className="loading loading-spinner loading-xs h-3 !mask" />}
+                Online
+            </li>
+          )}
+          {status === 4 && (
+            <li className="flex flex-row items-center justify-start px-4 py-2 rounded hover:bg-gray-600 cursor-pointer" onClick={() => mutate(id, 1)}>
+              {loading === id && !confirmOpen && <span className="loading loading-spinner loading-xs h-3 !mask" />}
+                Cancel
+            </li>
+          )}
+          {type === 'challenges' && (
+            <li>
+              <Link href={`/creator/learn/challenges/${id}/email-template`}>Edit E-mail template</Link>
+            </li>
+          )}
+        </ul>
+      </div>
 
 
-        {/* <Button size="sm" variant="outlined" className="mr-2" >Delete</Button> */}
-        {/* <Link href={`/creator/learn/${type}/${id}`}>
+      {/* <Button size="sm" variant="outlined" className="mr-2" >Delete</Button> */}
+      {/* <Link href={`/creator/learn/${type}/${id}`}>
           <Button size="sm" variant="outlined" className="mr-2">Edit</Button>
         </Link> */}
-        {/* {status === 1 && (
+      {/* {status === 1 && (
           <Button
             size="sm"
             onClick={() => mutate(id, 4)}
@@ -111,7 +111,7 @@ export function ButtonGroup({type, status, id, loading, mutate}) {
             Publish
           </Button>
         )} */}
-        {/* {status === 2 && (
+      {/* {status === 2 && (
           <Button
             onClick={() => mutate(id, 3)}
             loading={loading=== id && !confirmOpen}
@@ -138,18 +138,18 @@ export function ButtonGroup({type, status, id, loading, mutate}) {
             Cancel
           </Button>
         )} */}
-        <Confirm
-          title="Are you sure?" info={`After confirming, the ${type === 'opencourse' ? 'course' : 'challenge'} you selected will be deleted.`}
-          open={confirmOpen}
-          closeModal={() => {
-            setConfirmOpen(false)
-          }}
-          confirmEvt={confirm}
-          loading={loading === id}
-        />
-      </div>
+      <Confirm
+        title="Are you sure?" info={`After confirming, the ${type === 'opencourse' ? 'course' : 'challenge'} you selected will be deleted.`}
+        open={confirmOpen}
+        closeModal={() => {
+          setConfirmOpen(false);
+        }}
+        confirmEvt={confirm}
+        loading={loading === id}
+      />
+    </div>
 
-  )
+  );
 }
 
 export function Status({status}) {
@@ -159,5 +159,5 @@ export function Status({status}) {
     {status === 3 && <span>Offline</span>}
     {status === 4 && <span>Under review</span>}
     {status === 5 && <span>Deny</span>}
-  </p>
+  </p>;
 }

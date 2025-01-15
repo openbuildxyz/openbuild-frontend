@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import { useUser } from '#/state/application/hooks'
+import { useUser } from '#/state/application/hooks';
 
 function useViewingSelf(userId) {
-  const currentUser = useUser()
+  const currentUser = useUser();
 
-  return userId && currentUser ? userId === currentUser.base.user_id : false
+  return userId && currentUser ? userId === currentUser.base.user_id : false;
 }
 
-export default useViewingSelf
+export default useViewingSelf;

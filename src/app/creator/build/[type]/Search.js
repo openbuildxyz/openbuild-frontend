@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import Link from 'next/link'
-import { useMemo } from 'react'
-import { PlusIcon } from '@heroicons/react/24/outline'
-import { ReactSelect } from '@/components/Select/ReactSelect'
-import Input from '@/components/Input'
-import { SearchIcon } from '@/components/Icons'
+import Link from 'next/link';
+import { useMemo } from 'react';
+import { PlusIcon } from '@heroicons/react/24/outline';
+import { ReactSelect } from '@/components/Select/ReactSelect';
+import Input from '@/components/Input';
+import { SearchIcon } from '@/components/Icons';
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useDebouncedCallback } from 'use-debounce'
-import { Button } from '@/components/Button'
+import { useDebouncedCallback } from 'use-debounce';
+import { Button } from '@/components/Button';
 
 const options = [
   {
@@ -40,14 +40,14 @@ const options = [
     label: 'Completed',
     value: 5,
   },
-]
+];
 
 export function Search() {
   const searchParams = useSearchParams();
   const { replace } = useRouter();
   const pathname = usePathname();
 
-  const handleSearch = useDebouncedCallback((term) => {
+  const handleSearch = useDebouncedCallback(term => {
     const params = new URLSearchParams(searchParams);
     params.set('page', '1');
     if (term) {
@@ -56,10 +56,10 @@ export function Search() {
       params.delete('query');
     }
     replace(`${pathname}?${params.toString()}`);
-  }, 300)
+  }, 300);
   const statusValue = useMemo(() => {
-    return searchParams?.get('status') || null
-  }, [searchParams])
+    return searchParams?.get('status') || null;
+  }, [searchParams]);
 
   return (
     <div className="flex items-center justify-between">
@@ -70,7 +70,7 @@ export function Search() {
             type="search"
             placeholder="Search"
             startContent={<SearchIcon />}
-            onChange={(e) => handleSearch(e.target.value)}
+            onChange={e => handleSearch(e.target.value)}
           />
         </div>
         <div className="ml-6 flex items-center">
@@ -83,9 +83,9 @@ export function Search() {
               const params = new URLSearchParams(searchParams);
               params.set('page', '1');
               if (e === null) {
-                params.delete('status')
+                params.delete('status');
               } else {
-                params.set('status', e.value)
+                params.set('status', e.value);
               }
               replace(`${pathname}?${params.toString()}`);
             }}
@@ -101,7 +101,7 @@ export function Search() {
         </Button>
       </Link>
     </div>
-  )
+  );
 
 
 }

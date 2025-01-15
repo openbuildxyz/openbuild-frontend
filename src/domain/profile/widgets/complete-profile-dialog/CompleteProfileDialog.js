@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import Link from 'next/link'
-import { Button } from '@/components/Button'
-import { Modal } from '@/components/Modal'
-import { NotCompleteIcon, CompleteIcon } from '@/components/Icons'
+import Link from 'next/link';
+import { Button } from '@/components/Button';
+import { Modal } from '@/components/Modal';
+import { NotCompleteIcon, CompleteIcon } from '@/components/Icons';
 
-import WalletBinderWidget from '../../../auth/widgets/wallet-binder'
+import WalletBinderWidget from '../../../auth/widgets/wallet-binder';
 
 function CompleteProfileDialogWidget({ open, close, title, notBindWallet, notComplete }) {
   return (
@@ -53,7 +53,7 @@ function CompleteProfileDialogWidget({ open, close, title, notBindWallet, notCom
         </Link>
       </div>
     </Modal>
-  )
+  );
 }
 
-export default CompleteProfileDialogWidget
+export default CompleteProfileDialogWidget;

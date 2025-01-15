@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
 export function ChallengesStatus({ data }) {
   return (
@@ -41,5 +41,5 @@ export function ChallengesStatus({ data }) {
         </span>
       )}
     </div>
-  )
+  );
 }

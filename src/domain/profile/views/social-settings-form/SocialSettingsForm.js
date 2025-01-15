@@ -14,25 +14,25 @@
  * limitations under the License.
  */
 
-import { useMemo } from 'react'
-import { ProfileTitle, ProfileLabel } from '#/domain/profile/widgets/blocks'
-import WalletIcon from './wallet.svg'
+import { useMemo } from 'react';
+import { ProfileTitle, ProfileLabel } from '#/domain/profile/widgets/blocks';
+import WalletIcon from './wallet.svg';
 // import StackoverflowIcon from 'public/images/svg/stackoverflow.svg'
-import DiscordIcon from './discord.svg'
-import GoogleIcon from './google_p.svg'
-import GithubIcon from 'public/images/svg/github_p.svg'
-import TwitterIcon from 'public/images/svg/x-black.svg'
+import DiscordIcon from './discord.svg';
+import GoogleIcon from './google_p.svg';
+import GithubIcon from 'public/images/svg/github_p.svg';
+import TwitterIcon from 'public/images/svg/x-black.svg';
 // import { useSearchParams } from 'next/navigation'
-import Switch from '@/components/Switch'
+import Switch from '@/components/Switch';
 
-import InputField from './InputField'
-import BindableField from './BindableField'
+import InputField from './InputField';
+import BindableField from './BindableField';
 
 function SocialSettingsFormView({ id, className, binds, values, onFieldChange }) {
   // const searchParams = useSearchParams()
 
   const list = useMemo(() => {
-    const [wallet, github, google] = ['wallet', 'github', 'google'].map(type => binds?.find(f => f.auth_user_bind_type === type))
+    const [wallet, github, google] = ['wallet', 'github', 'google'].map(type => binds?.find(f => f.auth_user_bind_type === type));
 
     return [
       {
@@ -79,8 +79,8 @@ function SocialSettingsFormView({ id, className, binds, values, onFieldChange })
         placeholder: 'Please enter Discord handle',
         enableBy: 'discordVisible',
       },
-    ]
-  }, [binds, values])
+    ];
+  }, [binds, values]);
 
   return (
     <div id={id} className={className}>
@@ -101,7 +101,7 @@ function SocialSettingsFormView({ id, className, binds, values, onFieldChange })
         ))}
       </div>
     </div>
-  )
+  );
 }
 
-export default SocialSettingsFormView
+export default SocialSettingsFormView;

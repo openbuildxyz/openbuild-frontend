@@ -14,22 +14,22 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import { useMemo, useState } from 'react'
-import clsx from 'clsx'
-import { PlusIcon } from '@heroicons/react/24/outline'
-import { ReactSelect } from '@/components/Select/ReactSelect'
-import Input from '@/components/Input'
-import { SearchIcon } from '@/components/Icons'
-import { Modal } from '@/components/Modal'
-import { CheckCircleIcon } from '@heroicons/react/24/solid'
-import { SelectItemModal } from './SelectItemModal'
+import { useMemo, useState } from 'react';
+import clsx from 'clsx';
+import { PlusIcon } from '@heroicons/react/24/outline';
+import { ReactSelect } from '@/components/Select/ReactSelect';
+import Input from '@/components/Input';
+import { SearchIcon } from '@/components/Icons';
+import { Modal } from '@/components/Modal';
+import { CheckCircleIcon } from '@heroicons/react/24/solid';
+import { SelectItemModal } from './SelectItemModal';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useDebouncedCallback } from 'use-debounce'
-import { Button } from '@/components/Button'
-import { addSeries } from '#/services/creator'
-import { InitForms, InitChallengesForms } from '../[type]/init'
+import { useDebouncedCallback } from 'use-debounce';
+import { Button } from '@/components/Button';
+import { addSeries } from '#/services/creator';
+import { InitForms, InitChallengesForms } from '../[type]/init';
 
 const options = [
   {
@@ -52,18 +52,18 @@ const options = [
     label: 'Deny',
     value: 5,
   },
-]
+];
 
 export function Search({type}) {
   const searchParams = useSearchParams();
   const { replace, push } = useRouter();
   const pathname = usePathname();
-  const [selectModalOpen, setSelectModalOpen] = useState(false)
-  const [selectActive, setSelectActive] = useState(0)
-  const [selectItemModalOpen, setSelectItemModalOpen] = useState(false)
-  const [confirming, setConfirming] = useState(false)
+  const [selectModalOpen, setSelectModalOpen] = useState(false);
+  const [selectActive, setSelectActive] = useState(0);
+  const [selectItemModalOpen, setSelectItemModalOpen] = useState(false);
+  const [confirming, setConfirming] = useState(false);
 
-  const handleSearch = useDebouncedCallback((term) => {
+  const handleSearch = useDebouncedCallback(term => {
     const params = new URLSearchParams(searchParams);
     params.set('page', '1');
     if (term) {
@@ -72,10 +72,10 @@ export function Search({type}) {
       params.delete('query');
     }
     replace(`${pathname}?${params.toString()}`);
-  }, 300)
+  }, 300);
   const statusValue = useMemo(() => {
-    return searchParams?.get('status') || null
-  }, [searchParams])
+    return searchParams?.get('status') || null;
+  }, [searchParams]);
   const publishOptions = [
     {
       title: `Publish New ${type === 'opencourse' ? 'Course' : 'Challenge'}`,
@@ -84,8 +84,8 @@ export function Search({type}) {
     {
       title: `Reuse and Sync ${type === 'opencourse' ? 'Challenge' : 'Course'}'s Content`,
       description: `Shared ${type === 'opencourse' ? 'challenge' : 'course'} content and speaker data, synchronized viewing progress. Exercise caution when copying.`,
-    }
-  ]
+    },
+  ];
 
   return (
     <div className="flex items-center justify-between">
@@ -96,7 +96,7 @@ export function Search({type}) {
             type="search"
             placeholder="Search"
             startContent={<SearchIcon />}
-            onChange={(e) => handleSearch(e.target.value)}
+            onChange={e => handleSearch(e.target.value)}
             className="h-10 [&>div]:pb-0"
           />
         </div>
@@ -110,9 +110,9 @@ export function Search({type}) {
               const params = new URLSearchParams(searchParams);
               params.set('page', '1');
               if (e === null) {
-                params.delete('status')
+                params.delete('status');
               } else {
-                params.set('status', e.value)
+                params.set('status', e.value);
               }
               replace(`${pathname}?${params.toString()}`);
             }}
@@ -152,28 +152,28 @@ export function Search({type}) {
         <Button
           loading={confirming}
           onClick={async () => {
-          if (selectActive === 0) {
-            setConfirming(true)
-            let _forms = { ...InitForms }
-            const _challengesForms = { ...InitChallengesForms }
-            const learnType = type === 'opencourse' ? 'open_course' : 'challenges'
-            _forms.course_series_type = learnType
-            let res
-            if (type === 'challenges') {
-              res = await addSeries({ base: _forms, challenges_extra: { ..._challengesForms } })
+            if (selectActive === 0) {
+              setConfirming(true);
+              const _forms = { ...InitForms };
+              const _challengesForms = { ...InitChallengesForms };
+              const learnType = type === 'opencourse' ? 'open_course' : 'challenges';
+              _forms.course_series_type = learnType;
+              let res;
+              if (type === 'challenges') {
+                res = await addSeries({ base: _forms, challenges_extra: { ..._challengesForms } });
+              } else {
+                res = await addSeries({ base: _forms });
+              }
+              setConfirming(false);
+              if (res.code === 200) {
+                const _id = res.data.base.course_series_id;
+                push(`${pathname}/${_id}`);
+              }
             } else {
-              res = await addSeries({ base: _forms })
+              setSelectItemModalOpen(true);
+              setSelectModalOpen(false);
             }
-            setConfirming(false)
-            if (res.code === 200) {
-              const _id = res.data.base.course_series_id
-              push(`${pathname}/${_id}`)
-            }
-          } else {
-            setSelectItemModalOpen(true)
-            setSelectModalOpen(false)
-          }
-        }} fullWidth className="mt-4 font-bold">
+          }} fullWidth className="mt-4 font-bold">
           Confirm
         </Button>
       </Modal>
@@ -182,9 +182,9 @@ export function Search({type}) {
         open={selectItemModalOpen}
         close={() => setSelectItemModalOpen(false)}
         back={() => {
-          setSelectModalOpen(true)
-          setSelectItemModalOpen(false)
+          setSelectModalOpen(true);
+          setSelectItemModalOpen(false);
         }} />
     </div>
-  )
+  );
 }

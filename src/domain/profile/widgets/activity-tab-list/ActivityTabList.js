@@ -14,23 +14,23 @@
  * limitations under the License.
  */
 
-import { useState } from 'react'
+import { useState } from 'react';
 
-import { ReactSelect } from '@/components/Select/ReactSelect'
+import { ReactSelect } from '@/components/Select/ReactSelect';
 
-import TabBar from '../tab-bar'
+import TabBar from '../tab-bar';
 
 const sortOptions = [
   { label: 'Latest', value: 'latest' },
   { label: 'Experiences', value: 'experiences' },
-]
+];
 
 function ActivityTabList({ userId, tabs }) {
-  const [activity, setActivity] = useState(0)
-  const [sort, setSort] = useState()
+  const [activity, setActivity] = useState(0);
+  const [sort, setSort] = useState();
 
-  const ActivityList = tabs[activity].view
-  const params = { userId, sort: sort?.value }
+  const ActivityList = tabs[activity].view;
+  const params = { userId, sort: sort?.value };
 
   return (
     <>
@@ -56,7 +56,7 @@ function ActivityTabList({ userId, tabs }) {
       </div>
       {ActivityList && <ActivityList params={params} />}
     </>
-  )
+  );
 }
 
-export default ActivityTabList
+export default ActivityTabList;

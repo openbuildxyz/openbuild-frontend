@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { SvgIcon } from '@/components/Image'
+import { SvgIcon } from '@/components/Image';
 
 export default function LoginTypeSwitcher({ loginType, handleChangeLoginType }) {
   return (
@@ -26,5 +26,5 @@ export default function LoginTypeSwitcher({ loginType, handleChangeLoginType }) 
         className="ml-2"
       />
     </p>
-  )
+  );
 }

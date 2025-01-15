@@ -14,23 +14,23 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import { useMediaUrl } from '#/state/application/hooks'
-import { useState } from 'react'
-import Link from 'next/link'
-import Image from 'next/image'
-import { EyeIcon } from '@heroicons/react/24/outline'
-import { UsersModal } from '../../UsersModal'
-import { ButtonGroup, Status } from './ListItem'
-import ContentEditable from 'react-contenteditable'
-import { HTMLDecode } from '@/utils'
+import { useMediaUrl } from '#/state/application/hooks';
+import { useState } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import { EyeIcon } from '@heroicons/react/24/outline';
+import { UsersModal } from '../../UsersModal';
+import { ButtonGroup, Status } from './ListItem';
+import ContentEditable from 'react-contenteditable';
+import { HTMLDecode } from '@/utils';
 
 export function OpenCourseList({ data, mutate, operation, itemTags }) {
-  const [openModal, setOpenModal] = useState(false)
-  const [currentId, setCurrentId] = useState()
+  const [openModal, setOpenModal] = useState(false);
+  const [currentId, setCurrentId] = useState();
 
-  const mediaUrl = useMediaUrl()
+  const mediaUrl = useMediaUrl();
 
   return (
     <div className="mt-6">
@@ -80,8 +80,8 @@ export function OpenCourseList({ data, mutate, operation, itemTags }) {
               {i.base.course_series_learn_finished} / {i.base.course_series_learn_num}
               <EyeIcon
                 onClick={() => {
-                  setCurrentId(i.base.course_series_id)
-                  setOpenModal(true)
+                  setCurrentId(i.base.course_series_id);
+                  setOpenModal(true);
                 }}
                 className="ml-2 h-4 w-4 cursor-pointer"
               />
@@ -97,5 +97,5 @@ export function OpenCourseList({ data, mutate, operation, itemTags }) {
       ))}
       {currentId && <UsersModal id={currentId} open={openModal} closeModal={() => setOpenModal(false)} />}
     </div>
-  )
+  );
 }

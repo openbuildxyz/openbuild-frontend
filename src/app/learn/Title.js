@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import Link from 'next/link'
-import { ArrowRightIcon } from '@/components/Icons'
+import Link from 'next/link';
+import { ArrowRightIcon } from '@/components/Icons';
 
 export function Title({ title, desc, link, linkText }) {
   return (
@@ -33,5 +33,5 @@ export function Title({ title, desc, link, linkText }) {
         )}
       </div>
     </div>
-  )
+  );
 }

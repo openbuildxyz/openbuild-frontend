@@ -14,29 +14,29 @@
  * limitations under the License.
  */
 
-import { isPlainObject } from 'lodash'
-import clsx from 'clsx'
+import { isPlainObject } from 'lodash';
+import clsx from 'clsx';
 
-import { Button } from '@/components/Button'
+import { Button } from '@/components/Button';
 
 function TabBar({ className, tabs, tabClassName, current, onChange }) {
-  const tabBarWrapperMobileClassName = 'justify-center border-b-1 border-b-[#d9d9d9]'
-  const tabBarWrapperDesktopClassName = 'md:justify-start md:border-b-0'
+  const tabBarWrapperMobileClassName = 'justify-center border-b-1 border-b-[#d9d9d9]';
+  const tabBarWrapperDesktopClassName = 'md:justify-start md:border-b-0';
 
-  const tabBarItemMobileClassName = 'px-0 border-b-2 rounded-none'
-  const tabBarItemDesktopClassName = 'md:px-3 md:border-b-1 md:rounded'
+  const tabBarItemMobileClassName = 'px-0 border-b-2 rounded-none';
+  const tabBarItemDesktopClassName = 'md:px-3 md:border-b-1 md:rounded';
 
   return (
     <div className={clsx('flex', tabBarWrapperMobileClassName, tabBarWrapperDesktopClassName, className)}>
       <div className="flex gap-6 -mb-px md:gap-2 md:mb-0">
         {tabs.map((tab, idx) => {
-          let flag, node
+          let flag, node;
 
           if (isPlainObject(tab)) {
-            flag = tab.text
-            node = tab.node || tab.text
+            flag = tab.text;
+            node = tab.node || tab.text;
           } else {
-            flag = node = tab
+            flag = node = tab;
           }
 
           return (
@@ -56,11 +56,11 @@ function TabBar({ className, tabs, tabClassName, current, onChange }) {
             >
               {node}
             </Button>
-          )
+          );
         })}
       </div>
     </div>
-  )
+  );
 }
 
-export default TabBar
+export default TabBar;

@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import Link from 'next/link'
+import Link from 'next/link';
 
-import { Button } from '@/components/Button'
-import Avatar from '@/components/Avatar'
+import { Button } from '@/components/Button';
+import Avatar from '@/components/Avatar';
 
 function FeedbackDetail({ result = {} }) {
-  const { quiz_user = {} } = result
+  const { quiz_user = {} } = result;
 
   return (
     <>
@@ -45,7 +45,7 @@ function FeedbackDetail({ result = {} }) {
         </Link>
       </div>
     </>
-  )
+  );
 }
 
-export default FeedbackDetail
+export default FeedbackDetail;

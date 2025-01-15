@@ -14,38 +14,38 @@
  * limitations under the License.
  */
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react';
 
-import Loader from '../Loader'
-import { NoData } from '../NoData'
+import Loader from '../Loader';
+import { NoData } from '../NoData';
 
 function LoadableList({ params, fetch, resolveResponse, renderList }) {
-  const [pageNum, setPageNum] = useState(1)
-  const [total, setTotal] = useState(0)
-  const [list, setList] = useState([])
-  const [loading, setLoading] = useState(false)
+  const [pageNum, setPageNum] = useState(1);
+  const [total, setTotal] = useState(0);
+  const [list, setList] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (loading) {
-      return
+      return;
     }
 
-    setLoading(true)
+    setLoading(true);
     fetch({ ...params, skip: (pageNum - 1) * 20 })
       .then(res => {
-        const resolvedRes = resolveResponse(res)
-        const resolvedList = resolvedRes.list || []
+        const resolvedRes = resolveResponse(res);
+        const resolvedList = resolvedRes.list || [];
 
         if (pageNum === 1) {
-          setList(resolvedList)
+          setList(resolvedList);
         } else {
-          setList(prev => [].concat(prev, resolvedList))
+          setList(prev => [].concat(prev, resolvedList));
         }
 
-        setTotal(resolvedRes.total || 0)
+        setTotal(resolvedRes.total || 0);
       })
-      .finally(() => setLoading(false))
-  }, [params, pageNum])
+      .finally(() => setLoading(false));
+  }, [params, pageNum]);
 
   return (
     <>
@@ -71,7 +71,7 @@ function LoadableList({ params, fetch, resolveResponse, renderList }) {
         </>
       )}
     </>
-  )
+  );
 }
 
-export default LoadableList
+export default LoadableList;

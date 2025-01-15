@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import { classNames } from '@/utils'
-import React, { useCallback, useState } from 'react'
+import { classNames } from '@/utils';
+import React, { useCallback, useState } from 'react';
 // import { PlayCircleIcon } from '@heroicons/react/20/solid'
 
-import Popover from '../Popover'
+import Popover from '../Popover';
 
 export default function Tooltip({ text, children, className, ...rest }) {
   return (
@@ -41,7 +41,7 @@ export default function Tooltip({ text, children, className, ...rest }) {
             width="200"
             height="200"
           >
-            <path d="M27.273 753.613l485.222-484.233 484.233 485.222z" fill="#1a1a1a" p-id="1523"></path>
+            <path d="M27.273 753.613l485.222-484.233 484.233 485.222z" fill="#1a1a1a" p-id="1523" />
           </svg>
           {text}
         </div>
@@ -50,7 +50,7 @@ export default function Tooltip({ text, children, className, ...rest }) {
     >
       {children}
     </Popover>
-  )
+  );
 }
 
 export function TooltipContent({ content, children, ...rest }) {
@@ -58,26 +58,26 @@ export function TooltipContent({ content, children, ...rest }) {
     <Popover content={<div className="w-64 break-words py-[0.6rem] px-4">{content}</div>} {...rest}>
       {children}
     </Popover>
-  )
+  );
 }
 
 export function MouseoverTooltip({ children, ...rest }) {
-  const [show, setShow] = useState(false)
-  const open = useCallback(() => setShow(true), [setShow])
-  const close = useCallback(() => setShow(false), [setShow])
+  const [show, setShow] = useState(false);
+  const open = useCallback(() => setShow(true), [setShow]);
+  const close = useCallback(() => setShow(false), [setShow]);
   return (
     <Tooltip {...rest} show={show}>
       <div onMouseEnter={open} onMouseLeave={close}>
         {children}
       </div>
     </Tooltip>
-  )
+  );
 }
 
 export function MouseoverTooltipContent({ content, children, ...rest }) {
-  const [show, setShow] = useState(false)
-  const open = useCallback(() => setShow(true), [setShow])
-  const close = useCallback(() => setShow(false), [setShow])
+  const [show, setShow] = useState(false);
+  const open = useCallback(() => setShow(true), [setShow]);
+  const close = useCallback(() => setShow(false), [setShow]);
   return (
     <TooltipContent {...rest} show={show} content={content}>
       <div
@@ -88,5 +88,5 @@ export function MouseoverTooltipContent({ content, children, ...rest }) {
         {children}
       </div>
     </TooltipContent>
-  )
+  );
 }

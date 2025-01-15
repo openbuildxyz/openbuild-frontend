@@ -14,26 +14,26 @@
  * limitations under the License.
  */
 
-import { ProfileTitle, ProfileLabel } from '#/domain/profile/widgets/blocks'
-import { Select } from '@/components/Select'
-import { useState, useMemo, useRef } from 'react'
-import { UploadIcon } from '@/components/Icons'
-import { useAllSkills, useConfig } from '#/state/application/hooks'
+import { ProfileTitle, ProfileLabel } from '#/domain/profile/widgets/blocks';
+import { Select } from '@/components/Select';
+import { useState, useMemo, useRef } from 'react';
+import { UploadIcon } from '@/components/Icons';
+import { useAllSkills, useConfig } from '#/state/application/hooks';
 // import { Transition } from '@headlessui/react'
 // import { CheckIcon, XMarkIcon } from '@heroicons/react/20/solid'
-import { BASE_INPUT_STYLE } from '@/constants/config'
-import { classNames } from '@/utils'
-import { upload } from '#/services/common'
-import { toast } from 'react-toastify'
-import Loader from '@/components/Loader'
-import { EXPERIENCE_OPTIONS } from '#/lib/user'
-import clsx from 'clsx'
-import { Button } from '@/components/Button'
+import { BASE_INPUT_STYLE } from '@/constants/config';
+import { classNames } from '@/utils';
+import { upload } from '#/services/common';
+import { toast } from 'react-toastify';
+import Loader from '@/components/Loader';
+import { EXPERIENCE_OPTIONS } from '#/lib/user';
+import clsx from 'clsx';
+import { Button } from '@/components/Button';
 
-import { ReactSelect } from '@/components/Select/ReactSelect'
+import { ReactSelect } from '@/components/Select/ReactSelect';
 
 export function MySkill({ forms, set, formsError }) {
-  const allSkills = useAllSkills()
+  const allSkills = useAllSkills();
 
   // const [openSkills, setOpenSkills] = useState(false)
   // const [skillsInputValue, setSkillsInputValue] = useState('')
@@ -44,19 +44,19 @@ export function MySkill({ forms, set, formsError }) {
   //     name: string
   //   }[]
   // >([])
-  const [uploading, setUploading] = useState(false)
-  const [uploadFileSizeError, setUploadFileSizeError] = useState(false)
-  const uploadRef = useRef(null)
-  const config = useConfig()
-  const mediaUrl = config?.find(f => f.config_id === 2)?.config_value.url
-  const allOpts = config?.find(f => f.config_id === 3)?.config_value
+  const [uploading, setUploading] = useState(false);
+  const [uploadFileSizeError, setUploadFileSizeError] = useState(false);
+  const uploadRef = useRef(null);
+  const config = useConfig();
+  const mediaUrl = config?.find(f => f.config_id === 2)?.config_value.url;
+  const allOpts = config?.find(f => f.config_id === 3)?.config_value;
 
   const rolesOpts = useMemo(() => {
     return allOpts?.roles?.map(i => ({
       key: i.id,
       name: i.name,
-    }))
-  }, [allOpts])
+    }));
+  }, [allOpts]);
 
   // const skillOpts = useMemo(() => {
   //   return allOpts?.skills?.map(i => ({
@@ -73,32 +73,32 @@ export function MySkill({ forms, set, formsError }) {
   // }, [skillsInputValue, skillOpts])
 
   const handleFileChange = event => {
-    const files = event.target.files
+    const files = event.target.files;
     if (files && files[0]) {
-      const file = files[0]
-      setUploadFileSizeError(false)
+      const file = files[0];
+      setUploadFileSizeError(false);
       if (file.size > 1024 * 1024 * 10) {
-        event.target.value = ''
-        setUploadFileSizeError(true)
-        return
+        event.target.value = '';
+        setUploadFileSizeError(true);
+        return;
       }
-      setUploading(true)
-      const formData = new FormData()
-      formData.append('file', files[0], files[0].name)
-      formData.append('intent', 'resume')
+      setUploading(true);
+      const formData = new FormData();
+      formData.append('file', files[0], files[0].name);
+      formData.append('intent', 'resume');
       upload({ file: formData })
         .then(res => {
-          setUploading(false)
-          set('resume', res.data.user_upload_path)
-          const current = uploadRef.current
-          current.value = ''
+          setUploading(false);
+          set('resume', res.data.user_upload_path);
+          const current = uploadRef.current;
+          current.value = '';
         })
         .catch(() => {
-          toast.error('Upload error')
-          setUploading(false)
-        })
+          toast.error('Upload error');
+          setUploading(false);
+        });
     }
-  }
+  };
 
   return (
     <div id="skill" className="mt-14">
@@ -129,12 +129,12 @@ export function MySkill({ forms, set, formsError }) {
           styles={{
             control: () => ({
               height: 'auto !important',
-              minHeight: '40px'
-            })
+              minHeight: '40px',
+            }),
           }}
           onChange={e => {
-            const _skills = e.map(i => i.value)
-            set('skills', _skills)
+            const _skills = e.map(i => i.value);
+            set('skills', _skills);
           }}
         />
         {/* <div className="relative">
@@ -373,5 +373,5 @@ export function MySkill({ forms, set, formsError }) {
         </div>
       </div>
     </div>
-  )
+  );
 }

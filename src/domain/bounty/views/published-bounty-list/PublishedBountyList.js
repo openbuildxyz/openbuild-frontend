@@ -14,23 +14,23 @@
  * limitations under the License.
  */
 
-import { useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation';
 
-import { SvgIcon } from '@/components/Image'
-import LoadableList from '@/components/loadable-list'
+import { SvgIcon } from '@/components/Image';
+import LoadableList from '@/components/loadable-list';
 
-import { useViewingSelf } from '../../../auth/hooks'
+import { useViewingSelf } from '../../../auth/hooks';
 
-import { fetchPublishedBountyList } from '../../repository'
-import BountyItem from '../../widgets/bounty-item'
+import { fetchPublishedBountyList } from '../../repository';
+import BountyItem from '../../widgets/bounty-item';
 
 function PublishedBountyList({ list, viewingSelf }) {
-  const router = useRouter()
+  const router = useRouter();
   const handleEditBounty = (bounty, e) => {
-    e.preventDefault()
-    e.stopPropagation()
-    router.push(`/creator/build/bounty/${bounty.id}`)
-  }
+    e.preventDefault();
+    e.stopPropagation();
+    router.push(`/creator/build/bounty/${bounty.id}`);
+  };
 
   return (
     <div>
@@ -45,11 +45,11 @@ function PublishedBountyList({ list, viewingSelf }) {
         </BountyItem>
       ))}
     </div>
-  )
+  );
 }
 
 function PublishedBountyListView({ params }) {
-  const viewingSelf = useViewingSelf(params?.userId)
+  const viewingSelf = useViewingSelf(params?.userId);
 
   return (
     <LoadableList
@@ -58,7 +58,7 @@ function PublishedBountyListView({ params }) {
       resolveResponse={res => ({ list: res.data.list, total: res.data.count })}
       renderList={list => <PublishedBountyList list={list} viewingSelf={viewingSelf} />}
     />
-  )
+  );
 }
 
-export default PublishedBountyListView
+export default PublishedBountyListView;

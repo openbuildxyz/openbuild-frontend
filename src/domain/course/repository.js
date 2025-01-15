@@ -14,35 +14,35 @@
  * limitations under the License.
  */
 
-import { merge } from 'lodash'
+import { merge } from 'lodash';
 
-import { legacyClient } from '@/utils/http'
+import { legacyClient } from '@/utils/http';
 
 async function fetchOne(id) {
-  return legacyClient.get(`/learn/course/opencourse/${id}`)
+  return legacyClient.get(`/learn/course/opencourse/${id}`);
 }
 
 async function fetchPublishedCourseList(params = {}) {
-  const { userId, sort, ...others } = params
+  const { userId, sort, ...others } = params;
 
   return legacyClient.get('/learn/course/opencourse', {
     params: merge({ take: 20 }, others, {
       team_uid: userId,
       order: sort || 'default',
-    })
-  })
+    }),
+  });
 }
 
 async function fetchEnrolledCourseList(params = {}) {
-  const { userId, sort, ...others } = params
+  const { userId, sort, ...others } = params;
 
   return legacyClient.get('/learn/dashboard/public/enrool/series', {
     params: merge({ take: 20 }, others, {
       id: userId,
       series_type: 'open_course',
       order: sort || 'default',
-    })
-  })
+    }),
+  });
 }
 
-export { fetchOne, fetchPublishedCourseList, fetchEnrolledCourseList }
+export { fetchOne, fetchPublishedCourseList, fetchEnrolledCourseList };

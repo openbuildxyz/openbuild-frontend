@@ -14,4 +14,4 @@
  * limitations under the License.
  */
 
-export { default } from './CompleteProfileDialog'
+export { default } from './CompleteProfileDialog';

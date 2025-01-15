@@ -14,24 +14,24 @@
  * limitations under the License.
  */
 
-import { get } from '@/utils/request'
-import { Author } from './Author'
-import { Tabs } from './Tabs'
-import { Chapters } from '../../Chapters'
-import { Speaker } from '../../Speaker'
-import { LearnInfo } from './LearnInfo'
-import { LearnRightCard } from './RightCard'
-import { Back } from './Back'
-import { Share } from '@/components/Share'
-import { ChallengesTags } from './Tags'
-import { PreviewAlert } from '@/components/PreviewAlert'
-import { Summary, Title } from './Summary'
-import { GrowPath } from './GrowPath'
+import { get } from '@/utils/request';
+import { Author } from './Author';
+import { Tabs } from './Tabs';
+import { Chapters } from '../../Chapters';
+import { Speaker } from '../../Speaker';
+import { LearnInfo } from './LearnInfo';
+import { LearnRightCard } from './RightCard';
+import { Back } from './Back';
+import { Share } from '@/components/Share';
+import { ChallengesTags } from './Tags';
+import { PreviewAlert } from '@/components/PreviewAlert';
+import { Summary, Title } from './Summary';
+import { GrowPath } from './GrowPath';
 
 export async function generateMetadata({ params }) {
   // fetch data
-  const { data } = await get(`v1/learn/course/${params.type === 'courses' ? 'opencourse' : 'challenges'}/${params.id}`, {isServer: true})
-  const previousImages = `https://file-cdn.openbuild.xyz${data?.base?.course_series_img}` || ''
+  const { data } = await get(`v1/learn/course/${params.type === 'courses' ? 'opencourse' : 'challenges'}/${params.id}`, {isServer: true});
+  const previousImages = `https://file-cdn.openbuild.xyz${data?.base?.course_series_img}` || '';
   return {
     title: data?.base?.course_series_title,
     description: data?.base?.course_series_summary,
@@ -46,22 +46,22 @@ export async function generateMetadata({ params }) {
       description: data?.base?.course_series_summary,
       images: [previousImages],
     },
-  }
+  };
 }
 export default async function LearnDetailsPage({ params, searchParams }) {
-  let datas
+  let datas;
   if (params.type === 'career_path') {
     datas = await Promise.all([
       get(`ts/v1/learn/general/course/grow_path/${params.id}`, {isServer: true}),
-      get(`ts/v1/learn/general/course/grow_path/${params.id}/permission`, {isServer: true})
-    ])
+      get(`ts/v1/learn/general/course/grow_path/${params.id}/permission`, {isServer: true}),
+    ]);
   } else {
     datas = await Promise.all([
       get(`v1/learn/course/${params.type === 'courses' ? 'opencourse' : 'challenges'}/${params.id}`, {isServer: true}),
-      get(`ts/v1/learn/general/course/series/${params.id}/permission`, {isServer: true})
-    ])
+      get(`ts/v1/learn/general/course/series/${params.id}/permission`, {isServer: true}),
+    ]);
   }
-  const [{ data }, { data: permission }] = [...datas]
+  const [{ data }, { data: permission }] = [...datas];
 
   return params.type !== 'career_path' ? (
     <>
@@ -80,13 +80,13 @@ export default async function LearnDetailsPage({ params, searchParams }) {
             {data && <Tabs data={data} />}
             {data && <LearnInfo data={data} />}
             {data && data?.courses?.length > 0 && <Chapters type={params.type} data={data} id={data?.base?.course_series_id} />}
-            <div className="h-6"></div>
+            <div className="h-6" />
             {data && data?.speaker?.length > 0 && <Speaker data={data?.speaker} />}
-            <div className="h-[72px]"></div>
+            <div className="h-[72px]" />
           </div>
         </div>
         <LearnRightCard data={data} type={params.type} permission={permission} />
       </div>
     </>
-  ) : <GrowPath params={params} data={data} permission={permission} />
+  ) : <GrowPath params={params} data={data} permission={permission} />;
 }

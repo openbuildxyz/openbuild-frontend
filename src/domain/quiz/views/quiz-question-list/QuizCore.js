@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import clsx from 'clsx'
-import { nanoid } from 'nanoid'
+import clsx from 'clsx';
+import { nanoid } from 'nanoid';
 
-import RadioIcon from './RadioIcon'
+import RadioIcon from './RadioIcon';
 
 export function QuizCore({
   quiz,
@@ -27,30 +27,30 @@ export function QuizCore({
   marked = false,
 }) {
   if (!quiz || quiz.length === 0) {
-    return
+    return;
   }
 
-  const multiple = quiz[page - 1].type === 2
+  const multiple = quiz[page - 1].type === 2;
 
   const checkAnswer = item => {
     if (submitData) {
-      return
+      return;
     }
 
-    const _quiz = [...quiz]
+    const _quiz = [...quiz];
 
     if (multiple) {
       if (_quiz[page - 1].answer.includes(item.id)) {
-        _quiz[page - 1].answer.splice( _quiz.indexOf(item.id), 1)
+        _quiz[page - 1].answer.splice( _quiz.indexOf(item.id), 1);
       } else {
-        _quiz[page - 1].answer.push(item.id)
+        _quiz[page - 1].answer.push(item.id);
       }
     } else {
-      _quiz[page - 1].answer = [item.id]
+      _quiz[page - 1].answer = [item.id];
     }
 
-    setQuiz(_quiz)
-  }
+    setQuiz(_quiz);
+  };
 
   return (
     <>
@@ -61,14 +61,14 @@ export function QuizCore({
             <h2 className="text-2xl">
               <span className={clsx('rounded relative top-[-3px] px-2 py-1 mr-2 font-normal text-sm', {
                 'bg-[rgba(58,171,118,0.1)] text-[#3AAB76]': !multiple,
-                'bg-[rgba(118,82,237,0.1)] text-[#7652ED]': multiple
+                'bg-[rgba(118,82,237,0.1)] text-[#7652ED]': multiple,
               })}>{multiple ? 'Multiple' : 'Single'}</span>
               {quiz[page - 1].question}
             </h2>
-            {quiz[page - 1].quiz_item.map((item) => {
-              const checked = quiz[page - 1].answer?.includes(item.id)
-              const markable = checked && marked
-              const correct = quiz[page - 1].correct?.includes(item.id)
+            {quiz[page - 1].quiz_item.map(item => {
+              const checked = quiz[page - 1].answer?.includes(item.id);
+              const markable = checked && marked;
+              const correct = quiz[page - 1].correct?.includes(item.id);
 
               return (
                 <button
@@ -84,12 +84,12 @@ export function QuizCore({
                   <RadioIcon className="flex-shrink-0 md:hidden" checked={checked} />
                   {item.item_text}
                 </button>
-              )
+              );
             })}
           </>
         )}
       </div>
     </>
-  )
+  );
 }
 

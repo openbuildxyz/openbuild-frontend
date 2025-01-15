@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import { isInteger } from 'lodash'
-import clsx from 'clsx'
+import { isInteger } from 'lodash';
+import clsx from 'clsx';
 
-import Image from '@/components/Image'
+import Image from '@/components/Image';
 
-const idKey = 'id'
-const avatarKey = 'id'
+const idKey = 'id';
+const avatarKey = 'id';
 
 function BuilderList({
   className,
@@ -31,9 +31,9 @@ function BuilderList({
   limit = 10,
   hideMore = false,
 }) {
-  const resolvedTotal = total || dataSource.length
-  const greaterThanLimit = isInteger(limit) && resolvedTotal > limit
-  const builders = greaterThanLimit ? dataSource.slice(0, hideMore ? limit : limit - 1) : dataSource
+  const resolvedTotal = total || dataSource.length;
+  const greaterThanLimit = isInteger(limit) && resolvedTotal > limit;
+  const builders = greaterThanLimit ? dataSource.slice(0, hideMore ? limit : limit - 1) : dataSource;
 
   return resolvedTotal > 0 && (
     <div className={clsx('flex items-center text-sm', className)}>
@@ -54,7 +54,7 @@ function BuilderList({
       </div>
       {children || `${resolvedTotal} builder${resolvedTotal > 1 ? 's' : ''}`}
     </div>
-  )
+  );
 }
 
-export default BuilderList
+export default BuilderList;

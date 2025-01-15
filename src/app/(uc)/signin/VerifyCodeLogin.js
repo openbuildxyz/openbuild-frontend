@@ -14,50 +14,50 @@
  * limitations under the License.
  */
 
-import { useState, useEffect } from 'react'
-import { isEmail } from 'validator'
-import { toast } from 'react-toastify'
+import { useState, useEffect } from 'react';
+import { isEmail } from 'validator';
+import { toast } from 'react-toastify';
 
-import { wrapOnChange } from '@/utils/form'
-import { sendCode } from '#/services/auth'
+import { wrapOnChange } from '@/utils/form';
+import { sendCode } from '#/services/auth';
 
 export default function VerifyCodeLogin({ register, loginType, email }) {
-  const [sendLoading, setSendLoading] = useState(false)
-  const [countdown, setCountdown] = useState(0)
+  const [sendLoading, setSendLoading] = useState(false);
+  const [countdown, setCountdown] = useState(0);
 
   useEffect(() => {
     if (countdown > 0) {
-      const timerId = setInterval(() => setCountdown(countdown - 1), 1000)
-      return () => clearInterval(timerId)
+      const timerId = setInterval(() => setCountdown(countdown - 1), 1000);
+      return () => clearInterval(timerId);
     }
-  }, [countdown])
+  }, [countdown]);
 
   const verifyCodeField = register('VerifyCode', {
-    required: loginType === 'verifyCode'
-  })
-  verifyCodeField.onChange = wrapOnChange(verifyCodeField.onChange)
+    required: loginType === 'verifyCode',
+  });
+  verifyCodeField.onChange = wrapOnChange(verifyCodeField.onChange);
 
   const handleSendCode = async () => {
     if (!email || !isEmail(email)) {
-      toast.error('Please enter a valid email address.')
-      return
+      toast.error('Please enter a valid email address.');
+      return;
     }
-    setSendLoading(true)
+    setSendLoading(true);
 
     try {
-      const res = await sendCode(email, 'bind')
+      const res = await sendCode(email, 'bind');
       if (res.code === 200) {
-        setCountdown(59)
-        toast.success('Code sent successfully!')
+        setCountdown(59);
+        toast.success('Code sent successfully!');
       } else {
-        toast.error(res.message)
+        toast.error(res.message);
       }
     } catch (error) {
-      toast.error('Failed to send code.')
+      toast.error('Failed to send code.');
     } finally {
-      setSendLoading(false)
+      setSendLoading(false);
     }
-  }
+  };
 
   return (
     <div className="mt-[2px] flex items-center bg-[#f1f1f1] pr-3">
@@ -80,6 +80,6 @@ export default function VerifyCodeLogin({ register, loginType, email }) {
         <p className="text-sm leading-[48px]">{countdown}s</p>
       )}
     </div>
-  )
+  );
 }
 

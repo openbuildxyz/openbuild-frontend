@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import { get, post } from '@/utils/request'
+import { get, post } from '@/utils/request';
 
 export async function joinChallengesEnrool(id, data, code) {
-  const res = await post(`ts/v1/learn/general/course/challenges/${id}/permission/enrool`, { data, ...code })
-  return res
+  const res = await post(`ts/v1/learn/general/course/challenges/${id}/permission/enrool`, { data, ...code });
+  return res;
 }
 
 /**
@@ -27,8 +27,8 @@ export async function joinChallengesEnrool(id, data, code) {
  * @returns /
  */
 export async function courseDetails(id, type) {
-  const res = await get(`v1/learn/course/${type}/${id}`)
-  return res.data
+  const res = await get(`v1/learn/course/${type}/${id}`);
+  return res.data;
 }
 
 /**
@@ -37,11 +37,11 @@ export async function courseDetails(id, type) {
  * @returns /
  */
 export async function uploadSingleProgress(id) {
-  const res = await post(`ts/v1/learn/general/course/single/${id}/time`)
-  return res.data
+  const res = await post(`ts/v1/learn/general/course/single/${id}/time`);
+  return res.data;
 }
 
 export async function pay(id, hash) {
-  const res = await post(`ts/v1/learn/general/course/challenges/${id}/permission/pay`, { hash })
-  return res
+  const res = await post(`ts/v1/learn/general/course/challenges/${id}/permission/pay`, { hash });
+  return res;
 }

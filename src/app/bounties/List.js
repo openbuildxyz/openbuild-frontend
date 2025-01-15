@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import { useOpenFilter } from '#/state/application/hooks'
-import clsx from 'clsx'
+import { useOpenFilter } from '#/state/application/hooks';
+import clsx from 'clsx';
 
-import { BountiesCard } from './Card'
-import { OPagination } from '@/components/Pagination'
+import { BountiesCard } from './Card';
+import { OPagination } from '@/components/Pagination';
 
 export function List({ data }) {
-  const openFilter = useOpenFilter()
+  const openFilter = useOpenFilter();
   return (
     <div>
       <div
@@ -42,5 +42,5 @@ export function List({ data }) {
       </div>
       <OPagination total={data.total} />
     </div>
-  )
+  );
 }

@@ -14,23 +14,23 @@
  * limitations under the License.
  */
 
-import LoadableList from '@/components/loadable-list'
+import LoadableList from '@/components/loadable-list';
 
-import { useViewingSelf } from '../../../auth/hooks'
+import { useViewingSelf } from '../../../auth/hooks';
 
-import { fetchPublishedCourseList } from '../../repository'
-import PublishedCourseItem from './PublishedCourseItem'
+import { fetchPublishedCourseList } from '../../repository';
+import PublishedCourseItem from './PublishedCourseItem';
 
 function PublishedCourseList({ list, viewingSelf }) {
   return (
     <div>
       {list.map((item, idx) => <PublishedCourseItem key={`course-${idx}`} data={item} viewingSelf={viewingSelf} />)}
     </div>
-  )
+  );
 }
 
 function PublishedCourseListView({ params }) {
-  const viewingSelf = useViewingSelf(params?.userId)
+  const viewingSelf = useViewingSelf(params?.userId);
 
   return (
     <LoadableList
@@ -39,7 +39,7 @@ function PublishedCourseListView({ params }) {
       resolveResponse={res => ({ list: res.data.list, total: res.data.count })}
       renderList={list => <PublishedCourseList list={list} viewingSelf={viewingSelf} />}
     />
-  )
+  );
 }
 
-export default PublishedCourseListView
+export default PublishedCourseListView;

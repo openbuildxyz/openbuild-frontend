@@ -14,31 +14,31 @@
  * limitations under the License.
  */
 
-'use client'
-import Image from 'next/image'
-import { ProgressBar } from '@/components/ProgressBar'
-import { Button } from '@/components/Button'
-import BigNumber from 'bignumber.js'
-import { millisecondFormat } from '@/utils/date'
-import { useMemo } from 'react'
-import { useSeriesPermission } from '#/services/learn/hooks'
+'use client';
+import Image from 'next/image';
+import { ProgressBar } from '@/components/ProgressBar';
+import { Button } from '@/components/Button';
+import BigNumber from 'bignumber.js';
+import { millisecondFormat } from '@/utils/date';
+import { useMemo } from 'react';
+import { useSeriesPermission } from '#/services/learn/hooks';
 
 export function NFTCertificates({ data }) {
-  const { permission } = useSeriesPermission(data.base.course_series_id)
+  const { permission } = useSeriesPermission(data.base.course_series_id);
 
   const total = useMemo(() => {
-    return data.courses?.reduce((p, c) => p + c.analytics.analytice_estimated_time, 0)
-  }, [data])
+    return data.courses?.reduce((p, c) => p + c.analytics.analytice_estimated_time, 0);
+  }, [data]);
   const userTotal = useMemo(() => {
-    return data.courses?.reduce((p, c) => p + c.analytics.analytice_user_time, 0)
-  }, [data])
+    return data.courses?.reduce((p, c) => p + c.analytics.analytice_user_time, 0);
+  }, [data]);
   const _prog = useMemo(() => {
     if (userTotal / total > 100) {
-      return 100
+      return 100;
     } else {
-      return new BigNumber(userTotal).div(total).times(100).toFixed(0)
+      return new BigNumber(userTotal).div(total).times(100).toFixed(0);
     }
-  }, [total, userTotal])
+  }, [total, userTotal]);
 
   return (
     <div className="relative overflow-hidden rounded-2xl bg-white p-6 transition-shadow">
@@ -77,5 +77,5 @@ export function NFTCertificates({ data }) {
         Mint now
       </Button>
     </div>
-  )
+  );
 }

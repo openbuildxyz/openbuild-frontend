@@ -14,30 +14,30 @@
  * limitations under the License.
  */
 
-import { Modal } from '@/components/Modal'
-import { AddProgressModal } from '../../creator/build/[type]/AddProgressModal'
-import { useCallback, useEffect } from 'react'
-import { Button } from '@/components/Button'
-import clsx from 'clsx'
-import Image from 'next/image'
-import { useState } from 'react'
-import { Confirm } from '@/components/Modal/Confirm'
-import { getProgressList, biulderFinish, builderTerminationConfirm, builderTerminationDeny, arbitrate } from '#/services/bounties'
-import { useDetails } from '#/services/bounties/hooks'
+import { Modal } from '@/components/Modal';
+import { AddProgressModal } from '../../creator/build/[type]/AddProgressModal';
+import { useCallback, useEffect } from 'react';
+import { Button } from '@/components/Button';
+import clsx from 'clsx';
+import Image from 'next/image';
+import { useState } from 'react';
+import { Confirm } from '@/components/Modal/Confirm';
+import { getProgressList, biulderFinish, builderTerminationConfirm, builderTerminationDeny, arbitrate } from '#/services/bounties';
+import { useDetails } from '#/services/bounties/hooks';
 
-import { useMediaUrl } from '#/state/application/hooks'
-import { formatTime } from '@/utils/date'
-import { toast } from 'react-toastify'
-import { NoData } from '@/components/NoData'
-import { useAccount, useNetwork, useWalletClient, useSwitchNetwork } from 'wagmi'
-import { contracts, payTokens } from '@/constants/contract'
-import { currentTime, fromNow } from '@/utils/date'
-import { signBounty } from '@/utils/web3'
-import { withdraw } from '@/constants/bounty'
-import { parseUnits } from '@ethersproject/units'
-import { BOUNTY_SUPPORTED_CHAIN } from '@/constants/chain'
+import { useMediaUrl } from '#/state/application/hooks';
+import { formatTime } from '@/utils/date';
+import { toast } from 'react-toastify';
+import { NoData } from '@/components/NoData';
+import { useAccount, useNetwork, useWalletClient, useSwitchNetwork } from 'wagmi';
+import { contracts, payTokens } from '@/constants/contract';
+import { currentTime, fromNow } from '@/utils/date';
+import { signBounty } from '@/utils/web3';
+import { withdraw } from '@/constants/bounty';
+import { parseUnits } from '@ethersproject/units';
+import { BOUNTY_SUPPORTED_CHAIN } from '@/constants/chain';
 
-import { useConnectModal } from '@rainbow-me/rainbowkit'
+import { useConnectModal } from '@rainbow-me/rainbowkit';
 
 export function ManageModal({
   open,
@@ -46,155 +46,155 @@ export function ManageModal({
   bounty,
   callback,
 }) {
-  const { data: walletClient } = useWalletClient()
-  const { openConnectModal } = useConnectModal()
-  const _contracts = contracts[BOUNTY_SUPPORTED_CHAIN()]
-  const payToken = payTokens[BOUNTY_SUPPORTED_CHAIN()].usdt
-  const mediaUrl = useMediaUrl()
-  const [confirmOpen, setConfirmOpen] = useState(false)
-  const [agreeType, setAgreeType] = useState()
-  const [agreeConfirmOpen, setAgreeConfirmOpen] = useState(false)
-  const [confirmLoading, setConfirmLoading] = useState(false)
+  const { data: walletClient } = useWalletClient();
+  const { openConnectModal } = useConnectModal();
+  const _contracts = contracts[BOUNTY_SUPPORTED_CHAIN()];
+  const payToken = payTokens[BOUNTY_SUPPORTED_CHAIN()].usdt;
+  const mediaUrl = useMediaUrl();
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const [agreeType, setAgreeType] = useState();
+  const [agreeConfirmOpen, setAgreeConfirmOpen] = useState(false);
+  const [confirmLoading, setConfirmLoading] = useState(false);
 
 
-  const [addProgressOpen, setAddProgressOpen] = useState(false)
-  const [amount, setAmount] = useState('')
+  const [addProgressOpen, setAddProgressOpen] = useState(false);
+  const [amount, setAmount] = useState('');
 
-  const details = useDetails(bounty.id)
-  const [list, setList] = useState()
+  const details = useDetails(bounty.id);
+  const [list, setList] = useState();
   // const [closeBounty, setCloseBounty] = useState<boolean>()
-  const [finishedLoading, setFinishedLoading] = useState(false)
-  const { isConnected } = useAccount()
-  const { chain } = useNetwork()
+  const [finishedLoading, setFinishedLoading] = useState(false);
+  const { isConnected } = useAccount();
+  const { chain } = useNetwork();
 
   const close = useCallback(() => {
-    setConfirmLoading(false)
-    setFinishedLoading(false)
-    closeModal()
-  }, [closeModal])
+    setConfirmLoading(false);
+    setFinishedLoading(false);
+    closeModal();
+  }, [closeModal]);
 
 
-  const { switchNetwork } = useSwitchNetwork()
+  const { switchNetwork } = useSwitchNetwork();
   const sNetwork = useCallback(() => {
     if (chain?.id !== BOUNTY_SUPPORTED_CHAIN()) {
-      switchNetwork?.(BOUNTY_SUPPORTED_CHAIN())
-      return
+      switchNetwork?.(BOUNTY_SUPPORTED_CHAIN());
+      return;
     }
-  }, [chain, switchNetwork])
+  }, [chain, switchNetwork]);
 
   const fetchList = useCallback(async () => {
     if (details.data && details.data?.builders?.length > 0) {
-      const res = await getProgressList(bounty.id, details.data?.builders[0].id)
+      const res = await getProgressList(bounty.id, details.data?.builders[0].id);
       if (res.code === 200) {
         // const _l = res.data.list.filter((f: BountyProgress) => f.type === 1)
-        setList(res.data.list)
+        setList(res.data.list);
       }
     }
-  }, [bounty.id, details.data])
+  }, [bounty.id, details.data]);
   useEffect(() => {
     if (open || !addProgressOpen) {
-      fetchList()
+      fetchList();
     }
-  }, [fetchList, open, addProgressOpen])
+  }, [fetchList, open, addProgressOpen]);
 
-  const agreeConfirm = (type) => {
-    setAgreeType(type)
-    setAgreeConfirmOpen(true)
-  }
+  const agreeConfirm = type => {
+    setAgreeType(type);
+    setAgreeConfirmOpen(true);
+  };
 
   const confirm = async () => {
     try {
-      let res
-      setConfirmLoading(true)
-      const last = details.data?.last_event
+      let res;
+      setConfirmLoading(true);
+      const last = details.data?.last_event;
       if (agreeType) {
-        if (!details.data || !chain || !last) return
-        const { hash } = await withdraw(walletClient, chain?.id, last?.bounty_task, (last?.extra_5 / 100), last.extra_6, last.extra_1)
+        if (!details.data || !chain || !last) return;
+        const { hash } = await withdraw(walletClient, chain?.id, last?.bounty_task, (last?.extra_5 / 100), last.extra_6, last.extra_1);
         if (hash === 'error') {
-          setConfirmLoading(false)
-          toast.error('Transition Error')
-          return
+          setConfirmLoading(false);
+          toast.error('Transition Error');
+          return;
         }
-        res = await builderTerminationConfirm(bounty.id, hash)
+        res = await builderTerminationConfirm(bounty.id, hash);
       } else {
-        res = await builderTerminationDeny(bounty.id)
+        res = await builderTerminationDeny(bounty.id);
       }
-      setConfirmLoading(false)
+      setConfirmLoading(false);
 
       if (res?.code === 200) {
-        fetchList()
-        setAgreeConfirmOpen(false)
+        fetchList();
+        setAgreeConfirmOpen(false);
         if (agreeType) {
-          callback(120)
+          callback(120);
         } else {
-          callback(107)
+          callback(107);
         }
-        close()
+        close();
       } else {
-        toast.error(res?.message)
+        toast.error(res?.message);
       }
     } catch (error) {
       // console.log(error.message)
-      toast.error(error.message)
+      toast.error(error.message);
     }
 
-  }
+  };
 
   const finished = async () => {
     if (!isConnected) {
-      openConnectModal()
-      return
+      openConnectModal();
+      return;
     }
-    setFinishedLoading(true)
-  }
+    setFinishedLoading(true);
+  };
 
-  const { data: signer } = useWalletClient()
+  const { data: signer } = useWalletClient();
 
   useEffect(() => {
-    sNetwork()
+    sNetwork();
     const sign = async () => {
-      const _deadline = currentTime() + 7 * 24 * 60 * 60
-      const _s = await signBounty(chain?.id, _contracts.bounty, signer, bounty.task, parseUnits(amount.toString(), payToken.decimals), _deadline)
+      const _deadline = currentTime() + 7 * 24 * 60 * 60;
+      const _s = await signBounty(chain?.id, _contracts.bounty, signer, bounty.task, parseUnits(amount.toString(), payToken.decimals), _deadline);
       if (_s === 'error') {
-        setFinishedLoading(false)
-        return
+        setFinishedLoading(false);
+        return;
       }
-      const res = await biulderFinish(bounty.id, Number(amount), _s, _deadline)
-      setFinishedLoading(false)
+      const res = await biulderFinish(bounty.id, Number(amount), _s, _deadline);
+      setFinishedLoading(false);
       if (res.code === 200) {
-        toast.success('Successful')
-        fetchList()
-        callback(101)
-        setConfirmOpen(false)
-        setAddProgressOpen(false)
-        close()
+        toast.success('Successful');
+        fetchList();
+        callback(101);
+        setConfirmOpen(false);
+        setAddProgressOpen(false);
+        close();
       } else {
-        toast.error('Completed failed')
+        toast.error('Completed failed');
       }
-    }
+    };
 
     if (finishedLoading) {
-      sign()
+      sign();
     }
-  }, [signer, chain, _contracts.bounty, finishedLoading, amount, bounty, callback, closeModal, fetchList, payToken.decimals, close, sNetwork])
+  }, [signer, chain, _contracts.bounty, finishedLoading, amount, bounty, callback, closeModal, fetchList, payToken.decimals, close, sNetwork]);
 
   const arbitrateEvent = async () => {
     if (details.data) {
       if (details.data?.last_event.extra_6 > currentTime()) {
-        const res = await arbitrate(details.data.id)
+        const res = await arbitrate(details.data.id);
         if (res.code === 200) {
-          toast.success('Successful')
-          fetchList()
-          callback(110)
-          close()
+          toast.success('Successful');
+          fetchList();
+          callback(110);
+          close();
         } else {
-          toast.error('Completed failed')
+          toast.error('Completed failed');
         }
       } else {
-        toast.info(`${fromNow(details.data?.last_event.extra_6)} can initiate arbitration.`)
+        toast.info(`${fromNow(details.data?.last_event.extra_6)} can initiate arbitration.`);
       }
     }
-  }
+  };
 
   return (
     <Modal isOpen={open} title={type} closeModal={close}>
@@ -264,12 +264,12 @@ export function ManageModal({
             </Button>
             {details.data?.status === 7 && <div>
               <Button loading={finishedLoading} onClick={() => {
-                  setConfirmOpen(true)
-                  setAmount((bounty.amount / 100).toString())
-                }}
-                variant="contained"
-                fullWidth
-                className="mr-4 mb-4"
+                setConfirmOpen(true);
+                setAmount((bounty.amount / 100).toString());
+              }}
+              variant="contained"
+              fullWidth
+              className="mr-4 mb-4"
               >
                 Apply Completed
               </Button>
@@ -294,13 +294,13 @@ export function ManageModal({
               </Button>
             </div>}
             {(details.data?.last_event.builder_status_before === 14 || details.data?.last_event.builder_status_before === 18 || details.data?.last_event.builder_status_before === 22) && details.data?.status === 7 && <Button
-                variant="contained"
-                fullWidth
-                className="mr-4"
-                onClick={() => arbitrateEvent()}
-              >
+              variant="contained"
+              fullWidth
+              className="mr-4"
+              onClick={() => arbitrateEvent()}
+            >
                 Arbitrate
-              </Button> }
+            </Button> }
           </div>}
         </div>
       </div>
@@ -309,7 +309,7 @@ export function ManageModal({
         open={agreeConfirmOpen}
         closeModal={() => {
           setConfirmLoading(false);
-          setAgreeConfirmOpen(false)
+          setAgreeConfirmOpen(false);
         }}
         confirmEvt={confirm}
         loading={confirmLoading}
@@ -323,9 +323,9 @@ export function ManageModal({
             value={amount}
             className="border-0 flex-1 pr-4 h-10"
             onChange={e => {
-            const val = e.target.value.replace(/[^\d]/g, '')
-            setAmount(val)
-          }} />
+              const val = e.target.value.replace(/[^\d]/g, '');
+              setAmount(val);
+            }} />
           USDT
         </div>
         <p className="text-xs opacity-60 my-4">If you have negotiated a new bounty with your employer, you can make changes, otherwise, please do not make changes to avoid disputes</p>
@@ -333,5 +333,5 @@ export function ManageModal({
       </Modal>
       <AddProgressModal id={bounty.id} open={addProgressOpen} closeModal={() => setAddProgressOpen(false)} />
     </Modal>
-  )
+  );
 }

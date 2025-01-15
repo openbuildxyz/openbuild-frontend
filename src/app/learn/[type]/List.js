@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-'use client'
-import { useOpenFilter } from '#/state/application/hooks'
-import clsx from 'clsx'
+'use client';
+import { useOpenFilter } from '#/state/application/hooks';
+import clsx from 'clsx';
 
-import { CourseCard } from './CourseCard'
-import { ChallengesCard } from './ChallengesCard'
-import { GrowPathCard } from './GrowPathCard'
-import { OPagination } from '@/components/Pagination'
+import { CourseCard } from './CourseCard';
+import { ChallengesCard } from './ChallengesCard';
+import { GrowPathCard } from './GrowPathCard';
+import { OPagination } from '@/components/Pagination';
 
 export function List({type, data}) {
-  const openFilter = useOpenFilter()
+  const openFilter = useOpenFilter();
   // console.log(data, 'datadatadatadata')
   return (
     <div>
@@ -46,5 +46,5 @@ export function List({type, data}) {
       </div>
       <OPagination total={data.count} />
     </div>
-  )
+  );
 }

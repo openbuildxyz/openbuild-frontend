@@ -14,89 +14,89 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import { useState, useCallback, useEffect } from 'react'
-import { usePathname, useRouter } from 'next/navigation'
-import { useSession } from 'next-auth/react'
-import { toast } from 'react-toastify'
+import { useState, useCallback, useEffect } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
+import { toast } from 'react-toastify';
 
-import { post, get } from '@/utils/request'
-import { useUser } from '#/state/application/hooks'
+import { post, get } from '@/utils/request';
+import { useUser } from '#/state/application/hooks';
 
-import { SvgIcon } from '@/components/Image'
-import Avatar from '@/components/Avatar'
-import { Button } from '@/components/Button'
-import { NoData } from '@/components/NoData'
-import Loader from '@/components/Loader'
+import { SvgIcon } from '@/components/Image';
+import Avatar from '@/components/Avatar';
+import { Button } from '@/components/Button';
+import { NoData } from '@/components/NoData';
+import Loader from '@/components/Loader';
 
-import TabBarWidget from '#/domain/profile/widgets/tab-bar'
+import TabBarWidget from '#/domain/profile/widgets/tab-bar';
 
 export default function Follow({ params }) {
-  const { status } = useSession()
-  const router = useRouter()
-  const pathname = usePathname()
-  const user = useUser()
-  const [loading, setLoading] = useState(false)
+  const { status } = useSession();
+  const router = useRouter();
+  const pathname = usePathname();
+  const user = useUser();
+  const [loading, setLoading] = useState(false);
 
-  const [followLoading, setFollowLoading] = useState(false)
+  const [followLoading, setFollowLoading] = useState(false);
 
-  const [page, setPage] = useState(1)
-  const [list, setList] = useState()
-  const [count, setCount] = useState()
+  const [page, setPage] = useState(1);
+  const [list, setList] = useState();
+  const [count, setCount] = useState();
 
   const fetchList = useCallback(async () => {
     // handle
-    setLoading(true)
-    const data = await get(`ts/v1/user/${params.handle}/${params.follow}?&skip=${(page - 1) * 20}&take=${20}`)
-    setLoading(false)
+    setLoading(true);
+    const data = await get(`ts/v1/user/${params.handle}/${params.follow}?&skip=${(page - 1) * 20}&take=${20}`);
+    setLoading(false);
     if (page === 1) {
-      setList(data.data.list)
+      setList(data.data.list);
     } else {
-      setList(list => list.concat(data.data.list))
+      setList(list => list.concat(data.data.list));
     }
-    setCount(data.data.count)
-  }, [params, page])
+    setCount(data.data.count);
+  }, [params, page]);
 
   useEffect(() => {
-    fetchList()
-  }, [fetchList])
+    fetchList();
+  }, [fetchList]);
 
   const follow = async (item, index, type) => {
     if (status !== 'authenticated') {
-      router.push(`/signin?from=${pathname}`)
+      router.push(`/signin?from=${pathname}`);
     } else {
-      setFollowLoading(index)
-      const res = await post(`ts/v1/user/follow/${item.user.user_id}`)
-      setFollowLoading(null)
+      setFollowLoading(index);
+      const res = await post(`ts/v1/user/follow/${item.user.user_id}`);
+      setFollowLoading(null);
       if (res.code === 200) {
-        const _prevList = [...list]
-        _prevList[index].mutual = type
-        setList(_prevList)
+        const _prevList = [...list];
+        _prevList[index].mutual = type;
+        setList(_prevList);
       } else {
-        toast.error(res.message)
+        toast.error(res.message);
       }
     }
-  }
+  };
 
   const unfollow = async (item, index, type) => {
     if (status !== 'authenticated') {
-      router.push(`/signin?from=${pathname}`)
+      router.push(`/signin?from=${pathname}`);
     } else {
-      setFollowLoading(index)
-      const res = await post(`ts/v1/user/follow/${item.user.user_id}/del`)
-      setFollowLoading(null)
+      setFollowLoading(index);
+      const res = await post(`ts/v1/user/follow/${item.user.user_id}/del`);
+      setFollowLoading(null);
       if (res.code === 200) {
-        const _prevList = [...list]
-        _prevList[index].mutual = type
-        setList(_prevList)
+        const _prevList = [...list];
+        _prevList[index].mutual = type;
+        setList(_prevList);
       } else {
-        toast.error(res.message)
+        toast.error(res.message);
       }
     }
-  }
+  };
 
-  const tabs = ['Followers', 'Following']
+  const tabs = ['Followers', 'Following'];
 
   return (
     <div className="md:pl-[410px] md:pb-14 md:pr-14">
@@ -154,5 +154,5 @@ export default function Follow({ params }) {
         </div>
       )}
     </div>
-  )
+  );
 }

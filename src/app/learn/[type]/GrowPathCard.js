@@ -14,31 +14,31 @@
  * limitations under the License.
  */
 
-'use client'
-import { CardTitle } from '../CardTitle'
-import { useParams } from 'next/navigation'
-import Link from 'next/link'
-import { useMemo } from 'react'
-import BigNumber from 'bignumber.js'
-import { ProgressBar } from '@/components/ProgressBar'
-import { ArrowRightIcon } from '@/components/Icons'
+'use client';
+import { CardTitle } from '../CardTitle';
+import { useParams } from 'next/navigation';
+import Link from 'next/link';
+import { useMemo } from 'react';
+import BigNumber from 'bignumber.js';
+import { ProgressBar } from '@/components/ProgressBar';
+import { ArrowRightIcon } from '@/components/Icons';
 
 export function GrowPathCard({ data }) {
 
   const _progNum = useMemo(() => {
     if (data.analytics.analytice_user_end) {
-      return 100
+      return 100;
     } else if (data.analytics.analytice_estimated_time === 0) {
-      return 0
+      return 0;
     } else {
       return new BigNumber(data.analytics.analytice_user_time)
         .div(data.analytics.analytice_estimated_time)
         .times(100)
-        .toFixed(0)
+        .toFixed(0);
     }
-  }, [data.analytics])
+  }, [data.analytics]);
 
-  const params = useParams()
+  const params = useParams();
 
   return (
     <Link
@@ -76,5 +76,5 @@ export function GrowPathCard({ data }) {
 
 
     </Link>
-  )
+  );
 }

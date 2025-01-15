@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import clsx from 'clsx'
+import clsx from 'clsx';
 
-import { SemiCircleProgress } from '@/components/ProgressBar/SemiCircleProgress'
+import { SemiCircleProgress } from '@/components/ProgressBar/SemiCircleProgress';
 
-import style from './style.module.scss'
+import style from './style.module.scss';
 
 function FeedbackScore({ score, passed }) {
   return (
@@ -46,7 +46,7 @@ function FeedbackScore({ score, passed }) {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default FeedbackScore
+export default FeedbackScore;

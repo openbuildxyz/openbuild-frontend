@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import { ArrowLeftIcon } from '@/components/Icons'
-import { Button } from '@/components/Button'
-import { Share } from '@/components/Share'
-import Link from 'next/link'
-import { Modal } from '@/components/Modal'
-import { Employers } from './Employers'
-import { useState } from 'react'
+import { ArrowLeftIcon } from '@/components/Icons';
+import { Button } from '@/components/Button';
+import { Share } from '@/components/Share';
+import Link from 'next/link';
+import { Modal } from '@/components/Modal';
+import { Employers } from './Employers';
+import { useState } from 'react';
 
 export function BountiesHeader({data, employers}) {
-  const [employersModalOpen, setEmployersModalOpen] = useState(false)
+  const [employersModalOpen, setEmployersModalOpen] = useState(false);
   return (
     <div className="mb-12 flex justify-between">
       <Link href="/bounties" className="flex cursor-pointer items-center">
@@ -48,5 +48,5 @@ export function BountiesHeader({data, employers}) {
         </div>
       </Modal>
     </div>
-  )
+  );
 }

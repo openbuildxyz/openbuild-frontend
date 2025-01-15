@@ -14,107 +14,107 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import { Modal } from '@/components/Modal'
-import React, { useState, useMemo } from 'react'
-import { formatTime } from '@/utils/date'
-import clsx from 'clsx'
-import { enroolStatus } from '#/services/creator'
-import { toast } from 'react-toastify'
-import { useConfig } from '#/state/application/hooks'
-import { NoData } from '@/components/NoData'
-import { ChallengesExportModal } from './learn/[type]/ChallengesExportModal'
-import { ArrowDownTrayIcon } from '@heroicons/react/24/outline'
-import { CommonListSkeleton } from '@/components/Skeleton/CommonListSkeleton'
-import useSWR from 'swr'
-import { fetcher } from '@/utils/request'
-import { Button } from '@/components/Button'
-import { isAgreeable, isDeclinable, isBeDeclined, getStatusLabel } from '#/domain/challenge/helper'
-import { updateMultipleApplicantStatus } from '#/domain/challenge/repository'
+import { Modal } from '@/components/Modal';
+import React, { useState, useMemo } from 'react';
+import { formatTime } from '@/utils/date';
+import clsx from 'clsx';
+import { enroolStatus } from '#/services/creator';
+import { toast } from 'react-toastify';
+import { useConfig } from '#/state/application/hooks';
+import { NoData } from '@/components/NoData';
+import { ChallengesExportModal } from './learn/[type]/ChallengesExportModal';
+import { ArrowDownTrayIcon } from '@heroicons/react/24/outline';
+import { CommonListSkeleton } from '@/components/Skeleton/CommonListSkeleton';
+import useSWR from 'swr';
+import { fetcher } from '@/utils/request';
+import { Button } from '@/components/Button';
+import { isAgreeable, isDeclinable, isBeDeclined, getStatusLabel } from '#/domain/challenge/helper';
+import { updateMultipleApplicantStatus } from '#/domain/challenge/repository';
 
 function resolveValidUserIds(userMap, targetStatus) {
   return Object.values(userMap).filter(cache => {
     if (!cache.checked) {
-      return false
+      return false;
     }
 
     if (isBeDeclined(targetStatus)) {
-      return cache.declinable
+      return cache.declinable;
     }
 
-    return cache.agreeable
-  }).map(({ id }) => id)
+    return cache.agreeable;
+  }).map(({ id }) => id);
 }
 
 export function UsersModal({ open, closeModal, id, type, challenges }) {
-  const config = useConfig()
+  const config = useConfig();
 
-  const { data, isLoading, mutate } = useSWR(`v1/learn/creator/series/${id}/enrool?&skip=${0}&take=${2000}`, fetcher)
-  const [challengesExportModalOpen, setChallengesExportModalOpen] = useState(false)
-  const [surveyStr, setSurveyStr] = useState('')
-  const [surveyResult, setSurveyResult] = useState()
-  const [selected, setSelected] = useState({})
+  const { data, isLoading, mutate } = useSWR(`v1/learn/creator/series/${id}/enrool?&skip=${0}&take=${2000}`, fetcher);
+  const [challengesExportModalOpen, setChallengesExportModalOpen] = useState(false);
+  const [surveyStr, setSurveyStr] = useState('');
+  const [surveyResult, setSurveyResult] = useState();
+  const [selected, setSelected] = useState({});
 
-  const [agreeLoading, setAgreeLoading] = useState(false)
-  const [declineLoading, setDeclineLoading] = useState(false)
-  const [operationAgreeLoading, setOperationAgreeLoading] = useState()
-  const [operationDeclineLoading, setOperationDeclineLoading] = useState()
+  const [agreeLoading, setAgreeLoading] = useState(false);
+  const [declineLoading, setDeclineLoading] = useState(false);
+  const [operationAgreeLoading, setOperationAgreeLoading] = useState();
+  const [operationDeclineLoading, setOperationDeclineLoading] = useState();
 
-  const challengeViewing = type === 'challenges'
-  const title = challengeViewing ? 'Registered' : 'Completed / Registered'
-  const allOpts = config?.find(f => f.config_id === 3)?.config_value
+  const challengeViewing = type === 'challenges';
+  const title = challengeViewing ? 'Registered' : 'Completed / Registered';
+  const allOpts = config?.find(f => f.config_id === 3)?.config_value;
 
   const rolesOpts = useMemo(() => {
     return allOpts?.roles?.map(i => ({
       key: i.id,
       name: i.name,
-    }))
-  }, [allOpts])
+    }));
+  }, [allOpts]);
 
   const skillOpts = useMemo(() => {
     return allOpts?.skills?.map(i => ({
       key: i.id,
       name: i.name,
-    }))
-  }, [allOpts])
+    }));
+  }, [allOpts]);
 
   const handleStatusChanged = (res, userIds, status) => {
     if (res.code === 200) {
       const _list = data.list.map(i => {
         if (userIds.includes(i.base.user_id)) {
-          i.base.course_user_permission_status = status
-          return { ...i }
+          i.base.course_user_permission_status = status;
+          return { ...i };
         } else {
-          return { ...i }
+          return { ...i };
         }
-      })
-      mutate({...data, list: _list})
+      });
+      mutate({...data, list: _list});
     } else {
-      toast.error(res.message)
+      toast.error(res.message);
     }
-  }
+  };
 
   const changeStatus = async (id, status, uid) => {
-    status === 1 ? setOperationAgreeLoading(uid) : setOperationDeclineLoading(uid)
-    const res = await enroolStatus({ id, status, uid })
-    handleStatusChanged(res, [uid], status)
-    setOperationAgreeLoading(9999999999)
-    setOperationDeclineLoading(9999999999)
-  }
+    status === 1 ? setOperationAgreeLoading(uid) : setOperationDeclineLoading(uid);
+    const res = await enroolStatus({ id, status, uid });
+    handleStatusChanged(res, [uid], status);
+    setOperationAgreeLoading(9999999999);
+    setOperationDeclineLoading(9999999999);
+  };
 
   const changeMultipleStatus = status => {
     if (isBeDeclined(status)) {
-      setDeclineLoading(true)
+      setDeclineLoading(true);
     } else {
-      setAgreeLoading(true)
+      setAgreeLoading(true);
     }
 
     const userIds = resolveValidUserIds(selected, status);
 
     updateMultipleApplicantStatus(id, { userIds, status })
       .then(res => {
-        handleStatusChanged(res, userIds, status)
+        handleStatusChanged(res, userIds, status);
         setSelected({
           ...selected,
           ...userIds.reduce((prev, userId) => ({
@@ -124,19 +124,19 @@ export function UsersModal({ open, closeModal, id, type, challenges }) {
               checked: false,
               agreeable: isAgreeable(status),
               declinable: isDeclinable(status),
-            }
+            },
           }), {}),
-        })
+        });
       })
       .finally(() => {
-        setAgreeLoading(false)
-        setDeclineLoading(false)
-      })
-  }
+        setAgreeLoading(false);
+        setDeclineLoading(false);
+      });
+  };
 
   const handleChecked = ({ base }) => {
-    const prev = selected[base.user_id] || { checked: false }
-    const status = base.course_user_permission_status
+    const prev = selected[base.user_id] || { checked: false };
+    const status = base.course_user_permission_status;
 
     setSelected({
       ...selected,
@@ -145,19 +145,19 @@ export function UsersModal({ open, closeModal, id, type, challenges }) {
         checked: !prev.checked,
         agreeable: isAgreeable(status),
         declinable: isDeclinable(status),
-      }
-    })
-  }
+      },
+    });
+  };
 
   const handleExport = () => {
-    setChallengesExportModalOpen(true)
-    setSurveyStr(challenges.challenges_extra.course_challenges_extra_check_schema)
-    const results = data?.list.map(i => i.base.course_user_permission_extra_data)
-    setSurveyResult(results)
-  }
+    setChallengesExportModalOpen(true);
+    setSurveyStr(challenges.challenges_extra.course_challenges_extra_check_schema);
+    const results = data?.list.map(i => i.base.course_user_permission_extra_data);
+    setSurveyResult(results);
+  };
 
-  const batchAgreeable = Object.values(selected).filter(({ checked, agreeable }) => checked && agreeable).length > 0 && !agreeLoading && !declineLoading
-  const batchDeclinable = Object.values(selected).filter(({ checked, declinable }) => checked && declinable).length > 0 && !agreeLoading && !declineLoading
+  const batchAgreeable = Object.values(selected).filter(({ checked, agreeable }) => checked && agreeable).length > 0 && !agreeLoading && !declineLoading;
+  const batchDeclinable = Object.values(selected).filter(({ checked, declinable }) => checked && declinable).length > 0 && !agreeLoading && !declineLoading;
 
   return (
     <Modal isOpen={open} title={title} closeModal={closeModal} big={true} closeExplicitly>
@@ -282,5 +282,5 @@ export function UsersModal({ open, closeModal, id, type, challenges }) {
         />
       )}
     </Modal>
-  )
+  );
 }

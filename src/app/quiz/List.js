@@ -14,26 +14,26 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import Link from 'next/link'
-import Image from 'next/image'
-import { useMediaUrl } from '#/state/application/hooks'
-import TrophiesSvg from 'public/images/trophies.svg'
-import useSWR from 'swr'
-import { fetcher } from '@/utils/request'
-import { OPagination } from '@/components/Pagination'
-import { useState, useEffect } from 'react'
-import { useSearchParams, useRouter } from 'next/navigation'
-import { useDebouncedCallback } from 'use-debounce'
-import { fetchTeamList } from '#/domain/quiz/repository'
-import { ReactSelect } from '@/components/Select/ReactSelect'
-import { SearchIcon } from '@/components/Icons'
-import Input from '@/components/Input'
+import Link from 'next/link';
+import Image from 'next/image';
+import { useMediaUrl } from '#/state/application/hooks';
+import TrophiesSvg from 'public/images/trophies.svg';
+import useSWR from 'swr';
+import { fetcher } from '@/utils/request';
+import { OPagination } from '@/components/Pagination';
+import { useState, useEffect } from 'react';
+import { useSearchParams, useRouter } from 'next/navigation';
+import { useDebouncedCallback } from 'use-debounce';
+import { fetchTeamList } from '#/domain/quiz/repository';
+import { ReactSelect } from '@/components/Select/ReactSelect';
+import { SearchIcon } from '@/components/Icons';
+import Input from '@/components/Input';
 
 
 function List({ data }) {
-  const mediaUrl = useMediaUrl()
+  const mediaUrl = useMediaUrl();
   return (
     <Link href={`/quiz/${data.id}`} className="p-6 bg-white flex max-md:flex-col gap-4 md:gap-9 mb-4 rounded-xl transition-all hover:shadow-[0_4px_24px_rgba(0,0,0,0.08)]">
       <div className="relative">
@@ -51,7 +51,7 @@ function List({ data }) {
             <p className="text-sm text-[#EF4E16]">{data?.reward_text}</p>
           </div>}
         </div>
-        <span className='md:hidden -mx-6 h-[1px] bg-[#1A1A1A] opacity-[.06] mt-6 mb-4 scale-y-50'></span>
+        <span className="md:hidden -mx-6 h-[1px] bg-[#1A1A1A] opacity-[.06] mt-6 mb-4 scale-y-50" />
         <div className="flex justify-between items-center">
           <div className="flex items-center text-sm">
             <p className="flex items-center">
@@ -75,67 +75,67 @@ function List({ data }) {
 
       </div>
     </Link>
-  )
+  );
 }
 
-const pageSize = 10
+const pageSize = 10;
 
 export function QuizList() {
-  const searchParams = useSearchParams()
-  const router = useRouter()
-  const [query, setQuery] = useState(searchParams?.get('search') || '')
-  const [teamUid, setTeamUid] = useState(searchParams?.get('uid') || '')
-  const [page, setPage] = useState(1)
-  const [pageOffset, setPageOffset] = useState(0)
-  const [selectedTeam, setSelectedTeam] = useState(null)
-  const [teamOptions, setTeamOptions] = useState([])
-  const { data, isLoading } = useSWR(`ts/v1/quiz?skip=${pageOffset}&take=${pageSize}&search=${query}&team_uid=${teamUid}`, fetcher)
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const [query, setQuery] = useState(searchParams?.get('search') || '');
+  const [teamUid, setTeamUid] = useState(searchParams?.get('uid') || '');
+  const [page, setPage] = useState(1);
+  const [pageOffset, setPageOffset] = useState(0);
+  const [selectedTeam, setSelectedTeam] = useState(null);
+  const [teamOptions, setTeamOptions] = useState([]);
+  const { data, isLoading } = useSWR(`ts/v1/quiz?skip=${pageOffset}&take=${pageSize}&search=${query}&team_uid=${teamUid}`, fetcher);
 
   const updateUrlParams = (search, teamUid) => {
-    const params = new URLSearchParams()
-    if (search) params.set('search', search)
-    if (teamUid) params.set('uid', teamUid)
-    router.replace(`/quiz?${params.toString()}`)
-  }
+    const params = new URLSearchParams();
+    if (search) params.set('search', search);
+    if (teamUid) params.set('uid', teamUid);
+    router.replace(`/quiz?${params.toString()}`);
+  };
 
   const handleSearchChange = useDebouncedCallback(e => {
-    setPage(1)
-    setPageOffset(0)
-    setQuery(e.target.value)
-    updateUrlParams(e.target.value, teamUid)
-  }, 500)
+    setPage(1);
+    setPageOffset(0);
+    setQuery(e.target.value);
+    updateUrlParams(e.target.value, teamUid);
+  }, 500);
 
-  const handleTeamChange = (option) => {
-    const newTeamUid = option?.value || ''
-    setPage(1)
-    setPageOffset(0)
-    setSelectedTeam(option)
-    setTeamUid(newTeamUid)
-    updateUrlParams(query, newTeamUid)
-  }
+  const handleTeamChange = option => {
+    const newTeamUid = option?.value || '';
+    setPage(1);
+    setPageOffset(0);
+    setSelectedTeam(option);
+    setTeamUid(newTeamUid);
+    updateUrlParams(query, newTeamUid);
+  };
 
   const handlePageChange = currentPage => {
-    setPage(currentPage)
-    setPageOffset((currentPage - 1) * pageSize)
-  }
+    setPage(currentPage);
+    setPageOffset((currentPage - 1) * pageSize);
+  };
 
   useEffect(() => {
     fetchTeamList().then(res => {
       if (res?.data) {
         const options = res.data.map(team => ({
           value: team.team_uid,
-          label: team.nickname
-        }))
+          label: team.nickname,
+        }));
         if (teamUid) {
-          const selectedOption = options.find(option => option.value == Number(teamUid))
+          const selectedOption = options.find(option => option.value == Number(teamUid));
           if (selectedOption) {
-            setSelectedTeam(selectedOption)
+            setSelectedTeam(selectedOption);
           }
         }
-        setTeamOptions(options)
+        setTeamOptions(options);
       }
-    })
-  }, [])
+    });
+  }, []);
 
   return (
     <>
@@ -164,7 +164,7 @@ export function QuizList() {
       </div>
       {isLoading ? (
         <div className="flex justify-center items-center h-[200px]">
-          <span className="loading loading-spinner loading-md"></span>
+          <span className="loading loading-spinner loading-md" />
         </div>
       ) : (
         <>
@@ -175,5 +175,5 @@ export function QuizList() {
         </>
       )}
     </>
-  )
+  );
 }

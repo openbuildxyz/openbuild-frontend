@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react';
 
-import { NoData } from '@/components/NoData'
+import { NoData } from '@/components/NoData';
 
-import { fetchGainedReputationList } from '../../repository'
-import GainedReputationItem from './GainedReputationItem'
+import { fetchGainedReputationList } from '../../repository';
+import GainedReputationItem from './GainedReputationItem';
 
 function ControlledGainedReputationList({ list }) {
   return list && list.length > 0 ? (
@@ -28,25 +28,25 @@ function ControlledGainedReputationList({ list }) {
         <GainedReputationItem key={`reputation-${item.id}`} data={item} />
       ))}
     </div>
-  ) : <NoData className="mt-6" />
+  ) : <NoData className="mt-6" />;
 }
 
 function GainedReputationList({ userId }) {
-  const [list, setList] = useState([])
-  const [loading, setLoading] = useState(false)
+  const [list, setList] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (!userId || loading) {
-      return
+      return;
     }
 
-    setLoading(true)
+    setLoading(true);
     fetchGainedReputationList(userId)
       .then(res => setList(res.data.list || []))
-      .finally(() => setLoading(false))
-  }, [userId])
+      .finally(() => setLoading(false));
+  }, [userId]);
 
-  return <ControlledGainedReputationList list={list} />
+  return <ControlledGainedReputationList list={list} />;
 }
 
 function GainedReputationListView({ userId, data }) {
@@ -54,7 +54,7 @@ function GainedReputationListView({ userId, data }) {
     <ControlledGainedReputationList list={data} />
   ) : (
     <GainedReputationList userId={userId} />
-  )
+  );
 }
 
-export default GainedReputationListView
+export default GainedReputationListView;

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import Image from './Image'
+import Image from './Image';
 
 function SvgIcon({ className, style, size, name, src = '', onClick }) {
   return (
@@ -28,7 +28,7 @@ function SvgIcon({ className, style, size, name, src = '', onClick }) {
       defaultSrc={`/images/svg/${name}.svg`}
       alt={name}
     />
-  )
+  );
 }
 
-export default SvgIcon
+export default SvgIcon;

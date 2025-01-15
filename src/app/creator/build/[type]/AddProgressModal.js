@@ -48,8 +48,8 @@ export function AddProgressModal({ id, open, closeModal }) {
         value={content}
         className="border-1 border-gray-600 flex-1 mb-2 p4 h-[200px] text-sm w-full rounded"
         onChange={e => {
-          const val = e.target.value.replace(/[^\d]/g, '')
-          setContent(val)
+          const val = e.target.value.replace(/[^\d]/g, '');
+          setContent(val);
         }}
       />
       <Button loading={loading} disabled={content === ''} variant="contained" className="h-9" fullWidth onClick={add}>Confrim</Button>

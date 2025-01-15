@@ -16,7 +16,7 @@
 
 import React from 'react';
 
- export function SemiCircleProgress ({
+export function SemiCircleProgress ({
   stroke = '#01DB83',
   strokeWidth = 10,
   background = '#FBFAFA',
@@ -24,7 +24,7 @@ import React from 'react';
   orientation = 'up',
   direction = 'right',
   showPercentValue = false,
-  percentage
+  percentage,
 }) {
   const coordinateForCircle = diameter / 2;
   const radius = (diameter - 2 * strokeWidth) / 2;
@@ -69,7 +69,7 @@ import React from 'react';
           strokeWidth={strokeWidth}
           strokeDasharray={circumference}
           style={{
-            strokeDashoffset: circumference
+            strokeDashoffset: circumference,
           }}
         />
         <circle
@@ -83,7 +83,7 @@ import React from 'react';
           style={{
             strokeDashoffset: semiCirclePercentage,
             transition:
-              'stroke-dashoffset .3s ease 0s, stroke-dasharray .3s ease 0s, stroke .3s'
+              'stroke-dashoffset .3s ease 0s, stroke-dasharray .3s ease 0s, stroke .3s',
           }}
         />
       </svg>
@@ -95,7 +95,7 @@ import React from 'react';
             left: '0',
             textAlign: 'center',
             bottom: orientation === 'down' ? 'auto' : '0',
-            position: 'absolute'
+            position: 'absolute',
           }}
         >
           {percentage}%
