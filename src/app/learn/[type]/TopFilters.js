@@ -24,7 +24,7 @@ import FeaturedIcon from 'public/images/svg/featured.svg';
 import FeaturedActiveIcon from 'public/images/svg/featured_active.svg';
 import clsx from 'clsx';
 import { ReactSelect } from '@/components/Select/ReactSelect';
-import { useMemo, useLayoutEffect } from 'react';
+import { useMemo, useEffect } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 const tabStyle = 'inline-block border-gray-600 px-4 h-10 leading-10 text-gray-500 cursor-pointer';
@@ -40,10 +40,9 @@ const langOptions = [
   },
 ];
 
-const getBrowserLanguage = () => {
-  if (navigator.language) return navigator.language;
-  return 'en';
-};
+function getBrowserLanguage() {
+  return navigator.language === 'zh-CN' ? 'zh' : 'en';
+}
 
 export function TopFilters({ type }) {
   const searchParams = useSearchParams();
@@ -73,23 +72,22 @@ export function TopFilters({ type }) {
     replace(`${pathname}?${params.toString()}`);
   };
 
-  useLayoutEffect(() => {
-    if (localStorage.getItem('ob_userLang')) {
-      changeParams('lang', localStorage.getItem('ob_userLang'));
-    } else {
-      changeParams('lang', getBrowserLanguage() === 'zh-CN' ? 'zh' : 'en');
+  useEffect(() => {
+    if(!lang){
+      const defaultLang = localStorage.getItem('ob_userLang') || getBrowserLanguage();
+      changeParams('lang', defaultLang);
     }
   }, []);
 
   return (
     <div className="flex gap-2 items-center max-md:flex-wrap">
-      {type==='courses' && (
+      {type === 'courses' && (
         <div className="flex gap-2 max-md:flex-wrap">
           <button
             onClick={() => changeParams('recommend_type', recommendType === 'choice' ? null : 'choice')}
             className={clsx(
               'group border border-gray-600 text-sm h-10 px-4 flex items-center rounded hover:border-gray',
-              {'!border-gray' : recommendType === 'choice'}
+              { '!border-gray': recommendType === 'choice' },
             )}
           >
             <Image
@@ -131,10 +129,11 @@ export function TopFilters({ type }) {
           <div className="w-[140px]">
             <ReactSelect
               id="learn-order-select"
+              isSearchable={false}
               value={langOptions.find(f => f.value === lang)}
               className="no-bg showDropdownIndicator w-full bg-transparent height-sm"
               onChange={e => {
-                localStorage.setItem('ob_userLang', e.value);
+                localStorage.setItem('ob_userLang', e ? e.value : null);
                 changeParams('lang', e ? e.value : null);
               }}
               options={langOptions}
