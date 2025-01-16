@@ -14,35 +14,39 @@
  * limitations under the License.
  */
 
-import { merge } from 'lodash'
+import { merge } from 'lodash';
 
-import httpClient from '@/utils/http'
-
-async function updateRespondentContacts({ id, quid, ...others }) {
-  return httpClient.post(`/quiz/${id}/answer/${quid}/address`, others)
-}
+import httpClient from '@/utils/http';
 
 async function fetchPublishedQuizList(params = {}) {
-  const { userId, sort, ...others } = params
+  const { userId, sort, ...others } = params;
 
   return httpClient.get('/quiz', {
     params: merge({ take: 20 }, others, {
       team_uid: userId,
       sort_by: sort || 'default',
-    })
-  })
+    }),
+  });
 }
 
 async function fetchAnsweredQuizList(params = {}) {
-  const { userId, sort, ...others } = params
+  const { userId, sort, ...others } = params;
 
   return httpClient.get(`/quiz/public/${userId}/answer`, {
-    params: merge({ take: 20 }, others, { sort_by: sort || 'default' })
-  })
+    params: merge({ take: 20 }, others, { sort_by: sort || 'default' }),
+  });
+}
+
+async function fetchAnsweredResult({ id, quid }) {
+  return httpClient.get(`/quiz/${id}/answer/${quid}`);
+}
+
+async function updateRespondentContacts({ id, quid, ...others }) {
+  return httpClient.post(`/quiz/${id}/answer/${quid}/address`, others);
 }
 
 async function fetchTeamList(){
-  return httpClient.get('/quiz/team')
+  return httpClient.get('/quiz/team');
 }
 
-export { updateRespondentContacts, fetchPublishedQuizList, fetchAnsweredQuizList, fetchTeamList }
+export { updateRespondentContacts, fetchPublishedQuizList, fetchAnsweredQuizList, fetchAnsweredResult, fetchTeamList };

@@ -14,69 +14,69 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import { useMemo, useState } from 'react'
-import { Modal } from '@/components/Modal'
-import Image from 'next/image'
+import { useMemo, useState } from 'react';
+import { Modal } from '@/components/Modal';
+import Image from 'next/image';
 
-import { ModalCloseIcon, CopyIcon } from '@/components/Icons'
-import { ArrowLeftIcon } from '@heroicons/react/24/outline'
-import FacebookSvg from 'public/images/svg/share-facebook.svg'
-import XSvg from 'public/images/svg/share-x.svg'
-import copy from 'copy-to-clipboard'
-import { useMediaUrl, useUser } from '#/state/application/hooks'
-import { usePathname, useSearchParams, useRouter } from 'next/navigation'
-import clsx from 'clsx'
-import useSWR from 'swr'
-import { fetcher } from '@/utils/request'
-import { Button } from '../Button'
-import { formatTime } from '@/utils/date'
-import { NoData } from '@/components/NoData'
-import { toast } from 'react-toastify'
-import ContentEditable from 'react-contenteditable'
-import { HTMLDecode } from '@/utils'
-import { resolvePathWithSearch } from '@/utils/url'
+import { ModalCloseIcon, CopyIcon } from '@/components/Icons';
+import { ArrowLeftIcon } from '@heroicons/react/24/outline';
+import FacebookSvg from 'public/images/svg/share-facebook.svg';
+import XSvg from 'public/images/svg/share-x.svg';
+import copy from 'copy-to-clipboard';
+import { useMediaUrl, useUser } from '#/state/application/hooks';
+import { usePathname, useSearchParams, useRouter } from 'next/navigation';
+import clsx from 'clsx';
+import useSWR from 'swr';
+import { fetcher } from '@/utils/request';
+import { Button } from '../Button';
+import { formatTime } from '@/utils/date';
+import { NoData } from '@/components/NoData';
+import { toast } from 'react-toastify';
+import ContentEditable from 'react-contenteditable';
+import { HTMLDecode } from '@/utils';
+import { resolvePathWithSearch } from '@/utils/url';
 
 const combineUrl = (type, user_code, summary) => {
-  let baseUrl = ''
+  let baseUrl = '';
 
   if(type === 'facebook') {
-    baseUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`
+    baseUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`;
   }else {
-    let text = summary ? `text=${encodeURIComponent(summary)}&` : ''
-    baseUrl = `https://twitter.com/intent/tweet?${text}url=${encodeURIComponent(window.location.href)}`
+    const text = summary ? `text=${encodeURIComponent(summary)}&` : '';
+    baseUrl = `https://twitter.com/intent/tweet?${text}url=${encodeURIComponent(window.location.href)}`;
   }
 
-  return user_code ? `${baseUrl}?code=${encodeURIComponent(user_code)}` : baseUrl
-}
+  return user_code ? `${baseUrl}?code=${encodeURIComponent(user_code)}` : baseUrl;
+};
 
 export function Share({ img, title, type, id, excerpt }) {
-  const [open, setOpen] = useState(false)
-  const [recordOpen, setRecordOpen] = useState(false)
-  const mediaUrl = useMediaUrl()
-  const user = useUser()
-  const searchParams = useSearchParams()
-  const router = useRouter()
-  const pathname = usePathname()
+  const [open, setOpen] = useState(false);
+  const [recordOpen, setRecordOpen] = useState(false);
+  const mediaUrl = useMediaUrl();
+  const user = useUser();
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
   const link = useMemo(() => {
     if (typeof window !== 'undefined') {
-      const params = new URLSearchParams(searchParams)
-      user?.base.user_code && params.set('code', user?.base.user_code)
-      return `${window.location.origin}${resolvePathWithSearch(pathname, params)}`
+      const params = new URLSearchParams(searchParams);
+      user?.base.user_code && params.set('code', user?.base.user_code);
+      return `${window.location.origin}${resolvePathWithSearch(pathname, params)}`;
     }
-  }, [user, pathname, searchParams])
-  const { data, isLoading } = useSWR((id && recordOpen) ? `ts/v1/user/invite/export?type=challenges&id=${id}` : null, fetcher)
+  }, [user, pathname, searchParams]);
+  const { data, isLoading } = useSWR((id && recordOpen) ? `ts/v1/user/invite/export?type=challenges&id=${id}` : null, fetcher);
   
-  const invitationRecordsAvailable = type === 'challenges'
+  const invitationRecordsAvailable = type === 'challenges';
   const handleViewRecords = invitationRecordsAvailable ? () => {
     if (user) {
-      setOpen(false)
-      setRecordOpen(true)
+      setOpen(false);
+      setRecordOpen(true);
     } else {
-      router.push(`/signin?from=${encodeURIComponent(resolvePathWithSearch(pathname, searchParams))}`)
+      router.push(`/signin?from=${encodeURIComponent(resolvePathWithSearch(pathname, searchParams))}`);
     }
-  } : undefined
+  } : undefined;
 
   return <>
     <div onClick={() => setOpen(true)} className={clsx('inline-flex items-center py-2 px-4 text-sm rounded cursor-pointer hover:opacity-80 transition-opacity', {
@@ -112,8 +112,8 @@ export function Share({ img, title, type, id, excerpt }) {
         <div className="flex bg-[#F3F3F3] rounded h-12 items-center justify-between px-4 w-[320px] mt-3 mb-9">
           <p className="text-[13px] opacity-60 truncate mr-4">{link}</p>
           <CopyIcon onClick={() => {
-            copy(link)
-            toast.success('Copied')
+            copy(link);
+            toast.success('Copied');
           }} className="w-5 h-5 cursor-pointer hover:opacity-80 [&>g]:opacity-100" />
         </div>
         {invitationRecordsAvailable && (
@@ -127,8 +127,8 @@ export function Share({ img, title, type, id, excerpt }) {
         <div className="py-4 px-6">
           <div className="flex items-center">
             <ArrowLeftIcon className="w-5 h-5 cursor-pointer relative z-10" onClick={() => {
-              setOpen(true)
-              setRecordOpen(false)
+              setOpen(true);
+              setRecordOpen(false);
             }}/>
             <h6 className="flex-1 text-center ml-[-10px]">Invitation record</h6>
           </div>
@@ -165,5 +165,5 @@ export function Share({ img, title, type, id, excerpt }) {
         </div>
       </Modal>
     )}
-  </>
+  </>;
 }

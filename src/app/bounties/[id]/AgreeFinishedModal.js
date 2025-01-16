@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-import { useState } from 'react'
+import { useState } from 'react';
 
-import { Button } from '@/components/Button'
-import { Modal } from '@/components/Modal'
+import { Button } from '@/components/Button';
+import { Modal } from '@/components/Modal';
 
-import {  useNetwork, useWalletClient } from 'wagmi'
+import {  useNetwork, useWalletClient } from 'wagmi';
 
 import { toast } from 'react-toastify';
 
-import { withdraw } from '@/constants/bounty'
-import { revalidatePathAction } from '../../actions'
+import { withdraw } from '@/constants/bounty';
+import { revalidatePathAction } from '../../actions';
 // import { writeContract } from '@wagmi/core';
 
 import {
@@ -33,17 +33,17 @@ import {
   finishDeny,
   // arbitrate,
 } from '#/services/bounties';
-import { useBountyEnvCheck } from '#/domain/bounty/hooks'
+import { useBountyEnvCheck } from '#/domain/bounty/hooks';
 
 export function AgreeFinishedModal({open, close, bounty}) {
-  const [loading, setLoading] = useState(false)
-  const [disagreeLoading, setDisagreeLoading] = useState(false)
-  const { chain } = useNetwork()
-  const { data: walletClient } = useWalletClient()
-  const wrapBountyEnvCheck = useBountyEnvCheck()
+  const [loading, setLoading] = useState(false);
+  const [disagreeLoading, setDisagreeLoading] = useState(false);
+  const { chain } = useNetwork();
+  const { data: walletClient } = useWalletClient();
+  const wrapBountyEnvCheck = useBountyEnvCheck();
 
   const confirm = wrapBountyEnvCheck(async () => {
-    setLoading(true)
+    setLoading(true);
     const last = bounty.last_event;
     if (!last) return;
     try {
@@ -58,7 +58,7 @@ export function AgreeFinishedModal({open, close, bounty}) {
 
       if (hash === 'error') {
         setLoading(false);
-        toast.error('Transition Error')
+        toast.error('Transition Error');
         return;
       }
       const res = await finishConfirm(bounty.id, hash);
@@ -66,17 +66,17 @@ export function AgreeFinishedModal({open, close, bounty}) {
       if (res.code === 200) {
         toast.success('Successful');
         close();
-        revalidatePathAction()
+        revalidatePathAction();
       } else {
         toast.error(res.message);
       }
     } catch (err) {
-      console.log(err)
+      console.log(err);
       setLoading(false);
-      toast.error(err)
+      toast.error(err);
     }
-    setLoading(false)
-  })
+    setLoading(false);
+  });
 
   const disagreeFinished = async () => {
     setDisagreeLoading(true);
@@ -85,7 +85,7 @@ export function AgreeFinishedModal({open, close, bounty}) {
     if (res.code === 200) {
       toast.success('successful');
       close();
-      revalidatePathAction()
+      revalidatePathAction();
     } else {
       toast.error(res.message);
     }
@@ -100,5 +100,5 @@ export function AgreeFinishedModal({open, close, bounty}) {
       </div>
 
     </Modal>
-  )
+  );
 }

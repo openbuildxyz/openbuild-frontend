@@ -14,27 +14,27 @@
  * limitations under the License.
  */
 
-'use client'
-import { useState, useMemo, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
-import { Select } from '@/components/Select'
-import { useAllSkills, useConfig, useMediaUrl } from '#/state/application/hooks'
+'use client';
+import { useState, useMemo, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { Select } from '@/components/Select';
+import { useAllSkills, useConfig, useMediaUrl } from '#/state/application/hooks';
 // import SelectSkills from '@/components/SelectSkills'
-import { Button } from '@/components/Button'
-import clsx from 'clsx'
-import { toast } from 'react-toastify'
-import { publishBounty, editBounty } from '#/services/creator'
-import { ReactSelect } from '@/components/Select/ReactSelect'
-import { OEditor } from '@/components/MarkDown'
-import { BASE_INPUT_STYLE } from '@/constants/config'
-import { get } from '@/utils/request'
+import { Button } from '@/components/Button';
+import clsx from 'clsx';
+import { toast } from 'react-toastify';
+import { publishBounty, editBounty } from '#/services/creator';
+import { ReactSelect } from '@/components/Select/ReactSelect';
+import { OEditor } from '@/components/MarkDown';
+import { BASE_INPUT_STYLE } from '@/constants/config';
+import { get } from '@/utils/request';
 
 const options = [
   {
     label: 'Fixed',
     value: 'fixed',
   },
-]
+];
 
 const chatOptions = [
   {
@@ -53,102 +53,102 @@ const chatOptions = [
     name: 'Twitter',
     key: 'twitter',
   },
-]
+];
 
 export default function Page({params: { id }}) {
-  const router = useRouter()
-  const config = useConfig()
-  const mediaUrl = useMediaUrl()
-  const allSkills = useAllSkills()
+  const router = useRouter();
+  const config = useConfig();
+  const mediaUrl = useMediaUrl();
+  const allSkills = useAllSkills();
 
-  const [ecosystem, setEcosystem] = useState('')
-  const [skills, setSkills] = useState([])
-  const [title, setTitle] = useState('')
-  const [summary, setSummary] = useState('')
-  const [detail, setDetail] = useState('')
-  const [type, setType] = useState('')
-  const [amount, setAmount] = useState('')
-  const [chatProvide, setChatProvide] = useState('')
-  const [chatHandle, setChatHandle] = useState('')
-  const [skillsErr, setSkillsErr] = useState(false)
-  const [loading, setLoading] = useState(false)
-  const [saving, setSaving] = useState(false)
-  const [bounty, setBounty] = useState()
+  const [ecosystem, setEcosystem] = useState('');
+  const [skills, setSkills] = useState([]);
+  const [title, setTitle] = useState('');
+  const [summary, setSummary] = useState('');
+  const [detail, setDetail] = useState('');
+  const [type, setType] = useState('');
+  const [amount, setAmount] = useState('');
+  const [chatProvide, setChatProvide] = useState('');
+  const [chatHandle, setChatHandle] = useState('');
+  const [skillsErr, setSkillsErr] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [bounty, setBounty] = useState();
 
   useEffect(() => {
     const getDetails = async () => {
       if (id !== 'publish') {
-        const _data = await get(`ts/v1/build/general/bounties/${id}`, {isServer: false})
-        setBounty(_data.data)
-        console.log(_data)
+        const _data = await get(`ts/v1/build/general/bounties/${id}`, {isServer: false});
+        setBounty(_data.data);
+        console.log(_data);
         if (_data.code === 200) {
-          const _b = _data.data
-          setEcosystem(_b.ecosystem)
-          setSkills(_b.skills)
-          setTitle(_b.title)
-          setSummary(_b.summary)
-          setDetail(_b.detail)
-          setType(_b.type)
-          setAmount((_b.amount / 100).toString())
-          setChatProvide(_b.chat_provide)
-          setChatHandle(_b.chat_handle)
+          const _b = _data.data;
+          setEcosystem(_b.ecosystem);
+          setSkills(_b.skills);
+          setTitle(_b.title);
+          setSummary(_b.summary);
+          setDetail(_b.detail);
+          setType(_b.type);
+          setAmount((_b.amount / 100).toString());
+          setChatProvide(_b.chat_provide);
+          setChatHandle(_b.chat_handle);
         }
       }
-    }
-    getDetails()
-  }, [id])
+    };
+    getDetails();
+  }, [id]);
 
 
   const labels = useMemo(() => {
-    return config?.find(f => f.config_id === 1)
-  }, [config])
+    return config?.find(f => f.config_id === 1);
+  }, [config]);
   const ecosystemOpts = useMemo(() => {
-    return labels?.config_value['bounty']?.map((i) => {
-        return i.name === 'Ecosystem'
-          ? i.labels.map((j) => ({ name: j.name, key: j.id, img: mediaUrl + j.img }))
-          : []
-      })
-      .flat(2)
-  }, [labels, mediaUrl])
+    return labels?.config_value['bounty']?.map(i => {
+      return i.name === 'Ecosystem'
+        ? i.labels.map(j => ({ name: j.name, key: j.id, img: mediaUrl + j.img }))
+        : [];
+    })
+      .flat(2);
+  }, [labels, mediaUrl]);
 
   useEffect(() => {
     if (skills.length > 3) {
-      setSkillsErr(true)
+      setSkillsErr(true);
     } else {
-      setSkillsErr(false)
+      setSkillsErr(false);
     }
-  }, [skills])
+  }, [skills]);
 
-  const submit = async (submitType) => {
+  const submit = async submitType => {
     if (title === '') {
-      toast.error('Please enter title')
+      toast.error('Please enter title');
     }else if (summary === '') {
-      toast.error('Please enter summary')
+      toast.error('Please enter summary');
     }
     else if (detail === '') {
-      toast.error('Please enter bounty details')
+      toast.error('Please enter bounty details');
     }
     else if (ecosystem === '') {
-      toast.error('Select a ecosystem')
+      toast.error('Select a ecosystem');
     } else if (skillsErr) {
-      toast.error('Select up to 3 items')
+      toast.error('Select up to 3 items');
     } else if (skills.length === 0) {
-      toast.error('Select skills')
+      toast.error('Select skills');
     } else if(type === '') {
-      toast.error('Select a Bounty type')
+      toast.error('Select a Bounty type');
     } else if(amount === '') {
-      toast.error('Enter bounty amount')
+      toast.error('Enter bounty amount');
     } else if(chatProvide === '') {
-      toast.error('Select a chat type')
+      toast.error('Select a chat type');
     } else if(chatHandle === '') {
-      toast.error('Please enter the chat URL')
+      toast.error('Please enter the chat URL');
     } else {
       if (submitType === 'save') {
-        setSaving(true)
+        setSaving(true);
       } else {
-        setLoading(true)
+        setLoading(true);
       }
-      let res
+      let res;
       const params = {
         title,
         type,
@@ -158,27 +158,27 @@ export default function Page({params: { id }}) {
         skills,
         amount: Number(amount) * 100,
         chat_provide: chatProvide,
-        chat_handle: chatHandle
-      }
+        chat_handle: chatHandle,
+      };
       if (id === 'publish') {
-        res = await publishBounty(params)
+        res = await publishBounty(params);
       } else {
-        const _b = bounty ? bounty : null
-        res = await editBounty(_b?.id, params)
+        const _b = bounty ? bounty : null;
+        res = await editBounty(_b?.id, params);
       }
-      setLoading(false)
+      setLoading(false);
       if (submitType === 'save') {
-        setSaving(false)
-        toast.success('Saving successful')
-        return
+        setSaving(false);
+        toast.success('Saving successful');
+        return;
       }
       if (res.code === 200) {
-        router.push('/creator/build/bounty/')
+        router.push('/creator/build/bounty/');
       } else {
-        toast.error(res.message)
+        toast.error(res.message);
       }
     }
-  }
+  };
 
 
   return (
@@ -216,7 +216,7 @@ export default function Page({params: { id }}) {
         <h4>Bounty Detail</h4>
         <OEditor
           value={detail}
-          onChange={(e) => setDetail(e)}
+          onChange={e => setDetail(e)}
         />
       </div>
       <div className="mt-4 grid grid-cols-3 gap-2">
@@ -233,8 +233,8 @@ export default function Page({params: { id }}) {
             options={allSkills}
             className="no-bg"
             onChange={e => {
-              const _skills = e.map((i) => i.value)
-              setSkills(_skills)
+              const _skills = e.map(i => i.value);
+              setSkills(_skills);
             }}
           />
 
@@ -258,16 +258,16 @@ export default function Page({params: { id }}) {
         <div>
           <h5 className="mr-3">Bounty Amount</h5>
           <input
-              type="text"
-              name="title"
-              placeholder="bounty amount you provide(USDT)"
-              value={amount}
-              onChange={e => {
-                const val = e.target.value.replace(/[^\d]/g, '')
-                setAmount(val)
-              }}
-              className={BASE_INPUT_STYLE}
-            />
+            type="text"
+            name="title"
+            placeholder="bounty amount you provide(USDT)"
+            value={amount}
+            onChange={e => {
+              const val = e.target.value.replace(/[^\d]/g, '');
+              setAmount(val);
+            }}
+            className={BASE_INPUT_STYLE}
+          />
         </div>
       </div>
 
@@ -294,5 +294,5 @@ export default function Page({params: { id }}) {
         <Button loading={loading} onClick={() => submit()} >Submit to Review</Button>
       </div>
     </div>
-  )
+  );
 }

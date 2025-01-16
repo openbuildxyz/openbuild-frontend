@@ -14,46 +14,46 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import { useMemo } from 'react'
-import { XMarkIcon } from '@heroicons/react/20/solid'
-import { updateLessonMenu, updateLessonMenuToggleStatus } from '#/state/application/reducer'
-import { useLessonMenu, useLessonMenuToggleStatus } from '#/state/application/hooks'
-import { useAppDispatch } from '#/state/hooks'
-import { clsx } from 'clsx'
-import { useMediaQuery } from '@/hooks/useMediaQuery'
-import { toast } from 'react-toastify'
-import { reducerList } from '#/app/learn/Chapters'
-import { ChevronDoubleLeftIcon } from '@heroicons/react/20/solid'
-import { ContentIcon, ReadingIcon, ReadedIcon, BlackPointIcon, LockedIcon } from '@/components/Icons'
-import BigNumber from 'bignumber.js'
-import { useRouter } from 'next/navigation'
+import { useMemo } from 'react';
+import { XMarkIcon } from '@heroicons/react/20/solid';
+import { updateLessonMenu, updateLessonMenuToggleStatus } from '#/state/application/reducer';
+import { useLessonMenu, useLessonMenuToggleStatus } from '#/state/application/hooks';
+import { useAppDispatch } from '#/state/hooks';
+import { clsx } from 'clsx';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
+import { toast } from 'react-toastify';
+import { reducerList } from '#/app/learn/Chapters';
+import { ChevronDoubleLeftIcon } from '@heroicons/react/20/solid';
+import { ContentIcon, ReadingIcon, ReadedIcon, BlackPointIcon, LockedIcon } from '@/components/Icons';
+import BigNumber from 'bignumber.js';
+import { useRouter } from 'next/navigation';
 
 export function Steper({ type, data, id, singleId }) {
-  const dispatch = useAppDispatch()
-  const show = useLessonMenu()
+  const dispatch = useAppDispatch();
+  const show = useLessonMenu();
 
   const list = useMemo(() => {
-    return reducerList(data)
-  }, [data])
+    return reducerList(data);
+  }, [data]);
 
-  const isNotLg = useMediaQuery('(min-width: 1024px)')
-  const router = useRouter()
-  const menuToggleStatus = useLessonMenuToggleStatus()
+  const isNotLg = useMediaQuery('(min-width: 1024px)');
+  const router = useRouter();
+  const menuToggleStatus = useLessonMenuToggleStatus();
 
   const _progNum = useMemo(() => {
     if (data.analytics.analytice_user_end) {
-      return 100
+      return 100;
     } else if (data.analytics.analytice_estimated_time === 0) {
-      return 0
+      return 0;
     } else {
       return new BigNumber(data.analytics.analytice_user_time)
         .div(data.analytics.analytice_estimated_time)
         .times(100)
-        .toFixed(0)
+        .toFixed(0);
     }
-  }, [data.analytics])
+  }, [data.analytics]);
 
   return show ? (
     <div
@@ -61,7 +61,7 @@ export function Steper({ type, data, id, singleId }) {
         'h-fit pt-9 transition-all !duration-500 max-lg:fixed max-lg:top-[85px] max-lg:left-0 max-lg:z-20 max-lg:h-[100%] max-lg:w-full max-lg:bg-white max-lg:px-4 max-lg:pt-4 lg:sticky lg:top-0',
         {
           'w-[376px] pr-14' : menuToggleStatus,
-          'w-[0px] pr-0' : !menuToggleStatus
+          'w-[0px] pr-0' : !menuToggleStatus,
         }
       )}
     >
@@ -76,7 +76,7 @@ export function Steper({ type, data, id, singleId }) {
       <div style={{ height: '-webkit-fill-available' }} className="max-lg:mb-[140px] max-lg:overflow-auto max-lg:pl-2">
         <div onClick={() => dispatch(updateLessonMenuToggleStatus(!menuToggleStatus))} className={clsx('absolute z-10 left-[-18px] top-[18px] w-9 h-9 transition-all !duration-500 border border-gray-400 rounded-full flex items-center justify-center bg-[#F8F8F8] cursor-pointer', {
           'left-[358px]': menuToggleStatus,
-          'left-[-18px]': !menuToggleStatus
+          'left-[-18px]': !menuToggleStatus,
         })}>
           <ChevronDoubleLeftIcon className={clsx('h-[14px] w-[14px] opacity-40 transition-all !duration-500', { 'rotate-180': !menuToggleStatus })} />
         </div>
@@ -94,11 +94,11 @@ export function Steper({ type, data, id, singleId }) {
                     className="mb-4 flex cursor-pointer items-start"
                     key={`Chapters--sublist-${j.base.course_single_id}`}
                     onClick={() => {
-                      !isNotLg && dispatch(updateLessonMenu(false))
+                      !isNotLg && dispatch(updateLessonMenu(false));
                       if (j.isLock) {
-                        toast.info('The content has not been made public, please contact the publisher')
+                        toast.info('The content has not been made public, please contact the publisher');
                       } else {
-                        router.push(`/learn/${type}/${id}/${j.base.course_single_id}`)
+                        router.push(`/learn/${type}/${id}/${j.base.course_single_id}`);
                       }
                     }}
                   >
@@ -116,7 +116,7 @@ export function Steper({ type, data, id, singleId }) {
                     </div>
                     <div className={clsx('after:absolute after:bottom-[-8px] after:left-0 after:block after:w-full after:h-[1px] after:border-b after:border-gray-400 flex-1 py-4 rounded px-2 relative top-[-13px] hover:bg-[#F3F3F3]', {
                       'bg-[#F3F3F3]': j.base.course_single_id === singleId && !j.analytics.analytice_user_end && j.base.course_single_content !== '',
-                      'opacity-40': j.analytics.analytice_user_end || j.isLock
+                      'opacity-40': j.analytics.analytice_user_end || j.isLock,
                     })}>
                       <div className="flex items-center mb-3 justify-between">
                         <p className="flex items-center text-sm">
@@ -136,5 +136,5 @@ export function Steper({ type, data, id, singleId }) {
     </div>
   ) : (
     <></>
-  )
+  );
 }

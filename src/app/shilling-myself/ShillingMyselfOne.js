@@ -14,74 +14,74 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import { useEffect, useMemo, useState } from 'react'
-import { classNames } from '@/utils'
-import { baseInputStyles } from '#/domain/profile/widgets/blocks'
-import Switch from '@/components/Switch'
-import { Button } from '@/components/Button'
-import { AspectaIcon, SkillsWalletIcon } from '@/components/Icons'
+import { useEffect, useMemo, useState } from 'react';
+import { classNames } from '@/utils';
+import { baseInputStyles } from '#/domain/profile/widgets/blocks';
+import Switch from '@/components/Switch';
+import { Button } from '@/components/Button';
+import { AspectaIcon, SkillsWalletIcon } from '@/components/Icons';
 
-import { useUser } from '#/state/application/hooks'
-import { useDetails } from '#/services/shilling/hooks'
-import { addSkillOne } from '#/services/shilling'
-import { toast } from 'react-toastify'
-import { useRouter } from 'next/navigation'
-import dynamic from 'next/dynamic'
+import { useUser } from '#/state/application/hooks';
+import { useDetails } from '#/services/shilling/hooks';
+import { addSkillOne } from '#/services/shilling';
+import { toast } from 'react-toastify';
+import { useRouter } from 'next/navigation';
+import dynamic from 'next/dynamic';
 
-import { authWithAspecta } from '#/domain/auth/helper'
-import SkillInsight from '#/domain/skill/widgets/skill-insight'
+import { authWithAspecta } from '#/domain/auth/helper';
+import SkillInsight from '#/domain/skill/widgets/skill-insight';
 
 const SelfRecommendationMarkdown = dynamic(() => import('./SelfRecommendationMarkdown'), {
   ssr: false,
-})
+});
 
 export function ShillingMyselfOne() {
-  const router = useRouter()
-  const user = useUser()
-  const [githubSkillEnabled, setGithubSkillEnabled] = useState(false)
-  const [chainbaseEnabled, setChainbaseEnabled] = useState(false)
-  const [title, setTitle] = useState('')
-  const [bio, setBio] = useState('')
-  const [rec, setRec] = useState('')
-  const [loading, setLoading] = useState(false)
-  const [address, setAddress] = useState('')
-  const [aspecta, setAspecta] = useState('')
-  const { data } = useDetails(user?.base.user_id)
+  const router = useRouter();
+  const user = useUser();
+  const [githubSkillEnabled, setGithubSkillEnabled] = useState(false);
+  const [chainbaseEnabled, setChainbaseEnabled] = useState(false);
+  const [title, setTitle] = useState('');
+  const [bio, setBio] = useState('');
+  const [rec, setRec] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [address, setAddress] = useState('');
+  const [aspecta, setAspecta] = useState('');
+  const { data } = useDetails(user?.base.user_id);
 
   const bindAspecta = useMemo(() => {
-    return user?.binds.find(f => f.auth_user_bind_type === 'aspecta')
-  }, [user])
+    return user?.binds.find(f => f.auth_user_bind_type === 'aspecta');
+  }, [user]);
 
   useEffect(() => {
     if (data) {
-      setTitle(data.title)
-      setBio(data.bio)
-      setRec(data.rec)
-      setAddress(data.onchain_address)
-      setChainbaseEnabled(data.onchain_show)
-      setGithubSkillEnabled(data.aspecta_show)
-      setAspecta(data.aspecta)
+      setTitle(data.title);
+      setBio(data.bio);
+      setRec(data.rec);
+      setAddress(data.onchain_address);
+      setChainbaseEnabled(data.onchain_show);
+      setGithubSkillEnabled(data.aspecta_show);
+      setAspecta(data.aspecta);
     }
     if (user) {
       if (data?.bio === '') {
-        setBio(user.base.user_bio)
+        setBio(user.base.user_bio);
       }
       if (data?.onchain_address === '') {
-        const address = user?.binds.find(f => f.auth_user_bind_type === 'wallet')?.auth_user_bind_key
-        address && setAddress(address)
+        const address = user?.binds.find(f => f.auth_user_bind_type === 'wallet')?.auth_user_bind_key;
+        address && setAddress(address);
       }
     }
-  }, [data, user])
+  }, [data, user]);
 
   const save = async () => {
-    setLoading(true)
+    setLoading(true);
     if (title === '') {
-      toast.error('Please enter a title')
-      return
+      toast.error('Please enter a title');
+      return;
     }
-    if (user?.base.user_id === undefined) return
+    if (user?.base.user_id === undefined) return;
     const res = await addSkillOne(user.base.user_id, {
       title,
       bio,
@@ -90,14 +90,14 @@ export function ShillingMyselfOne() {
       aspecta_show: githubSkillEnabled,
       onchain_address: address,
       onchain_show: chainbaseEnabled,
-    })
-    setLoading(false)
+    });
+    setLoading(false);
     if (res.code === 200) {
-      router.push('/shilling-myself?step=2')
+      router.push('/shilling-myself?step=2');
     } else {
-      toast.error(res.message)
+      toast.error(res.message);
     }
-  }
+  };
   return (
     <>
       <div className="mb-9 flex items-center justify-between text-2xl">
@@ -188,5 +188,5 @@ export function ShillingMyselfOne() {
         </Button>
       </div>
     </>
-  )
+  );
 }

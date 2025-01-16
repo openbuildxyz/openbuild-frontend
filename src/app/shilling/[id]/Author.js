@@ -14,50 +14,50 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import { RepositioningIcon, TriangleIcon, InformationIcon } from '@/components/Icons'
-import { Button } from '@/components/Button'
-import Avatar from '@/components/Avatar'
-import { Modal } from '@/components/Modal'
-import { useState } from 'react'
-import { baseInputStyles } from '#/domain/profile/widgets/blocks'
-import { useAllSkills } from '#/state/application/hooks'
-import { countries } from '#/lib/countries'
-import { useDetailsPermission } from '#/services/shilling/hooks'
-import { applyGetContact } from '#/services/shilling'
-import { GoogleReCaptcha } from 'react-google-recaptcha-v3'
-import { toast } from 'react-toastify'
-import { ReactSelect } from '@/components/Select/ReactSelect'
-import { ContactModal } from '../ContactModal'
-import { HireOnChainModal } from '../HireOnChainModal'
-import { HireConfirmModal } from '../HireConfirmModal'
-import { useSession } from 'next-auth/react'
-import { useRouter, usePathname } from 'next/navigation'
+import { RepositioningIcon, TriangleIcon, InformationIcon } from '@/components/Icons';
+import { Button } from '@/components/Button';
+import Avatar from '@/components/Avatar';
+import { Modal } from '@/components/Modal';
+import { useState } from 'react';
+import { baseInputStyles } from '#/domain/profile/widgets/blocks';
+import { useAllSkills } from '#/state/application/hooks';
+import { countries } from '#/lib/countries';
+import { useDetailsPermission } from '#/services/shilling/hooks';
+import { applyGetContact } from '#/services/shilling';
+import { GoogleReCaptcha } from 'react-google-recaptcha-v3';
+import { toast } from 'react-toastify';
+import { ReactSelect } from '@/components/Select/ReactSelect';
+import { ContactModal } from '../ContactModal';
+import { HireOnChainModal } from '../HireOnChainModal';
+import { HireConfirmModal } from '../HireConfirmModal';
+import { useSession } from 'next-auth/react';
+import { useRouter, usePathname } from 'next/navigation';
 
 export function Author({ data }) {
-  const { status } = useSession()
-  const router = useRouter()
-  const pathname = usePathname()
-  const [contactModalOpen, setContactModalOpen] = useState(false)
-  const [hireOnChainModalOpen, setHireOnChainModalOpen] = useState(false)
-  const [hireConfirmModalOpen, setHireConfirmModalOpen] = useState(false)
+  const { status } = useSession();
+  const router = useRouter();
+  const pathname = usePathname();
+  const [contactModalOpen, setContactModalOpen] = useState(false);
+  const [hireOnChainModalOpen, setHireOnChainModalOpen] = useState(false);
+  const [hireConfirmModalOpen, setHireConfirmModalOpen] = useState(false);
 
-  const [cmOpen, setCMOpen] = useState(false)
-  const [comment, setComment] = useState('')
-  const { data: permission, doFetch } = useDetailsPermission(data?.uid)
-  const [applyLoading, setApplyLoading] = useState(false)
-  const [openToken, setOpenToken] = useState(false)
-  const [token, setToken] = useState('')
-  const skills = useAllSkills()
-  const [selectSkills, setSelectSkills] = useState()
+  const [cmOpen, setCMOpen] = useState(false);
+  const [comment, setComment] = useState('');
+  const { data: permission, doFetch } = useDetailsPermission(data?.uid);
+  const [applyLoading, setApplyLoading] = useState(false);
+  const [openToken, setOpenToken] = useState(false);
+  const [token, setToken] = useState('');
+  const skills = useAllSkills();
+  const [selectSkills, setSelectSkills] = useState();
   const getContact = token => {
-    setOpenToken(false)
+    setOpenToken(false);
     if (token) {
-      setContactModalOpen(true)
-      setToken(token)
+      setContactModalOpen(true);
+      setToken(token);
     }
-  }
+  };
 
   return (
     <div className="w-[320px] ml-14 pt-14 mb-9">
@@ -87,13 +87,13 @@ export function Author({ data }) {
 
             onClick={() => {
               if (status === 'unauthenticated') {
-                router.push(`/signin?from=${pathname}`)
-                return
+                router.push(`/signin?from=${pathname}`);
+                return;
               }
               if (permission?.status === 3) {
-                setCMOpen(true)
+                setCMOpen(true);
               } else {
-                setOpenToken(true)
+                setOpenToken(true);
               }
             }}
           >
@@ -101,10 +101,10 @@ export function Author({ data }) {
           </Button>
           <Button  variant="outlined" onClick={() => {
             if (status === 'unauthenticated') {
-              router.push(`/signin?from=${pathname}`)
-              return
+              router.push(`/signin?from=${pathname}`);
+              return;
             }
-              setHireOnChainModalOpen(true)}
+            setHireOnChainModalOpen(true);}
           }>
             Hire on-chain
           </Button>
@@ -119,7 +119,7 @@ export function Author({ data }) {
 
       <div className="flex justify-between">
         <p className="text-[13px]">
-          <span className="mr-1 inline-block h-[6px] w-[6px] rounded-full bg-green"></span>
+          <span className="mr-1 inline-block h-[6px] w-[6px] rounded-full bg-green" />
           <span className="opacity-60">Contact got by</span> {data?.get_num} People
         </p>
         <p className="flex items-center">
@@ -140,8 +140,8 @@ export function Author({ data }) {
               isMulti
               options={skills}
               onChange={e => {
-                const _skills = e.map(i => i.value)
-                setSelectSkills(_skills)
+                const _skills = e.map(i => i.value);
+                setSelectSkills(_skills);
               }}
               className="react-select-container !min-h-12 border-0"
             />
@@ -164,14 +164,14 @@ export function Author({ data }) {
           <Button
             loading={applyLoading}
             onClick={async () => {
-              setApplyLoading(true)
-              if (!data || !selectSkills) return
-              const res = await applyGetContact(data.uid, comment, selectSkills, token)
+              setApplyLoading(true);
+              if (!data || !selectSkills) return;
+              const res = await applyGetContact(data.uid, comment, selectSkills, token);
               if (res.code === 200) {
-                doFetch()
-                setContactModalOpen(false)
+                doFetch();
+                setContactModalOpen(false);
               } else {
-                toast.error(res.message)
+                toast.error(res.message);
               }
             }}
             fullWidth
@@ -193,5 +193,5 @@ export function Author({ data }) {
       />
       <HireConfirmModal open={hireConfirmModalOpen} closeModal={() => setHireConfirmModalOpen(false)} />
     </div>
-  )
+  );
 }

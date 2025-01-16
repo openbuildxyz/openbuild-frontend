@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { Modal } from '@/components/Modal'
-import { Button } from '@/components/Button'
+import { Modal } from '@/components/Modal';
+import { Button } from '@/components/Button';
 
 
 export function ViewModal({
@@ -42,5 +42,5 @@ export function ViewModal({
         Close
       </Button>
     </Modal>
-  )
+  );
 }

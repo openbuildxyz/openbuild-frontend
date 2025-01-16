@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import Image from '../Image'
-import logo from './logo-white.svg'
+import Image from '../Image';
+import logo from './logo-white.svg';
 
 function BrandLogo({ className }) {
   return (
     <Image src="" defaultSrc={logo} alt="OpenBuild" className={className} />
-  )
+  );
 }
 
-export default BrandLogo
+export default BrandLogo;

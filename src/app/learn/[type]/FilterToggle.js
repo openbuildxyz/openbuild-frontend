@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import { useAppDispatch } from '#/state/hooks'
-import { useOpenFilter } from '#/state/application/hooks'
-import { updateOpenFilter } from '#/state/application/reducer'
-import { FilterIcon } from '@/components/Icons'
+import { useAppDispatch } from '#/state/hooks';
+import { useOpenFilter } from '#/state/application/hooks';
+import { updateOpenFilter } from '#/state/application/reducer';
+import { FilterIcon } from '@/components/Icons';
 
 export function FilterToggle({type, count}) {
-  const openFilter = useOpenFilter()
-  const dispatch = useAppDispatch()
+  const openFilter = useOpenFilter();
+  const dispatch = useAppDispatch();
 
   return (
     <div className="mt-4 flex items-center text-sm md:mt-0">
@@ -38,5 +38,5 @@ export function FilterToggle({type, count}) {
       <strong className="mr-1">{count}</strong>
       {type === 'career_path' ? 'courses' : type} available
     </div>
-  )
+  );
 }

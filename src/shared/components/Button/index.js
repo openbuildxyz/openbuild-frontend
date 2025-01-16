@@ -15,8 +15,8 @@
  */
 
 // import { classNames } from '@/utils'
-import React, { forwardRef } from 'react'
-import clsx from 'clsx'
+import React, { forwardRef } from 'react';
+import clsx from 'clsx';
 
 // import Dots from '../Dots'
 // import Loader from '../Loader'
@@ -59,13 +59,13 @@ const SIZE = {
   xs: 'btn-xs font-normal',
   sm: 'btn-sm font-normal',
   lg: 'btn-lg',
-  md: 'font-normal'
-}
+  md: 'font-normal',
+};
 const VARIANT = {
   outlined: 'btn-outline',
   text: 'btn-ghost',
   contained: 'contained',
-}
+};
 
 export const Button = forwardRef(({
   children,
@@ -97,7 +97,7 @@ export const Button = forwardRef(({
     >
       {loading ? (
         <>
-          <span className="loading loading-spinner"></span>
+          <span className="loading loading-spinner" />
           {children}
         </>
       ) : (
@@ -108,8 +108,8 @@ export const Button = forwardRef(({
         </>
       )}
     </button>
-  )
-})
+  );
+});
 
 // export const Button = React.forwardRef(
 //   (

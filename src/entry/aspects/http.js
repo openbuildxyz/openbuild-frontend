@@ -14,29 +14,29 @@
  * limitations under the License.
  */
 
-import { toast } from 'react-toastify'
+import { toast } from 'react-toastify';
 
-import httpClient, { legacyClient } from '@/utils/http'
+import httpClient, { legacyClient } from '@/utils/http';
 
-let alreadySet = false
+let alreadySet = false;
 
 function handleResponse(res) {
   if (!res.success) {
-    toast.error(res.message)
+    toast.error(res.message);
   }
 
-  return res
+  return res;
 }
 
 function setInterceptors() {
   if (alreadySet) {
-    return
+    return;
   }
 
-  httpClient.use(handleResponse)
-  legacyClient.use(handleResponse)
+  httpClient.use(handleResponse);
+  legacyClient.use(handleResponse);
 
-  alreadySet = true
+  alreadySet = true;
 }
 
-export default setInterceptors
+export default setInterceptors;

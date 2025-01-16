@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import { Suspense } from 'react'
+import { Suspense } from 'react';
 
-import { Title } from '../learn/Title'
-import { StartOnOpenBuild } from '../learn/StartOnOpenBuild'
-import { Filter } from '@/components/Filter'
-import { BountyFilter } from './Filter'
-import { Container } from './Container'
-import { ListSkeleton } from './ListSkeleton'
+import { Title } from '../learn/Title';
+import { StartOnOpenBuild } from '../learn/StartOnOpenBuild';
+import { Filter } from '@/components/Filter';
+import { BountyFilter } from './Filter';
+import { Container } from './Container';
+import { ListSkeleton } from './ListSkeleton';
 
 export default function Page({ params, searchParams }) {
   return (
@@ -41,5 +41,5 @@ export default function Page({ params, searchParams }) {
       {/* {status !== } */}
       <StartOnOpenBuild />
     </div>
-  )
+  );
 }

@@ -14,31 +14,31 @@
  * limitations under the License.
  */
 
-import { Button } from './Button'
-import { cn } from './helper'
-import { SigmaIcon } from 'lucide-react'
-import { useEditor } from 'novel'
+import { Button } from './Button';
+import { cn } from './helper';
+import { SigmaIcon } from 'lucide-react';
+import { useEditor } from 'novel';
 
 export const MathSelector = () => {
-  const { editor } = useEditor()
+  const { editor } = useEditor();
 
-  if (!editor) return null
+  if (!editor) return null;
 
   return (
     <Button
       variant="ghost"
       size="sm"
       className="rounded-none w-12"
-      onClick={(evt) => {
+      onClick={() => {
         if (editor.isActive('math')) {
-          editor.chain().focus().unsetLatex().run()
+          editor.chain().focus().unsetLatex().run();
         } else {
-          const { from, to } = editor.state.selection
-          const latex = editor.state.doc.textBetween(from, to)
+          const { from, to } = editor.state.selection;
+          const latex = editor.state.doc.textBetween(from, to);
 
-          if (!latex) return
+          if (!latex) return;
 
-          editor.chain().focus().setLatex({ latex }).run()
+          editor.chain().focus().setLatex({ latex }).run();
         }
       }}
     >
@@ -47,5 +47,5 @@ export const MathSelector = () => {
         strokeWidth={2.3}
       />
     </Button>
-  )
-}
+  );
+};

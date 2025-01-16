@@ -14,21 +14,21 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import { classNames } from '@/utils'
-import { baseInputStyles } from '#/domain/profile/widgets/blocks'
+import { classNames } from '@/utils';
+import { baseInputStyles } from '#/domain/profile/widgets/blocks';
 // import Switch from '@/components/Switch'
-import { EditIcon, DeleteIcon } from '@/components/Icons'
-import { useState, useMemo, useEffect } from 'react'
-import { Button } from '@/components/Button'
-import { useConfig, useUser } from '#/state/application/hooks'
-import { ReactSelect } from '@/components/Select/ReactSelect'
+import { EditIcon, DeleteIcon } from '@/components/Icons';
+import { useState, useMemo, useEffect } from 'react';
+import { Button } from '@/components/Button';
+import { useConfig, useUser } from '#/state/application/hooks';
+import { ReactSelect } from '@/components/Select/ReactSelect';
 // import { DropdownIndicator, ClearIndicator } from '@/components/ReactSelectComponents'
-import { useDashDetails } from '#/services/shilling/hooks'
-import { addSkillTwo } from '#/services/shilling'
-import { toast } from 'react-toastify'
-import { useRouter } from 'next/navigation'
+import { useDashDetails } from '#/services/shilling/hooks';
+import { addSkillTwo } from '#/services/shilling';
+import { toast } from 'react-toastify';
+import { useRouter } from 'next/navigation';
 export const Estimated = [
   {
     label: 'Months',
@@ -38,7 +38,7 @@ export const Estimated = [
     label: 'Days',
     value: 1,
   },
-]
+];
 const times = [
   {
     label: '1',
@@ -80,53 +80,53 @@ const times = [
     label: '10',
     value: 10,
   },
-]
+];
 
 export function ShillingMyselfTwo() {
-  const router = useRouter()
-  const user = useUser()
-  const [contactsVisible, setContactsVisible] = useState()
-  const [resumeVisible, setResumeVisible] = useState()
+  const router = useRouter();
+  const user = useUser();
+  const [contactsVisible, setContactsVisible] = useState();
+  const [resumeVisible, setResumeVisible] = useState();
 
-  const [emailReadonly, setEmailReadonly] = useState(true)
-  const [email, setEmail] = useState('')
-  const [telegram, setTelegram] = useState('')
-  const [discord, setDiscord] = useState('')
-  const [loading, setLoading] = useState(false)
-  const config = useConfig()
-  const [editShow, setEditShow] = useState(false)
-  const [usageTime, setUsageTime] = useState()
-  const [skillList, setSkillList] = useState([])
-  const [editKey, setEditKey] = useState(null)
-  const [skill, setSkill] = useState()
-  const [skillLevel, setSkillLevel] = useState('')
-  const { data } = useDashDetails(user?.base.user_id)
-  const [estimatedType, setEstimatedType] = useState(Estimated[0])
-  const [costMin, setCostMin] = useState()
-  const [costMax, setCostMax] = useState()
+  const [emailReadonly, setEmailReadonly] = useState(true);
+  const [email, setEmail] = useState('');
+  const [telegram, setTelegram] = useState('');
+  const [discord, setDiscord] = useState('');
+  const [loading, setLoading] = useState(false);
+  const config = useConfig();
+  const [editShow, setEditShow] = useState(false);
+  const [usageTime, setUsageTime] = useState();
+  const [skillList, setSkillList] = useState([]);
+  const [editKey, setEditKey] = useState(null);
+  const [skill, setSkill] = useState();
+  const [skillLevel, setSkillLevel] = useState('');
+  const { data } = useDashDetails(user?.base.user_id);
+  const [estimatedType, setEstimatedType] = useState(Estimated[0]);
+  const [costMin, setCostMin] = useState();
+  const [costMax, setCostMax] = useState();
   // const [defaultSkillIndex, setDefaultSkillIndex] = useState<number | undefined>()
   // const [defaultTimeIndex, setDefaultTimeIndex] = useState<number | undefined>()
 
   useEffect(() => {
     if (data) {
-      setEmail(data.email)
-      setTelegram(data.telegram)
-      setDiscord(data.discord)
-      setSkillList(data.skill_datas)
+      setEmail(data.email);
+      setTelegram(data.telegram);
+      setDiscord(data.discord);
+      setSkillList(data.skill_datas);
       setContactsVisible(
         data.contacts_show ? { label: 'Don\'t need my approval', value: 2 } : { label: 'Requires my approval', value: 1 }
-      )
+      );
       setResumeVisible(
         data.resume_show ? { label: 'Show with contacts', value: 1 } : { label: 'Do not show contacts', value: 2 }
-      )
+      );
     }
     if (!data || data.email === '') {
-      const bindEmail = user?.binds.find(f => f.auth_user_bind_type === 'email')
+      const bindEmail = user?.binds.find(f => f.auth_user_bind_type === 'email');
       if (bindEmail) {
-        setEmail(bindEmail?.auth_user_bind_key)
+        setEmail(bindEmail?.auth_user_bind_key);
       }
     }
-  }, [user, data])
+  }, [user, data]);
   const opts = useMemo(() => {
     return config
       ?.find(f => f.config_id === 3)
@@ -134,12 +134,12 @@ export function ShillingMyselfTwo() {
         return {
           value: i.id,
           label: i.name,
-        }
-      })
-  }, [config])
+        };
+      });
+  }, [config]);
   const save = async () => {
-    setLoading(true)
-    if (user?.base.user_id === undefined) return
+    setLoading(true);
+    if (user?.base.user_id === undefined) return;
     const res = await addSkillTwo(user?.base.user_id, {
       email,
       telegram,
@@ -147,28 +147,28 @@ export function ShillingMyselfTwo() {
       contacts_show: contactsVisible.value === 1 ? false : true,
       resume_show: resumeVisible === 1 ? true : false,
       skills: skillList,
-    })
+    });
     if (res.code === 200) {
-      router.push(`/shilling/${user?.base.user_id}`)
+      router.push(`/shilling/${user?.base.user_id}`);
     } else {
-      toast.error(res.message)
+      toast.error(res.message);
     }
-  }
+  };
 
   const saveAndUpdate = () => {
     if (!skill) {
-      toast.error('Please select a skill')
+      toast.error('Please select a skill');
     } else if (!usageTime) {
-      toast.error('Please select usage time')
+      toast.error('Please select usage time');
     } else if (skillLevel === '') {
-      toast.error('Please select skill level')
+      toast.error('Please select skill level');
     } else if (costMin === '' || !costMin || costMax === '' || !costMax) {
-      toast.error('Please enter estimated cost')
+      toast.error('Please enter estimated cost');
     } else {
-      const skillarr = [...skillList]
-      const rate = estimatedType.value === 2 ? 22 * 8 : 8
-      const _minHour = (Number(costMin) / rate).toString()
-      const _maxHour = (Number(costMax) / rate).toString()
+      const skillarr = [...skillList];
+      const rate = estimatedType.value === 2 ? 22 * 8 : 8;
+      const _minHour = (Number(costMin) / rate).toString();
+      const _maxHour = (Number(costMax) / rate).toString();
       const _obj = {
         skill: skill.value,
         level: skillLevel,
@@ -177,39 +177,39 @@ export function ShillingMyselfTwo() {
         cost_max: _maxHour,
         cost_show_type: estimatedType.value,
         cost_coin_id: 1,
-      }
+      };
       if (editKey === null) {
-        skillarr.push(_obj)
+        skillarr.push(_obj);
       } else {
-        skillarr[editKey] = _obj
+        skillarr[editKey] = _obj;
       }
-      setSkillList(skillarr)
-      setEditShow(false)
-      setEditKey(null)
+      setSkillList(skillarr);
+      setEditShow(false);
+      setEditKey(null);
     }
-  }
+  };
 
   useEffect(() => {
     if (editShow && editKey !== null) {
-      const _item = skillList[editKey]
-      const _skill = opts?.find(f => f.value === _item.skill)
-      setSkill(_skill)
-      const _time = times.find(f => f.value === _item.time)
-      setUsageTime(_time)
-      setSkillLevel(_item.level)
+      const _item = skillList[editKey];
+      const _skill = opts?.find(f => f.value === _item.skill);
+      setSkill(_skill);
+      const _time = times.find(f => f.value === _item.time);
+      setUsageTime(_time);
+      setSkillLevel(_item.level);
       // setEstimatedType(Estimated.find(f => f.value === _item.cost_show_type))
       setCostMin(
         estimatedType.value === 1
           ? (Number(_item.cost_min) * 8).toString()
           : (Number(_item.cost_min) * 22 * 8).toString()
-      )
+      );
       setCostMax(
         estimatedType.value === 1
           ? (Number(_item.cost_max) * 8).toString()
           : (Number(_item.cost_max) * 22 * 8).toString()
-      )
+      );
     }
-  }, [editShow, editKey, skillList, opts, estimatedType])
+  }, [editShow, editKey, skillList, opts, estimatedType]);
   return (
     <>
       <div className="mb-9 flex items-center justify-between text-2xl">
@@ -293,14 +293,14 @@ export function ShillingMyselfTwo() {
         <p className="text-sm">My Skills</p>
         <span
           onClick={() => {
-            setEditShow(true)
-            setEditKey(null)
-            setSkillLevel('')
-            setUsageTime(undefined)
-            setSkill(undefined)
-            setCostMin('')
-            setCostMax('')
-            setEstimatedType(Estimated[0])
+            setEditShow(true);
+            setEditKey(null);
+            setSkillLevel('');
+            setUsageTime(undefined);
+            setSkill(undefined);
+            setCostMin('');
+            setCostMax('');
+            setEstimatedType(Estimated[0]);
           }}
           className="cursor-pointer rounded-md bg-gray-300 px-5 py-1 text-xs hover:opacity-80"
         >
@@ -356,8 +356,8 @@ export function ShillingMyselfTwo() {
                   type="text"
                   value={costMin}
                   onChange={e => {
-                    const val = e.target.value.replace(/[^\d]/g, '')
-                    setCostMin(val)
+                    const val = e.target.value.replace(/[^\d]/g, '');
+                    setCostMin(val);
                   }}
                   maxLength={50}
                   className={classNames(baseInputStyles, 'w-[160px] !bg-white')}
@@ -368,8 +368,8 @@ export function ShillingMyselfTwo() {
                   type="text"
                   value={costMax}
                   onChange={e => {
-                    const val = e.target.value.replace(/[^\d]/g, '')
-                    setCostMax(val)
+                    const val = e.target.value.replace(/[^\d]/g, '');
+                    setCostMax(val);
                   }}
                   maxLength={50}
                   className={classNames(baseInputStyles, 'w-[160px] !bg-white')}
@@ -480,9 +480,9 @@ export function ShillingMyselfTwo() {
               <li className="hidden justify-center group-hover:flex">
                 <span
                   onClick={() => {
-                    const skillarr = Object.assign([...skillList], [])
-                    skillarr.splice(k, 1)
-                    setSkillList(skillarr)
+                    const skillarr = Object.assign([...skillList], []);
+                    skillarr.splice(k, 1);
+                    setSkillList(skillarr);
                   }}
                   className="flex cursor-pointer items-center text-green"
                 >
@@ -490,8 +490,8 @@ export function ShillingMyselfTwo() {
                 </span>
                 <span
                   onClick={() => {
-                    setEditKey(k)
-                    setEditShow(true)
+                    setEditKey(k);
+                    setEditShow(true);
                   }}
                   className="ml-4 flex cursor-pointer items-center"
                 >
@@ -517,5 +517,5 @@ export function ShillingMyselfTwo() {
         </Button>
       </div>
     </>
-  )
+  );
 }

@@ -14,41 +14,41 @@
  * limitations under the License.
  */
 
-import { Modal } from '@/components/Modal'
-import { ModalCloseIcon, TipsIcon } from '@/components/Icons'
-import { ReactSelect } from '@/components/Select/ReactSelect'
-import { classNames } from '@/utils'
-import { baseInputStyles } from '#/domain/profile/widgets/blocks'
+import { Modal } from '@/components/Modal';
+import { ModalCloseIcon, TipsIcon } from '@/components/Icons';
+import { ReactSelect } from '@/components/Select/ReactSelect';
+import { classNames } from '@/utils';
+import { baseInputStyles } from '#/domain/profile/widgets/blocks';
 
-import { useState, useMemo } from 'react'
-import { useAllSkills } from '#/state/application/hooks'
+import { useState, useMemo } from 'react';
+import { useAllSkills } from '#/state/application/hooks';
 
-import { MouseoverTooltip } from '@/components/Tooltip'
-import { Button } from '@/components/Button'
-import { Estimated } from '../shilling-myself/ShillingMyselfTwo'
-import BigNumber from 'bignumber.js'
-import { permissionsHire } from '#/services/shilling'
-import { toast } from 'react-toastify'
+import { MouseoverTooltip } from '@/components/Tooltip';
+import { Button } from '@/components/Button';
+import { Estimated } from '../shilling-myself/ShillingMyselfTwo';
+import BigNumber from 'bignumber.js';
+import { permissionsHire } from '#/services/shilling';
+import { toast } from 'react-toastify';
 
 
 export function HireOnChainModal({ open, closeModal, data, id, callback }) {
   // console.log(data)
-  const skills = useAllSkills()
+  const skills = useAllSkills();
   const opts = useMemo(() => {
     const foundList = data?.map(i => {
-      return { ...i, value: i.skill, label: skills?.find(f => f.value === Number(i.skill))?.label }
-    })
-    return foundList
-  }, [skills, data])
-  const [skill, setSkill] = useState()
-  const [comment, setComment] = useState('')
-  const [agree, setAgree] = useState(false)
-  const [estimatedType, setEstimatedType] = useState(Estimated[0])
-  const [dailyWorkingHours, setDailyWorkingHours] = useState('')
-  const [duration, setDuration] = useState('')
-  const [monthlyPrice, setMonthlyPrice] = useState('')
-  const [hourPrice, setHourPrice] = useState('')
-  const [confirmLoading, setConfirmLoading] = useState(false)
+      return { ...i, value: i.skill, label: skills?.find(f => f.value === Number(i.skill))?.label };
+    });
+    return foundList;
+  }, [skills, data]);
+  const [skill, setSkill] = useState();
+  const [comment, setComment] = useState('');
+  const [agree, setAgree] = useState(false);
+  const [estimatedType, setEstimatedType] = useState(Estimated[0]);
+  const [dailyWorkingHours, setDailyWorkingHours] = useState('');
+  const [duration, setDuration] = useState('');
+  const [monthlyPrice, setMonthlyPrice] = useState('');
+  const [hourPrice, setHourPrice] = useState('');
+  const [confirmLoading, setConfirmLoading] = useState(false);
 
   const confirmButtonDisabled = useMemo(() => {
     return (
@@ -59,8 +59,8 @@ export function HireOnChainModal({ open, closeModal, data, id, callback }) {
       hourPrice === '' ||
       monthlyPrice === '' ||
       duration === ''
-    )
-  }, [skill, agree, comment, dailyWorkingHours, hourPrice, monthlyPrice, duration])
+    );
+  }, [skill, agree, comment, dailyWorkingHours, hourPrice, monthlyPrice, duration]);
 
   // useEffect(() => {
   //   if (dailyWorkingHours !== '' && hourPrice !== '') {
@@ -76,14 +76,14 @@ export function HireOnChainModal({ open, closeModal, data, id, callback }) {
       const total =
         estimatedType.value === 2
           ? new BigNumber(dailyWorkingHours).times(new BigNumber(hourPrice)).times(22).times(new BigNumber(duration))
-          : new BigNumber(dailyWorkingHours).times(new BigNumber(hourPrice)).times(new BigNumber(duration))
-      return total
+          : new BigNumber(dailyWorkingHours).times(new BigNumber(hourPrice)).times(new BigNumber(duration));
+      return total;
     }
-  }, [dailyWorkingHours, hourPrice, duration, estimatedType])
+  }, [dailyWorkingHours, hourPrice, duration, estimatedType]);
 
   const confirm = async () => {
     if (id) {
-      setConfirmLoading(true)
+      setConfirmLoading(true);
       const res = await permissionsHire(id, {
         skills_data_id: skill.id,
         daily_hours: Number(dailyWorkingHours),
@@ -92,16 +92,16 @@ export function HireOnChainModal({ open, closeModal, data, id, callback }) {
         cost_show_type: estimatedType.value,
         total_cost: totalFee?.toNumber(),
         comment,
-      })
-      setConfirmLoading(false)
+      });
+      setConfirmLoading(false);
       if (res.code === 200) {
-        closeModal()
-        callback && callback()
+        closeModal();
+        callback && callback();
       } else {
-        toast.error(res.message)
+        toast.error(res.message);
       }
     }
-  }
+  };
 
   return (
     <Modal isOpen={open} closeModal={closeModal} container>
@@ -135,13 +135,13 @@ export function HireOnChainModal({ open, closeModal, data, id, callback }) {
                   <input
                     value={dailyWorkingHours}
                     onChange={e => {
-                      const val = e.target.value.replace(/[^\d]/g, '')
-                      setDailyWorkingHours(val)
+                      const val = e.target.value.replace(/[^\d]/g, '');
+                      setDailyWorkingHours(val);
                       if (val !== '' && hourPrice !== '') {
-                        const _monthlyPrice = Number(hourPrice) * Number(val) * 22
-                        setMonthlyPrice(_monthlyPrice.toFixed(0))
+                        const _monthlyPrice = Number(hourPrice) * Number(val) * 22;
+                        setMonthlyPrice(_monthlyPrice.toFixed(0));
                       } else {
-                        setMonthlyPrice('')
+                        setMonthlyPrice('');
                       }
                     }}
                     type="text"
@@ -165,13 +165,13 @@ export function HireOnChainModal({ open, closeModal, data, id, callback }) {
                   <input
                     value={hourPrice}
                     onChange={e => {
-                      const val = e.target.value.replace(/[^\d]/g, '')
-                      setHourPrice(val)
+                      const val = e.target.value.replace(/[^\d]/g, '');
+                      setHourPrice(val);
                       if (dailyWorkingHours !== '' && val !== '') {
-                        const _monthlyPrice = Number(val) * Number(dailyWorkingHours) * 22
-                        setMonthlyPrice(_monthlyPrice.toFixed(0))
+                        const _monthlyPrice = Number(val) * Number(dailyWorkingHours) * 22;
+                        setMonthlyPrice(_monthlyPrice.toFixed(0));
                       } else {
-                        setMonthlyPrice('')
+                        setMonthlyPrice('');
                       }
                     }}
                     type="number"
@@ -182,13 +182,13 @@ export function HireOnChainModal({ open, closeModal, data, id, callback }) {
                   <input
                     value={monthlyPrice}
                     onChange={e => {
-                      const val = e.target.value.replace(/[^\d]/g, '')
-                      setMonthlyPrice(val)
+                      const val = e.target.value.replace(/[^\d]/g, '');
+                      setMonthlyPrice(val);
                       if (dailyWorkingHours !== '') {
-                        const _hourPrice = Number(val) / Number(dailyWorkingHours) / 22
-                        setHourPrice(_hourPrice.toFixed(2))
+                        const _hourPrice = Number(val) / Number(dailyWorkingHours) / 22;
+                        setHourPrice(_hourPrice.toFixed(2));
                       } else {
-                        setHourPrice('')
+                        setHourPrice('');
                       }
                     }}
                     type="text"
@@ -208,8 +208,8 @@ export function HireOnChainModal({ open, closeModal, data, id, callback }) {
                   <input
                     value={duration}
                     onChange={e => {
-                      const val = e.target.value.replace(/[^\d]/g, '')
-                      setDuration(val)
+                      const val = e.target.value.replace(/[^\d]/g, '');
+                      setDuration(val);
                     }}
                     type="text"
                     className="h-[46px] w-full flex-1 border-none bg-transparent p-0 pr-3"
@@ -405,5 +405,5 @@ export function HireOnChainModal({ open, closeModal, data, id, callback }) {
         </div>
       </div>
     </Modal>
-  )
+  );
 }

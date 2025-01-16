@@ -14,34 +14,34 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import Image from 'next/image'
-import QuizBannerPic from 'public/images/quiz-banner.png'
-import { useMediaUrl } from '#/state/application/hooks'
-import { ArrowUturnLeftIcon } from '@heroicons/react/24/solid'
-import { HistoryIcon } from '@/components/Icons'
-import { Button } from '@/components/Button'
-import Rank1Icon from 'public/images/svg/rank-1.svg'
-import Rank2Icon from 'public/images/svg/rank-2.svg'
-import Rank3Icon from 'public/images/svg/rank-3.svg'
-import { useState } from 'react'
-import useSWR from 'swr'
-import { fetcher } from '@/utils/request'
-import { CourseCard } from '../../learn/[type]/CourseCard'
-import { useSession } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
-import { Record } from './Record'
-import QuizLimiterWidget from '#/domain/quiz/widgets/quiz-limiter'
+import Image from 'next/image';
+import QuizBannerPic from 'public/images/quiz-banner.png';
+import { useMediaUrl } from '#/state/application/hooks';
+import { ArrowUturnLeftIcon } from '@heroicons/react/24/solid';
+import { HistoryIcon } from '@/components/Icons';
+import { Button } from '@/components/Button';
+import Rank1Icon from 'public/images/svg/rank-1.svg';
+import Rank2Icon from 'public/images/svg/rank-2.svg';
+import Rank3Icon from 'public/images/svg/rank-3.svg';
+import { useState } from 'react';
+import useSWR from 'swr';
+import { fetcher } from '@/utils/request';
+import { CourseCard } from '../../learn/[type]/CourseCard';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import { Record } from './Record';
+import QuizLimiterWidget from '#/domain/quiz/widgets/quiz-limiter';
 
 export default function Quiz({params}) {
-  const mediaUrl = useMediaUrl()
-  const [openModal, setOpenModal] = useState(false)
-  const [checkLimit, setCheckLimit] = useState(false)
-  const { data } = useSWR(`/ts/v1/quiz/${params.id}/index`, fetcher)
-  const { data: coursesList } = useSWR(`v1/learn/course/opencourse?skip=0&take=2&order=default&quiz_bind_id=${params.id}`, fetcher)
-  const { status } = useSession()
-  const router = useRouter()
+  const mediaUrl = useMediaUrl();
+  const [openModal, setOpenModal] = useState(false);
+  const [checkLimit, setCheckLimit] = useState(false);
+  const { data } = useSWR(`/ts/v1/quiz/${params.id}/index`, fetcher);
+  const { data: coursesList } = useSWR(`v1/learn/course/opencourse?skip=0&take=2&order=default&quiz_bind_id=${params.id}`, fetcher);
+  const { status } = useSession();
+  const router = useRouter();
 
   return (
     <QuizLimiterWidget
@@ -51,7 +51,7 @@ export default function Quiz({params}) {
       quiz
       onReset={() => setCheckLimit(false)}
     >
-      <div className="max-md:flex max-md:flex-col max-md:gap-y-4 h-[250px] md:h-[360px] bg-cover bg-center bg-no-repeat relative" style={{ backgroundImage: `url(${QuizBannerPic.src})`,  }}>
+      <div className="max-md:flex max-md:flex-col max-md:gap-y-4 h-[250px] md:h-[360px] bg-cover bg-center bg-no-repeat relative" style={{ backgroundImage: `url(${QuizBannerPic.src})`  }}>
         <div className="md:absolute flex items-center mt-[15px] md:mt-6 mx-4 md:mx-14">
           <span
             onClick={() => window.history.back()}
@@ -60,9 +60,9 @@ export default function Quiz({params}) {
           </span>
           <span onClick={() => {
             if (status !== 'authenticated') {
-              router.push(`/signin?from=/quiz/${params.id}`)
+              router.push(`/signin?from=/quiz/${params.id}`);
             } else {
-              setOpenModal(true)
+              setOpenModal(true);
             }
           }} className="cursor-pointer transition-all flex text-sm items-center opacity-80 rounded py-2 px-3 border border-gray-1100 text-black hover:border-gray">
             <HistoryIcon className="mr-2" />Challenge Record
@@ -70,15 +70,15 @@ export default function Quiz({params}) {
         </div>
         <div className="flex items-center justify-center md:pt-9 md:pb-4">
           {data?.quiz_user?.user_avatar && mediaUrl && (
-              <Image
-                className="h-7 w-7 rounded object-cover mr-2"
-                height={24}
-                width={24}
-                alt={'user_avatar'}
-                src={mediaUrl + data?.quiz_user?.user_avatar}
-              />
-            )}
-            <p className="opacity-90 max-md:text-[18px]">by <a href={`/u/${data?.quiz_user?.user_handle}`}><strong>{data?.quiz_user?.user_nick_name}</strong></a></p>
+            <Image
+              className="h-7 w-7 rounded object-cover mr-2"
+              height={24}
+              width={24}
+              alt={'user_avatar'}
+              src={mediaUrl + data?.quiz_user?.user_avatar}
+            />
+          )}
+          <p className="opacity-90 max-md:text-[18px]">by <a href={`/u/${data?.quiz_user?.user_handle}`}><strong>{data?.quiz_user?.user_nick_name}</strong></a></p>
         </div>
         <h1 className="text-[28px] md:text-[42px] leading-[32px] md:leading-[52px] text-center max-md:px-6 md:max-w-[692px] mx-auto">{data?.title}</h1>
       </div>
@@ -134,5 +134,5 @@ export default function Quiz({params}) {
       </div>
       <Record id={params.id} openModal={openModal} closeModal={() => setOpenModal(false)} />
     </QuizLimiterWidget>
-  )
+  );
 }

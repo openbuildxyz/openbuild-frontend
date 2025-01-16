@@ -15,31 +15,31 @@
  */
 
 import { Modal } from '@/components/Modal';
-import { Button } from '@/components/Button'
+import { Button } from '@/components/Button';
 import { useState } from 'react';
-import { currentTime } from '@/utils/date'
-import { toast } from 'react-toastify'
+import { currentTime } from '@/utils/date';
+import { toast } from 'react-toastify';
 
-import { signBounty } from '@/utils/web3'
-import { parseUnits } from '@ethersproject/units'
+import { signBounty } from '@/utils/web3';
+import { parseUnits } from '@ethersproject/units';
 
-import { useNetwork, useWalletClient } from 'wagmi'
-import { BOUNTY_SUPPORTED_CHAIN } from '@/constants/chain'
-import { contracts, payTokens } from '@/constants/contract'
+import { useNetwork, useWalletClient } from 'wagmi';
+import { BOUNTY_SUPPORTED_CHAIN } from '@/constants/chain';
+import { contracts, payTokens } from '@/constants/contract';
 
-import { revalidatePathAction } from '../../actions'
+import { revalidatePathAction } from '../../actions';
 
 import { termination } from '#/services/bounties';
 
 export function TerminateModal({open, close, bounty, type}) {
-  const [amount, setAmount] = useState('')
-  const [loading, setLoading] = useState(false)
+  const [amount, setAmount] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  const { chain } = useNetwork()
-  const { data: walletClient } = useWalletClient()
+  const { chain } = useNetwork();
+  const { data: walletClient } = useWalletClient();
 
-  const _contracts = contracts[BOUNTY_SUPPORTED_CHAIN()]
-  const payToken = payTokens[BOUNTY_SUPPORTED_CHAIN()].usdt
+  const _contracts = contracts[BOUNTY_SUPPORTED_CHAIN()];
+  const payToken = payTokens[BOUNTY_SUPPORTED_CHAIN()].usdt;
 
 
   const confirm = async () => {
@@ -70,11 +70,11 @@ export function TerminateModal({open, close, bounty, type}) {
     if (res.code === 200) {
       toast.success('Termination successful');
       close();
-      revalidatePathAction()
+      revalidatePathAction();
     } else {
       toast.error(res.message);
     }
-  }
+  };
 
   return <Modal
     isOpen={open}
@@ -89,7 +89,7 @@ export function TerminateModal({open, close, bounty, type}) {
         type="text"
         value={amount}
         className="border-0 flex-1 pr-4 h-10"
-        onChange={(e) => {
+        onChange={e => {
           const val = e.target.value.replace(/[^\d]/g, '');
           setAmount(val);
         }}
@@ -110,5 +110,5 @@ export function TerminateModal({open, close, bounty, type}) {
     >
       Confirm
     </Button>
-  </Modal>
+  </Modal>;
 }

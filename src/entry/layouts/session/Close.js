@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import { XMarkIcon } from '@heroicons/react/20/solid'
+import { XMarkIcon } from '@heroicons/react/20/solid';
 export function Close() {
   return (
     <div
@@ -25,5 +25,5 @@ export function Close() {
     >
       <XMarkIcon className="h-5 w-5" />
     </div>
-  )
+  );
 }

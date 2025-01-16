@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
 // import NextNProgress from 'nextjs-progressbar'
-import NextTopLoader from 'nextjs-toploader'
+import NextTopLoader from 'nextjs-toploader';
 
 export function RouterProgress({ children }) {
   return (
@@ -33,5 +33,5 @@ export function RouterProgress({ children }) {
         speed={200}
       />
     </>
-  )
+  );
 }

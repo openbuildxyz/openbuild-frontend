@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-import { isFunction } from 'lodash'
-import { useState, useMemo, useCallback, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
-import { useSession } from 'next-auth/react'
-import { toast } from 'react-toastify'
+import { isFunction } from 'lodash';
+import { useState, useMemo, useCallback, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
+import { toast } from 'react-toastify';
 
 import { Confirm } from '@/components/Modal/Confirm';
 
-import { authWithGoogle, authWithGithub } from '../../../auth/helper'
-import { useBindWallet } from '../../../auth/hooks'
+import { authWithGoogle, authWithGithub } from '../../../auth/helper';
+import { useBindWallet } from '../../../auth/hooks';
 
 const LimitType = {
   Submission: 1,
@@ -31,7 +31,7 @@ const LimitType = {
   Google: 3,
   GitHub: 4,
   Enrolled: 5,
-}
+};
 
 const limitTypeMap = {
   [LimitType.Submission]: 'You have exceeded submission limit.',
@@ -39,7 +39,7 @@ const limitTypeMap = {
   [LimitType.Google]: 'Please connect Google account first.',
   [LimitType.GitHub]: 'Please connect your GitHub account first',
   [LimitType.Enrolled]: 'Please enroll a specific course or challenge first.',
-}
+};
 
 function QuizLimiterWidget({
   id,
@@ -49,66 +49,66 @@ function QuizLimiterWidget({
   children,
   onReset,
 }) {
-  const [dialogVisible, setDialogVisible] = useState(false)
-  const router = useRouter()
-  const { status } = useSession()
-  const quizPath = useMemo(() => `/quiz/${id}`, [id])
-  const questionsPath = useMemo(() => `${quizPath}/questions`, [quizPath])
-  const gotoQuiz = useCallback(() => router.push(quizPath), [quizPath])
-  const bindWallet = useBindWallet()
+  const [dialogVisible, setDialogVisible] = useState(false);
+  const router = useRouter();
+  const { status } = useSession();
+  const quizPath = useMemo(() => `/quiz/${id}`, [id]);
+  const questionsPath = useMemo(() => `${quizPath}/questions`, [quizPath]);
+  const gotoQuiz = useCallback(() => router.push(quizPath), [quizPath]);
+  const bindWallet = useBindWallet();
 
   useEffect(() => {
     if (!check) {
-      return
+      return;
     }
 
     if (status !== 'authenticated') {
-      router.push(`/signin?from=${quizPath}`)
+      router.push(`/signin?from=${quizPath}`);
     } else {
       if (type in limitTypeMap) {
         if ([LimitType.Wallet, LimitType.Google, LimitType.GitHub].includes(type)) {
-          setDialogVisible(true)
+          setDialogVisible(true);
         } else {
-          toast.error(limitTypeMap[type])
+          toast.error(limitTypeMap[type]);
 
           if (!quiz) {
-            gotoQuiz()
+            gotoQuiz();
           }
         }
       } else if (quiz) {
-        router.push(questionsPath)
+        router.push(questionsPath);
       }
     }
-  }, [check])
+  }, [check]);
 
-  const closeDialog = () => setDialogVisible(false)
+  const closeDialog = () => setDialogVisible(false);
 
   const handleConfirm = () => {
     if (type === LimitType.Wallet) {
-      bindWallet(closeDialog)
+      bindWallet(closeDialog);
     } else {
-      const redirectPath = quiz ? quizPath : questionsPath
+      const redirectPath = quiz ? quizPath : questionsPath;
 
       if (type === LimitType.Google) {
-        authWithGoogle(redirectPath)
+        authWithGoogle(redirectPath);
       } else if (type === LimitType.GitHub) {
-        authWithGithub(redirectPath)
+        authWithGithub(redirectPath);
       }
     }
-  }
+  };
 
   const handleCancel = source => {
     if (source !== 'Cancel') {
-      return
+      return;
     }
 
     if (quiz) {
-      closeDialog()
-      isFunction(onReset) && onReset()
+      closeDialog();
+      isFunction(onReset) && onReset();
     } else {
-      gotoQuiz()
+      gotoQuiz();
     }
-  }
+  };
 
   return (
     <>
@@ -123,7 +123,7 @@ function QuizLimiterWidget({
         />
       )}
     </>
-  )
+  );
 }
 
-export default QuizLimiterWidget
+export default QuizLimiterWidget;

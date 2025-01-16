@@ -14,6 +14,6 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-export { default } from '#/domain/profile/widgets/profile-card'
+export { default } from '#/domain/profile/widgets/profile-card';

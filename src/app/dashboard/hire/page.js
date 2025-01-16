@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-'use client'
-import { useEffect, useState, Fragment, useCallback } from 'react'
-import { Tabs } from '../Tabs'
-import Link from 'next/link'
-import Image from 'next/image'
-import { NoData } from '@/components/NoData'
-import Loader from '@/components/Loader'
-import { useAllSkills, useMediaUrl, useSlillhubChain } from '#/state/application/hooks'
-import { Popover, Transition } from '@headlessui/react'
-import { useWalletClient, useNetwork, useSwitchNetwork, useAccount } from 'wagmi'
-import { readContract } from '@wagmi/core'
+'use client';
+import { useEffect, useState, Fragment, useCallback } from 'react';
+import { Tabs } from '../Tabs';
+import Link from 'next/link';
+import Image from 'next/image';
+import { NoData } from '@/components/NoData';
+import Loader from '@/components/Loader';
+import { useAllSkills, useMediaUrl, useSlillhubChain } from '#/state/application/hooks';
+import { Popover, Transition } from '@headlessui/react';
+import { useWalletClient, useNetwork, useSwitchNetwork, useAccount } from 'wagmi';
+import { readContract } from '@wagmi/core';
 import {
   EditIcon,
   ManageIcon,
@@ -34,20 +34,20 @@ import {
   AddTimeIcon,
   TerminateIcon,
   DepositIcon,
-} from '@/components/Icons'
-import { Paging } from '@/components/Paging'
-import { useSkillsHireList } from '#/services/dashboard/hooks'
-import { formatTime, currentTime } from '@/utils/date'
-import { permissionsHireStatus, permissionsStatusApprove } from '#/services/shilling'
-import { toast } from 'react-toastify'
-import { ManageModal } from './ManageModal'
-import { ClaimModal } from './ClaimModal'
-import { DepositModal } from './DepositModal'
-import { TerminateModal } from './TerminateModal'
-import { ExpendHireTimeModal } from './ExpendHireTimeModal'
-import { signSkillHub } from '@/utils/web3'
-import { formatUnits } from '@ethersproject/units'
-import { useConnectModal } from '@rainbow-me/rainbowkit'
+} from '@/components/Icons';
+import { Paging } from '@/components/Paging';
+import { useSkillsHireList } from '#/services/dashboard/hooks';
+import { formatTime, currentTime } from '@/utils/date';
+import { permissionsHireStatus, permissionsStatusApprove } from '#/services/shilling';
+import { toast } from 'react-toastify';
+import { ManageModal } from './ManageModal';
+import { ClaimModal } from './ClaimModal';
+import { DepositModal } from './DepositModal';
+import { TerminateModal } from './TerminateModal';
+import { ExpendHireTimeModal } from './ExpendHireTimeModal';
+import { signSkillHub } from '@/utils/web3';
+import { formatUnits } from '@ethersproject/units';
+import { useConnectModal } from '@rainbow-me/rainbowkit';
 
 const tabs = [
   {
@@ -58,81 +58,81 @@ const tabs = [
     name: 'Hire others',
     key: 'others',
   },
-]
+];
 
 export default function DashboardHire() {
   const { openConnectModal } = useConnectModal();
-  const { data: signer } = useWalletClient()
-  const { chain } = useNetwork()
-  const { isConnected } = useAccount()
-  const { switchNetwork } = useSwitchNetwork()
-  const slillhubChain = useSlillhubChain()
-  const skills = useAllSkills()
-  const [active, setActive] = useState('me')
-  const mediaUrl = useMediaUrl()
-  const [page, setPage] = useState(0)
-  const [manageModalOpen, setManageModalOpen] = useState(false)
-  const [claimModalOpen, setClaimModalOpen] = useState(false)
-  const [depositModalOpen, setDepositModalOpen] = useState(false)
-  const [terminateModalOpen, setTerminateModalOpen] = useState(false)
-  const [expendHireTimeModalOpen, setExpendHireTimeModalOpen] = useState(false)
-  const [current, setCurrent] = useState()
+  const { data: signer } = useWalletClient();
+  const { chain } = useNetwork();
+  const { isConnected } = useAccount();
+  const { switchNetwork } = useSwitchNetwork();
+  const slillhubChain = useSlillhubChain();
+  const skills = useAllSkills();
+  const [active, setActive] = useState('me');
+  const mediaUrl = useMediaUrl();
+  const [page, setPage] = useState(0);
+  const [manageModalOpen, setManageModalOpen] = useState(false);
+  const [claimModalOpen, setClaimModalOpen] = useState(false);
+  const [depositModalOpen, setDepositModalOpen] = useState(false);
+  const [terminateModalOpen, setTerminateModalOpen] = useState(false);
+  const [expendHireTimeModalOpen, setExpendHireTimeModalOpen] = useState(false);
+  const [current, setCurrent] = useState();
 
-  const [showMenu, setShowMenu] = useState(null)
-  const [declinedLoading, setDeclinedLoading] = useState(false)
-  const [approveOrderLoading, setApproveOrderLoading] = useState(false)
-  const [availableFund, setAvailableFund] = useState('0')
+  const [showMenu, setShowMenu] = useState(null);
+  const [declinedLoading, setDeclinedLoading] = useState(false);
+  const [approveOrderLoading, setApproveOrderLoading] = useState(false);
+  const [availableFund, setAvailableFund] = useState('0');
 
   const [listParams, setListParams] = useState({
     skip: 0,
     take: 20,
     type: active,
-  })
+  });
 
   useEffect(() => {
-    setListParams({ skip: page * 20, take: 20, type: active })
-  }, [active, page])
+    setListParams({ skip: page * 20, take: 20, type: active });
+  }, [active, page]);
 
   useEffect(() => {
-    setPage(0)
-    setListParams({ skip: 0, take: 20, type: active })
-  }, [active])
+    setPage(0);
+    setListParams({ skip: 0, take: 20, type: active });
+  }, [active]);
 
-  const { list, total, loading, doFetch } = useSkillsHireList(listParams)
+  const { list, total, loading, doFetch } = useSkillsHireList(listParams);
 
   const changeCallback = res => {
     if (res.code === 200) {
-      doFetch()
-      setManageModalOpen(false)
+      doFetch();
+      setManageModalOpen(false);
     } else {
-      toast.error(res.message)
+      toast.error(res.message);
     }
-    setDeclinedLoading(false)
-    setApproveOrderLoading(false)
-  }
+    setDeclinedLoading(false);
+    setApproveOrderLoading(false);
+  };
 
   const declined = async (id, pid) => {
-    setDeclinedLoading(true)
-    const res = await permissionsHireStatus(id, pid, -1)
-    changeCallback(res)
-  }
+    setDeclinedLoading(true);
+    const res = await permissionsHireStatus(id, pid, -1);
+    changeCallback(res);
+  };
 
   useEffect(() => {
     if (slillhubChain?.chain_id !== chain?.id) {
-      switchNetwork?.(slillhubChain.chain_id)
+      switchNetwork?.(slillhubChain.chain_id);
     }
-  }, [chain, slillhubChain, switchNetwork])
+  }, [chain, slillhubChain, switchNetwork]);
 
   const approveOrder = async item => {
     if (slillhubChain) {
       if (slillhubChain.chain_id !== chain?.id) {
-        switchNetwork?.(slillhubChain.chain_id)
+        switchNetwork?.(slillhubChain.chain_id);
       }
-      setApproveOrderLoading(true)
-      const _deadline = currentTime() + 7 * 24 * 60 * 60
+      setApproveOrderLoading(true);
+      const _deadline = currentTime() + 7 * 24 * 60 * 60;
       const hireHours =
-        item.cost_show_type === 1 ? item.hire_duration * item.daily_hours : item.daily_hours * item.hire_duration * 22
-      const time = hireHours * 60 * 60
+        item.cost_show_type === 1 ? item.hire_duration * item.daily_hours : item.daily_hours * item.hire_duration * 22;
+      const time = hireHours * 60 * 60;
       const sign = await signSkillHub(
         slillhubChain.chain_id,
         slillhubChain.contract_address,
@@ -141,35 +141,35 @@ export default function DashboardHire() {
         time,
         slillhubChain.use_coins[0].address,
         _deadline
-      )
-      const res = await permissionsStatusApprove(item.uid, item.id, sign, _deadline.toString())
-      changeCallback(res)
+      );
+      const res = await permissionsStatusApprove(item.uid, item.id, sign, _deadline.toString());
+      changeCallback(res);
     } else {
-      toast.error('Network error')
+      toast.error('Network error');
     }
-  }
+  };
 
   const fetchAvailableFund = useCallback(async () => {
     if (!slillhubChain) {
-      setAvailableFund('0')
-      return
+      setAvailableFund('0');
+      return;
     } else {
       const _available = await readContract({
         address: slillhubChain?.contract_address,
         abi: slillhubChain?.abi,
         functionName: 'getAvailableFund',
         args: [Number(current.contract_index_id)],
-      })
+      });
 
-      setAvailableFund(formatUnits(_available, slillhubChain.use_coins[0].decimals))
+      setAvailableFund(formatUnits(_available, slillhubChain.use_coins[0].decimals));
     }
-  }, [slillhubChain, current])
+  }, [slillhubChain, current]);
 
   useEffect(() => {
     if (manageModalOpen || claimModalOpen) {
-      fetchAvailableFund()
+      fetchAvailableFund();
     }
-  }, [slillhubChain, current, fetchAvailableFund, manageModalOpen, claimModalOpen])
+  }, [slillhubChain, current, fetchAvailableFund, manageModalOpen, claimModalOpen]);
 
   return (
     <div className="min-h-screen pb-12">
@@ -236,37 +236,37 @@ export default function DashboardHire() {
                   <li className="col-span-2 flex items-center">
                     {i.status === -1 && (
                       <span className="flex items-center rounded-md bg-[rgba(216,97,65,0.06)] p-2 text-[#D86141]">
-                        <i className="mr-1 inline-block h-1 w-1 rounded-full bg-[#D86141]"></i>Declined
+                        <i className="mr-1 inline-block h-1 w-1 rounded-full bg-[#D86141]" />Declined
                       </span>
                     )}
                     {i.status === 2 && (
                       <span className="flex items-center rounded-md bg-[rgba(243,186,47,0.06)] p-2 text-[#F3BA2F]">
-                        <i className="mr-1 inline-block h-1 w-1 rounded-full bg-[#F3BA2F]"></i>Waiting deposit
+                        <i className="mr-1 inline-block h-1 w-1 rounded-full bg-[#F3BA2F]" />Waiting deposit
                       </span>
                     )}
                     {(i.status === 1 || i.status === 0) && (
                       <span className="flex items-center rounded-md bg-[rgba(118,82,237,0.06)] p-2 text-[#7652ED]">
-                        <i className="mr-1 inline-block h-1 w-1 rounded-full bg-[#7652ED]"></i>Under-Review
+                        <i className="mr-1 inline-block h-1 w-1 rounded-full bg-[#7652ED]" />Under-Review
                       </span>
                     )}
                     {(i.status === 3 || i.status === 8 || i.status === 9) && (
                       <span className="flex items-center rounded-md bg-[rgba(243,186,47,0.06)] p-2 text-[#F3BA2F]">
-                        <i className="mr-1 inline-block h-1 w-1 rounded-full bg-[#F3BA2F]"></i>Pending
+                        <i className="mr-1 inline-block h-1 w-1 rounded-full bg-[#F3BA2F]" />Pending
                       </span>
                     )}
                     {i.status === 6 && (
                       <span className="flex items-center rounded-md bg-[rgba(58,171,118,0.06)] p-2 text-[#3AAB76]">
-                        <i className="mr-1 inline-block h-1 w-1 rounded-full bg-[#3AAB76]"></i>In progress
+                        <i className="mr-1 inline-block h-1 w-1 rounded-full bg-[#3AAB76]" />In progress
                       </span>
                     )}
                     {i.status === 24 && (
                       <span className="flex items-center rounded-md bg-[rgba(124,124,124,0.06)] p-2 text-[#7C7C7C]">
-                        <i className="mr-1 inline-block h-1 w-1 rounded-full bg-[#7C7C7C]"></i>Termination
+                        <i className="mr-1 inline-block h-1 w-1 rounded-full bg-[#7C7C7C]" />Termination
                       </span>
                     )}
                     {i.status === 30 && (
                       <span className="flex items-center rounded-md bg-[rgba(24,160,251,0.06)] p-2 text-[#18A0FB]">
-                        <i className="mr-1 inline-block h-1 w-1 rounded-full bg-[#18A0FB]"></i>Completed
+                        <i className="mr-1 inline-block h-1 w-1 rounded-full bg-[#18A0FB]" />Completed
                       </span>
                     )}
                   </li>
@@ -308,8 +308,8 @@ export default function DashboardHire() {
                               <ul className="px-3">
                                 <li
                                   onClick={() => {
-                                    setManageModalOpen(true)
-                                    setCurrent(i)
+                                    setManageModalOpen(true);
+                                    setCurrent(i);
                                   }}
                                   className="mb-2 flex cursor-pointer items-center rounded py-[10px] px-3 text-sm font-normal hover:bg-gray-900"
                                 >
@@ -345,14 +345,14 @@ export default function DashboardHire() {
                                   <li
                                     onClick={() => {
                                       if (slillhubChain?.chain_id !== chain?.id) {
-                                        switchNetwork?.(slillhubChain?.chain_id)
-                                        return
+                                        switchNetwork?.(slillhubChain?.chain_id);
+                                        return;
                                       }
                                       if (!isConnected) {
-                                        openConnectModal()
+                                        openConnectModal();
                                       } else {
-                                        setClaimModalOpen(true)
-                                        setCurrent(i)
+                                        setClaimModalOpen(true);
+                                        setCurrent(i);
                                       }
                                     }}
                                     className="mb-2 flex cursor-pointer items-center rounded py-[10px] px-3 text-sm font-normal hover:bg-gray-900"
@@ -368,14 +368,14 @@ export default function DashboardHire() {
                                   <li
                                     onClick={() => {
                                       if (slillhubChain?.chain_id !== chain?.id) {
-                                        switchNetwork?.(slillhubChain?.chain_id)
-                                        return
+                                        switchNetwork?.(slillhubChain?.chain_id);
+                                        return;
                                       }
                                       if (!isConnected) {
-                                        openConnectModal()
+                                        openConnectModal();
                                       } else {
-                                        setExpendHireTimeModalOpen(true)
-                                        setCurrent(i)
+                                        setExpendHireTimeModalOpen(true);
+                                        setCurrent(i);
                                       }
                                     }}
                                     className="mb-2 flex cursor-pointer items-center rounded py-[10px] px-3 text-sm font-normal hover:bg-gray-900"
@@ -391,14 +391,14 @@ export default function DashboardHire() {
                                   <li
                                     onClick={() => {
                                       if (slillhubChain?.chain_id !== chain?.id) {
-                                        switchNetwork?.(slillhubChain?.chain_id)
-                                        return
+                                        switchNetwork?.(slillhubChain?.chain_id);
+                                        return;
                                       }
                                       if (!isConnected) {
-                                        openConnectModal()
+                                        openConnectModal();
                                       } else {
-                                        setTerminateModalOpen(true)
-                                        setCurrent(i)
+                                        setTerminateModalOpen(true);
+                                        setCurrent(i);
                                       }
                                     }}
                                     className="mb-2 flex cursor-pointer items-center rounded py-[10px] px-3 text-sm font-normal hover:bg-gray-900"
@@ -414,14 +414,14 @@ export default function DashboardHire() {
                                   <li
                                     onClick={() => {
                                       if (slillhubChain?.chain_id !== chain?.id) {
-                                        switchNetwork?.(slillhubChain?.chain_id)
-                                        return
+                                        switchNetwork?.(slillhubChain?.chain_id);
+                                        return;
                                       }
                                       if (!isConnected) {
-                                        openConnectModal()
+                                        openConnectModal();
                                       } else {
-                                        setCurrent(i)
-                                        setDepositModalOpen(true)
+                                        setCurrent(i);
+                                        setDepositModalOpen(true);
                                       }
                                     }}
                                     className="mb-2 flex cursor-pointer items-center rounded py-[10px] px-3 text-sm font-normal hover:bg-gray-900"
@@ -460,8 +460,8 @@ export default function DashboardHire() {
           data={current}
           open={manageModalOpen}
           closeModal={() => {
-            setManageModalOpen(false)
-            doFetch()
+            setManageModalOpen(false);
+            doFetch();
           }}
           declined={() => declined(current.uid, current.id)}
           approve={() => approveOrder(current)}
@@ -470,15 +470,15 @@ export default function DashboardHire() {
           availableFund={availableFund}
           claim={() => {
             if (slillhubChain?.chain_id !== chain?.id) {
-              switchNetwork?.(slillhubChain?.chain_id)
-              return
+              switchNetwork?.(slillhubChain?.chain_id);
+              return;
             }
             if (!isConnected) {
-              openConnectModal()
+              openConnectModal();
             } else {
-              setCurrent(current)
-              setClaimModalOpen(true)
-              setManageModalOpen(false)
+              setCurrent(current);
+              setClaimModalOpen(true);
+              setManageModalOpen(false);
             }
           }}
         />
@@ -490,8 +490,8 @@ export default function DashboardHire() {
           value={availableFund}
           open={claimModalOpen}
           closeModal={() => {
-            doFetch()
-            setClaimModalOpen(false)
+            doFetch();
+            setClaimModalOpen(false);
           }}
         />
       )}
@@ -500,8 +500,8 @@ export default function DashboardHire() {
           hireData={current}
           open={depositModalOpen}
           closeModal={() => {
-            doFetch()
-            setDepositModalOpen(false)
+            doFetch();
+            setDepositModalOpen(false);
           }}
         />
       )}
@@ -510,8 +510,8 @@ export default function DashboardHire() {
           data={current}
           open={terminateModalOpen}
           closeModal={() => {
-            setTerminateModalOpen(false)
-            doFetch()
+            setTerminateModalOpen(false);
+            doFetch();
           }}
         />
       )}
@@ -520,11 +520,11 @@ export default function DashboardHire() {
           data={current}
           open={expendHireTimeModalOpen}
           closeModal={() => {
-            setExpendHireTimeModalOpen(false)
-            doFetch()
+            setExpendHireTimeModalOpen(false);
+            doFetch();
           }}
         />
       )}
     </div>
-  )
+  );
 }

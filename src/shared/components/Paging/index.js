@@ -14,20 +14,20 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import Pagination from 'rc-pagination'
+import Pagination from 'rc-pagination';
 
 export function Paging({ total, onChange, pageSize, page }) {
   const textItemRender = (current, type, element) => {
     if (type === 'prev') {
-      return 'Prev'
+      return 'Prev';
     }
     if (type === 'next') {
-      return 'Next'
+      return 'Next';
     }
-    return element
-  }
+    return element;
+  };
 
   return (
     <Pagination
@@ -38,5 +38,5 @@ export function Paging({ total, onChange, pageSize, page }) {
       total={total}
       itemRender={textItemRender}
     />
-  )
+  );
 }

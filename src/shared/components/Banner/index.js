@@ -14,34 +14,34 @@
  * limitations under the License.
  */
 
-'use client'
-import { ArrowRightIcon } from '@heroicons/react/20/solid'
-import Typed from 'react-typed'
-import Image from 'next/image'
-import topPic from 'public/images/banner-top.png'
-import bottomPic from 'public/images/banner-bottom.png'
-import ballPic from 'public/images/svg/ball.svg'
-import obPic from 'public/images/ob.png'
-import obmPic from 'public/images/openbuild-m.png'
-import scrollDownPic from 'public/images/svg/scroll-down.svg'
-import { useEffect, useState } from 'react'
-import Link from 'next/link'
+'use client';
+import { ArrowRightIcon } from '@heroicons/react/20/solid';
+import Typed from 'react-typed';
+import Image from 'next/image';
+import topPic from 'public/images/banner-top.png';
+import bottomPic from 'public/images/banner-bottom.png';
+import ballPic from 'public/images/svg/ball.svg';
+import obPic from 'public/images/ob.png';
+import obmPic from 'public/images/openbuild-m.png';
+import scrollDownPic from 'public/images/svg/scroll-down.svg';
+import { useEffect, useState } from 'react';
+import Link from 'next/link';
 
 const Pointer = () => {
-  return <span className='inline-block w-[10px] h-[10px] border border-white rotate-45 mr-[10px] [&:last-child]:mr-0' />
-}
+  return <span className="inline-block w-[10px] h-[10px] border border-white rotate-45 mr-[10px] [&:last-child]:mr-0" />;
+};
 
 export function Banner() {
-  const [showTyped, setShowTyped] = useState(true)
+  const [showTyped, setShowTyped] = useState(true);
   useEffect(() => {
-    window.addEventListener('scroll', e => {
+    window.addEventListener('scroll', () => {
       if (window.scrollY > 500) {
-        setShowTyped(false)
+        setShowTyped(false);
       } else {
-        setShowTyped(true)
+        setShowTyped(true);
       }
-    })
-  }, [])
+    });
+  }, []);
   return (
     <div
       // id="offer"
@@ -105,5 +105,5 @@ export function Banner() {
         Join Community
       </button> */}
     </div>
-  )
+  );
 }

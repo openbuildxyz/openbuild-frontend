@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import clsx from 'clsx'
-import Image from 'next/image'
+import clsx from 'clsx';
+import Image from 'next/image';
 
-import { BASE_INPUT_STYLE } from '@/constants/config'
+import { BASE_INPUT_STYLE } from '@/constants/config';
 
 function InputField({ data, onChange }) {
   return (
@@ -33,7 +33,7 @@ function InputField({ data, onChange }) {
         placeholder={data.placeholder || 'Please enter'}
       />
     </div>
-  )
+  );
 }
 
-export default InputField
+export default InputField;

@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-'use client'
-import { ChallengesStatus } from '../ChallengesStatus'
+'use client';
+import { ChallengesStatus } from '../ChallengesStatus';
 
-import { typeStyle, useTags } from '../ChallengesCard'
+import { typeStyle, useTags } from '../ChallengesCard';
 
 
 export function ChallengesTags({ data }) {
-  const tags = useTags(data)
+  const tags = useTags(data);
   return (
     <div className="flex">
       {data && <ChallengesStatus data={data} />}
@@ -31,5 +31,5 @@ export function ChallengesTags({ data }) {
         </span>
       ))}
     </div>
-  )
+  );
 }

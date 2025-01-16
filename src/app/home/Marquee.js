@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import Marquee from 'react-fast-marquee'
-import Image from 'next/image'
-import { useMediaUrl } from '#/state/application/hooks'
-import { useMediaQuery } from '@/hooks/useMediaQuery'
+import Marquee from 'react-fast-marquee';
+import Image from 'next/image';
+import { useMediaUrl } from '#/state/application/hooks';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 export function MarqueeContent({data}) {
-  const mediaUrl = useMediaUrl()
-  const media = useMediaQuery('(max-width: 768px)')
+  const mediaUrl = useMediaUrl();
+  const media = useMediaQuery('(max-width: 768px)');
   return (
     <div data-aos="fade-up" >
       <Marquee className="!p-0" gradient={true} gradientWidth={media ? 50 : 700} speed={60} pauseOnHover={true}>
@@ -35,5 +35,5 @@ export function MarqueeContent({data}) {
         </div>
       </Marquee>
     </div>
-  )
+  );
 }

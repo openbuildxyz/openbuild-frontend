@@ -55,7 +55,7 @@ export function ManageModal({
   successCallback,
 }) {
   const { chain } = useNetwork();
-  const { data: walletClient } = useWalletClient()
+  const { data: walletClient } = useWalletClient();
   const _contracts = contracts[BOUNTY_SUPPORTED_CHAIN()];
   const payToken = payTokens[BOUNTY_SUPPORTED_CHAIN()].usdt;
   const mediaUrl = useMediaUrl();
@@ -146,7 +146,7 @@ export function ManageModal({
       // console.log(hash, 'hash');
       if (hash === 'error') {
         setAgreeFinishedLoading(false);
-        toast.error('Transition Error')
+        toast.error('Transition Error');
         return;
       }
       const res = await finishConfirm(bounty.id, hash);
@@ -161,7 +161,7 @@ export function ManageModal({
       }
     } catch (err) {
       setAgreeFinishedLoading(false);
-      toast.error(err)
+      toast.error(err);
     }
     // }
   };
@@ -387,15 +387,15 @@ export function ManageModal({
             details.data?.last_event.builder_status_before === 18 ||
             details.data?.last_event.builder_status_before === 22) &&
             details.data?.status === 7 && (
-              <Button
-                variant="contained"
-                fullWidth
-                className="mr-4"
-                onClick={() => arbitrateEvent()}
-              >
+            <Button
+              variant="contained"
+              fullWidth
+              className="mr-4"
+              onClick={() => arbitrateEvent()}
+            >
                 Arbitrate
-              </Button>
-            )}
+            </Button>
+          )}
         </div>
       </div>
 
@@ -412,7 +412,7 @@ export function ManageModal({
             type="text"
             value={amount}
             className="border-0 flex-1 pr-4 h-10"
-            onChange={(e) => {
+            onChange={e => {
               const val = e.target.value.replace(/[^\d]/g, '');
               setAmount(val);
             }}

@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import store from './index'
-import { Provider } from 'react-redux'
-import ApplicationUpdater from './application/updater'
-import UserUpdater from './user/Updater'
+import store from './index';
+import { Provider } from 'react-redux';
+import ApplicationUpdater from './application/updater';
+import UserUpdater from './user/Updater';
 
 export function ReduxProviders({ children, datas }) {
   return (
@@ -30,5 +30,5 @@ export function ReduxProviders({ children, datas }) {
       </>
       {children}
     </Provider>
-  )
+  );
 }

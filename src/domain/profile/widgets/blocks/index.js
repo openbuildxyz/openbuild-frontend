@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import clsx from 'clsx'
+import clsx from 'clsx';
 
 export const ProfileTitle = ({ className, children, ...props }) => {
   return (
@@ -44,4 +44,4 @@ export const ProfileLabel = ({ className, children, ...props }) => {
 };
 
 export const baseInputStyles =
-  'block w-full rounded border border-gray-600 bg-transparent px-3 py-3 text-sm text-gray placeholder:text-gray-500'
+  'block w-full rounded border border-gray-600 bg-transparent px-3 py-3 text-sm text-gray placeholder:text-gray-500';

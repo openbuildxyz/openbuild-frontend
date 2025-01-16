@@ -19,7 +19,7 @@ const publishedTypes = [
   { key: 'bounty_num', text: 'Bounty' },
   { key: 'challenge_num', text: 'Challange' },
   { key: 'quiz_num', text: 'Quiz' },
-]
+];
 
 function PublishedCountList({ published }) {
   return published ? (
@@ -31,7 +31,7 @@ function PublishedCountList({ published }) {
         </p>
       ))}
     </div>
-  ) : null
+  ) : null;
 }
 
-export default PublishedCountList
+export default PublishedCountList;

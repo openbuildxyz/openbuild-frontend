@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import { OViewer } from '@/components/MarkDown'
+import { OViewer } from '@/components/MarkDown';
 
 export function LearnInfo({ data }) {
   return (
@@ -26,5 +26,5 @@ export function LearnInfo({ data }) {
     >
       {data && <OViewer value={data?.base?.course_series_introduction} />}
     </div>
-  )
+  );
 }

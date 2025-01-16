@@ -15,31 +15,31 @@
  */
 
 import { ConnectButton } from '@rainbow-me/rainbowkit';
-import { WhiteWalletIcon } from '@/components/Icons'
-import { useEffect } from 'react'
+import { WhiteWalletIcon } from '@/components/Icons';
+import { useEffect } from 'react';
 
-import { useSession } from 'next-auth/react'
-import { shortenAddress } from '@/utils/address'
-import { useBoundWallet } from '@/hooks/useBoundWallet'
+import { useSession } from 'next-auth/react';
+import { shortenAddress } from '@/utils/address';
+import { useBoundWallet } from '@/hooks/useBoundWallet';
 
-import { useSearchParams, usePathname } from 'next/navigation'
-import { useAccount } from 'wagmi'
+import { useSearchParams, usePathname } from 'next/navigation';
+import { useAccount } from 'wagmi';
 
-import { useSignInWithWallet } from '#/domain/auth/hooks'
-import WalletBinderWidget from '#/domain/auth/widgets/wallet-binder'
+import { useSignInWithWallet } from '#/domain/auth/hooks';
+import WalletBinderWidget from '#/domain/auth/widgets/wallet-binder';
 
 export function CustomConnectButton() {
-  const { status } = useSession()
-  const searchParams = useSearchParams()
-  const { isConnected, address } = useAccount()
-  const boundWallet = useBoundWallet()
-  const signInWithWallet = useSignInWithWallet()
+  const { status } = useSession();
+  const searchParams = useSearchParams();
+  const { isConnected, address } = useAccount();
+  const boundWallet = useBoundWallet();
+  const signInWithWallet = useSignInWithWallet();
 
-  const pathname = usePathname()
+  const pathname = usePathname();
 
   useEffect(() => {
-    signInWithWallet({ pathname, search: searchParams })
-  }, [isConnected, status, address])
+    signInWithWallet({ pathname, search: searchParams });
+  }, [isConnected, status, address]);
 
   return (
     <ConnectButton.Custom>
@@ -130,7 +130,7 @@ export function CustomConnectButton() {
                             height: 18,
                             borderRadius: 999,
                             overflow: 'hidden',
-                            marginRight: 4
+                            marginRight: 4,
                           }}
                         >
                           {chain.iconUrl && (
@@ -151,9 +151,9 @@ export function CustomConnectButton() {
                   {(!boundWallet || (boundWallet && boundWallet !== account.address)) && <div className="flex items-center p-2 ml-[-16px] rounded-md w-full min-h-[30px] bg-[rgba(254,142,103,.1)] text-[#FE8E67] mt-3 text-xs">
                     <svg className="mr-2 w-3 h-3" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <g clipPath="url(#clip0_746_1901)">
-                      <path d="M6 11C7.3807 11 8.6307 10.4404 9.53553 9.53553C10.4404 8.6307 11 7.3807 11 6C11 4.6193 10.4404 3.3693 9.53553 2.46447C8.6307 1.55964 7.3807 1 6 1C4.6193 1 3.3693 1.55964 2.46447 2.46447C1.55964 3.3693 1 4.6193 1 6C1 7.3807 1.55964 8.6307 2.46447 9.53553C3.3693 10.4404 4.6193 11 6 11Z" stroke="#FE8E67" strokeLinejoin="round"/>
-                      <path fillRule="evenodd" clipRule="evenodd" d="M6 9.25C6.34518 9.25 6.625 8.97018 6.625 8.625C6.625 8.27983 6.34518 8 6 8C5.65483 8 5.375 8.27983 5.375 8.625C5.375 8.97018 5.65483 9.25 6 9.25Z" fill="#FE8E67"/>
-                      <path d="M6 3V7" stroke="#FE8E67" strokeLinecap="round" strokeLinejoin="round"/>
+                        <path d="M6 11C7.3807 11 8.6307 10.4404 9.53553 9.53553C10.4404 8.6307 11 7.3807 11 6C11 4.6193 10.4404 3.3693 9.53553 2.46447C8.6307 1.55964 7.3807 1 6 1C4.6193 1 3.3693 1.55964 2.46447 2.46447C1.55964 3.3693 1 4.6193 1 6C1 7.3807 1.55964 8.6307 2.46447 9.53553C3.3693 10.4404 4.6193 11 6 11Z" stroke="#FE8E67" strokeLinejoin="round"/>
+                        <path fillRule="evenodd" clipRule="evenodd" d="M6 9.25C6.34518 9.25 6.625 8.97018 6.625 8.625C6.625 8.27983 6.34518 8 6 8C5.65483 8 5.375 8.27983 5.375 8.625C5.375 8.97018 5.65483 9.25 6 9.25Z" fill="#FE8E67"/>
+                        <path d="M6 3V7" stroke="#FE8E67" strokeLinecap="round" strokeLinejoin="round"/>
                       </g>
                       <defs>
                         <clipPath id="clip0_746_1901">

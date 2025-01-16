@@ -14,59 +14,59 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import { useMediaUrl } from '#/state/application/hooks'
-import Link from 'next/link'
-import { usePathname, useSearchParams, useRouter } from 'next/navigation'
-import { useUser } from '#/state/application/hooks'
-import Image from 'next/image'
-import { useEffect, useMemo } from 'react'
-import { useSession, signOut } from 'next-auth/react'
-import { LogoutIcon, CreatorWorkspaceIcon, ProfileIcon, MyWorkspaceIcon, MeIcon } from '@/components/Icons'
-import { useAccount, useDisconnect } from 'wagmi'
-import { shortenAddress } from '@/utils/address'
-import { resolvePathWithSearch } from '@/utils/url'
+import { useMediaUrl } from '#/state/application/hooks';
+import Link from 'next/link';
+import { usePathname, useSearchParams, useRouter } from 'next/navigation';
+import { useUser } from '#/state/application/hooks';
+import Image from 'next/image';
+import { useEffect, useMemo } from 'react';
+import { useSession, signOut } from 'next-auth/react';
+import { LogoutIcon, CreatorWorkspaceIcon, ProfileIcon, MyWorkspaceIcon, MeIcon } from '@/components/Icons';
+import { useAccount, useDisconnect } from 'wagmi';
+import { shortenAddress } from '@/utils/address';
+import { resolvePathWithSearch } from '@/utils/url';
 
-import { Button } from '@/components/Button'
-import { CustomConnectButton } from './CustomConnectButton'
+import { Button } from '@/components/Button';
+import { CustomConnectButton } from './CustomConnectButton';
 
 function Account() {
-  const { isConnected, address, } = useAccount()
-  const { disconnectAsync } = useDisconnect()
-  const pathname = usePathname()
-  const searchParams = useSearchParams()
-  const router = useRouter()
-  const info = useUser()
-  const { status } = useSession()
-  const mediaUrl = useMediaUrl()
+  const { isConnected, address } = useAccount();
+  const { disconnectAsync } = useDisconnect();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const info = useUser();
+  const { status } = useSession();
+  const mediaUrl = useMediaUrl();
 
   useEffect(() => {
     if (!isConnected && window.localStorage.getItem('signType') === 'wallet') {
-      window.localStorage.removeItem('signType')
+      window.localStorage.removeItem('signType');
     }
-  }, [isConnected])
+  }, [isConnected]);
 
   const bindWallet = useMemo(() => {
-    return info?.binds.find(f => f.auth_user_bind_type === 'wallet')?.auth_user_bind_key
-  }, [info])
+    return info?.binds.find(f => f.auth_user_bind_type === 'wallet')?.auth_user_bind_key;
+  }, [info]);
 
-  const sourceFrom = encodeURIComponent(resolvePathWithSearch(pathname, searchParams))
-  const userProfileUrl = `/u/${info?.base.user_handle}`
+  const sourceFrom = encodeURIComponent(resolvePathWithSearch(pathname, searchParams));
+  const userProfileUrl = `/u/${info?.base.user_handle}`;
 
   const gotoUserProfile = e => {
-    e.stopPropagation()
-    router.push(userProfileUrl)
-  }
+    e.stopPropagation();
+    router.push(userProfileUrl);
+  };
 
   return (
     <div className="flex">
       {(status === 'loading' || (status === 'authenticated' && info === null)) && <div className="flex flex-col gap-4 w-40 max-md:w-auto">
         <div className="flex gap-1 items-center">
-          <div className="skeleton w-8 h-8 rounded-full shrink-0"></div>
+          <div className="skeleton w-8 h-8 rounded-full shrink-0" />
           <div className="flex flex-col gap-1 max-md:hidden">
-            <div className="skeleton h-4 w-20 rounded-md"></div>
-            <div className="skeleton h-4 w-24 rounded-md"></div>
+            <div className="skeleton h-4 w-20 rounded-md" />
+            <div className="skeleton h-4 w-24 rounded-md" />
           </div>
         </div>
       </div>}
@@ -95,7 +95,7 @@ function Account() {
           </div>
           <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-[280px]">
             <div className="mb-2 pb-6 pt-4 border-b border-gray-400">
-             <CustomConnectButton />
+              <CustomConnectButton />
             </div>
             <li>
               <Link href={userProfileUrl}>
@@ -126,15 +126,15 @@ function Account() {
             <li
               onClick={async () => {
                 if (isConnected) {
-                  await disconnectAsync()
+                  await disconnectAsync();
                 }
-                signOut()
+                signOut();
               }}
             >
-                <div>
-                  <LogoutIcon />
-                  <p className="ml-3">Logout</p>
-                </div>
+              <div>
+                <LogoutIcon />
+                <p className="ml-3">Logout</p>
+              </div>
 
             </li>
           </ul>
@@ -150,7 +150,7 @@ function Account() {
         </div>
       )}
     </div>
-  )
+  );
 }
 
-export default Account
+export default Account;

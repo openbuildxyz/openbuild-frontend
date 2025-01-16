@@ -14,63 +14,63 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import { Dialog, Transition } from '@headlessui/react'
-import Image from 'next/image'
-import React, { Fragment, useState, useEffect } from 'react'
-import { useModalOpen } from '#/state/application/hooks'
-import { useAccount } from 'wagmi'
-import { useSession, signOut } from 'next-auth/react'
-import { shortenAddress } from '@/utils'
-import { ArrowRightOnRectangleIcon, XMarkIcon } from '@heroicons/react/20/solid'
-import { disconnect } from '@wagmi/core'
-import isEmail from 'validator/lib/isEmail'
-import Loader from '@/components/Loader'
-import { bindEmail, sendCode } from '#/services/auth'
-import LinkIcon from 'public/images/svg/link.svg'
-import { toast } from 'react-toastify'
+import { Dialog, Transition } from '@headlessui/react';
+import Image from 'next/image';
+import React, { Fragment, useState, useEffect } from 'react';
+import { useModalOpen } from '#/state/application/hooks';
+import { useAccount } from 'wagmi';
+import { useSession, signOut } from 'next-auth/react';
+import { shortenAddress } from '@/utils';
+import { ArrowRightOnRectangleIcon, XMarkIcon } from '@heroicons/react/20/solid';
+import { disconnect } from '@wagmi/core';
+import isEmail from 'validator/lib/isEmail';
+import Loader from '@/components/Loader';
+import { bindEmail, sendCode } from '#/services/auth';
+import LinkIcon from 'public/images/svg/link.svg';
+import { toast } from 'react-toastify';
 
 export function BindEmailModal() {
-  const modalOpen = useModalOpen('BIND_EMAIL')
-  const { address } = useAccount()
-  const { status } = useSession()
-  const [email, setEmail] = useState('')
-  const [verificationCode, setVerificationCode] = useState('')
-  const [cdMss, setCdMss] = useState(0)
-  const [inputErr, setInputErr] = useState(false)
-  const [errMsg, setMsg] = useState('')
-  const [sendLoading, setSendLoading] = useState(false)
-  const [loading, setLoading] = useState(false)
+  const modalOpen = useModalOpen('BIND_EMAIL');
+  const { address } = useAccount();
+  const { status } = useSession();
+  const [email, setEmail] = useState('');
+  const [verificationCode, setVerificationCode] = useState('');
+  const [cdMss, setCdMss] = useState(0);
+  const [inputErr, setInputErr] = useState(false);
+  const [errMsg, setMsg] = useState('');
+  const [sendLoading, setSendLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (cdMss > 0) {
-      const timerId = setInterval(() => setCdMss(cdMss - 1), 1000)
-      return () => clearInterval(timerId)
+      const timerId = setInterval(() => setCdMss(cdMss - 1), 1000);
+      return () => clearInterval(timerId);
     }
-  }, [cdMss])
+  }, [cdMss]);
 
   useEffect(() => {
     if (email === '' && !isEmail(email)) {
-      setInputErr(true)
-      setMsg('E-mail format is incorrect')
+      setInputErr(true);
+      setMsg('E-mail format is incorrect');
     } else {
-      setInputErr(false)
-      setMsg('')
+      setInputErr(false);
+      setMsg('');
     }
-  }, [email])
+  }, [email]);
 
   const bind = async () => {
-    setLoading(true)
-    const res = await bindEmail(email, verificationCode)
+    setLoading(true);
+    const res = await bindEmail(email, verificationCode);
     if (res.code === 200) {
-      toast.success('🎉 Congratulations, You have successfully bind the email')
-      window.location.reload()
+      toast.success('🎉 Congratulations, You have successfully bind the email');
+      window.location.reload();
     } else {
-      toast.error(res.message)
+      toast.error(res.message);
     }
-    setLoading(false)
-  }
+    setLoading(false);
+  };
 
   return (
     <Transition appear show={modalOpen} as={Fragment}>
@@ -116,8 +116,8 @@ export function BindEmailModal() {
 
                       <ArrowRightOnRectangleIcon
                         onClick={async () => {
-                          await disconnect()
-                          signOut()
+                          await disconnect();
+                          signOut();
                         }}
                         className="h-4 w-4 cursor-pointer"
                       />
@@ -145,11 +145,11 @@ export function BindEmailModal() {
                           disabled={email === '' || !isEmail(email) || sendLoading}
                           className="w-[76px] text-sm hover:opacity-80 disabled:opacity-20"
                           onClick={async () => {
-                            setSendLoading(true)
-                            const res = await sendCode(email, 'bind')
-                            setSendLoading(false)
+                            setSendLoading(true);
+                            const res = await sendCode(email, 'bind');
+                            setSendLoading(false);
                             if (res.code === 200) {
-                              setCdMss(59)
+                              setCdMss(59);
                             }
                             //  else {
                             //   toast.error(res.message)
@@ -170,7 +170,7 @@ export function BindEmailModal() {
                     >
                       {loading && <Loader classname="mr-2" />}
                       Bind
-                      <span></span>
+                      <span />
                     </button>
                     {errMsg !== '' && verificationCode !== '' && (
                       <p className="mt-4 text-center text-xs text-red">{errMsg}</p>
@@ -183,5 +183,5 @@ export function BindEmailModal() {
         </div>
       </Dialog>
     </Transition>
-  )
+  );
 }

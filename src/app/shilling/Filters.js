@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import { ReactSelect } from '@/components/Select/ReactSelect'
-import { useAllSkills } from '#/state/application/hooks'
+import { ReactSelect } from '@/components/Select/ReactSelect';
+import { useAllSkills } from '#/state/application/hooks';
 // import { useRouter, useSearchParams } from 'next/navigation'
-import { useAppDispatch } from '#/state/hooks'
-import { setRequiredSkills, setExperience, setSortBy } from '#/state/shilling/reducer'
+import { useAppDispatch } from '#/state/hooks';
+import { setRequiredSkills, setExperience, setSortBy } from '#/state/shilling/reducer';
 
 export const EXPERIENCE_OPTIONS = [
   {
@@ -39,7 +39,7 @@ export const EXPERIENCE_OPTIONS = [
     label: 'Over 10 years',
     value: 4,
   },
-]
+];
 
 // const JOB_TYPES = [
 //   {
@@ -65,12 +65,12 @@ const SORT_BYS = [
     label: 'Experiences',
     value: 'experiences',
   },
-]
+];
 
 export function ShillingFilters() {
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
 
-  const skillOpts = useAllSkills()
+  const skillOpts = useAllSkills();
 
   return (
     <div className="flex">
@@ -81,8 +81,8 @@ export function ShillingFilters() {
           name="skills"
           options={skillOpts}
           onChange={e => {
-            const _skills = e.map(i => i.value)
-            dispatch(setRequiredSkills(_skills))
+            const _skills = e.map(i => i.value);
+            dispatch(setRequiredSkills(_skills));
           }}
           className="react-select-noborder !h-12 border-0 "
           limit={3}
@@ -104,9 +104,9 @@ export function ShillingFilters() {
             options={EXPERIENCE_OPTIONS}
             onChange={e => {
               if (e === null) {
-                dispatch(setExperience(null))
+                dispatch(setExperience(null));
               } else {
-                dispatch(setExperience(e.value))
+                dispatch(setExperience(e.value));
               }
             }}
             className="react-select-noborder !h-12 border-0"
@@ -136,13 +136,13 @@ export function ShillingFilters() {
           isSearchable={false}
           onChange={e => {
             if (e === null) {
-              dispatch(setSortBy(null))
+              dispatch(setSortBy(null));
             } else {
-              dispatch(setSortBy(e.value))
+              dispatch(setSortBy(e.value));
             }
           }}
         />
       </div>
     </div>
-  )
+  );
 }

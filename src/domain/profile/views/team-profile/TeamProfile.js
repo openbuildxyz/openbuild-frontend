@@ -14,24 +14,24 @@
  * limitations under the License.
  */
 
-import { useState, useEffect } from 'react'
-import { useDebouncedCallback } from 'use-debounce'
+import { useState, useEffect } from 'react';
+import { useDebouncedCallback } from 'use-debounce';
 
-import { isBlockDataValid } from '@/components/block-editor'
+import { isBlockDataValid } from '@/components/block-editor';
 
-import { useViewingSelf } from '../../../auth/hooks'
-import PublishedCourseListView from '../../../course/views/published-course-list'
-import PublishedChallengeListView from '../../../challenge/views/published-challenge-list'
-import PublishedBountyListView from '../../../bounty/views/published-bounty-list'
-import PublishedQuizListView from '../../../quiz/views/published-quiz-list'
+import { useViewingSelf } from '../../../auth/hooks';
+import PublishedCourseListView from '../../../course/views/published-course-list';
+import PublishedChallengeListView from '../../../challenge/views/published-challenge-list';
+import PublishedBountyListView from '../../../bounty/views/published-bounty-list';
+import PublishedQuizListView from '../../../quiz/views/published-quiz-list';
 
-import { fetchBlockContent, updateBlockContent } from '../../repository'
-import TabBarWidget from '../../widgets/tab-bar'
-import SocialInfoWidget from '../../widgets/social-info'
-import ActivityTabListWidget from '../../widgets/activity-tab-list'
+import { fetchBlockContent, updateBlockContent } from '../../repository';
+import TabBarWidget from '../../widgets/tab-bar';
+import SocialInfoWidget from '../../widgets/social-info';
+import ActivityTabListWidget from '../../widgets/activity-tab-list';
 
-import CustomContent from './CustomContent'
-import LatestActivityList from './LatestActivityList'
+import CustomContent from './CustomContent';
+import LatestActivityList from './LatestActivityList';
 
 const tabs = [
   {
@@ -74,33 +74,33 @@ const tabs = [
     ),
     view: PublishedQuizListView,
   },
-]
+];
 
 function TeamProfileView({ data, activities }) {
-  const [tabActive, setTabActive] = useState(1)
-  const [blockContent, setBlockContent] = useState(null)
-  const viewingSelf = useViewingSelf(data?.base.user_id)
+  const [tabActive, setTabActive] = useState(1);
+  const [blockContent, setBlockContent] = useState(null);
+  const viewingSelf = useViewingSelf(data?.base.user_id);
 
   useEffect(() => {
     fetchBlockContent(data?.base.user_id).then(res => {
       if (res.success) {
-        setBlockContent(res.data)
+        setBlockContent(res.data);
       }
-    })
-  }, [])
+    });
+  }, []);
 
-  const handleBlockChange = useDebouncedCallback(updateBlockContent, 3000)
+  const handleBlockChange = useDebouncedCallback(updateBlockContent, 3000);
 
   const tabContent = [
     <SocialInfoWidget key="social" data={data} />,
     <LatestActivityList key="activity" activities={activities} />,
-  ]
+  ];
 
   const rerenderKey = [
     'CustomContent',
     `${viewingSelf ? 'editable' : 'readonly'}`,
     isBlockDataValid(blockContent),
-  ].join('-')
+  ].join('-');
 
   return (
     <div className="md:pl-[410px] md:pb-14 md:pr-14">
@@ -120,7 +120,7 @@ function TeamProfileView({ data, activities }) {
       {tabContent[tabActive]}
       <ActivityTabListWidget userId={data?.base.user_id} tabs={tabs} />
     </div>
-  )
+  );
 }
 
-export default TeamProfileView
+export default TeamProfileView;

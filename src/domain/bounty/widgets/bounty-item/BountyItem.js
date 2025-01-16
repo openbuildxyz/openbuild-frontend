@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import clsx from 'clsx'
+import clsx from 'clsx';
 
-import Link from 'next/link'
-import Image from 'next/image'
+import Link from 'next/link';
+import Image from 'next/image';
 
-import style from './style.module.scss'
+import style from './style.module.scss';
 
 function BountyItem({ data, children }) {
   return data ? (
@@ -51,7 +51,7 @@ function BountyItem({ data, children }) {
         )}
       </div>
     </Link>
-  ) : null
+  ) : null;
 }
 
-export default BountyItem
+export default BountyItem;

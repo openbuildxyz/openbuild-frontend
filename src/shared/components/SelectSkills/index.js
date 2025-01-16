@@ -14,38 +14,38 @@
  * limitations under the License.
  */
 
-'use client'
-import { useMemo, useState, Fragment, useEffect } from 'react'
+'use client';
+import { useMemo, useState, Fragment, useEffect } from 'react';
 
-import { Transition } from '@headlessui/react'
-import { classNames, arrRemove } from '@/utils'
-import { baseInputStyles } from '#/domain/profile/widgets/blocks'
-import { CheckIcon, XMarkIcon } from '@heroicons/react/20/solid'
-import { useConfig } from '#/state/application/hooks'
+import { Transition } from '@headlessui/react';
+import { classNames, arrRemove } from '@/utils';
+import { baseInputStyles } from '#/domain/profile/widgets/blocks';
+import { CheckIcon, XMarkIcon } from '@heroicons/react/20/solid';
+import { useConfig } from '#/state/application/hooks';
 
 export default function SelectSkills({ skills, setSkills }) {
-  const config = useConfig()
+  const config = useConfig();
 
-  const allOpts = config?.find(f => f.config_id === 3)?.config_value
+  const allOpts = config?.find(f => f.config_id === 3)?.config_value;
 
   const skillOpts = useMemo(() => {
     return allOpts?.skills?.map(i => ({
       key: i.id,
       name: i.name,
-    }))
-  }, [allOpts])
+    }));
+  }, [allOpts]);
 
-  const [openSkills, setOpenSkills] = useState(false)
-  const [skillsInputValue, setSkillsInputValue] = useState('')
+  const [openSkills, setOpenSkills] = useState(false);
+  const [skillsInputValue, setSkillsInputValue] = useState('');
   // const [delFlag, setDelFlag] = useState(0)
-  const [searchSkillOpts, setSearchSkillOpts] = useState([])
+  const [searchSkillOpts, setSearchSkillOpts] = useState([]);
 
   useEffect(() => {
     if (skillOpts) {
-      const _search = skillOpts.filter(f => f.name.toLocaleLowerCase().includes(skillsInputValue.toLocaleLowerCase()))
-      setSearchSkillOpts(_search)
+      const _search = skillOpts.filter(f => f.name.toLocaleLowerCase().includes(skillsInputValue.toLocaleLowerCase()));
+      setSearchSkillOpts(_search);
     }
-  }, [skillsInputValue, skillOpts])
+  }, [skillsInputValue, skillOpts]);
   return (
     <div className="relative">
       <div
@@ -54,7 +54,7 @@ export default function SelectSkills({ skills, setSkills }) {
         )}
       >
         {skills?.map((i, k) => {
-          const finded = skillOpts?.find(f => f.key === i)
+          const finded = skillOpts?.find(f => f.key === i);
           return (
             finded && (
               <div
@@ -64,14 +64,14 @@ export default function SelectSkills({ skills, setSkills }) {
                 {finded?.name}
                 <XMarkIcon
                   onClick={() => {
-                    const _sk = [...skills]
-                    setSkills(arrRemove(_sk, i))
+                    const _sk = [...skills];
+                    setSkills(arrRemove(_sk, i));
                   }}
                   className="ml-3 h-4 w-4 cursor-pointer text-gray-50"
                 />
               </div>
             )
-          )
+          );
         })}
         <input
           type="text"
@@ -98,11 +98,11 @@ export default function SelectSkills({ skills, setSkills }) {
                   'relative cursor-default select-none rounded py-2 px-4 text-sm leading-6 hover:bg-gray-900 hover:text-gray'
                 }
                 onClick={() => {
-                  const _skills = skills || []
-                  _skills.push(o.key)
-                  const _setSkills = Array.from(new Set(_skills))
-                  setSkills(_setSkills)
-                  setSkillsInputValue('')
+                  const _skills = skills || [];
+                  _skills.push(o.key);
+                  const _setSkills = Array.from(new Set(_skills));
+                  setSkills(_setSkills);
+                  setSkillsInputValue('');
                 }}
               >
                 <div className="flex">
@@ -119,5 +119,5 @@ export default function SelectSkills({ skills, setSkills }) {
         </div>
       </Transition>
     </div>
-  )
+  );
 }

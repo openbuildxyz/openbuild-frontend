@@ -14,20 +14,20 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import TalentsBannerPic from 'public/images/shilling-banner.jpeg'
-import Image from 'next/image'
-import { useMediaUrl, useUser } from '#/state/application/hooks'
-import { ShillingMyselfOne } from './ShillingMyselfOne'
-import { ShillingMyselfTwo } from './ShillingMyselfTwo'
+import TalentsBannerPic from 'public/images/shilling-banner.jpeg';
+import Image from 'next/image';
+import { useMediaUrl, useUser } from '#/state/application/hooks';
+import { ShillingMyselfOne } from './ShillingMyselfOne';
+import { ShillingMyselfTwo } from './ShillingMyselfTwo';
 // import { Button } from '@/components/Button'
-import { useSearchParams } from 'next/navigation'
+import { useSearchParams } from 'next/navigation';
 
 export default function Page() {
-  const user = useUser()
-  const mediaUrl = useMediaUrl()
-  const searchParams = useSearchParams()
+  const user = useUser();
+  const mediaUrl = useMediaUrl();
+  const searchParams = useSearchParams();
   return (
     <div
       style={{ backgroundImage: `url(${TalentsBannerPic.src})`, backgroundPosition: 'top', backgroundSize: 'contain' }}
@@ -52,5 +52,5 @@ export default function Page() {
         {searchParams?.get('step') === '2' ? <ShillingMyselfTwo /> : <ShillingMyselfOne />}
       </div>
     </div>
-  )
+  );
 }

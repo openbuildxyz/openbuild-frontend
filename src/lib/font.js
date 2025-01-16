@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-import { Nunito_Sans } from 'next/font/google'
-import localFont from 'next/font/local'
+import { Nunito_Sans } from 'next/font/google';
+import localFont from 'next/font/local';
 
 export const nunito_sans = Nunito_Sans({
   weight: ['200', '300', '400', '600', '700'],
   style: ['normal', 'italic'],
   subsets: ['latin'],
   display: 'swap',
-})
+});
 
 export const PT_Mono = localFont({
   src: [
@@ -37,7 +37,7 @@ export const PT_Mono = localFont({
       style: 'normal',
     },
   ],
-})
+});
 
 export const AvenirNext = localFont({
   src: [
@@ -52,4 +52,4 @@ export const AvenirNext = localFont({
       style: 'normal',
     },
   ],
-})
+});

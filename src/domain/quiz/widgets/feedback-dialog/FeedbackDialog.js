@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import { Modal } from '@/components/Modal'
-import { ModalCloseIcon } from '@/components/Icons'
+import { Modal } from '@/components/Modal';
+import { ModalCloseIcon } from '@/components/Icons';
 
-import FeedbackScore from './FeedbackScore'
-import FeedbackDetail from './FeedbackDetail'
-import FeedbackForm from './FeedbackForm'
+import FeedbackScore from './FeedbackScore';
+import FeedbackDetail from './FeedbackDetail';
+import FeedbackForm from './FeedbackForm';
 
 function FeedbackDialog({ result = {}, openModal, setOpenModal, quiz = {} }) {
   return (
@@ -33,7 +33,7 @@ function FeedbackDialog({ result = {}, openModal, setOpenModal, quiz = {} }) {
         </div>
       </div>
     </Modal>
-  )
+  );
 }
 
-export default FeedbackDialog
+export default FeedbackDialog;

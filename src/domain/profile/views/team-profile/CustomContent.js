@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import clsx from 'clsx'
-import { useState } from 'react'
+import clsx from 'clsx';
+import { useState } from 'react';
 
-import BlockEditor, { getInitialBlockData, isBlockDataValid } from '@/components/block-editor'
+import BlockEditor, { getInitialBlockData, isBlockDataValid } from '@/components/block-editor';
 
 function CustomContent({ className, data, onChange, editable }) {
-  const [content, setContent] = useState(data)
+  const [content, setContent] = useState(data);
 
   if (!isBlockDataValid(content)) {
     return editable ? (
@@ -30,12 +30,12 @@ function CustomContent({ className, data, onChange, editable }) {
       >
         Add custom content
       </div>
-    ) : null
+    ) : null;
   }
 
   return (
     <BlockEditor className={className} data={content} onChange={onChange} editable={editable} />
-  )
+  );
 }
 
-export default CustomContent
+export default CustomContent;

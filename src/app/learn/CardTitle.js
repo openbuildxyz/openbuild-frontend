@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import Image from 'next/image'
-import { useMediaUrl } from '#/state/application/hooks'
+import Image from 'next/image';
+import { useMediaUrl } from '#/state/application/hooks';
 
 
 
-export function CardTitle({ img, online, data, type }) {
-  const mediaUrl = useMediaUrl()
+export function CardTitle({ img, online, type }) {
+  const mediaUrl = useMediaUrl();
   return (
     <div>
       <div suppressHydrationWarning={true} className="relative aspect-[16/9] overflow-hidden">
@@ -39,7 +39,7 @@ export function CardTitle({ img, online, data, type }) {
       {
         type !== 'career_path' && (
           <div suppressHydrationWarning={true} className="absolute left-4 top-4">
-          {online !== undefined &&
+            {online !== undefined &&
             (online ? (
               <span className="mr-1 rounded-md bg-[#C0FF58] px-2 py-1 text-xs leading-[14px] hover:opacity-90">
                 Online
@@ -51,8 +51,8 @@ export function CardTitle({ img, online, data, type }) {
             ))}
           </div>
         )
-        
-        }
+
+      }
     </div>
-  )
+  );
 }

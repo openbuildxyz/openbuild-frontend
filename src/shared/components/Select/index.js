@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import { Listbox, Transition } from '@headlessui/react'
-import { Fragment } from 'react'
-import { ChevronDownIcon, XMarkIcon } from '@heroicons/react/20/solid'
-import { classNames } from '@/utils'
-import Image from 'next/image'
-import clsx from 'clsx'
+import { Listbox, Transition } from '@headlessui/react';
+import { Fragment } from 'react';
+import { ChevronDownIcon, XMarkIcon } from '@heroicons/react/20/solid';
+import { classNames } from '@/utils';
+import Image from 'next/image';
+import clsx from 'clsx';
 
 export function Select({ placeholder, options, selected, change, className, hasArrow = true }) {
   return (
@@ -102,5 +102,5 @@ export function Select({ placeholder, options, selected, change, className, hasA
         </Transition>
       </div>
     </Listbox>
-  )
+  );
 }

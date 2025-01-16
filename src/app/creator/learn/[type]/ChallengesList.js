@@ -14,25 +14,25 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import { useMediaUrl } from '#/state/application/hooks'
-import { useState } from 'react'
-import Image from 'next/image'
-import { EyeIcon } from '@heroicons/react/24/outline'
-import { UsersModal } from '../../UsersModal'
-import { formatTime } from '@/utils/date'
-import Link from 'next/link'
+import { useMediaUrl } from '#/state/application/hooks';
+import { useState } from 'react';
+import Image from 'next/image';
+import { EyeIcon } from '@heroicons/react/24/outline';
+import { UsersModal } from '../../UsersModal';
+import { formatTime } from '@/utils/date';
+import Link from 'next/link';
 
-import ContentEditable from 'react-contenteditable'
-import { HTMLDecode } from '@/utils'
+import ContentEditable from 'react-contenteditable';
+import { HTMLDecode } from '@/utils';
 
-import { ButtonGroup, Status } from './ListItem'
+import { ButtonGroup, Status } from './ListItem';
 
 export function ChallengesList({ data, mutate, operation, itemTags }) {
-  const [openModal, setOpenModal] = useState(false)
-  const [current, setCurrent] = useState()
-  const mediaUrl = useMediaUrl()
+  const [openModal, setOpenModal] = useState(false);
+  const [current, setCurrent] = useState();
+  const mediaUrl = useMediaUrl();
 
   return (
     <div className="mt-6">
@@ -62,7 +62,7 @@ export function ChallengesList({ data, mutate, operation, itemTags }) {
                     html={HTMLDecode ? HTMLDecode(i.base.course_series_title) : ''} // innerHTML of the editable div
                     disabled={true}
                   />
-                {/* {i.base.course_series_title} */}
+                  {/* {i.base.course_series_title} */}
                 </h3>
               </Link>
               <p className="text-sm opacity-80">
@@ -91,8 +91,8 @@ export function ChallengesList({ data, mutate, operation, itemTags }) {
               <strong>{i.base.course_series_learn_num}</strong>
               <EyeIcon
                 onClick={() => {
-                  setCurrent(i)
-                  setOpenModal(true)
+                  setCurrent(i);
+                  setOpenModal(true);
                 }}
                 className="ml-2 h-4 w-4 cursor-pointer"
               />
@@ -128,11 +128,11 @@ export function ChallengesList({ data, mutate, operation, itemTags }) {
           id={current.base.course_series_id}
           open={openModal}
           closeModal={() => {
-            setOpenModal(false)
-            setCurrent(undefined)
+            setOpenModal(false);
+            setCurrent(undefined);
           }}
         />
       )}
     </div>
-  )
+  );
 }

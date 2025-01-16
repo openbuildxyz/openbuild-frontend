@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import NextImage from 'next/image'
-import { useAssetUrl } from '#/state/application/hooks'
+import NextImage from 'next/image';
+import { useAssetUrl } from '#/state/application/hooks';
 
 function Image({ width, height, src, alt = '', defaultSrc, className, ...rest }) {
-  const resolvedSrc = useAssetUrl(src) || defaultSrc
+  const resolvedSrc = useAssetUrl(src) || defaultSrc;
 
   return resolvedSrc && (
     <NextImage
@@ -29,7 +29,7 @@ function Image({ width, height, src, alt = '', defaultSrc, className, ...rest })
       src={resolvedSrc}
       alt={alt}
     />
-  )
+  );
 }
 
-export default Image
+export default Image;

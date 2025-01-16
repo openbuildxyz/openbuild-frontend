@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import LoadableList from '@/components/loadable-list'
+import LoadableList from '@/components/loadable-list';
 
-import { useViewingSelf } from '../../../auth/hooks'
+import { useViewingSelf } from '../../../auth/hooks';
 
-import { fetchAnsweredQuizList } from '../../repository'
-import QuizItem from '../../widgets/quiz-item'
+import { fetchAnsweredQuizList } from '../../repository';
+import QuizItem from '../../widgets/quiz-item';
 
 function AnsweredQuizList({ list, viewingSelf }) {
   return (
@@ -35,11 +35,11 @@ function AnsweredQuizList({ list, viewingSelf }) {
         </QuizItem>
       ))}
     </div>
-  )
+  );
 }
 
 function AnsweredQuizListView({ params }) {
-  const viewingSelf = useViewingSelf(params?.userId)
+  const viewingSelf = useViewingSelf(params?.userId);
 
   return (
     <LoadableList
@@ -48,7 +48,7 @@ function AnsweredQuizListView({ params }) {
       resolveResponse={res => ({ list: res.data })}
       renderList={list => <AnsweredQuizList list={list} viewingSelf={viewingSelf} />}
     />
-  )
+  );
 }
 
-export default AnsweredQuizListView
+export default AnsweredQuizListView;

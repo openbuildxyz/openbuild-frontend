@@ -14,21 +14,21 @@
  * limitations under the License.
  */
 
-'use client'
-import { useState, useEffect } from 'react'
-import Image from 'next/image'
-import { Tabs } from './Tabs'
-import { Button } from '@/components/Button'
-import { Select } from '@/components/Select'
-import { NoData } from '@/components/NoData'
-import useInfiniteScroll from 'react-infinite-scroll-hook'
-import { useDashboardEnroolSeries } from '#/services/dashboard/hooks'
-import { useConfig } from '#/state/application/hooks'
-import Loader from '@/components/Loader'
-import { formatTime } from '@/utils/date'
-import { LocationIcon, USDTIcon, CalendarIcon, TagIcon } from '@/components/Icons'
-import { ChallengesStatus } from '../learn/[type]/ChallengesStatus'
-import Link from 'next/link'
+'use client';
+import { useState, useEffect } from 'react';
+import Image from 'next/image';
+import { Tabs } from './Tabs';
+import { Button } from '@/components/Button';
+import { Select } from '@/components/Select';
+import { NoData } from '@/components/NoData';
+import useInfiniteScroll from 'react-infinite-scroll-hook';
+import { useDashboardEnroolSeries } from '#/services/dashboard/hooks';
+import { useConfig } from '#/state/application/hooks';
+import Loader from '@/components/Loader';
+import { formatTime } from '@/utils/date';
+import { LocationIcon, USDTIcon, CalendarIcon, TagIcon } from '@/components/Icons';
+import { ChallengesStatus } from '../learn/[type]/ChallengesStatus';
+import Link from 'next/link';
 
 const options = [
   {
@@ -39,7 +39,7 @@ const options = [
     name: 'Done',
     key: 2,
   },
-]
+];
 const tabs = [
   {
     name: 'Open Courses',
@@ -56,19 +56,19 @@ const tabs = [
     name: 'Challenges',
     key: 'challenges',
   },
-]
+];
 export default function Dashboard() {
-  const config = useConfig()
-  const [active, setActive] = useState('open_course')
-  const [status, setStatus] = useState(0)
-  const mediaUrl = config?.find(f => f.config_id === 2)?.config_value.url
+  const config = useConfig();
+  const [active, setActive] = useState('open_course');
+  const [status, setStatus] = useState(0);
+  const mediaUrl = config?.find(f => f.config_id === 2)?.config_value.url;
 
   const [listParams, setListParams] = useState({
     status,
     skip: 0,
     take: 20,
     series_type: active,
-  })
+  });
 
   useEffect(() => {
     setListParams({
@@ -76,10 +76,10 @@ export default function Dashboard() {
       skip: 0,
       take: 20,
       series_type: active,
-    })
-  }, [active, status])
+    });
+  }, [active, status]);
 
-  const { loading, list, hasNextPage } = useDashboardEnroolSeries(listParams)
+  const { loading, list, hasNextPage } = useDashboardEnroolSeries(listParams);
 
   const [sentryRef] = useInfiniteScroll({
     loading,
@@ -87,9 +87,9 @@ export default function Dashboard() {
     onLoadMore,
     delayInMs: 300,
     rootMargin: '0px 0px 400px 0px',
-  })
+  });
   function onLoadMore() {
-    setListParams({ ...listParams, skip: listParams.skip + 20 })
+    setListParams({ ...listParams, skip: listParams.skip + 20 });
   }
   return (
     <div className="min-h-screen pb-12">
@@ -135,9 +135,9 @@ export default function Dashboard() {
                         {i.series.analytics.analytice_estimated_time === 0
                           ? 0
                           : (
-                              (i.series.analytics.analytice_user_time / i.series.analytics.analytice_estimated_time) *
+                            (i.series.analytics.analytice_user_time / i.series.analytics.analytice_estimated_time) *
                               100
-                            ).toFixed(0)}
+                          ).toFixed(0)}
                         %
                       </strong>{' '}
                       in progress
@@ -238,5 +238,5 @@ export default function Dashboard() {
 
       {(loading || hasNextPage) && listParams.skip < 80 && <div ref={sentryRef} />}
     </div>
-  )
+  );
 }

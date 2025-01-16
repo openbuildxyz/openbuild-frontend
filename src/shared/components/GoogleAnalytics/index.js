@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import Script from 'next/script'
+import Script from 'next/script';
 
-const gaId = process.env.NEXT_PUBLIC_GA_ID || ''
+const gaId = process.env.NEXT_PUBLIC_GA_ID || '';
 
 export const GoogleAnalytics = () => gaId ? (
   <>
@@ -24,7 +24,7 @@ export const GoogleAnalytics = () => gaId ? (
       async
       src={`https://www.googletagmanager.com/gtag/js?
       id=${gaId}`}
-    ></Script>
+    />
     <Script
       id="google-analytics"
       dangerouslySetInnerHTML={{
@@ -36,6 +36,6 @@ export const GoogleAnalytics = () => gaId ? (
           gtag('config', '${gaId}');
         `,
       }}
-    ></Script>
+    />
   </>
-) : null
+) : null;

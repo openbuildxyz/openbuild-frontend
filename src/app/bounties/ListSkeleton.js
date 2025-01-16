@@ -14,21 +14,21 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
 export function ListSkeleton() {
   return (
     <div className="flex-1">
       <div className="flex items-center justify-between h-10">
         <div className="skeleton rounded-lg">
-          <div className="w-[150px] h-10"></div>
+          <div className="w-[150px] h-10" />
         </div>
         <div className="flex items-center">
           <div className="skeleton rounded-lg">
-            <div className="w-[200px] h-10"></div>
+            <div className="w-[200px] h-10" />
           </div>
           <div className="skeleton rounded-lg  ml-2">
-            <div className="w-[200px] h-10"></div>
+            <div className="w-[200px] h-10" />
           </div>
         </div>
       </div>
@@ -40,48 +40,48 @@ export function ListSkeleton() {
           >
             <div className="mt-2 px-3">
               <div className="skeleton rounded-lg">
-                <div className="h-10"></div>
+                <div className="h-10" />
               </div>
             </div>
             <div className="mt-2 px-3">
               <div className="skeleton rounded">
-                <div className="h-5"></div>
+                <div className="h-5" />
               </div>
               <div className="skeleton rounded mt-2 w-[80%]">
-                <div className="h-5"></div>
+                <div className="h-5" />
               </div>
             </div>
             <div className="my-2 flex px-3 py-4">
               <div className="skeleton rounded-lg mr-3">
-                <div className="h-8 w-14"></div>
+                <div className="h-8 w-14" />
               </div>
               <div className="skeleton rounded-lg mr-3">
-                <div className="h-8 w-14"></div>
+                <div className="h-8 w-14" />
               </div>
               <div className="skeleton rounded-lg">
-                <div className="h-8 w-14"></div>
+                <div className="h-8 w-14" />
               </div>
             </div>
             <div className="my-2 flex justify-between px-3 border-t border-b border-gray-400 py-4">
               <div className="skeleton rounded-lg">
-                <div className="h-10 w-[200px]"></div>
+                <div className="h-10 w-[200px]" />
               </div>
               <div className="skeleton rounded-lg">
-                <div className="h-10 w-14"></div>
+                <div className="h-10 w-14" />
               </div>
             </div>
             <div className="my-2 flex items-center px-3 py-4 justify-between">
               <div className="flex items-center flex-1">
                 <div className="skeleton rounded-full mr-3">
-                  <div className="h-12 w-12"></div>
+                  <div className="h-12 w-12" />
                 </div>
                 <div className="skeleton rounded-lg w-[50%] mr-3">
-                  <div className="h-8"></div>
+                  <div className="h-8" />
                 </div>
               </div>
               
               <div className="skeleton rounded-lg">
-                <div className="h-8 w-14"></div>
+                <div className="h-8 w-14" />
               </div>
             </div>
           </div>
@@ -91,5 +91,5 @@ export function ListSkeleton() {
     </div>
     
     
-  )
+  );
 }

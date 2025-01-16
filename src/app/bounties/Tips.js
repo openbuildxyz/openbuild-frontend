@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import { useNetwork, useSwitchNetwork, useAccount } from 'wagmi'
+import { useNetwork, useSwitchNetwork, useAccount } from 'wagmi';
 
-import { BOUNTY_SUPPORTED_CHAIN } from '@/constants/chain'
-import { useBoundWallet } from '@/hooks/useBoundWallet'
+import { BOUNTY_SUPPORTED_CHAIN } from '@/constants/chain';
+import { useBoundWallet } from '@/hooks/useBoundWallet';
 
 function TipsContainer({children}) {
   return <div className="h-12 bg-[#E6E6E6] px-6 flex items-center fixed w-full z-[20] top-[72px]">
@@ -29,15 +29,15 @@ function TipsContainer({children}) {
       <path d="M10 5V11.6667" stroke="#1A1A1A" strokeLinecap="round" strokeLinejoin="round"/>
     </svg>
     {children}
-  </div>
+  </div>;
 }
 
 export function ChainNetworkTips () {
-  const { chain } = useNetwork()
-  const { address } = useAccount()
-  const SUPPORTED_CHAIN = BOUNTY_SUPPORTED_CHAIN()
-  const { switchNetwork } = useSwitchNetwork()
-  const bindWallet = useBoundWallet()
+  const { chain } = useNetwork();
+  const { address } = useAccount();
+  const SUPPORTED_CHAIN = BOUNTY_SUPPORTED_CHAIN();
+  const { switchNetwork } = useSwitchNetwork();
+  const bindWallet = useBoundWallet();
 
   return (
     !chain ? null :
@@ -49,10 +49,5 @@ export function ChainNetworkTips () {
       </TipsContainer> : (
         bindWallet && bindWallet !== address ? <TipsContainer>The currently linked wallet address is a not bind wallet</TipsContainer> : null
       )
-  )
+  );
 }
-
-export function AddressTips () {
-
-}
-

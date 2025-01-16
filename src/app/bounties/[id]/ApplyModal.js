@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-import { Modal } from '@/components/Modal'
-import { useState } from 'react'
-import { BASE_INPUT_STYLE } from '@/constants/config'
-import { toast } from 'react-toastify'
-import { Button } from '@/components/Button'
-import { applyAction } from './actions'
+import { Modal } from '@/components/Modal';
+import { useState } from 'react';
+import { BASE_INPUT_STYLE } from '@/constants/config';
+import { toast } from 'react-toastify';
+import { Button } from '@/components/Button';
+import { applyAction } from './actions';
 
 export function ApplyModal({ open, closeModal, id }) {
-  const [checked, setChecked] = useState(false)
-  const [comment, setComment] = useState('')
-  const [applying,  setApplying] = useState(false)
+  const [checked, setChecked] = useState(false);
+  const [comment, setComment] = useState('');
+  const [applying,  setApplying] = useState(false);
   return (
     <Modal isOpen={open} title={'Apply Bounty'} closeModal={closeModal} mode={'base'}>
       <div>
@@ -47,17 +47,17 @@ export function ApplyModal({ open, closeModal, id }) {
 
         fullWidth
         onClick={async () => {
-          setApplying(true)
-          const res = await applyAction(id, comment)
+          setApplying(true);
+          const res = await applyAction(id, comment);
           if (res) {
-            toast.error(res.message)
+            toast.error(res.message);
           }
-          setApplying(false)
-          closeModal()
+          setApplying(false);
+          closeModal();
         }}
       >
         Apply
       </Button>
     </Modal>
-  )
+  );
 }

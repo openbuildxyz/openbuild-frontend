@@ -14,6 +14,6 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-export { default } from '#/domain/auth/views/change-password-form'
+export { default } from '#/domain/auth/views/change-password-form';

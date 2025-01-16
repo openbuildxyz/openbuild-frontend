@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import { isFunction } from 'lodash'
-import React, { Fragment } from 'react'
-import clsx from 'clsx'
-import { Dialog, Transition } from '@headlessui/react'
+import { isFunction } from 'lodash';
+import React, { Fragment } from 'react';
+import clsx from 'clsx';
+import { Dialog, Transition } from '@headlessui/react';
 
 export function Modal({
   isOpen,
@@ -34,11 +34,11 @@ export function Modal({
 }) {
   const handleClose = () => {
     if (closeExplicitly === true || !isFunction(closeModal)) {
-      return
+      return;
     }
 
-    closeModal()
-  }
+    closeModal();
+  };
 
   return (
     <Transition appear show={isOpen} as={Fragment}>
@@ -107,5 +107,5 @@ export function Modal({
         </div>
       </Dialog>
     </Transition>
-  )
+  );
 }

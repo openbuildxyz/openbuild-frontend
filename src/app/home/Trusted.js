@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import Marquee from 'react-fast-marquee'
+import Marquee from 'react-fast-marquee';
 
 import {
   SuiIcon,
@@ -35,60 +35,60 @@ import {
   ConfluxIcon,
   EthStorageIcon,
   SeiIcon,
-} from '@/components/Icons/Partners'
+} from '@/components/Icons/Partners';
 
 const LineOne = [
   {
-    ele: <ConsensysIcon />
+    ele: <ConsensysIcon />,
   },
   {
-    ele: <SolanaIcon />
+    ele: <SolanaIcon />,
   },
   {
-    ele: <ProximityIcon />
+    ele: <ProximityIcon />,
   },
   {
-    ele: <InterchainIcon />
+    ele: <InterchainIcon />,
   },
   {
-    ele: <GitcoinIcon />
+    ele: <GitcoinIcon />,
   },
   {
-    ele: <BNBChainIcon />
+    ele: <BNBChainIcon />,
   },
   {
-    ele: <LinkIcon />
+    ele: <LinkIcon />,
   },
   {
-    ele: <ConfluxIcon />
+    ele: <ConfluxIcon />,
   },
-]
+];
 const LineTwo = [
   {
-    ele: <ScrollIcon />
+    ele: <ScrollIcon />,
   },
   {
-    ele: <EthStorageIcon />
+    ele: <EthStorageIcon />,
   },
   {
-    ele: <SuiIcon />
+    ele: <SuiIcon />,
   },
   {
-    ele: <SubqueryIcon />
+    ele: <SubqueryIcon />,
   },
   {
-    ele: <SeiIcon />
+    ele: <SeiIcon />,
   },
   {
-    ele: <SmartTokenIcon />
+    ele: <SmartTokenIcon />,
   },
   {
-    ele: <WalletConnectIcon />
+    ele: <WalletConnectIcon />,
   },
   {
-    ele: <BitKeepIcon />
+    ele: <BitKeepIcon />,
   },
-]
+];
 export function Trusted() {
 
   return (
@@ -102,7 +102,7 @@ export function Trusted() {
             {i.ele}
           </div>)}
         </Marquee>
-        <div className="md:h-6 h-3"></div>
+        <div className="md:h-6 h-3" />
         <Marquee direction="right" speed={30}>
           {LineTwo.map((i, k) => <div
             key={`trusted-one-${k}`}
@@ -112,5 +112,5 @@ export function Trusted() {
         </Marquee>
       </div>
     </div>
-  )
+  );
 }

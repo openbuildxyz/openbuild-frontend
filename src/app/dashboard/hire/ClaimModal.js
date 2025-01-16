@@ -14,45 +14,45 @@
  * limitations under the License.
  */
 
-import { Button } from '@/components/Button'
-import { Modal } from '@/components/Modal'
-import { useState } from 'react'
-import { toast } from 'react-toastify'
-import { useSlillhubChain } from '#/state/application/hooks'
-import { hireClaim } from '#/services/shilling'
-import { waitForTransaction } from '@wagmi/core'
+import { Button } from '@/components/Button';
+import { Modal } from '@/components/Modal';
+import { useState } from 'react';
+import { toast } from 'react-toastify';
+import { useSlillhubChain } from '#/state/application/hooks';
+import { hireClaim } from '#/services/shilling';
+import { waitForTransaction } from '@wagmi/core';
 import { writeContract } from '@wagmi/core';
 
 export function ClaimModal({ open, closeModal, value, data }) {
-  const slillhubChain = useSlillhubChain()
-  const [confirmimg, setConfirmimg] = useState(false)
+  const slillhubChain = useSlillhubChain();
+  const [confirmimg, setConfirmimg] = useState(false);
 
   // const { data: walletClient } = useWalletClient()
 
   const claim = async () => {
-    if (!slillhubChain) return
+    if (!slillhubChain) return;
     try {
-      setConfirmimg(true)
+      setConfirmimg(true);
 
       const hash= await writeContract({
         address: slillhubChain.contract_address,
         abi: JSON.parse(slillhubChain?.abi),
         functionName: 'claimFund',
         args: [Number(data.contract_index_id)],
-      })
-      await waitForTransaction({ hash })
-      const res = await hireClaim(data.uid, data.id, hash)
+      });
+      await waitForTransaction({ hash });
+      const res = await hireClaim(data.uid, data.id, hash);
       if (res.code === 200) {
-        closeModal()
+        closeModal();
       } else {
-        toast.error(res.message)
+        toast.error(res.message);
       }
-      setConfirmimg(false)
+      setConfirmimg(false);
     } catch (err) {
-      console.log(err)
-      setConfirmimg(false)
+      console.log(err);
+      setConfirmimg(false);
     }
-  }
+  };
 
   return (
     <Modal title={'Claim my fees'} isOpen={open} closeModal={closeModal} mode={'base'}>
@@ -69,5 +69,5 @@ export function ClaimModal({ open, closeModal, value, data }) {
         </Button>
       </div>
     </Modal>
-  )
+  );
 }

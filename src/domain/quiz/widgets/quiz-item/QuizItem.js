@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import clsx from 'clsx'
+import clsx from 'clsx';
 
-import Link from 'next/link'
-import Image from '@/components/Image'
+import Link from 'next/link';
+import Image from '@/components/Image';
 
-import style from './style.module.scss'
+import style from './style.module.scss';
 
 function QuizItem({ data, children }) {
   return data ? (
@@ -71,7 +71,7 @@ function QuizItem({ data, children }) {
         )}
       </div>
     </Link>
-  ) : null
+  ) : null;
 }
 
-export default QuizItem
+export default QuizItem;

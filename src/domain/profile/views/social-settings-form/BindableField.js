@@ -14,76 +14,76 @@
  * limitations under the License.
  */
 
-import { useState, useEffect } from 'react'
-import clsx from 'clsx'
-import Image from 'next/image'
-import { useAccount } from 'wagmi'
-import { useConnectModal } from '@rainbow-me/rainbowkit'
+import { useState, useEffect } from 'react';
+import clsx from 'clsx';
+import Image from 'next/image';
+import { useAccount } from 'wagmi';
+import { useConnectModal } from '@rainbow-me/rainbowkit';
 
-import { BASE_INPUT_STYLE } from '@/constants/config'
-import { shorten } from '@/utils'
-import { Button } from '@/components/Button'
+import { BASE_INPUT_STYLE } from '@/constants/config';
+import { shorten } from '@/utils';
+import { Button } from '@/components/Button';
 import { Confirm } from '@/components/Modal/Confirm';
 
-import { authWithGoogle, authWithGithub } from '#/domain/auth/helper'
-import { unbindWallet } from '#/domain/auth/repository'
-import { useBindWallet } from '#/domain/auth/hooks'
+import { authWithGoogle, authWithGithub } from '#/domain/auth/helper';
+import { unbindWallet } from '#/domain/auth/repository';
+import { useBindWallet } from '#/domain/auth/hooks';
 
 function BindableField({ data }) {
-  const [confirmModalVisible, setConfirmModalVisible] = useState(false)
-  const [unbinding, setUnbinding] = useState(false)
-  const { isConnected } = useAccount()
-  const { openConnectModal } = useConnectModal()
-  const bindWallet = useBindWallet()
+  const [confirmModalVisible, setConfirmModalVisible] = useState(false);
+  const [unbinding, setUnbinding] = useState(false);
+  const { isConnected } = useAccount();
+  const { openConnectModal } = useConnectModal();
+  const bindWallet = useBindWallet();
 
   useEffect(() => {
     if (!unbinding) {
-      return
+      return;
     }
 
     unbindWallet()
       .then(res => {
         if (res.success) {
-          setConfirmModalVisible(false)
-          window.location.reload()
+          setConfirmModalVisible(false);
+          window.location.reload();
         }
       })
-      .finally(() => setUnbinding(false))
-  }, [unbinding])
+      .finally(() => setUnbinding(false));
+  }, [unbinding]);
 
-  let boundValue = data.bindInfo?.auth_user_bind_key
-  let placeholder
-  let handleBind
-  let handleUnbind
-  let unbindAction
+  let boundValue = data.bindInfo?.auth_user_bind_key;
+  let placeholder;
+  let handleBind;
+  let handleUnbind;
+  let unbindAction;
 
-  const authType = data.name.toLocaleLowerCase()
+  const authType = data.name.toLocaleLowerCase();
 
   switch(authType) {
-    case 'wallet':
-      handleBind = bindWallet.bind(null, () => window.location.reload())
-      break
-    case 'google':
-      handleBind = authWithGoogle.bind(null, '/profile')
-      break
-    case 'github':
-      handleBind = authWithGithub.bind(null, '/profile')
-      break
-    default:
-      handleBind = () => {}
+  case 'wallet':
+    handleBind = bindWallet.bind(null, () => window.location.reload());
+    break;
+  case 'google':
+    handleBind = authWithGoogle.bind(null, '/profile');
+    break;
+  case 'github':
+    handleBind = authWithGithub.bind(null, '/profile');
+    break;
+  default:
+    handleBind = () => {};  // eslint-disable-line no-empty-function
   }
 
   if (authType === 'wallet') {
-    boundValue = shorten(boundValue)
+    boundValue = shorten(boundValue);
 
     handleUnbind = () => {
       if (!isConnected) {
-        openConnectModal()
-        return
+        openConnectModal();
+        return;
       }
 
-      setUnbinding(true)
-    }
+      setUnbinding(true);
+    };
 
     unbindAction = data.unbindable ? (
       <>
@@ -97,12 +97,12 @@ function BindableField({ data }) {
           confirmEvt={handleUnbind}
         />
       </>
-    ) : null
+    ) : null;
   } else {
-    placeholder = 'https://'
+    placeholder = 'https://';
   }
 
-  const bound = !!data.bindInfo
+  const bound = !!data.bindInfo;
 
   return (
     <div className="relative mb-9 rounded-xl">
@@ -124,7 +124,7 @@ function BindableField({ data }) {
         </div>
       )}
     </div>
-  )
+  );
 }
 
-export default BindableField
+export default BindableField;

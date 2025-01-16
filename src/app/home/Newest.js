@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import Slider from 'react-slick'
-import Image from 'next/image'
-import { useMemo } from 'react'
-import { useMediaUrl } from '#/state/application/hooks'
-import Link from 'next/link'
+import Slider from 'react-slick';
+import Image from 'next/image';
+import { useMemo } from 'react';
+import { useMediaUrl } from '#/state/application/hooks';
+import Link from 'next/link';
 
 export function Newest({data}) {
   const settings = {
@@ -37,27 +37,27 @@ export function Newest({data}) {
           slidesToShow: 1,
           slidesToScroll: 1,
           centerPadding: '60px',
-        }
-      }
-    ]
-  }
+        },
+      },
+    ],
+  };
 
   const newest = useMemo(() => {
     if (data.bounties.last.length > 0) {
-      return data.learn.last.concat(data.bounties.last[0])
+      return data.learn.last.concat(data.bounties.last[0]);
     } else {
-      return data.learn.last
+      return data.learn.last;
     }
-  }, [data])
+  }, [data]);
 
-  const mediaUrl = useMediaUrl()
+  const mediaUrl = useMediaUrl();
   return (
     <div className="text-center newest" >
       <h1 className="text-[42px] leading-[52px] mb-9 max-md:text-[28px] max-md:leading-9" data-aos="fade-up" data-aos-delay="300">Newest on OpenBuild</h1>
       <Slider {...settings} >
         {newest.map((i, k) => (
           <div key={`home-Newest-${k}`} data-aos="flip-left" data-aos-delay="300" className="">
-            <div className="h-[50px] ph max-md:hidden"></div>
+            <div className="h-[50px] ph max-md:hidden" />
             {mediaUrl && <Image className="rounded-xl w-[95%] aspect-video object-cover" width={500} height={281} src={mediaUrl + i.img} alt="" />}
             <div className="md:opacity-0 newest-card-desc md:mt-[60px] mt-8">
               <p className="text-lg text-gray-50 flex items-center justify-center"><span className="text-xs text-gray px-2 my-[3px] mr-2 bg-green rounded-md h-6 leading-6">{i.type}</span></p>
@@ -65,10 +65,10 @@ export function Newest({data}) {
                 <Link href={`${i.type === 'bounty' ? '/bounties' :  i.type === 'open_course' ? '/learn/courses' : '/learn/challenges'}/${i.id}`}>{i.title}</Link>
               </h6>
             </div>
-            <div className="h-[50px] ph max-md:hidden"></div>
+            <div className="h-[50px] ph max-md:hidden" />
           </div>
         ))}
       </Slider>
     </div>
-  )
+  );
 }

@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-'use client'
-import { ToastContainer } from 'react-toastify'
-import { XMarkIcon } from '@heroicons/react/24/outline'
+'use client';
+import { ToastContainer } from 'react-toastify';
+import { XMarkIcon } from '@heroicons/react/24/outline';
 export function Toast() {
   return (
     <ToastContainer
@@ -92,5 +92,5 @@ export function Toast() {
       }
       closeButton={({ closeToast }) => <XMarkIcon onClick={closeToast} className="h-4 w-4" />}
     />
-  )
+  );
 }

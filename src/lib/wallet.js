@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-import MatemaskIcon from 'public/images/svg/matemask.svg'
-import WalletconnectIcon from 'public/images/svg/walletconnect.svg'
-import BitkeepIcon from 'public/images/svg/bitkeep.svg'
+import MatemaskIcon from 'public/images/svg/matemask.svg';
+import WalletconnectIcon from 'public/images/svg/walletconnect.svg';
+import BitkeepIcon from 'public/images/svg/bitkeep.svg';
 
-import { InjectedConnector } from 'wagmi/connectors/injected'
-import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
-import { BitkeepConnector } from './BitkeepConnector'
-import { chains } from '@/constants/chain'
+import { InjectedConnector } from 'wagmi/connectors/injected';
+import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
+import { BitkeepConnector } from './BitkeepConnector';
+import { chains } from '@/constants/chain';
 
 export const injected = new InjectedConnector({
   chains,
-})
+});
 
 export const SUPPORTED_WALLETS = {
   // INJECTED: {
@@ -55,4 +55,4 @@ export const SUPPORTED_WALLETS = {
     name: 'Bitkeep',
     icon: BitkeepIcon,
   },
-}
+};

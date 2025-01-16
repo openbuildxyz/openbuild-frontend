@@ -17,8 +17,8 @@
 
 import { useState, useMemo, useCallback } from 'react';
 import Image from 'next/image';
-import useSWR from 'swr'
-import { Button } from '@/components/Button'
+import useSWR from 'swr';
+import { Button } from '@/components/Button';
 import clsx from 'clsx';
 
 import { parseUnits } from '@ethersproject/units';
@@ -38,17 +38,17 @@ import { contracts, payTokens } from '@/constants/contract';
 import { BountyABI } from '@/constants/abis/bounty';
 import { BOUNTY_SUPPORTED_CHAIN } from '@/constants/chain';
 
-import { fetcher } from '@/utils/request'
+import { fetcher } from '@/utils/request';
 import { denyBuilder, approveBuilder } from '#/services/creator';
 
-import { revalidatePathAction } from '../../actions'
-import { useBountyEnvCheck } from '#/domain/bounty/hooks'
+import { revalidatePathAction } from '../../actions';
+import { useBountyEnvCheck } from '#/domain/bounty/hooks';
 
 export function AppliedModal({ open, closeModal, bounty }) {
-  const { data, isLoading, mutate } = useSWR(`ts/v1/build/creator/bounties/${bounty.id}/builders?skip=${0}&take=${25}`, fetcher)
+  const { data, isLoading, mutate } = useSWR(`ts/v1/build/creator/bounties/${bounty.id}/builders?skip=${0}&take=${25}`, fetcher);
   const { address } = useAccount();
   // const { chain } = useNetwork()
-  const wrapBountyEnvCheck = useBountyEnvCheck()
+  const wrapBountyEnvCheck = useBountyEnvCheck();
   const _contracts = contracts[BOUNTY_SUPPORTED_CHAIN()];
   const payToken = payTokens[BOUNTY_SUPPORTED_CHAIN()].usdt;
 
@@ -56,7 +56,7 @@ export function AppliedModal({ open, closeModal, bounty }) {
 
   const mediaUrl = useMediaUrl();
   const config = useConfig();
-  const allOpts = config?.find((f) => f.config_id === 3)?.config_value;
+  const allOpts = config?.find(f => f.config_id === 3)?.config_value;
 
   const [confirmModalOpen, setConfirmModalOpen] = useState(false);
   const [approveConfirmLoading, setApproveConfirmLoading] = useState(false);
@@ -79,14 +79,14 @@ export function AppliedModal({ open, closeModal, bounty }) {
   );
 
   const rolesOpts = useMemo(() => {
-    return allOpts?.roles?.map((i) => ({
+    return allOpts?.roles?.map(i => ({
       key: i.id,
       name: i.name,
     }));
   }, [allOpts]);
 
   const skillOpts = useMemo(() => {
-    return allOpts?.skills?.map((i) => ({
+    return allOpts?.skills?.map(i => ({
       key: i.id,
       name: i.name,
     }));
@@ -95,25 +95,25 @@ export function AppliedModal({ open, closeModal, bounty }) {
   const updateList = useCallback((bid, status) => {
     const _list = data.list.map(i => {
       if (i.id === bid) {
-        return { ...i, status }
+        return { ...i, status };
       } else {
-        return { ...i }
+        return { ...i };
       }
-    })
-    mutate({...data, list: _list})
-  }, [data, mutate])
+    });
+    mutate({...data, list: _list});
+  }, [data, mutate]);
 
-  const [declineLoading, setDeclineLoading] = useState(null)
+  const [declineLoading, setDeclineLoading] = useState(null);
   const decline = async (bountyId, bid) => {
-    setDeclineLoading(bid)
+    setDeclineLoading(bid);
     const res = await denyBuilder(bountyId, bid);
     if (res.code === 200) {
-      updateList(bid, -3)
+      updateList(bid, -3);
     }else {
-      toast.error(res.message)
+      toast.error(res.message);
     }
 
-    setDeclineLoading(null)
+    setDeclineLoading(null);
   };
 
 
@@ -129,7 +129,7 @@ export function AppliedModal({ open, closeModal, bounty }) {
           payToken.address,
           parseUnits((bounty.amount / 100).toString(), payToken.decimals),
         ],
-      })
+      });
       // console.log(hash)
 
       if (approveConfirmIds.bountyId && approveConfirmIds.bid) {
@@ -139,21 +139,21 @@ export function AppliedModal({ open, closeModal, bounty }) {
           hash
         );
         if (res.code === 200) {
-          updateList(approveConfirmIds.bid, 6)
-          setConfirmModalOpen(false)
-          revalidatePathAction()
+          updateList(approveConfirmIds.bid, 6);
+          setConfirmModalOpen(false);
+          revalidatePathAction();
         }else {
-          toast.error(res.message)
+          toast.error(res.message);
         }
       }
       setApproveConfirmLoading(false);
 
     } catch (err) {
-      console.log(err)
+      console.log(err);
       setApproveConfirmLoading(false);
       toast.error(err.message);
     }
-  }, [_contracts, approveConfirmIds, bounty, currUser, payToken, updateList])
+  }, [_contracts, approveConfirmIds, bounty, currUser, payToken, updateList]);
 
   const approve = async (bountyId, bid) => {
     setConfirmModalOpen(true);
@@ -168,17 +168,17 @@ export function AppliedModal({ open, closeModal, bounty }) {
         &&
         approveAsync
       ) {
-        await approveAsync()
-        write()
+        await approveAsync();
+        write();
       } else {
         write();
       }
     } catch (error) {
       setApproveConfirmLoading(false);
-      toast.error(error.message)
+      toast.error(error.message);
     }
 
-  }, [allowance, approveAsync, bounty, payToken, write])
+  }, [allowance, approveAsync, bounty, payToken, write]);
 
   return (
     <Modal
@@ -236,7 +236,7 @@ export function AppliedModal({ open, closeModal, bounty }) {
                   <p className="text-sm">
                     {
                       EXPERIENCE_OPTIONS.find(
-                        (f) => f.key === i.builder_user.user_experience
+                        f => f.key === i.builder_user.user_experience
                       )?.name
                     } Experience
                   </p>
@@ -244,15 +244,15 @@ export function AppliedModal({ open, closeModal, bounty }) {
               </li>
               <li className="h-12 flex flex-wrap items-center">
                 {
-                  rolesOpts?.find((f) => f.key === i.builder_user.user_roles)?.name && <span className="inline-block h-5 text-xs p-1 border border-gray-1100 mr-1 mb-1 rounded-md leading-3">
-                    {rolesOpts?.find((f) => f.key === i.builder_user.user_roles)?.name}
+                  rolesOpts?.find(f => f.key === i.builder_user.user_roles)?.name && <span className="inline-block h-5 text-xs p-1 border border-gray-1100 mr-1 mb-1 rounded-md leading-3">
+                    {rolesOpts?.find(f => f.key === i.builder_user.user_roles)?.name}
                   </span>
                 }
                 {i.builder_user.user_skills.map(
                   (s, k) =>
                     s !== 1 && (
                       <span key={`apm-skii-${s}`} className="inline-block h-5 text-xs p-1 border border-gray-1100 mr-1 mb-1 rounded-md leading-3">
-                        {skillOpts?.find((f) => f.key === s)?.name}
+                        {skillOpts?.find(f => f.key === s)?.name}
                         {k + 1 < i.builder_user.user_skills.length}
                       </span>
                     )
@@ -317,7 +317,7 @@ export function AppliedModal({ open, closeModal, bounty }) {
 
         {isLoading && (
           <div className="flex justify-center items-center h-[200px]">
-            <span className="loading loading-spinner loading-md"></span>
+            <span className="loading loading-spinner loading-md" />
           </div>
         )}
         {data?.list?.length === 0 && !isLoading && (

@@ -14,26 +14,26 @@
  * limitations under the License.
  */
 
-'use client'
-import { AgreementIcon, NotebookIcon, TimeIcon } from '@/components/Icons'
+'use client';
+import { AgreementIcon, NotebookIcon, TimeIcon } from '@/components/Icons';
 
-import { CardTitle } from '../CardTitle'
-import { CardProgress } from '../CardProgress'
-import { useParams } from 'next/navigation'
-import Link from 'next/link'
-import { useMemo } from 'react'
-import { millisecondFormat } from '@/utils/date'
-import BigNumber from 'bignumber.js'
-import { useConfig } from '#/state/application/hooks'
-import ContentEditable from 'react-contenteditable'
-import { HTMLDecode } from '@/utils'
+import { CardTitle } from '../CardTitle';
+import { CardProgress } from '../CardProgress';
+import { useParams } from 'next/navigation';
+import Link from 'next/link';
+import { useMemo } from 'react';
+import { millisecondFormat } from '@/utils/date';
+import BigNumber from 'bignumber.js';
+import { useConfig } from '#/state/application/hooks';
+import ContentEditable from 'react-contenteditable';
+import { HTMLDecode } from '@/utils';
 
-const typeStyle = 'inline-block mb-1 text-xs border border-gray-600 rounded-md leading-[14px] rounded-md px-2 py-1 opacity-60 mr-1'
+const typeStyle = 'inline-block mb-1 text-xs border border-gray-600 rounded-md leading-[14px] rounded-md px-2 py-1 opacity-60 mr-1';
 
 export function CourseCard({ data, target, from }) {
-  const configs = useConfig()
+  const configs = useConfig();
   const tags = useMemo(() => {
-    const _filters = configs && configs.find(f => f.config_id === 1)
+    const _filters = configs && configs.find(f => f.config_id === 1);
     if (data.base.course_series_label_ids?.length > 0) {
       const _tag = data.base.course_series_label_ids.map(i => {
         const f = _filters?.config_value['open_course']?.map(cv => {
@@ -45,31 +45,31 @@ export function CourseCard({ data, target, from }) {
               cvf.id !== 2205 &&
               cvf.id !== 1212 &&
               cvf.id !== 1308
-          )
-          return foundTag?.name
-        })
-        return f
-      })
-      return _tag.flat().filter(d => d)
+          );
+          return foundTag?.name;
+        });
+        return f;
+      });
+      return _tag.flat().filter(d => d);
     } else {
-      return []
+      return [];
     }
-  }, [data.base.course_series_label_ids, configs])
+  }, [data.base.course_series_label_ids, configs]);
 
   const _progNum = useMemo(() => {
     if (data.analytics.analytice_user_end) {
-      return 100
+      return 100;
     } else if (data.analytics.analytice_estimated_time === 0 || data.analytics.analytice_user_time === null) {
-      return 0
+      return 0;
     } else {
       return new BigNumber(data.analytics.analytice_user_time)
         .div(data.analytics.analytice_estimated_time)
         .times(100)
-        .toFixed(0)
+        .toFixed(0);
     }
-  }, [data.analytics])
+  }, [data.analytics]);
 
-  const params = useParams()
+  const params = useParams();
 
   return (
     <Link
@@ -113,5 +113,5 @@ export function CourseCard({ data, target, from }) {
       </div>
       <CardProgress value={Number(_progNum)} />
     </Link>
-  )
+  );
 }

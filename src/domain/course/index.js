@@ -14,4 +14,4 @@
  * limitations under the License.
  */
 
-export { default as BuilderListWidget } from './widgets/builder-list'
+export { default as BuilderListWidget } from './widgets/builder-list';

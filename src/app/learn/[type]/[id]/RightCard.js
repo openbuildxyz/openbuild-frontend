@@ -14,56 +14,56 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import Image from 'next/image'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { useCallback, useState, useEffect, Fragment, useRef, useMemo } from 'react'
-import { Button } from '@/components/Button'
-import { useSession } from 'next-auth/react'
-import { CheckIcon } from '@heroicons/react/20/solid'
+import Image from 'next/image';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useCallback, useState, useEffect, Fragment, useRef, useMemo } from 'react';
+import { Button } from '@/components/Button';
+import { useSession } from 'next-auth/react';
+import { CheckIcon } from '@heroicons/react/20/solid';
 // import { currentTime } from '@/utils/date'
-import { useMediaUrl } from '#/state/application/hooks'
-import { joinChallengesEnrool, pay } from '#/services/learn/'
+import { useMediaUrl } from '#/state/application/hooks';
+import { joinChallengesEnrool, pay } from '#/services/learn/';
 
 // import { USDTIcon } from '@/components/Icons'
-import { EmailModal } from './EmailModal'
+import { EmailModal } from './EmailModal';
 
-import { enrollAction, revalidatePathAction } from './actions'
-import { toast } from 'react-toastify'
-import dynamic from 'next/dynamic'
-import { waitForTransaction } from '@wagmi/core'
+import { enrollAction, revalidatePathAction } from './actions';
+import { toast } from 'react-toastify';
+import dynamic from 'next/dynamic';
+import { waitForTransaction } from '@wagmi/core';
 
-import { useConnectModal } from '@rainbow-me/rainbowkit'
+import { useConnectModal } from '@rainbow-me/rainbowkit';
 
-import { useAccount, useNetwork, useSwitchNetwork, erc20ABI } from 'wagmi'
+import { useAccount, useNetwork, useSwitchNetwork, erc20ABI } from 'wagmi';
 // import { getBalance } from '@wagmi/core'
 // import { prepareWriteContract, writeContract } from '@wagmi/core'
-import { parseUnits } from '@ethersproject/units'
-import clsx from 'clsx'
-import { writeContract } from '@wagmi/core'
-import { TimeAndLocation } from '../ChallengesCard'
-import { USDTIcon } from '@/components/Icons'
+import { parseUnits } from '@ethersproject/units';
+import clsx from 'clsx';
+import { writeContract } from '@wagmi/core';
+import { TimeAndLocation } from '../ChallengesCard';
+import { USDTIcon } from '@/components/Icons';
 
-import { Dialog, Transition } from '@headlessui/react'
-import TicketEPic from 'public/images/ticket-e.svg'
-import TicketBgPic from 'public/images/ticket-bg.svg'
-import { TwitterIcon, DownloadIcon } from '@/components/Icons'
+import { Dialog, Transition } from '@headlessui/react';
+import TicketEPic from 'public/images/ticket-e.svg';
+import TicketBgPic from 'public/images/ticket-bg.svg';
+import { TwitterIcon, DownloadIcon } from '@/components/Icons';
 import QRCode from 'react-qr-code';
 import { toBlob } from 'html-to-image';
 
-import { formatTime } from '@/utils/date'
-import { saveAs } from 'file-saver'
+import { formatTime } from '@/utils/date';
+import { saveAs } from 'file-saver';
 
-import { resolvePathWithSearch } from '@/utils/url'
+import { resolvePathWithSearch } from '@/utils/url';
 
 const EnrollModal = dynamic(() => import('./EnrollModal'), {
   ssr: false,
-})
+});
 
 function ButtonGroup({ data, permission, loading, type, apply, enroll, switchLoading, payLoading, isPay, payment }) {
-  const router = useRouter()
-  const { status } = useSession()
+  const router = useRouter();
+  const { status } = useSession();
 
   // const chainid = data.challenges_extra.course_challenges_extra_chain_id
   // const { chain } = useNetwork()
@@ -103,9 +103,9 @@ function ButtonGroup({ data, permission, loading, type, apply, enroll, switchLoa
             {type === 'challenges' ? 'Apply to Join ' : 'Enroll'}
             {type === 'challenges' && (
               data.challenges_extra?.course_challenges_extra_feeds_type === 'free' ? '(Free)' :
-              <div className="flex items-center">
-                <USDTIcon className="h-[14px] w-[14px] mr-1" /> {data.challenges_extra?.course_challenges_extra_feeds_amount} USDT
-              </div>
+                <div className="flex items-center">
+                  <USDTIcon className="h-[14px] w-[14px] mr-1" /> {data.challenges_extra?.course_challenges_extra_feeds_amount} USDT
+                </div>
             )}
           </Button>
         )}
@@ -138,12 +138,12 @@ function ButtonGroup({ data, permission, loading, type, apply, enroll, switchLoa
             onClick={() => {
               if (data?.courses?.length > 0) {
                 if (data.courses[0].base.course_single_content === '') {
-                  toast.info('The content has not been made public, please contact the publisher')
+                  toast.info('The content has not been made public, please contact the publisher');
                 } else {
-                  router.push(`/learn/${type}/${data.base.course_series_id}/${data.courses[0].base.course_single_id}`)
+                  router.push(`/learn/${type}/${data.base.course_series_id}/${data.courses[0].base.course_single_id}`);
                 }
               } else {
-                toast.error('There is no course for the time being')
+                toast.error('There is no course for the time being');
               }
             }}
             fullWidth
@@ -174,104 +174,104 @@ function ButtonGroup({ data, permission, loading, type, apply, enroll, switchLoa
         )}
       </div>
     )}
-  </div>
+  </div>;
 }
 
 export function LearnRightCard({ data, type, permission }) {
   // const { data: walletClient } = useWalletClient()
-  const searchParams = useSearchParams()
-  const mediaUrl = useMediaUrl()
-  const { status } = useSession()
-  const pathname = usePathname()
-  const router = useRouter()
+  const searchParams = useSearchParams();
+  const mediaUrl = useMediaUrl();
+  const { status } = useSession();
+  const pathname = usePathname();
+  const router = useRouter();
 
-  let courseOrChallengeUrl = ''
+  let courseOrChallengeUrl = '';
 
   if(typeof window !== 'undefined'){
-    courseOrChallengeUrl = window.location.href
+    courseOrChallengeUrl = window.location.href;
   }
 
-  const { isConnected } = useAccount()
+  const { isConnected } = useAccount();
 
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
-  const [surveyOpen, setSurveyOpen] = useState(false)
-  const [surveyJson, setSurveyJson] = useState('')
-  const [emailModalOpen, setEmailModalOpen] = useState(false)
-  const [isEmailVerify, setIsEmailVerify] = useState(false)
+  const [surveyOpen, setSurveyOpen] = useState(false);
+  const [surveyJson, setSurveyJson] = useState('');
+  const [emailModalOpen, setEmailModalOpen] = useState(false);
+  const [isEmailVerify, setIsEmailVerify] = useState(false);
 
-  const [payLoading, setPayLoading] = useState(false)
-  const [isPay, setIsPay] = useState(false)
-  const { chain } = useNetwork()
-  const { isLoading: switchLoading, switchNetwork } = useSwitchNetwork()
+  const [payLoading, setPayLoading] = useState(false);
+  const [isPay, setIsPay] = useState(false);
+  const { chain } = useNetwork();
+  const { isLoading: switchLoading, switchNetwork } = useSwitchNetwork();
   const { openConnectModal } = useConnectModal();
-  const sourceFrom = useMemo(() => encodeURIComponent(resolvePathWithSearch(pathname, searchParams)), [pathname, searchParams])
+  const sourceFrom = useMemo(() => encodeURIComponent(resolvePathWithSearch(pathname, searchParams)), [pathname, searchParams]);
 
   const enroll = async () => {
     if (status !== 'authenticated') {
-      router.push(`/signin?from=${sourceFrom}`)
+      router.push(`/signin?from=${sourceFrom}`);
     }
-    setLoading(true)
-    const res = await enrollAction(data.base.course_series_id)
+    setLoading(true);
+    const res = await enrollAction(data.base.course_series_id);
     if (res) {
-      toast.error(res.message)
+      toast.error(res.message);
     }
-    setLoading(false)
-  }
+    setLoading(false);
+  };
   const apply = useCallback(async () => {
-    const cExtra = data?.challenges_extra
-    const cExtraSchema = cExtra?.course_challenges_extra_check_schema
+    const cExtra = data?.challenges_extra;
+    const cExtraSchema = cExtra?.course_challenges_extra_check_schema;
     if (cExtra?.course_challenges_extra_external_url !== '') {
-      window.open(data.challenges_extra?.course_challenges_extra_external_url)
-      return
+      window.open(data.challenges_extra?.course_challenges_extra_external_url);
+      return;
     }
     if (status === 'unauthenticated') {
       if (cExtra?.course_challenges_extra_need_login) {
-        router.push(`/signin?from=${sourceFrom}`)
+        router.push(`/signin?from=${sourceFrom}`);
       } else {
-        setEmailModalOpen(true)
-        return
+        setEmailModalOpen(true);
+        return;
       }
     } else {
       if ( cExtraSchema === '' || cExtraSchema === '{"logoPosition":"right"}' || cExtraSchema === '{}' ) {
-        setLoading(true)
-        const res = await joinChallengesEnrool(data.base.course_series_id, '', { code: window.localStorage.getItem('shareCode') || '' })
+        setLoading(true);
+        const res = await joinChallengesEnrool(data.base.course_series_id, '', { code: window.localStorage.getItem('shareCode') || '' });
         if (res?.code === 200) {
-          toast.success('Apply successfully')
-          revalidatePathAction()
+          toast.success('Apply successfully');
+          revalidatePathAction();
         } else {
-          toast.error(res.message)
+          toast.error(res.message);
         }
       } else {
-        setSurveyOpen(true)
-        setSurveyJson(cExtra.course_challenges_extra_check_schema)
-        setLoading(false)
+        setSurveyOpen(true);
+        setSurveyJson(cExtra.course_challenges_extra_check_schema);
+        setLoading(false);
       }
     }
-  }, [data, pathname, router, status])
+  }, [data, pathname, router, status]);
 
   useEffect(() => {
     if (isEmailVerify && permission?.course_user_permission_status === 0) {
-      apply()
+      apply();
     }
-  }, [isEmailVerify, apply, permission])
+  }, [isEmailVerify, apply, permission]);
 
   const payment = async (chainId, toAddress, amount) => {
     if (status !== 'authenticated') {
-      router.push(`/signin?from=${sourceFrom}`)
+      router.push(`/signin?from=${sourceFrom}`);
     }
     if (!isConnected) {
-      openConnectModal()
-      return
+      openConnectModal();
+      return;
     }
     if (chain?.id !== chainId) {
-      switchNetwork?.(chainId)
-      return
+      switchNetwork?.(chainId);
+      return;
     }
-    const _amount = parseUnits(amount.toString(), 18)
-    setPayLoading(true)
+    const _amount = parseUnits(amount.toString(), 18);
+    setPayLoading(true);
     try {
-      if (!data.challenges_extra?.course_challenges_extra_feeds_contract || !data.base.course_series_id) return
+      if (!data.challenges_extra?.course_challenges_extra_feeds_contract || !data.base.course_series_id) return;
       // const config = await prepareWriteContract({
       //   address: data.challenges_extra?.course_challenges_extra_feeds_contract,
       //   abi: erc20ABI,
@@ -283,59 +283,59 @@ export function LearnRightCard({ data, type, permission }) {
         abi: erc20ABI,
         functionName: 'transfer',
         args: [toAddress, _amount],
-      })
-      await waitForTransaction({ hash })
-      setIsPay(true)
-      const res = await pay(data.base.course_series_id, hash)
+      });
+      await waitForTransaction({ hash });
+      setIsPay(true);
+      const res = await pay(data.base.course_series_id, hash);
       if (res.code === 200) {
-        revalidatePathAction()
-        toast.success('Transaction successful')
+        revalidatePathAction();
+        toast.success('Transaction successful');
       } else {
-        toast.error('Transaction failed')
+        toast.error('Transaction failed');
       }
-      setPayLoading(false)
+      setPayLoading(false);
     } catch {
-      setPayLoading(false)
-      toast.error('Insufficient balance')
+      setPayLoading(false);
+      toast.error('Insufficient balance');
     }
-  }
+  };
 
-  const [width, setWidth] = useState()
-  const [enrollModalOpen, setEnrollModalOpen] = useState(width < 1024 ? false : true)
+  const [width, setWidth] = useState();
+  const [enrollModalOpen, setEnrollModalOpen] = useState(width < 1024 ? false : true);
 
   useEffect(() => {
-    const handleResize = () => setWidth(window.innerWidth)
-    window.addEventListener('resize', handleResize)
+    const handleResize = () => setWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
     return () => {
-      window.removeEventListener('resize', handleResize)
-    }
-  }, [])
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
   useEffect(() => {
-    const shareCode = searchParams.get('code')
+    const shareCode = searchParams.get('code');
     if (shareCode && shareCode !== '') {
-      window.localStorage.setItem('shareCode', shareCode)
+      window.localStorage.setItem('shareCode', shareCode);
     }
-    setWidth(window.innerWidth)
-  }, [searchParams])
+    setWidth(window.innerWidth);
+  }, [searchParams]);
 
   useEffect(() => {
     if (width > 1024) {
-      setEnrollModalOpen(true)
+      setEnrollModalOpen(true);
     } else {
-      setEnrollModalOpen(false)
+      setEnrollModalOpen(false);
     }
-  }, [width])
+  }, [width]);
 
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
 
-  const elementRef = useRef(null)
+  const elementRef = useRef(null);
   const download = useCallback(() => {
     // console.log(elementRef)
     toBlob(elementRef.current, { cacheBust: true }).then(function (blob) {
-      console.log(blob)
+      console.log(blob);
       saveAs(blob, 'openbuild-ticket.png');
-    })
-  }, [elementRef])
+    });
+  }, [elementRef]);
 
   return (
     <div
@@ -420,18 +420,18 @@ export function LearnRightCard({ data, type, permission }) {
                 </Transition.Child>
                 <div className="fixed inset-0 overflow-y-auto">
                   <div className="flex min-h-full items-center justify-center p-4 text-center">
-                      <Dialog.Panel className="w-[800px] pr-4 pt-4 transform overflow-hidden rounded-2xl bg-transparent text-left align-middle shadow-xl transition-all">
-                        <div className="relative flex download_viewport items-center"  ref={elementRef}>
-                          <svg
-                            onClick={() => setOpen(false)}
-                            width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" className="absolute right-[-6px] top-[-16px] z-[10000] cursor-pointer">
-                            <path d="M2.6665 2.66797L13.3332 13.3346" stroke="white" strokeLinecap="round" strokeLinejoin="round"/>
-                            <path d="M2.6665 13.3346L13.3332 2.66797" stroke="white" strokeLinecap="round" strokeLinejoin="round"/>
-                          </svg>
-                          <div className="w-[464px] h-[280px] relative">
-                            <Image src={TicketBgPic} alt="" className="absolute z-[1000] w-full h-full top-0 left-0" />
-                            {
-                              mediaUrl && data &&
+                    <Dialog.Panel className="w-[800px] pr-4 pt-4 transform overflow-hidden rounded-2xl bg-transparent text-left align-middle shadow-xl transition-all">
+                      <div className="relative flex download_viewport items-center"  ref={elementRef}>
+                        <svg
+                          onClick={() => setOpen(false)}
+                          width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" className="absolute right-[-6px] top-[-16px] z-[10000] cursor-pointer">
+                          <path d="M2.6665 2.66797L13.3332 13.3346" stroke="white" strokeLinecap="round" strokeLinejoin="round"/>
+                          <path d="M2.6665 13.3346L13.3332 2.66797" stroke="white" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                        <div className="w-[464px] h-[280px] relative">
+                          <Image src={TicketBgPic} alt="" className="absolute z-[1000] w-full h-full top-0 left-0" />
+                          {
+                            mediaUrl && data &&
                               <Image
                                 width={400}
                                 height={216}
@@ -439,74 +439,74 @@ export function LearnRightCard({ data, type, permission }) {
                                 alt=""
                                 className="w-[400px] h-[216px] absolute z-[1001] left-8 top-8 object-fill rounded-lg"
                               />
-                            }
+                          }
 
-                            <Image src={TicketEPic} alt="" className="absolute z-[1002] top-0 left-0" />
-                          </div>
-                          <svg width="2" height="248" viewBox="0 0 2 248" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <line x1="1" y1="1" x2="0.999989" y2="247" stroke="#1A1A1A" strokeWidth="2" strokeLinecap="round" strokeDasharray="1 5"/>
-                          </svg>
+                          <Image src={TicketEPic} alt="" className="absolute z-[1002] top-0 left-0" />
+                        </div>
+                        <svg width="2" height="248" viewBox="0 0 2 248" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <line x1="1" y1="1" x2="0.999989" y2="247" stroke="#1A1A1A" strokeWidth="2" strokeLinecap="round" strokeDasharray="1 5"/>
+                        </svg>
 
-                          <div className="h-[280px] flex-1 w-auto bg-ticketLocation rounded-lg p-5 flex flex-col">
-                            <div className="flex-1">
-                              <h3 className="text-xl leading-6">{data?.base.course_series_title}</h3>
-                              <div className="flex mr-3 mt-3">
-                                <i className="w-[45px] mr-3 text-xs">Time</i>
-                                <p className="text-sm text-gray">
-                                  {formatTime(data.challenges_extra.course_challenges_extra_start_date * 1000, 'YYYY/MM/DD')} -{' '}
-                                  {formatTime(data.challenges_extra.course_challenges_extra_end_date * 1000, 'MM/DD')}
-                                  {data.challenges_extra.course_challenges_extra_time_zone?.label?.substr(0, 11) && <span className="text-xs h-4 py-[2px]">{data.challenges_extra.course_challenges_extra_time_zone?.label?.substr(0, 11)}</span>}
-                                </p>
-                                {/* <p className="text-sm font-bold">2023/05/05 06/06 <span className="text-xs">(UTC+8)</span></p> */}
-                              </div>
-                              <div className="flex mt-2">
-                                <i className="w-[45px] mr-3 text-xs">Location</i>
-                                <p className="text-sm font-bold">
-                                  {
-                                    data?.challenges_extra.course_challenges_extra_online ?
+                        <div className="h-[280px] flex-1 w-auto bg-ticketLocation rounded-lg p-5 flex flex-col">
+                          <div className="flex-1">
+                            <h3 className="text-xl leading-6">{data?.base.course_series_title}</h3>
+                            <div className="flex mr-3 mt-3">
+                              <i className="w-[45px] mr-3 text-xs">Time</i>
+                              <p className="text-sm text-gray">
+                                {formatTime(data.challenges_extra.course_challenges_extra_start_date * 1000, 'YYYY/MM/DD')} -{' '}
+                                {formatTime(data.challenges_extra.course_challenges_extra_end_date * 1000, 'MM/DD')}
+                                {data.challenges_extra.course_challenges_extra_time_zone?.label?.substr(0, 11) && <span className="text-xs h-4 py-[2px]">{data.challenges_extra.course_challenges_extra_time_zone?.label?.substr(0, 11)}</span>}
+                              </p>
+                              {/* <p className="text-sm font-bold">2023/05/05 06/06 <span className="text-xs">(UTC+8)</span></p> */}
+                            </div>
+                            <div className="flex mt-2">
+                              <i className="w-[45px] mr-3 text-xs">Location</i>
+                              <p className="text-sm font-bold">
+                                {
+                                  data?.challenges_extra.course_challenges_extra_online ?
                                     'Online'
                                     :
                                     data?.challenges_extra.course_challenges_extra_country + ', ' +
                                     data?.challenges_extra.course_challenges_extra_city + ', ' +
                                     data?.challenges_extra.course_challenges_extra_offline_address
-                                  }
-                                </p>
-                              </div>
+                                }
+                              </p>
                             </div>
+                          </div>
 
-                            <hr className="border-t border-dashed border-black my-4" />
-                            <div className="flex justify-between items-center">
-                              <div className="flex items-center">
-                                {<Image className="border-2 mr-[5px] border-white rounded-full w-[42px] h-[42px]" width={42} height={42} src={mediaUrl + data?.team_user?.user_avatar} alt="" />}
-                                <div>
-                                  <p className="text-xs">
-                                    <a href={`/u/${data?.team_user?.user_handle}`}>{data?.team_user?.user_nick_name}</a>
-                                  </p>
-                                  <p className="text-xs font-bold mr-1">Booking ID</p>
-                                </div>
+                          <hr className="border-t border-dashed border-black my-4" />
+                          <div className="flex justify-between items-center">
+                            <div className="flex items-center">
+                              {<Image className="border-2 mr-[5px] border-white rounded-full w-[42px] h-[42px]" width={42} height={42} src={mediaUrl + data?.team_user?.user_avatar} alt="" />}
+                              <div>
+                                <p className="text-xs">
+                                  <a href={`/u/${data?.team_user?.user_handle}`}>{data?.team_user?.user_nick_name}</a>
+                                </p>
+                                <p className="text-xs font-bold mr-1">Booking ID</p>
                               </div>
-                              <div className="h-[60px] w-[60px] rounded bg-white p-1 overflow-hidden">
-                                <QRCode size={256}  style={{ maxWidth: '100%', width: '100%', height: '100%' }} value={courseOrChallengeUrl} />
-                              </div>
+                            </div>
+                            <div className="h-[60px] w-[60px] rounded bg-white p-1 overflow-hidden">
+                              <QRCode size={256}  style={{ maxWidth: '100%', width: '100%', height: '100%' }} value={courseOrChallengeUrl} />
                             </div>
                           </div>
                         </div>
-                        <div className="flex justify-center">
-                          <div className="h-[64px] mt-8 flex text-sm w-[470px] bg-white rounded-xl p-[6px]">
-                            <span
-                              onClick={
-                                () => window.open(`https://twitter.com/intent/tweet?&url=${courseOrChallengeUrl}`)
-                              }
-                              className="flex items-center flex-1 justify-center rounded-xl hover:bg-[#E9E9E9] cursor-pointer">
-                              <TwitterIcon className="w-4 h-4 mr-2" /> Share with Twitter
-                            </span>
-                            <span onClick={() => download()} target="_blank" className="flex items-center flex-1 justify-center rounded-xl hover:bg-[#E9E9E9] cursor-pointer">
-                              <DownloadIcon className="mr-2" /> Download pictures
-                            </span>
-                          </div>
+                      </div>
+                      <div className="flex justify-center">
+                        <div className="h-[64px] mt-8 flex text-sm w-[470px] bg-white rounded-xl p-[6px]">
+                          <span
+                            onClick={
+                              () => window.open(`https://twitter.com/intent/tweet?&url=${courseOrChallengeUrl}`)
+                            }
+                            className="flex items-center flex-1 justify-center rounded-xl hover:bg-[#E9E9E9] cursor-pointer">
+                            <TwitterIcon className="w-4 h-4 mr-2" /> Share with Twitter
+                          </span>
+                          <span onClick={() => download()} target="_blank" className="flex items-center flex-1 justify-center rounded-xl hover:bg-[#E9E9E9] cursor-pointer">
+                            <DownloadIcon className="mr-2" /> Download pictures
+                          </span>
                         </div>
-                        {/* <div ></div> */}
-                      </Dialog.Panel>
+                      </div>
+                      {/* <div ></div> */}
+                    </Dialog.Panel>
                   </div>
                 </div>
               </Dialog>
@@ -608,9 +608,9 @@ export function LearnRightCard({ data, type, permission }) {
         closeModal={() => setEmailModalOpen(false)}
         data={data}
         successCallback={() => {
-          setEmailModalOpen(false)
-          setIsEmailVerify(true)
-          setSurveyJson(data.challenges_extra?.course_challenges_extra_check_schema)
+          setEmailModalOpen(false);
+          setIsEmailVerify(true);
+          setSurveyJson(data.challenges_extra?.course_challenges_extra_check_schema);
         }}
       />
       {surveyJson !== '' && surveyJson && (
@@ -620,11 +620,11 @@ export function LearnRightCard({ data, type, permission }) {
           id={data.base.course_series_id}
           json={surveyJson}
           successCallback={() => {
-            setSurveyOpen(false)
-            revalidatePathAction()
+            setSurveyOpen(false);
+            revalidatePathAction();
           }}
         />
       )}
     </div>
-  )
+  );
 }

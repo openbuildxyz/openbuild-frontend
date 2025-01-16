@@ -14,21 +14,21 @@
  * limitations under the License.
  */
 
-import dayjs from 'dayjs'
-import isToday from 'dayjs/plugin/isToday'
-import isYesterday from 'dayjs/plugin/isYesterday'
-import utc from 'dayjs/plugin/utc'
-import BigNumber from 'bignumber.js'
-import relativeTime from 'dayjs/plugin/relativeTime'
-import updateLocale from 'dayjs/plugin/updateLocale'
-import timezone from 'dayjs/plugin/timezone'
+import dayjs from 'dayjs';
+import isToday from 'dayjs/plugin/isToday';
+import isYesterday from 'dayjs/plugin/isYesterday';
+import utc from 'dayjs/plugin/utc';
+import BigNumber from 'bignumber.js';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import updateLocale from 'dayjs/plugin/updateLocale';
+import timezone from 'dayjs/plugin/timezone';
 
-dayjs.extend(isToday)
-dayjs.extend(isYesterday)
-dayjs.extend(utc)
-dayjs.extend(relativeTime)
-dayjs.extend(updateLocale)
-dayjs.extend(timezone)
+dayjs.extend(isToday);
+dayjs.extend(isYesterday);
+dayjs.extend(utc);
+dayjs.extend(relativeTime);
+dayjs.extend(updateLocale);
+dayjs.extend(timezone);
 
 
 dayjs.updateLocale('en', {
@@ -47,61 +47,61 @@ dayjs.updateLocale('en', {
     y: '1 year',
     yy: '%d years',
   },
-})
+});
 
 export function ts() {
-  return Math.round(Date.now() / 1000)
+  return Math.round(Date.now() / 1000);
 }
 export function addZero(val) {
   if (val > 9) {
-    return val
+    return val;
   } else if (val === 0) {
-    return 0
+    return 0;
   } else {
-    return `0${val}`
+    return `0${val}`;
   }
 }
 
 export function millisecondFormat(surplus) {
-  if (surplus === undefined) return '0 Min'
-  const hour = Math.floor(new BigNumber(surplus).div(60 * 60).toNumber())
+  if (surplus === undefined) return '0 Min';
+  const hour = Math.floor(new BigNumber(surplus).div(60 * 60).toNumber());
 
-  surplus = Number(surplus) % (60 * 60)
+  surplus = Number(surplus) % (60 * 60);
 
-  const minute = Math.floor(new BigNumber(surplus).div(60).toNumber())
+  const minute = Math.floor(new BigNumber(surplus).div(60).toNumber());
 
-  surplus = surplus % 60
+  surplus = surplus % 60;
 
   if (hour > 0) {
-    return `${hour}H ${minute}${minute > 1 ? 'Mins' : 'Min'}`
+    return `${hour}H ${minute}${minute > 1 ? 'Mins' : 'Min'}`;
   } else {
-    return `${minute}${minute > 1 ? 'Mins' : 'Min'}`
+    return `${minute}${minute > 1 ? 'Mins' : 'Min'}`;
   }
 }
 
 export function messageDateFormat(date) {
-  const _day = dayjs(date)
+  const _day = dayjs(date);
   if (_day.isToday()) {
-    return `Today ${_day.format('HH:mm')}`
+    return `Today ${_day.format('HH:mm')}`;
   }
   if (_day.isYesterday()) {
-    return `Yesterday ${_day.format('HH:mm')}`
+    return `Yesterday ${_day.format('HH:mm')}`;
   }
   if (_day.year() !== dayjs(new Date()).year()) {
-    return `${_day.format('YYYY-MM-DD HH:mm')}`
+    return `${_day.format('YYYY-MM-DD HH:mm')}`;
   } else {
-    return `${_day.format('MM-DD HH:mm')}`
+    return `${_day.format('MM-DD HH:mm')}`;
   }
 }
 
 export function formatTime(time, format) {
-  const _f = format || 'MMM D, YYYY HH:mm'
-  return dayjs(time).format(_f)
+  const _f = format || 'MMM D, YYYY HH:mm';
+  return dayjs(time).format(_f);
 }
 
 export function formatTimeMeridiem(time) {
-  const hour = dayjs(time).hour()
-  return hour < 12 ? 'AM' : 'PM'
+  const hour = dayjs(time).hour();
+  return hour < 12 ? 'AM' : 'PM';
 }
 
 // Func = locale.meridiem || function (hour, isLowercase) {
@@ -110,26 +110,26 @@ export function formatTimeMeridiem(time) {
 // }
 
 export function currentTime() {
-  return dayjs().unix()
+  return dayjs().unix();
 }
 
 export function utcOffsetTime(time, offset) {
-  return dayjs(time).utcOffset(offset, true).valueOf()
+  return dayjs(time).utcOffset(offset, true).valueOf();
   //.unix()
 }
 
 export function localTime() {
-  return dayjs.utc().local().unix()
+  return dayjs.utc().local().unix();
 }
 
 export function getTime(time) {
-  return dayjs(time).unix()
+  return dayjs(time).unix();
 }
 
 export function fromNow(time) {
-  return dayjs(time).fromNow()
+  return dayjs(time).fromNow();
 }
 export function fromUtcOffset() {
   // console.log(dayjs.tz)
-  return dayjs().utcOffset() / 60
+  return dayjs().utcOffset() / 60;
 }

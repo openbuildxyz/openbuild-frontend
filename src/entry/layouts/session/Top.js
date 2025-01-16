@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import { usePathname, useSearchParams } from 'next/navigation'
-import { useMemo } from 'react'
+import { usePathname, useSearchParams } from 'next/navigation';
+import { useMemo } from 'react';
 
-import QuickAuthWidget from '#/domain/auth/widgets/quick-auth'
+import QuickAuthWidget from '#/domain/auth/widgets/quick-auth';
 
 const descs = {
   signin: {
@@ -42,12 +42,12 @@ const descs = {
     title: 'Reset Password',
     text: 'Enter and confirm your new password below',
   },
-}
+};
 export function UCTop() {
-  const searchParams = useSearchParams()
-  const pathname = usePathname()
-  const currentPage = useMemo(() => pathname.split('/')[1], [pathname])
-  const from = useMemo(() => searchParams?.get('from') || '/profile', [searchParams])
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const currentPage = useMemo(() => pathname.split('/')[1], [pathname]);
+  const from = useMemo(() => searchParams?.get('from') || '/profile', [searchParams]);
 
   return (
     <>
@@ -58,9 +58,9 @@ export function UCTop() {
       {(currentPage.includes('signin') || currentPage.includes('signup')) && (
         <>
           <QuickAuthWidget pathname={[pathname]} search={searchParams} from={from} />
-          <div className="my-6 h-[2px] bg-[#F1F1F1]"></div>
+          <div className="my-6 h-[2px] bg-[#F1F1F1]" />
         </>
       )}
     </>
-  )
+  );
 }

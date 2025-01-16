@@ -14,32 +14,32 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import Image from 'next/image'
-import Link from 'next/link'
-import HomeTopBg from 'public/images/home-top-bg.png'
+import Image from 'next/image';
+import Link from 'next/link';
+import HomeTopBg from 'public/images/home-top-bg.png';
 
-import { BuilderWay } from './BuilderWay'
-import { MarqueeContent } from './Marquee'
-import { Contributor } from './Contributor'
-import { BuildWith } from './BuildWith'
-import { Newest } from './Newest'
-import { Trusted } from './Trusted'
-import { StartOnOpenBuild } from '../learn/StartOnOpenBuild'
-import Aos from 'aos'
-import Spin from './Spin'
+import { BuilderWay } from './BuilderWay';
+import { MarqueeContent } from './Marquee';
+import { Contributor } from './Contributor';
+import { BuildWith } from './BuildWith';
+import { Newest } from './Newest';
+import { Trusted } from './Trusted';
+import { StartOnOpenBuild } from '../learn/StartOnOpenBuild';
+import Aos from 'aos';
+import Spin from './Spin';
 
-import { useEffect } from 'react'
-import Typed from 'react-typed'
+import { useEffect } from 'react';
+import Typed from 'react-typed';
 
 export function HomeMain({data}) {
   useEffect(() => {
     Aos.init({
       delay: 100, // values from 0 to 3000, with step 50ms
       duration: 800, // values from 0 to 3000, with step 50ms
-    })
-  }, [])
+    });
+  }, []);
 
   return (
     <div className="mt-14 [&>div]:px-6 md:[&>div]:px-11 bg-white" >
@@ -51,9 +51,9 @@ export function HomeMain({data}) {
         </div>
         <div className="mt-4 md:mt-5 text-lg md:text-[26px] leading-9 text-center">
           <Typed
-              strings={['Learn, Connect, Build, Grow','Bridge Web2 to Web3','Connect Developers and Business']}
-              typeSpeed={80}
-              loop={true}
+            strings={['Learn, Connect, Build, Grow','Bridge Web2 to Web3','Connect Developers and Business']}
+            typeSpeed={80}
+            loop={true}
           />
           {/* <p>Learn, Connect, Build, Grow</p> */}
           {/* <p>Want submit a course?</p> */}
@@ -98,5 +98,5 @@ export function HomeMain({data}) {
       <Trusted />
       <StartOnOpenBuild />
     </div>
-  )
+  );
 }

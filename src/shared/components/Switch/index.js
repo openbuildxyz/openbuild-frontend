@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { Switch as HeadlessuiSwitch } from '@headlessui/react'
+import { Switch as HeadlessuiSwitch } from '@headlessui/react';
 
 const Switch = ({ checked, onChange }) => {
   return (
@@ -31,7 +31,7 @@ const Switch = ({ checked, onChange }) => {
         pointer-events-none inline-block h-[22px] w-[22px] translate-y-[-0px]  transform rounded-full border border-gray bg-white shadow-lg ring-0 transition duration-200 ease-in-out`}
       />
     </HeadlessuiSwitch>
-  )
-}
+  );
+};
 
-export default Switch
+export default Switch;

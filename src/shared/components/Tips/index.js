@@ -19,5 +19,5 @@ export function ChainNetworkTips () {
     <div>
       To use full functionality, please <span>switch networks</span>
     </div>
-  )
+  );
 }

@@ -14,4 +14,4 @@
  * limitations under the License.
  */
 
-export { default } from './TeamProfile'
+export { default } from './TeamProfile';

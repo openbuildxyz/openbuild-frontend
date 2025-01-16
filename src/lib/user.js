@@ -31,4 +31,4 @@ export const EXPERIENCE_OPTIONS = [
     name: 'Over 10 years',
     key: 4,
   },
-]
+];

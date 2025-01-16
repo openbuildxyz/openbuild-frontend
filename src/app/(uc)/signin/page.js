@@ -14,35 +14,35 @@
  * limitations under the License.
  */
 
-'use client'
+'use client';
 
-import { useState } from 'react'
-import { isEmpty } from 'lodash'
-import clsx from 'clsx'
-import { useSearchParams } from 'next/navigation'
-import Link from 'next/link'
-import { signIn } from 'next-auth/react'
-import { useForm } from 'react-hook-form'
-import { toast } from 'react-toastify'
-import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline'
+import { useState } from 'react';
+import { isEmpty } from 'lodash';
+import clsx from 'clsx';
+import { useSearchParams } from 'next/navigation';
+import Link from 'next/link';
+import { signIn } from 'next-auth/react';
+import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
+import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 
-import { signin, emailCodeLogin } from '#/services/auth'
-import { wrapOnChange } from '@/utils/form'
-import Loader from '@/components/Loader'
+import { signin, emailCodeLogin } from '#/services/auth';
+import { wrapOnChange } from '@/utils/form';
+import Loader from '@/components/Loader';
 
-import LoginTypeSwitcher from './LoginTypeSwitcher'
-import VerifyCodeLogin from './VerifyCodeLogin'
+import LoginTypeSwitcher from './LoginTypeSwitcher';
+import VerifyCodeLogin from './VerifyCodeLogin';
 
 export function NavButtonStyle() {
-  return 'h-12 relative rounded-t-xl text-gray-100 px-6 [&.active]:bg-gray-1400 [&.active]:!text-gray'
+  return 'h-12 relative rounded-t-xl text-gray-100 px-6 [&.active]:bg-gray-1400 [&.active]:!text-gray';
 }
-const SigninAfterStyle = 'after:content-[\'\'] after:absolute after:right-[-12px] after:bottom-0 after:w-3 after:h-3 after:bg-signin-gradient'
+const SigninAfterStyle = 'after:content-[\'\'] after:absolute after:right-[-12px] after:bottom-0 after:w-3 after:h-3 after:bg-signin-gradient';
 
 export default function Login() {
-  const searchParams = useSearchParams()
-  const [loading, setLoading] = useState(false)
-  const [passwordType, setPasswordType] = useState('password')
-  const [loginType, setLoginType] = useState('verifyCode')
+  const searchParams = useSearchParams();
+  const [loading, setLoading] = useState(false);
+  const [passwordType, setPasswordType] = useState('password');
+  const [loginType, setLoginType] = useState('verifyCode');
 
   const {
     register,
@@ -50,31 +50,31 @@ export default function Login() {
     formState: { errors },
     watch,
     clearErrors,
-    reset
-  } = useForm()
-  const watchAllFields = watch()
+    reset,
+  } = useForm();
+  const watchAllFields = watch();
 
   const handleChangeLoginType = () => {
-    setLoginType((prevLoginType) => {
-      const loginType = prevLoginType === 'verifyCode' ? 'password' : 'verifyCode'
-      clearErrors()
-      reset()
-      return loginType
-    })
-  }
+    setLoginType(prevLoginType => {
+      const loginType = prevLoginType === 'verifyCode' ? 'password' : 'verifyCode';
+      clearErrors();
+      reset();
+      return loginType;
+    });
+  };
 
   const onSubmit = async data => {
-    setLoading(true)
+    setLoading(true);
 
     try {
       const response =
         loginType === 'verifyCode'
           ? await emailCodeLogin(data.Email, data.VerifyCode)
-          : await signin(data.Email, data.Password)
+          : await signin(data.Email, data.Password);
 
       if (response.code === 200) {
-        const signType = loginType === 'verifyCode' ? 'verifyCode' : 'email'
-        window.localStorage.setItem('signType', signType)
+        const signType = loginType === 'verifyCode' ? 'verifyCode' : 'email';
+        window.localStorage.setItem('signType', signType);
 
         const signInResponse = await signIn('credentials', {
           token: response.data.token,
@@ -83,31 +83,31 @@ export default function Login() {
             searchParams?.get('from') ||
             searchParams?.get('callbackUrl') ||
             '/profile'
-          )
-        })
+          ),
+        });
 
         if (signInResponse?.ok && signInResponse.url) {
-          window.location.href = signInResponse.url
+          window.location.href = signInResponse.url;
         }
       } else {
-        toast.error(response.message)
+        toast.error(response.message);
       }
     } catch (error) {
-      toast.error('Sign in failed. Please try again.')
+      toast.error('Sign in failed. Please try again.');
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
-  const emailField = register('Email', { required: true, pattern: /^\S+@\S+$/i })
-  emailField.onChange = wrapOnChange(emailField.onChange)
+  const emailField = register('Email', { required: true, pattern: /^\S+@\S+$/i });
+  emailField.onChange = wrapOnChange(emailField.onChange);
 
   const pwdField = register('Password', {
     required: loginType === 'password',
     minLength: 6,
-    maxLength: 20
-  })
-  pwdField.onChange = wrapOnChange(pwdField.onChange)
+    maxLength: 20,
+  });
+  pwdField.onChange = wrapOnChange(pwdField.onChange);
 
   return (
     <>
@@ -183,5 +183,5 @@ export default function Login() {
         </div>
       </div>
     </>
-  )
+  );
 }

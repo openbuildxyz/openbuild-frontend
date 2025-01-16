@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   openModal: null,
@@ -23,32 +23,32 @@ const initialState = {
   openFilter: false,
   lessonMenu: false,
   lessonMenuToggleStatus: true,
-}
+};
 
 const applicationSlice = createSlice({
   name: 'application',
   initialState,
   reducers: {
     setOpenModal(state, action) {
-      state.openModal = action.payload
+      state.openModal = action.payload;
     },
     updateConfig(state, action) {
-      state.config = action.payload
+      state.config = action.payload;
     },
     updateUser(state, action) {
-      state.user = action.payload
+      state.user = action.payload;
     },
     updateOpenFilter(state, action) {
-      state.openFilter = action.payload
+      state.openFilter = action.payload;
     },
     updateLessonMenu(state, action) {
-      state.lessonMenu = action.payload
+      state.lessonMenu = action.payload;
     },
     updateLessonMenuToggleStatus(state, action) {
-      state.lessonMenuToggleStatus = action.payload
+      state.lessonMenuToggleStatus = action.payload;
     },
   },
-})
+});
 
-export const { updateConfig, updateUser, updateOpenFilter, setOpenModal, updateLessonMenu, updateLessonMenuToggleStatus } = applicationSlice.actions
-export default applicationSlice.reducer
+export const { updateConfig, updateUser, updateOpenFilter, setOpenModal, updateLessonMenu, updateLessonMenuToggleStatus } = applicationSlice.actions;
+export default applicationSlice.reducer;

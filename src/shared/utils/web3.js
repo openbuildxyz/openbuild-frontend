@@ -20,7 +20,7 @@ export async function signBounty(chainId, contractAddress, singer, taskId, amoun
     version: '1',
     chainId,
     verifyingContract: contractAddress,
-  }
+  };
 
   const types = {
     Withdraw: [
@@ -28,17 +28,17 @@ export async function signBounty(chainId, contractAddress, singer, taskId, amoun
       { name: 'amount', type: 'uint256' },
       { name: 'deadline', type: 'uint256' },
     ],
-  }
+  };
   // console.log(amount)
   // return
   try {
     const sig = await singer?.signTypedData({domain, types, primaryType: 'Withdraw', message: {
-      taskId, amount: amount.toString(), deadline
-    }})
-    return sig
+      taskId, amount: amount.toString(), deadline,
+    }});
+    return sig;
   } catch (err) {
-    console.log(err, 'err')
-    return 'error'
+    console.log(err, 'err');
+    return 'error';
   }
 }
 
@@ -48,7 +48,7 @@ export async function signSkillHub(chainId, contractAddress, singer, amount, tim
     version: '1',
     chainId,
     verifyingContract: contractAddress,
-  }
+  };
 
   const types = {
     Employ: [
@@ -57,17 +57,17 @@ export async function signSkillHub(chainId, contractAddress, singer, amount, tim
       { name: 'token', type: 'address' },
       { name: 'deadline', type: 'uint256' },
     ],
-  }
+  };
   try {
     const sig = await singer?.signTypedData({domain, types, primaryType: 'Employ', message: {
       amount: amount.toString(),
       time,
       token,
       deadline,
-    }})
-    return sig
+    }});
+    return sig;
   } catch {
-    console.log('error')
-    return 'error'
+    console.log('error');
+    return 'error';
   }
 }

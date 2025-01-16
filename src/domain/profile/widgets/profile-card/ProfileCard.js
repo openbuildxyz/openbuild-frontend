@@ -14,62 +14,62 @@
  * limitations under the License.
  */
 
-import { useState } from 'react'
-import useSWR from 'swr'
-import { usePathname, useRouter } from 'next/navigation'
-import Link from 'next/link'
-import { useSession } from 'next-auth/react'
-import { toast } from 'react-toastify'
+import { useState } from 'react';
+import useSWR from 'swr';
+import { usePathname, useRouter } from 'next/navigation';
+import Link from 'next/link';
+import { useSession } from 'next-auth/react';
+import { toast } from 'react-toastify';
 
-import { post, fetcher } from '@/utils/request'
-import { useUser } from '#/state/application/hooks'
-import { SvgIcon } from '@/components/Image'
-import Avatar from '@/components/Avatar'
-import { Button } from '@/components/Button'
-import { RepositioningIcon } from '@/components/Icons'
+import { post, fetcher } from '@/utils/request';
+import { useUser } from '#/state/application/hooks';
+import { SvgIcon } from '@/components/Image';
+import Avatar from '@/components/Avatar';
+import { Button } from '@/components/Button';
+import { RepositioningIcon } from '@/components/Icons';
 
-import SocialInfoWidget from '../social-info'
+import SocialInfoWidget from '../social-info';
 
 function ProfileCardWidget({ data }) {
-  const router = useRouter()
-  const pathname = usePathname()
-  const user = useUser()
-  const { status } = useSession()
-  const { data: followData, mutate } = useSWR(data ? `ts/v1/user/follow/${data?.base.user_id}` : null, fetcher)
-  const [followLoading, setFollowLoading] = useState(false)
+  const router = useRouter();
+  const pathname = usePathname();
+  const user = useUser();
+  const { status } = useSession();
+  const { data: followData, mutate } = useSWR(data ? `ts/v1/user/follow/${data?.base.user_id}` : null, fetcher);
+  const [followLoading, setFollowLoading] = useState(false);
 
-  const uid = data?.base.user_id
-  const handle = data?.base.user_handle
+  const uid = data?.base.user_id;
+  const handle = data?.base.user_handle;
 
   const follow = async () => {
     if (status !== 'authenticated') {
-      router.push(`/signin?from=${pathname}`)
+      router.push(`/signin?from=${pathname}`);
     } else {
-      setFollowLoading(true)
-      const res = await post(`ts/v1/user/follow/${uid}`)
-      setFollowLoading(false)
+      setFollowLoading(true);
+      const res = await post(`ts/v1/user/follow/${uid}`);
+      setFollowLoading(false);
       if (res.code === 200) {
-        mutate(res.data)
+        mutate(res.data);
       } else {
-        toast.error(res.message)
+        toast.error(res.message);
       }
     }
-  }
+  };
 
   const unfollow = async () => {
     if (status !== 'authenticated') {
-      router.push(`/signin?from=${pathname}`)
+      router.push(`/signin?from=${pathname}`);
     } else {
-      setFollowLoading(true)
-      const res = await post(`ts/v1/user/follow/${uid}/del`)
-      setFollowLoading(false)
+      setFollowLoading(true);
+      const res = await post(`ts/v1/user/follow/${uid}/del`);
+      setFollowLoading(false);
       if (res.code === 200) {
-        mutate(res.data)
+        mutate(res.data);
       } else {
-        toast.error(res.message)
+        toast.error(res.message);
       }
     }
-  }
+  };
 
   return (
     <div className="md:absolute md:top-[-161px] md:w-[360px] md:rounded-lg md:p-6 md:bg-white">
@@ -125,7 +125,7 @@ function ProfileCardWidget({ data }) {
       </>} */}
       <SocialInfoWidget className="hidden md:block" data={data} />
     </div>
-  )
+  );
 }
 
-export default ProfileCardWidget
+export default ProfileCardWidget;

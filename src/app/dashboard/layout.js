@@ -14,24 +14,24 @@
  * limitations under the License.
  */
 
-'use client'
-import { useMemo } from 'react'
-import { DashboardNav } from './Navs'
-import { useUser, useConfig } from '#/state/application/hooks'
-import { useDashboardAnalytics } from '#/services/dashboard/hooks'
+'use client';
+import { useMemo } from 'react';
+import { DashboardNav } from './Navs';
+import { useUser, useConfig } from '#/state/application/hooks';
+import { useDashboardAnalytics } from '#/services/dashboard/hooks';
 
-import Image from 'next/image'
+import Image from 'next/image';
 // const tagStyles = 'text-xs px-1 py-[2px] rounded-sm text-gray bg-gray-600'
 
 export default function Layout({ children }) {
-  const info = useUser()
-  const config = useConfig()
-  const analytics = useDashboardAnalytics()
-  const mediaUrl = config?.find(f => f.config_id === 2)
-  const rolesOpts = config?.find(f => f.config_id === 3)?.config_value
+  const info = useUser();
+  const config = useConfig();
+  const analytics = useDashboardAnalytics();
+  const mediaUrl = config?.find(f => f.config_id === 2);
+  const rolesOpts = config?.find(f => f.config_id === 3)?.config_value;
   const role = useMemo(() => {
-    return rolesOpts?.roles?.find(f => f.id === info?.base.user_roles)?.name
-  }, [info, rolesOpts])
+    return rolesOpts?.roles?.find(f => f.id === info?.base.user_roles)?.name;
+  }, [info, rolesOpts]);
   return (
     <div>
       <div className="flex h-[200px] bg-gray-300 py-9 px-[68px]">
@@ -73,5 +73,5 @@ export default function Layout({ children }) {
         </div>
       </div>
     </div>
-  )
+  );
 }

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { SvgIcon } from '@/components/Image'
+import { SvgIcon } from '@/components/Image';
 
 export default function NoteItem({title, description, icon}) {
   return (
@@ -25,5 +25,5 @@ export default function NoteItem({title, description, icon}) {
         <div className="text-sm text-[#1A1A1ACC]">{description}</div>
       </div>
     </div>
-  )
+  );
 }

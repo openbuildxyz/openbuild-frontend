@@ -14,52 +14,52 @@
  * limitations under the License.
  */
 
-import { useMemo, useState } from 'react'
-import { Modal } from '@/components/Modal'
-import { ModalCloseIcon, TipsIcon } from '@/components/Icons'
-import { MouseoverTooltip } from '@/components/Tooltip'
-import { Button } from '@/components/Button'
-import { useAllowance, useApprove } from '@/hooks/useERC20'
-import { useSlillhubChain } from '#/state/application/hooks'
-import { useAccount, useBalance } from 'wagmi'
+import { useMemo, useState } from 'react';
+import { Modal } from '@/components/Modal';
+import { ModalCloseIcon, TipsIcon } from '@/components/Icons';
+import { MouseoverTooltip } from '@/components/Tooltip';
+import { Button } from '@/components/Button';
+import { useAllowance, useApprove } from '@/hooks/useERC20';
+import { useSlillhubChain } from '#/state/application/hooks';
+import { useAccount, useBalance } from 'wagmi';
 // import { writeContract, prepareWriteContract } from '@wagmi/core'
-import { formatUnits } from '@ethersproject/units'
-import { toast } from 'react-toastify'
+import { formatUnits } from '@ethersproject/units';
+import { toast } from 'react-toastify';
 // import { currentTime } from '@/utils/date'
-import { hireStart } from '#/services/shilling'
-import { waitForTransaction } from '@wagmi/core'
+import { hireStart } from '#/services/shilling';
+import { waitForTransaction } from '@wagmi/core';
 import { writeContract } from '@wagmi/core';
 
 export function DepositModal({ open, closeModal, hireData }) {
-  const { address } = useAccount()
-  const slillhubChain = useSlillhubChain()
+  const { address } = useAccount();
+  const slillhubChain = useSlillhubChain();
   const contractAddress = useMemo(() => {
-    return slillhubChain?.contract_address
-  }, [slillhubChain])
+    return slillhubChain?.contract_address;
+  }, [slillhubChain]);
   const coin = useMemo(() => {
-    return slillhubChain?.use_coins[0]
-  }, [slillhubChain])
+    return slillhubChain?.use_coins[0];
+  }, [slillhubChain]);
 
   const balance = useBalance({
     address,
     token: coin?.address,
-  })
+  });
 
-  const { allowance } = useAllowance(coin?.address, contractAddress, address)
-  const { approveAsync, isApproving } = useApprove(coin?.address, contractAddress, address)
-  const [approving, setApproving] = useState(false)
-  const [depositing, setDepositing] = useState(false)
+  const { allowance } = useAllowance(coin?.address, contractAddress, address);
+  const { approveAsync, isApproving } = useApprove(coin?.address, contractAddress, address);
+  const [approving, setApproving] = useState(false);
+  const [depositing, setDepositing] = useState(false);
 
   const deposit = async () => {
-    if (!contractAddress || !coin) return
+    if (!contractAddress || !coin) return;
     try {
-      setDepositing(true)
+      setDepositing(true);
       // According to cost_show_type, it is judged whether it is by day or by month, and then multiplied by the daily working hours by the employment market (if it is a month, then multiplied by 22)
       const hireHours =
         hireData.cost_show_type === 1
           ? hireData.hire_duration * hireData.daily_hours
-          : hireData.daily_hours * hireData.hire_duration * 22
-      const times = hireHours * 60 * 60 // Unit - second
+          : hireData.daily_hours * hireData.hire_duration * 22;
+      const times = hireHours * 60 * 60; // Unit - second
 
       // const _config = await prepareWriteContract({
       //   address: contractAddress,
@@ -86,20 +86,20 @@ export function DepositModal({ open, closeModal, hireData }) {
           hireData.last_skill_event.extra_3,
           hireData.last_skill_event.extra_1,
         ],
-      })
-      await waitForTransaction({ hash })
-      const res = await hireStart(hireData.uid, hireData.id, hash)
+      });
+      await waitForTransaction({ hash });
+      const res = await hireStart(hireData.uid, hireData.id, hash);
       if (res.code === 200) {
-        closeModal()
+        closeModal();
       } else {
-        toast.error(res.message)
+        toast.error(res.message);
       }
-      setDepositing(false)
+      setDepositing(false);
     } catch (err) {
-      console.log(err)
-      setDepositing(false)
+      console.log(err);
+      setDepositing(false);
     }
-  }
+  };
 
   return (
     <Modal isOpen={open} closeModal={closeModal} container mode="640">
@@ -156,9 +156,9 @@ export function DepositModal({ open, closeModal, hireData }) {
                   loading={approving && isApproving}
                   onClick={async () => {
                     if (approveAsync) {
-                      setApproving(true)
-                      await approveAsync()
-                      setApproving(false)
+                      setApproving(true);
+                      await approveAsync();
+                      setApproving(false);
                     }
                   }}
                   variant="contained"
@@ -306,5 +306,5 @@ export function DepositModal({ open, closeModal, hireData }) {
         </div>
       </div>
     </Modal>
-  )
+  );
 }
