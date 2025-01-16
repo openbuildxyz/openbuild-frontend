@@ -46,7 +46,7 @@ import { isBountyApplied } from '#/domain/bounty/helper';
 // import {  useNetwork, useWalletClient } from 'wagmi'
 
 // import { revalidatePathAction } from '../../actions'
-import { useAuthGuard } from '#/domain/auth/hooks'
+import { useAuthGuard } from '#/domain/auth/hooks';
 
 const process = [
   {
@@ -76,15 +76,15 @@ const process = [
 ];
 
 export function Employers({ id, list, data, mobile }) {
-  const [openModal, setOpenModal] = useState(false)
-  const [needOpen, setNeedOpen] = useState(false)
-  const [notBindWallet, setNotBindWallet] = useState(false)
-  const [notComplete, setNotComplete] = useState(false)
-  const mediaUrl = useMediaUrl()
-  const user = useUser()
-  const wrapBountyEnvCheck = useBountyEnvCheck()
-  const { loading: buildersLoading, list: builderList = [], doFetch } = useBountyBuildersList(id)
-  const { withAuth } = useAuthGuard()
+  const [openModal, setOpenModal] = useState(false);
+  const [needOpen, setNeedOpen] = useState(false);
+  const [notBindWallet, setNotBindWallet] = useState(false);
+  const [notComplete, setNotComplete] = useState(false);
+  const mediaUrl = useMediaUrl();
+  const user = useUser();
+  const wrapBountyEnvCheck = useBountyEnvCheck();
+  const { loading: buildersLoading, list: builderList = [], doFetch } = useBountyBuildersList(id);
+  const { withAuth } = useAuthGuard();
 
   const apply = () => {
     withAuth(() => {
@@ -94,18 +94,18 @@ export function Employers({ id, list, data, mobile }) {
         user?.base.user_skills.length === 0 ||
         typeof user?.base.user_roles !== 'number'
       ) {
-        setNeedOpen(true)
+        setNeedOpen(true);
         if (!user?.binds.find(f => f.auth_user_bind_type === 'wallet')) {
-          setNotBindWallet(true)
+          setNotBindWallet(true);
         }
         if (user?.base.user_nick_name === '' || user?.base.user_skills.length === 0) {
-          setNotComplete(true)
+          setNotComplete(true);
         }
       } else {
-        setOpenModal(true)
+        setOpenModal(true);
       }
-    })
-  }
+    });
+  };
   const openChat = () => {
     if (data?.chat_provide === 'email') {
       window.location.href = `mailto:${data.chat_handle}`;

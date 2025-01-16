@@ -14,31 +14,31 @@
  * limitations under the License.
  */
 
-import { useCallback } from 'react'
-import { isFunction } from 'lodash'
-import { useSession } from 'next-auth/react'
-import { usePathname, useSearchParams, useRouter } from 'next/navigation'
-import { resolvePathWithSearch } from '@/utils/url'
+import { useCallback } from 'react';
+import { isFunction } from 'lodash';
+import { useSession } from 'next-auth/react';
+import { usePathname, useSearchParams, useRouter } from 'next/navigation';
+import { resolvePathWithSearch } from '@/utils/url';
 
 const useAuthGuard = () => {
-  const pathname = usePathname()
-  const searchParams = useSearchParams()
-  const router = useRouter()
-  const { status } = useSession()
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const { status } = useSession();
 
-  const withAuth = useCallback((callback) => {
+  const withAuth = useCallback(callback => {
     if (status !== 'authenticated') {
-      const signInPath = `/signin?from=${encodeURIComponent(resolvePathWithSearch(pathname, searchParams))}`
-      router.push(signInPath)
+      const signInPath = `/signin?from=${encodeURIComponent(resolvePathWithSearch(pathname, searchParams))}`;
+      router.push(signInPath);
     } else {
-      isFunction(callback) && callback()
+      isFunction(callback) && callback();
     }
-  }, [status, pathname, searchParams, router])
+  }, [status, pathname, searchParams, router]);
 
   return {
     withAuth,
     status,
-  }
-}
+  };
+};
 
-export default useAuthGuard
+export default useAuthGuard;
