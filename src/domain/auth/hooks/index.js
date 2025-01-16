@@ -17,3 +17,4 @@
 export { default as useBindWallet } from './useBindWallet';
 export { default as useSignInWithWallet } from './useSignInWithWallet';
 export { default as useViewingSelf } from './useViewingSelf';
+export { default as useAuthGuard } from './useAuthGuard';

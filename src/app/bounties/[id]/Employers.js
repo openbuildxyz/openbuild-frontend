@@ -18,8 +18,6 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname, useSearchParams, useRouter } from 'next/navigation';
-import { useSession } from 'next-auth/react';
 // import { toast } from 'react-toastify';
 import { CertifiedIcon } from '@/components/Icons';
 import clsx from 'clsx';
@@ -41,7 +39,6 @@ import { ArrowTopRightOnSquareIcon } from '@/components/Icons';
 // import { Confirm } from '@/components/Modal/Confirm'
 // import { withdraw } from '@/constants/bounty'
 import { formatTime } from '@/utils/date'; // currentTime, fromNow,
-import { resolvePathWithSearch } from '@/utils/url';
 
 // import { builderTerminationConfirm, builderTerminationDeny, arbitrate } from '#/services/bounties'
 import { useBountyBuildersList } from '#/services/bounties/hooks';
@@ -49,6 +46,7 @@ import { isBountyApplied } from '#/domain/bounty/helper';
 // import {  useNetwork, useWalletClient } from 'wagmi'
 
 // import { revalidatePathAction } from '../../actions'
+import { useAuthGuard } from '#/domain/auth/hooks';
 
 const process = [
   {
@@ -78,10 +76,6 @@ const process = [
 ];
 
 export function Employers({ id, list, data, mobile }) {
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const { status } = useSession();
   const [openModal, setOpenModal] = useState(false);
   const [needOpen, setNeedOpen] = useState(false);
   const [notBindWallet, setNotBindWallet] = useState(false);
@@ -90,27 +84,27 @@ export function Employers({ id, list, data, mobile }) {
   const user = useUser();
   const wrapBountyEnvCheck = useBountyEnvCheck();
   const { loading: buildersLoading, list: builderList = [], doFetch } = useBountyBuildersList(id);
+  const { withAuth } = useAuthGuard();
 
   const apply = () => {
-    if (status !== 'authenticated') {
-      const sourceFrom = encodeURIComponent(resolvePathWithSearch(pathname, searchParams));
-      router.push(`/signin?from=${sourceFrom}`);
-    } else if (
-      user?.base.user_nick_name === '' ||
-      !user?.binds.find(f => f.auth_user_bind_type === 'wallet') ||
-      user?.base.user_skills.length === 0 ||
-      typeof user?.base.user_roles !== 'number'
-    ) {
-      setNeedOpen(true);
-      if (!user?.binds.find(f => f.auth_user_bind_type === 'wallet')) {
-        setNotBindWallet(true);
+    withAuth(() => {
+      if (
+        user?.base.user_nick_name === '' ||
+        !user?.binds.find(f => f.auth_user_bind_type === 'wallet') ||
+        user?.base.user_skills.length === 0 ||
+        typeof user?.base.user_roles !== 'number'
+      ) {
+        setNeedOpen(true);
+        if (!user?.binds.find(f => f.auth_user_bind_type === 'wallet')) {
+          setNotBindWallet(true);
+        }
+        if (user?.base.user_nick_name === '' || user?.base.user_skills.length === 0) {
+          setNotComplete(true);
+        }
+      } else {
+        setOpenModal(true);
       }
-      if (user?.base.user_nick_name === '' || user?.base.user_skills.length === 0) {
-        setNotComplete(true);
-      }
-    } else {
-      setOpenModal(true);
-    }
+    });
   };
   const openChat = () => {
     if (data?.chat_provide === 'email') {
