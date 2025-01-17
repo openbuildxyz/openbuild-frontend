@@ -85,7 +85,7 @@ export function Record({id, openModal, closeModal}) {
               ))}
             </div>
           </div>
-          {data?.length === 0 && <div className="pb-12"><NoData /></div>}
+          {(!data|| data?.length === 0) && <div className="pb-12"><NoData /></div>}
         </div>
       </div>
     </Modal>
