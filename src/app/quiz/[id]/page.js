@@ -126,12 +126,15 @@ export default function Quiz({params}) {
           <p className="text-sm text-center mt-6"><strong>{data?.user_num}</strong> builders have participated</p>
         </div>
       </div>
-      <div className="max-w-[800px] max-md:mt-9 mx-6 md:mx-auto relative md:top-[-105px] max-md:pb-14">
-        <h3 className="text-[18px] max-md:leading-[24px] md:text-lg mb-6">Related courses</h3>
-        <div className="grid gap-y-6 md:gap-4 md:grid-cols-2">
-          {coursesList?.list?.map(i => <CourseCard data={i} key={`open-courses-${i.base.course_series_id}`} />)}
-        </div>
-      </div>
+      {
+        coursesList?.count > 0 && (
+          <div className="max-w-[800px] max-md:mt-9 mx-6 md:mx-auto relative md:top-[-105px] max-md:pb-14">
+            <h3 className="text-[18px] max-md:leading-[24px] md:text-lg mb-6">Related courses</h3>
+            <div className="grid gap-y-6 md:gap-4 md:grid-cols-2">
+              {coursesList?.list?.map(i => <CourseCard data={i} key={`open-courses-${i.base.course_series_id}`} />)}
+            </div>
+          </div>)
+      }
       <Record id={params.id} openModal={openModal} closeModal={() => setOpenModal(false)} />
     </QuizLimiterWidget>
   );
