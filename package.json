@@ -98,6 +98,7 @@
     "sha256": "^0.2.0",
     "siwe": "^2.1.4",
     "slick-carousel": "^1.8.1",
+    "striptags": "^3.2.0",
     "survey-analytics": "^1.9.109",
     "survey-core": "^1.9.90",
     "survey-creator-react": "^1.9.90",

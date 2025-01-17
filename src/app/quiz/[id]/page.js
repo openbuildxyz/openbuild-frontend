@@ -32,6 +32,7 @@ import { Record } from './Record';
 import QuizLimiterWidget from '#/domain/quiz/widgets/quiz-limiter';
 import RankList from './RankList';
 import { RankListModal } from './RankListModal';
+import { OViewer } from '#/shared/components/MarkDown';
 
 export default function Quiz({params}) {
   const mediaUrl = useMediaUrl();
@@ -84,9 +85,7 @@ export default function Quiz({params}) {
       </div>
       <div className="max-w-[800px] mx-auto bg-white rounded-xl p-6 md:px-9 md:pt-10 md:pb-6  relative z-[2] md:top-[-155px]">
         <h5 className="text-lg mb-4 md:mb-3">Quiz Describe</h5>
-        <p dangerouslySetInnerHTML={{__html: data?.describe.replace('\n', '<br>')}}>
-          {/* {data?.describe} */}
-        </p>
+        <OViewer value={data?.describe} />
         <Button
           onClick={() => setCheckLimit(true)}
           className="mt-4 md:mt-6 mb-9 md:mb-10 !font-bold px-[64px] !text-base max-md:w-full">
