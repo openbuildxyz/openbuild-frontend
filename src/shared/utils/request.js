@@ -34,6 +34,10 @@ function removeEndSlashes(str) {
 }
 
 function resolveRequestUrl(baseUrl, url) {
+  if (url.startsWith('http')) {
+    return url;
+  }
+
   const globalBaseUrl = removeEndSlashes(process.env.NEXT_PUBLIC_API_BASE_URL);
   const clientBaseUrl = baseUrl && baseUrl !== '/' ? `/${removeEndSlashes(baseUrl)}` : '';
   const prefixedUrl = url.startsWith('/') ? url : `/${url}`;
