@@ -21,7 +21,17 @@ import { Banner } from './Banner';
 import InfoCard from './InfoCard';
 
 export default async function UserProfileLayout({ params, children }) {
-  const { data } = await get(`ts/v1/user/info/handle/${params.handle}`, {isServer: true});
+  const config = {isServer: true}
+  const { data } = await get(`ts/v1/user/info/handle/${params.handle}`, config);
+
+  if (data?.social.user_wallet && data?.base.user_show_wallet) {
+    data.web3Bio = await get(`https://api.web3.bio/profile/${data?.social.user_wallet}`, {
+      ...config,
+      headers: {
+        'X-API-KEY': process.env.NEXT_PUBLIC_WEB3BIO,
+      },
+    });
+  }
 
   return (
     <>
