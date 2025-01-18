@@ -35,14 +35,19 @@ export async function Container({ type, searchParams }) {
   const body_type = searchParams?.body_type || '';
   const lang = searchParams?.lang || '';
   let URL;
-  if (type === 'courses') {
+  if (type === 'courses' && lang) {
     URL = `v1/learn/course/opencourse?&skip=${(page - 1) * PAGE_SIZE}&take=${PAGE_SIZE}&labels=${labels}&order=${order}&search=${query}&recommend_type=${featured}&body_type=${body_type}&lang=${lang}`;
   } else if (type === 'challenges') {
     URL = `v1/learn/course/challenges?&skip=${(page - 1) * PAGE_SIZE}&take=${PAGE_SIZE}&labels=${labels}&order=${order}&search=${query}&status=${status}&feeds=${feeds}&c_type=${c_type}`;
   } else if (type === 'career_path') {
     URL = `/ts/v1/learn/general/course/grow_path?order=${order}`;
   }
-  const { data } = await get(URL, {isServer: true});
+  let data = { count: 0 };
+
+  if (URL) {
+    const res = await get(URL, {isServer: true});
+    data = res.data;
+  }
 
   return (
     <div className="flex-1 pb-14">
