@@ -40,8 +40,10 @@ const langOptions = [
   },
 ];
 
+const storageKey = 'ob_userLang';
+
 function getBrowserLanguage() {
-  return navigator.language === 'zh-CN' ? 'zh' : 'en';
+  return navigator.language.startsWith('zh') ? 'zh' : 'en';
 }
 
 export function TopFilters({ type }) {
@@ -74,10 +76,17 @@ export function TopFilters({ type }) {
 
   useEffect(() => {
     if(!lang){
-      const defaultLang = localStorage.getItem('ob_userLang') || getBrowserLanguage();
+      const defaultLang = localStorage.getItem(storageKey) || getBrowserLanguage();
       changeParams('lang', defaultLang);
     }
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const handleLangChange = e => {
+    const chosen = e ? e.value : null;
+
+    localStorage.setItem(storageKey, chosen);
+    changeParams('lang', chosen);
+  };
 
   return (
     <div className="flex gap-2 items-center max-md:flex-wrap">
@@ -132,10 +141,7 @@ export function TopFilters({ type }) {
               isSearchable={false}
               value={langOptions.find(f => f.value === lang)}
               className="no-bg showDropdownIndicator w-full bg-transparent height-sm"
-              onChange={e => {
-                localStorage.setItem('ob_userLang', e ? e.value : null);
-                changeParams('lang', e ? e.value : null);
-              }}
+              onChange={handleLangChange}
               options={langOptions}
               placeholder={'Language'}
             />
