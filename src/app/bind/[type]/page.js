@@ -15,21 +15,22 @@
  */
 
 'use client';
-import { useEffect } from 'react';
-import { useSearchParams } from 'next/navigation';
-import { bindOAuth } from '#/services/auth';
-import Loader from '@/components/Loader';
+
+import { useSearchParams, useRouter } from 'next/navigation';
+import { signIn, signOut, useSession } from 'next-auth/react';
 import { toast } from 'react-toastify';
 
-import { useRouter } from 'next/navigation';
-import { signIn, signOut, useSession } from 'next-auth/react';
+import useMounted from '@/hooks/useMounted';
+import Loader from '@/components/Loader';
+
+import { bindOAuth } from '#/services/auth';
 
 export default function Bind({ params }) {
   const searchParams = useSearchParams();
   const router = useRouter();
   const { status } = useSession();
 
-  useEffect(() => {
+  useMounted(() => {
     const code = searchParams?.get('code');
     if (searchParams && router && status !== 'authenticated') {
       if (code && params.type) {
@@ -62,7 +63,7 @@ export default function Bind({ params }) {
           });
       }
     }
-  }, []);
+  });
 
   return (
     <div className="flex min-h-screen items-center justify-center">

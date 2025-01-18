@@ -47,7 +47,7 @@ function EmailTemplateFormView({ id, className }) {
         }
       })
       .finally(() => setFetching(false));
-  }, [id]);
+  }, [id]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const submitCallback = data => {
     setSubmitting(true);

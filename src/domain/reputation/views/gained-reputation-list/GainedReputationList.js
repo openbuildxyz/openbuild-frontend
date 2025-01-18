@@ -44,7 +44,7 @@ function GainedReputationList({ userId }) {
     fetchGainedReputationList(userId)
       .then(res => setList(res.data.list || []))
       .finally(() => setLoading(false));
-  }, [userId]);
+  }, [userId]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return <ControlledGainedReputationList list={list} />;
 }

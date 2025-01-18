@@ -50,7 +50,7 @@ function QuickAuthWidget({ pathname, search, from }) {
 
   useEffect(() => {
     signin();
-  }, [isConnected, status, address]);
+  }, [isConnected, status, address]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const signInHandlerMap = {
     web3: () => {

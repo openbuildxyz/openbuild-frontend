@@ -21,7 +21,7 @@ import { Banner } from './Banner';
 import InfoCard from './InfoCard';
 
 export default async function UserProfileLayout({ params, children }) {
-  const config = {isServer: true}
+  const config = {isServer: true};
   const { data } = await get(`ts/v1/user/info/handle/${params.handle}`, config);
 
   if (data?.social.user_wallet && data?.base.user_show_wallet) {

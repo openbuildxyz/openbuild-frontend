@@ -45,7 +45,7 @@ function LoadableList({ params, fetch, resolveResponse, renderList }) {
         setTotal(resolvedRes.total || 0);
       })
       .finally(() => setLoading(false));
-  }, [params, pageNum]);
+  }, [params, pageNum]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <>

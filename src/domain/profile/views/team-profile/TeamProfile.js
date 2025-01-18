@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useDebouncedCallback } from 'use-debounce';
 
+import useMounted from '@/hooks/useMounted';
 import { isBlockDataValid } from '@/components/block-editor';
 
 import { useViewingSelf } from '../../../auth/hooks';
@@ -81,13 +82,13 @@ function TeamProfileView({ data, activities }) {
   const [blockContent, setBlockContent] = useState(null);
   const viewingSelf = useViewingSelf(data?.base.user_id);
 
-  useEffect(() => {
+  useMounted(() => {
     fetchBlockContent(data?.base.user_id).then(res => {
       if (res.success) {
         setBlockContent(res.data);
       }
     });
-  }, []);
+  });
 
   const handleBlockChange = useDebouncedCallback(updateBlockContent, 3000);
 

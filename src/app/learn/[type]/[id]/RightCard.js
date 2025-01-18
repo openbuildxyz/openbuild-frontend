@@ -248,7 +248,7 @@ export function LearnRightCard({ data, type, permission }) {
         setLoading(false);
       }
     }
-  }, [data, pathname, router, status]);
+  }, [data, pathname, router, status]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (isEmailVerify && permission?.course_user_permission_status === 0) {

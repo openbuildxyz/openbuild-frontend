@@ -106,7 +106,6 @@
     "tabulator-tables": "^5.5.2",
     "turndown": "^7.2.0",
     "use-debounce": "^9.0.4",
-    "usehooks-ts": "^2.16.0",
     "validator": "^13.9.0",
     "viem": "^1.20.1",
     "wagmi": "^1.4.12"

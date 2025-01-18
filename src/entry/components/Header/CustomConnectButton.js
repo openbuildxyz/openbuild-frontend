@@ -39,7 +39,7 @@ export function CustomConnectButton() {
 
   useEffect(() => {
     signInWithWallet({ pathname, search: searchParams });
-  }, [isConnected, status, address]);
+  }, [isConnected, status, address]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <ConnectButton.Custom>
