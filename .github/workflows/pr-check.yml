@@ -20,7 +20,7 @@ jobs:
         run: npm i -g @antfu/ni
 
       - name: Install
-        run: ni
+        run: ni --no-frozen-lockfile
 
       - name: Lint
         run: nr lint
