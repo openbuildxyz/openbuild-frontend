@@ -91,7 +91,7 @@ export default function Quiz({params}) {
           className="mt-4 md:mt-6 mb-9 md:mb-10 !font-bold px-[64px] !text-base max-md:w-full">
             Challenge now
         </Button>
-        <RankList my_rank={data?.my_rank} list={data?.rank}/>
+        <RankList rank={data?.my_rank} list={data?.rank}/>
         <p className="text-sm text-center mt-6 cursor-pointer" onClick={()=>{setOpenRankList(true)}}><strong>{data?.user_num}</strong> builders have participated</p>
       </div>
       {
@@ -103,8 +103,8 @@ export default function Quiz({params}) {
             </div>
           </div>)
       }
-      <RankListModal id={params.id} openModal={openRankList} closeModal={() => setOpenRankList(false)}  my_rank={data?.my_rank}/>
-      <Record id={params.id} openModal={openChallenge} closeModal={() => setOpenChallenge(false)} />
+      <RankListModal quizId={params.id} shown={openRankList} onClose={() => setOpenRankList(false)}  rank={data?.my_rank}/>
+      <Record quizId={params.id} shown={openChallenge} onClose={() => setOpenChallenge(false)} />
     </QuizLimiterWidget>
   );
 }

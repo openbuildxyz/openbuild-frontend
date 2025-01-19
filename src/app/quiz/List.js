@@ -30,20 +30,13 @@ import { fetchTeamList } from '#/domain/quiz/repository';
 import { ReactSelect } from '@/components/Select/ReactSelect';
 import { SearchIcon } from '@/components/Icons';
 import Input from '@/components/Input';
-import striptags from 'striptags';
-import { renderHtml } from '#/shared/utils/markdown';
+import { markdownToPlainText } from '@/utils/markdown';
 
 
 function List({ data }) {
   const mediaUrl = useMediaUrl();
 
-  function markdownToPlainText(markdownContent) {
-    const html = renderHtml(markdownContent);
-    const plainText = striptags(html);
-  
-    return plainText.trim().replace(/[\r\n]+/g, ' ');
-  }
-  
+
   return (
     <Link href={`/quiz/${data.id}`} className="p-6 bg-white flex max-md:flex-col gap-4 md:gap-9 mb-4 rounded-xl transition-all hover:shadow-[0_4px_24px_rgba(0,0,0,0.08)]">
       <div className="relative">

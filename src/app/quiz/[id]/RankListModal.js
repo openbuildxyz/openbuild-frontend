@@ -15,17 +15,30 @@
  */
 
 import { Modal } from '@/components/Modal';
-import useSWR from 'swr';
-import { fetcher } from '@/utils/request';
 import RankList from './RankList';
+import { useEffect, useState } from 'react';
+import { fetchRankList } from '#/domain/quiz/repository';
+import Loader from '@/components/Loader';
+import { ModalCloseIcon } from '@/components/Icons';
 
-export function RankListModal({id, openModal, closeModal, my_rank}) {
-  const { data } = useSWR(openModal ? `/ts/v1/quiz/${id}/users` : null, fetcher);
+export function RankListModal({ quizId, shown, onClose, rank }) {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setLoading(true);
+    fetchRankList({ quizId }).then(res => {
+      setData(res?.data?.list);
+      setLoading(false);
+    });
+  }, []);
 
   return (
-    <Modal isOpen={openModal} closeModal={closeModal} container mode="640">
-      <div className="h-[592px] flex flex-col overflow-y-auto"  style={{ borderRadius: 'inherit', overflow: 'hidden' }} >
-        <RankList my_rank={my_rank} list={data?.list} />
+    <Modal isOpen={shown} closeModal={onClose} container mode="640">
+      <ModalCloseIcon onClick={onClose} className="absolute top-[-48px] md:top-[-32px] right-0 md:right-[-32px] cursor-pointer" />
+      <div className="md:h-[600px] h-[400px] flex flex-col overflow-y-auto" style={{ borderRadius: 'inherit', overflow: 'hidden' }}>
+        {loading && <Loader classname="mr-2" />}
+        <RankList rank={rank} list={data} />
       </div>
     </Modal>
   );
