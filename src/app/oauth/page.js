@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright 2024 OpenBuild
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,6 +25,9 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import Loader from '@/components/Loader';
 import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
+
+import useMounted from '@/hooks/useMounted';
+
 import NoteItem from './NoteItem';
 import Link from './Link';
 
@@ -58,7 +61,7 @@ export default function Page() {
     window.location.href = decodeURIComponent(redirectUri);
   }
 
-  useEffect(() => {
+  useMounted(() => {
     if(clientId) {
       setLoading(true);
       fetchOauthClientInfo(clientId).then(res => {
@@ -67,15 +70,15 @@ export default function Page() {
         setLoading(false);
       });
     }
-  }, []);
+  });
 
   useEffect(() => {
     if (status !== 'loading' && status !== 'authenticated') {
       const encodedParams = `client_id=${encodeURIComponent(clientId)}&redirect_uri=${encodeURIComponent(redirectUri)}`;
       router.push(`/signin?from=${encodeURIComponent(`${pathname}?${encodedParams}`)}`);
     }
-  }, [status]);
-  
+  }, [status]); // eslint-disable-line react-hooks/exhaustive-deps
+
   return (
     loading ? <Loader /> : (
       <div className="flex min-h-screen flex-col items-center pt-9 md:pt-[60px] p-4 font-['Nunito_Sans'] relative">

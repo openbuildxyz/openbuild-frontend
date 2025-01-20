@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright 2024 OpenBuild
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,7 +23,7 @@ import TrophiesSvg from 'public/images/trophies.svg';
 import useSWR from 'swr';
 import { fetcher } from '@/utils/request';
 import { OPagination } from '@/components/Pagination';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { useDebouncedCallback } from 'use-debounce';
 import { fetchTeamList } from '#/domain/quiz/repository';
@@ -31,7 +31,7 @@ import { ReactSelect } from '@/components/Select/ReactSelect';
 import { SearchIcon } from '@/components/Icons';
 import Input from '@/components/Input';
 import { markdownToPlainText } from '@/utils/markdown';
-
+import useMounted from '@/hooks/useMounted';
 
 function List({ data }) {
   const mediaUrl = useMediaUrl();
@@ -122,7 +122,7 @@ export function QuizList() {
     setPageOffset((currentPage - 1) * pageSize);
   };
 
-  useEffect(() => {
+  useMounted(() => {
     fetchTeamList().then(res => {
       if (res?.data) {
         const options = res.data.map(team => ({
@@ -138,7 +138,7 @@ export function QuizList() {
         setTeamOptions(options);
       }
     });
-  }, []);
+  });
 
   return (
     <>

@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright 2024 OpenBuild
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,8 +24,9 @@ import FeaturedIcon from 'public/images/svg/featured.svg';
 import FeaturedActiveIcon from 'public/images/svg/featured_active.svg';
 import clsx from 'clsx';
 import { ReactSelect } from '@/components/Select/ReactSelect';
-import { useMemo, useEffect } from 'react';
+import { useMemo } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import useMounted from '@/hooks/useMounted';
 
 const tabStyle = 'inline-block border-gray-600 px-4 h-10 leading-10 text-gray-500 cursor-pointer';
 
@@ -40,8 +41,10 @@ const langOptions = [
   },
 ];
 
+const storageKey = 'ob_userLang';
+
 function getBrowserLanguage() {
-  return navigator.language === 'zh-CN' ? 'zh' : 'en';
+  return navigator.language.startsWith('zh') ? 'zh' : 'en';
 }
 
 export function TopFilters({ type }) {
@@ -72,12 +75,19 @@ export function TopFilters({ type }) {
     replace(`${pathname}?${params.toString()}`);
   };
 
-  useEffect(() => {
+  useMounted(() => {
     if(!lang){
-      const defaultLang = localStorage.getItem('ob_userLang') || getBrowserLanguage();
+      const defaultLang = localStorage.getItem(storageKey) || getBrowserLanguage();
       changeParams('lang', defaultLang);
     }
-  }, []);
+  });
+
+  const handleLangChange = e => {
+    const chosen = e ? e.value : null;
+
+    localStorage.setItem(storageKey, chosen);
+    changeParams('lang', chosen);
+  };
 
   return (
     <div className="flex gap-2 items-center max-md:flex-wrap">
@@ -132,10 +142,7 @@ export function TopFilters({ type }) {
               isSearchable={false}
               value={langOptions.find(f => f.value === lang)}
               className="no-bg showDropdownIndicator w-full bg-transparent height-sm"
-              onChange={e => {
-                localStorage.setItem('ob_userLang', e ? e.value : null);
-                changeParams('lang', e ? e.value : null);
-              }}
+              onChange={handleLangChange}
               options={langOptions}
               placeholder={'Language'}
             />

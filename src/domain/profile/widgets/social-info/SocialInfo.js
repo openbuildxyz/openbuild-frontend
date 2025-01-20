@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright 2024 OpenBuild
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,6 +19,7 @@ import { useMemo } from 'react';
 import { SvgIcon } from '@/components/Image';
 
 import SocialLink from './SocialLink';
+import Web3BioProfile from './Web3BioProfile';
 import PublishedCountList from './PublishedCountList';
 
 function socialsInfo(type, link) {
@@ -43,14 +44,6 @@ function socialsInfo(type, link) {
       icon: 'discord-black',
       link: link && `https://discord.com/invite/${link}`,
       enableKey: 'user_show_discord',
-    };
-  case 'user_wallet':
-    return {
-      name: 'web3.bio',
-      icon: 'web3bio',
-      link: link && `https://web3.bio/${link}`,
-      extra: <div style={{ fontSize: '12px' }}><span className="opacity-40">Built with</span> <span>Next.ID</span></div>,
-      enableKey: 'user_show_wallet',
     };
   default:
     return null;
@@ -80,6 +73,7 @@ function SocialInfoWidget({ className, data }) {
           </div>
         </>
       )}
+      <Web3BioProfile data={data} />
       {data.base?.user_project_owner && (
         <PublishedCountList published={data?.num} />
       )}

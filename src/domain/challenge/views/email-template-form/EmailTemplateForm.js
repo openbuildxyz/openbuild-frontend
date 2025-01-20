@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright 2024 OpenBuild
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -47,7 +47,7 @@ function EmailTemplateFormView({ id, className }) {
         }
       })
       .finally(() => setFetching(false));
-  }, [id]);
+  }, [id]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const submitCallback = data => {
     setSubmitting(true);

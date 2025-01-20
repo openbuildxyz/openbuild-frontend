@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright 2024 OpenBuild
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -248,7 +248,7 @@ export function LearnRightCard({ data, type, permission }) {
         setLoading(false);
       }
     }
-  }, [data, pathname, router, status]);
+  }, [data, pathname, router, status]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (isEmailVerify && permission?.course_user_permission_status === 0) {

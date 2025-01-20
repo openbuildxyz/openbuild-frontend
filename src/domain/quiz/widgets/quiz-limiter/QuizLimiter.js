@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright 2024 OpenBuild
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -54,7 +54,7 @@ function QuizLimiterWidget({
   const { status } = useSession();
   const quizPath = useMemo(() => `/quiz/${id}`, [id]);
   const questionsPath = useMemo(() => `${quizPath}/questions`, [quizPath]);
-  const gotoQuiz = useCallback(() => router.push(quizPath), [quizPath]);
+  const gotoQuiz = useCallback(() => router.push(quizPath), [quizPath]);  // eslint-disable-line react-hooks/exhaustive-deps
   const bindWallet = useBindWallet();
 
   useEffect(() => {
@@ -79,7 +79,7 @@ function QuizLimiterWidget({
         router.push(questionsPath);
       }
     }
-  }, [check]);
+  }, [check]);  // eslint-disable-line react-hooks/exhaustive-deps
 
   const closeDialog = () => setDialogVisible(false);
 

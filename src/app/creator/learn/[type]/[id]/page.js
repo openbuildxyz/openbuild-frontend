@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright 2024 OpenBuild
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -39,6 +39,7 @@ import { Sections } from './Sections';
 // import { useDebouncedCallback } from 'use-debounce'
 import { useAsyncState } from '@/hooks/useAsyncState';
 import useInterval from '@/hooks/useInterval';
+import useMounted from '@/hooks/useMounted';
 
 import { fetchOne as fetchCourse } from '#/domain/course/repository';
 import { fetchOne as fetchChallenge } from '#/domain/challenge/repository';
@@ -155,7 +156,7 @@ export default function LearnPublish({ params }) {
   const [visibleSection, setVisibleSection] = useState('one');
   const tabsRef = useRef();
 
-  useEffect(() => {
+  useMounted(() => {
     window.addEventListener('scroll', () => {
       const scrollTop = document.documentElement.scrollTop;
       const twoTop = document.getElementById('two')?.offsetTop;
@@ -189,7 +190,7 @@ export default function LearnPublish({ params }) {
     fetchDetail(params.id)
       .then(res => res.success && setData(res.data))
       .finally(() => setIsLoading(false));
-  }, []);
+  });
 
   useInterval(() => {
     if (contents) {
