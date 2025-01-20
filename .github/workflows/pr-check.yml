@@ -24,3 +24,10 @@ jobs:
 
       - name: Lint
         run: nr lint
+
+      # 检查提交信息
+      - name: Lint commit messages
+        run: npx commitlint --from ${{ github.event.pull_request.base.sha }} --to ${{ github.event.pull_request.head.sha }} --verbose
+        # 检查 PR 中的所有提交信息是否符合规范
+        # base.sha 是 PR 的起始点
+        # head.sha 是 PR 的最新提交
