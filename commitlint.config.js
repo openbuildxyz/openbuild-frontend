@@ -5,16 +5,18 @@ module.exports = {
       2,
       'always',
       [
-        'feat',     // 新功能
-        'fix',      // 修复bug
-        'docs',     // 文档更新
-        'style',    // 代码格式化
-        'refactor', // 重构
-        'perf',     // 性能优化
-        'test',     // 测试
-        'chore',    // 构建/工具链/辅助工具的变动
-        'revert',   // 回退
+        'feat',
+        'fix',
+        'docs',
+        'style',
+        'refactor',
+        'perf',
+        'test',
+        'chore',
+        'revert',
         'ci',
+        'build',
+        'test',
       ],
     ],
     'type-case': [2, 'always', 'lower-case'],
