@@ -14,6 +14,7 @@ module.exports = {
         'test',     // 测试
         'chore',    // 构建/工具链/辅助工具的变动
         'revert',   // 回退
+        'ci',
       ],
     ],
     'type-case': [2, 'always', 'lower-case'],
