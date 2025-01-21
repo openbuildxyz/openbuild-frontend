@@ -29,6 +29,7 @@ import { nunito_sans } from '#/lib/font';
 import { siteConfig } from '#/lib/site';
 import { getConfigs } from '#/services/common';
 
+import { getAppConfig } from '@/utils/app';
 import { GoogleAnalytics } from '@/components/GoogleAnalytics';
 // import { StartOnOpenBuild } from '@/components/StartOnOpenBuild'
 
@@ -106,7 +107,7 @@ export default async function RootLayout({ children }) {
   return (
     <html lang="en" data-theme="light" className={`${nunito_sans.className} light`} suppressHydrationWarning>
       <body>
-        <ClientEntry config={configRes}>
+        <ClientEntry config={{ static: getAppConfig(), dynamic: configRes }}>
           <DefaultLayout>{children}</DefaultLayout>
         </ClientEntry>
         <GoogleAnalytics />
