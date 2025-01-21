@@ -16,6 +16,7 @@
 
 'use client';
 
+import { AppConfigContext } from '@/hooks/useAppConfig';
 import { ReduxProviders } from '#/state/provider';
 
 import setInterceptorsForHttpClients from './aspects/http';
@@ -30,13 +31,15 @@ setInterceptorsForHttpClients();
 function ClientEntry({ config, children }) {
   return (
     <Providers>
-      <RouterProgress>
-        <Toast />
-        <ReduxProviders datas={{ configs: config }}>
-          {children}
-          <RouteIntercept />
-        </ReduxProviders>
-      </RouterProgress>
+      <AppConfigContext.Provider value={config.static}>
+        <RouterProgress>
+          <Toast />
+          <ReduxProviders datas={{ configs: config.dynamic }}>
+            {children}
+            <RouteIntercept />
+          </ReduxProviders>
+        </RouterProgress>
+      </AppConfigContext.Provider>
     </Providers>
   );
 }
