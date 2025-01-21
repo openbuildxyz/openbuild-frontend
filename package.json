@@ -20,7 +20,7 @@
     "doc": "node .knosys/scripts site",
     "lint": "eslint src --ext .js,.jsx,.ts,.tsx",
     "prepare": "husky",
-    "release": "standard-version && git push --follow-tags origin release"
+    "release": "standard-version --release-as $npm_config_release_as && git push --follow-tags origin test"
   },
   "dependencies": {
     "@bytemd/plugin-breaks": "^1.21.0",
