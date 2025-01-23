@@ -32,7 +32,7 @@ import { Record } from './Record';
 import QuizLimiterWidget from '#/domain/quiz/widgets/quiz-limiter';
 import RankList from './RankList';
 import { RankListModal } from './RankListModal';
-import { OViewer } from '#/shared/components/MarkDown';
+import { OViewer } from '@/components/MarkDown';
 
 export default function Quiz({params}) {
   const mediaUrl = useMediaUrl();

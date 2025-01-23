@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright 2024 OpenBuild
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,27 +16,34 @@
 
 import { Modal } from '@/components/Modal';
 import RankList from './RankList';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { fetchRankList } from '#/domain/quiz/repository';
 import Loader from '@/components/Loader';
 import { ModalCloseIcon } from '@/components/Icons';
+import useMounted from '@/hooks/useMounted';
 
 export function RankListModal({ quizId, shown, onClose, rank }) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
+  useMounted(() => {
     setLoading(true);
-    fetchRankList({ quizId }).then(res => {
-      setData(res?.data?.list);
-      setLoading(false);
-    });
-  }, []);
+    fetchRankList({ quizId })
+      .then(res => {
+        setData(res?.data?.list?.rank);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  });
 
   return (
     <Modal isOpen={shown} closeModal={onClose} container mode="640">
-      <ModalCloseIcon onClick={onClose} className="absolute top-[-48px] md:top-[-32px] right-0 md:right-[-32px] cursor-pointer" />
-      <div className="md:h-[600px] h-[400px] flex flex-col overflow-y-auto" style={{ borderRadius: 'inherit', overflow: 'hidden' }}>
+      <ModalCloseIcon
+        onClick={onClose}
+        className="absolute top-[-48px] md:top-[-32px] right-0 md:right-[-32px] cursor-pointer"
+      />
+      <div className="md:h-[600px] h-[400px] flex flex-col overflow-y-auto rounded-inherit overflow-hidden">
         {loading && <Loader classname="mr-2" />}
         <RankList rank={rank} list={data} />
       </div>

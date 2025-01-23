@@ -36,7 +36,6 @@ import useMounted from '@/hooks/useMounted';
 function List({ data }) {
   const mediaUrl = useMediaUrl();
 
-
   return (
     <Link href={`/quiz/${data.id}`} className="p-6 bg-white flex max-md:flex-col gap-4 md:gap-9 mb-4 rounded-xl transition-all hover:shadow-[0_4px_24px_rgba(0,0,0,0.08)]">
       <div className="relative">
