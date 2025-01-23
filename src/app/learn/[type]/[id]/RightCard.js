@@ -61,7 +61,7 @@ const EnrollModal = dynamic(() => import('./EnrollModal'), {
   ssr: false,
 });
 
-function ButtonGroup({ data, permission, loading, type, apply, enroll, switchLoading, payLoading, isPay, payment }) {
+function ButtonGroup({ data, permission, loading, type, apply, enroll, switchLoading, payLoading, isPay, payment, related }) {
   const router = useRouter();
   const { status } = useSession();
 
@@ -76,14 +76,28 @@ function ButtonGroup({ data, permission, loading, type, apply, enroll, switchLoa
 
   // console.log(data)
 
-  return <div>
-    {data?.challenges_extra && data?.challenges_extra.course_challenges_extra_time_order === 0 ? (
-      <div className="pb-6">
-        <Button disabled fullWidth className={'flex-1'} >
-          Closed
-        </Button>
+  if (data?.challenges_extra && data?.challenges_extra.course_challenges_extra_time_order === 0) {
+    let buttonText = 'Closed';
+    let handleClick;
+
+    if (related) {
+      buttonText = 'Enroll in course';
+      handleClick = () => router.push(`/learn/courses/${related.link}`);
+    }
+
+    return (
+      <div>
+        <div className="pb-6">
+          <Button disabled={!handleClick} fullWidth className="flex-1" onClick={handleClick}>
+            {buttonText}
+          </Button>
+        </div>
       </div>
-    ) : (
+    );
+  }
+
+  return (
+    <div>
       <div className="pb-6 flex gap-2">
         {data.base.course_series_quiz_id !== 0 && <Button
           onClick={() => window.open(`/quiz/${data.base.course_series_quiz_id}`)}
@@ -173,11 +187,11 @@ function ButtonGroup({ data, permission, loading, type, apply, enroll, switchLoa
           </Button>
         )}
       </div>
-    )}
-  </div>;
+    </div>
+  );
 }
 
-export function LearnRightCard({ data, type, permission }) {
+export function LearnRightCard({ data, type, permission, related }) {
   // const { data: walletClient } = useWalletClient()
   const searchParams = useSearchParams();
   const mediaUrl = useMediaUrl();
@@ -372,6 +386,7 @@ export function LearnRightCard({ data, type, permission }) {
             payLoading={payLoading}
             isPay={isPay}
             payment={payment}
+            related={related}
           />
         </div>
       )}
@@ -568,6 +583,7 @@ export function LearnRightCard({ data, type, permission }) {
             payLoading={payLoading}
             isPay={isPay}
             payment={payment}
+            related={related}
           />
 
           <hr className="border-gray-400" />

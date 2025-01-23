@@ -17,6 +17,7 @@
 import { useState } from 'react';
 import { useDebouncedCallback } from 'use-debounce';
 
+import useAppConfig from '@/hooks/useAppConfig';
 import useMounted from '@/hooks/useMounted';
 import { isBlockDataValid } from '@/components/block-editor';
 
@@ -81,9 +82,10 @@ function TeamProfileView({ data, activities }) {
   const [tabActive, setTabActive] = useState(1);
   const [blockContent, setBlockContent] = useState(null);
   const viewingSelf = useViewingSelf(data?.base.user_id);
+  const devPlazaEnabled = useAppConfig('devPlaza.enabled');
 
   useMounted(() => {
-    fetchBlockContent(data?.base.user_id).then(res => {
+    devPlazaEnabled && fetchBlockContent(data?.base.user_id).then(res => {
       if (res.success) {
         setBlockContent(res.data);
       }
@@ -105,13 +107,15 @@ function TeamProfileView({ data, activities }) {
 
   return (
     <div className="md:pl-[410px] md:pb-14 md:pr-14">
-      <CustomContent
-        key={rerenderKey}
-        className="mb-6"
-        data={blockContent}
-        onChange={handleBlockChange}
-        editable={viewingSelf}
-      />
+      {devPlazaEnabled && (
+        <CustomContent
+          key={rerenderKey}
+          className="mb-6"
+          data={blockContent}
+          onChange={handleBlockChange}
+          editable={viewingSelf}
+        />
+      )}
       <TabBarWidget
         tabs={['Info', 'Activities']}
         tabClassName="h-14 md:h-9 md:w-[111px] md:first:hidden"
