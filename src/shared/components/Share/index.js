@@ -123,7 +123,7 @@ export function Share({ img, title, type, id, excerpt }) {
     </Modal>
     {invitationRecordsAvailable && (
       <Modal isOpen={recordOpen} closeModal={() => setRecordOpen(false)} container className="!w-[380px]">
-        <ModalCloseIcon onClick={() => setOpen(false)} className="absolute top-[-32px] right-[-32px] cursor-pointer" />
+        <ModalCloseIcon onClick={() => setRecordOpen(false)} className="absolute top-[-32px] right-[-32px] cursor-pointer" />
         <div className="py-4 px-6">
           <div className="flex items-center">
             <ArrowLeftIcon className="w-5 h-5 cursor-pointer relative z-10" onClick={() => {
