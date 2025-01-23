@@ -48,22 +48,38 @@ export async function generateMetadata({ params }) {
     },
   };
 }
+
 export default async function LearnDetailsPage({ params, searchParams }) {
+  const learnType = params.type;
+  const learnId = params.id;
+
   let datas;
-  if (params.type === 'career_path') {
+
+  if (learnType === 'career_path') {
     datas = await Promise.all([
-      get(`ts/v1/learn/general/course/grow_path/${params.id}`, {isServer: true}),
-      get(`ts/v1/learn/general/course/grow_path/${params.id}/permission`, {isServer: true}),
+      get(`ts/v1/learn/general/course/grow_path/${learnId}`, {isServer: true}),
+      get(`ts/v1/learn/general/course/grow_path/${learnId}/permission`, {isServer: true}),
     ]);
   } else {
     datas = await Promise.all([
-      get(`v1/learn/course/${params.type === 'courses' ? 'opencourse' : 'challenges'}/${params.id}`, {isServer: true}),
-      get(`ts/v1/learn/general/course/series/${params.id}/permission`, {isServer: true}),
+      get(`v1/learn/course/${learnType === 'courses' ? 'opencourse' : 'challenges'}/${learnId}`, {isServer: true}),
+      get(`ts/v1/learn/general/course/series/${learnId}/permission`, {isServer: true}),
     ]);
   }
+
   const [{ data }, { data: permission }] = [...datas];
 
-  return params.type !== 'career_path' ? (
+  let related = null;
+
+  if (learnType === 'challenges' && data?.challenges_extra?.course_challenges_extra_time_order === 0) {
+    const res = await get(`ts/v1/learn/general/course/challenges/${learnId}/link`, { isServer: true });
+
+    if (res.data.link.toString() !== learnId) {
+      related = res.data;
+    }
+  }
+
+  return learnType !== 'career_path' ? (
     <>
       <PreviewAlert searchParams={searchParams} />
       <div className="mx-auto px-6 lg:flex max-w-[1400px] justify-center">
@@ -71,21 +87,21 @@ export default async function LearnDetailsPage({ params, searchParams }) {
           <div className="w-full">
             <div className="flex justify-between">
               <Back params={params} />
-              <Share img={data?.base?.course_series_img} title={data?.base?.course_series_title} type={params.type} id={params.id} excerpt={data?.base?.course_series_summary}/>
+              <Share img={data?.base?.course_series_img} title={data?.base?.course_series_title} type={learnType} id={learnId} excerpt={data?.base?.course_series_summary}/>
             </div>
             <Title data={data} />
-            {params.type === 'challenges' && <ChallengesTags data={data} />}
+            {learnType === 'challenges' && <ChallengesTags data={data} />}
             {data?.base?.course_series_summary && <Summary data={data} />}
             {data && <Author data={data} />}
             {data && <Tabs data={data} />}
             {data && <LearnInfo data={data} />}
-            {data && data?.courses?.length > 0 && <Chapters type={params.type} data={data} id={data?.base?.course_series_id} />}
+            {data && data?.courses?.length > 0 && <Chapters type={learnType} data={data} id={data?.base?.course_series_id} />}
             <div className="h-6" />
             {data && data?.speaker?.length > 0 && <Speaker data={data?.speaker} />}
             <div className="h-[72px]" />
           </div>
         </div>
-        <LearnRightCard data={data} type={params.type} permission={permission} />
+        <LearnRightCard data={data} type={learnType} permission={permission} related={related} />
       </div>
     </>
   ) : <GrowPath params={params} data={data} permission={permission} />;
