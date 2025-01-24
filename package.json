@@ -19,7 +19,13 @@
     "license": "node .knosys/scripts license add",
     "doc": "node .knosys/scripts site",
     "lint": "eslint src --ext .js,.jsx,.ts,.tsx",
-    "prepare": "husky"
+    "prepare": "husky install",
+    "commit": "git-cz"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
   },
   "dependencies": {
     "@bytemd/plugin-breaks": "^1.21.0",
@@ -116,6 +122,8 @@
     "@astrojs/starlight": "0.28.5",
     "@astrojs/starlight-tailwind": "2.0.3",
     "@astrojs/tailwind": "5.1.2",
+    "@commitlint/cli": "19.6.1",
+    "@commitlint/config-conventional": "19.6.0",
     "@knosys/sdk": "^0.0.3",
     "@tailwindcss/line-clamp": "0.4.4",
     "@types/node": "18.11.3",
@@ -125,6 +133,7 @@
     "@types/sha256": "^0.2.0",
     "astro": "4.16.7",
     "autoprefixer": "^10.4.12",
+    "commitizen": "4.3.1",
     "eslint": "^8.7.0",
     "eslint-config-next": "^13.1.1",
     "eslint-plugin-headers": "1.2.1",
