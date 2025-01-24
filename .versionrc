@@ -1,0 +1,13 @@
+{
+  "header": "# Changelog\n\n",
+  "types": [
+    { "type": "feat", "section": "Features" },
+    { "type": "fix", "section": "Bug Fixes" },
+    { "type": "chore", "hidden": true }
+  ],
+  "commitUrlFormat": "https://github.com/openbuildxyz/openbuild-frontend/commits/{{hash}}",
+  "compareUrlFormat": "https://github.com/openbuildxyz/openbuild-frontend/compare/{{previousTag}}...{{currentTag}}",
+  "issueUrlFormat": "https://github.com/openbuildxyz/openbuild-frontend/issues/{{id}}",
+  "changelogFile": "CHANGELOG.md",
+  "changelogTemplate": ".changelog-template.hbs"
+}

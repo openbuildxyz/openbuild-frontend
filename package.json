@@ -19,7 +19,8 @@
     "license": "node .knosys/scripts license add",
     "doc": "node .knosys/scripts site",
     "lint": "eslint src --ext .js,.jsx,.ts,.tsx",
-    "prepare": "husky"
+    "prepare": "husky",
+    "release": "commit-and-tag-version --release-as $npm_config_release_as && git push --follow-tags origin test"
   },
   "dependencies": {
     "@bytemd/plugin-breaks": "^1.21.0",
@@ -125,6 +126,7 @@
     "@types/sha256": "^0.2.0",
     "astro": "4.16.7",
     "autoprefixer": "^10.4.12",
+    "commit-and-tag-version": "12.5.0",
     "eslint": "^8.7.0",
     "eslint-config-next": "^13.1.1",
     "eslint-plugin-headers": "1.2.1",
