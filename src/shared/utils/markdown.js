@@ -22,6 +22,7 @@ import breaks from '@bytemd/plugin-breaks';
 import math from '@bytemd/plugin-math';
 import mermaid from '@bytemd/plugin-mermaid';
 import gemoji from '@bytemd/plugin-gemoji';
+import striptags from 'striptags';
 
 const plugins = [gfm(), breaks(), highlight(), math(), mermaid(), gemoji()];
 
@@ -53,4 +54,11 @@ function renderHtml(markdownContent) {
   return getProcessor({ sanitize, plugins }).processSync(markdownContent).toString();
 }
 
-export { getPlugins, sanitize, renderMarkdown, renderHtml };
+function markdownToPlainText(markdownContent) {
+  const html = renderHtml(markdownContent);
+  const plainText = striptags(html);
+  
+  return plainText.trim().replace(/[\r\n]+/g, ' ');
+}
+
+export { getPlugins, sanitize, renderMarkdown, renderHtml, markdownToPlainText };

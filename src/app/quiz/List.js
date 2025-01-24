@@ -30,10 +30,12 @@ import { fetchTeamList } from '#/domain/quiz/repository';
 import { ReactSelect } from '@/components/Select/ReactSelect';
 import { SearchIcon } from '@/components/Icons';
 import Input from '@/components/Input';
+import { markdownToPlainText } from '@/utils/markdown';
 import useMounted from '@/hooks/useMounted';
 
 function List({ data }) {
   const mediaUrl = useMediaUrl();
+
   return (
     <Link href={`/quiz/${data.id}`} className="p-6 bg-white flex max-md:flex-col gap-4 md:gap-9 mb-4 rounded-xl transition-all hover:shadow-[0_4px_24px_rgba(0,0,0,0.08)]">
       <div className="relative">
@@ -43,7 +45,7 @@ function List({ data }) {
       <div className="flex flex-col justify-between flex-1">
         <div>
           <h3 className="text-2xl mb-2">{data?.title}</h3>
-          <p className="text-base md:mb-2 opacity-60 md:line-clamp-2">{data?.describe}</p>
+          <p className="text-base md:mb-2 opacity-60 md:line-clamp-2">{markdownToPlainText(data?.describe)}</p>
           {data?.reward_text && <div className="flex w-fit pr-2 items-center h-6 bg-[rgba(239,78,22,0.1)] rounded-full max-md:mt-4">
             <div className="w-6 h-6 rounded-full flex items-center justify-center bg-[#EF4E16] mr-2">
               <Image width={16} height={16} src={TrophiesSvg} alt="Trophies" />

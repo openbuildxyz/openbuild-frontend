@@ -49,4 +49,8 @@ async function fetchTeamList(){
   return httpClient.get('/quiz/team');
 }
 
-export { updateRespondentContacts, fetchPublishedQuizList, fetchAnsweredQuizList, fetchAnsweredResult, fetchTeamList };
+async function fetchRankList({ quizId }){
+  return httpClient.get(`/quiz/${quizId}/users`);
+}
+
+export { updateRespondentContacts, fetchPublishedQuizList, fetchAnsweredQuizList, fetchAnsweredResult, fetchTeamList, fetchRankList };
