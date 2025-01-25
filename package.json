@@ -19,8 +19,7 @@
     "license": "node .knosys/scripts license add",
     "doc": "node .knosys/scripts site",
     "lint": "eslint src --ext .js,.jsx,.ts,.tsx",
-    "prepare": "husky install",
-    "commit": "git-cz"
+    "prepare": "husky"
   },
   "config": {
     "commitizen": {
