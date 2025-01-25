@@ -101,11 +101,16 @@ export const metadata = {
   },
 };
 
+import { initRunLLM } from './../entry/components/Widget/RunLLM';
+
 export default async function RootLayout({ children }) {
   const configRes = await getConfigs();
 
   return (
     <html lang="en" data-theme="light" className={`${nunito_sans.className} light`} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: `(${initRunLLM.toString()})()` }} />
+      </head>
       <body>
         <ClientEntry config={{ static: getAppConfig(), dynamic: configRes }}>
           <DefaultLayout>{children}</DefaultLayout>
