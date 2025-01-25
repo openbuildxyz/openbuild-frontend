@@ -36,7 +36,7 @@ import VerifyCodeLogin from './VerifyCodeLogin';
 export function NavButtonStyle() {
   return 'h-12 relative rounded-t-xl text-gray-100 px-6 [&.active]:bg-gray-1400 [&.active]:!text-gray';
 }
-const EMAIL_FIELD_NAME = 'Email'
+const EMAIL_FIELD_NAME = 'Email';
 const SigninAfterStyle = 'after:content-[\'\'] after:absolute after:right-[-12px] after:bottom-0 after:w-3 after:h-3 after:bg-signin-gradient';
 
 export default function Login() {
@@ -53,7 +53,7 @@ export default function Login() {
     clearErrors,
     reset,
     setValue,
-    getValues
+    getValues,
   } = useForm();
   const watchAllFields = watch();
 
@@ -61,9 +61,9 @@ export default function Login() {
     setLoginType(prevLoginType => {
       const loginType = prevLoginType === 'verifyCode' ? 'password' : 'verifyCode';
       clearErrors();
-      const email = getValues(EMAIL_FIELD_NAME)
+      const email = getValues(EMAIL_FIELD_NAME);
       reset();
-      setValue(EMAIL_FIELD_NAME, email)
+      setValue(EMAIL_FIELD_NAME, email);
       return loginType;
     });
   };
