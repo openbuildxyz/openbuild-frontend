@@ -51,6 +51,8 @@ export default function Login() {
     watch,
     clearErrors,
     reset,
+    setValue,
+    getValues
   } = useForm();
   const watchAllFields = watch();
 
@@ -58,7 +60,9 @@ export default function Login() {
     setLoginType(prevLoginType => {
       const loginType = prevLoginType === 'verifyCode' ? 'password' : 'verifyCode';
       clearErrors();
+      const email = getValues('Email')
       reset();
+      setValue('Email', email)
       return loginType;
     });
   };
