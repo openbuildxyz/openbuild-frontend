@@ -39,6 +39,7 @@ export function NavButtonStyle() {
 const SigninAfterStyle = 'after:content-[\'\'] after:absolute after:right-[-12px] after:bottom-0 after:w-3 after:h-3 after:bg-signin-gradient';
 
 export default function Login() {
+  const emailFieldName = 'Email';
   const searchParams = useSearchParams();
   const [loading, setLoading] = useState(false);
   const [passwordType, setPasswordType] = useState('password');
@@ -51,6 +52,8 @@ export default function Login() {
     watch,
     clearErrors,
     reset,
+    setValue,
+    getValues,
   } = useForm();
   const watchAllFields = watch();
 
@@ -58,7 +61,9 @@ export default function Login() {
     setLoginType(prevLoginType => {
       const loginType = prevLoginType === 'verifyCode' ? 'password' : 'verifyCode';
       clearErrors();
+      const email = getValues(emailFieldName);
       reset();
+      setValue(emailFieldName, email);
       return loginType;
     });
   };
@@ -99,7 +104,7 @@ export default function Login() {
     }
   };
 
-  const emailField = register('Email', { required: true, pattern: /^\S+@\S+$/i });
+  const emailField = register(emailFieldName, { required: true, pattern: /^\S+@\S+$/i });
   emailField.onChange = wrapOnChange(emailField.onChange);
 
   const pwdField = register('Password', {
