@@ -33,4 +33,3 @@ jobs:
         # 检查 PR 中的所有提交信息是否符合规范
         # base.sha 是 PR 的起始点
         # head.sha 是 PR 的最新提交
-        
