@@ -120,6 +120,8 @@
     "@astrojs/starlight": "0.28.5",
     "@astrojs/starlight-tailwind": "2.0.3",
     "@astrojs/tailwind": "5.1.2",
+    "@commitlint/cli": "19.6.1",
+    "@commitlint/config-conventional": "19.6.0",
     "@knosys/sdk": "^0.0.3",
     "@tailwindcss/line-clamp": "0.4.4",
     "@types/node": "18.11.3",
