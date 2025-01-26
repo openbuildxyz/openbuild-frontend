@@ -21,11 +21,6 @@
     "lint": "eslint src --ext .js,.jsx,.ts,.tsx",
     "prepare": "husky"
   },
-  "config": {
-    "commitizen": {
-      "path": "cz-conventional-changelog"
-    }
-  },
   "dependencies": {
     "@bytemd/plugin-breaks": "^1.21.0",
     "@bytemd/plugin-gemoji": "^1.21.0",
@@ -131,7 +126,6 @@
     "@types/sha256": "^0.2.0",
     "astro": "4.16.7",
     "autoprefixer": "^10.4.12",
-    "commitizen": "4.3.1",
     "eslint": "^8.7.0",
     "eslint-config-next": "^13.1.1",
     "eslint-plugin-headers": "1.2.1",
