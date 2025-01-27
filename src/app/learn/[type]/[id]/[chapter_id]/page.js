@@ -20,6 +20,26 @@ import { Steper } from './Steper';
 import { Content } from './Content';
 import { PostTime } from './PostTime';
 
+export async function generateMetadata({ params }) {
+  const { data } = await get(`v1/learn/course/${params.type === 'courses' ? 'opencourse' : 'challenges'}/${params.id}`, {isServer: true});
+  const previousImages = `https://file-cdn.openbuild.xyz${data?.base?.course_series_img}` || '';
+  return {
+    title: data?.base?.course_series_title,
+    description: data?.base?.course_series_summary,
+    openGraph: {
+      title: data?.base?.course_series_title,
+      description: data?.base?.course_series_summary,
+      images: [previousImages],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: data?.base?.course_series_title,
+      description: data?.base?.course_series_summary,
+      images: [previousImages],
+    },
+  };
+}
+
 export default async function ChapterPage({ params }) {
   const datas = await Promise.all([
     get(`v1/learn/course/${params.type === 'courses' ? 'opencourse' : 'challenges'}/${params.id}`, {isServer: true}),

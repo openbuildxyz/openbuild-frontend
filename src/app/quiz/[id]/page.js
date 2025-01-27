@@ -92,7 +92,7 @@ export default function Quiz({params}) {
             Challenge now
         </Button>
         <RankList rank={data?.my_rank} list={data?.rank}/>
-        <p className="text-sm text-center mt-6 cursor-pointer" onClick={()=>{setOpenRankList(true);}}><strong>{data?.user_num}</strong> builders have participated</p>
+        <p className="text-sm text-center mt-6 cursor-pointer" onClick={()=>{setOpenRankList(true)}}><strong>{data?.user_num}</strong> builders have participated</p>
       </div>
       {
         coursesList?.count > 0 && (
