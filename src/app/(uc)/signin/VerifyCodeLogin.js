@@ -52,7 +52,7 @@ export default function VerifyCodeLogin({ register, loginType, email }) {
       } else {
         toast.error(res.message);
       }
-    } catch (error) {
+    } catch {
       toast.error('Failed to send code.');
     } finally {
       setSendLoading(false);

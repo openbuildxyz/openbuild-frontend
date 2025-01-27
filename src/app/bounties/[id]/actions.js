@@ -27,7 +27,7 @@ export async function applyAction(id, comment) {
     } else {
       return res;
     }
-  } catch (e) {
+  } catch {
     return { message: 'Failed to request' };
   }
 }

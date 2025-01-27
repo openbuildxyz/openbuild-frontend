@@ -27,7 +27,7 @@ export async function enrollAction(id) {
     } else {
       return res;
     }
-  } catch (e) {
+  } catch {
     return { message: 'Failed to request' };
   }
 }
@@ -45,7 +45,7 @@ export async function growPathEnrollAction(id) {
     } else {
       return res;
     }
-  } catch (e) {
+  } catch {
     return { message: 'Failed to request' };
   }
 }
