@@ -31,7 +31,7 @@ import { GrowPath } from './GrowPath';
 export async function generateMetadata({ params }) {
   // fetch data
   const { data } = await get(`v1/learn/course/${params.type === 'courses' ? 'opencourse' : 'challenges'}/${params.id}`, {isServer: true});
-  const previousImages = `https://file-cdn.openbuild.xyz${data?.base?.course_series_img}` || '';
+  const previousImages = data?.base?.course_series_img ? `https://file-cdn.openbuild.xyz${data.base.course_series_img}` : '';
   return {
     title: data?.base?.course_series_title,
     description: data?.base?.course_series_summary,
