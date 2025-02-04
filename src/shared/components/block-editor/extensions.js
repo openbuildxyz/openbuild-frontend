@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import { ColumnsExtension } from '@tiptap-extend/columns';
 import {
   AIHighlight,
   CharacterCount,
@@ -197,6 +198,7 @@ const defaultExtensions = [
   Color,
   CustomKeymap,
   GlobalDragHandle,
+  ColumnsExtension,
 ];
 
 export { defaultExtensions };
