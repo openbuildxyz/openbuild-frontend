@@ -22,18 +22,8 @@ const liStyle =
   'text-lg cursor-pointer text-gray-100 h-[56px] leading-[48px] border-l-2 border-gray-600 pl-[38px] hover:text-gray';
 const menus = [
   {
-    name: 'Learn',
-    link: '',
-    type: 'normal',
-  },
-  {
-    name: 'Build',
-    link: 'build',
-    type: 'normal',
-  },
-  {
     name: 'Achievements',
-    link: 'achievements',
+    link: '',
     type: 'normal', // 'beta',
   },
   {

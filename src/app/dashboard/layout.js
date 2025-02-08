@@ -18,7 +18,6 @@
 import { useMemo } from 'react';
 import { DashboardNav } from './Navs';
 import { useUser, useConfig } from '#/state/application/hooks';
-import { useDashboardAnalytics } from '#/services/dashboard/hooks';
 
 import Image from 'next/image';
 // const tagStyles = 'text-xs px-1 py-[2px] rounded-sm text-gray bg-gray-600'
@@ -26,7 +25,6 @@ import Image from 'next/image';
 export default function Layout({ children }) {
   const info = useUser();
   const config = useConfig();
-  const analytics = useDashboardAnalytics();
   const mediaUrl = config?.find(f => f.config_id === 2);
   const rolesOpts = config?.find(f => f.config_id === 3)?.config_value;
   const role = useMemo(() => {
@@ -50,20 +48,6 @@ export default function Layout({ children }) {
           <p className="mb-9 opacity-80">
             {role} {role && role !== '' && '·'} {info?.base.user_company}
           </p>
-          <div className="flex [&>p]:mr-14 [&>p]:text-sm [&>p]:text-gray-100 [&>p>strong]:text-2xl [&>p>strong]:text-gray">
-            <p>
-              <strong>{analytics?.learned_sum}</strong> Learned
-            </p>
-            {/* <p>
-              <strong>8</strong> Build
-            </p> */}
-            {/* <p>
-              <strong>23</strong> Certificates
-            </p> */}
-            {/* <p>
-              <strong>A+</strong> Rank <span className={tagStyles}>Beta</span>
-            </p> */}
-          </div>
         </div>
       </div>
       <div className="flex px-[68px]">
