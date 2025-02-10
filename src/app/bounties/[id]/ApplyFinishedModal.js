@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import { parseUnits } from '@ethersproject/units';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 import { useNetwork, useWalletClient } from 'wagmi';
@@ -24,7 +25,6 @@ import { BOUNTY_SUPPORTED_CHAIN } from '@/constants/chain';
 import { contracts, payTokens } from '@/constants/contract';
 import { currentTime } from '@/utils/date';
 import { signBounty } from '@/utils/web3';
-import { parseUnits } from '@ethersproject/units';
 
 import { useBountyEnvCheck } from '#/domain/bounty/hooks';
 import { biulderFinish } from '#/services/bounties';

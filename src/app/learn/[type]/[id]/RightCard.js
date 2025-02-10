@@ -16,6 +16,14 @@
 
 'use client';
 
+// import { getBalance } from '@wagmi/core'
+// import { prepareWriteContract, writeContract } from '@wagmi/core'
+import { parseUnits } from '@ethersproject/units';
+import { Dialog, Transition } from '@headlessui/react';
+import { CheckIcon } from '@heroicons/react/20/solid';
+import { useConnectModal } from '@rainbow-me/rainbowkit';
+import { waitForTransaction } from '@wagmi/core';
+import { writeContract } from '@wagmi/core';
 import clsx from 'clsx';
 import { saveAs } from 'file-saver';
 import { toBlob } from 'html-to-image';
@@ -35,14 +43,6 @@ import { USDTIcon } from '@/components/Icons';
 import { TwitterIcon, DownloadIcon } from '@/components/Icons';
 import { formatTime } from '@/utils/date';
 import { resolvePathWithSearch } from '@/utils/url';
-// import { getBalance } from '@wagmi/core'
-// import { prepareWriteContract, writeContract } from '@wagmi/core'
-import { parseUnits } from '@ethersproject/units';
-import { Dialog, Transition } from '@headlessui/react';
-import { CheckIcon } from '@heroicons/react/20/solid';
-import { useConnectModal } from '@rainbow-me/rainbowkit';
-import { waitForTransaction } from '@wagmi/core';
-import { writeContract } from '@wagmi/core';
 
 import { joinChallengesEnrool, pay } from '#/services/learn/';
 // import { currentTime } from '@/utils/date'

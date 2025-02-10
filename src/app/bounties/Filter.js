@@ -16,6 +16,7 @@
 
 'use client';
 
+import { ChevronUpIcon } from '@heroicons/react/20/solid';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
@@ -24,7 +25,6 @@ import { useMemo, useState } from 'react';
 
 import { ReactSelect } from '@/components/Select/ReactSelect';
 import { createQueryString } from '@/utils';
-import { ChevronUpIcon } from '@heroicons/react/20/solid';
 
 import { bountyFilterList } from '#/lib/bountyFilterList';
 import { useAllSkills } from '#/state/application/hooks';

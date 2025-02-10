@@ -16,6 +16,7 @@
 
 'use client';
 
+import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
@@ -28,7 +29,6 @@ import isEmail from 'validator/lib/isEmail';
 import { useAccount } from 'wagmi';
 
 import Loader from '@/components/Loader';
-import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 
 import { registerEmail, sendCode } from '#/services/auth';
 

@@ -14,6 +14,10 @@
  * limitations under the License.
  */
 
+// import { writeContract, prepareWriteContract } from '@wagmi/core'
+import { formatUnits } from '@ethersproject/units';
+import { waitForTransaction } from '@wagmi/core';
+import { writeContract } from '@wagmi/core';
 import { useMemo, useState } from 'react';
 import { toast } from 'react-toastify';
 import { useAccount, useBalance } from 'wagmi';
@@ -23,10 +27,6 @@ import { ModalCloseIcon, TipsIcon } from '@/components/Icons';
 import { Modal } from '@/components/Modal';
 import { MouseoverTooltip } from '@/components/Tooltip';
 import { useAllowance, useApprove } from '@/hooks/useERC20';
-// import { writeContract, prepareWriteContract } from '@wagmi/core'
-import { formatUnits } from '@ethersproject/units';
-import { waitForTransaction } from '@wagmi/core';
-import { writeContract } from '@wagmi/core';
 
 // import { currentTime } from '@/utils/date'
 import { hireStart } from '#/services/shilling';

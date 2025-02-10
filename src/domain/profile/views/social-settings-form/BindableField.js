@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import { useConnectModal } from '@rainbow-me/rainbowkit';
 import clsx from 'clsx';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
@@ -23,7 +24,6 @@ import { Button } from '@/components/Button';
 import { Confirm } from '@/components/Modal/Confirm';
 import { BASE_INPUT_STYLE } from '@/constants/config';
 import { shorten } from '@/utils';
-import { useConnectModal } from '@rainbow-me/rainbowkit';
 
 import { authWithGoogle, authWithGithub } from '#/domain/auth/helper';
 import { useBindWallet } from '#/domain/auth/hooks';

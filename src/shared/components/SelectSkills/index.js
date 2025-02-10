@@ -15,11 +15,11 @@
  */
 
 'use client';
+import { Transition } from '@headlessui/react';
+import { CheckIcon, XMarkIcon } from '@heroicons/react/20/solid';
 import { useMemo, useState, Fragment, useEffect } from 'react';
 
 import { classNames, arrRemove } from '@/utils';
-import { Transition } from '@headlessui/react';
-import { CheckIcon, XMarkIcon } from '@heroicons/react/20/solid';
 
 import { baseInputStyles } from '#/domain/profile/widgets/blocks';
 import { useConfig } from '#/state/application/hooks';

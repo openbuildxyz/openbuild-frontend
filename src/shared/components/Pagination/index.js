@@ -16,11 +16,10 @@
 
 'use client';
 
+import { Pagination } from '@nextui-org/pagination';
 import { isInteger } from 'lodash';
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 import { useMemo } from 'react';
-
-import { Pagination } from '@nextui-org/pagination';
 
 import { PAGE_SIZE } from '../../constants/config';
 import { Button } from '../Button';

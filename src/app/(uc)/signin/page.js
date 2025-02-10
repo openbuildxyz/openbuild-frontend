@@ -16,6 +16,7 @@
 
 'use client';
 
+import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import { isEmpty } from 'lodash';
 import { signIn } from 'next-auth/react';
@@ -27,7 +28,6 @@ import { toast } from 'react-toastify';
 
 import Loader from '@/components/Loader';
 import { wrapOnChange } from '@/utils/form';
-import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 
 import { signin, emailCodeLogin } from '#/services/auth';
 

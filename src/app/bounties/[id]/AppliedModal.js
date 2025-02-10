@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+import { parseUnits } from '@ethersproject/units';
+import { writeContract } from '@wagmi/core';
 import clsx from 'clsx';
 import Image from 'next/image';
 import { useState, useMemo, useCallback } from 'react';
@@ -30,8 +32,6 @@ import { BOUNTY_SUPPORTED_CHAIN } from '@/constants/chain';
 import { contracts, payTokens } from '@/constants/contract';
 import { useAllowance, useApprove } from '@/hooks/useERC20';
 import { fetcher } from '@/utils/request';
-import { parseUnits } from '@ethersproject/units';
-import { writeContract } from '@wagmi/core';
 
 import { useBountyEnvCheck } from '#/domain/bounty/hooks';
 import { EXPERIENCE_OPTIONS } from '#/lib/user';

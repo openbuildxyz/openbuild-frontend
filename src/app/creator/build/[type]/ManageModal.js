@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import { parseUnits } from '@ethersproject/units';
 import clsx from 'clsx';
 import Image from 'next/image';
 import { useCallback, useEffect } from 'react';
@@ -30,7 +31,6 @@ import { contracts, payTokens } from '@/constants/contract';
 import { currentTime, fromNow } from '@/utils/date';
 import { formatTime } from '@/utils/date';
 import { signBounty } from '@/utils/web3';
-import { parseUnits } from '@ethersproject/units';
 
 import {
   getProgressList,

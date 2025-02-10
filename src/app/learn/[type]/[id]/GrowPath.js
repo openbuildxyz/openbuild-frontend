@@ -15,6 +15,8 @@
  */
 
 'use client';
+import { ClockIcon } from '@heroicons/react/24/outline';
+import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import clsx from 'clsx';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
@@ -25,8 +27,6 @@ import { toast } from 'react-toastify';
 import { Button } from '@/components/Button';
 import { Share } from '@/components/Share';
 import { formatTime } from '@/utils/date';
-import { ClockIcon } from '@heroicons/react/24/outline';
-import { CheckCircleIcon } from '@heroicons/react/24/solid';
 
 import { useMediaUrl } from '#/state/application/hooks';
 

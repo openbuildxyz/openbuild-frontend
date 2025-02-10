@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import { Popover } from '@radix-ui/react-popover';
 import {
   Check,
   CheckSquare,
@@ -27,8 +28,6 @@ import {
   TextQuote,
 } from 'lucide-react';
 import { EditorBubbleItem, useEditor } from 'novel';
-
-import { Popover } from '@radix-ui/react-popover';
 
 import { Button } from './Button';
 import { PopoverContent, PopoverTrigger } from './Popover';

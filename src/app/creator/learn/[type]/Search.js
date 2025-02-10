@@ -16,6 +16,8 @@
 
 'use client';
 
+import { PlusIcon } from '@heroicons/react/24/outline';
+import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import clsx from 'clsx';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useMemo, useState } from 'react';
@@ -26,8 +28,6 @@ import { SearchIcon } from '@/components/Icons';
 import Input from '@/components/Input';
 import { Modal } from '@/components/Modal';
 import { ReactSelect } from '@/components/Select/ReactSelect';
-import { PlusIcon } from '@heroicons/react/24/outline';
-import { CheckCircleIcon } from '@heroicons/react/24/solid';
 
 import { addSeries } from '#/services/creator';
 

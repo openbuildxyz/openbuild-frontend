@@ -14,6 +14,10 @@
  * limitations under the License.
  */
 
+import { parseUnits } from '@ethersproject/units';
+import { EyeIcon } from '@heroicons/react/24/outline';
+import { useConnectModal } from '@rainbow-me/rainbowkit';
+import { writeContract } from '@wagmi/core';
 // import { formatTime } from '@/utils/date'
 import clsx from 'clsx';
 import Image from 'next/image';
@@ -31,10 +35,6 @@ import { BountyABI } from '@/constants/abis/bounty';
 import { BOUNTY_SUPPORTED_CHAIN } from '@/constants/chain';
 import { contracts, payTokens } from '@/constants/contract';
 import { useAllowance, useApprove } from '@/hooks/useERC20';
-import { parseUnits } from '@ethersproject/units';
-import { EyeIcon } from '@heroicons/react/24/outline';
-import { useConnectModal } from '@rainbow-me/rainbowkit';
-import { writeContract } from '@wagmi/core';
 
 import { EXPERIENCE_OPTIONS } from '#/lib/user';
 import { denyBuilder, approveBuilder } from '#/services/creator';

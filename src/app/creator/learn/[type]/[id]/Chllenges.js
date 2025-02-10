@@ -14,19 +14,17 @@
  * limitations under the License.
  */
 
+import { ChevronLeftIcon, ChevronRightIcon, CalendarDaysIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import range from 'lodash/range';
 import { forwardRef } from 'react';
 import DatePicker from 'react-datepicker';
-
-import { ReactSelect } from '@/components/Select/ReactSelect';
-
 import 'react-datepicker/dist/react-datepicker.css';
 
+import { ReactSelect } from '@/components/Select/ReactSelect';
 import  { BASE_INPUT_STYLE } from '@/constants/config';
 import { TIME_ZONE } from '@/constants/timezone';
 import { getTime } from '@/utils/date';
-import { ChevronLeftIcon, ChevronRightIcon, CalendarDaysIcon } from '@heroicons/react/24/outline';
 
 import { SelectCountry } from '../../../../profile/SelectCountry';
 

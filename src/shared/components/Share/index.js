@@ -16,6 +16,7 @@
 
 'use client';
 
+import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import copy from 'copy-to-clipboard';
 import Image from 'next/image';
@@ -34,7 +35,6 @@ import { HTMLDecode } from '@/utils';
 import { formatTime } from '@/utils/date';
 import { fetcher } from '@/utils/request';
 import { resolvePathWithSearch } from '@/utils/url';
-import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 
 import { useMediaUrl, useUser } from '#/state/application/hooks';
 

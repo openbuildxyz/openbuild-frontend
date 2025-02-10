@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
+import { useConnectModal, useChainModal } from '@rainbow-me/rainbowkit';
 import { toast } from 'react-toastify';
 import { useAccount, useNetwork, useSwitchNetwork } from 'wagmi';
 
 import { useBoundWallet } from '@/hooks/useBoundWallet';
-import { useConnectModal, useChainModal } from '@rainbow-me/rainbowkit';
 
 function useEnsureRightEnv({
   walletRequired = false,

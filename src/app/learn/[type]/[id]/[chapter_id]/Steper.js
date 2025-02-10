@@ -16,6 +16,8 @@
 
 'use client';
 
+import { XMarkIcon } from '@heroicons/react/20/solid';
+import { ChevronDoubleLeftIcon } from '@heroicons/react/20/solid';
 import BigNumber from 'bignumber.js';
 import { clsx } from 'clsx';
 import { useRouter } from 'next/navigation';
@@ -24,8 +26,6 @@ import { toast } from 'react-toastify';
 
 import { ContentIcon, ReadingIcon, ReadedIcon, BlackPointIcon, LockedIcon } from '@/components/Icons';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
-import { XMarkIcon } from '@heroicons/react/20/solid';
-import { ChevronDoubleLeftIcon } from '@heroicons/react/20/solid';
 
 import { reducerList } from '#/app/learn/Chapters';
 import { useLessonMenu, useLessonMenuToggleStatus } from '#/state/application/hooks';

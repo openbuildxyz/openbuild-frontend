@@ -16,6 +16,7 @@
 
 'use client';
 
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useMemo } from 'react';
@@ -24,7 +25,6 @@ import { FilterIcon } from '@/components/Icons';
 import { OViewer } from '@/components/MarkDown';
 import { Player } from '@/components/Player';
 import { Share } from '@/components/Share';
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 
 import { updateLessonMenu } from '#/state/application/reducer';
 import { useAppDispatch } from '#/state/hooks';

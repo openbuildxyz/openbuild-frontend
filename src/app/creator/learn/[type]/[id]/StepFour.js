@@ -16,6 +16,7 @@
 
 'use client';
 
+import { PlusIcon, MinusCircleIcon } from '@heroicons/react/20/solid';
 import Image from 'next/image';
 import GithubIcon from 'public/images/svg/github_p.svg';
 import { useState, useRef, useEffect } from 'react';
@@ -27,7 +28,6 @@ import Loader from '@/components/Loader';
 import { Modal } from '@/components/Modal';
 import { NoData } from '@/components/NoData';
 import  { BASE_INPUT_STYLE } from '@/constants/config';
-import { PlusIcon, MinusCircleIcon } from '@heroicons/react/20/solid';
 
 import { upload } from '#/services/common';
 import { useMediaUrl } from '#/state/application/hooks';

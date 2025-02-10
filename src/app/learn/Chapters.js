@@ -16,6 +16,7 @@
 
 'use client';
 
+import { LockClosedIcon } from '@heroicons/react/24/outline';
 import BigNumber from 'bignumber.js';
 import { useRouter } from 'next/navigation';
 import { useMemo } from 'react';
@@ -24,7 +25,6 @@ import { toast } from 'react-toastify';
 import { VideoIcon, AgreementIcon } from '@/components/Icons';
 import { ProgressBar } from '@/components/ProgressBar';
 import { millisecondFormat } from '@/utils/date';
-import { LockClosedIcon } from '@heroicons/react/24/outline';
 
 import { resolveChapter } from './helper';
 

@@ -16,6 +16,7 @@
 
 'use client';
 
+import { ArrowDownTrayIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import React, { useState, useMemo } from 'react';
 import { toast } from 'react-toastify';
@@ -27,7 +28,6 @@ import { NoData } from '@/components/NoData';
 import { CommonListSkeleton } from '@/components/Skeleton/CommonListSkeleton';
 import { formatTime } from '@/utils/date';
 import { fetcher } from '@/utils/request';
-import { ArrowDownTrayIcon } from '@heroicons/react/24/outline';
 
 import { isAgreeable, isDeclinable, isBeDeclined, getStatusLabel } from '#/domain/challenge/helper';
 import { updateMultipleApplicantStatus } from '#/domain/challenge/repository';

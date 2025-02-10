@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
+import { waitForTransaction } from '@wagmi/core';
+import { writeContract } from '@wagmi/core';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 
 import { Button } from '@/components/Button';
 import { Modal } from '@/components/Modal';
 import { classNames } from '@/utils';
-import { waitForTransaction } from '@wagmi/core';
-import { writeContract } from '@wagmi/core';
 
 import { baseInputStyles } from '#/domain/profile/widgets/blocks';
 // import { writeContract, prepareWriteContract } from '@wagmi/core'

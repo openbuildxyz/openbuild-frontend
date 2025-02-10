@@ -16,11 +16,11 @@
 
 'use client';
 
+import { ChevronLeftIcon } from '@heroicons/react/20/solid';
 import clsx from 'clsx';
 
 import { SearchIcon, FilterIcon } from '@/components/Icons';
 import { Select } from '@/components/Select';
-import { ChevronLeftIcon } from '@heroicons/react/20/solid';
 
 import { baseInputStyles } from '#/domain/profile/widgets/blocks';
 import { useOpenFilter } from '#/state/application/hooks';

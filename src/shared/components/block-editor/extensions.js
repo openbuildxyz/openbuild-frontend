@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import { ColumnsExtension } from '@tiptap-extend/columns';
 import { cx } from 'class-variance-authority';
 import { common, createLowlight } from 'lowlight';
 import {
@@ -40,8 +41,6 @@ import {
   Mathematics,
 } from 'novel/extensions';
 import { UploadImagesPlugin } from 'novel/plugins';
-
-import { ColumnsExtension } from '@tiptap-extend/columns';
 
 //TODO I am using cx here to get tailwind autocomplete working, idk if someone else can write a regex to just capture the class key in objects
 const aiHighlight = AIHighlight;

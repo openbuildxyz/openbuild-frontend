@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { useSession } from 'next-auth/react';
 import { useSearchParams, usePathname } from 'next/navigation';
 import { useEffect } from 'react';
@@ -22,7 +23,6 @@ import { useAccount } from 'wagmi';
 import { WhiteWalletIcon } from '@/components/Icons';
 import { useBoundWallet } from '@/hooks/useBoundWallet';
 import { shortenAddress } from '@/utils/address';
-import { ConnectButton } from '@rainbow-me/rainbowkit';
 
 import { useSignInWithWallet } from '#/domain/auth/hooks';
 import WalletBinderWidget from '#/domain/auth/widgets/wallet-binder';

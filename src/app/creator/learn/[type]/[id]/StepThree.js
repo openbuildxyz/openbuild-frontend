@@ -16,6 +16,7 @@
 
 'use client';
 
+import { PlusIcon } from '@heroicons/react/24/outline';
 import { useState, useEffect, useMemo } from 'react';
 import { toast } from 'react-toastify';
 
@@ -27,7 +28,6 @@ import { Modal } from '@/components/Modal';
 import { Select } from '@/components/Select';
 import  { BASE_INPUT_STYLE } from '@/constants/config';
 import { currentTime } from '@/utils/date';
-import { PlusIcon } from '@heroicons/react/24/outline';
 
 const bodyTypeOptions = [
   {

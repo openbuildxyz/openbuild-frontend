@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import { formatUnits } from '@ethersproject/units';
 import BigNumber from 'bignumber.js';
 import Image from 'next/image';
 
@@ -23,7 +24,6 @@ import { OViewer } from '@/components/MarkDown';
 import { Modal } from '@/components/Modal';
 import { MouseoverTooltip } from '@/components/Tooltip';
 import { formatTime } from '@/utils/date';
-import { formatUnits } from '@ethersproject/units';
 
 import { useMediaUrl, useAllSkills, useSlillhubChain } from '#/state/application/hooks';
 

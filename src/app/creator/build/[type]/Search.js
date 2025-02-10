@@ -16,6 +16,7 @@
 
 'use client';
 
+import { PlusIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useMemo } from 'react';
@@ -25,7 +26,6 @@ import { Button } from '@/components/Button';
 import { SearchIcon } from '@/components/Icons';
 import Input from '@/components/Input';
 import { ReactSelect } from '@/components/Select/ReactSelect';
-import { PlusIcon } from '@heroicons/react/24/outline';
 
 const options = [
   {

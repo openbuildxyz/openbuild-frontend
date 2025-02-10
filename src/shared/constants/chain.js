@@ -14,12 +14,6 @@
  * limitations under the License.
  */
 
-import { configureChains, createConfig } from 'wagmi';
-import { bscTestnet } from 'wagmi/chains';
-import { alchemyProvider } from 'wagmi/providers/alchemy';
-import { infuraProvider } from 'wagmi/providers/infura';
-import { publicProvider } from 'wagmi/providers/public';
-
 import { connectorsForWallets } from '@rainbow-me/rainbowkit';
 import {
   metaMaskWallet,
@@ -34,6 +28,11 @@ import {
   trustWallet,
 } from '@rainbow-me/rainbowkit/wallets';
 import { bsc } from '@wagmi/chains';
+import { configureChains, createConfig } from 'wagmi';
+import { bscTestnet } from 'wagmi/chains';
+import { alchemyProvider } from 'wagmi/providers/alchemy';
+import { infuraProvider } from 'wagmi/providers/infura';
+import { publicProvider } from 'wagmi/providers/public';
 
 const supportedChains = [bsc];
 

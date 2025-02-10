@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import { useConnectModal } from '@rainbow-me/rainbowkit';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import GoogleIcon from 'public/images/svg/google-line.png';
@@ -21,7 +22,6 @@ import { useEffect } from 'react';
 import { useAccount } from 'wagmi';
 
 import { GithubIcon, WalletIcon } from '@/components/Icons';
-import { useConnectModal } from '@rainbow-me/rainbowkit';
 
 import { authWithGoogle, authWithGithub } from '../../helper';
 import useSignInWithWallet from '../../hooks/useSignInWithWallet';

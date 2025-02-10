@@ -14,9 +14,8 @@
  * limitations under the License.
  */
 
-import * as React from 'react';
-
 import * as SeparatorPrimitive from '@radix-ui/react-separator';
+import * as React from 'react';
 
 import { cn } from './helper';
 

@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import clsx from 'clsx';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -27,7 +28,6 @@ import { NoData } from '@/components/NoData';
 import { CommonListSkeleton } from '@/components/Skeleton/CommonListSkeleton';
 import { formatTime } from '@/utils/date';
 import { fetcher } from '@/utils/request';
-import { CheckCircleIcon } from '@heroicons/react/24/solid';
 
 import { addSeries } from '#/services/creator';
 import { useMediaUrl } from '#/state/application/hooks';

@@ -23,10 +23,10 @@ import 'github-markdown-css/github-markdown-light.css';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import 'aos/dist/aos.css';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 import { GoogleAnalytics } from '@/components/GoogleAnalytics';
 import { getAppConfig } from '@/utils/app';
-import { SpeedInsights } from '@vercel/speed-insights/next';
 
 import { nunito_sans } from '#/lib/font';
 import { siteConfig } from '#/lib/site';

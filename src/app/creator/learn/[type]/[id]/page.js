@@ -16,6 +16,7 @@
 
 'use client';
 
+import { ChevronDoubleLeftIcon } from '@heroicons/react/20/solid';
 import clsx from 'clsx';
 // import Image from 'next/image'
 import Link from 'next/link';
@@ -29,7 +30,6 @@ import { ArrowLeftIcon } from '@/components/Icons';
 import { useAsyncState } from '@/hooks/useAsyncState';
 import useInterval from '@/hooks/useInterval';
 import useMounted from '@/hooks/useMounted';
-import { ChevronDoubleLeftIcon } from '@heroicons/react/20/solid';
 // import PreviewIcon from 'public/images/svg/preview.svg'
 
 import { fetchOne as fetchChallenge } from '#/domain/challenge/repository';

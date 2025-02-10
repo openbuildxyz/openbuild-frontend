@@ -16,6 +16,9 @@
 
 'use client';
 
+import { Dialog, Transition } from '@headlessui/react';
+import { ArrowRightOnRectangleIcon, XMarkIcon } from '@heroicons/react/20/solid';
+import { disconnect } from '@wagmi/core';
 import { useSession, signOut } from 'next-auth/react';
 import Image from 'next/image';
 import LinkIcon from 'public/images/svg/link.svg';
@@ -26,9 +29,6 @@ import { useAccount } from 'wagmi';
 
 import Loader from '@/components/Loader';
 import { shortenAddress } from '@/utils';
-import { Dialog, Transition } from '@headlessui/react';
-import { ArrowRightOnRectangleIcon, XMarkIcon } from '@heroicons/react/20/solid';
-import { disconnect } from '@wagmi/core';
 
 import { bindEmail, sendCode } from '#/services/auth';
 import { useModalOpen } from '#/state/application/hooks';

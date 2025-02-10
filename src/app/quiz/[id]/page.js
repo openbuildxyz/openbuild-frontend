@@ -16,6 +16,7 @@
 
 'use client';
 
+import { ArrowUturnLeftIcon } from '@heroicons/react/24/solid';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -27,7 +28,6 @@ import { Button } from '@/components/Button';
 import { HistoryIcon } from '@/components/Icons';
 import { OViewer } from '@/components/MarkDown';
 import { fetcher } from '@/utils/request';
-import { ArrowUturnLeftIcon } from '@heroicons/react/24/solid';
 
 import QuizLimiterWidget from '#/domain/quiz/widgets/quiz-limiter';
 import { useMediaUrl } from '#/state/application/hooks';

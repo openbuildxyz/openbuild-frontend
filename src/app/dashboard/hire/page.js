@@ -15,6 +15,10 @@
  */
 
 'use client';
+import { formatUnits } from '@ethersproject/units';
+import { Popover, Transition } from '@headlessui/react';
+import { useConnectModal } from '@rainbow-me/rainbowkit';
+import { readContract } from '@wagmi/core';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState, Fragment, useCallback } from 'react';
@@ -36,10 +40,6 @@ import { NoData } from '@/components/NoData';
 import { Paging } from '@/components/Paging';
 import { formatTime, currentTime } from '@/utils/date';
 import { signSkillHub } from '@/utils/web3';
-import { formatUnits } from '@ethersproject/units';
-import { Popover, Transition } from '@headlessui/react';
-import { useConnectModal } from '@rainbow-me/rainbowkit';
-import { readContract } from '@wagmi/core';
 
 import { useSkillsHireList } from '#/services/dashboard/hooks';
 import { permissionsHireStatus, permissionsStatusApprove } from '#/services/shilling';
