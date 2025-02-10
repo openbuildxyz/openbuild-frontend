@@ -17,9 +17,11 @@
 'use client';
 
 import Image from 'next/image';
-import { useMediaUrl } from '#/state/application/hooks';
-import { TwitterIcon } from '@/components/Icons';
 import GithubIcon from 'public/images/svg/github_p.svg';
+
+import { TwitterIcon } from '@/components/Icons';
+
+import { useMediaUrl } from '#/state/application/hooks';
 
 function resolveTwitterUrl(urlOrHandle) {
   if (urlOrHandle.toLowerCase().startsWith('http')) {

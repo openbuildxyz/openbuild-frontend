@@ -14,13 +14,16 @@
  * limitations under the License.
  */
 
-import { Modal } from '@/components/Modal';
-import RankList from './RankList';
 import { useState } from 'react';
-import { fetchRankList } from '#/domain/quiz/repository';
-import Loader from '@/components/Loader';
+
 import { ModalCloseIcon } from '@/components/Icons';
+import Loader from '@/components/Loader';
+import { Modal } from '@/components/Modal';
 import useMounted from '@/hooks/useMounted';
+
+import { fetchRankList } from '#/domain/quiz/repository';
+
+import RankList from './RankList';
 
 export function RankListModal({ quizId, shown, onClose, rank }) {
   const [data, setData] = useState(null);

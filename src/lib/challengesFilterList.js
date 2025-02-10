@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import freeIcon from 'public/images/svg/free.svg';
+import closedIcon from 'public/images/svg/closed.svg';
 import depositIcon from 'public/images/svg/deposit.svg';
+import freeIcon from 'public/images/svg/free.svg';
+import ongoingIcon from 'public/images/svg/ongoing.svg';
 import paidIcon from 'public/images/svg/paid.svg';
 import soonIcon from 'public/images/svg/soon.svg';
-import closedIcon from 'public/images/svg/closed.svg';
-import ongoingIcon from 'public/images/svg/ongoing.svg';
 
 export const challengesFilterList = [
   {

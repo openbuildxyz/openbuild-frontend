@@ -17,21 +17,19 @@
 import { useState } from 'react';
 import { useDebouncedCallback } from 'use-debounce';
 
+import { isBlockDataValid } from '@/components/block-editor';
 import useAppConfig from '@/hooks/useAppConfig';
 import useMounted from '@/hooks/useMounted';
-import { isBlockDataValid } from '@/components/block-editor';
 
 import { useViewingSelf } from '../../../auth/hooks';
-import PublishedCourseListView from '../../../course/views/published-course-list';
-import PublishedChallengeListView from '../../../challenge/views/published-challenge-list';
 import PublishedBountyListView from '../../../bounty/views/published-bounty-list';
+import PublishedChallengeListView from '../../../challenge/views/published-challenge-list';
+import PublishedCourseListView from '../../../course/views/published-course-list';
 import PublishedQuizListView from '../../../quiz/views/published-quiz-list';
-
 import { fetchBlockContent, updateBlockContent } from '../../repository';
-import TabBarWidget from '../../widgets/tab-bar';
-import SocialInfoWidget from '../../widgets/social-info';
 import ActivityTabListWidget from '../../widgets/activity-tab-list';
-
+import SocialInfoWidget from '../../widgets/social-info';
+import TabBarWidget from '../../widgets/tab-bar';
 import CustomContent from './CustomContent';
 import LatestActivityList from './LatestActivityList';
 

@@ -15,11 +15,11 @@
  */
 
 import { configureChains, createConfig } from 'wagmi';
-import { bsc } from '@wagmi/chains';
 import { bscTestnet } from 'wagmi/chains';
+import { alchemyProvider } from 'wagmi/providers/alchemy';
 import { infuraProvider } from 'wagmi/providers/infura';
 import { publicProvider } from 'wagmi/providers/public';
-import { alchemyProvider } from 'wagmi/providers/alchemy';
+
 import { connectorsForWallets } from '@rainbow-me/rainbowkit';
 import {
   metaMaskWallet,
@@ -33,6 +33,7 @@ import {
   argentWallet,
   trustWallet,
 } from '@rainbow-me/rainbowkit/wallets';
+import { bsc } from '@wagmi/chains';
 
 const supportedChains = [bsc];
 

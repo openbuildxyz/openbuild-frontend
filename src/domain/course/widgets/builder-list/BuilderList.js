@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { isInteger } from 'lodash';
 import clsx from 'clsx';
+import { isInteger } from 'lodash';
 
 import Image from '@/components/Image';
 

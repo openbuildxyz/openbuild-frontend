@@ -14,22 +14,23 @@
  * limitations under the License.
  */
 
-import { useConfig, useMediaUrl } from '#/state/application/hooks';
+import clsx from 'clsx';
+import Image from 'next/image';
 import { useMemo, useState, useRef, useEffect, useCallback } from 'react';
 import ContentEditable from 'react-contenteditable';
-import Image from 'next/image';
-import { Button } from '@/components/Button';
 import { toast } from 'react-toastify';
-import { Select } from '@/components/Select';
 
+import { Button } from '@/components/Button';
 import { UploadIcon } from '@/components/Icons';
-import { upload } from '#/services/common';
-import clsx from 'clsx';
 import Loader from '@/components/Loader';
+import { Select } from '@/components/Select';
+import { BASE_INPUT_STYLE } from '@/constants/config';
+import { HTMLDecode } from '@/utils';
+
+import { upload } from '#/services/common';
+import { useConfig, useMediaUrl } from '#/state/application/hooks';
 
 import { ChllengesForms } from './Chllenges';
-import { HTMLDecode } from '@/utils';
-import { BASE_INPUT_STYLE } from '@/constants/config';
 
 const bodyTypeOptions = [
   {

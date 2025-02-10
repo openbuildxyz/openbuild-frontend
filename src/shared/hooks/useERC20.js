@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 
-import { erc20ABI, useContractRead, usePrepareContractWrite, useContractWrite, useWaitForTransaction } from 'wagmi';
-import { MaxUint256 } from '@ethersproject/constants';
 import BigNumber from 'bignumber.js';
+import { erc20ABI, useContractRead, usePrepareContractWrite, useContractWrite, useWaitForTransaction } from 'wagmi';
+
+import { MaxUint256 } from '@ethersproject/constants';
 
 export function useAllowance(token, contract, account) {
   const { data: allowance, refetch: refetchAllowance } = useContractRead({

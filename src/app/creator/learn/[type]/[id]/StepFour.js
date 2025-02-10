@@ -16,19 +16,21 @@
 
 'use client';
 
-import { PlusIcon, MinusCircleIcon } from '@heroicons/react/20/solid';
-import { Button } from '@/components/Button';
-import { useState, useRef, useEffect } from 'react';
-import { upload } from '#/services/common';
 import Image from 'next/image';
-import { useMediaUrl } from '#/state/application/hooks';
-import { toast } from 'react-toastify';
-import Loader from '@/components/Loader';
-import { TwitterIcon } from '@/components/Icons';
 import GithubIcon from 'public/images/svg/github_p.svg';
+import { useState, useRef, useEffect } from 'react';
+import { toast } from 'react-toastify';
+
+import { Button } from '@/components/Button';
+import { TwitterIcon } from '@/components/Icons';
+import Loader from '@/components/Loader';
 import { Modal } from '@/components/Modal';
 import { NoData } from '@/components/NoData';
 import  { BASE_INPUT_STYLE } from '@/constants/config';
+import { PlusIcon, MinusCircleIcon } from '@heroicons/react/20/solid';
+
+import { upload } from '#/services/common';
+import { useMediaUrl } from '#/state/application/hooks';
 
 const initSpeakers = {
   course_speaker_index: 0,

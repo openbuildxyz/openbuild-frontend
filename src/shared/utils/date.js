@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
+import BigNumber from 'bignumber.js';
 import dayjs from 'dayjs';
 import isToday from 'dayjs/plugin/isToday';
 import isYesterday from 'dayjs/plugin/isYesterday';
-import utc from 'dayjs/plugin/utc';
-import BigNumber from 'bignumber.js';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import updateLocale from 'dayjs/plugin/updateLocale';
 import timezone from 'dayjs/plugin/timezone';
+import updateLocale from 'dayjs/plugin/updateLocale';
+import utc from 'dayjs/plugin/utc';
 
 dayjs.extend(isToday);
 dayjs.extend(isYesterday);

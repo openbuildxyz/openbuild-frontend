@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
-import { useCallback } from 'react';
 import { isFunction } from 'lodash';
 import { useSession } from 'next-auth/react';
 import { usePathname, useSearchParams, useRouter } from 'next/navigation';
+import { useCallback } from 'react';
+
 import { resolvePathWithSearch } from '@/utils/url';
 
 const useAuthGuard = () => {

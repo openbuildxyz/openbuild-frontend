@@ -14,34 +14,31 @@
  * limitations under the License.
  */
 
-import { useState, useMemo, useCallback } from 'react';
-import Image from 'next/image';
-import useSWR from 'swr';
-import { Button } from '@/components/Button';
 import clsx from 'clsx';
+import Image from 'next/image';
+import { useState, useMemo, useCallback } from 'react';
+import { toast } from 'react-toastify';
+import useSWR from 'swr';
+import { useAccount } from 'wagmi'; // useNetwork
 
+import { Button } from '@/components/Button';
+import { Modal } from '@/components/Modal';
+import { Confirm } from '@/components/Modal/Confirm';
+import { NoData } from '@/components/NoData';
+import { BountyABI } from '@/constants/abis/bounty';
+import { BOUNTY_SUPPORTED_CHAIN } from '@/constants/chain';
+import { contracts, payTokens } from '@/constants/contract';
+import { useAllowance, useApprove } from '@/hooks/useERC20';
+import { fetcher } from '@/utils/request';
 import { parseUnits } from '@ethersproject/units';
 import { writeContract } from '@wagmi/core';
 
-import { useAccount } from 'wagmi'; // useNetwork
-
-import { toast } from 'react-toastify';
-import { NoData } from '@/components/NoData';
-import { Modal } from '@/components/Modal';
-import { Confirm } from '@/components/Modal/Confirm';
-
-import { useMediaUrl, useConfig } from '#/state/application/hooks';
+import { useBountyEnvCheck } from '#/domain/bounty/hooks';
 import { EXPERIENCE_OPTIONS } from '#/lib/user';
-import { useAllowance, useApprove } from '@/hooks/useERC20';
-import { contracts, payTokens } from '@/constants/contract';
-import { BountyABI } from '@/constants/abis/bounty';
-import { BOUNTY_SUPPORTED_CHAIN } from '@/constants/chain';
-
-import { fetcher } from '@/utils/request';
 import { denyBuilder, approveBuilder } from '#/services/creator';
+import { useMediaUrl, useConfig } from '#/state/application/hooks';
 
 import { revalidatePathAction } from '../../actions';
-import { useBountyEnvCheck } from '#/domain/bounty/hooks';
 
 export function AppliedModal({ open, closeModal, bounty }) {
   const { data, isLoading, mutate } = useSWR(`ts/v1/build/creator/bounties/${bounty.id}/builders?skip=${0}&take=${25}`, fetcher);

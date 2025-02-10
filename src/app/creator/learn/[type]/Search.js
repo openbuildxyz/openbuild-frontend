@@ -16,20 +16,23 @@
 
 'use client';
 
-import { useMemo, useState } from 'react';
 import clsx from 'clsx';
-import { PlusIcon } from '@heroicons/react/24/outline';
-import { ReactSelect } from '@/components/Select/ReactSelect';
-import Input from '@/components/Input';
-import { SearchIcon } from '@/components/Icons';
-import { Modal } from '@/components/Modal';
-import { CheckCircleIcon } from '@heroicons/react/24/solid';
-import { SelectItemModal } from './SelectItemModal';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useMemo, useState } from 'react';
 import { useDebouncedCallback } from 'use-debounce';
+
 import { Button } from '@/components/Button';
+import { SearchIcon } from '@/components/Icons';
+import Input from '@/components/Input';
+import { Modal } from '@/components/Modal';
+import { ReactSelect } from '@/components/Select/ReactSelect';
+import { PlusIcon } from '@heroicons/react/24/outline';
+import { CheckCircleIcon } from '@heroicons/react/24/solid';
+
 import { addSeries } from '#/services/creator';
+
 import { InitForms, InitChallengesForms } from '../[type]/init';
+import { SelectItemModal } from './SelectItemModal';
 
 const options = [
   {

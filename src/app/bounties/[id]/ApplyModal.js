@@ -14,11 +14,13 @@
  * limitations under the License.
  */
 
-import { Modal } from '@/components/Modal';
 import { useState } from 'react';
-import { BASE_INPUT_STYLE } from '@/constants/config';
 import { toast } from 'react-toastify';
+
 import { Button } from '@/components/Button';
+import { Modal } from '@/components/Modal';
+import { BASE_INPUT_STYLE } from '@/constants/config';
+
 import { applyAction } from './actions';
 
 export function ApplyModal({ open, closeModal, id }) {

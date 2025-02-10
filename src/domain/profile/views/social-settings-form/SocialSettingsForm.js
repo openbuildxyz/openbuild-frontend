@@ -14,19 +14,21 @@
  * limitations under the License.
  */
 
-import { useMemo } from 'react';
-import { ProfileTitle, ProfileLabel } from '#/domain/profile/widgets/blocks';
-import WalletIcon from './wallet.svg';
-// import StackoverflowIcon from 'public/images/svg/stackoverflow.svg'
-import DiscordIcon from './discord.svg';
-import GoogleIcon from './google_p.svg';
 import GithubIcon from 'public/images/svg/github_p.svg';
 import TwitterIcon from 'public/images/svg/x-black.svg';
+import { useMemo } from 'react';
+
 // import { useSearchParams } from 'next/navigation'
 import Switch from '@/components/Switch';
 
-import InputField from './InputField';
+import { ProfileTitle, ProfileLabel } from '#/domain/profile/widgets/blocks';
+
 import BindableField from './BindableField';
+// import StackoverflowIcon from 'public/images/svg/stackoverflow.svg'
+import DiscordIcon from './discord.svg';
+import GoogleIcon from './google_p.svg';
+import InputField from './InputField';
+import WalletIcon from './wallet.svg';
 
 function SocialSettingsFormView({ id, className, binds, values, onFieldChange }) {
   // const searchParams = useSearchParams()

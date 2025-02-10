@@ -16,23 +16,26 @@
 
 'use client';
 
+import { useSession } from 'next-auth/react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import QuizBannerPic from 'public/images/quiz-banner.png';
-import { useMediaUrl } from '#/state/application/hooks';
-import { ArrowUturnLeftIcon } from '@heroicons/react/24/solid';
-import { HistoryIcon } from '@/components/Icons';
-import { Button } from '@/components/Button';
 import { useState } from 'react';
 import useSWR from 'swr';
+
+import { Button } from '@/components/Button';
+import { HistoryIcon } from '@/components/Icons';
+import { OViewer } from '@/components/MarkDown';
 import { fetcher } from '@/utils/request';
-import { CourseCard } from '../../learn/[type]/CourseCard';
-import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
-import { Record } from './Record';
+import { ArrowUturnLeftIcon } from '@heroicons/react/24/solid';
+
 import QuizLimiterWidget from '#/domain/quiz/widgets/quiz-limiter';
+import { useMediaUrl } from '#/state/application/hooks';
+
+import { CourseCard } from '../../learn/[type]/CourseCard';
 import RankList from './RankList';
 import { RankListModal } from './RankListModal';
-import { OViewer } from '@/components/MarkDown';
+import { Record } from './Record';
 
 export default function Quiz({params}) {
   const mediaUrl = useMediaUrl();

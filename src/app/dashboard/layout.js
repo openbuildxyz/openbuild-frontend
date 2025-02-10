@@ -15,11 +15,12 @@
  */
 
 'use client';
+import Image from 'next/image';
 import { useMemo } from 'react';
-import { DashboardNav } from './Navs';
+
 import { useUser, useConfig } from '#/state/application/hooks';
 
-import Image from 'next/image';
+import { DashboardNav } from './Navs';
 // const tagStyles = 'text-xs px-1 py-[2px] rounded-sm text-gray bg-gray-600'
 
 export default function Layout({ children }) {

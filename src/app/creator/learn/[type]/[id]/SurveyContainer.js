@@ -16,8 +16,9 @@
 
 import 'survey-core/defaultV2.css';
 import 'survey-creator-core/survey-creator-core.css';
-import { SurveyCreator, SurveyCreatorComponent } from 'survey-creator-react';
 import { useCallback, useEffect, useState } from 'react';
+import { SurveyCreator, SurveyCreatorComponent } from 'survey-creator-react';
+
 import { ReactSelect } from '@/components/Select/ReactSelect';
 import { useSyncState } from '@/hooks/useSyncState';
 

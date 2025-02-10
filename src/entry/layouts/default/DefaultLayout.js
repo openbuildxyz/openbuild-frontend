@@ -18,7 +18,6 @@
 
 import { Header } from '../../components/Header';
 import { Footer } from './Footer';
-
 import { LayoutModals } from './LayoutModals';
 
 function DefaultLayout({ children }) {

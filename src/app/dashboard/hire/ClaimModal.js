@@ -14,14 +14,16 @@
  * limitations under the License.
  */
 
-import { Button } from '@/components/Button';
-import { Modal } from '@/components/Modal';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
-import { useSlillhubChain } from '#/state/application/hooks';
-import { hireClaim } from '#/services/shilling';
+
+import { Button } from '@/components/Button';
+import { Modal } from '@/components/Modal';
 import { waitForTransaction } from '@wagmi/core';
 import { writeContract } from '@wagmi/core';
+
+import { hireClaim } from '#/services/shilling';
+import { useSlillhubChain } from '#/state/application/hooks';
 
 export function ClaimModal({ open, closeModal, value, data }) {
   const slillhubChain = useSlillhubChain();

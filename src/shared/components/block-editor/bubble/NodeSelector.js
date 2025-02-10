@@ -28,9 +28,10 @@ import {
 } from 'lucide-react';
 import { EditorBubbleItem, useEditor } from 'novel';
 
+import { Popover } from '@radix-ui/react-popover';
+
 import { Button } from './Button';
 import { PopoverContent, PopoverTrigger } from './Popover';
-import { Popover } from '@radix-ui/react-popover';
 
 const items = [
   {

@@ -17,6 +17,7 @@
 'use server';
 
 import { revalidatePath } from 'next/cache';
+
 import { post } from '@/utils/request';
 
 export async function applyAction(id, comment) {

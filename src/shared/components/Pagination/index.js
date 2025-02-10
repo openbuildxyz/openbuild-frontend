@@ -17,8 +17,9 @@
 'use client';
 
 import { isInteger } from 'lodash';
-import { useMemo } from 'react';
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
+import { useMemo } from 'react';
+
 import { Pagination } from '@nextui-org/pagination';
 
 import { PAGE_SIZE } from '../../constants/config';

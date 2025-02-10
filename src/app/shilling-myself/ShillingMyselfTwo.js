@@ -16,19 +16,21 @@
 
 'use client';
 
-import { classNames } from '@/utils';
-import { baseInputStyles } from '#/domain/profile/widgets/blocks';
+import { useRouter } from 'next/navigation';
+import { useState, useMemo, useEffect } from 'react';
+import { toast } from 'react-toastify';
+
+import { Button } from '@/components/Button';
 // import Switch from '@/components/Switch'
 import { EditIcon, DeleteIcon } from '@/components/Icons';
-import { useState, useMemo, useEffect } from 'react';
-import { Button } from '@/components/Button';
-import { useConfig, useUser } from '#/state/application/hooks';
 import { ReactSelect } from '@/components/Select/ReactSelect';
+import { classNames } from '@/utils';
+
+import { baseInputStyles } from '#/domain/profile/widgets/blocks';
+import { addSkillTwo } from '#/services/shilling';
 // import { DropdownIndicator, ClearIndicator } from '@/components/ReactSelectComponents'
 import { useDashDetails } from '#/services/shilling/hooks';
-import { addSkillTwo } from '#/services/shilling';
-import { toast } from 'react-toastify';
-import { useRouter } from 'next/navigation';
+import { useConfig, useUser } from '#/state/application/hooks';
 export const Estimated = [
   {
     label: 'Months',

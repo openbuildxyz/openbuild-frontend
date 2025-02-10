@@ -18,10 +18,10 @@
 
 import Link from 'next/link';
 
-import { fromNow } from '@/utils/date';
-import { ArrowRightLineIcon } from '@/components/Icons';
 import Avatar from '@/components/Avatar';
+import { ArrowRightLineIcon } from '@/components/Icons';
 import Image from '@/components/Image';
+import { fromNow } from '@/utils/date';
 
 import { useConfig } from '#/state/application/hooks';
 

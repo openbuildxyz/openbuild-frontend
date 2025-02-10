@@ -15,6 +15,7 @@
  */
 
 import { useCallback, useState, useEffect } from 'react';
+
 import { get } from '@/utils/request';
 
 export function useBountyList({ skip, take, title, status, order }) {

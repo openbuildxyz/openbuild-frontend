@@ -16,8 +16,8 @@
 
 import Link from 'next/link';
 
-import { Button } from '@/components/Button';
 import Avatar from '@/components/Avatar';
+import { Button } from '@/components/Button';
 
 function FeedbackDetail({ result = {} }) {
   const { quiz_user = {} } = result;

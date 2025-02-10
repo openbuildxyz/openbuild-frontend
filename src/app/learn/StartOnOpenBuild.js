@@ -18,9 +18,10 @@
 
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
-import { Button } from '@/components/Button';
 import Link from 'next/link';
 import TaskPic from 'public/images/svg/task.svg';
+
+import { Button } from '@/components/Button';
 
 export function StartOnOpenBuild() {
   const { status } = useSession();

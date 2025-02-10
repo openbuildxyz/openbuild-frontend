@@ -16,9 +16,9 @@
 
 import { get } from '@/utils/request';
 
-import { Steper } from './Steper';
 import { Content } from './Content';
 import { PostTime } from './PostTime';
+import { Steper } from './Steper';
 
 export default async function ChapterPage({ params }) {
   const datas = await Promise.all([

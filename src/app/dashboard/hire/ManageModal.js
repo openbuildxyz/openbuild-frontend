@@ -14,17 +14,18 @@
  * limitations under the License.
  */
 
+import BigNumber from 'bignumber.js';
 import Image from 'next/image';
-import { Modal } from '@/components/Modal';
+
+import { Button } from '@/components/Button';
 import { ModalCloseIcon, TipsIcon, TriangleIcon } from '@/components/Icons';
+import { OViewer } from '@/components/MarkDown';
+import { Modal } from '@/components/Modal';
+import { MouseoverTooltip } from '@/components/Tooltip';
+import { formatTime } from '@/utils/date';
+import { formatUnits } from '@ethersproject/units';
 
 import { useMediaUrl, useAllSkills, useSlillhubChain } from '#/state/application/hooks';
-import { Button } from '@/components/Button';
-import { formatTime } from '@/utils/date';
-import { MouseoverTooltip } from '@/components/Tooltip';
-import { OViewer } from '@/components/MarkDown';
-import BigNumber from 'bignumber.js';
-import { formatUnits } from '@ethersproject/units';
 
 export function ManageModal({
   open,

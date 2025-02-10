@@ -16,6 +16,7 @@
 
 import { isFunction } from 'lodash';
 import { useAccount } from 'wagmi';
+
 import { useConnectModal } from '@rainbow-me/rainbowkit';
 
 import { bindWallet } from '../repository';

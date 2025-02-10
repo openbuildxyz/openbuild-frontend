@@ -14,12 +14,15 @@
  * limitations under the License.
  */
 
-import { Modal } from '@/components/Modal';
 import React, { useEffect } from 'react';
 import { Tabulator } from 'survey-analytics/survey.analytics.tabulator';
 import { Model } from 'survey-core';
+
+import { Modal } from '@/components/Modal';
+
 import 'tabulator-tables/dist/css/tabulator.min.css';
 import 'survey-analytics/survey.analytics.tabulator.css';
+
 import { get } from '@/utils/request';
 
 export function ChallengesExportModal({ challenges, open, closeModal, json, result }) {

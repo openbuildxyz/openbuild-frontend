@@ -16,19 +16,21 @@
 
 'use client';
 
-import Link from 'next/link';
 import clsx from 'clsx';
-import { useEffect, useState } from 'react';
-import { registerEmail, sendCode } from '#/services/auth';
-import { useForm } from 'react-hook-form';
-import { useRouter } from 'next/navigation';
-import { toast } from 'react-toastify';
-import Loader from '@/components/Loader';
-import { useAccount } from 'wagmi';
-import { useSearchParams } from 'next/navigation';
 import { useSession } from 'next-auth/react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 import isEmail from 'validator/lib/isEmail';
+import { useAccount } from 'wagmi';
+
+import Loader from '@/components/Loader';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
+
+import { registerEmail, sendCode } from '#/services/auth';
 
 import { NavButtonStyle } from '../signin/page';
 const SignupAfterStyle = 'after:content-[\'\'] after:absolute after:left-[-12px] after:bottom-0 after:w-3 after:h-3 after:bg-signup-gradient';

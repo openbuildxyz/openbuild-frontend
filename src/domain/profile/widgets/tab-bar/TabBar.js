@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { isPlainObject } from 'lodash';
 import clsx from 'clsx';
+import { isPlainObject } from 'lodash';
 
 import { Button } from '@/components/Button';
 

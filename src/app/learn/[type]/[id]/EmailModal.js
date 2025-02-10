@@ -14,17 +14,19 @@
  * limitations under the License.
  */
 
+import clsx from 'clsx';
+import { signIn } from 'next-auth/react';
 import React, { useState, useEffect } from 'react';
-import { Modal } from '@/components/Modal';
-import { baseInputStyles } from '#/domain/profile/widgets/blocks';
-
 import { toast } from 'react-toastify';
 import isEmail from 'validator/lib/isEmail';
-import { sendCode, emailCodeLogin } from '#/services/auth';
+
 import { Button } from '@/components/Button';
+import { Modal } from '@/components/Modal';
+
+import { baseInputStyles } from '#/domain/profile/widgets/blocks';
+import { sendCode, emailCodeLogin } from '#/services/auth';
+
 import { revalidatePathAction } from './actions';
-import { signIn } from 'next-auth/react';
-import clsx from 'clsx';
 
 export function EmailModal({ open, closeModal, successCallback }) {
   const [email, setEmail] = useState('');

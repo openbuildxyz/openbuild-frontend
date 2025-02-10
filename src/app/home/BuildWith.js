@@ -17,7 +17,6 @@
 'use client';
 
 import Image from 'next/image';
-
 import build1Pic from 'public/images/build-1.svg';
 import build2Pic from 'public/images/build-2.svg';
 import build3Pic from 'public/images/build-3.svg';

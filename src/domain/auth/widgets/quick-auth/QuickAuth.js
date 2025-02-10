@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import { useEffect } from 'react';
-import { useConnectModal } from '@rainbow-me/rainbowkit';
-import { useAccount } from 'wagmi';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
-
 import GoogleIcon from 'public/images/svg/google-line.png';
+import { useEffect } from 'react';
+import { useAccount } from 'wagmi';
+
 import { GithubIcon, WalletIcon } from '@/components/Icons';
+import { useConnectModal } from '@rainbow-me/rainbowkit';
 
 import { authWithGoogle, authWithGithub } from '../../helper';
 import useSignInWithWallet from '../../hooks/useSignInWithWallet';

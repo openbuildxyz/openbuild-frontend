@@ -16,14 +16,14 @@
 
 import clsx from 'clsx';
 
+import { NoData } from '@/components/NoData';
 import { PAGE_SIZE } from '@/constants/config';
 import { get } from '@/utils/request';
-import { NoData } from '@/components/NoData';
 
 import { FilterToggle } from './FilterToggle';
 import { List } from './List';
-import { TopFilters } from './TopFilters';
 import { ListSkeleton } from './ListSkeleton';
+import { TopFilters } from './TopFilters';
 
 export async function Container({ type, searchParams }) {
   const page = Number(searchParams?.page) || 1;

@@ -15,6 +15,7 @@
  */
 
 import React, {forwardRef} from 'react';
+
 import { useInput } from '@nextui-org/input';
 
 const styles = {

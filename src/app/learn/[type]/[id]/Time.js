@@ -16,6 +16,7 @@
 
 'use client';
 import { formatTime } from '@/utils/date';
+
 import { ChallengesStatus } from '../ChallengesStatus';
 
 export function ChallengesTime({ data }) {

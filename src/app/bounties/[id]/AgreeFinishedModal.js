@@ -15,25 +15,23 @@
  */
 
 import { useState } from 'react';
+import { toast } from 'react-toastify';
+import {  useNetwork, useWalletClient } from 'wagmi';
 
 import { Button } from '@/components/Button';
 import { Modal } from '@/components/Modal';
-
-import {  useNetwork, useWalletClient } from 'wagmi';
-
-import { toast } from 'react-toastify';
-
 import { withdraw } from '@/constants/bounty';
-import { revalidatePathAction } from '../../actions';
-// import { writeContract } from '@wagmi/core';
 
+import { useBountyEnvCheck } from '#/domain/bounty/hooks';
+// import { writeContract } from '@wagmi/core';
 import {
   // termination,
   finishConfirm,
   finishDeny,
   // arbitrate,
 } from '#/services/bounties';
-import { useBountyEnvCheck } from '#/domain/bounty/hooks';
+
+import { revalidatePathAction } from '../../actions';
 
 export function AgreeFinishedModal({open, close, bounty}) {
   const [loading, setLoading] = useState(false);

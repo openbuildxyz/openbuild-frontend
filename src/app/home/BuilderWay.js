@@ -16,16 +16,18 @@
 
 'use client';
 
-import { useMemo, useState, useEffect } from 'react';
 import clsx from 'clsx';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import Image from 'next/image';
-import Slider from 'react-slick';
-import { useMediaUrl } from '#/state/application/hooks';
-import MorePic from 'public/images/svg/more.svg';
-import { useMediaQuery } from '@/hooks/useMediaQuery';
 import NProgress from 'nprogress';
+import MorePic from 'public/images/svg/more.svg';
+import { useMemo, useState, useEffect } from 'react';
+import Slider from 'react-slick';
+
+import { useMediaQuery } from '@/hooks/useMediaQuery';
+
+import { useMediaUrl } from '#/state/application/hooks';
 
 function CardVerticalSlider({data, type, href}) {
   const mediaUrl = useMediaUrl();

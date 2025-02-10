@@ -15,9 +15,11 @@
  */
 
 'use client';
-import useInterval from '@/hooks/useInterval';
-import { uploadSingleProgress } from '#/services/learn';
 import { useSession } from 'next-auth/react';
+
+import useInterval from '@/hooks/useInterval';
+
+import { uploadSingleProgress } from '#/services/learn';
 
 export function PostTime({ id }) {
   const { status } = useSession();

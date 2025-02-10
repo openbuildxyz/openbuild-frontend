@@ -16,25 +16,28 @@
 
 'use client';
 
-import { Button } from '@/components/Button';
-import { useEffect, useRef, useState } from 'react';
-import { ProfileNav } from './Navs';
-import Image from 'next/image';
-import { SelectCountry } from './SelectCountry';
-import { MySkill } from './MySkill';
-import SocialSettingsFormView from '#/domain/profile/views/social-settings-form';
-import { Setting } from './Setting';
-import { ProfileTitle, ProfileLabel } from '#/domain/profile/widgets/blocks';
-import { BASE_INPUT_STYLE } from '@/constants/config';
-import { useUser } from '#/state/application/hooks';
-import { postUserInfo } from '#/services/user';
-import { upload } from '#/services/common';
-import { useConfig } from '#/state/application/hooks';
-import { classNames } from '@/utils';
-import { toast } from 'react-toastify';
-import Loader from '@/components/Loader';
 import clsx from 'clsx';
+import Image from 'next/image';
+import { useEffect, useRef, useState } from 'react';
+import { toast } from 'react-toastify';
+
+import { Button } from '@/components/Button';
+import Loader from '@/components/Loader';
 import Switch from '@/components/Switch';
+import { BASE_INPUT_STYLE } from '@/constants/config';
+import { classNames } from '@/utils';
+
+import SocialSettingsFormView from '#/domain/profile/views/social-settings-form';
+import { ProfileTitle, ProfileLabel } from '#/domain/profile/widgets/blocks';
+import { upload } from '#/services/common';
+import { postUserInfo } from '#/services/user';
+import { useUser } from '#/state/application/hooks';
+import { useConfig } from '#/state/application/hooks';
+
+import { MySkill } from './MySkill';
+import { ProfileNav } from './Navs';
+import { SelectCountry } from './SelectCountry';
+import { Setting } from './Setting';
 
 export default function Profile() {
   const info = useUser();

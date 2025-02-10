@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-import { useState } from 'react';
 import { EditorBubble } from 'novel';
+import { useState } from 'react';
 
 import { ColorSelector } from './ColorSelector';
 import { LinkSelector } from './LinkSelector';
-import { NodeSelector } from './NodeSelector';
 import { MathSelector } from './MathSelector';
-import { TextButtons } from './TextButtons';
+import { NodeSelector } from './NodeSelector';
 import { Separator } from './Separator';
+import { TextButtons } from './TextButtons';
 
 function BlockEditorBubble({ className }) {
   const [openNode, setOpenNode] = useState(false);

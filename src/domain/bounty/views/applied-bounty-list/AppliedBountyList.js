@@ -17,10 +17,9 @@
 import LoadableList from '@/components/loadable-list';
 
 import { useViewingSelf } from '../../../auth/hooks';
-
 import { fetchAppliedBountyList } from '../../repository';
-import BountyItem from '../../widgets/bounty-item';
 import AppliedBountyAction from '../../widgets/applied-bounty-action';
+import BountyItem from '../../widgets/bounty-item';
 
 function AppliedBountyList({ list, viewingSelf }) {
   return (

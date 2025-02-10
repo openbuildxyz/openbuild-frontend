@@ -16,11 +16,9 @@
 
 'use client';
 
-import { RainbowKitProvider } from '@rainbow-me/rainbowkit'; // RainbowKitAuthenticationProvider
-
-import '@rainbow-me/rainbowkit/styles.css';
-
 import { chains } from '@/constants/chain';
+import '@rainbow-me/rainbowkit/styles.css';
+import { RainbowKitProvider } from '@rainbow-me/rainbowkit'; // RainbowKitAuthenticationProvider
 
 export function RainbowKitProviders({ children }) {
   return (

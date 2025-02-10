@@ -15,17 +15,18 @@
  */
 
 'use client';
-import { ArrowRightIcon } from '@heroicons/react/20/solid';
-import Typed from 'react-typed';
 import Image from 'next/image';
-import topPic from 'public/images/banner-top.png';
+import Link from 'next/link';
 import bottomPic from 'public/images/banner-bottom.png';
-import ballPic from 'public/images/svg/ball.svg';
+import topPic from 'public/images/banner-top.png';
 import obPic from 'public/images/ob.png';
 import obmPic from 'public/images/openbuild-m.png';
+import ballPic from 'public/images/svg/ball.svg';
 import scrollDownPic from 'public/images/svg/scroll-down.svg';
 import { useEffect, useState } from 'react';
-import Link from 'next/link';
+import Typed from 'react-typed';
+
+import { ArrowRightIcon } from '@heroicons/react/20/solid';
 
 const Pointer = () => {
   return <span className="inline-block w-[10px] h-[10px] border border-white rotate-45 mr-[10px] [&:last-child]:mr-0" />;

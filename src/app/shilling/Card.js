@@ -16,13 +16,15 @@
 
 'use client';
 
-import Link from 'next/link';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { ArrowRightLineIcon } from '@/components/Icons';
-import { useMediaUrl, useAllSkills } from '#/state/application/hooks';
-import { fromNow } from '@/utils/date';
 import NProgress from 'nprogress';
+
+import { ArrowRightLineIcon } from '@/components/Icons';
+import { fromNow } from '@/utils/date';
+
+import { useMediaUrl, useAllSkills } from '#/state/application/hooks';
 
 export function ShillingCard({ data }) {
   const mediaUrl = useMediaUrl();
