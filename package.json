@@ -135,6 +135,7 @@
     "eslint": "^8.7.0",
     "eslint-config-next": "^13.1.1",
     "eslint-plugin-headers": "1.2.1",
+    "eslint-plugin-perfectionist": "4.8.0",
     "eslint-plugin-tailwindcss": "3.15.1",
     "husky": "9.1.7",
     "ksio": "^0.0.3",
