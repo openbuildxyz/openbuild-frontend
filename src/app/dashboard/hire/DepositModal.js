@@ -14,21 +14,23 @@
  * limitations under the License.
  */
 
-import { useMemo, useState } from 'react';
-import { Modal } from '@/components/Modal';
-import { ModalCloseIcon, TipsIcon } from '@/components/Icons';
-import { MouseoverTooltip } from '@/components/Tooltip';
-import { Button } from '@/components/Button';
-import { useAllowance, useApprove } from '@/hooks/useERC20';
-import { useSlillhubChain } from '#/state/application/hooks';
-import { useAccount, useBalance } from 'wagmi';
 // import { writeContract, prepareWriteContract } from '@wagmi/core'
 import { formatUnits } from '@ethersproject/units';
-import { toast } from 'react-toastify';
-// import { currentTime } from '@/utils/date'
-import { hireStart } from '#/services/shilling';
 import { waitForTransaction } from '@wagmi/core';
 import { writeContract } from '@wagmi/core';
+import { useMemo, useState } from 'react';
+import { toast } from 'react-toastify';
+import { useAccount, useBalance } from 'wagmi';
+
+import { Button } from '@/components/Button';
+import { ModalCloseIcon, TipsIcon } from '@/components/Icons';
+import { Modal } from '@/components/Modal';
+import { MouseoverTooltip } from '@/components/Tooltip';
+import { useAllowance, useApprove } from '@/hooks/useERC20';
+
+// import { currentTime } from '@/utils/date'
+import { hireStart } from '#/services/shilling';
+import { useSlillhubChain } from '#/state/application/hooks';
 
 export function DepositModal({ open, closeModal, hireData }) {
   const { address } = useAccount();

@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import React, {forwardRef} from 'react';
 import { useInput } from '@nextui-org/input';
+import React, {forwardRef} from 'react';
 
 const styles = {
   input: [ 'bg-transparent', 'placeholder:opacity-40', 'ml-1' ],

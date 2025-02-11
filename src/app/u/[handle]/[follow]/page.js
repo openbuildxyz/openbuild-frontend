@@ -16,21 +16,20 @@
 
 'use client';
 
-import { useState, useCallback, useEffect } from 'react';
-import { usePathname, useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
+import { usePathname, useRouter } from 'next/navigation';
+import { useState, useCallback, useEffect } from 'react';
 import { toast } from 'react-toastify';
 
-import { post, get } from '@/utils/request';
-import { useUser } from '#/state/application/hooks';
-
-import { SvgIcon } from '@/components/Image';
 import Avatar from '@/components/Avatar';
 import { Button } from '@/components/Button';
-import { NoData } from '@/components/NoData';
+import { SvgIcon } from '@/components/Image';
 import Loader from '@/components/Loader';
+import { NoData } from '@/components/NoData';
+import { post, get } from '@/utils/request';
 
 import TabBarWidget from '#/domain/profile/widgets/tab-bar';
+import { useUser } from '#/state/application/hooks';
 
 export default function Follow({ params }) {
   const { status } = useSession();

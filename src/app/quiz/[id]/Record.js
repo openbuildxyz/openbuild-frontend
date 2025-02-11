@@ -14,16 +14,18 @@
  * limitations under the License.
  */
 
-import { Modal } from '@/components/Modal';
-import { ModalCloseIcon } from '@/components/Icons';
-import useSWR from 'swr';
-import { fetcher } from '@/utils/request';
 import Image from 'next/image';
-import { useMediaUrl } from '#/state/application/hooks';
-import { formatTime, fromUtcOffset, formatTimeMeridiem } from '@/utils/date';
+import Link from 'next/link';
+import useSWR from 'swr';
+
+import { ModalCloseIcon } from '@/components/Icons';
+import { Modal } from '@/components/Modal';
 // import clsx from 'clsx'
 import { NoData } from '@/components/NoData';
-import Link from 'next/link';
+import { formatTime, fromUtcOffset, formatTimeMeridiem } from '@/utils/date';
+import { fetcher } from '@/utils/request';
+
+import { useMediaUrl } from '#/state/application/hooks';
 
 export function Record({quizId, shown, onClose}) {
   const mediaUrl = useMediaUrl();

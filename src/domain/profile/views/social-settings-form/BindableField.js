@@ -14,20 +14,20 @@
  * limitations under the License.
  */
 
-import { useState, useEffect } from 'react';
+import { useConnectModal } from '@rainbow-me/rainbowkit';
 import clsx from 'clsx';
 import Image from 'next/image';
+import { useState, useEffect } from 'react';
 import { useAccount } from 'wagmi';
-import { useConnectModal } from '@rainbow-me/rainbowkit';
 
-import { BASE_INPUT_STYLE } from '@/constants/config';
-import { shorten } from '@/utils';
 import { Button } from '@/components/Button';
 import { Confirm } from '@/components/Modal/Confirm';
+import { BASE_INPUT_STYLE } from '@/constants/config';
+import { shorten } from '@/utils';
 
 import { authWithGoogle, authWithGithub } from '#/domain/auth/helper';
-import { unbindWallet } from '#/domain/auth/repository';
 import { useBindWallet } from '#/domain/auth/hooks';
+import { unbindWallet } from '#/domain/auth/repository';
 
 function BindableField({ data }) {
   const [confirmModalVisible, setConfirmModalVisible] = useState(false);

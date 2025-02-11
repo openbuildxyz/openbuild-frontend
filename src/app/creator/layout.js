@@ -17,6 +17,7 @@
 'use client';
 
 import Link from 'next/link';
+
 import { useUser } from '#/state/application/hooks';
 
 import { Tabs } from './Tabs';

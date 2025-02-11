@@ -15,13 +15,15 @@
  */
 
 'use client';
-import { useOpenFilter } from '#/state/application/hooks';
 import clsx from 'clsx';
 
-import { CourseCard } from './CourseCard';
-import { ChallengesCard } from './ChallengesCard';
-import { GrowPathCard } from './GrowPathCard';
 import { OPagination } from '@/components/Pagination';
+
+import { useOpenFilter } from '#/state/application/hooks';
+
+import { ChallengesCard } from './ChallengesCard';
+import { CourseCard } from './CourseCard';
+import { GrowPathCard } from './GrowPathCard';
 
 export function List({type, data}) {
   const openFilter = useOpenFilter();

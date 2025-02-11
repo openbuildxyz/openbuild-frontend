@@ -14,17 +14,18 @@
  * limitations under the License.
  */
 
-import range from 'lodash/range';
-import { getTime } from '@/utils/date';
+import { ChevronLeftIcon, ChevronRightIcon, CalendarDaysIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
-
+import range from 'lodash/range';
 import { forwardRef } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+
 import { ReactSelect } from '@/components/Select/ReactSelect';
-import { TIME_ZONE } from '@/constants/timezone';
 import  { BASE_INPUT_STYLE } from '@/constants/config';
-import { ChevronLeftIcon, ChevronRightIcon, CalendarDaysIcon } from '@heroicons/react/24/outline';
+import { TIME_ZONE } from '@/constants/timezone';
+import { getTime } from '@/utils/date';
+
 import { SelectCountry } from '../../../../profile/SelectCountry';
 
 const RenderCustomInput = forwardRef(({ value, onClick }, ref) => (

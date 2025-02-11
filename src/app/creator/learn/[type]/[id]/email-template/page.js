@@ -15,6 +15,7 @@
  */
 
 import { fetchOne } from '#/domain/challenge/repository';
+
 import ChallengeEmailTemplatePage from './ChallengeEmailTemplatePage';
 
 async function EmailTemplatePage({ params: { type, id } }) {

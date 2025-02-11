@@ -16,15 +16,18 @@
 
 'use client';
 
-import { useMediaUrl } from '#/state/application/hooks';
-import { useState } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
 import { EyeIcon } from '@heroicons/react/24/outline';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useState } from 'react';
+import ContentEditable from 'react-contenteditable';
+
+import { HTMLDecode } from '@/utils';
+
+import { useMediaUrl } from '#/state/application/hooks';
+
 import { UsersModal } from '../../UsersModal';
 import { ButtonGroup, Status } from './ListItem';
-import ContentEditable from 'react-contenteditable';
-import { HTMLDecode } from '@/utils';
 
 export function OpenCourseList({ data, mutate, operation, itemTags }) {
   const [openModal, setOpenModal] = useState(false);

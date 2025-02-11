@@ -16,17 +16,18 @@
 
 'use client';
 
-import { useMediaUrl } from '#/state/application/hooks';
-import { useState } from 'react';
-import Image from 'next/image';
 import { EyeIcon } from '@heroicons/react/24/outline';
-import { UsersModal } from '../../UsersModal';
-import { formatTime } from '@/utils/date';
+import Image from 'next/image';
 import Link from 'next/link';
-
+import { useState } from 'react';
 import ContentEditable from 'react-contenteditable';
-import { HTMLDecode } from '@/utils';
 
+import { HTMLDecode } from '@/utils';
+import { formatTime } from '@/utils/date';
+
+import { useMediaUrl } from '#/state/application/hooks';
+
+import { UsersModal } from '../../UsersModal';
 import { ButtonGroup, Status } from './ListItem';
 
 export function ChallengesList({ data, mutate, operation, itemTags }) {

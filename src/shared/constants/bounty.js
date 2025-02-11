@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
-import { BountyABI } from './abis/bounty';
-import { contracts, payTokens } from './contract';
 import { parseUnits } from '@ethersproject/units';
 import { waitForTransaction, writeContract } from '@wagmi/core';
+
+import { BountyABI } from './abis/bounty';
+import { contracts, payTokens } from './contract';
 
 export async function withdraw(walletClient, chainId, taskId, amount, deadline, signature) {
   // console.log([taskId, parseUnits(amount.toString(), payTokens[chainId].usdt.decimals).toString(), deadline, signature])

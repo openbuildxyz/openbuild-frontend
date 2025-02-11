@@ -16,14 +16,16 @@
 
 'use client';
 
-import { RefetchIcon, StartTimeIcon, PushDoorIcon, AddThreeIcon, FinishedIcon } from '@/components/Icons';
 import clsx from 'clsx';
 import Image from 'next/image';
-import { NoData } from '@/components/NoData';
-import { useMediaUrl } from '#/state/application/hooks';
-import { fromNow } from '@/utils/date';
 import useSWR from 'swr';
+
+import { RefetchIcon, StartTimeIcon, PushDoorIcon, AddThreeIcon, FinishedIcon } from '@/components/Icons';
+import { NoData } from '@/components/NoData';
+import { fromNow } from '@/utils/date';
 import { fetcher } from '@/utils/request';
+
+import { useMediaUrl } from '#/state/application/hooks';
 
 export function Activities({ id }) {
   const { data } = useSWR(`ts/v1/build/general/bounties/${id}/events/activities`, fetcher, {suspense: true});

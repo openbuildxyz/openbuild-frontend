@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { formatTime } from '@/utils/date';
 import Avatar from '@/components/Avatar';
+import { formatTime } from '@/utils/date';
 
 function GainedReputationItem({ data }) {
   return (

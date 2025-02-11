@@ -17,14 +17,14 @@
 'use client';
 
 import { AppConfigContext } from '@/hooks/useAppConfig';
+
 import { ReduxProviders } from '#/state/provider';
 
 import setInterceptorsForHttpClients from './aspects/http';
-
 import { Providers } from './components/Providers';
-import { Toast } from './components/Toast';
-import { RouterProgress } from './components/RouterProgress';
 import { RouteIntercept } from './components/RouteIntercept';
+import { RouterProgress } from './components/RouterProgress';
+import { Toast } from './components/Toast';
 
 setInterceptorsForHttpClients();
 

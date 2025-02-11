@@ -16,13 +16,16 @@
 
 'use client';
 
-import TalentsBannerPic from 'public/images/talents-banner.jpeg';
-import { Button } from '@/components/Button';
-import { ShillingFilters } from './Filters';
-import { useUser } from '#/state/application/hooks';
-import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import TalentsBannerPic from 'public/images/talents-banner.jpeg';
+import { useState } from 'react';
+
+import { Button } from '@/components/Button';
+
 import CompleteProfileDialogWidget from '#/domain/profile/widgets/complete-profile-dialog';
+import { useUser } from '#/state/application/hooks';
+
+import { ShillingFilters } from './Filters';
 
 export function Banner() {
   const user = useUser();

@@ -15,6 +15,7 @@
  */
 
 import { useState, useCallback, useEffect } from 'react';
+
 import { get } from '@/utils/request';
 
 export function useNftInfo(ticket) {

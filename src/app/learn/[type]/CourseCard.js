@@ -15,18 +15,20 @@
  */
 
 'use client';
-import { AgreementIcon, NotebookIcon, TimeIcon } from '@/components/Icons';
-
-import { CardTitle } from '../CardTitle';
-import { CardProgress } from '../CardProgress';
-import { useParams } from 'next/navigation';
-import Link from 'next/link';
-import { useMemo } from 'react';
-import { millisecondFormat } from '@/utils/date';
 import BigNumber from 'bignumber.js';
-import { useConfig } from '#/state/application/hooks';
+import Link from 'next/link';
+import { useParams } from 'next/navigation';
+import { useMemo } from 'react';
 import ContentEditable from 'react-contenteditable';
+
+import { AgreementIcon, NotebookIcon, TimeIcon } from '@/components/Icons';
 import { HTMLDecode } from '@/utils';
+import { millisecondFormat } from '@/utils/date';
+
+import { useConfig } from '#/state/application/hooks';
+
+import { CardProgress } from '../CardProgress';
+import { CardTitle } from '../CardTitle';
 
 const typeStyle = 'inline-block mb-1 text-xs border border-gray-600 rounded-md leading-[14px] rounded-md px-2 py-1 opacity-60 mr-1';
 

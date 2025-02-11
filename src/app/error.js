@@ -16,8 +16,9 @@
 
 'use client'; // Error components must be Client Components
 
-import { useEffect } from 'react';
 import Link from 'next/link';
+import { useEffect } from 'react';
+
 import { DiscordIcon } from '@/components/Icons';
 
 export default function Error({

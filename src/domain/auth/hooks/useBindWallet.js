@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
+import { useConnectModal } from '@rainbow-me/rainbowkit';
 import { isFunction } from 'lodash';
 import { useAccount } from 'wagmi';
-import { useConnectModal } from '@rainbow-me/rainbowkit';
 
 import { bindWallet } from '../repository';
 import useSignWallet from './useSignWallet';

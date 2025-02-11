@@ -14,29 +14,25 @@
  * limitations under the License.
  */
 
+import { parseUnits } from '@ethersproject/units';
+import { waitForTransaction } from '@wagmi/core';
+import { writeContract } from '@wagmi/core';
+import { BigNumber } from 'bignumber.js';
 import { useMemo, useState } from 'react';
-import { Button } from '@/components/Button';
-import { Modal } from '@/components/Modal';
 import { toast } from 'react-toastify';
+import { useAccount, useBalance } from 'wagmi';
 
+import { Button } from '@/components/Button';
 import { TipsIcon } from '@/components/Icons';
+import { Modal } from '@/components/Modal';
+import { ReactSelect } from '@/components/Select/ReactSelect';
 import { MouseoverTooltip } from '@/components/Tooltip';
 
-import { ReactSelect } from '@/components/Select/ReactSelect';
-
-import { Estimated } from '../../shilling-myself/ShillingMyselfTwo';
-import { BigNumber } from 'bignumber.js';
-import { useAccount, useBalance } from 'wagmi';
-import { waitForTransaction } from '@wagmi/core';
+import { hireExtend } from '#/services/shilling';
 import { useSlillhubChain } from '#/state/application/hooks';
 
-import { hireExtend } from '#/services/shilling';
-
-import { writeContract } from '@wagmi/core';
-
 // import { writeContract, prepareWriteContract } from '@wagmi/core'
-
-import { parseUnits } from '@ethersproject/units';
+import { Estimated } from '../../shilling-myself/ShillingMyselfTwo';
 
 export function ExpendHireTimeModal({ open, closeModal, data }) {
   const { address } = useAccount();

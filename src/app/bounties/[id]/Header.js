@@ -16,13 +16,15 @@
 
 'use client';
 
-import { ArrowLeftIcon } from '@/components/Icons';
-import { Button } from '@/components/Button';
-import { Share } from '@/components/Share';
 import Link from 'next/link';
-import { Modal } from '@/components/Modal';
-import { Employers } from './Employers';
 import { useState } from 'react';
+
+import { Button } from '@/components/Button';
+import { ArrowLeftIcon } from '@/components/Icons';
+import { Modal } from '@/components/Modal';
+import { Share } from '@/components/Share';
+
+import { Employers } from './Employers';
 
 export function BountiesHeader({data, employers}) {
   const [employersModalOpen, setEmployersModalOpen] = useState(false);

@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import httpClient from '@/utils/http';
 import { unwrapBlockData, wrapBlockData } from '@/components/block-editor';
+import httpClient from '@/utils/http';
 
 async function fetchBlockContent(uid) {
   return httpClient.get('/user/devplaza', { params: { uid } }).then(res => res.success ? ({

@@ -14,13 +14,24 @@
  * limitations under the License.
  */
 
-import { Modal } from '@/components/Modal';
-import { AddProgressModal } from './AddProgressModal';
-import { useCallback, useEffect } from 'react';
-import { Button } from '@/components/Button';
+import { parseUnits } from '@ethersproject/units';
 import clsx from 'clsx';
 import Image from 'next/image';
+import { useCallback, useEffect } from 'react';
 import { useState } from 'react';
+import { toast } from 'react-toastify';
+import { useNetwork, useWalletClient } from 'wagmi';
+
+import { Button } from '@/components/Button';
+import { Modal } from '@/components/Modal';
+import { NoData } from '@/components/NoData';
+import { withdraw } from '@/constants/bounty';
+import { BOUNTY_SUPPORTED_CHAIN } from '@/constants/chain';
+import { contracts, payTokens } from '@/constants/contract';
+import { currentTime, fromNow } from '@/utils/date';
+import { formatTime } from '@/utils/date';
+import { signBounty } from '@/utils/web3';
+
 import {
   getProgressList,
   termination,
@@ -29,19 +40,9 @@ import {
   arbitrate,
 } from '#/services/bounties';
 import { useDetails } from '#/services/bounties/hooks';
-import { signBounty } from '@/utils/web3';
-import { useNetwork, useWalletClient } from 'wagmi';
-import { contracts, payTokens } from '@/constants/contract';
-import { currentTime, fromNow } from '@/utils/date';
-
 import { useMediaUrl } from '#/state/application/hooks';
-import { formatTime } from '@/utils/date';
-import { toast } from 'react-toastify';
-import { NoData } from '@/components/NoData';
 
-import { withdraw } from '@/constants/bounty';
-import { parseUnits } from '@ethersproject/units';
-import { BOUNTY_SUPPORTED_CHAIN } from '@/constants/chain';
+import { AddProgressModal } from './AddProgressModal';
 
 // import { writeContract, prepareWriteContract } from '@wagmi/core'
 // import { BountyABI } from '@/constants/abis/bounty'

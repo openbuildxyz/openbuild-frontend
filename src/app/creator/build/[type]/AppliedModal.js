@@ -14,34 +14,37 @@
  * limitations under the License.
  */
 
-import { Modal } from '@/components/Modal';
-import { useState, useMemo, useCallback, useEffect } from 'react';
-import Image from 'next/image';
-import { Button } from '@/components/Button';
-import useInfiniteScroll from 'react-infinite-scroll-hook';
-import { useCreatorBountyBuilders } from '#/services/creator/hooks';
-import Loader from '@/components/Loader';
+import { parseUnits } from '@ethersproject/units';
+import { EyeIcon } from '@heroicons/react/24/outline';
+import { useConnectModal } from '@rainbow-me/rainbowkit';
+import { writeContract } from '@wagmi/core';
 // import { formatTime } from '@/utils/date'
 import clsx from 'clsx';
-import { denyBuilder, approveBuilder } from '#/services/creator';
+import Image from 'next/image';
+import { useState, useMemo, useCallback, useEffect } from 'react';
+import useInfiniteScroll from 'react-infinite-scroll-hook';
 import { toast } from 'react-toastify';
+import { useAccount } from 'wagmi';
+
+import { Button } from '@/components/Button';
+import Loader from '@/components/Loader';
+import { Modal } from '@/components/Modal';
+import { Confirm } from '@/components/Modal/Confirm';
 import { NoData } from '@/components/NoData';
-import { EyeIcon } from '@heroicons/react/24/outline';
-import { CommentsModal } from './CommentsModal';
+import { BountyABI } from '@/constants/abis/bounty';
+import { BOUNTY_SUPPORTED_CHAIN } from '@/constants/chain';
+import { contracts, payTokens } from '@/constants/contract';
+import { useAllowance, useApprove } from '@/hooks/useERC20';
+
+import { EXPERIENCE_OPTIONS } from '#/lib/user';
+import { denyBuilder, approveBuilder } from '#/services/creator';
+import { useCreatorBountyBuilders } from '#/services/creator/hooks';
 import {
   useMediaUrl,
   useConfig,
 } from '#/state/application/hooks';
-import { Confirm } from '@/components/Modal/Confirm';
-import { EXPERIENCE_OPTIONS } from '#/lib/user';
-import { useAccount } from 'wagmi';
-import { useAllowance, useApprove } from '@/hooks/useERC20';
-import { contracts, payTokens } from '@/constants/contract';
-import { BountyABI } from '@/constants/abis/bounty';
-import { parseUnits } from '@ethersproject/units';
-import { BOUNTY_SUPPORTED_CHAIN } from '@/constants/chain';
-import { useConnectModal } from '@rainbow-me/rainbowkit';
-import { writeContract } from '@wagmi/core';
+
+import { CommentsModal } from './CommentsModal';
 
 export function AppliedModal({ open, closeModal, bounty, applyCallback }) {
   const _contracts = contracts[BOUNTY_SUPPORTED_CHAIN()];

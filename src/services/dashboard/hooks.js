@@ -15,6 +15,7 @@
  */
 
 import { useCallback, useState, useEffect } from 'react';
+
 import { get } from '@/utils/request';
 
 export function useDashboardEnroolSeries({ skip, take, status, series_type }) {

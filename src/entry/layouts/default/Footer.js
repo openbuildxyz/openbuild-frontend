@@ -18,10 +18,10 @@
 
 import clsx from 'clsx';
 import Link from 'next/link';
-import { useFooterDisplay } from '@/hooks/useHeaderAndFooterDisplay';
 
-import { GithubSolidIcon, TwitterIcon, YoutobeIcon, DiscordIcon, LinkedInFilled, SubstackFilled } from '@/components/Icons';
 import BrandLogo from '@/components/brand-logo';
+import { GithubSolidIcon, TwitterIcon, YoutobeIcon, DiscordIcon, LinkedInFilled, SubstackFilled } from '@/components/Icons';
+import { useFooterDisplay } from '@/hooks/useHeaderAndFooterDisplay';
 
 const mediasLinkStyle =
   '[&>a]:flex [&>a]:h-8 [&>a]:w-8 [&>a]:items-center [&>a]:justify-center [&>a]:rounded [&>a]:bg-gray-700';

@@ -20,7 +20,6 @@ import { SvgIcon } from '@/components/Image';
 import LoadableList from '@/components/loadable-list';
 
 import { useViewingSelf } from '../../../auth/hooks';
-
 import { fetchPublishedBountyList } from '../../repository';
 import BountyItem from '../../widgets/bounty-item';
 

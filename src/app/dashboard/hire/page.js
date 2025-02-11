@@ -15,16 +15,16 @@
  */
 
 'use client';
-import { useEffect, useState, Fragment, useCallback } from 'react';
-import { Tabs } from '../Tabs';
-import Link from 'next/link';
-import Image from 'next/image';
-import { NoData } from '@/components/NoData';
-import Loader from '@/components/Loader';
-import { useAllSkills, useMediaUrl, useSlillhubChain } from '#/state/application/hooks';
+import { formatUnits } from '@ethersproject/units';
 import { Popover, Transition } from '@headlessui/react';
-import { useWalletClient, useNetwork, useSwitchNetwork, useAccount } from 'wagmi';
+import { useConnectModal } from '@rainbow-me/rainbowkit';
 import { readContract } from '@wagmi/core';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useEffect, useState, Fragment, useCallback } from 'react';
+import { toast } from 'react-toastify';
+import { useWalletClient, useNetwork, useSwitchNetwork, useAccount } from 'wagmi';
+
 import {
   EditIcon,
   ManageIcon,
@@ -35,19 +35,22 @@ import {
   TerminateIcon,
   DepositIcon,
 } from '@/components/Icons';
+import Loader from '@/components/Loader';
+import { NoData } from '@/components/NoData';
 import { Paging } from '@/components/Paging';
-import { useSkillsHireList } from '#/services/dashboard/hooks';
 import { formatTime, currentTime } from '@/utils/date';
+import { signSkillHub } from '@/utils/web3';
+
+import { useSkillsHireList } from '#/services/dashboard/hooks';
 import { permissionsHireStatus, permissionsStatusApprove } from '#/services/shilling';
-import { toast } from 'react-toastify';
-import { ManageModal } from './ManageModal';
+import { useAllSkills, useMediaUrl, useSlillhubChain } from '#/state/application/hooks';
+
+import { Tabs } from '../Tabs';
 import { ClaimModal } from './ClaimModal';
 import { DepositModal } from './DepositModal';
-import { TerminateModal } from './TerminateModal';
 import { ExpendHireTimeModal } from './ExpendHireTimeModal';
-import { signSkillHub } from '@/utils/web3';
-import { formatUnits } from '@ethersproject/units';
-import { useConnectModal } from '@rainbow-me/rainbowkit';
+import { ManageModal } from './ManageModal';
+import { TerminateModal } from './TerminateModal';
 
 const tabs = [
   {

@@ -15,6 +15,7 @@
  */
 
 import { useMemo } from 'react';
+
 import { useUser } from '#/state/application/hooks';
 
 export function useBoundWallet() {

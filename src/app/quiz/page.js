@@ -16,17 +16,18 @@
 
 'use client';
 
+import Aos from 'aos';
 import Image from 'next/image';
-import { ArrowRightIcon } from '@/components/Icons';
-import { useEffect,useState } from 'react';
-import { StartOnOpenBuild } from '../learn/StartOnOpenBuild';
-import { QuizList } from './List';
-
 import QuizBannerPic from 'public/images/quiz-banner.svg';
 import QuizS1 from 'public/images/quiz-s-1.svg';
 import QuizS2 from 'public/images/quiz-s-2.svg';
 import QuizS3 from 'public/images/quiz-s-3.svg';
-import Aos from 'aos';
+import { useEffect,useState } from 'react';
+
+import { ArrowRightIcon } from '@/components/Icons';
+
+import { StartOnOpenBuild } from '../learn/StartOnOpenBuild';
+import { QuizList } from './List';
 
 const Steps = [
   {

@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
+import { XMarkIcon, ChevronDownIcon } from '@heroicons/react/20/solid';
 import React from 'react';
 import { components } from 'react-select';
-import { XMarkIcon, ChevronDownIcon } from '@heroicons/react/20/solid';
 
 export const DropdownIndicator = props => {
   return (

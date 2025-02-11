@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
-import { BASE_INPUT_STYLE } from '@/constants/config';
-import { renderMarkdown, renderHtml } from '@/utils/markdown';
 import { Button } from '@/components/Button';
 import { OEditor } from '@/components/MarkDown';
+import { BASE_INPUT_STYLE } from '@/constants/config';
+import { renderMarkdown, renderHtml } from '@/utils/markdown';
 
 import { fetchEmailTemplate, updateEmailTemplate } from '../../repository';
 import FormField from './FormField';

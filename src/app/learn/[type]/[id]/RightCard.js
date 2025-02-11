@@ -16,46 +16,42 @@
 
 'use client';
 
-import Image from 'next/image';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useCallback, useState, useEffect, Fragment, useRef, useMemo } from 'react';
-import { Button } from '@/components/Button';
-import { useSession } from 'next-auth/react';
-import { CheckIcon } from '@heroicons/react/20/solid';
-// import { currentTime } from '@/utils/date'
-import { useMediaUrl } from '#/state/application/hooks';
-import { joinChallengesEnrool, pay } from '#/services/learn/';
-
-// import { USDTIcon } from '@/components/Icons'
-import { EmailModal } from './EmailModal';
-
-import { enrollAction, revalidatePathAction } from './actions';
-import { toast } from 'react-toastify';
-import dynamic from 'next/dynamic';
-import { waitForTransaction } from '@wagmi/core';
-
-import { useConnectModal } from '@rainbow-me/rainbowkit';
-
-import { useAccount, useNetwork, useSwitchNetwork, erc20ABI } from 'wagmi';
 // import { getBalance } from '@wagmi/core'
 // import { prepareWriteContract, writeContract } from '@wagmi/core'
 import { parseUnits } from '@ethersproject/units';
-import clsx from 'clsx';
-import { writeContract } from '@wagmi/core';
-import { TimeAndLocation } from '../ChallengesCard';
-import { USDTIcon } from '@/components/Icons';
-
 import { Dialog, Transition } from '@headlessui/react';
-import TicketEPic from 'public/images/ticket-e.svg';
-import TicketBgPic from 'public/images/ticket-bg.svg';
-import { TwitterIcon, DownloadIcon } from '@/components/Icons';
-import QRCode from 'react-qr-code';
-import { toBlob } from 'html-to-image';
-
-import { formatTime } from '@/utils/date';
+import { CheckIcon } from '@heroicons/react/20/solid';
+import { useConnectModal } from '@rainbow-me/rainbowkit';
+import { waitForTransaction } from '@wagmi/core';
+import { writeContract } from '@wagmi/core';
+import clsx from 'clsx';
 import { saveAs } from 'file-saver';
+import { toBlob } from 'html-to-image';
+import { useSession } from 'next-auth/react';
+import dynamic from 'next/dynamic';
+import Image from 'next/image';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import TicketBgPic from 'public/images/ticket-bg.svg';
+import TicketEPic from 'public/images/ticket-e.svg';
+import { useCallback, useState, useEffect, Fragment, useRef, useMemo } from 'react';
+import QRCode from 'react-qr-code';
+import { toast } from 'react-toastify';
+import { useAccount, useNetwork, useSwitchNetwork, erc20ABI } from 'wagmi';
 
+import { Button } from '@/components/Button';
+import { USDTIcon } from '@/components/Icons';
+import { TwitterIcon, DownloadIcon } from '@/components/Icons';
+import { formatTime } from '@/utils/date';
 import { resolvePathWithSearch } from '@/utils/url';
+
+import { joinChallengesEnrool, pay } from '#/services/learn/';
+// import { currentTime } from '@/utils/date'
+import { useMediaUrl } from '#/state/application/hooks';
+
+import { TimeAndLocation } from '../ChallengesCard';
+import { enrollAction, revalidatePathAction } from './actions';
+// import { USDTIcon } from '@/components/Icons'
+import { EmailModal } from './EmailModal';
 
 const EnrollModal = dynamic(() => import('./EnrollModal'), {
   ssr: false,

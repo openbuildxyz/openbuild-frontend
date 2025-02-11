@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
-import { Button } from './Button';
-import { cn } from './helper';
 import { BoldIcon, CodeIcon, ItalicIcon, StrikethroughIcon, UnderlineIcon } from 'lucide-react';
 import { EditorBubbleItem, useEditor } from 'novel';
+
+import { Button } from './Button';
+import { cn } from './helper';
 
 export const TextButtons = () => {
   const { editor } = useEditor();

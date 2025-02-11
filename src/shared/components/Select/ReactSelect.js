@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
+import { XMarkIcon, ChevronDownIcon } from '@heroicons/react/20/solid';
 import { isInteger, isFunction } from 'lodash';
 import React from 'react';
 import Select, { components } from 'react-select';
-import { XMarkIcon, ChevronDownIcon } from '@heroicons/react/20/solid';
+
 import { classNames } from '@/utils';
 
 export const DropdownIndicator = props => {

@@ -16,14 +16,16 @@
 
 'use client';
 
-import { Button } from '@/components/Button';
+import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
 
-import { useSession } from 'next-auth/react';
+import { Button } from '@/components/Button';
+import { formatTime } from '@/utils/date';
+
 import { useNftInfo } from '#/services/nft/hooks';
 import { useMediaUrl } from '#/state/application/hooks';
-import { formatTime } from '@/utils/date';
+
 import { Skeleton } from './Skeleton';
 
 export default function NftInfo() {

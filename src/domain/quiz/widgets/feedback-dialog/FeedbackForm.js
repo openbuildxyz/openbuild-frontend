@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import { useState } from 'react';
 import Link from 'next/link';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
-import { wrapOnChange } from '@/utils/form';
 import { Button } from '@/components/Button';
+import { wrapOnChange } from '@/utils/form';
 
 import { updateRespondentContacts } from '../../repository';
 import style from './style.module.scss';

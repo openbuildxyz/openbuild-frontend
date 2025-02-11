@@ -14,23 +14,22 @@
  * limitations under the License.
  */
 
+import { parseUnits } from '@ethersproject/units';
 import { useState } from 'react';
+import { toast } from 'react-toastify';
+import { useNetwork, useWalletClient } from 'wagmi';
 
 import { Button } from '@/components/Button';
 import { Modal } from '@/components/Modal';
-
-import { useNetwork, useWalletClient } from 'wagmi';
 import { BOUNTY_SUPPORTED_CHAIN } from '@/constants/chain';
-
-import { biulderFinish } from '#/services/bounties';
-import { toast } from 'react-toastify';
-import { signBounty } from '@/utils/web3';
-
 import { contracts, payTokens } from '@/constants/contract';
 import { currentTime } from '@/utils/date';
-import { parseUnits } from '@ethersproject/units';
-import { revalidatePathAction } from '../../actions';
+import { signBounty } from '@/utils/web3';
+
 import { useBountyEnvCheck } from '#/domain/bounty/hooks';
+import { biulderFinish } from '#/services/bounties';
+
+import { revalidatePathAction } from '../../actions';
 
 export function ApplyFinishedModal({open, close, bounty}) {
   const _contracts = contracts[BOUNTY_SUPPORTED_CHAIN()];

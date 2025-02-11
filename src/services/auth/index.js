@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-import { post } from '@/utils/request';
 import sha256 from 'sha256';
+
+import { post } from '@/utils/request';
 
 export async function signin(email, password) {
   const res = await post(

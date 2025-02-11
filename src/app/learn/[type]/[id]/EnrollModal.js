@@ -14,14 +14,15 @@
  * limitations under the License.
  */
 
+import { useSession } from 'next-auth/react';
 import React, { useEffect, useMemo, useState } from 'react';
-import { Modal } from '@/components/Modal';
-
 import 'survey-core/defaultV2.min.css';
 import { Model } from 'survey-core';
 import { Survey } from 'survey-react-ui';
+
+import { Modal } from '@/components/Modal';
+
 import { joinChallengesEnrool } from '#/services/learn/';
-import { useSession } from 'next-auth/react';
 
 export default function EnrollModal({ open, closeModal, json, id, successCallback }) {
   const { status } = useSession();

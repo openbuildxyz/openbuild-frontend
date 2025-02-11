@@ -16,15 +16,15 @@
 
 'use client';
 
-import { useState } from 'react';
 import Link from 'next/link';
 import { useSearchParams, useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 
 import Loader from '@/components/Loader';
 
-import { useForm } from 'react-hook-form';
 import { reset } from '#/services/auth';
-import { toast } from 'react-toastify';
 
 export default function Reset() {
   const { register, handleSubmit, watch } = useForm();

@@ -16,11 +16,11 @@
 
 import { useRouter } from 'next/navigation';
 
-import { formatTime } from '@/utils/date';
-import { ChallengesStatus } from '#/app/learn/[type]/ChallengesStatus';
-
-import Image from '@/components/Image';
 import Avatar from '@/components/Avatar';
+import Image from '@/components/Image';
+import { formatTime } from '@/utils/date';
+
+import { ChallengesStatus } from '#/app/learn/[type]/ChallengesStatus';
 
 function EnrolledChallengeItem({ data }) {
   const router = useRouter();

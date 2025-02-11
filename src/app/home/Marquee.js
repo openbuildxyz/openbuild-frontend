@@ -14,10 +14,12 @@
  * limitations under the License.
  */
 
-import Marquee from 'react-fast-marquee';
 import Image from 'next/image';
-import { useMediaUrl } from '#/state/application/hooks';
+import Marquee from 'react-fast-marquee';
+
 import { useMediaQuery } from '@/hooks/useMediaQuery';
+
+import { useMediaUrl } from '#/state/application/hooks';
 
 export function MarqueeContent({data}) {
   const mediaUrl = useMediaUrl();

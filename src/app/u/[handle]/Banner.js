@@ -16,14 +16,16 @@
 
 'use client';
 
-import { useUser } from '#/state/application/hooks';
-import { upload } from '#/services/common';
-import { toast } from 'react-toastify';
-import { useRef, useState } from 'react';
-import { changeBanner } from '#/services/user';
-import { revalidatePathAction } from '#/app/actions';
 import clsx from 'clsx';
+import { useRef, useState } from 'react';
+import { toast } from 'react-toastify';
+
 import Image from '@/components/Image';
+
+import { revalidatePathAction } from '#/app/actions';
+import { upload } from '#/services/common';
+import { changeBanner } from '#/services/user';
+import { useUser } from '#/state/application/hooks';
 
 export function Banner({data}) {
   const user = useUser();

@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import { Popover } from '@radix-ui/react-popover';
 import {
   Check,
   CheckSquare,
@@ -30,7 +31,6 @@ import { EditorBubbleItem, useEditor } from 'novel';
 
 import { Button } from './Button';
 import { PopoverContent, PopoverTrigger } from './Popover';
-import { Popover } from '@radix-ui/react-popover';
 
 const items = [
   {
