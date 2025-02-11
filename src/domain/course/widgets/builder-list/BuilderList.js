@@ -15,9 +15,9 @@
  */
 
 import clsx from 'clsx';
-import { isInteger } from 'lodash';
 
 import Image from '@/components/Image';
+import { isInteger } from '@/utils';
 
 const idKey = 'id';
 const avatarKey = 'id';

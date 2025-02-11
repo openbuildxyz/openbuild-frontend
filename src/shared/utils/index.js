@@ -16,7 +16,7 @@
 
 import { getAddress } from '@ethersproject/address';
 
-export function isAddress(value) {
+function isAddress(value) {
   try {
     // Alphabetical letters must be made lowercase for getAddress to work.
     // See documentation here: https://docs.ethers.io/v5/api/utils/address/
@@ -40,22 +40,6 @@ export function shorten(string, chars = 4) {
   return `${string.substring(0, chars + 2)}...${string.substring(42 - chars)}`;
 }
 
-export function getPathParams(pathname) {
-  if (!pathname) return '';
-  const _pathname = pathname.split('/');
-  return _pathname ? _pathname[_pathname.length - 1] : '';
-}
-
-export function userAgent() {
-  if (typeof window === 'undefined') {
-    return '';
-  }
-  const userAgent = typeof window !== 'undefined' ? window.navigator.userAgent : '';
-  const isAndroid = /(Android)/i.test(userAgent);
-  const isIOS = /(iPhone|iPad|iPod|iOS|Mac|Mac)/i.test(userAgent);
-  return isAndroid ? 'android' : isIOS ? 'ios' : '';
-}
-
 export function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
@@ -66,39 +50,6 @@ export function arrRemove(arr, val) {
     arr.splice(index, 1);
   }
   return arr;
-}
-
-export function base64toBlob(data, pdfContentType) {
-  // Cut the prefix `data:application/pdf;base64` from the raw base 64
-  const base64WithoutPrefix = data.substring(`data:${pdfContentType};base64,`.length);
-
-  const bytes = atob(base64WithoutPrefix);
-  let length = bytes.length;
-  const out = new Uint8Array(length);
-
-  while (length--) {
-    out[length] = bytes.charCodeAt(length);
-  }
-
-  return new Blob([out], { type: pdfContentType });
-}
-
-export function getRandom(min, max) {
-  const floatRandom = Math.random();
-
-  const difference = max - min;
-
-  const random = Math.round(difference * floatRandom);
-
-  const randomWithinRange = random + min;
-
-  return randomWithinRange;
-}
-
-export async function awaitTimeout () {
-  await new Promise(resolve => {
-    setTimeout(resolve, 500);
-  });
 }
 
 export const createQueryString = (name, value, params, replace) => {
@@ -124,14 +75,11 @@ export const createQueryString = (name, value, params, replace) => {
   }
   return params.toString();
 };
-export function shortenString(str, chars = 4) {
-  return `${str.substring(0, chars + 2)}...${str.substring(42 - chars)}`;
-}
 
-export function HTMLDecode(text) {  
+export function HTMLDecode(text) {
   if (!text) {
     return '';
-  } 
+  }
   if (typeof text !== 'string') {
     return String(text);
   }
@@ -139,9 +87,11 @@ export function HTMLDecode(text) {
   return text.replace(/&(lt|gt);/ig,function(all,t){
     return arrEntities[t];
   });
-  // let temp = document.createElement('div'); 
-  // temp.innerHTML = text; 
-  // const output = temp.textContent || temp.innerText; 
-  // temp = null; 
+  // let temp = document.createElement('div');
+  // temp.innerHTML = text;
+  // const output = temp.textContent || temp.innerText;
+  // temp = null;
   // return output;
 }
+
+export { isEmpty, isInteger, isString, isFunction, isPlainObject, get, cloneDeep, merge, capitalize, chunk, range } from 'lodash';

@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-import { isFunction } from 'lodash';
 import { useEffect } from 'react';
+
+import { isFunction } from '../utils';
 
 function useMounted(callback) {
   useEffect(() => {

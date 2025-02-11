@@ -18,7 +18,6 @@
 
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
-import { isEmpty } from 'lodash';
 import { signIn } from 'next-auth/react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
@@ -27,6 +26,7 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
 import Loader from '@/components/Loader';
+import { isEmpty } from '@/utils';
 import { wrapOnChange } from '@/utils/form';
 
 import { signin, emailCodeLogin } from '#/services/auth';

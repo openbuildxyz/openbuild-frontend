@@ -17,13 +17,13 @@
 import '@/styles/prosemirror.css';
 
 import clsx from 'clsx';
-import { isFunction } from 'lodash';
 import {
   EditorRoot, EditorContent,
   EditorCommand, EditorCommandEmpty, EditorCommandList, EditorCommandItem,
 } from 'novel';
 import { ImageResizer, handleCommandNavigation } from 'novel/extensions';
 
+import { isFunction } from '../../utils';
 import BlockEditorBubble from './bubble';
 import { defaultExtensions } from './extensions';
 import { isBlockDataValid } from './helper';

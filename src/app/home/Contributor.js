@@ -17,7 +17,6 @@
 'use client';
 
 import { clsx } from 'clsx';
-import { chunk } from 'lodash';
 import P14 from 'public/images/home/AlongHudson.png';
 import P11 from 'public/images/home/Frank.png';
 // import { LocationIcon } from '@/components/Icons'
@@ -40,6 +39,8 @@ import P9 from 'public/images/home/uvd.png';
 import P6 from 'public/images/home/xhyumiracle.png';
 import { createRef } from 'react';
 import Slider from 'react-slick';
+
+import { chunk } from '@/utils';
 
 const DATAS = [
   { name: 'NPC_Leo', picture: P19, x: 'NPC_Leo', title: 'Founder of DevBase @DevBase' },

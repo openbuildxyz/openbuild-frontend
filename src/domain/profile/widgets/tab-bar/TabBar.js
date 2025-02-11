@@ -15,9 +15,9 @@
  */
 
 import clsx from 'clsx';
-import { isPlainObject } from 'lodash';
 
 import { Button } from '@/components/Button';
+import { isPlainObject } from '@/utils';
 
 function TabBar({ className, tabs, tabClassName, current, onChange }) {
   const tabBarWrapperMobileClassName = 'justify-center border-b-1 border-b-[#d9d9d9]';
