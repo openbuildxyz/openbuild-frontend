@@ -97,7 +97,7 @@ export default function Login() {
       } else {
         toast.error(response.message);
       }
-    } catch (error) {
+    } catch {
       toast.error('Sign in failed. Please try again.');
     } finally {
       setLoading(false);
