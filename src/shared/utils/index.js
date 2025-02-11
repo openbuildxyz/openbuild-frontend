@@ -95,3 +95,4 @@ export function HTMLDecode(text) {
 }
 
 export { isEmpty, isInteger, isString, isFunction, isPlainObject, get, cloneDeep, merge, capitalize, chunk, range } from 'lodash';
+export { nanoid as generateRandomId } from 'nanoid';
