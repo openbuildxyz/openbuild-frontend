@@ -15,7 +15,7 @@
  */
 
 'use client';
-import { formatUnits } from '@ethersproject/units';
+
 import { Popover, Transition } from '@headlessui/react';
 import { useConnectModal } from '@rainbow-me/rainbowkit';
 import { readContract } from '@wagmi/core';
@@ -39,7 +39,7 @@ import Loader from '@/components/Loader';
 import { NoData } from '@/components/NoData';
 import { Paging } from '@/components/Paging';
 import { formatTime, currentTime } from '@/utils/date';
-import { signSkillHub } from '@/utils/web3';
+import { formatTokenUnits, signSkillHub } from '@/utils/web3';
 
 import { useSkillsHireList } from '#/services/dashboard/hooks';
 import { permissionsHireStatus, permissionsStatusApprove } from '#/services/shilling';
@@ -164,7 +164,7 @@ export default function DashboardHire() {
         args: [Number(current.contract_index_id)],
       });
 
-      setAvailableFund(formatUnits(_available, slillhubChain.use_coins[0].decimals));
+      setAvailableFund(formatTokenUnits(_available, slillhubChain.use_coins[0].decimals));
     }
   }, [slillhubChain, current]);
 
@@ -229,12 +229,12 @@ export default function DashboardHire() {
                   </li>
                   <li className="col-span-2 pl-6">
                     <p className="mb-1 truncate pr-4">
-                      ${formatUnits(i.total_cost, slillhubChain?.use_coins[0].decimals)}
+                      ${formatTokenUnits(i.total_cost, slillhubChain?.use_coins[0].decimals)}
                     </p>
                     <p className="text-xs opacity-80">${i.hourly_wage.toFixed(2)} / hour</p>
                   </li>
                   <li className="col-span-2 flex items-center">
-                    <p>${formatUnits(i.claimed_cost, slillhubChain?.use_coins[0].decimals).toString()}</p>
+                    <p>${formatTokenUnits(i.claimed_cost, slillhubChain?.use_coins[0].decimals).toString()}</p>
                   </li>
                   <li className="col-span-2 flex items-center">
                     {i.status === -1 && (

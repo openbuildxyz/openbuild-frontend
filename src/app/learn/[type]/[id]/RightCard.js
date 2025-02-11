@@ -18,7 +18,6 @@
 
 // import { getBalance } from '@wagmi/core'
 // import { prepareWriteContract, writeContract } from '@wagmi/core'
-import { parseUnits } from '@ethersproject/units';
 import { Dialog, Transition } from '@headlessui/react';
 import { CheckIcon } from '@heroicons/react/20/solid';
 import { useConnectModal } from '@rainbow-me/rainbowkit';
@@ -43,6 +42,7 @@ import { USDTIcon } from '@/components/Icons';
 import { TwitterIcon, DownloadIcon } from '@/components/Icons';
 import { formatTime } from '@/utils/date';
 import { resolvePathWithSearch } from '@/utils/url';
+import { parseTokenUnits } from '@/utils/web3';
 
 import { joinChallengesEnrool, pay } from '#/services/learn/';
 // import { currentTime } from '@/utils/date'
@@ -278,7 +278,7 @@ export function LearnRightCard({ data, type, permission, related }) {
       switchNetwork?.(chainId);
       return;
     }
-    const _amount = parseUnits(amount.toString(), 18);
+    const _amount = parseTokenUnits(amount.toString(), 18);
     setPayLoading(true);
     try {
       if (!data.challenges_extra?.course_challenges_extra_feeds_contract || !data.base.course_series_id) return;

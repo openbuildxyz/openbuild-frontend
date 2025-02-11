@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-import { parseUnits } from '@ethersproject/units';
 import { waitForTransaction } from '@wagmi/core';
 import { writeContract } from '@wagmi/core';
 import { BigNumber } from 'bignumber.js';
@@ -27,6 +26,7 @@ import { TipsIcon } from '@/components/Icons';
 import { Modal } from '@/components/Modal';
 import { ReactSelect } from '@/components/Select/ReactSelect';
 import { MouseoverTooltip } from '@/components/Tooltip';
+import { parseTokenUnits } from '@/utils/web3';
 
 import { hireExtend } from '#/services/shilling';
 import { useSlillhubChain } from '#/state/application/hooks';
@@ -127,7 +127,7 @@ export function ExpendHireTimeModal({ open, closeModal, data }) {
           <p className="opacity-40">Total Fees</p>
           <p>${totalFees.toFixed(2)}</p>
         </div>
-        {balance?.data?.value.lt(parseUnits(totalFees.toString(), coin?.decimals)) ? (
+        {balance?.data?.value.lt(parseTokenUnits(totalFees.toString(), coin?.decimals)) ? (
           <Button disabled variant="contained" fullWidth>
             Insufficient balance
           </Button>

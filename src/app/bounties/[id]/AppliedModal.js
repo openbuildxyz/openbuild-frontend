@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-import { parseUnits } from '@ethersproject/units';
 import { writeContract } from '@wagmi/core';
 import clsx from 'clsx';
 import Image from 'next/image';
@@ -32,6 +31,7 @@ import { BOUNTY_SUPPORTED_CHAIN } from '@/constants/chain';
 import { contracts, payTokens } from '@/constants/contract';
 import { useAllowance, useApprove } from '@/hooks/useERC20';
 import { fetcher } from '@/utils/request';
+import { parseTokenUnits } from '@/utils/web3';
 
 import { useBountyEnvCheck } from '#/domain/bounty/hooks';
 import { EXPERIENCE_OPTIONS } from '#/lib/user';
@@ -123,7 +123,7 @@ export function AppliedModal({ open, closeModal, bounty }) {
           bounty.task,
           currUser?.user_wallet,
           payToken.address,
-          parseUnits((bounty.amount / 100).toString(), payToken.decimals),
+          parseTokenUnits((bounty.amount / 100).toString(), payToken.decimals),
         ],
       });
       // console.log(hash)
@@ -160,7 +160,7 @@ export function AppliedModal({ open, closeModal, bounty }) {
     setApproveConfirmLoading(true);
     try {
       if (
-        Number(allowance.toString()) < Number(parseUnits((bounty.amount / 100).toString(), payToken.decimals).toString())
+        Number(allowance.toString()) < Number(parseTokenUnits((bounty.amount / 100).toString(), payToken.decimals).toString())
         &&
         approveAsync
       ) {

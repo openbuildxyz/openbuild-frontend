@@ -15,7 +15,6 @@
  */
 
 // import { writeContract, prepareWriteContract } from '@wagmi/core'
-import { formatUnits } from '@ethersproject/units';
 import { waitForTransaction } from '@wagmi/core';
 import { writeContract } from '@wagmi/core';
 import { useMemo, useState } from 'react';
@@ -27,6 +26,7 @@ import { ModalCloseIcon, TipsIcon } from '@/components/Icons';
 import { Modal } from '@/components/Modal';
 import { MouseoverTooltip } from '@/components/Tooltip';
 import { useAllowance, useApprove } from '@/hooks/useERC20';
+import { formatTokenUnits } from '@/utils/web3';
 
 // import { currentTime } from '@/utils/date'
 import { hireStart } from '#/services/shilling';
@@ -174,7 +174,7 @@ export function DepositModal({ open, closeModal, hireData }) {
 
           <div className="relative h-full w-[260px] rounded-tr-2xl rounded-br-2xl bg-gray-300 pl-6 pt-[100px]">
             <p className="mb-5 text-sm opacity-80">Total Fee</p>
-            <p className="text-[34px] font-bold">${formatUnits(hireData.total_cost, coin?.decimals)}</p>
+            <p className="text-[34px] font-bold">${formatTokenUnits(hireData.total_cost, coin?.decimals)}</p>
             <svg
               className="absolute left-1 bottom-[180px]"
               width="106"

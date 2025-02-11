@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-import { parseUnits } from '@ethersproject/units';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 import { useNetwork, useWalletClient } from 'wagmi';
@@ -24,7 +23,7 @@ import { Modal } from '@/components/Modal';
 import { BOUNTY_SUPPORTED_CHAIN } from '@/constants/chain';
 import { contracts, payTokens } from '@/constants/contract';
 import { currentTime } from '@/utils/date';
-import { signBounty } from '@/utils/web3';
+import { parseTokenUnits, signBounty } from '@/utils/web3';
 
 import { useBountyEnvCheck } from '#/domain/bounty/hooks';
 import { biulderFinish } from '#/services/bounties';
@@ -46,7 +45,7 @@ export function ApplyFinishedModal({open, close, bounty}) {
     setLoading(true);
     const _deadline = currentTime() + 7 * 24 * 60 * 60;
     // bounty withdraw
-    const _s = await signBounty(chain?.id, _contracts.bounty, walletClient, bounty.task, parseUnits(amount.toString(), payToken.decimals), _deadline);
+    const _s = await signBounty(chain?.id, _contracts.bounty, walletClient, bounty.task, parseTokenUnits(amount.toString(), payToken.decimals), _deadline);
     if (_s === 'error') {
       setLoading(false);
       return;

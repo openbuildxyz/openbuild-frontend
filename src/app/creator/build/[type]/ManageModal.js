@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-import { parseUnits } from '@ethersproject/units';
 import clsx from 'clsx';
 import Image from 'next/image';
 import { useCallback, useEffect } from 'react';
@@ -30,7 +29,7 @@ import { BOUNTY_SUPPORTED_CHAIN } from '@/constants/chain';
 import { contracts, payTokens } from '@/constants/contract';
 import { currentTime, fromNow } from '@/utils/date';
 import { formatTime } from '@/utils/date';
-import { signBounty } from '@/utils/web3';
+import { parseTokenUnits, signBounty } from '@/utils/web3';
 
 import {
   getProgressList,
@@ -46,7 +45,6 @@ import { AddProgressModal } from './AddProgressModal';
 
 // import { writeContract, prepareWriteContract } from '@wagmi/core'
 // import { BountyABI } from '@/constants/abis/bounty'
-// import { parseUnits } from '@ethersproject/units'
 
 export function ManageModal({
   open,
@@ -107,7 +105,7 @@ export function ManageModal({
       _contracts.bounty,
       walletClient,
       bounty.task,
-      parseUnits(amount.toString(), payToken.decimals),
+      parseTokenUnits(amount.toString(), payToken.decimals),
       _deadline
     );
     if (_s === 'error') {

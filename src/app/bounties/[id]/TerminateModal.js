@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-import { parseUnits } from '@ethersproject/units';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 import { useNetwork, useWalletClient } from 'wagmi';
@@ -24,7 +23,7 @@ import { Modal } from '@/components/Modal';
 import { BOUNTY_SUPPORTED_CHAIN } from '@/constants/chain';
 import { contracts, payTokens } from '@/constants/contract';
 import { currentTime } from '@/utils/date';
-import { signBounty } from '@/utils/web3';
+import { parseTokenUnits, signBounty } from '@/utils/web3';
 
 import { termination } from '#/services/bounties';
 
@@ -51,7 +50,7 @@ export function TerminateModal({open, close, bounty, type}) {
       _contracts.bounty,
       walletClient,
       bounty.task,
-      parseUnits(amount.toString(), payToken.decimals),
+      parseTokenUnits(amount.toString(), payToken.decimals),
       _deadline
     );
     if (_s === 'error') {

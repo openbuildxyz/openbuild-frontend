@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-import { parseUnits } from '@ethersproject/units';
 import { EyeIcon } from '@heroicons/react/24/outline';
 import { useConnectModal } from '@rainbow-me/rainbowkit';
 import { writeContract } from '@wagmi/core';
@@ -35,6 +34,7 @@ import { BountyABI } from '@/constants/abis/bounty';
 import { BOUNTY_SUPPORTED_CHAIN } from '@/constants/chain';
 import { contracts, payTokens } from '@/constants/contract';
 import { useAllowance, useApprove } from '@/hooks/useERC20';
+import { parseTokenUnits } from '@/utils/web3';
 
 import { EXPERIENCE_OPTIONS } from '#/lib/user';
 import { denyBuilder, approveBuilder } from '#/services/creator';
@@ -165,7 +165,7 @@ export function AppliedModal({ open, closeModal, bounty, applyCallback }) {
           bounty.task,
           currUser?.user_wallet,
           payToken.address,
-          parseUnits((bounty.amount / 100).toString(), payToken.decimals),
+          parseTokenUnits((bounty.amount / 100).toString(), payToken.decimals),
         ],
       });
 
@@ -197,7 +197,7 @@ export function AppliedModal({ open, closeModal, bounty, applyCallback }) {
     }
     setApproveConfirmLoading(true);
     if (
-      Number(allowance.toString()) < Number(parseUnits((bounty.amount / 100).toString(), payToken.decimals).toString())
+      Number(allowance.toString()) < Number(parseTokenUnits((bounty.amount / 100).toString(), payToken.decimals).toString())
       &&
       approveAsync
     ) {
