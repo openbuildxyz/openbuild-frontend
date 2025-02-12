@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import { Dialog, Transition } from '@headlessui/react';
 import clsx from 'clsx';
 import React, { Fragment } from 'react';
 
 import { isFunction } from '../../utils';
+import { Dialog, Transition } from '../control/headlessui';
 
 export function Modal({
   isOpen,

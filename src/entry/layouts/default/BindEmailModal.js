@@ -16,7 +16,6 @@
 
 'use client';
 
-import { Dialog, Transition } from '@headlessui/react';
 import { ArrowRightOnRectangleIcon, XMarkIcon } from '@heroicons/react/20/solid';
 import { disconnect } from '@wagmi/core';
 import { useSession, signOut } from 'next-auth/react';
@@ -27,6 +26,7 @@ import { toast } from 'react-toastify';
 import isEmail from 'validator/lib/isEmail';
 import { useAccount } from 'wagmi';
 
+import { Dialog, Transition } from '@/components/control';
 import Loader from '@/components/Loader';
 import { shortenAddress } from '@/utils';
 

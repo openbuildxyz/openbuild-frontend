@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { Switch as HeadlessuiSwitch } from '@headlessui/react';
+import { Switch as HeadlessuiSwitch } from '../control/headlessui';
 
 const Switch = ({ checked, onChange }) => {
   return (

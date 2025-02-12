@@ -23,7 +23,7 @@ import { UploadIcon } from '@/components/Icons';
 import Loader from '@/components/Loader';
 import { Select } from '@/components/Select';
 import { ReactSelect } from '@/components/Select/ReactSelect';
-// import { Transition } from '@headlessui/react'
+// import { Transition } from '@/components/control';
 // import { CheckIcon, XMarkIcon } from '@heroicons/react/20/solid'
 import { BASE_INPUT_STYLE } from '@/constants/config';
 import { classNames } from '@/utils';

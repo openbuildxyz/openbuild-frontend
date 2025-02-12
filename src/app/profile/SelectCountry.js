@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import { Listbox, Transition } from '@headlessui/react';
 import { ChevronDownIcon, CheckIcon, XMarkIcon } from '@heroicons/react/20/solid';
 import { Fragment } from 'react';
 
+import { Listbox, Transition } from '@/components/control';
 import { classNames } from '@/utils';
 
 import { countries } from '#/lib/countries';
