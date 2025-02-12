@@ -16,9 +16,8 @@
 
 import React, { useCallback, useState } from 'react';
 
-import { classNames } from '@/utils';
-// import { PlayCircleIcon } from '@heroicons/react/20/solid'
-
+import { classNames } from '../../utils/index';
+// import { PlayCircleIcon } from '../icon/solid';
 import Popover from '../Popover';
 
 export default function Tooltip({ text, children, className, ...rest }) {

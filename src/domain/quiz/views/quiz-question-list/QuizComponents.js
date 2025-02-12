@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import { XMarkIcon, ChevronLeftIcon } from '@heroicons/react/20/solid';
 import Link from 'next/link';
 import { useEffect, useMemo, useState } from 'react';
 import { toast } from 'react-toastify';
 
 import { Button } from '@/components/Button';
+import { XMarkIcon, ChevronLeftIcon } from '@/components/icon/solid';
 import { post } from '@/utils/request';
 
 import { fetchAnsweredResult } from '../../repository';

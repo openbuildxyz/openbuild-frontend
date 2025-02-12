@@ -16,7 +16,6 @@
 
 'use client';
 
-import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import { signIn } from 'next-auth/react';
 import Link from 'next/link';
@@ -25,6 +24,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
+import { EyeIcon, EyeSlashIcon } from '@/components/icon/outlined';
 import Loader from '@/components/Loader';
 import { isEmpty } from '@/utils';
 import { wrapOnChange } from '@/utils/form';

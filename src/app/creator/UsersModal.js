@@ -16,13 +16,13 @@
 
 'use client';
 
-import { ArrowDownTrayIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import React, { useState, useMemo } from 'react';
 import { toast } from 'react-toastify';
 import useSWR from 'swr';
 
 import { Button } from '@/components/Button';
+import { ArrowDownTrayIcon } from '@/components/icon/outlined';
 import { Modal } from '@/components/Modal';
 import { NoData } from '@/components/NoData';
 import { CommonListSkeleton } from '@/components/Skeleton/CommonListSkeleton';

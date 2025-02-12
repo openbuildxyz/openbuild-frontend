@@ -16,12 +16,12 @@
 
 'use client';
 
-import { ChevronUpIcon } from '@heroicons/react/20/solid';
 import clsx from 'clsx';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 import { Disclosure } from '@/components/control';
+import { ChevronUpIcon } from '@/components/icon/solid';
 
 const menus = [
   {

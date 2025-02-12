@@ -16,13 +16,13 @@
 
 'use client';
 
-import { PlusIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useMemo } from 'react';
 import { useDebouncedCallback } from 'use-debounce';
 
 import { Button } from '@/components/Button';
+import { PlusIcon } from '@/components/icon/outlined';
 import { SearchIcon } from '@/components/Icons';
 import Input from '@/components/Input';
 import { ReactSelect } from '@/components/Select/ReactSelect';

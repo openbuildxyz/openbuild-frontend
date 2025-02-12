@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import clsx from 'clsx';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -23,6 +22,7 @@ import { toast } from 'react-toastify';
 import useSWR from 'swr';
 
 import { Button } from '@/components/Button';
+import { CheckCircleIcon } from '@/components/icon/solid';
 import { Modal } from '@/components/Modal';
 import { NoData } from '@/components/NoData';
 import { CommonListSkeleton } from '@/components/Skeleton/CommonListSkeleton';

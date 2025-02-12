@@ -16,11 +16,11 @@
 
 'use client';
 
-import { PlusIcon } from '@heroicons/react/24/outline';
 import { useState, useEffect, useMemo } from 'react';
 import { toast } from 'react-toastify';
 
 import { Button } from '@/components/Button';
+import { PlusIcon } from '@/components/icon/outlined';
 import { EditIcon, DeleteIcon, AddIcon } from '@/components/Icons';
 import { OEditor } from '@/components/MarkDown';
 // import { useCourseDetails } from '#/services/learn/hooks'

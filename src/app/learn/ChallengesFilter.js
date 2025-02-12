@@ -16,12 +16,12 @@
 
 'use client';
 
-import { ChevronUpIcon, ChevronDownIcon } from '@heroicons/react/20/solid';
 import clsx from 'clsx';
 import Image from 'next/image';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import { useState } from 'react';
 
+import { ChevronUpIcon, ChevronDownIcon } from '@/components/icon/solid';
 import { createQueryString } from '@/utils';
 
 import { challengesFilterList } from '#/lib/challengesFilterList';

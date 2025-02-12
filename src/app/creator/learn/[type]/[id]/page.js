@@ -16,7 +16,6 @@
 
 'use client';
 
-import { ChevronDoubleLeftIcon } from '@heroicons/react/20/solid';
 import clsx from 'clsx';
 // import Image from 'next/image'
 import Link from 'next/link';
@@ -25,6 +24,7 @@ import { useMemo, useState, useCallback, useEffect, useRef } from 'react';
 import { toast } from 'react-toastify';
 
 import { Button } from '@/components/Button';
+import { ChevronDoubleLeftIcon } from '@/components/icon/solid';
 import { ArrowLeftIcon } from '@/components/Icons';
 // import { useDebouncedCallback } from 'use-debounce'
 import { useAsyncState } from '@/hooks/useAsyncState';

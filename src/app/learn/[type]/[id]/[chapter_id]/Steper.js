@@ -16,14 +16,13 @@
 
 'use client';
 
-import { XMarkIcon } from '@heroicons/react/20/solid';
-import { ChevronDoubleLeftIcon } from '@heroicons/react/20/solid';
 import BigNumber from 'bignumber.js';
 import { clsx } from 'clsx';
 import { useRouter } from 'next/navigation';
 import { useMemo } from 'react';
 import { toast } from 'react-toastify';
 
+import { ChevronDoubleLeftIcon, XMarkIcon } from '@/components/icon/solid';
 import { ContentIcon, ReadingIcon, ReadedIcon, BlackPointIcon, LockedIcon } from '@/components/Icons';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 

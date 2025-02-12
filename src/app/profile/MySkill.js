@@ -24,7 +24,7 @@ import Loader from '@/components/Loader';
 import { Select } from '@/components/Select';
 import { ReactSelect } from '@/components/Select/ReactSelect';
 // import { Transition } from '@/components/control';
-// import { CheckIcon, XMarkIcon } from '@heroicons/react/20/solid'
+// import { CheckIcon, XMarkIcon } from '@/components/icon/solid'
 import { BASE_INPUT_STYLE } from '@/constants/config';
 import { classNames } from '@/utils';
 

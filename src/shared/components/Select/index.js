@@ -16,7 +16,6 @@
 
 'use client';
 
-import { ChevronDownIcon, XMarkIcon } from '@heroicons/react/20/solid';
 import clsx from 'clsx';
 import Image from 'next/image';
 import { Fragment } from 'react';
@@ -24,6 +23,7 @@ import { Fragment } from 'react';
 import { classNames } from '@/utils';
 
 import { Listbox, Transition } from '../control/headlessui';
+import { ChevronDownIcon, XMarkIcon } from '../icon/solid';
 
 export function Select({ placeholder, options, selected, change, className, hasArrow = true }) {
   return (

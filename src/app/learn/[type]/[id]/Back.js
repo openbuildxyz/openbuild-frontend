@@ -16,9 +16,10 @@
 
 'use client';
 
-import { ArrowLeftIcon } from '@heroicons/react/24/solid';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useMemo } from 'react';
+
+import { ArrowLeftIcon } from '@/components/icon/solid';
 
 export function Back({params}) {
   const router = useRouter();

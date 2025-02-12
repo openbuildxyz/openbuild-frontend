@@ -16,7 +16,6 @@
 
 'use client';
 
-import { ArrowRightOnRectangleIcon, XMarkIcon } from '@heroicons/react/20/solid';
 import { disconnect } from '@wagmi/core';
 import { useSession, signOut } from 'next-auth/react';
 import Image from 'next/image';
@@ -27,6 +26,7 @@ import isEmail from 'validator/lib/isEmail';
 import { useAccount } from 'wagmi';
 
 import { Dialog, Transition } from '@/components/control';
+import { ArrowRightOnRectangleIcon, XMarkIcon } from '@/components/icon/solid';
 import Loader from '@/components/Loader';
 import { shortenAddress } from '@/utils';
 
