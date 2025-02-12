@@ -20,4 +20,5 @@ export {
   CheckIcon, CheckCircleIcon, PlusIcon, PlusCircleIcon, MinusCircleIcon,
   XMarkIcon,
   PlayCircleIcon,
+  Bars3Icon,
 } from '@heroicons/react/20/solid';
