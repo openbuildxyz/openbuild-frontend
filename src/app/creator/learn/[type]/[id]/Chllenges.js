@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import { ChevronLeftIcon, ChevronRightIcon, CalendarDaysIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import { forwardRef } from 'react';
 import DatePicker from 'react-datepicker';
 
+import { ChevronLeftIcon, ChevronRightIcon, CalendarDaysIcon } from '@/components/icon/outlined';
 import { ReactSelect } from '@/components/Select/ReactSelect';
 
 import 'react-datepicker/dist/react-datepicker.css';

@@ -16,7 +16,6 @@
 
 'use client';
 
-import { ChevronDownIcon, Bars3Icon, ChevronRightIcon, XMarkIcon } from '@heroicons/react/20/solid';
 import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -24,6 +23,7 @@ import { usePathname } from 'next/navigation';
 import Logo from 'public/images/svg/logo-black.svg';
 import { useEffect, useState } from 'react';
 
+import { ChevronDownIcon, Bars3Icon, ChevronRightIcon, XMarkIcon } from '@/components/icon/solid';
 import { useHeaderAndFooterDisplay } from '@/hooks/useHeaderAndFooterDisplay';
 
 import Account from './Account';

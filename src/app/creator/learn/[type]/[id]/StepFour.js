@@ -16,13 +16,13 @@
 
 'use client';
 
-import { PlusIcon, MinusCircleIcon } from '@heroicons/react/20/solid';
 import Image from 'next/image';
 import GithubIcon from 'public/images/svg/github_p.svg';
 import { useState, useRef, useEffect } from 'react';
 import { toast } from 'react-toastify';
 
 import { Button } from '@/components/Button';
+import { PlusIcon, MinusCircleIcon } from '@/components/icon/solid';
 import { TwitterIcon } from '@/components/Icons';
 import Loader from '@/components/Loader';
 import { Modal } from '@/components/Modal';

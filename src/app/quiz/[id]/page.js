@@ -16,7 +16,6 @@
 
 'use client';
 
-import { ArrowUturnLeftIcon } from '@heroicons/react/24/solid';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -25,6 +24,7 @@ import { useState } from 'react';
 import useSWR from 'swr';
 
 import { Button } from '@/components/Button';
+import { ArrowUturnLeftIcon } from '@/components/icon/solid';
 import { HistoryIcon } from '@/components/Icons';
 import { OViewer } from '@/components/MarkDown';
 import { fetcher } from '@/utils/request';

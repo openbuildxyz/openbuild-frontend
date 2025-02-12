@@ -16,11 +16,11 @@
 
 'use client';
 
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useMemo } from 'react';
 
+import { ChevronLeftIcon, ChevronRightIcon } from '@/components/icon/outlined';
 import { FilterIcon } from '@/components/Icons';
 import { OViewer } from '@/components/MarkDown';
 import { Player } from '@/components/Player';

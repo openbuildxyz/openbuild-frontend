@@ -16,7 +16,6 @@
 
 'use client';
 
-import { CheckIcon, XMarkIcon } from '@heroicons/react/20/solid';
 import { useMemo, useState, Fragment, useEffect } from 'react';
 
 import { classNames, arrRemove } from '@/utils';
@@ -25,6 +24,7 @@ import { baseInputStyles } from '#/domain/profile/widgets/blocks';
 import { useConfig } from '#/state/application/hooks';
 
 import { Transition } from '../control/headlessui';
+import { CheckIcon, XMarkIcon } from '../icon/solid';
 
 export default function SelectSkills({ skills, setSkills }) {
   const config = useConfig();

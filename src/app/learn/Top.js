@@ -16,9 +16,9 @@
 
 'use client';
 
-import { ChevronLeftIcon } from '@heroicons/react/20/solid';
 import clsx from 'clsx';
 
+import { ChevronLeftIcon } from '@/components/icon/solid';
 import { SearchIcon, FilterIcon } from '@/components/Icons';
 import { Select } from '@/components/Select';
 

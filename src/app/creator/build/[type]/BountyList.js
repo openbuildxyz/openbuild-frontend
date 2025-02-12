@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import { EyeIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useCallback, useState } from 'react';
 
 import { Button } from '@/components/Button';
+import { EyeIcon } from '@/components/icon/outlined';
 import { formatTime } from '@/utils/date';
 
 import { changeBountyStatus } from '#/services/creator';

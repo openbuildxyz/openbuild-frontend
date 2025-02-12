@@ -16,7 +16,6 @@
 
 'use client';
 
-import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import copy from 'copy-to-clipboard';
 import Image from 'next/image';
@@ -39,6 +38,7 @@ import { resolvePathWithSearch } from '@/utils/url';
 import { useMediaUrl, useUser } from '#/state/application/hooks';
 
 import { Button } from '../Button';
+import { ArrowLeftIcon } from '../icon/outlined';
 
 const combineUrl = (type, user_code, summary) => {
   let baseUrl = '';
@@ -69,7 +69,7 @@ export function Share({ img, title, type, id, excerpt }) {
     }
   }, [user, pathname, searchParams]);
   const { data, isLoading } = useSWR((id && recordOpen) ? `ts/v1/user/invite/export?type=challenges&id=${id}` : null, fetcher);
-  
+
   const invitationRecordsAvailable = type === 'challenges';
   const handleViewRecords = invitationRecordsAvailable ? () => {
     if (user) {

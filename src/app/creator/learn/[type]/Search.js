@@ -16,14 +16,14 @@
 
 'use client';
 
-import { PlusIcon } from '@heroicons/react/24/outline';
-import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import clsx from 'clsx';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useMemo, useState } from 'react';
 import { useDebouncedCallback } from 'use-debounce';
 
 import { Button } from '@/components/Button';
+import { PlusIcon } from '@/components/icon/outlined';
+import { CheckCircleIcon } from '@/components/icon/solid';
 import { SearchIcon } from '@/components/Icons';
 import Input from '@/components/Input';
 import { Modal } from '@/components/Modal';

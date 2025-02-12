@@ -16,13 +16,13 @@
 
 'use client';
 
-import { ChevronUpIcon } from '@heroicons/react/20/solid';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import { useMemo, useState } from 'react';
 
+import { ChevronUpIcon } from '@/components/icon/solid';
 import { ReactSelect } from '@/components/Select/ReactSelect';
 import { createQueryString } from '@/utils';
 

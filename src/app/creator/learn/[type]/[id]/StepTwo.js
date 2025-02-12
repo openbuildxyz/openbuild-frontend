@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import { PlusCircleIcon } from '@heroicons/react/20/solid';
-import { MinusCircleIcon } from '@heroicons/react/24/outline';
 import { useState, useEffect } from 'react';
 
+import { MinusCircleIcon } from '@/components/icon/outlined';
+import { PlusCircleIcon } from '@/components/icon/solid';
 import { OEditor } from '@/components/MarkDown';
 import  { BASE_INPUT_STYLE } from '@/constants/config';
 

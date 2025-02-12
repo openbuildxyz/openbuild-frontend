@@ -16,12 +16,12 @@
 
 'use client';
 
-import { EyeIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import ContentEditable from 'react-contenteditable';
 
+import { EyeIcon } from '@/components/icon/outlined';
 import { HTMLDecode } from '@/utils';
 
 import { useMediaUrl } from '#/state/application/hooks';

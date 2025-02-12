@@ -16,7 +16,6 @@
 
 'use client';
 
-import { CheckIcon } from '@heroicons/react/20/solid';
 import { useConnectModal } from '@rainbow-me/rainbowkit';
 import { waitForTransaction } from '@wagmi/core';
 import { writeContract } from '@wagmi/core';
@@ -38,6 +37,7 @@ import { Button } from '@/components/Button';
 // import { getBalance } from '@wagmi/core'
 // import { prepareWriteContract, writeContract } from '@wagmi/core'
 import { Dialog, Transition } from '@/components/control';
+import { CheckIcon } from '@/components/icon/solid';
 import { USDTIcon } from '@/components/Icons';
 import { TwitterIcon, DownloadIcon } from '@/components/Icons';
 import { formatTime } from '@/utils/date';

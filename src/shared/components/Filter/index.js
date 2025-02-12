@@ -16,7 +16,6 @@
 
 'use client';
 
-import { ChevronUpIcon, XMarkIcon, ChevronLeftIcon } from '@heroicons/react/20/solid';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
@@ -29,6 +28,8 @@ import { createQueryString } from '@/utils';
 import { useConfig, useMediaUrl, useOpenFilter } from '#/state/application/hooks';
 import { updateOpenFilter } from '#/state/application/reducer';
 import { useAppDispatch } from '#/state/hooks';
+
+import { ChevronUpIcon, XMarkIcon, ChevronLeftIcon } from '../icon/solid';
 
 export function Filter({ type, children }) {
   const config = useConfig();

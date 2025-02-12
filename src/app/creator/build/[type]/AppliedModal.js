@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-import { EyeIcon } from '@heroicons/react/24/outline';
 import { useConnectModal } from '@rainbow-me/rainbowkit';
 import { writeContract } from '@wagmi/core';
 // import { formatTime } from '@/utils/date'
@@ -26,6 +25,7 @@ import { toast } from 'react-toastify';
 import { useAccount } from 'wagmi';
 
 import { Button } from '@/components/Button';
+import { EyeIcon } from '@/components/icon/outlined';
 import Loader from '@/components/Loader';
 import { Modal } from '@/components/Modal';
 import { Confirm } from '@/components/Modal/Confirm';
