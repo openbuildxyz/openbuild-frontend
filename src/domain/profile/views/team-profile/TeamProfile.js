@@ -14,24 +14,27 @@
  * limitations under the License.
  */
 
-import { useState } from 'react';
 import { useDebouncedCallback } from 'use-debounce';
 
-import { isBlockDataValid } from '@/components/block-editor';
 import useAppConfig from '@/hooks/useAppConfig';
 import useMounted from '@/hooks/useMounted';
+import { isBlockDataValid } from '@/components/block-editor';
 
 import { useViewingSelf } from '../../../auth/hooks';
-import PublishedBountyListView from '../../../bounty/views/published-bounty-list';
-import PublishedChallengeListView from '../../../challenge/views/published-challenge-list';
 import PublishedCourseListView from '../../../course/views/published-course-list';
+import PublishedChallengeListView from '../../../challenge/views/published-challenge-list';
+import PublishedBountyListView from '../../../bounty/views/published-bounty-list';
 import PublishedQuizListView from '../../../quiz/views/published-quiz-list';
+
 import { fetchBlockContent, updateBlockContent } from '../../repository';
-import ActivityTabListWidget from '../../widgets/activity-tab-list';
-import SocialInfoWidget from '../../widgets/social-info';
 import TabBarWidget from '../../widgets/tab-bar';
+import SocialInfoWidget from '../../widgets/social-info';
+import ActivityTabListWidget from '../../widgets/activity-tab-list';
+
 import CustomContent from './CustomContent';
 import LatestActivityList from './LatestActivityList';
+import React from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 const tabs = [
   {
@@ -77,17 +80,20 @@ const tabs = [
 ];
 
 function TeamProfileView({ data, activities }) {
+  const hasUpdated = useRef(false);
+  debugger;
   const [tabActive, setTabActive] = useState(1);
   const [blockContent, setBlockContent] = useState(null);
   const viewingSelf = useViewingSelf(data?.base.user_id);
   const devPlazaEnabled = useAppConfig('devPlaza.enabled');
 
   useMounted(() => {
-    devPlazaEnabled && fetchBlockContent(data?.base.user_id).then(res => {
-      if (res.success) {
-        setBlockContent(res.data);
-      }
-    });
+    devPlazaEnabled &&
+      fetchBlockContent(data?.base.user_id).then(res => {
+        if (res.success) {
+          setBlockContent(res.data);
+        }
+      });
   });
 
   const handleBlockChange = useDebouncedCallback(updateBlockContent, 3000);
@@ -103,6 +109,79 @@ function TeamProfileView({ data, activities }) {
     isBlockDataValid(blockContent),
   ].join('-');
 
+  //20250211 modify begin:
+  const publishedTypes_b = {
+    'Open Course': 'open_course_num',
+    Bounty: 'bounty_num',
+    Challenges: 'challenge_num',
+    Quiz: 'quiz_num',
+  };
+  // const appendTextToNode = (node, appendText) => {
+  //     return React.Children.map(node, child => {
+  //         if (React.isValidElement(child)) {
+  //             return React.cloneElement(child, {},
+  //                 typeof child.props.children === 'string'
+  //                     ? child.props.children + appendText
+  //                     : appendTextToNode(child.props.children, appendText)
+  //             );
+  //         }
+  //         return child;
+  //     });
+  // };
+  useEffect(() => {
+    if (!hasUpdated.current) {
+      console.log('首次加载时执行的代码');
+      tabs.forEach(obj => {
+        const num = data?.num[publishedTypes_b[obj.text]];
+        obj.node = (
+          <>
+            {obj.node.props.children.map((span, index) => {
+              if (React.isValidElement(span) && typeof span.props.children === 'string') {
+                return React.cloneElement(span, { key: index }, span.props.children + '(' + num + ')');
+              }
+              return span;
+            })}
+          </>
+        );
+      });
+      hasUpdated.current = true; // 只执行一次
+    }
+  }, []); // 依赖项是 hasUpdated，确保只执行一次
+  // useEffect(() => {
+  //   // 先确保 window 存在，证明当前代码运行在客户端
+  //   if (typeof window !== 'undefined') {
+  //     // 这里访问 sessionStorage 就不会报错了
+  //     const codeExecuted = sessionStorage.getItem('codeExecuted');
+  //     if (!codeExecuted) {
+  //       console.log('首次加载时执行的代码');
+  //       tabs.forEach(obj => {
+  //         const num = data?.num[publishedTypes_b[obj.text]];
+  //         obj.node = (
+  //           <>
+  //             {obj.node.props.children.map((span, index) => {
+  //               if (React.isValidElement(span) && typeof span.props.children === 'string') {
+  //                 return React.cloneElement(span, { key: index }, span.props.children + '(' + num + ')');
+  //               }
+  //               return span;
+  //             })}
+  //           </>
+  //         );
+  //       });
+  //       sessionStorage.setItem('codeExecuted', 'true');
+  //     }
+  //   }
+  // }, []);
+
+  //console.log(t.text+'='+data?.num[publishedTypes_b[t.text]]);
+  //t.text = (t.text + '(' + data?.num[publishedTypes_b[t.text]] + ')');
+  //t.node = appendTextToNode(t.node, data?.num[publishedTypes_b[t.text]]);
+  // t.node.props.children.map(
+  //   (t,i)=>{
+  //     t.children = t.children+data?.num[publishedTypes_b[t.text]];
+  //   }
+  // );
+
+  //20250211 modify end:
   return (
     <div className="md:pl-[410px] md:pb-14 md:pr-14">
       {devPlazaEnabled && (
