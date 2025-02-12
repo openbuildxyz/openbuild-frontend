@@ -15,22 +15,20 @@
  */
 
 import { useState } from 'react';
+import { toast } from 'react-toastify';
+import { useNetwork, useWalletClient } from 'wagmi';
 
 import { Button } from '@/components/Button';
 import { Modal } from '@/components/Modal';
-
-import { useNetwork, useWalletClient } from 'wagmi';
 import { BOUNTY_SUPPORTED_CHAIN } from '@/constants/chain';
-
-import { biulderFinish } from '#/services/bounties';
-import { toast } from 'react-toastify';
-import { signBounty } from '@/utils/web3';
-
 import { contracts, payTokens } from '@/constants/contract';
 import { currentTime } from '@/utils/date';
-import { parseUnits } from '@ethersproject/units';
-import { revalidatePathAction } from '../../actions';
+import { parseTokenUnits, signBounty } from '@/utils/web3';
+
 import { useBountyEnvCheck } from '#/domain/bounty/hooks';
+import { biulderFinish } from '#/services/bounties';
+
+import { revalidatePathAction } from '../../actions';
 
 export function ApplyFinishedModal({open, close, bounty}) {
   const _contracts = contracts[BOUNTY_SUPPORTED_CHAIN()];
@@ -47,7 +45,7 @@ export function ApplyFinishedModal({open, close, bounty}) {
     setLoading(true);
     const _deadline = currentTime() + 7 * 24 * 60 * 60;
     // bounty withdraw
-    const _s = await signBounty(chain?.id, _contracts.bounty, walletClient, bounty.task, parseUnits(amount.toString(), payToken.decimals), _deadline);
+    const _s = await signBounty(chain?.id, _contracts.bounty, walletClient, bounty.task, parseTokenUnits(amount.toString(), payToken.decimals), _deadline);
     if (_s === 'error') {
       setLoading(false);
       return;

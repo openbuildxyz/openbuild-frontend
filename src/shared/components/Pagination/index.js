@@ -16,12 +16,12 @@
 
 'use client';
 
-import { isInteger } from 'lodash';
-import { useMemo } from 'react';
-import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 import { Pagination } from '@nextui-org/pagination';
+import { useSearchParams, usePathname, useRouter } from 'next/navigation';
+import { useMemo } from 'react';
 
 import { PAGE_SIZE } from '../../constants/config';
+import { isInteger } from '../../utils';
 import { Button } from '../Button';
 
 export function OPagination({ page, pageSize = PAGE_SIZE, total, changeCallback }) {

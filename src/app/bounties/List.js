@@ -16,11 +16,13 @@
 
 'use client';
 
-import { useOpenFilter } from '#/state/application/hooks';
 import clsx from 'clsx';
 
-import { BountiesCard } from './Card';
 import { OPagination } from '@/components/Pagination';
+
+import { useOpenFilter } from '#/state/application/hooks';
+
+import { BountiesCard } from './Card';
 
 export function List({ data }) {
   const openFilter = useOpenFilter();

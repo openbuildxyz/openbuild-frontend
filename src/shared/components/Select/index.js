@@ -17,11 +17,12 @@
 'use client';
 
 import { Listbox, Transition } from '@headlessui/react';
-import { Fragment } from 'react';
 import { ChevronDownIcon, XMarkIcon } from '@heroicons/react/20/solid';
-import { classNames } from '@/utils';
-import Image from 'next/image';
 import clsx from 'clsx';
+import Image from 'next/image';
+import { Fragment } from 'react';
+
+import { classNames } from '@/utils';
 
 export function Select({ placeholder, options, selected, change, className, hasArrow = true }) {
   return (

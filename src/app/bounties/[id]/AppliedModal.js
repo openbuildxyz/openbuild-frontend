@@ -14,34 +14,31 @@
  * limitations under the License.
  */
 
-import { useState, useMemo, useCallback } from 'react';
-import Image from 'next/image';
-import useSWR from 'swr';
-import { Button } from '@/components/Button';
-import clsx from 'clsx';
-
-import { parseUnits } from '@ethersproject/units';
 import { writeContract } from '@wagmi/core';
-
+import clsx from 'clsx';
+import Image from 'next/image';
+import { useState, useMemo, useCallback } from 'react';
+import { toast } from 'react-toastify';
+import useSWR from 'swr';
 import { useAccount } from 'wagmi'; // useNetwork
 
-import { toast } from 'react-toastify';
-import { NoData } from '@/components/NoData';
+import { Button } from '@/components/Button';
 import { Modal } from '@/components/Modal';
 import { Confirm } from '@/components/Modal/Confirm';
-
-import { useMediaUrl, useConfig } from '#/state/application/hooks';
-import { EXPERIENCE_OPTIONS } from '#/lib/user';
-import { useAllowance, useApprove } from '@/hooks/useERC20';
-import { contracts, payTokens } from '@/constants/contract';
+import { NoData } from '@/components/NoData';
 import { BountyABI } from '@/constants/abis/bounty';
 import { BOUNTY_SUPPORTED_CHAIN } from '@/constants/chain';
-
+import { contracts, payTokens } from '@/constants/contract';
+import { useAllowance, useApprove } from '@/hooks/useERC20';
 import { fetcher } from '@/utils/request';
+import { parseTokenUnits } from '@/utils/web3';
+
+import { useBountyEnvCheck } from '#/domain/bounty/hooks';
+import { EXPERIENCE_OPTIONS } from '#/lib/user';
 import { denyBuilder, approveBuilder } from '#/services/creator';
+import { useMediaUrl, useConfig } from '#/state/application/hooks';
 
 import { revalidatePathAction } from '../../actions';
-import { useBountyEnvCheck } from '#/domain/bounty/hooks';
 
 export function AppliedModal({ open, closeModal, bounty }) {
   const { data, isLoading, mutate } = useSWR(`ts/v1/build/creator/bounties/${bounty.id}/builders?skip=${0}&take=${25}`, fetcher);
@@ -126,7 +123,7 @@ export function AppliedModal({ open, closeModal, bounty }) {
           bounty.task,
           currUser?.user_wallet,
           payToken.address,
-          parseUnits((bounty.amount / 100).toString(), payToken.decimals),
+          parseTokenUnits((bounty.amount / 100).toString(), payToken.decimals),
         ],
       });
       // console.log(hash)
@@ -163,7 +160,7 @@ export function AppliedModal({ open, closeModal, bounty }) {
     setApproveConfirmLoading(true);
     try {
       if (
-        Number(allowance.toString()) < Number(parseUnits((bounty.amount / 100).toString(), payToken.decimals).toString())
+        Number(allowance.toString()) < Number(parseTokenUnits((bounty.amount / 100).toString(), payToken.decimals).toString())
         &&
         approveAsync
       ) {

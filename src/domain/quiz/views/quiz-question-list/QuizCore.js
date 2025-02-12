@@ -15,7 +15,8 @@
  */
 
 import clsx from 'clsx';
-import { nanoid } from 'nanoid';
+
+import { generateRandomId } from '@/utils';
 
 import RadioIcon from './RadioIcon';
 
@@ -72,7 +73,7 @@ export function QuizCore({
 
               return (
                 <button
-                  key={nanoid()}
+                  key={generateRandomId()}
                   type="button"
                   className={clsx('flex items-center gap-x-4 md:block min-h-[48px] py-3 border text-[15px] transition-all rounded mt-6 w-full text-left px-4 border-gray-600 hover:border-gray', {
                     '!border-gray': checked,

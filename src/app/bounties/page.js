@@ -16,11 +16,12 @@
 
 import { Suspense } from 'react';
 
-import { Title } from '../learn/Title';
-import { StartOnOpenBuild } from '../learn/StartOnOpenBuild';
 import { Filter } from '@/components/Filter';
-import { BountyFilter } from './Filter';
+
+import { StartOnOpenBuild } from '../learn/StartOnOpenBuild';
+import { Title } from '../learn/Title';
 import { Container } from './Container';
+import { BountyFilter } from './Filter';
 import { ListSkeleton } from './ListSkeleton';
 
 export default function Page({ params, searchParams }) {

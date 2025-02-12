@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
-import { Button } from '@/components/Button';
-import { Modal } from '@/components/Modal';
 import Image from 'next/image';
 import MessagePic from 'public/images/message.png';
+
+import { Button } from '@/components/Button';
+import { Modal } from '@/components/Modal';
 
 export function HireConfirmModal({ open, closeModal }) {
   return (

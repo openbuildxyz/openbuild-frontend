@@ -14,25 +14,27 @@
  * limitations under the License.
  */
 
-import { Modal } from '@/components/Modal';
-import { ModalCloseIcon } from '@/components/Icons';
-import useSWR from 'swr';
-import { fetcher } from '@/utils/request';
 import Image from 'next/image';
-import { useMediaUrl } from '#/state/application/hooks';
-import { formatTime, fromUtcOffset, formatTimeMeridiem } from '@/utils/date';
+import Link from 'next/link';
+import useSWR from 'swr';
+
+import { ModalCloseIcon } from '@/components/Icons';
+import { Modal } from '@/components/Modal';
 // import clsx from 'clsx'
 import { NoData } from '@/components/NoData';
-import Link from 'next/link';
+import { formatTime, fromUtcOffset, formatTimeMeridiem } from '@/utils/date';
+import { fetcher } from '@/utils/request';
 
-export function Record({id, openModal, closeModal}) {
+import { useMediaUrl } from '#/state/application/hooks';
+
+export function Record({quizId, shown, onClose}) {
   const mediaUrl = useMediaUrl();
-  const { data } = useSWR(openModal ? `/ts/v1/quiz/${id}/answer` : null, fetcher);
+  const { data } = useSWR(shown ? `/ts/v1/quiz/${quizId}/answer` : null, fetcher);
 
   return (
-    <Modal isOpen={openModal} closeModal={closeModal} container mode="640">
+    <Modal isOpen={shown} onClose={onClose} container mode="640">
       <div >
-        <ModalCloseIcon onClick={closeModal} className="absolute top-[-48px] md:top-[-32px] right-0 md:right-[-32px] cursor-pointer" />
+        <ModalCloseIcon onClick={onClose} className="absolute top-[-48px] md:top-[-32px] right-0 md:right-[-32px] cursor-pointer" />
         <div>
           <h3 className="text-center py-4 border-b border-gray-600">
             Challenge Record
@@ -85,7 +87,7 @@ export function Record({id, openModal, closeModal}) {
               ))}
             </div>
           </div>
-          {data?.length === 0 && <div className="pb-12"><NoData /></div>}
+          {(!data|| data?.length === 0) && <div className="pb-12"><NoData /></div>}
         </div>
       </div>
     </Modal>

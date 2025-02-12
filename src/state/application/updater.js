@@ -17,10 +17,13 @@
 'use client';
 
 import { useCallback, useEffect } from 'react';
+
+import { useMediaQuery } from '@/hooks/useMediaQuery';
+
+import { useAppDispatch } from '#/state/hooks';
+
 // import { getConfig } from '#/services/common'
 import { updateConfig, updateOpenFilter, updateLessonMenu } from './reducer';
-import { useAppDispatch } from '#/state/hooks';
-import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 export default function Updater({ datas }) {
   const dispatch = useAppDispatch();

@@ -14,23 +14,24 @@
  * limitations under the License.
  */
 
-import { ProfileTitle, ProfileLabel } from '#/domain/profile/widgets/blocks';
-import { Select } from '@/components/Select';
+import clsx from 'clsx';
 import { useState, useMemo, useRef } from 'react';
+import { toast } from 'react-toastify';
+
+import { Button } from '@/components/Button';
 import { UploadIcon } from '@/components/Icons';
-import { useAllSkills, useConfig } from '#/state/application/hooks';
+import Loader from '@/components/Loader';
+import { Select } from '@/components/Select';
+import { ReactSelect } from '@/components/Select/ReactSelect';
 // import { Transition } from '@headlessui/react'
 // import { CheckIcon, XMarkIcon } from '@heroicons/react/20/solid'
 import { BASE_INPUT_STYLE } from '@/constants/config';
 import { classNames } from '@/utils';
-import { upload } from '#/services/common';
-import { toast } from 'react-toastify';
-import Loader from '@/components/Loader';
-import { EXPERIENCE_OPTIONS } from '#/lib/user';
-import clsx from 'clsx';
-import { Button } from '@/components/Button';
 
-import { ReactSelect } from '@/components/Select/ReactSelect';
+import { ProfileTitle, ProfileLabel } from '#/domain/profile/widgets/blocks';
+import { EXPERIENCE_OPTIONS } from '#/lib/user';
+import { upload } from '#/services/common';
+import { useAllSkills, useConfig } from '#/state/application/hooks';
 
 export function MySkill({ forms, set, formsError }) {
   const allSkills = useAllSkills();

@@ -14,8 +14,7 @@
  * limitations under the License.
  */
 
-import { merge } from 'lodash';
-
+import { merge } from '@/utils';
 import httpClient from '@/utils/http';
 
 async function fetchPublishedBountyList(params = {}) {

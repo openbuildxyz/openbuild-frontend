@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
-import { isFunction } from 'lodash';
-import React, { Fragment } from 'react';
-import clsx from 'clsx';
 import { Dialog, Transition } from '@headlessui/react';
+import clsx from 'clsx';
+import React, { Fragment } from 'react';
+
+import { isFunction } from '../../utils';
 
 export function Modal({
   isOpen,

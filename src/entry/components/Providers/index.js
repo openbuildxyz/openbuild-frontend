@@ -16,14 +16,14 @@
 
 'use client';
 
-import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
-import { RainbowKitProviders } from './RainbowKitProviders';
-import { SuiProviders } from './SuiProviders';
 import { SessionProvider } from 'next-auth/react';
-
+import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
+import { WagmiConfig } from 'wagmi';
 
 import { wagmiConfig } from '@/constants/chain';
-import { WagmiConfig } from 'wagmi';
+
+import { RainbowKitProviders } from './RainbowKitProviders';
+import { SuiProviders } from './SuiProviders';
 
 import '@rainbow-me/rainbowkit/styles.css';
 

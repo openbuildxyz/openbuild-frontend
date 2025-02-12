@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import { useState, useEffect } from 'react';
-import  { BASE_INPUT_STYLE } from '@/constants/config';
-
-import { OEditor } from '@/components/MarkDown';
 import { PlusCircleIcon } from '@heroicons/react/20/solid';
 import { MinusCircleIcon } from '@heroicons/react/24/outline';
+import { useState, useEffect } from 'react';
+
+import { OEditor } from '@/components/MarkDown';
+import  { BASE_INPUT_STYLE } from '@/constants/config';
 
 export function CreatorLearnStepTwo({data, change}) {
 

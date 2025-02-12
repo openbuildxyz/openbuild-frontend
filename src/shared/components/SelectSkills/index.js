@@ -15,12 +15,13 @@
  */
 
 'use client';
+import { Transition } from '@headlessui/react';
+import { CheckIcon, XMarkIcon } from '@heroicons/react/20/solid';
 import { useMemo, useState, Fragment, useEffect } from 'react';
 
-import { Transition } from '@headlessui/react';
 import { classNames, arrRemove } from '@/utils';
+
 import { baseInputStyles } from '#/domain/profile/widgets/blocks';
-import { CheckIcon, XMarkIcon } from '@heroicons/react/20/solid';
 import { useConfig } from '#/state/application/hooks';
 
 export default function SelectSkills({ skills, setSkills }) {

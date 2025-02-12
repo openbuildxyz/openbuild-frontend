@@ -18,7 +18,6 @@ import { SvgIcon } from '@/components/Image';
 import LoadableList from '@/components/loadable-list';
 
 import { useViewingSelf } from '../../../auth/hooks';
-
 import { fetchPublishedQuizList } from '../../repository';
 import QuizItem from '../../widgets/quiz-item';
 

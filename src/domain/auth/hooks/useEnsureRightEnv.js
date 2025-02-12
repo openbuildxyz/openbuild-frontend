@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import { useAccount, useNetwork, useSwitchNetwork } from 'wagmi';
 import { useConnectModal, useChainModal } from '@rainbow-me/rainbowkit';
 import { toast } from 'react-toastify';
+import { useAccount, useNetwork, useSwitchNetwork } from 'wagmi';
 
 import { useBoundWallet } from '@/hooks/useBoundWallet';
 

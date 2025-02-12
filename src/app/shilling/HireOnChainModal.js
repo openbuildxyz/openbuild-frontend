@@ -14,21 +14,22 @@
  * limitations under the License.
  */
 
-import { Modal } from '@/components/Modal';
-import { ModalCloseIcon, TipsIcon } from '@/components/Icons';
-import { ReactSelect } from '@/components/Select/ReactSelect';
-import { classNames } from '@/utils';
-import { baseInputStyles } from '#/domain/profile/widgets/blocks';
-
+import BigNumber from 'bignumber.js';
 import { useState, useMemo } from 'react';
+import { toast } from 'react-toastify';
+
+import { Button } from '@/components/Button';
+import { ModalCloseIcon, TipsIcon } from '@/components/Icons';
+import { Modal } from '@/components/Modal';
+import { ReactSelect } from '@/components/Select/ReactSelect';
+import { MouseoverTooltip } from '@/components/Tooltip';
+import { classNames } from '@/utils';
+
+import { baseInputStyles } from '#/domain/profile/widgets/blocks';
+import { permissionsHire } from '#/services/shilling';
 import { useAllSkills } from '#/state/application/hooks';
 
-import { MouseoverTooltip } from '@/components/Tooltip';
-import { Button } from '@/components/Button';
 import { Estimated } from '../shilling-myself/ShillingMyselfTwo';
-import BigNumber from 'bignumber.js';
-import { permissionsHire } from '#/services/shilling';
-import { toast } from 'react-toastify';
 
 
 export function HireOnChainModal({ open, closeModal, data, id, callback }) {

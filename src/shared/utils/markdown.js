@@ -14,14 +14,15 @@
  * limitations under the License.
  */
 
-import TurndownService from 'turndown';
-import { getProcessor } from 'bytemd';
+import breaks from '@bytemd/plugin-breaks';
+import gemoji from '@bytemd/plugin-gemoji';
 import gfm from '@bytemd/plugin-gfm';
 import highlight from '@bytemd/plugin-highlight';
-import breaks from '@bytemd/plugin-breaks';
 import math from '@bytemd/plugin-math';
 import mermaid from '@bytemd/plugin-mermaid';
-import gemoji from '@bytemd/plugin-gemoji';
+import { getProcessor } from 'bytemd';
+import striptags from 'striptags';
+import TurndownService from 'turndown';
 
 const plugins = [gfm(), breaks(), highlight(), math(), mermaid(), gemoji()];
 
@@ -53,4 +54,11 @@ function renderHtml(markdownContent) {
   return getProcessor({ sanitize, plugins }).processSync(markdownContent).toString();
 }
 
-export { getPlugins, sanitize, renderMarkdown, renderHtml };
+function markdownToPlainText(markdownContent) {
+  const html = renderHtml(markdownContent);
+  const plainText = striptags(html);
+  
+  return plainText.trim().replace(/[\r\n]+/g, ' ');
+}
+
+export { getPlugins, sanitize, renderMarkdown, renderHtml, markdownToPlainText };

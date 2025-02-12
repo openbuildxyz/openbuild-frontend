@@ -16,19 +16,20 @@
 
 'use client';
 
-import { useState } from 'react';
-import { isEmpty } from 'lodash';
+import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
-import { useSearchParams } from 'next/navigation';
-import Link from 'next/link';
 import { signIn } from 'next-auth/react';
+import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
-import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
+
+import Loader from '@/components/Loader';
+import { isEmpty } from '@/utils';
+import { wrapOnChange } from '@/utils/form';
 
 import { signin, emailCodeLogin } from '#/services/auth';
-import { wrapOnChange } from '@/utils/form';
-import Loader from '@/components/Loader';
 
 import LoginTypeSwitcher from './LoginTypeSwitcher';
 import VerifyCodeLogin from './VerifyCodeLogin';
@@ -39,6 +40,7 @@ export function NavButtonStyle() {
 const SigninAfterStyle = 'after:content-[\'\'] after:absolute after:right-[-12px] after:bottom-0 after:w-3 after:h-3 after:bg-signin-gradient';
 
 export default function Login() {
+  const emailFieldName = 'Email';
   const searchParams = useSearchParams();
   const [loading, setLoading] = useState(false);
   const [passwordType, setPasswordType] = useState('password');
@@ -51,6 +53,8 @@ export default function Login() {
     watch,
     clearErrors,
     reset,
+    setValue,
+    getValues,
   } = useForm();
   const watchAllFields = watch();
 
@@ -58,7 +62,9 @@ export default function Login() {
     setLoginType(prevLoginType => {
       const loginType = prevLoginType === 'verifyCode' ? 'password' : 'verifyCode';
       clearErrors();
+      const email = getValues(emailFieldName);
       reset();
+      setValue(emailFieldName, email);
       return loginType;
     });
   };
@@ -99,7 +105,7 @@ export default function Login() {
     }
   };
 
-  const emailField = register('Email', { required: true, pattern: /^\S+@\S+$/i });
+  const emailField = register(emailFieldName, { required: true, pattern: /^\S+@\S+$/i });
   emailField.onChange = wrapOnChange(emailField.onChange);
 
   const pwdField = register('Password', {

@@ -14,8 +14,7 @@
  * limitations under the License.
  */
 
-import { merge } from 'lodash';
-
+import { merge } from '@/utils';
 import httpClient from '@/utils/http';
 
 async function fetchPublishedQuizList(params = {}) {
@@ -49,4 +48,8 @@ async function fetchTeamList(){
   return httpClient.get('/quiz/team');
 }
 
-export { updateRespondentContacts, fetchPublishedQuizList, fetchAnsweredQuizList, fetchAnsweredResult, fetchTeamList };
+async function fetchRankList({ quizId }){
+  return httpClient.get(`/quiz/${quizId}/users`);
+}
+
+export { updateRespondentContacts, fetchPublishedQuizList, fetchAnsweredQuizList, fetchAnsweredResult, fetchTeamList, fetchRankList };

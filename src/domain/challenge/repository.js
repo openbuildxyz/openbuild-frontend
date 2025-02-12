@@ -14,8 +14,7 @@
  * limitations under the License.
  */
 
-import { merge } from 'lodash';
-
+import { merge } from '@/utils';
 import httpClient, { legacyClient } from '@/utils/http';
 
 async function fetchOne(id) {

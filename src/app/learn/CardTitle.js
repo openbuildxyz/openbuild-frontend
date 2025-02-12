@@ -17,6 +17,7 @@
 'use client';
 
 import Image from 'next/image';
+
 import { useMediaUrl } from '#/state/application/hooks';
 
 

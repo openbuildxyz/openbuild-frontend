@@ -15,16 +15,16 @@
  */
 
 'use client';
-import { useEffect, useState, Fragment, useCallback } from 'react';
-import { Tabs } from '../Tabs';
-import Link from 'next/link';
-import Image from 'next/image';
-import { NoData } from '@/components/NoData';
-import Loader from '@/components/Loader';
-import { useAllSkills, useMediaUrl, useSlillhubChain } from '#/state/application/hooks';
+
 import { Popover, Transition } from '@headlessui/react';
-import { useWalletClient, useNetwork, useSwitchNetwork, useAccount } from 'wagmi';
+import { useConnectModal } from '@rainbow-me/rainbowkit';
 import { readContract } from '@wagmi/core';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useEffect, useState, Fragment, useCallback } from 'react';
+import { toast } from 'react-toastify';
+import { useWalletClient, useNetwork, useSwitchNetwork, useAccount } from 'wagmi';
+
 import {
   EditIcon,
   ManageIcon,
@@ -35,19 +35,22 @@ import {
   TerminateIcon,
   DepositIcon,
 } from '@/components/Icons';
+import Loader from '@/components/Loader';
+import { NoData } from '@/components/NoData';
 import { Paging } from '@/components/Paging';
-import { useSkillsHireList } from '#/services/dashboard/hooks';
 import { formatTime, currentTime } from '@/utils/date';
+import { formatTokenUnits, signSkillHub } from '@/utils/web3';
+
+import { useSkillsHireList } from '#/services/dashboard/hooks';
 import { permissionsHireStatus, permissionsStatusApprove } from '#/services/shilling';
-import { toast } from 'react-toastify';
-import { ManageModal } from './ManageModal';
+import { useAllSkills, useMediaUrl, useSlillhubChain } from '#/state/application/hooks';
+
+import { Tabs } from '../Tabs';
 import { ClaimModal } from './ClaimModal';
 import { DepositModal } from './DepositModal';
-import { TerminateModal } from './TerminateModal';
 import { ExpendHireTimeModal } from './ExpendHireTimeModal';
-import { signSkillHub } from '@/utils/web3';
-import { formatUnits } from '@ethersproject/units';
-import { useConnectModal } from '@rainbow-me/rainbowkit';
+import { ManageModal } from './ManageModal';
+import { TerminateModal } from './TerminateModal';
 
 const tabs = [
   {
@@ -161,7 +164,7 @@ export default function DashboardHire() {
         args: [Number(current.contract_index_id)],
       });
 
-      setAvailableFund(formatUnits(_available, slillhubChain.use_coins[0].decimals));
+      setAvailableFund(formatTokenUnits(_available, slillhubChain.use_coins[0].decimals));
     }
   }, [slillhubChain, current]);
 
@@ -226,12 +229,12 @@ export default function DashboardHire() {
                   </li>
                   <li className="col-span-2 pl-6">
                     <p className="mb-1 truncate pr-4">
-                      ${formatUnits(i.total_cost, slillhubChain?.use_coins[0].decimals)}
+                      ${formatTokenUnits(i.total_cost, slillhubChain?.use_coins[0].decimals)}
                     </p>
                     <p className="text-xs opacity-80">${i.hourly_wage.toFixed(2)} / hour</p>
                   </li>
                   <li className="col-span-2 flex items-center">
-                    <p>${formatUnits(i.claimed_cost, slillhubChain?.use_coins[0].decimals).toString()}</p>
+                    <p>${formatTokenUnits(i.claimed_cost, slillhubChain?.use_coins[0].decimals).toString()}</p>
                   </li>
                   <li className="col-span-2 flex items-center">
                     {i.status === -1 && (

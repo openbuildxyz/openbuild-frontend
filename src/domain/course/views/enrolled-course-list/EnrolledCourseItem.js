@@ -16,8 +16,8 @@
 
 import { useRouter } from 'next/navigation';
 
-import Image from '@/components/Image';
 import Avatar from '@/components/Avatar';
+import Image from '@/components/Image';
 
 function EnrolledCourseItem({ data }) {
   const router = useRouter();

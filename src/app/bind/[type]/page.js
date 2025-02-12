@@ -16,12 +16,12 @@
 
 'use client';
 
-import { useSearchParams, useRouter } from 'next/navigation';
 import { signIn, signOut, useSession } from 'next-auth/react';
+import { useSearchParams, useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 
-import useMounted from '@/hooks/useMounted';
 import Loader from '@/components/Loader';
+import useMounted from '@/hooks/useMounted';
 
 import { bindOAuth } from '#/services/auth';
 

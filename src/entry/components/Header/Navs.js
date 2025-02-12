@@ -16,16 +16,17 @@
 
 'use client';
 
-import Image from 'next/image';
-import { usePathname } from 'next/navigation';
 import { ChevronDownIcon, Bars3Icon, ChevronRightIcon, XMarkIcon } from '@heroicons/react/20/solid';
-import Account from './Account';
-import Link from 'next/link';
 import clsx from 'clsx';
-import { useHeaderAndFooterDisplay } from '@/hooks/useHeaderAndFooterDisplay';
-
+import Image from 'next/image';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import Logo from 'public/images/svg/logo-black.svg';
 import { useEffect, useState } from 'react';
+
+import { useHeaderAndFooterDisplay } from '@/hooks/useHeaderAndFooterDisplay';
+
+import Account from './Account';
 
 function Navs({data}) {
   const pathname = usePathname();

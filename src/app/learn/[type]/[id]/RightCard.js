@@ -16,52 +16,48 @@
 
 'use client';
 
-import Image from 'next/image';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useCallback, useState, useEffect, Fragment, useRef, useMemo } from 'react';
-import { Button } from '@/components/Button';
-import { useSession } from 'next-auth/react';
-import { CheckIcon } from '@heroicons/react/20/solid';
-// import { currentTime } from '@/utils/date'
-import { useMediaUrl } from '#/state/application/hooks';
-import { joinChallengesEnrool, pay } from '#/services/learn/';
-
-// import { USDTIcon } from '@/components/Icons'
-import { EmailModal } from './EmailModal';
-
-import { enrollAction, revalidatePathAction } from './actions';
-import { toast } from 'react-toastify';
-import dynamic from 'next/dynamic';
-import { waitForTransaction } from '@wagmi/core';
-
-import { useConnectModal } from '@rainbow-me/rainbowkit';
-
-import { useAccount, useNetwork, useSwitchNetwork, erc20ABI } from 'wagmi';
 // import { getBalance } from '@wagmi/core'
 // import { prepareWriteContract, writeContract } from '@wagmi/core'
-import { parseUnits } from '@ethersproject/units';
-import clsx from 'clsx';
-import { writeContract } from '@wagmi/core';
-import { TimeAndLocation } from '../ChallengesCard';
-import { USDTIcon } from '@/components/Icons';
-
 import { Dialog, Transition } from '@headlessui/react';
-import TicketEPic from 'public/images/ticket-e.svg';
-import TicketBgPic from 'public/images/ticket-bg.svg';
-import { TwitterIcon, DownloadIcon } from '@/components/Icons';
-import QRCode from 'react-qr-code';
-import { toBlob } from 'html-to-image';
-
-import { formatTime } from '@/utils/date';
+import { CheckIcon } from '@heroicons/react/20/solid';
+import { useConnectModal } from '@rainbow-me/rainbowkit';
+import { waitForTransaction } from '@wagmi/core';
+import { writeContract } from '@wagmi/core';
+import clsx from 'clsx';
 import { saveAs } from 'file-saver';
+import { toBlob } from 'html-to-image';
+import { useSession } from 'next-auth/react';
+import dynamic from 'next/dynamic';
+import Image from 'next/image';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import TicketBgPic from 'public/images/ticket-bg.svg';
+import TicketEPic from 'public/images/ticket-e.svg';
+import { useCallback, useState, useEffect, Fragment, useRef, useMemo } from 'react';
+import QRCode from 'react-qr-code';
+import { toast } from 'react-toastify';
+import { useAccount, useNetwork, useSwitchNetwork, erc20ABI } from 'wagmi';
 
+import { Button } from '@/components/Button';
+import { USDTIcon } from '@/components/Icons';
+import { TwitterIcon, DownloadIcon } from '@/components/Icons';
+import { formatTime } from '@/utils/date';
 import { resolvePathWithSearch } from '@/utils/url';
+import { parseTokenUnits } from '@/utils/web3';
+
+import { joinChallengesEnrool, pay } from '#/services/learn/';
+// import { currentTime } from '@/utils/date'
+import { useMediaUrl } from '#/state/application/hooks';
+
+import { TimeAndLocation } from '../ChallengesCard';
+import { enrollAction, revalidatePathAction } from './actions';
+// import { USDTIcon } from '@/components/Icons'
+import { EmailModal } from './EmailModal';
 
 const EnrollModal = dynamic(() => import('./EnrollModal'), {
   ssr: false,
 });
 
-function ButtonGroup({ data, permission, loading, type, apply, enroll, switchLoading, payLoading, isPay, payment }) {
+function ButtonGroup({ data, permission, loading, type, apply, enroll, switchLoading, payLoading, isPay, payment, related }) {
   const router = useRouter();
   const { status } = useSession();
 
@@ -76,14 +72,28 @@ function ButtonGroup({ data, permission, loading, type, apply, enroll, switchLoa
 
   // console.log(data)
 
-  return <div>
-    {data?.challenges_extra && data?.challenges_extra.course_challenges_extra_time_order === 0 ? (
-      <div className="pb-6">
-        <Button disabled fullWidth className={'flex-1'} >
-          Closed
-        </Button>
+  if (data?.challenges_extra && data?.challenges_extra.course_challenges_extra_time_order === 0) {
+    let buttonText = 'Closed';
+    let handleClick;
+
+    if (related) {
+      buttonText = 'Enroll in course';
+      handleClick = () => router.push(`/learn/courses/${related.link}`);
+    }
+
+    return (
+      <div>
+        <div className="pb-6">
+          <Button disabled={!handleClick} fullWidth className="flex-1" onClick={handleClick}>
+            {buttonText}
+          </Button>
+        </div>
       </div>
-    ) : (
+    );
+  }
+
+  return (
+    <div>
       <div className="pb-6 flex gap-2">
         {data.base.course_series_quiz_id !== 0 && <Button
           onClick={() => window.open(`/quiz/${data.base.course_series_quiz_id}`)}
@@ -173,11 +183,11 @@ function ButtonGroup({ data, permission, loading, type, apply, enroll, switchLoa
           </Button>
         )}
       </div>
-    )}
-  </div>;
+    </div>
+  );
 }
 
-export function LearnRightCard({ data, type, permission }) {
+export function LearnRightCard({ data, type, permission, related }) {
   // const { data: walletClient } = useWalletClient()
   const searchParams = useSearchParams();
   const mediaUrl = useMediaUrl();
@@ -268,7 +278,7 @@ export function LearnRightCard({ data, type, permission }) {
       switchNetwork?.(chainId);
       return;
     }
-    const _amount = parseUnits(amount.toString(), 18);
+    const _amount = parseTokenUnits(amount.toString(), 18);
     setPayLoading(true);
     try {
       if (!data.challenges_extra?.course_challenges_extra_feeds_contract || !data.base.course_series_id) return;
@@ -372,6 +382,7 @@ export function LearnRightCard({ data, type, permission }) {
             payLoading={payLoading}
             isPay={isPay}
             payment={payment}
+            related={related}
           />
         </div>
       )}
@@ -568,6 +579,7 @@ export function LearnRightCard({ data, type, permission }) {
             payLoading={payLoading}
             isPay={isPay}
             payment={payment}
+            related={related}
           />
 
           <hr className="border-gray-400" />

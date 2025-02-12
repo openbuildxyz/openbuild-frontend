@@ -14,19 +14,20 @@
  * limitations under the License.
  */
 
-import { useState } from 'react';
-import useSWR from 'swr';
-import { usePathname, useRouter } from 'next/navigation';
-import Link from 'next/link';
 import { useSession } from 'next-auth/react';
+import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
+import { useState } from 'react';
 import { toast } from 'react-toastify';
+import useSWR from 'swr';
 
-import { post, fetcher } from '@/utils/request';
-import { useUser } from '#/state/application/hooks';
-import { SvgIcon } from '@/components/Image';
 import Avatar from '@/components/Avatar';
 import { Button } from '@/components/Button';
 import { RepositioningIcon } from '@/components/Icons';
+import { SvgIcon } from '@/components/Image';
+import { post, fetcher } from '@/utils/request';
+
+import { useUser } from '#/state/application/hooks';
 
 import SocialInfoWidget from '../social-info';
 

@@ -14,17 +14,16 @@
  * limitations under the License.
  */
 
+import { XMarkIcon, ChevronLeftIcon } from '@heroicons/react/20/solid';
+import Link from 'next/link';
 import { useEffect, useMemo, useState } from 'react';
 import { toast } from 'react-toastify';
-import Link from 'next/link';
-import { XMarkIcon, ChevronLeftIcon } from '@heroicons/react/20/solid';
 
-import { post } from '@/utils/request';
 import { Button } from '@/components/Button';
+import { post } from '@/utils/request';
 
 import { fetchAnsweredResult } from '../../repository';
 import FeedbackDialog from '../../widgets/feedback-dialog';
-
 import AnswerRecordDrawer from './AnswerRecordDrawer';
 import { QuizCore } from './QuizCore';
 

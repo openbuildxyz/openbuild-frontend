@@ -15,6 +15,7 @@
  */
 
 import { useCallback, useState, useEffect } from 'react';
+
 import { get } from '@/utils/request';
 
 export function useDashboardEnroolSeries({ skip, take, status, series_type }) {
@@ -55,20 +56,6 @@ export function useDashboardEnroolSeries({ skip, take, status, series_type }) {
   return { loading, list, hasNextPage, doSetList };
 }
 
-export function useDashboardAnalytics() {
-  const [analytics, setAnalytics] = useState();
-  const fetch = useCallback(() => {
-    get('v1/learn/dashboard/enrool/series/analytics').then(result => {
-      if (result.code === 200) {
-        setAnalytics(result.data);
-      }
-    });
-  }, []);
-  useEffect(() => {
-    fetch();
-  }, [fetch]);
-  return analytics;
-}
 export function useDashboardNftList() {
   const [list, setList] = useState();
   const [loading, setLoading] = useState(true);

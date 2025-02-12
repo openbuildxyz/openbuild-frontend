@@ -15,18 +15,20 @@
  */
 
 'use client';
-import { Header } from './Header';
-import { useDetails } from '#/services/shilling/hooks';
-import { Skeleton } from '@/components/Skeleton/details';
-import { OViewer } from '@/components/MarkDown';
-import { useAllSkills } from '#/state/application/hooks';
-import { fromNow } from '@/utils/date';
-import { Author } from './Author';
-import SkillInsight from '#/domain/skill/widgets/skill-insight';
-import { ownedNFTs } from '#/services/common';
-
 import clsx from 'clsx';
 import { useEffect, useState } from 'react';
+
+import { OViewer } from '@/components/MarkDown';
+import { Skeleton } from '@/components/Skeleton/details';
+import { fromNow } from '@/utils/date';
+
+import SkillInsight from '#/domain/skill/widgets/skill-insight';
+import { ownedNFTs } from '#/services/common';
+import { useDetails } from '#/services/shilling/hooks';
+import { useAllSkills } from '#/state/application/hooks';
+
+import { Author } from './Author';
+import { Header } from './Header';
 
 export default function Page({ params }) {
   const skills = useAllSkills();

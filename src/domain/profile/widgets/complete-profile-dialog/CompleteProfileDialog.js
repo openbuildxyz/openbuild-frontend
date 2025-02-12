@@ -15,9 +15,10 @@
  */
 
 import Link from 'next/link';
+
 import { Button } from '@/components/Button';
-import { Modal } from '@/components/Modal';
 import { NotCompleteIcon, CompleteIcon } from '@/components/Icons';
+import { Modal } from '@/components/Modal';
 
 import WalletBinderWidget from '../../../auth/widgets/wallet-binder';
 

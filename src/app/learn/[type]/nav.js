@@ -18,8 +18,9 @@
 import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
-import { LEARN_NAVS } from '#/lib/nav';
 import { usePathname } from 'next/navigation';
+
+import { LEARN_NAVS } from '#/lib/nav';
 
 export function LearnNavBar() {
   const pathname = usePathname();

@@ -16,20 +16,22 @@
 
 'use client';
 
-import { useMemo } from 'react';
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useMemo } from 'react';
+
+import { FilterIcon } from '@/components/Icons';
+import { OViewer } from '@/components/MarkDown';
+import { Player } from '@/components/Player';
+import { Share } from '@/components/Share';
+
 import { updateLessonMenu } from '#/state/application/reducer';
 import { useAppDispatch } from '#/state/hooks';
 
-import { OViewer } from '@/components/MarkDown';
-import { FilterIcon } from '@/components/Icons';
-import { Share } from '@/components/Share';
-import { Menu } from './Menu';
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
-import Link from 'next/link';
-import { Player } from '@/components/Player';
 import { resolveChapter } from '../../../helper';
 import LockedPlaceholder from './Locked';
+import { Menu } from './Menu';
 
 // FIXME: 临时方案
 function resolveContent(rawContent) {

@@ -14,21 +14,23 @@
  * limitations under the License.
  */
 
-import { useState } from 'react';
-import Image from 'next/image';
-import { Modal } from '@/components/Modal';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
+import clsx from 'clsx';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { toast } from 'react-toastify';
 import useSWR from 'swr';
+
+import { Button } from '@/components/Button';
+import { Modal } from '@/components/Modal';
 import { NoData } from '@/components/NoData';
 import { CommonListSkeleton } from '@/components/Skeleton/CommonListSkeleton';
-import { fetcher } from '@/utils/request';
-import { Button } from '@/components/Button';
-import clsx from 'clsx';
-import { useMediaUrl } from '#/state/application/hooks';
 import { formatTime } from '@/utils/date';
-import { toast } from 'react-toastify';
+import { fetcher } from '@/utils/request';
+
 import { addSeries } from '#/services/creator';
-import { useRouter } from 'next/navigation';
+import { useMediaUrl } from '#/state/application/hooks';
 
 export function SelectItemModal({type, open, close, back}) {
   const { push } = useRouter();

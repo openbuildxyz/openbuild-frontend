@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import { isFunction } from 'lodash';
-import { useState, useMemo, useCallback, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import { useState, useMemo, useCallback, useEffect } from 'react';
 import { toast } from 'react-toastify';
 
 import { Confirm } from '@/components/Modal/Confirm';
+import { isFunction } from '@/utils';
 
 import { authWithGoogle, authWithGithub } from '../../../auth/helper';
 import { useBindWallet } from '../../../auth/hooks';

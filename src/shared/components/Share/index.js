@@ -16,27 +16,29 @@
 
 'use client';
 
-import { useMemo, useState } from 'react';
-import { Modal } from '@/components/Modal';
-import Image from 'next/image';
-
-import { ModalCloseIcon, CopyIcon } from '@/components/Icons';
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
+import clsx from 'clsx';
+import copy from 'copy-to-clipboard';
+import Image from 'next/image';
+import { usePathname, useSearchParams, useRouter } from 'next/navigation';
 import FacebookSvg from 'public/images/svg/share-facebook.svg';
 import XSvg from 'public/images/svg/share-x.svg';
-import copy from 'copy-to-clipboard';
-import { useMediaUrl, useUser } from '#/state/application/hooks';
-import { usePathname, useSearchParams, useRouter } from 'next/navigation';
-import clsx from 'clsx';
-import useSWR from 'swr';
-import { fetcher } from '@/utils/request';
-import { Button } from '../Button';
-import { formatTime } from '@/utils/date';
-import { NoData } from '@/components/NoData';
-import { toast } from 'react-toastify';
+import { useMemo, useState } from 'react';
 import ContentEditable from 'react-contenteditable';
+import { toast } from 'react-toastify';
+import useSWR from 'swr';
+
+import { ModalCloseIcon, CopyIcon } from '@/components/Icons';
+import { Modal } from '@/components/Modal';
+import { NoData } from '@/components/NoData';
 import { HTMLDecode } from '@/utils';
+import { formatTime } from '@/utils/date';
+import { fetcher } from '@/utils/request';
 import { resolvePathWithSearch } from '@/utils/url';
+
+import { useMediaUrl, useUser } from '#/state/application/hooks';
+
+import { Button } from '../Button';
 
 const combineUrl = (type, user_code, summary) => {
   let baseUrl = '';
@@ -123,7 +125,7 @@ export function Share({ img, title, type, id, excerpt }) {
     </Modal>
     {invitationRecordsAvailable && (
       <Modal isOpen={recordOpen} closeModal={() => setRecordOpen(false)} container className="!w-[380px]">
-        <ModalCloseIcon onClick={() => setOpen(false)} className="absolute top-[-32px] right-[-32px] cursor-pointer" />
+        <ModalCloseIcon onClick={() => setRecordOpen(false)} className="absolute top-[-32px] right-[-32px] cursor-pointer" />
         <div className="py-4 px-6">
           <div className="flex items-center">
             <ArrowLeftIcon className="w-5 h-5 cursor-pointer relative z-10" onClick={() => {

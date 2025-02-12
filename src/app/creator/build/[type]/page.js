@@ -16,14 +16,16 @@
 
 'use client';
 
+import useSWR from 'swr';
+
 import { NoData } from '@/components/NoData';
+import { OPagination } from '@/components/Pagination';
+import { CommonListSkeleton } from '@/components/Skeleton/CommonListSkeleton';
+import { PAGE_SIZE } from '@/constants/config';
+import { fetcher } from '@/utils/request';
+
 import { BountyList} from './BountyList';
 import { Search } from './Search';
-import { CommonListSkeleton } from '@/components/Skeleton/CommonListSkeleton';
-import { OPagination } from '@/components/Pagination';
-import { PAGE_SIZE } from '@/constants/config';
-import useSWR from 'swr';
-import { fetcher } from '@/utils/request';
 
 export default function Page({ searchParams }) {
   const page = Number(searchParams?.page) || 1;

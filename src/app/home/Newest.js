@@ -16,11 +16,12 @@
 
 'use client';
 
-import Slider from 'react-slick';
 import Image from 'next/image';
-import { useMemo } from 'react';
-import { useMediaUrl } from '#/state/application/hooks';
 import Link from 'next/link';
+import { useMemo } from 'react';
+import Slider from 'react-slick';
+
+import { useMediaUrl } from '#/state/application/hooks';
 
 export function Newest({data}) {
   const settings = {

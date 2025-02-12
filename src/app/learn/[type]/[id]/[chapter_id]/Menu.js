@@ -17,10 +17,10 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 'use client';
 
-import { useEffect, useState } from 'react';
+import { Transition } from '@headlessui/react';
 import { ListBulletIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
-import { Transition } from '@headlessui/react';
+import { useEffect, useState } from 'react';
 
 export function Menu() {
   const [anchors, setAnchors] = useState([]);

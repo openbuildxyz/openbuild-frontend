@@ -16,14 +16,12 @@
 
 import useSWR from 'swr';
 
-import Image from '@/components/Image';
 import Avatar from '@/components/Avatar';
 import BrandLogo from '@/components/brand-logo';
-
+import Image from '@/components/Image';
 import { fetcher } from '@/utils/request';
 
 import QuizLimiterWidget from '../../widgets/quiz-limiter';
-
 import quizEco from './quiz-eco.png';
 import { QuizComponents } from './QuizComponents';
 

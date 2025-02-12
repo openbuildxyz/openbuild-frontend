@@ -226,3 +226,26 @@ span[style] > strong {
 mark[style] > strong {
   color: inherit;
 }
+
+/* Columns: https://www.npmjs.com/package/@tiptap-extend/columns */
+
+.ProseMirror .column-block {
+  width: 100%;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  gap: 24px;
+  padding: 8px 0;
+}
+
+.ProseMirror .column {
+  border: 1px dashed transparent;
+  overflow: hidden;
+  padding: 8px;
+  margin: -8px;
+}
+
+.ProseMirror-focused .column {
+  border-color: gray;
+  border-radius: 8px;
+}

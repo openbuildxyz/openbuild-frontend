@@ -15,10 +15,12 @@
  */
 
 import { Suspense } from 'react';
-import { Title } from '../Title';
-import { StartOnOpenBuild } from '../StartOnOpenBuild';
+
 import { Filter } from '@/components/Filter';
+
 import { ChallengesFilter } from '../ChallengesFilter';
+import { StartOnOpenBuild } from '../StartOnOpenBuild';
+import { Title } from '../Title';
 import { Container } from './Container';
 import { ListSkeleton } from './ListSkeleton';
 // import { LearnNavBar } from './nav'
