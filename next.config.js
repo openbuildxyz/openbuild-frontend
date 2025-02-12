@@ -43,7 +43,8 @@ module.exports = withBundleAnalyzer({
       's1.ax1x.com',
       'imgse.com',
       's3.us-west-1.amazonaws.com',
-      'file-cdn.openbuild.xyz'
+      'file-cdn.openbuild.xyz',
+      'api.runllm.com'
     ],
   },
   webpack: config => {
