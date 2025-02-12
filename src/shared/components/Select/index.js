@@ -16,13 +16,14 @@
 
 'use client';
 
-import { Listbox, Transition } from '@headlessui/react';
 import { ChevronDownIcon, XMarkIcon } from '@heroicons/react/20/solid';
 import clsx from 'clsx';
 import Image from 'next/image';
 import { Fragment } from 'react';
 
 import { classNames } from '@/utils';
+
+import { Listbox, Transition } from '../control/headlessui';
 
 export function Select({ placeholder, options, selected, change, className, hasArrow = true }) {
   return (

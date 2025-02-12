@@ -16,9 +16,6 @@
 
 'use client';
 
-// import { getBalance } from '@wagmi/core'
-// import { prepareWriteContract, writeContract } from '@wagmi/core'
-import { Dialog, Transition } from '@headlessui/react';
 import { CheckIcon } from '@heroicons/react/20/solid';
 import { useConnectModal } from '@rainbow-me/rainbowkit';
 import { waitForTransaction } from '@wagmi/core';
@@ -38,6 +35,9 @@ import { toast } from 'react-toastify';
 import { useAccount, useNetwork, useSwitchNetwork, erc20ABI } from 'wagmi';
 
 import { Button } from '@/components/Button';
+// import { getBalance } from '@wagmi/core'
+// import { prepareWriteContract, writeContract } from '@wagmi/core'
+import { Dialog, Transition } from '@/components/control';
 import { USDTIcon } from '@/components/Icons';
 import { TwitterIcon, DownloadIcon } from '@/components/Icons';
 import { formatTime } from '@/utils/date';

@@ -16,7 +16,6 @@
 
 'use client';
 
-import { Popover, Transition } from '@headlessui/react';
 import { useConnectModal } from '@rainbow-me/rainbowkit';
 import { readContract } from '@wagmi/core';
 import Image from 'next/image';
@@ -25,6 +24,7 @@ import { useEffect, useState, Fragment, useCallback } from 'react';
 import { toast } from 'react-toastify';
 import { useWalletClient, useNetwork, useSwitchNetwork, useAccount } from 'wagmi';
 
+import { Popover, Transition } from '@/components/control';
 import {
   EditIcon,
   ManageIcon,
