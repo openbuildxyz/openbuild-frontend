@@ -14,24 +14,22 @@
  * limitations under the License.
  */
 
-export function initRunLLM() {
-  if (typeof document !== 'undefined') {
-    document.addEventListener('DOMContentLoaded', function () {
-      var script = document.createElement('script');
-      script.type = 'module';
-      script.id = 'runllm-widget-script';
-      script.src = 'https://widget.runllm.com';
+import Script from 'next/script';
 
-      script.setAttribute('version', 'stable');
-      script.setAttribute('runllm-theme-color', '#64d88b');
-      script.setAttribute('runllm-brand-logo', '/favicon.svg');
-      script.setAttribute('runllm-keyboard-shortcut', 'Mod+j');
-      script.setAttribute('runllm-name', 'OpenBuild');
-      script.setAttribute('runllm-position', 'BOTTOM_RIGHT');
-      script.setAttribute('runllm-assistant-id', '328');
-
-      script.async = true;
-      document.head.appendChild(script);
-    });
-  }
+export function RunLLM() {
+  return (
+    <Script
+      type="module"
+      id="runllm-widget-script"
+      src="https://widget.runllm.com"
+      version="stable"
+      runllm-theme-color="#64d88b"
+      runllm-brand-logo="/favicon.svg"
+      runllm-keyboard-shortcut="Mod+j"
+      runllm-name="OpenBuild"
+      runllm-position="BOTTOM_RIGHT"
+      runllm-assistant-id="328"
+      async
+    />
+  );
 }

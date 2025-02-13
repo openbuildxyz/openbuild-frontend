@@ -35,6 +35,7 @@ import { GoogleAnalytics } from '@/components/GoogleAnalytics';
 
 import DefaultLayout from '../entry/layouts/default';
 import ClientEntry from '../entry';
+import { RunLLM } from '../entry/components/Widget/RunLLM';
 
 export const metadata = {
   metadataBase: new URL('https://openbuild.xyz'),
@@ -101,15 +102,13 @@ export const metadata = {
   },
 };
 
-import { initRunLLM } from './../entry/components/Widget/RunLLM';
-
 export default async function RootLayout({ children }) {
   const configRes = await getConfigs();
 
   return (
     <html lang="en" data-theme="light" className={`${nunito_sans.className} light`} suppressHydrationWarning>
       <head>
-        <script dangerouslySetInnerHTML={{ __html: `(${initRunLLM.toString()})()` }} />
+        <RunLLM />
       </head>
       <body>
         <ClientEntry config={{ static: getAppConfig(), dynamic: configRes }}>
