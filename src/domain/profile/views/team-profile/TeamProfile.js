@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import React from 'react';
 import { useState } from 'react';
 import { useDebouncedCallback } from 'use-debounce';
 
@@ -83,11 +84,12 @@ function TeamProfileView({ data, activities }) {
   const devPlazaEnabled = useAppConfig('devPlaza.enabled');
 
   useMounted(() => {
-    devPlazaEnabled && fetchBlockContent(data?.base.user_id).then(res => {
-      if (res.success) {
-        setBlockContent(res.data);
-      }
-    });
+    devPlazaEnabled &&
+      fetchBlockContent(data?.base.user_id).then(res => {
+        if (res.success) {
+          setBlockContent(res.data);
+        }
+      });
   });
 
   const handleBlockChange = useDebouncedCallback(updateBlockContent, 3000);
@@ -102,6 +104,32 @@ function TeamProfileView({ data, activities }) {
     `${viewingSelf ? 'editable' : 'readonly'}`,
     isBlockDataValid(blockContent),
   ].join('-');
+
+  const publishedTypes_b = {
+    'Open Course': 'open_course_num',
+    Bounty: 'bounty_num',
+    Challenges: 'challenge_num',
+    Quiz: 'quiz_num',
+  };
+  // 根据 data?.num 生成更新后的 tabs 数组
+  const updatedTabs = useMemo(() => {
+    return tabs.map(tab => {
+      const count = data?.num && publishedTypes_b[tab.text] ? data.num[publishedTypes_b[tab.text]] : 0;
+      // 修改 text 属性，添加上 count
+      const newText = `${tab.text} (${count})`;
+      return {
+        ...tab,
+        text: newText,
+        // 同时更新 node 中展示的内容
+        node: (
+          <>
+            <span className="inline md:hidden">{newText}</span>
+            <span className="hidden md:inline">{newText}</span>
+          </>
+        ),
+      };
+    });
+  }, [data?.num]);
 
   return (
     <div className="md:pl-[410px] md:pb-14 md:pr-14">
@@ -121,7 +149,8 @@ function TeamProfileView({ data, activities }) {
         onChange={setTabActive}
       />
       {tabContent[tabActive]}
-      <ActivityTabListWidget userId={data?.base.user_id} tabs={tabs} />
+      {/* 将更新后的 tabs 数组传递 */}
+      <ActivityTabListWidget userId={data?.base.user_id} tabs={updatedTabs} />
     </div>
   );
 }
