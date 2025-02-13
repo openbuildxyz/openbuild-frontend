@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-//20250212 modify begin
 import { get } from '@/utils/request';
 
 import ProjectOwner from '../ProjectOwner';
@@ -22,19 +21,9 @@ import ProjectOwner from '../ProjectOwner';
 export default async function CreatorProfile({ params }) {
   const config = { isServer: true };
   const { data } = await get(`ts/v1/user/info/handle/${params.handle}`, config);
-  //钱包信息不再需要了，因为后面这个data被覆盖了
-  // if (data?.social.user_wallet && data?.base.user_show_wallet) {
-  //   data.web3Bio = await get(`https://api.web3.bio/profile/${data?.social.user_wallet}`, {
-  //     ...config,
-  //     headers: {
-  //       'X-API-KEY': process.env.NEXT_PUBLIC_WEB3BIO,
-  //     },
-  //   });
-  // }
   if (!data?.base?.user_project_owner) {
     return <div>you do not have authority</div>;
   }
   const { data: activityData } = await get(`ts/v1/user/info/${data?.base.user_id}/creator/activity`, config);
   return <ProjectOwner data={data} activities={activityData?.list || []} />;
 }
-//20250212 modify end
