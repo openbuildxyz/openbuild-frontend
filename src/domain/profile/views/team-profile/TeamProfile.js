@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-import React from 'react';
 import { useState } from 'react';
 import { useDebouncedCallback } from 'use-debounce';
 
@@ -34,48 +33,73 @@ import TabBarWidget from '../../widgets/tab-bar';
 import CustomContent from './CustomContent';
 import LatestActivityList from './LatestActivityList';
 
-const tabs = [
-  {
-    text: 'Open Course',
-    node: (
-      <>
-        <span className="inline md:hidden">Courses</span>
-        <span className="hidden md:inline">Open Course</span>
-      </>
-    ),
-    view: PublishedCourseListView,
-  },
-  {
-    text: 'Challenges',
-    node: (
-      <>
-        <span className="inline md:hidden">Challenge</span>
-        <span className="hidden md:inline">Challenges</span>
-      </>
-    ),
-    view: PublishedChallengeListView,
-  },
-  {
-    text: 'Bounty',
-    node: (
-      <>
-        <span className="inline md:hidden">Bounty</span>
-        <span className="hidden md:inline">Bounty</span>
-      </>
-    ),
-    view: PublishedBountyListView,
-  },
-  {
-    text: 'Quiz',
-    node: (
-      <>
-        <span className="inline md:hidden">Quiz</span>
-        <span className="hidden md:inline">Quiz</span>
-      </>
-    ),
-    view: PublishedQuizListView,
-  },
-];
+const resolveTabs = published => {
+  const tabs = [
+    {
+      text: 'Open Course',
+      node: (
+        <>
+          <span className="inline md:hidden">Courses</span>
+          <span className="hidden md:inline">Open Course</span>
+        </>
+      ),
+      view: PublishedCourseListView,
+    },
+    {
+      text: 'Challenges',
+      node: (
+        <>
+          <span className="inline md:hidden">Challenge</span>
+          <span className="hidden md:inline">Challenges</span>
+        </>
+      ),
+      view: PublishedChallengeListView,
+    },
+    {
+      text: 'Bounty',
+      node: (
+        <>
+          <span className="inline md:hidden">Bounty</span>
+          <span className="hidden md:inline">Bounty</span>
+        </>
+      ),
+      view: PublishedBountyListView,
+    },
+    {
+      text: 'Quiz',
+      node: (
+        <>
+          <span className="inline md:hidden">Quiz</span>
+          <span className="hidden md:inline">Quiz</span>
+        </>
+      ),
+      view: PublishedQuizListView,
+    },
+  ];
+
+  const publishedTypes_b = {
+    'Open Course': 'open_course_num',
+    Bounty: 'bounty_num',
+    Challenges: 'challenge_num',
+    Quiz: 'quiz_num',
+  };
+  return tabs.map(tab => {
+    const tab_text = tab.node.props.children[1].props.children;
+    const count = published && publishedTypes_b[tab_text] ? published[publishedTypes_b[tab_text]] : 0;
+    return {
+      ...tab,
+      // 同时更新 node 中展示的内容
+      node: (
+        <>
+          {tab.node.props.children[0]}
+          <span className="hidden md:inline">
+            {tab_text} ({count})
+          </span>
+        </>
+      ),
+    };
+  });
+};
 
 function TeamProfileView({ data, activities }) {
   const [tabActive, setTabActive] = useState(1);
@@ -105,32 +129,6 @@ function TeamProfileView({ data, activities }) {
     isBlockDataValid(blockContent),
   ].join('-');
 
-  const publishedTypes_b = {
-    'Open Course': 'open_course_num',
-    Bounty: 'bounty_num',
-    Challenges: 'challenge_num',
-    Quiz: 'quiz_num',
-  };
-  // 根据 data?.num 生成更新后的 tabs 数组
-  const updatedTabs = useMemo(() => {
-    return tabs.map(tab => {
-      const count = data?.num && publishedTypes_b[tab.text] ? data.num[publishedTypes_b[tab.text]] : 0;
-      // 修改 text 属性，添加上 count
-      const newText = `${tab.text} (${count})`;
-      return {
-        ...tab,
-        text: newText,
-        // 同时更新 node 中展示的内容
-        node: (
-          <>
-            <span className="inline md:hidden">{newText}</span>
-            <span className="hidden md:inline">{newText}</span>
-          </>
-        ),
-      };
-    });
-  }, [data?.num]);
-
   return (
     <div className="md:pl-[410px] md:pb-14 md:pr-14">
       {devPlazaEnabled && (
@@ -149,8 +147,7 @@ function TeamProfileView({ data, activities }) {
         onChange={setTabActive}
       />
       {tabContent[tabActive]}
-      {/* 将更新后的 tabs 数组传递 */}
-      <ActivityTabListWidget userId={data?.base.user_id} tabs={updatedTabs} />
+      <ActivityTabListWidget userId={data?.base.user_id} tabs={resolveTabs(data?.num)} />
     </div>
   );
 }

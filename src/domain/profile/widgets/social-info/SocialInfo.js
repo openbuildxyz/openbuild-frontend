@@ -18,12 +18,11 @@ import { useMemo } from 'react';
 
 import { SvgIcon } from '@/components/Image';
 
-import PublishedCountList from './PublishedCountList';
 import SocialLink from './SocialLink';
 import Web3BioProfile from './Web3BioProfile';
 
 function socialsInfo(type, link) {
-  switch(type) {
+  switch (type) {
   case 'user_github':
     return {
       name: 'GitHub',
@@ -51,15 +50,21 @@ function socialsInfo(type, link) {
 }
 
 function SocialInfoWidget({ className, data }) {
-  const socials = useMemo(() => Object.keys(data.social).map(i => socialsInfo(i, data.social[i])).filter(s => {
-    if (!s) {
-      return false;
-    }
+  const socials = useMemo(
+    () =>
+      Object.keys(data.social)
+        .map(i => socialsInfo(i, data.social[i]))
+        .filter(s => {
+          if (!s) {
+            return false;
+          }
 
-    const enabled = s.enableKey ? data.base[s.enableKey] : true;
+          const enabled = s.enableKey ? data.base[s.enableKey] : true;
 
-    return enabled && !!s.link;
-  }), [data]);
+          return enabled && !!s.link;
+        }),
+    [data],
+  );
 
   return (
     <div className={className}>
@@ -68,15 +73,14 @@ function SocialInfoWidget({ className, data }) {
           <p className="mt-6 uppercase text-xs opacity-60 font-bold">Social Profiles</p>
           <div className="border border-gray-600 rounded overflow-hidden mt-2">
             {socials.map(i => (
-              <SocialLink key={`user-social-${i.name}`} url={i.link} icon={i.icon} extra={i.extra}>{i.name}</SocialLink>
+              <SocialLink key={`user-social-${i.name}`} url={i.link} icon={i.icon} extra={i.extra}>
+                {i.name}
+              </SocialLink>
             ))}
           </div>
         </>
       )}
       <Web3BioProfile data={data} />
-      {data.base?.user_project_owner && (
-        <PublishedCountList published={data?.num} />
-      )}
       {data.base?.user_show_email && data?.social?.user_email !== '' && (
         <>
           <hr className="border-t border-gray-600 mt-6 mb-4" />
