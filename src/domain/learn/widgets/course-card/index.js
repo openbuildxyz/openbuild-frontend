@@ -14,6 +14,4 @@
  * limitations under the License.
  */
 
-'use client';
-
-export { default } from '#/domain/quiz/views/quiz-detail';
+export { default } from './CourseCard';
