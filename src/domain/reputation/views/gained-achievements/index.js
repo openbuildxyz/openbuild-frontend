@@ -14,8 +14,4 @@
  * limitations under the License.
  */
 
-import GainedAchievements from '#/domain/reputation/views/gained-achievements';
-
-export default function Page() {
-  return <GainedAchievements />;
-}
+export { default } from './GainedAchievements';

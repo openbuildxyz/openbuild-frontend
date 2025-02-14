@@ -16,8 +16,12 @@
 
 import httpClient from '@/utils/http';
 
-async function fetchGainedReputationList(userId) {
+async function fetchGainedReputationList (userId) {
   return httpClient.get(`/nft/general/public/${userId}/infos`);
 }
 
-export { fetchGainedReputationList };
+async function fetchGainedAchievements () {
+  return httpClient.get('/nft/general/infos');
+}
+
+export { fetchGainedReputationList, fetchGainedAchievements };
