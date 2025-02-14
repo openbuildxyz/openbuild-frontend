@@ -28,6 +28,9 @@ const appConfig = {
   devPlaza: {
     enabled: resolveConfigValue(process.env.OB_DEVPLAZA_ENABLED, true, value => value !== 'false'),
   },
+  aiAgent: {
+    enabled: resolveConfigValue(process.env.OB_AIAGENT_ENABLED, true, value => value !== 'false'),
+  },
 };
 
 function _getAppConfig(config, keyPath) {

@@ -34,7 +34,6 @@ import { getConfigs } from '#/services/common';
 // import { StartOnOpenBuild } from '@/components/StartOnOpenBuild'
 
 import ClientEntry from '../entry';
-import { RunLLM } from '../entry/components/Widget/RunLLM';
 import DefaultLayout from '../entry/layouts/default';
 
 export const metadata = {
@@ -107,9 +106,6 @@ export default async function RootLayout({ children }) {
 
   return (
     <html lang="en" data-theme="light" className={`${nunito_sans.className} light`} suppressHydrationWarning>
-      <head>
-        <RunLLM />
-      </head>
       <body>
         <ClientEntry config={{ static: getAppConfig(), dynamic: configRes }}>
           <DefaultLayout>{children}</DefaultLayout>

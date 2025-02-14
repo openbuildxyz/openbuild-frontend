@@ -16,7 +16,7 @@
 
 import Script from 'next/script';
 
-export function RunLLM() {
+function RunLlmWidget() {
   return (
     <Script
       type="module"
@@ -33,3 +33,5 @@ export function RunLLM() {
     />
   );
 }
+
+export default RunLlmWidget;
