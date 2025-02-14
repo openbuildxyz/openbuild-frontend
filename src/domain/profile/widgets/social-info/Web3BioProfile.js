@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { capitalize } from 'lodash';
+import { capitalize } from '@/utils';
 
 import SocialLink from './SocialLink';
 

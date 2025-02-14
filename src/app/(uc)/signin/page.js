@@ -16,19 +16,20 @@
 
 'use client';
 
-import { useState } from 'react';
-import { isEmpty } from 'lodash';
 import clsx from 'clsx';
-import { useSearchParams } from 'next/navigation';
-import Link from 'next/link';
 import { signIn } from 'next-auth/react';
+import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
-import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
+
+import { EyeIcon, EyeSlashIcon } from '@/components/icon/outlined';
+import Loader from '@/components/Loader';
+import { isEmpty } from '@/utils';
+import { wrapOnChange } from '@/utils/form';
 
 import { signin, emailCodeLogin } from '#/services/auth';
-import { wrapOnChange } from '@/utils/form';
-import Loader from '@/components/Loader';
 
 import LoginTypeSwitcher from './LoginTypeSwitcher';
 import VerifyCodeLogin from './VerifyCodeLogin';

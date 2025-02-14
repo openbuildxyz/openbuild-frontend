@@ -16,16 +16,15 @@
 
 import { useState } from 'react';
 
-import SkillOverviewView from '../../../skill/views/skill-overview';
-import GainedReputationListView from '../../../reputation/views/gained-reputation-list';
-import EnrolledCourseListView from '../../../course/views/enrolled-course-list';
-import EnrolledChallengeListView from '../../../challenge/views/enrolled-challenge-list';
 import AppliedBountyListView from '../../../bounty/views/applied-bounty-list';
+import EnrolledChallengeListView from '../../../challenge/views/enrolled-challenge-list';
+import EnrolledCourseListView from '../../../course/views/enrolled-course-list';
 import AnsweredQuizListView from '../../../quiz/views/answered-quiz-list';
-
-import TabBarWidget from '../../widgets/tab-bar';
-import SocialInfoWidget from '../../widgets/social-info';
+import GainedReputationListView from '../../../reputation/views/gained-reputation-list';
+import SkillOverviewView from '../../../skill/views/skill-overview';
 import ActivityTabListWidget from '../../widgets/activity-tab-list';
+import SocialInfoWidget from '../../widgets/social-info';
+import TabBarWidget from '../../widgets/tab-bar';
 
 const tabs = [
   {

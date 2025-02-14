@@ -27,8 +27,25 @@ import {
   TextQuote,
   Twitter,
   Youtube,
+  Columns2,
+  Columns3,
+  Columns4,
 } from 'lucide-react';
 import { createSuggestionItems, Command, renderItems } from 'novel/extensions';
+
+function createColumnItems() {
+  return [
+    { count: 2, ItemIcon: Columns2 },
+    { count: 3, ItemIcon: Columns3 },
+    { count: 4, ItemIcon: Columns4 },
+  ].map(({ count, ItemIcon }) => ({
+    title: `${count} Columns`,
+    description: `Create ${count} columns block.`,
+    searchTerms: ['columnBlock', 'column'],
+    icon: <ItemIcon size={18} />,
+    command: ({ editor, range }) => editor.chain().focus().deleteRange(range).setColumns(count).run(),
+  }));
+}
 
 const suggestionItems = createSuggestionItems([
   {
@@ -185,6 +202,7 @@ const suggestionItems = createSuggestionItems([
       }
     },
   },
+  ...createColumnItems(),
 ]);
 
 const slashCommand = Command.configure({

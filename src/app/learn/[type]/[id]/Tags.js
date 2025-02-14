@@ -15,9 +15,8 @@
  */
 
 'use client';
-import { ChallengesStatus } from '../ChallengesStatus';
-
 import { typeStyle, useTags } from '../ChallengesCard';
+import { ChallengesStatus } from '../ChallengesStatus';
 
 
 export function ChallengesTags({ data }) {

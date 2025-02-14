@@ -15,22 +15,25 @@
  */
 
 'use client';
-import { useEffect, useState } from 'react';
-import { Tabs } from '../Tabs';
-import Link from 'next/link';
 import Image from 'next/image';
-import { NoData } from '@/components/NoData';
-import Loader from '@/components/Loader';
-import { useAllSkills, useMediaUrl, useUser } from '#/state/application/hooks';
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
+
 // import { useRouter } from 'next/navigation'
 import { EditIcon, EditingIcon, RejectIcon, CommetIcon } from '@/components/Icons';
+import Loader from '@/components/Loader';
+import { NoData } from '@/components/NoData';
 import { Paging } from '@/components/Paging';
-import { useSkillsList } from '#/services/dashboard/hooks';
-import { formatTime } from '@/utils/date';
 import { MouseoverTooltip } from '@/components/Tooltip';
+import { formatTime } from '@/utils/date';
+
+import { useSkillsList } from '#/services/dashboard/hooks';
 import { permissionsStatus } from '#/services/shilling';
-import { toast } from 'react-toastify';
+import { useAllSkills, useMediaUrl, useUser } from '#/state/application/hooks';
+
 import { ContactModal } from '../../shilling/ContactModal';
+import { Tabs } from '../Tabs';
 
 const tabs = [
   {

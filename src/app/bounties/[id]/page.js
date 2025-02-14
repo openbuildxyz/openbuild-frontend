@@ -15,15 +15,16 @@
  */
 
 import { Suspense } from 'react';
-import { BountiesHeader } from './Header';
-import { BountiesDetail } from './BountiesDetail';
-import { Activities } from './Activities';
-import { Employers } from './Employers';
-import { ChainNetworkTips } from '../Tips';
-import { PreviewAlert } from '@/components/PreviewAlert';
 
+import { PreviewAlert } from '@/components/PreviewAlert';
 import { fromNow } from '@/utils/date';
 import { get } from '@/utils/request';
+
+import { ChainNetworkTips } from '../Tips';
+import { Activities } from './Activities';
+import { BountiesDetail } from './BountiesDetail';
+import { Employers } from './Employers';
+import { BountiesHeader } from './Header';
 
 export default async function Page({ params, searchParams }) {
   const datas = await Promise.all([

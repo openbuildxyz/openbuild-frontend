@@ -18,12 +18,11 @@ import clsx from 'clsx';
 import useSWR from 'swr';
 
 import { NoData } from '@/components/NoData';
-
 import { fetcher } from '@/utils/request';
+
 import { useAllSkills } from '#/state/application/hooks';
 
 import SkillInsight from '../../widgets/skill-insight';
-
 import SkillCircle from './SkillCircle';
 
 function SkillOverviewView({ userId }) {

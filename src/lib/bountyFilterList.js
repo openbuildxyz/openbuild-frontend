@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import soonIcon from 'public/images/svg/soon.svg';
 import closedIcon from 'public/images/svg/closed.svg';
 import ongoingIcon from 'public/images/svg/ongoing.svg';
+import soonIcon from 'public/images/svg/soon.svg';
 
 export const bountyFilterList = [
   {

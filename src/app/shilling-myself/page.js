@@ -16,13 +16,15 @@
 
 'use client';
 
-import TalentsBannerPic from 'public/images/shilling-banner.jpeg';
 import Image from 'next/image';
-import { useMediaUrl, useUser } from '#/state/application/hooks';
-import { ShillingMyselfOne } from './ShillingMyselfOne';
-import { ShillingMyselfTwo } from './ShillingMyselfTwo';
 // import { Button } from '@/components/Button'
 import { useSearchParams } from 'next/navigation';
+import TalentsBannerPic from 'public/images/shilling-banner.jpeg';
+
+import { useMediaUrl, useUser } from '#/state/application/hooks';
+
+import { ShillingMyselfOne } from './ShillingMyselfOne';
+import { ShillingMyselfTwo } from './ShillingMyselfTwo';
 
 export default function Page() {
   const user = useUser();

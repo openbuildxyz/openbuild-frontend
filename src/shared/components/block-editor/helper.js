@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { isPlainObject } from 'lodash';
+import { isPlainObject } from '../../utils';
 
 const BLOCK_DATA_SPEC_VERSION = '0.0.1';
 

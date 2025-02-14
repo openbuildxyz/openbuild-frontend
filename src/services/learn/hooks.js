@@ -14,10 +14,12 @@
  * limitations under the License.
  */
 
-import { useCallback, useState, useEffect } from 'react';
-import { get } from '@/utils/request';
-import { courseDetails } from './';
 import { useSession } from 'next-auth/react';
+import { useCallback, useState, useEffect } from 'react';
+
+import { get } from '@/utils/request';
+
+import { courseDetails } from './';
 
 export function useSeriesPermission(id) {
   const [loading, setLoading] = useState(true);

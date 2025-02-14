@@ -16,12 +16,13 @@
 
 'use client';
 
+import { useSession, signOut } from 'next-auth/react';
+import { useEffect } from 'react';
+
 import { get } from '@/utils/request';
 
-import { useSession, signOut } from 'next-auth/react';
-import { useAppDispatch } from '#/state/hooks';
 import { updateUser } from '#/state/application/reducer';
-import { useEffect } from 'react';
+import { useAppDispatch } from '#/state/hooks';
 
 export default function UserUpdater() {
   const dispatch = useAppDispatch();

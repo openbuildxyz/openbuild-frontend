@@ -16,7 +16,6 @@
 
 import '@/styles/prosemirror.css';
 
-import { isFunction } from 'lodash';
 import clsx from 'clsx';
 import {
   EditorRoot, EditorContent,
@@ -24,10 +23,11 @@ import {
 } from 'novel';
 import { ImageResizer, handleCommandNavigation } from 'novel/extensions';
 
-import { isBlockDataValid } from './helper';
-import { defaultExtensions } from './extensions';
-import { slashCommand, suggestionItems } from './slash';
+import { isFunction } from '../../utils';
 import BlockEditorBubble from './bubble';
+import { defaultExtensions } from './extensions';
+import { isBlockDataValid } from './helper';
+import { slashCommand, suggestionItems } from './slash';
 
 const extensions = [...defaultExtensions, slashCommand];
 

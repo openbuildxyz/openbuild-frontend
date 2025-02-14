@@ -16,10 +16,11 @@
 
 'use client';
 
-import { useAppDispatch } from '#/state/hooks';
+import { FilterIcon } from '@/components/Icons';
+
 import { useOpenFilter } from '#/state/application/hooks';
 import { updateOpenFilter } from '#/state/application/reducer';
-import { FilterIcon } from '@/components/Icons';
+import { useAppDispatch } from '#/state/hooks';
 
 export function FilterToggle({type, count}) {
   const openFilter = useOpenFilter();

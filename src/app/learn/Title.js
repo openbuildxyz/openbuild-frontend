@@ -15,6 +15,7 @@
  */
 
 import Link from 'next/link';
+
 import { ArrowRightIcon } from '@/components/Icons';
 
 export function Title({ title, desc, link, linkText }) {

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { isString, isFunction, get, cloneDeep } from 'lodash';
+import { isString, isFunction, get, cloneDeep } from './index';
 
 function resolveConfigValue(valueFromEnv, defaultValue, resolve) {
   if (valueFromEnv === undefined) {

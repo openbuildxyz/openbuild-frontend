@@ -15,15 +15,14 @@
  */
 
 import { ConnectButton } from '@rainbow-me/rainbowkit';
-import { WhiteWalletIcon } from '@/components/Icons';
-import { useEffect } from 'react';
-
 import { useSession } from 'next-auth/react';
-import { shortenAddress } from '@/utils/address';
-import { useBoundWallet } from '@/hooks/useBoundWallet';
-
 import { useSearchParams, usePathname } from 'next/navigation';
+import { useEffect } from 'react';
 import { useAccount } from 'wagmi';
+
+import { WhiteWalletIcon } from '@/components/Icons';
+import { useBoundWallet } from '@/hooks/useBoundWallet';
+import { shortenAddress } from '@/utils/address';
 
 import { useSignInWithWallet } from '#/domain/auth/hooks';
 import WalletBinderWidget from '#/domain/auth/widgets/wallet-binder';

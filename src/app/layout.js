@@ -15,6 +15,7 @@
  */
 
 import '@/styles/all.scss';
+
 import 'animate.css';
 import 'react-toastify/scss/main.scss';
 import 'highlight.js/styles/vs.css';
@@ -22,20 +23,19 @@ import 'github-markdown-css/github-markdown-light.css';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import 'aos/dist/aos.css';
-
 import { SpeedInsights } from '@vercel/speed-insights/next';
+
+import { GoogleAnalytics } from '@/components/GoogleAnalytics';
+import { getAppConfig } from '@/utils/app';
 
 import { nunito_sans } from '#/lib/font';
 import { siteConfig } from '#/lib/site';
 import { getConfigs } from '#/services/common';
-
-import { getAppConfig } from '@/utils/app';
-import { GoogleAnalytics } from '@/components/GoogleAnalytics';
 // import { StartOnOpenBuild } from '@/components/StartOnOpenBuild'
 
-import DefaultLayout from '../entry/layouts/default';
 import ClientEntry from '../entry';
 import { RunLLM } from '../entry/components/Widget/RunLLM';
+import DefaultLayout from '../entry/layouts/default';
 
 export const metadata = {
   metadataBase: new URL('https://openbuild.xyz'),

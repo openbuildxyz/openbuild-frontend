@@ -16,14 +16,16 @@
 
 'use client';
 
+import clsx from 'clsx';
+
+import { ChevronLeftIcon } from '@/components/icon/solid';
+import { SearchIcon, FilterIcon } from '@/components/Icons';
 import { Select } from '@/components/Select';
+
+import { baseInputStyles } from '#/domain/profile/widgets/blocks';
 import { useOpenFilter } from '#/state/application/hooks';
 import { updateOpenFilter } from '#/state/application/reducer';
 import { useAppDispatch } from '#/state/hooks';
-import { ChevronLeftIcon } from '@heroicons/react/20/solid';
-import { baseInputStyles } from '#/domain/profile/widgets/blocks';
-import { SearchIcon, FilterIcon } from '@/components/Icons';
-import clsx from 'clsx';
 
 const options = [
   {

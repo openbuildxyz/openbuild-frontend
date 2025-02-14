@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-export async function signBounty(chainId, contractAddress, singer, taskId, amount, deadline) {
+async function signBounty(chainId, contractAddress, singer, taskId, amount, deadline) {
   const domain = {
     name: 'Task',
     version: '1',
@@ -42,7 +42,7 @@ export async function signBounty(chainId, contractAddress, singer, taskId, amoun
   }
 }
 
-export async function signSkillHub(chainId, contractAddress, singer, amount, time, token, deadline) {
+async function signSkillHub(chainId, contractAddress, singer, amount, time, token, deadline) {
   const domain = {
     name: 'Employment',
     version: '1',
@@ -71,3 +71,6 @@ export async function signSkillHub(chainId, contractAddress, singer, amount, tim
     return 'error';
   }
 }
+
+export { signBounty, signSkillHub };
+export { formatUnits as formatTokenUnits, parseUnits as parseTokenUnits } from '@ethersproject/units';

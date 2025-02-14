@@ -15,8 +15,8 @@
  */
 
 import clsx from 'clsx';
-
 import Link from 'next/link';
+
 import Image from '@/components/Image';
 
 import style from './style.module.scss';

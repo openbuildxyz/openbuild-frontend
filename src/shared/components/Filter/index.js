@@ -16,17 +16,20 @@
 
 'use client';
 
-import Image from 'next/image';
 import clsx from 'clsx';
-import React, { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
+import Image from 'next/image';
 import { useRouter, useSearchParams, usePathname } from 'next/navigation';
-import { ChevronUpIcon, XMarkIcon, ChevronLeftIcon } from '@heroicons/react/20/solid';
+import React, { useEffect, useState } from 'react';
+
+import { FilterIcon } from '@/components/Icons';
+import { createQueryString } from '@/utils';
+
 import { useConfig, useMediaUrl, useOpenFilter } from '#/state/application/hooks';
 import { updateOpenFilter } from '#/state/application/reducer';
 import { useAppDispatch } from '#/state/hooks';
-import { motion } from 'framer-motion';
-import { FilterIcon } from '@/components/Icons';
-import { createQueryString } from '@/utils';
+
+import { ChevronUpIcon, XMarkIcon, ChevronLeftIcon } from '../icon/solid';
 
 export function Filter({ type, children }) {
   const config = useConfig();

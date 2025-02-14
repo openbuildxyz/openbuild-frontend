@@ -16,18 +16,18 @@
 
 'use client';
 
-import { PlusIcon } from '@heroicons/react/24/outline';
-import { Button } from '@/components/Button';
-import { EditIcon, DeleteIcon, AddIcon } from '@/components/Icons';
 import { useState, useEffect, useMemo } from 'react';
 import { toast } from 'react-toastify';
+
+import { Button } from '@/components/Button';
+import { PlusIcon } from '@/components/icon/outlined';
+import { EditIcon, DeleteIcon, AddIcon } from '@/components/Icons';
+import { OEditor } from '@/components/MarkDown';
 // import { useCourseDetails } from '#/services/learn/hooks'
 import { Modal } from '@/components/Modal';
-import { OEditor } from '@/components/MarkDown';
-import { currentTime } from '@/utils/date';
 import { Select } from '@/components/Select';
-
 import  { BASE_INPUT_STYLE } from '@/constants/config';
+import { currentTime } from '@/utils/date';
 
 const bodyTypeOptions = [
   {

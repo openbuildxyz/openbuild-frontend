@@ -16,14 +16,16 @@
 
 'use client';
 
-import { BindEmailModal } from './BindEmailModal';
-import { useUser } from '#/state/application/hooks';
+import { useSession } from 'next-auth/react';
+import { usePathname } from 'next/navigation';
 import { useEffect } from 'react';
+
+import { useUser } from '#/state/application/hooks';
 import { useModalOpen, useBindEmailModalToggle } from '#/state/application/hooks';
 import { setOpenModal } from '#/state/application/reducer';
-import { useSession } from 'next-auth/react';
 import { useAppDispatch } from '#/state/hooks';
-import { usePathname } from 'next/navigation';
+
+import { BindEmailModal } from './BindEmailModal';
 
 export function LayoutModals() {
   const pathname = usePathname();

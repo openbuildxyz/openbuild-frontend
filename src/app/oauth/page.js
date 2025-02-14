@@ -16,20 +16,21 @@
 
 'use client';
 
-import Image from 'next/image';
-import { SvgIcon } from '@/components/Image';
-import { Button } from '@/components/Button';
-import Logo from 'public/images/svg/logo-black.svg';
-import { fetchOauthClientInfo, fetchOauthClientCode } from '#/domain/auth/repository';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import Loader from '@/components/Loader';
 import { useSession } from 'next-auth/react';
+import Image from 'next/image';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import Logo from 'public/images/svg/logo-black.svg';
 import { useEffect, useState } from 'react';
 
+import { Button } from '@/components/Button';
+import { SvgIcon } from '@/components/Image';
+import Loader from '@/components/Loader';
 import useMounted from '@/hooks/useMounted';
 
-import NoteItem from './NoteItem';
+import { fetchOauthClientInfo, fetchOauthClientCode } from '#/domain/auth/repository';
+
 import Link from './Link';
+import NoteItem from './NoteItem';
 
 export default function Page() {
   const router = useRouter();

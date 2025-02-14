@@ -17,14 +17,16 @@
 'use client';
 
 import clsx from 'clsx';
-import { useRouter, useSearchParams, usePathname } from 'next/navigation';
-import { createQueryString } from '@/utils';
-import { ChevronUpIcon } from '@heroicons/react/20/solid';
-import { bountyFilterList } from '#/lib/bountyFilterList';
-import Image from 'next/image';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
+import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import { useMemo, useState } from 'react';
+
+import { ChevronUpIcon } from '@/components/icon/solid';
 import { ReactSelect } from '@/components/Select/ReactSelect';
+import { createQueryString } from '@/utils';
+
+import { bountyFilterList } from '#/lib/bountyFilterList';
 import { useAllSkills } from '#/state/application/hooks';
 
 export function SkillsFilter() {

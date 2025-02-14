@@ -16,11 +16,11 @@
 
 'use client';
 
-import { SearchIcon } from '@/components/Icons';
-import Input from '@/components/Input';
-
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useDebouncedCallback } from 'use-debounce';
+
+import { SearchIcon } from '@/components/Icons';
+import Input from '@/components/Input';
 
 export function Search() {
   const searchParams = useSearchParams();

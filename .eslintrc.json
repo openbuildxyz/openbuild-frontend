@@ -33,7 +33,7 @@
   "overrides": [
     {
       "files": ["src/**/*.js", "src/**/*.jsx"],
-      "plugins": ["headers"],
+      "plugins": ["headers", "perfectionist"],
       "rules": {
         "headers/header-format": [
           "error",
@@ -41,6 +41,23 @@
             "source": "string",
             "content": "Copyright 2024 OpenBuild\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.",
             "trailingNewlines": 2
+          }
+        ],
+        "perfectionist/sort-imports": [
+          "error",
+          {
+            "groups": [
+              ["builtin", "external"],
+              "shared",
+              "src",
+              "unknown"
+            ],
+            "customGroups": { 
+              "value": {
+                "shared": ["^@/"],
+                "src": ["#/*"]
+              }
+             }
           }
         ]
       }

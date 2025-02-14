@@ -17,7 +17,9 @@
 'use client';
 
 import Link from 'next/link';
+
 import { ArrowLeftIcon } from '@/components/Icons';
+
 import EmailTemplateFormView from '#/domain/challenge/views/email-template-form';
 
 function ChallengeEmailTemplatePage({ data }) {

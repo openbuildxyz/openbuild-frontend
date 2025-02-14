@@ -16,9 +16,30 @@
 
 import { get } from '@/utils/request';
 
-import { Steper } from './Steper';
 import { Content } from './Content';
 import { PostTime } from './PostTime';
+import { Steper } from './Steper';
+
+export async function generateMetadata({ params }) {
+  // fetch data
+  const { data } = await get(`v1/learn/course/${params.type === 'courses' ? 'opencourse' : 'challenges'}/${params.id}`, {isServer: true});
+  const previousImages = data?.base?.course_series_img ? `https://file-cdn.openbuild.xyz${data.base.course_series_img}` : '';
+  const chapter = data.courses.find(course => String(course?.base?.course_single_id) === params.chapter_id);
+
+  return {
+    title: data?.base?.course_series_title,
+    description: data?.base?.course_series_summary,
+    openGraph: {
+      title: chapter?.base?.course_single_name || data?.base?.course_series_title,
+      images: [previousImages],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: chapter?.base?.course_single_name || data?.base?.course_series_title,
+      images: [previousImages],
+    },
+  };
+}
 
 export default async function ChapterPage({ params }) {
   const datas = await Promise.all([

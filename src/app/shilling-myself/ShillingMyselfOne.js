@@ -16,22 +16,22 @@
 
 'use client';
 
+import dynamic from 'next/dynamic';
+import { useRouter } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
-import { classNames } from '@/utils';
-import { baseInputStyles } from '#/domain/profile/widgets/blocks';
-import Switch from '@/components/Switch';
+import { toast } from 'react-toastify';
+
 import { Button } from '@/components/Button';
 import { AspectaIcon, SkillsWalletIcon } from '@/components/Icons';
-
-import { useUser } from '#/state/application/hooks';
-import { useDetails } from '#/services/shilling/hooks';
-import { addSkillOne } from '#/services/shilling';
-import { toast } from 'react-toastify';
-import { useRouter } from 'next/navigation';
-import dynamic from 'next/dynamic';
+import Switch from '@/components/Switch';
+import { classNames } from '@/utils';
 
 import { authWithAspecta } from '#/domain/auth/helper';
+import { baseInputStyles } from '#/domain/profile/widgets/blocks';
 import SkillInsight from '#/domain/skill/widgets/skill-insight';
+import { addSkillOne } from '#/services/shilling';
+import { useDetails } from '#/services/shilling/hooks';
+import { useUser } from '#/state/application/hooks';
 
 const SelfRecommendationMarkdown = dynamic(() => import('./SelfRecommendationMarkdown'), {
   ssr: false,

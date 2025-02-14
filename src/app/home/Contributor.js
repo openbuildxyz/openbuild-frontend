@@ -16,31 +16,31 @@
 
 'use client';
 
-import Slider from 'react-slick';
-import { createRef } from 'react';
-import { chunk } from 'lodash';
 import { clsx } from 'clsx';
+import P14 from 'public/images/home/AlongHudson.png';
+import P11 from 'public/images/home/Frank.png';
 // import { LocationIcon } from '@/components/Icons'
 // import { useMediaUrl } from '#/state/application/hooks'
-
-import P1 from 'public/images/home/shooter.png';
-import P2 from 'public/images/home/Skyhigh.png';
 import P3 from 'public/images/home/Fred.png';
-import P4 from 'public/images/home/jason.svg';
-import P5 from 'public/images/home/Sinka.png';
-import P6 from 'public/images/home/xhyumiracle.png';
-import P7 from 'public/images/home/qc_qizhou.png';
-import P8 from 'public/images/home/HitchhikerW3.png';
-import P9 from 'public/images/home/uvd.png';
-import P10 from 'public/images/home/pseudoyu.png';
-import P11 from 'public/images/home/Frank.png';
-import P13 from 'public/images/home/galois.png';
-import P14 from 'public/images/home/AlongHudson.png';
-import P15 from 'public/images/home/hiCaptainZ.png';
-import P16 from 'public/images/home/GianM.png';
 import P17 from 'public/images/home/Gabin.png';
+import P13 from 'public/images/home/galois.png';
+import P16 from 'public/images/home/GianM.png';
+import P15 from 'public/images/home/hiCaptainZ.png';
+import P8 from 'public/images/home/HitchhikerW3.png';
 import P18 from 'public/images/home/Ivan.png';
+import P4 from 'public/images/home/jason.svg';
 import P19 from 'public/images/home/Leo.jpg';
+import P10 from 'public/images/home/pseudoyu.png';
+import P7 from 'public/images/home/qc_qizhou.png';
+import P1 from 'public/images/home/shooter.png';
+import P5 from 'public/images/home/Sinka.png';
+import P2 from 'public/images/home/Skyhigh.png';
+import P9 from 'public/images/home/uvd.png';
+import P6 from 'public/images/home/xhyumiracle.png';
+import { createRef } from 'react';
+import Slider from 'react-slick';
+
+import { chunk } from '@/utils';
 
 const DATAS = [
   { name: 'NPC_Leo', picture: P19, x: 'NPC_Leo', title: 'Founder of DevBase @DevBase' },

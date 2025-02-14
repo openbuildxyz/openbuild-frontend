@@ -16,37 +16,37 @@
 
 'use client';
 
+import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
+import DepositBg from 'public/images/deposit-bg.png';
+import { useState } from 'react';
+
+import Avatar from '@/components/Avatar';
+import { Button } from '@/components/Button';
 // import { toast } from 'react-toastify';
 import { CertifiedIcon } from '@/components/Icons';
-import clsx from 'clsx';
-import { Button } from '@/components/Button';
-import Avatar from '@/components/Avatar';
-import { useState } from 'react';
-import { useMediaUrl, useUser } from '#/state/application/hooks';
-import CompleteProfileDialogWidget from '#/domain/profile/widgets/complete-profile-dialog';
-import DepositBg from 'public/images/deposit-bg.png';
-
-import { AppliedModal } from './AppliedModal';
-import { ApplyModal } from './ApplyModal';
-import { ApplyFinishedModal } from './ApplyFinishedModal';
-import { AgreeFinishedModal } from './AgreeFinishedModal';
-// import { TerminateModal } from './TerminateModal'
-import { useBountyEnvCheck } from '#/domain/bounty/hooks';
 // WarningIcon
 import { ArrowTopRightOnSquareIcon } from '@/components/Icons';
 // import { Confirm } from '@/components/Modal/Confirm'
 // import { withdraw } from '@/constants/bounty'
 import { formatTime } from '@/utils/date'; // currentTime, fromNow,
 
-// import { builderTerminationConfirm, builderTerminationDeny, arbitrate } from '#/services/bounties'
-import { useBountyBuildersList } from '#/services/bounties/hooks';
-import { isBountyApplied } from '#/domain/bounty/helper';
-// import {  useNetwork, useWalletClient } from 'wagmi'
-
 // import { revalidatePathAction } from '../../actions'
 import { useAuthGuard } from '#/domain/auth/hooks';
+import { isBountyApplied } from '#/domain/bounty/helper';
+// import { TerminateModal } from './TerminateModal'
+import { useBountyEnvCheck } from '#/domain/bounty/hooks';
+import CompleteProfileDialogWidget from '#/domain/profile/widgets/complete-profile-dialog';
+// import { builderTerminationConfirm, builderTerminationDeny, arbitrate } from '#/services/bounties'
+import { useBountyBuildersList } from '#/services/bounties/hooks';
+import { useMediaUrl, useUser } from '#/state/application/hooks';
+
+import { AgreeFinishedModal } from './AgreeFinishedModal';
+import { AppliedModal } from './AppliedModal';
+import { ApplyFinishedModal } from './ApplyFinishedModal';
+// import {  useNetwork, useWalletClient } from 'wagmi'
+import { ApplyModal } from './ApplyModal';
 
 const process = [
   {

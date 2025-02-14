@@ -14,29 +14,25 @@
  * limitations under the License.
  */
 
-import { useMemo, useState } from 'react';
-import { Button } from '@/components/Button';
-import { Modal } from '@/components/Modal';
-import { toast } from 'react-toastify';
-
-import { TipsIcon } from '@/components/Icons';
-import { MouseoverTooltip } from '@/components/Tooltip';
-
-import { ReactSelect } from '@/components/Select/ReactSelect';
-
-import { Estimated } from '../../shilling-myself/ShillingMyselfTwo';
-import { BigNumber } from 'bignumber.js';
-import { useAccount, useBalance } from 'wagmi';
 import { waitForTransaction } from '@wagmi/core';
-import { useSlillhubChain } from '#/state/application/hooks';
+import { writeContract } from '@wagmi/core';
+import { BigNumber } from 'bignumber.js';
+import { useMemo, useState } from 'react';
+import { toast } from 'react-toastify';
+import { useAccount, useBalance } from 'wagmi';
+
+import { Button } from '@/components/Button';
+import { TipsIcon } from '@/components/Icons';
+import { Modal } from '@/components/Modal';
+import { ReactSelect } from '@/components/Select/ReactSelect';
+import { MouseoverTooltip } from '@/components/Tooltip';
+import { parseTokenUnits } from '@/utils/web3';
 
 import { hireExtend } from '#/services/shilling';
-
-import { writeContract } from '@wagmi/core';
+import { useSlillhubChain } from '#/state/application/hooks';
 
 // import { writeContract, prepareWriteContract } from '@wagmi/core'
-
-import { parseUnits } from '@ethersproject/units';
+import { Estimated } from '../../shilling-myself/ShillingMyselfTwo';
 
 export function ExpendHireTimeModal({ open, closeModal, data }) {
   const { address } = useAccount();
@@ -131,7 +127,7 @@ export function ExpendHireTimeModal({ open, closeModal, data }) {
           <p className="opacity-40">Total Fees</p>
           <p>${totalFees.toFixed(2)}</p>
         </div>
-        {balance?.data?.value.lt(parseUnits(totalFees.toString(), coin?.decimals)) ? (
+        {balance?.data?.value.lt(parseTokenUnits(totalFees.toString(), coin?.decimals)) ? (
           <Button disabled variant="contained" fullWidth>
             Insufficient balance
           </Button>

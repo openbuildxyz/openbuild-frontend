@@ -16,19 +16,21 @@
 
 'use client';
 
-import { useMediaUrl } from '#/state/application/hooks';
+import { useSession, signOut } from 'next-auth/react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useSearchParams, useRouter } from 'next/navigation';
-import { useUser } from '#/state/application/hooks';
-import Image from 'next/image';
 import { useEffect, useMemo } from 'react';
-import { useSession, signOut } from 'next-auth/react';
-import { LogoutIcon, CreatorWorkspaceIcon, ProfileIcon, MyWorkspaceIcon, MeIcon } from '@/components/Icons';
 import { useAccount, useDisconnect } from 'wagmi';
+
+import { Button } from '@/components/Button';
+import { LogoutIcon, CreatorWorkspaceIcon, ProfileIcon, MyWorkspaceIcon, MeIcon } from '@/components/Icons';
 import { shortenAddress } from '@/utils/address';
 import { resolvePathWithSearch } from '@/utils/url';
 
-import { Button } from '@/components/Button';
+import { useMediaUrl } from '#/state/application/hooks';
+import { useUser } from '#/state/application/hooks';
+
 import { CustomConnectButton } from './CustomConnectButton';
 
 function Account() {

@@ -15,9 +15,10 @@
  */
 
 import copy from 'copy-to-clipboard';
+
 import { Button } from '@/components/Button';
-import { Modal } from '@/components/Modal';
 import { ArrowTopRightIcon, CopyIcon } from '@/components/Icons';
+import { Modal } from '@/components/Modal';
 
 export function ContactModal({ open, closeModal, permission }) {
   return (

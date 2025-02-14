@@ -16,19 +16,20 @@
 
 'use client';
 
-import { useMemo } from 'react';
-import { XMarkIcon } from '@heroicons/react/20/solid';
-import { updateLessonMenu, updateLessonMenuToggleStatus } from '#/state/application/reducer';
-import { useLessonMenu, useLessonMenuToggleStatus } from '#/state/application/hooks';
-import { useAppDispatch } from '#/state/hooks';
-import { clsx } from 'clsx';
-import { useMediaQuery } from '@/hooks/useMediaQuery';
-import { toast } from 'react-toastify';
-import { reducerList } from '#/app/learn/Chapters';
-import { ChevronDoubleLeftIcon } from '@heroicons/react/20/solid';
-import { ContentIcon, ReadingIcon, ReadedIcon, BlackPointIcon, LockedIcon } from '@/components/Icons';
 import BigNumber from 'bignumber.js';
+import { clsx } from 'clsx';
 import { useRouter } from 'next/navigation';
+import { useMemo } from 'react';
+import { toast } from 'react-toastify';
+
+import { ChevronDoubleLeftIcon, XMarkIcon } from '@/components/icon/solid';
+import { ContentIcon, ReadingIcon, ReadedIcon, BlackPointIcon, LockedIcon } from '@/components/Icons';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
+
+import { reducerList } from '#/app/learn/Chapters';
+import { useLessonMenu, useLessonMenuToggleStatus } from '#/state/application/hooks';
+import { updateLessonMenu, updateLessonMenuToggleStatus } from '#/state/application/reducer';
+import { useAppDispatch } from '#/state/hooks';
 
 export function Steper({ type, data, id, singleId }) {
   const dispatch = useAppDispatch();

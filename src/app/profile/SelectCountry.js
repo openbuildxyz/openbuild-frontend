@@ -14,11 +14,13 @@
  * limitations under the License.
  */
 
-import { Listbox, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
-import { ChevronDownIcon, CheckIcon, XMarkIcon } from '@heroicons/react/20/solid';
-import { countries } from '#/lib/countries';
+
+import { Listbox, Transition } from '@/components/control';
+import { ChevronDownIcon, CheckIcon, XMarkIcon } from '@/components/icon/solid';
 import { classNames } from '@/utils';
+
+import { countries } from '#/lib/countries';
 
 export function SelectCountry({ placeholder, selected, setSelected, className }) {
   return (

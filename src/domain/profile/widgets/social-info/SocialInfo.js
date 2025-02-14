@@ -18,9 +18,9 @@ import { useMemo } from 'react';
 
 import { SvgIcon } from '@/components/Image';
 
+import PublishedCountList from './PublishedCountList';
 import SocialLink from './SocialLink';
 import Web3BioProfile from './Web3BioProfile';
-import PublishedCountList from './PublishedCountList';
 
 function socialsInfo(type, link) {
   switch(type) {

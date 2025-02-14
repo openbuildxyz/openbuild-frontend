@@ -17,7 +17,6 @@
 import LoadableList from '@/components/loadable-list';
 
 import { useViewingSelf } from '../../../auth/hooks';
-
 import { fetchPublishedChallengeList } from '../../repository';
 import PublishedChallengeItem from './PublishedChallengeItem';
 

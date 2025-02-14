@@ -16,20 +16,22 @@
 
 'use client';
 
-import { Dialog, Transition } from '@headlessui/react';
-import Image from 'next/image';
-import React, { Fragment, useState, useEffect } from 'react';
-import { useModalOpen } from '#/state/application/hooks';
-import { useAccount } from 'wagmi';
-import { useSession, signOut } from 'next-auth/react';
-import { shortenAddress } from '@/utils';
-import { ArrowRightOnRectangleIcon, XMarkIcon } from '@heroicons/react/20/solid';
 import { disconnect } from '@wagmi/core';
-import isEmail from 'validator/lib/isEmail';
-import Loader from '@/components/Loader';
-import { bindEmail, sendCode } from '#/services/auth';
+import { useSession, signOut } from 'next-auth/react';
+import Image from 'next/image';
 import LinkIcon from 'public/images/svg/link.svg';
+import React, { Fragment, useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
+import isEmail from 'validator/lib/isEmail';
+import { useAccount } from 'wagmi';
+
+import { Dialog, Transition } from '@/components/control';
+import { ArrowRightOnRectangleIcon, XMarkIcon } from '@/components/icon/solid';
+import Loader from '@/components/Loader';
+import { shortenAddress } from '@/utils';
+
+import { bindEmail, sendCode } from '#/services/auth';
+import { useModalOpen } from '#/state/application/hooks';
 
 export function BindEmailModal() {
   const modalOpen = useModalOpen('BIND_EMAIL');

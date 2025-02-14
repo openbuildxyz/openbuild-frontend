@@ -14,21 +14,23 @@
  * limitations under the License.
  */
 
-import { useMemo, useState } from 'react';
-import { Modal } from '@/components/Modal';
-import { ModalCloseIcon, TipsIcon } from '@/components/Icons';
-import { MouseoverTooltip } from '@/components/Tooltip';
-import { Button } from '@/components/Button';
-import { useAllowance, useApprove } from '@/hooks/useERC20';
-import { useSlillhubChain } from '#/state/application/hooks';
-import { useAccount, useBalance } from 'wagmi';
 // import { writeContract, prepareWriteContract } from '@wagmi/core'
-import { formatUnits } from '@ethersproject/units';
-import { toast } from 'react-toastify';
-// import { currentTime } from '@/utils/date'
-import { hireStart } from '#/services/shilling';
 import { waitForTransaction } from '@wagmi/core';
 import { writeContract } from '@wagmi/core';
+import { useMemo, useState } from 'react';
+import { toast } from 'react-toastify';
+import { useAccount, useBalance } from 'wagmi';
+
+import { Button } from '@/components/Button';
+import { ModalCloseIcon, TipsIcon } from '@/components/Icons';
+import { Modal } from '@/components/Modal';
+import { MouseoverTooltip } from '@/components/Tooltip';
+import { useAllowance, useApprove } from '@/hooks/useERC20';
+import { formatTokenUnits } from '@/utils/web3';
+
+// import { currentTime } from '@/utils/date'
+import { hireStart } from '#/services/shilling';
+import { useSlillhubChain } from '#/state/application/hooks';
 
 export function DepositModal({ open, closeModal, hireData }) {
   const { address } = useAccount();
@@ -172,7 +174,7 @@ export function DepositModal({ open, closeModal, hireData }) {
 
           <div className="relative h-full w-[260px] rounded-tr-2xl rounded-br-2xl bg-gray-300 pl-6 pt-[100px]">
             <p className="mb-5 text-sm opacity-80">Total Fee</p>
-            <p className="text-[34px] font-bold">${formatUnits(hireData.total_cost, coin?.decimals)}</p>
+            <p className="text-[34px] font-bold">${formatTokenUnits(hireData.total_cost, coin?.decimals)}</p>
             <svg
               className="absolute left-1 bottom-[180px]"
               width="106"

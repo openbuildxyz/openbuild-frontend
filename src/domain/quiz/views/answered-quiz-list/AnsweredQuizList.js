@@ -17,7 +17,6 @@
 import LoadableList from '@/components/loadable-list';
 
 import { useViewingSelf } from '../../../auth/hooks';
-
 import { fetchAnsweredQuizList } from '../../repository';
 import QuizItem from '../../widgets/quiz-item';
 

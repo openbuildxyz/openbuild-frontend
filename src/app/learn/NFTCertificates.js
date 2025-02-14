@@ -15,12 +15,14 @@
  */
 
 'use client';
-import Image from 'next/image';
-import { ProgressBar } from '@/components/ProgressBar';
-import { Button } from '@/components/Button';
 import BigNumber from 'bignumber.js';
-import { millisecondFormat } from '@/utils/date';
+import Image from 'next/image';
 import { useMemo } from 'react';
+
+import { Button } from '@/components/Button';
+import { ProgressBar } from '@/components/ProgressBar';
+import { millisecondFormat } from '@/utils/date';
+
 import { useSeriesPermission } from '#/services/learn/hooks';
 
 export function NFTCertificates({ data }) {

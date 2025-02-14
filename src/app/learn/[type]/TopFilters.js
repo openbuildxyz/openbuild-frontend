@@ -16,17 +16,18 @@
 
 'use client';
 
+import clsx from 'clsx';
+import Image from 'next/image';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import FeaturedActiveIcon from 'public/images/svg/featured_active.svg';
+import FeaturedIcon from 'public/images/svg/featured.svg';
+import { useMemo } from 'react';
+
+import { ReactSelect } from '@/components/Select/ReactSelect';
+import useMounted from '@/hooks/useMounted';
+
 import { Search } from './Search';
 import { Sort } from './Sort';
-
-import Image from 'next/image';
-import FeaturedIcon from 'public/images/svg/featured.svg';
-import FeaturedActiveIcon from 'public/images/svg/featured_active.svg';
-import clsx from 'clsx';
-import { ReactSelect } from '@/components/Select/ReactSelect';
-import { useMemo } from 'react';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import useMounted from '@/hooks/useMounted';
 
 const tabStyle = 'inline-block border-gray-600 px-4 h-10 leading-10 text-gray-500 cursor-pointer';
 

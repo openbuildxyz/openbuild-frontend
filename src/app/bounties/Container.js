@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
+import { NoData } from '@/components/NoData';
+import { PAGE_SIZE } from '@/constants/config';
+import { get } from '@/utils/request';
+
+import { FilterToggle } from '../learn/[type]/FilterToggle';
 import { Search } from '../learn/[type]/Search';
 import { Sort } from '../learn/[type]/Sort';
-import { FilterToggle } from '../learn/[type]/FilterToggle';
 import { List } from './List';
-
-import { NoData } from '@/components/NoData';
-import { get } from '@/utils/request';
-import { PAGE_SIZE } from '@/constants/config';
 
 
 export async function Container({ type, searchParams }) {

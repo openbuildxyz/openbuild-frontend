@@ -16,20 +16,22 @@
 
 'use client';
 
-import useSWR from 'swr';
 import { useState } from 'react';
-
-import { PAGE_SIZE } from '@/constants/config';
-import { OpenCourseList } from './OpenCourseList';
-import { ChallengesList } from './ChallengesList';
-import { NoData } from '@/components/NoData';
-import { Search } from './Search';
-import { CommonListSkeleton } from '@/components/Skeleton/CommonListSkeleton';
-import { OPagination } from '@/components/Pagination';
-import { useConfig } from '#/state/application/hooks';
-import { fetcher } from '@/utils/request';
-import { seriesStatus, deleteSeries } from '#/services/creator';
 import { toast } from 'react-toastify';
+import useSWR from 'swr';
+
+import { NoData } from '@/components/NoData';
+import { OPagination } from '@/components/Pagination';
+import { CommonListSkeleton } from '@/components/Skeleton/CommonListSkeleton';
+import { PAGE_SIZE } from '@/constants/config';
+import { fetcher } from '@/utils/request';
+
+import { seriesStatus, deleteSeries } from '#/services/creator';
+import { useConfig } from '#/state/application/hooks';
+
+import { ChallengesList } from './ChallengesList';
+import { OpenCourseList } from './OpenCourseList';
+import { Search } from './Search';
 
 export default function CreatorLearn({ params, searchParams }) {
   const page = Number(searchParams?.page) || 1;

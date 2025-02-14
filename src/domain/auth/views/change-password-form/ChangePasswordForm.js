@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { useState } from 'react';
 import Link from 'next/link';
+import { useState } from 'react';
 import isEmail from 'validator/lib/isEmail';
 
 import Loader from '@/components/Loader';

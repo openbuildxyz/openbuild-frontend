@@ -16,9 +16,10 @@
 
 'use client';
 
-import ContentEditable from 'react-contenteditable';
-import { HTMLDecode } from '@/utils';
 import clsx from 'clsx';
+import ContentEditable from 'react-contenteditable';
+
+import { HTMLDecode } from '@/utils';
 
 export function Title({data, type}) {
   return <h3 className="my-6 text-[36px] font-bold leading-9 md:text-[36px] md:leading-[48px]">

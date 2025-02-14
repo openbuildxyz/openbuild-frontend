@@ -15,13 +15,15 @@
  */
 
 'use client';
-import { CardTitle } from '../CardTitle';
-import { useParams } from 'next/navigation';
-import Link from 'next/link';
-import { useMemo } from 'react';
 import BigNumber from 'bignumber.js';
-import { ProgressBar } from '@/components/ProgressBar';
+import Link from 'next/link';
+import { useParams } from 'next/navigation';
+import { useMemo } from 'react';
+
 import { ArrowRightIcon } from '@/components/Icons';
+import { ProgressBar } from '@/components/ProgressBar';
+
+import { CardTitle } from '../CardTitle';
 
 export function GrowPathCard({ data }) {
 

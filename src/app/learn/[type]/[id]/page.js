@@ -14,24 +14,25 @@
  * limitations under the License.
  */
 
+import { PreviewAlert } from '@/components/PreviewAlert';
+import { Share } from '@/components/Share';
 import { get } from '@/utils/request';
-import { Author } from './Author';
-import { Tabs } from './Tabs';
+
 import { Chapters } from '../../Chapters';
 import { Speaker } from '../../Speaker';
+import { Author } from './Author';
+import { Back } from './Back';
+import { GrowPath } from './GrowPath';
 import { LearnInfo } from './LearnInfo';
 import { LearnRightCard } from './RightCard';
-import { Back } from './Back';
-import { Share } from '@/components/Share';
-import { ChallengesTags } from './Tags';
-import { PreviewAlert } from '@/components/PreviewAlert';
 import { Summary, Title } from './Summary';
-import { GrowPath } from './GrowPath';
+import { Tabs } from './Tabs';
+import { ChallengesTags } from './Tags';
 
 export async function generateMetadata({ params }) {
   // fetch data
   const { data } = await get(`v1/learn/course/${params.type === 'courses' ? 'opencourse' : 'challenges'}/${params.id}`, {isServer: true});
-  const previousImages = `https://file-cdn.openbuild.xyz${data?.base?.course_series_img}` || '';
+  const previousImages = data?.base?.course_series_img ? `https://file-cdn.openbuild.xyz${data.base.course_series_img}` : '';
   return {
     title: data?.base?.course_series_title,
     description: data?.base?.course_series_summary,

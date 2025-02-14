@@ -14,10 +14,12 @@
  * limitations under the License.
  */
 
-import { useSelector } from 'react-redux';
-import { setOpenModal } from './reducer';
 import { useCallback } from 'react';
+import { useSelector } from 'react-redux';
+
 import { useAppDispatch } from '#/state/hooks';
+
+import { setOpenModal } from './reducer';
 
 export function useModalOpen(modal) {
   const openModal = useSelector(state => state.application.openModal);

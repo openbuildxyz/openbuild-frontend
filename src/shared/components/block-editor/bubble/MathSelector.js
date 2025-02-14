@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
-import { Button } from './Button';
-import { cn } from './helper';
 import { SigmaIcon } from 'lucide-react';
 import { useEditor } from 'novel';
+
+import { Button } from './Button';
+import { cn } from './helper';
 
 export const MathSelector = () => {
   const { editor } = useEditor();

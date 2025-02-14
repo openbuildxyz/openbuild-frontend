@@ -16,13 +16,15 @@
 
 'use client';
 
-import Image from 'next/image';
 import clsx from 'clsx';
-import { useState } from 'react';
+import Image from 'next/image';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
-import { ChevronUpIcon, ChevronDownIcon } from '@heroicons/react/20/solid';
-import { challengesFilterList } from '#/lib/challengesFilterList';
+import { useState } from 'react';
+
+import { ChevronUpIcon, ChevronDownIcon } from '@/components/icon/solid';
 import { createQueryString } from '@/utils';
+
+import { challengesFilterList } from '#/lib/challengesFilterList';
 
 export function ChallengesFilter() {
   const [list, setList] = useState(challengesFilterList);

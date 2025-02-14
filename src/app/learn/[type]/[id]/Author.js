@@ -16,8 +16,8 @@
 
 'use client';
 
-import { formatTime } from '@/utils/date';
 import Avatar from '@/components/Avatar';
+import { formatTime } from '@/utils/date';
 
 export function Author({ data }) {
   return (

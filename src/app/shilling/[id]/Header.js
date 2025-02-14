@@ -14,11 +14,13 @@
  * limitations under the License.
  */
 
-import { ArrowLeftIcon, EditIcon } from '@/components/Icons';
-import { useRouter } from 'next/navigation';
-import { Button } from '@/components/Button';
-import { Share } from '@/components/Share';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+
+import { Button } from '@/components/Button';
+import { ArrowLeftIcon, EditIcon } from '@/components/Icons';
+import { Share } from '@/components/Share';
+
 import { useUser } from '#/state/application/hooks';
 
 export function Header({ id, setOpen, data }) {

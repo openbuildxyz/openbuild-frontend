@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import * as React from 'react';
 import * as PopoverPrimitive from '@radix-ui/react-popover';
+import * as React from 'react';
 
 import { cn } from './helper';
 

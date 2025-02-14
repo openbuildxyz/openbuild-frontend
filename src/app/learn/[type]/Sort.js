@@ -16,9 +16,10 @@
 
 'use client';
 
-import { ReactSelect } from '@/components/Select/ReactSelect';
-import { useMemo } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useMemo } from 'react';
+
+import { ReactSelect } from '@/components/Select/ReactSelect';
 
 const options = [
   {

@@ -15,23 +15,25 @@
  */
 
 'use client';
-import Image from 'next/image';
-import { Back } from './Back';
-import { Share } from '@/components/Share';
-import { Title } from './Summary';
-import { Button } from '@/components/Button';
-import { ClockIcon } from '@heroicons/react/24/outline';
-import { CheckCircleIcon } from '@heroicons/react/24/solid';
-import { formatTime } from '@/utils/date';
-import { CourseCard } from '../CourseCard';
 import clsx from 'clsx';
-
-import { useMediaUrl } from '#/state/application/hooks';
-import { growPathEnrollAction } from './actions';
 import { useSession } from 'next-auth/react';
+import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
+
+import { Button } from '@/components/Button';
+import { ClockIcon } from '@/components/icon/outlined';
+import { CheckCircleIcon } from '@/components/icon/solid';
+import { Share } from '@/components/Share';
+import { formatTime } from '@/utils/date';
+
+import { useMediaUrl } from '#/state/application/hooks';
+
+import { CourseCard } from '../CourseCard';
+import { growPathEnrollAction } from './actions';
+import { Back } from './Back';
+import { Title } from './Summary';
 
 function Steps({ data, permission, id }) {
   // console.log(data)
