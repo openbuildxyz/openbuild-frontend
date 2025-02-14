@@ -16,7 +16,7 @@
 
 'use client';
 
-import useAppConfig, { AppConfigContext } from '@/hooks/useAppConfig';
+import { AppConfigContext } from '@/hooks/useAppConfig';
 
 import { ReduxProviders } from '#/state/provider';
 
@@ -30,8 +30,6 @@ import { Toast } from './components/Toast';
 setInterceptorsForHttpClients();
 
 function ClientEntry({ config, children }) {
-  const aiAgentEnabled = useAppConfig('aiAgent.enabled');
-
   return (
     <Providers>
       <AppConfigContext.Provider value={config.static}>
@@ -42,7 +40,7 @@ function ClientEntry({ config, children }) {
             <RouteIntercept />
           </ReduxProviders>
         </RouterProgress>
-        {aiAgentEnabled && <RunLlmWidget />}
+        <RunLlmWidget />
       </AppConfigContext.Provider>
     </Providers>
   );

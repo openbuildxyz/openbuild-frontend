@@ -16,8 +16,12 @@
 
 import Script from 'next/script';
 
+import useAppConfig from '@/hooks/useAppConfig';
+
 function RunLlmWidget() {
-  return (
+  const aiAgentEnabled = useAppConfig('aiAgent.enabled');
+
+  return aiAgentEnabled && (
     <Script
       type="module"
       id="runllm-widget-script"
