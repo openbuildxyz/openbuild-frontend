@@ -20,11 +20,12 @@ import QuizBannerPic from 'public/images/quiz-banner.svg';
 import QuizS1 from 'public/images/quiz-s-1.svg';
 import QuizS2 from 'public/images/quiz-s-2.svg';
 import QuizS3 from 'public/images/quiz-s-3.svg';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { ArrowRightIcon } from '@/components/Icons';
 
 import StartOnOpenBuild from '#/domain/learn/widgets/start-on-open-build';
+import useMounted from '#/shared/hooks/useMounted';
 
 import QuizList from '../../widgets/quiz-list';
 
@@ -46,12 +47,12 @@ const Steps = [
 export default function Quiz() {
   const [activeStep, setActiveStep] = useState(0);
 
-  useEffect(() => {
+  useMounted(() => {
     Aos.init({
       delay: 100, // values from 0 to 3000, with step 50ms
       duration: 800, // values from 0 to 3000, with step 50ms
     });
-  }, []);
+  });
   return (
     <div>
       <div className="md:flex bg-white md:justify-center pb-14">
