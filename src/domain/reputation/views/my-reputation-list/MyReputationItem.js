@@ -55,7 +55,7 @@ export default function MyReputationItem({ dataSource, onNotConnected, onMint })
 
   const suiMint = async item => {
     if (!currentAccount) {
-      onNotConnected(true);
+      onNotConnected();
     } else {
       setMintLoading(item.id);
       await mintAndRecordSuiNFT(item, signAndExecuteTransactionBlock, setMintLoading, onMint);

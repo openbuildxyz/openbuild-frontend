@@ -37,7 +37,7 @@ export default function MyReputationListView({ list, setOpen, loading, setLoadin
     <>
       {loading && [...new Array(6).fill('')].map((i, k) => <Skeleton key={`achievement-skeleton-${k}`} />)}
       {list?.map(i => (
-        <MyReputationItem key={`achievement-${i.id}`} dataSource={i} onNotConnected={setOpen} onMint={fetchData} />
+        <MyReputationItem key={`achievement-${i.id}`} dataSource={i} onNotConnected={() => setOpen(true)} onMint={fetchData} />
       ))}
     </>
   );
