@@ -34,13 +34,13 @@ import CustomContent from './CustomContent';
 import LatestActivityList from './LatestActivityList';
 
 const resolveTabs = published => {
-  const tabs = [
+  return [
     {
       text: 'Open Course',
       node: (
         <>
           <span className="inline md:hidden">Courses</span>
-          <span className="hidden md:inline">Open Course</span>
+          <span className="hidden md:inline">Open Course({published?.['open_course_num'] ?? 0})</span>
         </>
       ),
       view: PublishedCourseListView,
@@ -50,7 +50,7 @@ const resolveTabs = published => {
       node: (
         <>
           <span className="inline md:hidden">Challenge</span>
-          <span className="hidden md:inline">Challenges</span>
+          <span className="hidden md:inline">Challenges({published?.['challenge_num'] ?? 0})</span>
         </>
       ),
       view: PublishedChallengeListView,
@@ -60,7 +60,7 @@ const resolveTabs = published => {
       node: (
         <>
           <span className="inline md:hidden">Bounty</span>
-          <span className="hidden md:inline">Bounty</span>
+          <span className="hidden md:inline">Bounty({published?.['bounty_num'] ?? 0})</span>
         </>
       ),
       view: PublishedBountyListView,
@@ -70,35 +70,12 @@ const resolveTabs = published => {
       node: (
         <>
           <span className="inline md:hidden">Quiz</span>
-          <span className="hidden md:inline">Quiz</span>
+          <span className="hidden md:inline">Quiz({published?.['quiz_num'] ?? 0})</span>
         </>
       ),
       view: PublishedQuizListView,
     },
   ];
-
-  const publishedTypes_b = {
-    'Open Course': 'open_course_num',
-    Bounty: 'bounty_num',
-    Challenges: 'challenge_num',
-    Quiz: 'quiz_num',
-  };
-  return tabs.map(tab => {
-    const tab_text = tab.node.props.children[1].props.children;
-    const count = published && publishedTypes_b[tab_text] ? published[publishedTypes_b[tab_text]] : 0;
-    return {
-      ...tab,
-      // 同时更新 node 中展示的内容
-      node: (
-        <>
-          {tab.node.props.children[0]}
-          <span className="hidden md:inline">
-            {tab_text} ({count})
-          </span>
-        </>
-      ),
-    };
-  });
 };
 
 function TeamProfileView({ data, activities }) {
