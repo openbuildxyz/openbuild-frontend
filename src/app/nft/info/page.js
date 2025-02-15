@@ -19,21 +19,33 @@
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { useState, useEffect, useCallback } from 'react';
 
 import { Button } from '@/components/Button';
 import { formatTime } from '@/utils/date';
 
-import { useNftInfo } from '#/services/nft/hooks';
+import { Skeleton } from '#/domain/reputation/widgets/nft-skeleton';
 import { useMediaUrl } from '#/state/application/hooks';
-
-import { Skeleton } from './Skeleton';
 
 export default function NftInfo() {
   const { status } = useSession();
   const router = useRouter();
   const params = useSearchParams();
-  const { info, loading } = useNftInfo(params?.get('ticket'));
+  const ticket = params?.get('ticket');
+  const [loading, setLoading] = useState(false);
+  const [info, setInfo] = useState([]);
   const mediaUrl = useMediaUrl();
+
+  useEffect(() => {
+    fetchData(ticket);
+  }, [ticket, fetchData]);
+
+  const fetchData = useCallback(() => {
+    setLoading(true);
+    fetchNftInfo(ticket)
+      .then(res => setInfo(res.data))
+      .finally(() => setLoading(false));
+  }, [ticket]);
 
   return (
     <div>
