@@ -45,8 +45,6 @@ export default function Page({ params }) {
     }
   }, [data]);
 
-  console.log(nfts);
-
   return loading ? (
     <Skeleton />
   ) : (
