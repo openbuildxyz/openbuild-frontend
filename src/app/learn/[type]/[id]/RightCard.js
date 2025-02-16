@@ -40,6 +40,7 @@ import { Dialog, Transition } from '@/components/control';
 import { CheckIcon } from '@/components/icon/solid';
 import { USDTIcon } from '@/components/Icons';
 import { TwitterIcon, DownloadIcon } from '@/components/Icons';
+import useMounted from '@/hooks/useMounted';
 import { formatTime } from '@/utils/date';
 import { resolvePathWithSearch } from '@/utils/url';
 import { parseTokenUnits } from '@/utils/web3';
@@ -57,7 +58,19 @@ const EnrollModal = dynamic(() => import('./EnrollModal'), {
   ssr: false,
 });
 
-function ButtonGroup({ data, permission, loading, type, apply, enroll, switchLoading, payLoading, isPay, payment, related }) {
+function ButtonGroup({
+  data,
+  permission,
+  loading,
+  type,
+  apply,
+  enroll,
+  switchLoading,
+  payLoading,
+  isPay,
+  payment,
+  related,
+}) {
   const router = useRouter();
   const { status } = useSession();
 
@@ -95,42 +108,49 @@ function ButtonGroup({ data, permission, loading, type, apply, enroll, switchLoa
   return (
     <div>
       <div className="pb-6 flex gap-2">
-        {data.base.course_series_quiz_id !== 0 && <Button
-          onClick={() => window.open(`/quiz/${data.base.course_series_quiz_id}`)}
-          fullWidth
-          variant={'outlined'}
-          className={'flex-1'}
-        >
-          Quiz
-        </Button>}
-        {(permission?.course_user_permission_status === 0 || status === 'unauthenticated') &&(
+        {data.base.course_series_quiz_id !== 0 && (
+          <Button
+            onClick={() => window.open(`/quiz/${data.base.course_series_quiz_id}`)}
+            fullWidth
+            variant={'outlined'}
+            className={'flex-1'}
+          >
+            Quiz
+          </Button>
+        )}
+        {(permission?.course_user_permission_status === 0 || status === 'unauthenticated') && (
           <Button
             loading={loading}
-            onClick={() => type === 'challenges' ? apply() : enroll()}
+            onClick={() => (type === 'challenges' ? apply() : enroll())}
             fullWidth
             className={'flex-1'}
           >
             {type === 'challenges' ? 'Apply to Join ' : 'Enroll'}
-            {type === 'challenges' && (
-              data.challenges_extra?.course_challenges_extra_feeds_type === 'free' ? '(Free)' :
+            {type === 'challenges' &&
+              (data.challenges_extra?.course_challenges_extra_feeds_type === 'free' ? (
+                '(Free)'
+              ) : (
                 <div className="flex items-center">
-                  <USDTIcon className="h-[14px] w-[14px] mr-1" /> {data.challenges_extra?.course_challenges_extra_feeds_amount} USDT
+                  <USDTIcon className="h-[14px] w-[14px] mr-1" />{' '}
+                  {data.challenges_extra?.course_challenges_extra_feeds_amount} USDT
                 </div>
-            )}
+              ))}
           </Button>
         )}
-        {permission?.course_user_permission_status === 3 && status === 'authenticated' && data.challenges_extra?.course_challenges_extra_feeds_type === 'deposit' && (
+        {permission?.course_user_permission_status === 3 &&
+          status === 'authenticated' &&
+          data.challenges_extra?.course_challenges_extra_feeds_type === 'deposit' && (
           <div>
             <Button
               loading={switchLoading || payLoading}
               disabled={isPay}
               onClick={() =>
                 data.challenges_extra &&
-                payment(
-                  data.challenges_extra.course_challenges_extra_chain_id,
-                  data.challenges_extra.course_challenges_extra_feeds_receive,
-                  Number(data.challenges_extra.course_challenges_extra_feeds_amount)
-                )
+                  payment(
+                    data.challenges_extra.course_challenges_extra_chain_id,
+                    data.challenges_extra.course_challenges_extra_feeds_receive,
+                    Number(data.challenges_extra.course_challenges_extra_feeds_amount),
+                  )
               }
               fullWidth
               className={'flex-1'}
@@ -138,7 +158,7 @@ function ButtonGroup({ data, permission, loading, type, apply, enroll, switchLoa
               {switchLoading ? 'Switching...' : 'Payment'}
             </Button>
             <p className="mt-2 text-center text-xs text-red">
-              Pay amount: {data.challenges_extra?.course_challenges_extra_feeds_amount} USDT
+                Pay amount: {data.challenges_extra?.course_challenges_extra_feeds_amount} USDT
             </p>
           </div>
         )}
@@ -162,23 +182,23 @@ function ButtonGroup({ data, permission, loading, type, apply, enroll, switchLoa
             Proceed to course
           </Button>
         )}
-        {(permission?.course_user_permission_status === 1 && type === 'challenges') && (
-          <Button disabled fullWidth className={'flex-1'} >
+        {permission?.course_user_permission_status === 1 && type === 'challenges' && (
+          <Button disabled fullWidth className={'flex-1'}>
             Applied
           </Button>
         )}
         {(permission?.course_user_permission_status === 2 || permission?.course_user_permission_status === 4) && (
-          <Button disabled fullWidth className={'flex-1'} >
+          <Button disabled fullWidth className={'flex-1'}>
             Completed
           </Button>
         )}
         {permission?.course_user_permission_status === -1 && (
-          <Button disabled fullWidth className={'flex-1'} >
+          <Button disabled fullWidth className={'flex-1'}>
             Under review
           </Button>
         )}
         {permission?.course_user_permission_status === -2 && (
-          <Button disabled fullWidth className={'flex-1'} >
+          <Button disabled fullWidth className={'flex-1'}>
             Audit failed
           </Button>
         )}
@@ -197,7 +217,7 @@ export function LearnRightCard({ data, type, permission, related }) {
 
   let courseOrChallengeUrl = '';
 
-  if(typeof window !== 'undefined'){
+  if (typeof window !== 'undefined') {
     courseOrChallengeUrl = window.location.href;
   }
 
@@ -215,7 +235,10 @@ export function LearnRightCard({ data, type, permission, related }) {
   const { chain } = useNetwork();
   const { isLoading: switchLoading, switchNetwork } = useSwitchNetwork();
   const { openConnectModal } = useConnectModal();
-  const sourceFrom = useMemo(() => encodeURIComponent(resolvePathWithSearch(pathname, searchParams)), [pathname, searchParams]);
+  const sourceFrom = useMemo(
+    () => encodeURIComponent(resolvePathWithSearch(pathname, searchParams)),
+    [pathname, searchParams],
+  );
 
   const enroll = async () => {
     if (status !== 'authenticated') {
@@ -243,9 +266,11 @@ export function LearnRightCard({ data, type, permission, related }) {
         return;
       }
     } else {
-      if ( cExtraSchema === '' || cExtraSchema === '{"logoPosition":"right"}' || cExtraSchema === '{}' ) {
+      if (cExtraSchema === '' || cExtraSchema === '{"logoPosition":"right"}' || cExtraSchema === '{}') {
         setLoading(true);
-        const res = await joinChallengesEnrool(data.base.course_series_id, '', { code: window.localStorage.getItem('shareCode') || '' });
+        const res = await joinChallengesEnrool(data.base.course_series_id, '', {
+          code: window.localStorage.getItem('shareCode') || '',
+        });
         if (res?.code === 200) {
           toast.success('Apply successfully');
           revalidatePathAction();
@@ -313,13 +338,14 @@ export function LearnRightCard({ data, type, permission, related }) {
   const [width, setWidth] = useState();
   const [enrollModalOpen, setEnrollModalOpen] = useState(width < 1024 ? false : true);
 
-  useEffect(() => {
+  useMounted(() => {
     const handleResize = () => setWidth(window.innerWidth);
     window.addEventListener('resize', handleResize);
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-  }, []);
+  });
+
   useEffect(() => {
     const shareCode = searchParams.get('code');
     if (shareCode && shareCode !== '') {
@@ -356,7 +382,7 @@ export function LearnRightCard({ data, type, permission, related }) {
           'max-lg:h-[calc(100vh-85px)]': enrollModalOpen,
           'max-lg:pt-2': !enrollModalOpen,
           'max-lg:h-[120px]': !enrollModalOpen,
-        }
+        },
       )}
     >
       {!enrollModalOpen && (
@@ -414,35 +440,57 @@ export function LearnRightCard({ data, type, permission, related }) {
               />
             )}
           </div>
-          {type === 'challenges' && <div className="my-4">
-            <TimeAndLocation data={data} from={'rc'} openTicket={() => setOpen(true)} permission={permission} type={type}  />
-            <Transition appear show={open} as={Fragment}>
-              <Dialog as="div" className="relative z-[999]" onClose={() => setOpen(false)}>
-                <Transition.Child
-                  as={Fragment}
-                  enter="ease-out duration-300"
-                  enterFrom="opacity-0"
-                  enterTo="opacity-100"
-                  leave="ease-in duration-200"
-                  leaveFrom="opacity-100"
-                  leaveTo="opacity-0"
-                >
-                  <div className="fixed inset-0 bg-[#1A1A1A] bg-opacity-60" />
-                </Transition.Child>
-                <div className="fixed inset-0 overflow-y-auto">
-                  <div className="flex min-h-full items-center justify-center p-4 text-center">
-                    <Dialog.Panel className="w-[800px] pr-4 pt-4 transform overflow-hidden rounded-2xl bg-transparent text-left align-middle shadow-xl transition-all">
-                      <div className="relative flex download_viewport items-center"  ref={elementRef}>
-                        <svg
-                          onClick={() => setOpen(false)}
-                          width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" className="absolute right-[-6px] top-[-16px] z-[10000] cursor-pointer">
-                          <path d="M2.6665 2.66797L13.3332 13.3346" stroke="white" strokeLinecap="round" strokeLinejoin="round"/>
-                          <path d="M2.6665 13.3346L13.3332 2.66797" stroke="white" strokeLinecap="round" strokeLinejoin="round"/>
-                        </svg>
-                        <div className="w-[464px] h-[280px] relative">
-                          <Image src={TicketBgPic} alt="" className="absolute z-[1000] w-full h-full top-0 left-0" />
-                          {
-                            mediaUrl && data &&
+          {type === 'challenges' && (
+            <div className="my-4">
+              <TimeAndLocation
+                data={data}
+                from={'rc'}
+                openTicket={() => setOpen(true)}
+                permission={permission}
+                type={type}
+              />
+              <Transition appear show={open} as={Fragment}>
+                <Dialog as="div" className="relative z-[999]" onClose={() => setOpen(false)}>
+                  <Transition.Child
+                    as={Fragment}
+                    enter="ease-out duration-300"
+                    enterFrom="opacity-0"
+                    enterTo="opacity-100"
+                    leave="ease-in duration-200"
+                    leaveFrom="opacity-100"
+                    leaveTo="opacity-0"
+                  >
+                    <div className="fixed inset-0 bg-[#1A1A1A] bg-opacity-60" />
+                  </Transition.Child>
+                  <div className="fixed inset-0 overflow-y-auto">
+                    <div className="flex min-h-full items-center justify-center p-4 text-center">
+                      <Dialog.Panel className="w-[800px] pr-4 pt-4 transform overflow-hidden rounded-2xl bg-transparent text-left align-middle shadow-xl transition-all">
+                        <div className="relative flex download_viewport items-center" ref={elementRef}>
+                          <svg
+                            onClick={() => setOpen(false)}
+                            width="16"
+                            height="16"
+                            viewBox="0 0 16 16"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="absolute right-[-6px] top-[-16px] z-[10000] cursor-pointer"
+                          >
+                            <path
+                              d="M2.6665 2.66797L13.3332 13.3346"
+                              stroke="white"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                            <path
+                              d="M2.6665 13.3346L13.3332 2.66797"
+                              stroke="white"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                          </svg>
+                          <div className="w-[464px] h-[280px] relative">
+                            <Image src={TicketBgPic} alt="" className="absolute z-[1000] w-full h-full top-0 left-0" />
+                            {mediaUrl && data && (
                               <Image
                                 width={400}
                                 height={216}
@@ -450,102 +498,149 @@ export function LearnRightCard({ data, type, permission, related }) {
                                 alt=""
                                 className="w-[400px] h-[216px] absolute z-[1001] left-8 top-8 object-fill rounded-lg"
                               />
-                          }
+                            )}
 
-                          <Image src={TicketEPic} alt="" className="absolute z-[1002] top-0 left-0" />
-                        </div>
-                        <svg width="2" height="248" viewBox="0 0 2 248" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <line x1="1" y1="1" x2="0.999989" y2="247" stroke="#1A1A1A" strokeWidth="2" strokeLinecap="round" strokeDasharray="1 5"/>
-                        </svg>
-
-                        <div className="h-[280px] flex-1 w-auto bg-ticketLocation rounded-lg p-5 flex flex-col">
-                          <div className="flex-1">
-                            <h3 className="text-xl leading-6">{data?.base.course_series_title}</h3>
-                            <div className="flex mr-3 mt-3">
-                              <i className="w-[45px] mr-3 text-xs">Time</i>
-                              <p className="text-sm text-gray">
-                                {formatTime(data.challenges_extra.course_challenges_extra_start_date * 1000, 'YYYY/MM/DD')} -{' '}
-                                {formatTime(data.challenges_extra.course_challenges_extra_end_date * 1000, 'MM/DD')}
-                                {data.challenges_extra.course_challenges_extra_time_zone?.label?.substr(0, 11) && <span className="text-xs h-4 py-[2px]">{data.challenges_extra.course_challenges_extra_time_zone?.label?.substr(0, 11)}</span>}
-                              </p>
-                              {/* <p className="text-sm font-bold">2023/05/05 06/06 <span className="text-xs">(UTC+8)</span></p> */}
-                            </div>
-                            <div className="flex mt-2">
-                              <i className="w-[45px] mr-3 text-xs">Location</i>
-                              <p className="text-sm font-bold">
-                                {
-                                  data?.challenges_extra.course_challenges_extra_online ?
-                                    'Online'
-                                    :
-                                    data?.challenges_extra.course_challenges_extra_country + ', ' +
-                                    data?.challenges_extra.course_challenges_extra_city + ', ' +
-                                    data?.challenges_extra.course_challenges_extra_offline_address
-                                }
-                              </p>
-                            </div>
+                            <Image src={TicketEPic} alt="" className="absolute z-[1002] top-0 left-0" />
                           </div>
+                          <svg
+                            width="2"
+                            height="248"
+                            viewBox="0 0 2 248"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <line
+                              x1="1"
+                              y1="1"
+                              x2="0.999989"
+                              y2="247"
+                              stroke="#1A1A1A"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeDasharray="1 5"
+                            />
+                          </svg>
 
-                          <hr className="border-t border-dashed border-black my-4" />
-                          <div className="flex justify-between items-center">
-                            <div className="flex items-center">
-                              {<Image className="border-2 mr-[5px] border-white rounded-full w-[42px] h-[42px]" width={42} height={42} src={mediaUrl + data?.team_user?.user_avatar} alt="" />}
-                              <div>
-                                <p className="text-xs">
-                                  <a href={`/u/${data?.team_user?.user_handle}`}>{data?.team_user?.user_nick_name}</a>
+                          <div className="h-[280px] flex-1 w-auto bg-ticketLocation rounded-lg p-5 flex flex-col">
+                            <div className="flex-1">
+                              <h3 className="text-xl leading-6">{data?.base.course_series_title}</h3>
+                              <div className="flex mr-3 mt-3">
+                                <i className="w-[45px] mr-3 text-xs">Time</i>
+                                <p className="text-sm text-gray">
+                                  {formatTime(
+                                    data.challenges_extra.course_challenges_extra_start_date * 1000,
+                                    'YYYY/MM/DD',
+                                  )}{' '}
+                                  - {formatTime(data.challenges_extra.course_challenges_extra_end_date * 1000, 'MM/DD')}
+                                  {data.challenges_extra.course_challenges_extra_time_zone?.label?.substr(0, 11) && (
+                                    <span className="text-xs h-4 py-[2px]">
+                                      {data.challenges_extra.course_challenges_extra_time_zone?.label?.substr(0, 11)}
+                                    </span>
+                                  )}
                                 </p>
-                                <p className="text-xs font-bold mr-1">Booking ID</p>
+                                {/* <p className="text-sm font-bold">2023/05/05 06/06 <span className="text-xs">(UTC+8)</span></p> */}
+                              </div>
+                              <div className="flex mt-2">
+                                <i className="w-[45px] mr-3 text-xs">Location</i>
+                                <p className="text-sm font-bold">
+                                  {data?.challenges_extra.course_challenges_extra_online
+                                    ? 'Online'
+                                    : data?.challenges_extra.course_challenges_extra_country +
+                                      ', ' +
+                                      data?.challenges_extra.course_challenges_extra_city +
+                                      ', ' +
+                                      data?.challenges_extra.course_challenges_extra_offline_address}
+                                </p>
                               </div>
                             </div>
-                            <div className="h-[60px] w-[60px] rounded bg-white p-1 overflow-hidden">
-                              <QRCode size={256}  style={{ maxWidth: '100%', width: '100%', height: '100%' }} value={courseOrChallengeUrl} />
+
+                            <hr className="border-t border-dashed border-black my-4" />
+                            <div className="flex justify-between items-center">
+                              <div className="flex items-center">
+                                {
+                                  <Image
+                                    className="border-2 mr-[5px] border-white rounded-full w-[42px] h-[42px]"
+                                    width={42}
+                                    height={42}
+                                    src={mediaUrl + data?.team_user?.user_avatar}
+                                    alt=""
+                                  />
+                                }
+                                <div>
+                                  <p className="text-xs">
+                                    <a href={`/u/${data?.team_user?.user_handle}`}>{data?.team_user?.user_nick_name}</a>
+                                  </p>
+                                  <p className="text-xs font-bold mr-1">Booking ID</p>
+                                </div>
+                              </div>
+                              <div className="h-[60px] w-[60px] rounded bg-white p-1 overflow-hidden">
+                                <QRCode
+                                  size={256}
+                                  style={{ maxWidth: '100%', width: '100%', height: '100%' }}
+                                  value={courseOrChallengeUrl}
+                                />
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                      <div className="flex justify-center">
-                        <div className="h-[64px] mt-8 flex text-sm w-[470px] bg-white rounded-xl p-[6px]">
-                          <span
-                            onClick={
-                              () => window.open(`https://twitter.com/intent/tweet?&url=${courseOrChallengeUrl}`)
-                            }
-                            className="flex items-center flex-1 justify-center rounded-xl hover:bg-[#E9E9E9] cursor-pointer">
-                            <TwitterIcon className="w-4 h-4 mr-2" /> Share with Twitter
-                          </span>
-                          <span onClick={() => download()} target="_blank" className="flex items-center flex-1 justify-center rounded-xl hover:bg-[#E9E9E9] cursor-pointer">
-                            <DownloadIcon className="mr-2" /> Download pictures
-                          </span>
+                        <div className="flex justify-center">
+                          <div className="h-[64px] mt-8 flex text-sm w-[470px] bg-white rounded-xl p-[6px]">
+                            <span
+                              onClick={() =>
+                                window.open(`https://twitter.com/intent/tweet?&url=${courseOrChallengeUrl}`)
+                              }
+                              className="flex items-center flex-1 justify-center rounded-xl hover:bg-[#E9E9E9] cursor-pointer"
+                            >
+                              <TwitterIcon className="w-4 h-4 mr-2" /> Share with Twitter
+                            </span>
+                            <span
+                              onClick={() => download()}
+                              target="_blank"
+                              className="flex items-center flex-1 justify-center rounded-xl hover:bg-[#E9E9E9] cursor-pointer"
+                            >
+                              <DownloadIcon className="mr-2" /> Download pictures
+                            </span>
+                          </div>
                         </div>
-                      </div>
-                      {/* <div ></div> */}
-                    </Dialog.Panel>
+                        {/* <div ></div> */}
+                      </Dialog.Panel>
+                    </div>
                   </div>
-                </div>
-              </Dialog>
-            </Transition>
-          </div>}
-          {data.base.course_series_learn_num > 0 && <div>
-            <hr className="border-gray-400" />
-            <div className="flex items-center justify-between py-6 text-sm">
-              <div suppressHydrationWarning className="flex [&>img]:ml-[-8px] [&>img]:rounded-full [&>img]:border [&>img]:border-white [&>img:first-child]:ml-0">
-                {mediaUrl &&
-                  data.enrool_users
-                    .slice(0, 10)
-                    .map(i => (
-                      <Image
-                        key={`courses-enrool-users-${i.user_nick_name}`}
-                        width={24}
-                        height={24}
-                        src={mediaUrl + i.user_avatar}
-                        alt=""
-                        className="h-6 w-6 object-cover"
-                      />
-                    ))}
-                {data.enrool_users.length > 10 && <span className="ml-[-8px] w-6 h-6 inline-block rounded-full bg-white text-center leading-4">...</span>}
-              </div>
-              <p>{data.base.course_series_learn_num} Builders</p>
+                </Dialog>
+              </Transition>
             </div>
-          </div>}
-
+          )}
+          {data.base.course_series_learn_num > 0 && (
+            <div>
+              <hr className="border-gray-400" />
+              <div className="flex items-center justify-between py-6 text-sm">
+                <div
+                  suppressHydrationWarning
+                  className="flex [&>img]:ml-[-8px] [&>img]:rounded-full [&>img]:border [&>img]:border-white [&>img:first-child]:ml-0"
+                >
+                  {mediaUrl &&
+                    data.enrool_users
+                      .slice(0, 10)
+                      .map(i => (
+                        <Image
+                          key={`courses-enrool-users-${i.user_nick_name}`}
+                          width={24}
+                          height={24}
+                          src={mediaUrl + i.user_avatar}
+                          alt=""
+                          className="h-6 w-6 object-cover"
+                        />
+                      ))}
+                  {data.enrool_users.length > 10 && (
+                    <span className="ml-[-8px] w-6 h-6 inline-block rounded-full bg-white text-center leading-4">
+                      ...
+                    </span>
+                  )}
+                </div>
+                <p>{data.base.course_series_learn_num} Builders</p>
+              </div>
+            </div>
+          )}
 
           {/* {type === 'challenges' && (
             <>
@@ -583,22 +678,24 @@ export function LearnRightCard({ data, type, permission, related }) {
           />
 
           <hr className="border-gray-400" />
-          {data?.base?.course_series_requirement?.length > 0 && <div className="py-4">
-            <h6 className="font-bold leading-6 ">Requirements</h6>
-            {data?.base?.course_series_requirement?.map((i, k) => (
-              <div key={`requirements-${k}`} className="mt-3 flex items-center text-sm">
-                {i !== '' && (
-                  <div className="flex items-start text-sm">
-                    <span className="mr-3 relative top-[1px]">•</span>
-                    <p className="flex-1 text-sm">{i}</p>
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>}
+          {data?.base?.course_series_requirement?.length > 0 && (
+            <div className="py-4">
+              <h6 className="font-bold leading-6 ">Requirements</h6>
+              {data?.base?.course_series_requirement?.map((i, k) => (
+                <div key={`requirements-${k}`} className="mt-3 flex items-center text-sm">
+                  {i !== '' && (
+                    <div className="flex items-start text-sm">
+                      <span className="mr-3 relative top-[1px]">•</span>
+                      <p className="flex-1 text-sm">{i}</p>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
           {data?.base?.course_series_requirement?.length > 0 && <hr className="border-gray-400" />}
-          {
-            data?.base?.course_series_what_content?.length > 0 && <div className="py-4 pb-14">
+          {data?.base?.course_series_what_content?.length > 0 && (
+            <div className="py-4 pb-14">
               <h6 className="font-bold leading-6 ">Take Away</h6>
               {data?.base?.course_series_what_content?.map(
                 (i, k) =>
@@ -607,11 +704,10 @@ export function LearnRightCard({ data, type, permission, related }) {
                       <CheckIcon className="mr-1 h-4 w-4 relative top-[3px]" />
                       <p className="flex-1">{i}</p>
                     </div>
-                  )
+                  ),
               )}
             </div>
-          }
-
+          )}
         </div>
       )}
 

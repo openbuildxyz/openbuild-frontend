@@ -18,16 +18,17 @@
 'use client';
 
 import clsx from 'clsx';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { Transition } from '@/components/control';
 import { ListBulletIcon } from '@/components/icon/outlined';
+import useMounted from '@/hooks/useMounted';
 
 export function Menu() {
   const [anchors, setAnchors] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
 
-  useEffect(() => {
+  useMounted(() => {
     setTimeout(() => {
       const article = document.querySelector('.markdown-body');
       const hs = article.querySelectorAll('h1, h2');
@@ -35,11 +36,11 @@ export function Menu() {
       hs.forEach((item, idx) => {
         const h = item.nodeName.substring(0, 2).toLowerCase();
         item.setAttribute('id', `Anchor-${h}-${idx}`);
-        anchor.push({id: `Anchor-${h}-${idx}`, text: item.textContent});
+        anchor.push({ id: `Anchor-${h}-${idx}`, text: item.textContent });
       });
       setAnchors(anchor);
     }, 500);
-  }, []);
+  });
 
   const scrollToElement = id => {
     window.scrollTo({
@@ -52,8 +53,11 @@ export function Menu() {
 
   return (
     <div className={clsx('relative')}>
-      <div onClick={() => setIsOpen(!isOpen)} className="bg-[#EFEFEF] py-2 px-3 text-sm rounded cursor-pointer hover:opacity-80 transition-opacity marker:hidden">
-        <ListBulletIcon className="h-5 w-5"/>
+      <div
+        onClick={() => setIsOpen(!isOpen)}
+        className="bg-[#EFEFEF] py-2 px-3 text-sm rounded cursor-pointer hover:opacity-80 transition-opacity marker:hidden"
+      >
+        <ListBulletIcon className="h-5 w-5" />
       </div>
       <Transition
         show={isOpen}
@@ -65,20 +69,18 @@ export function Menu() {
         leaveTo="opacity-0"
       >
         <ul className="absolute top-12 right-0 menu bg-base-100 rounded-box z-[1] w-96 p-2 shadow">
-          {
-            anchors.map(i => (
-              <li
-                key={i.id}
-                className={clsx('break-all py-2 cursor-pointer rounded hover:bg-gray-400', {
-                  'pl-4 text-sm font-bold': i.id[8] === '1',
-                  'pl-4 ml-4 text-xs text-gray-100': i.id[8] === '2',
-                })}
-                onClick={() => scrollToElement(i.id)}
-              >
-                {i.text}
-              </li>
-            ))
-          }
+          {anchors.map(i => (
+            <li
+              key={i.id}
+              className={clsx('break-all py-2 cursor-pointer rounded hover:bg-gray-400', {
+                'pl-4 text-sm font-bold': i.id[8] === '1',
+                'pl-4 ml-4 text-xs text-gray-100': i.id[8] === '2',
+              })}
+              onClick={() => scrollToElement(i.id)}
+            >
+              {i.text}
+            </li>
+          ))}
         </ul>
       </Transition>
       {/* { && } */}
