@@ -39,4 +39,8 @@ function _getAppConfig(config, keyPath) {
 
 const getAppConfig = _getAppConfig.bind(null, appConfig);
 
-export { _getAppConfig, getAppConfig };
+function getCopyrightText() {
+  return `© ${new Date().getFullYear()} OpenBuild, All rights reserved.`;
+}
+
+export { _getAppConfig, getAppConfig, getCopyrightText };

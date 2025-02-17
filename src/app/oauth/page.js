@@ -26,6 +26,7 @@ import { Button } from '@/components/Button';
 import { SvgIcon } from '@/components/Image';
 import Loader from '@/components/Loader';
 import useMounted from '@/hooks/useMounted';
+import { getCopyrightText } from '@/utils/app';
 
 import { fetchOauthClientInfo, fetchOauthClientCode } from '#/domain/auth/repository';
 
@@ -128,9 +129,7 @@ export default function Page() {
         </div>
         <footer className="flex absolute bottom-9 gap-3 items-center">
           <Image className="h-4 w-auto" src={Logo} alt="" />
-          <span className="text-sm leading-[24px] opacity-60">
-          © 2023 OpenBuild, All rights reserved.
-          </span>
+          <span className="text-sm leading-[24px] opacity-60">{getCopyrightText()}</span>
         </footer>
       </div>
     )
