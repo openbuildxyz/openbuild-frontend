@@ -33,14 +33,14 @@ import TabBarWidget from '../../widgets/tab-bar';
 import CustomContent from './CustomContent';
 import LatestActivityList from './LatestActivityList';
 
-const resolveTabs = published => {
+function resolveTabs(published) {
   return [
     {
       text: 'Open Course',
       node: (
         <>
           <span className="inline md:hidden">Courses</span>
-          <span className="hidden md:inline">Open Course({published?.['open_course_num'] ?? 0})</span>
+          <span className="hidden md:inline">Open Course ({published?.open_course_num ?? 0})</span>
         </>
       ),
       view: PublishedCourseListView,
@@ -50,7 +50,7 @@ const resolveTabs = published => {
       node: (
         <>
           <span className="inline md:hidden">Challenge</span>
-          <span className="hidden md:inline">Challenges({published?.['challenge_num'] ?? 0})</span>
+          <span className="hidden md:inline">Challenges ({published?.challenge_num ?? 0})</span>
         </>
       ),
       view: PublishedChallengeListView,
@@ -60,7 +60,7 @@ const resolveTabs = published => {
       node: (
         <>
           <span className="inline md:hidden">Bounty</span>
-          <span className="hidden md:inline">Bounty({published?.['bounty_num'] ?? 0})</span>
+          <span className="hidden md:inline">Bounty ({published?.bounty_num ?? 0})</span>
         </>
       ),
       view: PublishedBountyListView,
@@ -70,7 +70,7 @@ const resolveTabs = published => {
       node: (
         <>
           <span className="inline md:hidden">Quiz</span>
-          <span className="hidden md:inline">Quiz({published?.['quiz_num'] ?? 0})</span>
+          <span className="hidden md:inline">Quiz ({published?.quiz_num ?? 0})</span>
         </>
       ),
       view: PublishedQuizListView,

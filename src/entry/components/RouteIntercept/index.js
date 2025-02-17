@@ -20,6 +20,15 @@ import { useSession } from 'next-auth/react';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
+import { isFunction } from '@/utils';
+
+const signedInRequired = [
+  'profile',
+  'dashboard',
+  pathname => pathname.includes('creator') && !pathname.startsWith('/u'),
+  'shilling-myself',
+];
+
 export function RouteIntercept() {
   const { status } = useSession();
   const pathname = usePathname();
@@ -27,8 +36,9 @@ export function RouteIntercept() {
 
   useEffect(() => {
     if (
-      status === 'unauthenticated' && 
-      (pathname.includes('profile') || pathname.includes('dashboard') || pathname.includes('creator') || pathname.includes('shilling-myself'))
+      status === 'unauthenticated' &&
+      // FIXME: use a more precise way to judge instead of `includes`
+      signedInRequired.some(checker => isFunction(checker) ? checker(pathname) : pathname.includes(checker))
     ) {
       router.push(`/signin?from=${pathname}`);
     }
