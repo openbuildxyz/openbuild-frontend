@@ -41,7 +41,7 @@ export default function MyReputationItem({ dataSource, onNotConnected, onMint })
 
   const mint = wrap(async ({ id, mint_chain_id }) => {
     setMintLoading(id);
-    mintNft({
+    await mintNft({
       id,
       chainId: mint_chain_id,
       contract: contracts[NFT_SUPPORTED_CHAIN()].nft,
@@ -60,7 +60,7 @@ export default function MyReputationItem({ dataSource, onNotConnected, onMint })
       onNotConnected();
     } else {
       setMintLoading(id);
-      fetchSuiTransactionBlock(id)
+      await fetchSuiTransactionBlock(id)
         .then(res => res.success && signAndExecuteTransactionBlock(
           {
             transactionBlock: res.data,
