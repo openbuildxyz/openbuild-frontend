@@ -14,13 +14,20 @@
  * limitations under the License.
  */
 
+import { ConnectModal } from '@mysten/dapp-kit';
+import { useState } from 'react';
+
+import { NoData } from '@/components/NoData';
 import useMounted from '@/hooks/useMounted';
 
 import { fetchMyReputationList } from '../../repository';
-import Skeleton from '../../widgets/nft-skeleton';
+import NftSkeletonWidget from '../../widgets/nft-skeleton';
 import MyReputationItem from './MyReputationItem';
 
-export default function MyReputationListView({ list, setOpen, loading, setLoading, setList }) {
+export default function MyReputationListView() {
+  const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [list, setList] = useState([]);
 
   useMounted(() => {
     fetchData();
@@ -29,16 +36,23 @@ export default function MyReputationListView({ list, setOpen, loading, setLoadin
   const fetchData = () => {
     setLoading(true);
     fetchMyReputationList()
-      .then(res => setList(res.data.list || []))
+      .then(res => res.success && setList(res.data.list))
       .finally(() => setLoading(false));
   };
 
   return (
     <>
-      {loading && [...new Array(6).fill('')].map((i, k) => <Skeleton key={`achievement-skeleton-${k}`} />)}
-      {list?.map(i => (
-        <MyReputationItem key={`achievement-${i.id}`} dataSource={i} onNotConnected={() => setOpen(true)} onMint={fetchData} />
-      ))}
+      <div className="grid grid-cols-2 gap-4">
+        {loading && [...new Array(6).fill('')].map((_, k) => <NftSkeletonWidget key={`achievement-skeleton-${k}`} />)}
+        {list?.map(i => (
+          <MyReputationItem key={`achievement-${i.id}`} dataSource={i} onMint={fetchData} onNotConnected={() => setOpen(true)} />
+        ))}
+      </div>
+      {list && list.length === 0 && <NoData />}
+      <ConnectModal
+        open={open}
+        onOpenChange={isOpen => setOpen(isOpen)}
+      />
     </>
   );
 }

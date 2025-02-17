@@ -17,11 +17,10 @@
 import { TransactionBlock } from '@mysten/sui.js/transactions';
 import { writeContract } from '@wagmi/core';
 import { waitForTransaction } from '@wagmi/core';
-import { toast } from 'react-toastify';
 
 import httpClient from '@/utils/http';
 
-import { NFTAbi } from './constants/abis/nft';
+import nftAbi from './helper/nftAbi';
 
 async function fetchGainedReputationList(userId) {
   return httpClient.get(`/nft/general/public/${userId}/infos`);
@@ -39,68 +38,56 @@ async function nftSign(id) {
   return httpClient.get(`/nft/general/infos/${id}/sign`);
 }
 
-async function suiNftSign(id) {
-  return httpClient.get(`/nft/general/infos/${id}/sign/move`);
-}
-
-async function sendMintedHash(id, hash, chainId) {
+async function sendMintedHash({ id, chainId, hash }) {
   return await httpClient.post(`/nft/general/infos/${id}/hash`, { mint_hash: hash, mint_chain_id: chainId });
 }
 
-async function mintAndRecordNFT(NFT_SUPPORTED_CHAIN, address, item, user, signRes) {
-  const { hash } = await writeContract({
-    address: contracts[NFT_SUPPORTED_CHAIN()].nft,
-    abi: NFTAbi,
-    functionName: 'safeMint',
-    args: [address, item.id, user?.base.user_id, signRes.data.url, signRes.data.hash, signRes.data.sign],
-  });
-  await waitForTransaction({ hash });
-  await sendMintedHash(item.id, hash, item.mint_chain_id);
-}
+async function mintNft({ id, chainId, contract, address, userId }) {
+  const signRes = await nftSign(id);
 
-async function mintAndRecordSuiNFT(item, signAndExecuteTransactionBlock, setMintLoading, onMint) {
-  const txb = new TransactionBlock();
-  const res = await suiNftSign(item.id);
-  if (res.code === 200) {
-    txb.moveCall({
-      target: `${res.data.contract.package_id}::openbuild_nft::mint`,
-      arguments: [
-        // Mint Record
-        txb.object(res.data.contract.mint_record),
-        // Mint Cap
-        txb.object(res.data.contract.mint_cap),
-        // nft id
-        txb.pure(res.data.id),
-        // image_url
-        txb.pure(res.data.url),
-        txb.pure(res.data.sign),
-      ],
-    });
-    signAndExecuteTransactionBlock(
-      {
-        transactionBlock: txb,
-        options: {
-          showObjectChanges: true,
-        },
-      },
-      {
-        onError: err => {
-          console.log(err, 'err');
-          toast.error(err.message);
-          setMintLoading(null);
-        },
-        onSuccess: async result => {
-          await sendMintedHash(item.id, result.digest, item.mint_chain_id);
-          toast.success('Mint success');
-          setMintLoading(null);
-          onMint();
-        },
-      },
-    );
-  } else {
-    toast.error(res.message);
-    setMintLoading(null);
+  if (!signRes.success) {
+    return signRes;
   }
+
+  const signed = signRes.data;
+  const { hash } = await writeContract({
+    address: contract,
+    abi: nftAbi,
+    functionName: 'safeMint',
+    args: [address, id, userId, signed.url, signed.hash, signed.sign],
+  });
+
+  await waitForTransaction({ hash });
+
+  return sendMintedHash({ id, chainId, hash });
 }
 
-export { fetchGainedReputationList, fetchMyReputationList, fetchNftInfo, nftSign, suiNftSign, sendMintedHash, mintAndRecordNFT, mintAndRecordSuiNFT };
+async function fetchSuiTransactionBlock(id) {
+  const res = await httpClient.get(`/nft/general/infos/${id}/sign/move`);
+
+  if (!res.success) {
+    return res;
+  }
+
+  const { data, ...others } = res;
+  const txb = new TransactionBlock();
+
+  txb.moveCall({
+    target: `${data.contract.package_id}::openbuild_nft::mint`,
+    arguments: [
+      // Mint Record
+      txb.object(data.contract.mint_record),
+      // Mint Cap
+      txb.object(data.contract.mint_cap),
+      // nft id
+      txb.pure(data.id),
+      // image_url
+      txb.pure(data.url),
+      txb.pure(data.sign),
+    ],
+  });
+
+  return { ...others, data: txb };
+}
+
+export { fetchGainedReputationList, fetchMyReputationList, fetchNftInfo, sendMintedHash, mintNft, fetchSuiTransactionBlock };

@@ -19,33 +19,35 @@
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useState, useEffect, useCallback } from 'react';
+import { useState } from 'react';
 
 import { Button } from '@/components/Button';
+import useMounted from '@/hooks/useMounted';
 import { formatTime } from '@/utils/date';
 
-import { Skeleton } from '#/domain/reputation/widgets/nft-skeleton';
+import { fetchNftInfo, NftSkeletonWidget } from '#/domain/reputation';
 import { useMediaUrl } from '#/state/application/hooks';
 
 export default function NftInfo() {
   const { status } = useSession();
   const router = useRouter();
   const params = useSearchParams();
-  const ticket = params?.get('ticket');
   const [loading, setLoading] = useState(false);
-  const [info, setInfo] = useState([]);
+  const [info, setInfo] = useState();
   const mediaUrl = useMediaUrl();
 
-  useEffect(() => {
-    fetchData(ticket);
-  }, [ticket, fetchData]);
+  useMounted(() => {
+    const ticket = params?.get('ticket');
 
-  const fetchData = useCallback(() => {
+    if (!ticket) {
+      return;
+    }
+
     setLoading(true);
     fetchNftInfo(ticket)
-      .then(res => setInfo(res.data))
+      .then(res => res.success && setInfo(res.data))
       .finally(() => setLoading(false));
-  }, [ticket]);
+  });
 
   return (
     <div>
@@ -56,7 +58,7 @@ export default function NftInfo() {
 
         {loading && (
           <div className="w-[600px] px-4 py-14 md:px-14">
-            <Skeleton />
+            <NftSkeletonWidget />
           </div>
         )}
         {!loading && (
@@ -72,7 +74,7 @@ export default function NftInfo() {
             )}
 
             <div className="bottom-3 px-3">
-              <h3 className="mb-1 text-lg font-medium">{info.title}</h3>
+              <h3 className="mb-1 text-lg font-medium">{info?.title}</h3>
               <p className="flex items-center text-[13px]">
                 <span className="leading-3 opacity-60">
                   Authenticated by  <a href={`/u/${info?.issuer_user?.user_handle}`} className="mx-1">{info?.issuer_user?.user_nick_name}</a>

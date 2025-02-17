@@ -15,31 +15,16 @@
  */
 
 'use client';
-import { ConnectModal } from '@mysten/dapp-kit';
-import { useState } from 'react';
 
-import { NoData } from '@/components/NoData';
-
-import MyReputationList from '#/domain/reputation/views/my-reputation-list';
+import { MyReputationListView } from '#/domain/reputation';
 
 export default function Page() {
-  const [open, setOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [list, setList] = useState([]);
-
   return (
     <div className="pb-12">
-      <ConnectModal
-        open={open}
-        onOpenChange={isOpen => setOpen(isOpen)}
-      />
       <div className="mb-8 flex items-center justify-between">
         <h1 className="text-[32px] font-bold">Achievements</h1>
       </div>
-      <div className="grid grid-cols-2 gap-4">
-        <MyReputationList list={list} setOpen={setOpen} loading={loading} setLoading={setLoading} setList={setList} />
-      </div>
-      {list && list.length === 0 && <NoData />}
+      <MyReputationListView />
     </div>
   );
 }

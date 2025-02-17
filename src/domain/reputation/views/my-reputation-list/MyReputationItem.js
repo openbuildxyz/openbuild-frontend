@@ -22,12 +22,13 @@ import { useAccount, useSwitchNetwork } from 'wagmi';
 
 import { Button } from '@/components/Button';
 import { NFT_SUPPORTED_CHAIN } from '@/constants/chain';
+import { contracts } from '@/constants/contract';
 import { formatTime } from '@/utils/date';
 
-import useEnsureRightEnv from '#/domain/auth/hooks/useEnsureRightEnv';
 import { useMediaUrl, useUser } from '#/state/application/hooks';
 
-import { nftSign, mintAndRecordNFT, mintAndRecordSuiNFT } from '../../repository';
+import useEnsureRightEnv from '../../../auth/hooks/useEnsureRightEnv';
+import { mintNft, fetchSuiTransactionBlock, sendMintedHash } from '../../repository';
 
 export default function MyReputationItem({ dataSource, onNotConnected, onMint }) {
   const { address } = useAccount();
@@ -37,28 +38,49 @@ export default function MyReputationItem({ dataSource, onNotConnected, onMint })
   const mediaUrl = useMediaUrl();
 
   const { wrap } = useEnsureRightEnv({ chainId: NFT_SUPPORTED_CHAIN(), autoConnect: true, walletRequired: true });
-  
-  const mint = wrap(async item => {
-    setMintLoading(item.id);
-    const signRes = await nftSign(item.id);
-    if (signRes.code === 200) {
-      await mintAndRecordNFT(NFT_SUPPORTED_CHAIN, address, item, user, signRes);
-      setMintLoading(null);
-      onMint();
-    } else {
-      toast.error(signRes.message);
-    }
+
+  const mint = wrap(async ({ id, mint_chain_id }) => {
+    setMintLoading(id);
+    mintNft({
+      id,
+      chainId: mint_chain_id,
+      contract: contracts[NFT_SUPPORTED_CHAIN()].nft,
+      address,
+      userId: user?.base.user_id,
+    })
+      .then(res => res.success && onMint())
+      .finally(() => setMintLoading(null));
   });
 
   const currentAccount = useCurrentAccount();
   const { mutate: signAndExecuteTransactionBlock } = useSignAndExecuteTransactionBlock();
 
-  const suiMint = async item => {
+  const suiMint = async ({ id, mint_chain_id }) => {
     if (!currentAccount) {
       onNotConnected();
     } else {
-      setMintLoading(item.id);
-      await mintAndRecordSuiNFT(item, signAndExecuteTransactionBlock, setMintLoading, onMint);
+      setMintLoading(id);
+      fetchSuiTransactionBlock(id)
+        .then(res => res.success && signAndExecuteTransactionBlock(
+          {
+            transactionBlock: res.data,
+            options: {
+              showObjectChanges: true,
+            },
+          },
+          {
+            onError: err => {
+              console.log(err, 'err');
+              toast.error(err.message);
+            },
+            onSuccess: async ({ digest }) => {
+              await sendMintedHash({ id, chainId: mint_chain_id, hash: digest });
+              toast.success('Mint success');
+              onMint();
+            },
+          },
+        ))
+        .finally(() => setMintLoading(null));
     }
   };
 
