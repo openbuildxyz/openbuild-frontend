@@ -88,7 +88,7 @@ export default function Page() {
           <div className="absolute top-1/2 left-0 w-full border-b-2 border-dashed border-[#d1d9e0]" />
           <div className="flex items-center justify-between py-9">
             <div className="relative bg-white rounded-full size-[60px] md:size-[100px]">
-              <img src={clientInfo?.logo} alt="Logo" className="!size-full" />
+              <img src={clientInfo?.icon} alt="Logo" className="!size-full" />
             </div>
             <div className="flex items-center gap-2 relative">
               <SvgIcon name="circle-check" size={20} />
