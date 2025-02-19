@@ -15,6 +15,7 @@
  */
 
 'use client';
+
 import { formatTime } from '@/utils/date';
 
 import { ChallengesStatus } from '../ChallengesStatus';

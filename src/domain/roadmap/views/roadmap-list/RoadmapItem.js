@@ -14,18 +14,16 @@
  * limitations under the License.
  */
 
-'use client';
 import BigNumber from 'bignumber.js';
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
 import { useMemo } from 'react';
 
 import { ArrowRightIcon } from '@/components/Icons';
 import { ProgressBar } from '@/components/ProgressBar';
 
-import { CardTitle } from '../CardTitle';
+import { CardTitleWidget } from '../../../course';
 
-export function GrowPathCard({ data }) {
+function RoadmapItem({ data }) {
 
   const _progNum = useMemo(() => {
     if (data.analytics.analytice_user_end) {
@@ -40,14 +38,12 @@ export function GrowPathCard({ data }) {
     }
   }, [data.analytics]);
 
-  const params = useParams();
-
   return (
     <Link
       href={`/learn/career_path/${data.base.id}`}
       className="flex overflow-hidden flex-col group relative cursor-pointer rounded-2xl bg-white shadow-lg transition-shadow hover:shadow-lg md:shadow-none"
     >
-      <CardTitle img={data.base.img} type={params.type} />
+      <CardTitleWidget img={data.base.img} />
 
       <div className="border-b border-gray-400 px-6 py-4 flex-1">
         <h6 className="h-12 text-lg font-bold leading-6 line-clamp-2 mb-2">
@@ -75,8 +71,8 @@ export function GrowPathCard({ data }) {
         </div>
         <ArrowRightIcon className="h-3 w-[18px]" />
       </div>
-
-
     </Link>
   );
 }
+
+export default RoadmapItem;

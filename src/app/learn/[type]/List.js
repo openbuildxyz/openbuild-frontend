@@ -15,41 +15,36 @@
  */
 
 'use client';
-import clsx from 'clsx';
 
-import { OPagination } from '@/components/Pagination';
-
+import ChallengeListView from '#/domain/challenge/views/challenge-list';
+import CourseListView from '#/domain/course/views/course-list';
+import RoadmapListView from '#/domain/roadmap/views/roadmap-list';
 import { useOpenFilter } from '#/state/application/hooks';
 
-import { ChallengesCard } from './ChallengesCard';
-import { CourseCard } from './CourseCard';
-import { GrowPathCard } from './GrowPathCard';
-
-const CardComponents = {
-  courses: CourseCard,
-  challenges: ChallengesCard,
-  career_path: GrowPathCard,
+const viewWidgetMap = {
+  courses: CourseListView,
+  challenges: ChallengeListView,
+  career_path: RoadmapListView,
 };
 
 export function List({ type, data }) {
   const openFilter = useOpenFilter();
-  const CardComponent = CardComponents[type];
+  const ListViewWidget = viewWidgetMap[type];
+
+  const otherClassNames = {
+    'lg:grid-cols-2': openFilter,
+    'lg:grid-cols-3': !openFilter,
+    'xl:grid-cols-3': openFilter,
+    'xl:grid-cols-4': !openFilter,
+    '3xl:grid-cols-4': openFilter,
+    '3xl:grid-cols-5': !openFilter,
+  };
 
   return (
     <div>
-      <div
-        className={clsx('mb-9 mt-6 grid gap-5 md:grid-cols-3', {
-          'lg:grid-cols-2': openFilter,
-          'lg:grid-cols-3': !openFilter,
-          'xl:grid-cols-3': openFilter,
-          'xl:grid-cols-4': !openFilter,
-          '3xl:grid-cols-4': openFilter,
-          '3xl:grid-cols-5': !openFilter,
-        })}
-      >
-        {CardComponent && data.list?.map(i => <CardComponent data={i} key={`${type}-${i.base.course_series_id}`} />)}
-      </div>
-      <OPagination total={data.count} />
+      {ListViewWidget && (
+        <ListViewWidget className={otherClassNames} data={data.list} total={data.count} />
+      )}
     </div>
   );
 }
