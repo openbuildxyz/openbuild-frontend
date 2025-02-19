@@ -18,7 +18,7 @@ import { Suspense } from 'react';
 
 import { Filter } from '@/components/Filter';
 
-import { StartOnOpenBuild } from '#/entry/components/StartOnOpenBuild';
+import StartOnOpenBuild from '#/entry/components/StartOnOpenBuild';
 
 import { ChallengesFilter } from '../ChallengesFilter';
 import { Title } from '../Title';

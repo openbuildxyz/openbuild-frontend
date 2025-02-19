@@ -14,7 +14,5 @@
  * limitations under the License.
  */
 
-export { default as BuilderListWidget } from './widgets/builder-list';
-export { default as CardTitleWidget } from './widgets/card-title';
-
-export { default as CourseListViewWidget } from './views/course-list';
+export { default as RoadmapListViewWidget } from './views/roadmap-list';
+export { default as RoadmapDetailViewWidget } from './views/roadmap-detail';

@@ -14,10 +14,8 @@
  * limitations under the License.
  */
 
-'use client';
 import BigNumber from 'bignumber.js';
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
 import { useMemo } from 'react';
 import ContentEditable from 'react-contenteditable';
 
@@ -27,12 +25,12 @@ import { millisecondFormat } from '@/utils/date';
 
 import { useConfig } from '#/state/application/hooks';
 
-import { CardProgress } from '../CardProgress';
-import { CardTitle } from '../CardTitle';
+import CardTitleWidget from '../../widgets/card-title';
+import CourseProgress from './CourseProgress';
 
 const typeStyle = 'inline-block mb-1 text-xs border border-gray-600 rounded-md leading-[14px] rounded-md px-2 py-1 opacity-60 mr-1';
 
-export function CourseCard({ data, target, from }) {
+function CourseItem({ data, from }) {
   const configs = useConfig();
   const tags = useMemo(() => {
     const _filters = configs && configs.find(f => f.config_id === 1);
@@ -71,16 +69,14 @@ export function CourseCard({ data, target, from }) {
     }
   }, [data.analytics]);
 
-  const params = useParams();
-
   return (
     <Link
-      target={target ? target : '_self'}
+      target={from ? '_blank' : '_self'}
       href={`/learn/courses/${data.base.course_series_id}${from ? ('?'+from) : ''}`}
       className="flex overflow-hidden flex-col group relative cursor-pointer rounded-2xl bg-white shadow-lg transition-shadow hover:shadow-lg md:shadow-none"
     >
 
-      <CardTitle img={data.base.course_series_img} tags={tags} type={params.type} />
+      <CardTitleWidget img={data.base.course_series_img} showStatus />
 
       <div className="border-b border-gray-400 px-6 py-4 flex-1">
         <h6 className="max-h-12 text-lg font-bold leading-6 line-clamp-2 mb-2">
@@ -113,7 +109,9 @@ export function CourseCard({ data, target, from }) {
           <p className="ml-2 text-sm">{millisecondFormat(data.base.course_series_estimated_time)}</p>
         </div>
       </div>
-      <CardProgress value={Number(_progNum)} />
+      <CourseProgress value={Number(_progNum)} />
     </Link>
   );
 }
+
+export default CourseItem;

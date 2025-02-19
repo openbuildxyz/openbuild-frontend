@@ -14,7 +14,23 @@
  * limitations under the License.
  */
 
-export { default as BuilderListWidget } from './widgets/builder-list';
-export { default as CardTitleWidget } from './widgets/card-title';
+import clsx from 'clsx';
 
-export { default as CourseListViewWidget } from './views/course-list';
+import { OPagination } from '@/components/Pagination';
+
+import RoadmapItem from './RoadmapItem';
+
+function RoadmapListView({ className, data = [], total = 0 }) {
+  return (
+    <>
+      <div
+        className={clsx('mb-9 mt-6 grid gap-5 md:grid-cols-3', className)}
+      >
+        {data.map(item => <RoadmapItem data={item} key={`roadmap-${item.base.course_series_id}`} />)}
+      </div>
+      <OPagination total={total} />
+    </>
+  );
+}
+
+export default RoadmapListView;

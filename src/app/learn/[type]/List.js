@@ -15,41 +15,48 @@
  */
 
 'use client';
+
 import clsx from 'clsx';
 
-import { OPagination } from '@/components/Pagination';
-
+import { ChallengeListViewWidget } from '#/domain/challenge';
+import { CourseListViewWidget } from '#/domain/course';
+import { RoadmapListViewWidget } from '#/domain/roadmap';
 import { useOpenFilter } from '#/state/application/hooks';
 
-import { ChallengesCard } from './ChallengesCard';
-import { CourseCard } from './CourseCard';
-import { GrowPathCard } from './GrowPathCard';
-
-const CardComponents = {
-  courses: CourseCard,
-  challenges: ChallengesCard,
-  career_path: GrowPathCard,
+const viewMap = {
+  courses: {
+    widget: CourseListViewWidget,
+    className: 'mb-9 mt-6 gap-5 md:grid-cols-3',
+  },
+  challenges: {
+    widget: ChallengeListViewWidget,
+  },
+  career_path: {
+    widget: RoadmapListViewWidget,
+  },
 };
 
 export function List({ type, data }) {
   const openFilter = useOpenFilter();
-  const CardComponent = CardComponents[type];
+  const view = viewMap[type];
+
+  if (!view) {
+    return null;
+  }
+
+  const otherClassNames = {
+    'lg:grid-cols-2': openFilter,
+    'lg:grid-cols-3': !openFilter,
+    'xl:grid-cols-3': openFilter,
+    'xl:grid-cols-4': !openFilter,
+    '3xl:grid-cols-4': openFilter,
+    '3xl:grid-cols-5': !openFilter,
+  };
+  const ListViewWidget = view.widget;
 
   return (
     <div>
-      <div
-        className={clsx('mb-9 mt-6 grid gap-5 md:grid-cols-3', {
-          'lg:grid-cols-2': openFilter,
-          'lg:grid-cols-3': !openFilter,
-          'xl:grid-cols-3': openFilter,
-          'xl:grid-cols-4': !openFilter,
-          '3xl:grid-cols-4': openFilter,
-          '3xl:grid-cols-5': !openFilter,
-        })}
-      >
-        {CardComponent && data.list?.map(i => <CardComponent data={i} key={`${type}-${i.base.course_series_id}`} />)}
-      </div>
-      <OPagination total={data.count} />
+      <ListViewWidget className={clsx(view.className, otherClassNames)} data={data.list} total={data.count} />
     </div>
   );
 }

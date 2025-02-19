@@ -27,7 +27,7 @@ import { useState } from 'react';
 import { ArrowRightIcon } from '@/components/Icons';
 
 import QuizListView from '#/domain/quiz/views/quiz-list-view';
-import { StartOnOpenBuild } from '#/entry/components/StartOnOpenBuild';
+import StartOnOpenBuild from '#/entry/components/StartOnOpenBuild';
 import useMounted from '#/shared/hooks/useMounted';
 
 const Steps = [

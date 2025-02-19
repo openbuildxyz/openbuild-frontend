@@ -14,7 +14,26 @@
  * limitations under the License.
  */
 
-export { default as BuilderListWidget } from './widgets/builder-list';
-export { default as CardTitleWidget } from './widgets/card-title';
+import clsx from 'clsx';
 
-export { default as CourseListViewWidget } from './views/course-list';
+import { OPagination } from '@/components/Pagination';
+import { isInteger } from '@/utils';
+
+import CourseItem from './CourseItem';
+
+function CourseListView({ className, data = [], total, source }) {
+  return (
+    <>
+      <div
+        className={clsx('grid', className)}
+      >
+        {data.map(item => (
+          <CourseItem key={`course-${item.base.course_series_id}`} data={item} from={source} />
+        ))}
+      </div>
+      {isInteger(total) && <OPagination total={total} />}
+    </>
+  );
+}
+
+export default CourseListView;

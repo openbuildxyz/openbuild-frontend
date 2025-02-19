@@ -28,11 +28,12 @@ function RunLlmWidget() {
       src="https://widget.runllm.com"
       version="stable"
       runllm-theme-color="#64d88b"
-      runllm-brand-logo="/favicon.svg"
+      runllm-brand-logo="/catbot.svg"
       runllm-keyboard-shortcut="Mod+j"
       runllm-name="OpenBuild"
       runllm-position="BOTTOM_RIGHT"
       runllm-assistant-id="328"
+      runllm-floating-button-text=""
       async
     />
   );
