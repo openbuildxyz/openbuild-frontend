@@ -30,7 +30,7 @@ import CourseProgress from './CourseProgress';
 
 const typeStyle = 'inline-block mb-1 text-xs border border-gray-600 rounded-md leading-[14px] rounded-md px-2 py-1 opacity-60 mr-1';
 
-function CourseItem({ data, target, from }) {
+function CourseItem({ data, from }) {
   const configs = useConfig();
   const tags = useMemo(() => {
     const _filters = configs && configs.find(f => f.config_id === 1);
@@ -71,7 +71,7 @@ function CourseItem({ data, target, from }) {
 
   return (
     <Link
-      target={target ? target : '_self'}
+      target={from ? '_blank' : '_self'}
       href={`/learn/courses/${data.base.course_series_id}${from ? ('?'+from) : ''}`}
       className="flex overflow-hidden flex-col group relative cursor-pointer rounded-2xl bg-white shadow-lg transition-shadow hover:shadow-lg md:shadow-none"
     >

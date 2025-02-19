@@ -22,7 +22,7 @@ import { Chapters } from '../../Chapters';
 import { Speaker } from '../../Speaker';
 import { Author } from './Author';
 import { Back } from './Back';
-import { GrowPath } from './GrowPath';
+import GrowPath from './GrowPath';
 import { LearnInfo } from './LearnInfo';
 import { LearnRightCard } from './RightCard';
 import { Summary, Title } from './Summary';
