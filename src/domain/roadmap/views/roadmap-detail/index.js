@@ -14,26 +14,4 @@
  * limitations under the License.
  */
 
-import clsx from 'clsx';
-
-import { OPagination } from '@/components/Pagination';
-import { isInteger } from '@/utils';
-
-import CourseItem from './CourseItem';
-
-function CourseListView({ className, data = [], total, source }) {
-  return (
-    <>
-      <div
-        className={clsx('grid', className)}
-      >
-        {data.map(item => (
-          <CourseItem key={`course-${item.base.course_series_id}`} data={item} from={source} />
-        ))}
-      </div>
-      {isInteger(total) && <OPagination total={total} />}
-    </>
-  );
-}
-
-export default CourseListView;
+export { default } from './RoadmapDetail';

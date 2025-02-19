@@ -16,20 +16,33 @@
 
 'use client';
 
+import clsx from 'clsx';
+
 import ChallengeListView from '#/domain/challenge/views/challenge-list';
 import CourseListView from '#/domain/course/views/course-list';
 import RoadmapListView from '#/domain/roadmap/views/roadmap-list';
 import { useOpenFilter } from '#/state/application/hooks';
 
-const viewWidgetMap = {
-  courses: CourseListView,
-  challenges: ChallengeListView,
-  career_path: RoadmapListView,
+const viewMap = {
+  courses: {
+    widget: CourseListView,
+    className: 'mb-9 mt-6 gap-5 md:grid-cols-3',
+  },
+  challenges: {
+    widget: ChallengeListView,
+  },
+  career_path: {
+    widget: RoadmapListView,
+  },
 };
 
 export function List({ type, data }) {
   const openFilter = useOpenFilter();
-  const ListViewWidget = viewWidgetMap[type];
+  const view = viewMap[type];
+
+  if (!view) {
+    return null;
+  }
 
   const otherClassNames = {
     'lg:grid-cols-2': openFilter,
@@ -39,12 +52,11 @@ export function List({ type, data }) {
     '3xl:grid-cols-4': openFilter,
     '3xl:grid-cols-5': !openFilter,
   };
+  const ListViewWidget = view.widget;
 
   return (
     <div>
-      {ListViewWidget && (
-        <ListViewWidget className={otherClassNames} data={data.list} total={data.count} />
-      )}
+      <ListViewWidget className={clsx(view.className, otherClassNames)} data={data.list} total={data.count} />
     </div>
   );
 }
