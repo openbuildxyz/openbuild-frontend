@@ -23,7 +23,7 @@ import TaskPic from 'public/images/svg/task.svg';
 
 import { Button } from '@/components/Button';
 
-export function StartOnOpenBuild() {
+function StartOnOpenBuild() {
   const { status } = useSession();
   return (
     <div className="md:flex justify-between bg-green max-md:pt-4 md:py-[30px] px-11 relative">
@@ -59,3 +59,5 @@ export function StartOnOpenBuild() {
     </div>
   );
 }
+
+export default StartOnOpenBuild;

@@ -18,21 +18,21 @@
 
 import clsx from 'clsx';
 
-import ChallengeListView from '#/domain/challenge/views/challenge-list';
-import CourseListView from '#/domain/course/views/course-list';
-import RoadmapListView from '#/domain/roadmap/views/roadmap-list';
+import { ChallengeListViewWidget } from '#/domain/challenge';
+import { CourseListViewWidget } from '#/domain/course';
+import { RoadmapListViewWidget } from '#/domain/roadmap';
 import { useOpenFilter } from '#/state/application/hooks';
 
 const viewMap = {
   courses: {
-    widget: CourseListView,
+    widget: CourseListViewWidget,
     className: 'mb-9 mt-6 gap-5 md:grid-cols-3',
   },
   challenges: {
-    widget: ChallengeListView,
+    widget: ChallengeListViewWidget,
   },
   career_path: {
-    widget: RoadmapListView,
+    widget: RoadmapListViewWidget,
   },
 };
 
