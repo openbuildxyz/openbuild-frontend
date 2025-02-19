@@ -14,25 +14,19 @@
  * limitations under the License.
  */
 
-import { useState, useCallback, useEffect } from 'react';
+import { skeleton } from '@/constants/config';
 
-import { get } from '@/utils/request';
-
-export function useNftInfo(ticket) {
-  const [info, setInfo] = useState();
-  const [loading, setLoading] = useState(true);
-  const fetch = useCallback(async () => {
-    if (ticket) {
-      const res = await get(`ts/v1/nft/general/magiclink/verify?ticket=${ticket}`);
-      if (res.code === 200) {
-        setInfo(res.data);
-      }
-    }
-    setLoading(false);
-  }, [ticket]);
-
-  useEffect(() => {
-    fetch();
-  }, [fetch]);
-  return { info, loading };
+export default function NftSkeleton() {
+  return (
+    <div className="flex py-6">
+      <div className={`mr-4 h-[120px] rounded-full ${skeleton} !w-[120px]`} />
+      <div className="bottom-3 flex-1 px-3">
+        <div className={`mb-2 text-lg ${skeleton} h-[28px]`} />
+        <p className="flex items-center text-[13px]">
+          <span className={`mb-1 text-lg ${skeleton} h-[28px]`} />
+        </p>
+        <div className={`mt-5 ${skeleton} h-9 !w-[120px]`} />
+      </div>
+    </div>
+  );
 }

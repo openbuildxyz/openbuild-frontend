@@ -26,7 +26,7 @@ import { VideoIcon, AgreementIcon } from '@/components/Icons';
 import { ProgressBar } from '@/components/ProgressBar';
 import { millisecondFormat } from '@/utils/date';
 
-import { resolveChapter } from './helper';
+import { resolveChapter } from '#/domain/course/helper';
 
 export function reducerList(data) {
   const map = data?.courses?.reduce(

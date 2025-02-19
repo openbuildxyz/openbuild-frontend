@@ -22,6 +22,7 @@ import Link from 'next/link';
 import BrandLogo from '@/components/brand-logo';
 import { GithubSolidIcon, TwitterIcon, YoutobeIcon, DiscordIcon, LinkedInFilled, SubstackFilled } from '@/components/Icons';
 import { useFooterDisplay } from '@/hooks/useHeaderAndFooterDisplay';
+import { getCopyrightText } from '@/utils/app';
 
 const mediasLinkStyle =
   '[&>a]:flex [&>a]:h-8 [&>a]:w-8 [&>a]:items-center [&>a]:justify-center [&>a]:rounded [&>a]:bg-gray-700';
@@ -200,7 +201,7 @@ export function Footer() {
         </div>
       </div>
       <div className="flex justify-center border-t border-[rgba(255,255,255,0.06)] pt-6 md:justify-between md:pt-14">
-        <p className="text-xs md:text-sm">© 2023 OpenBuild, All rights reserved.</p>
+        <p className="text-xs md:text-sm">{getCopyrightText()}</p>
         {/* <div className="flex items-center">
           <p>EN</p>
           <SunIcon className="ml-3 h-5 w-5" />

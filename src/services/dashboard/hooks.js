@@ -56,23 +56,6 @@ export function useDashboardEnroolSeries({ skip, take, status, series_type }) {
   return { loading, list, hasNextPage, doSetList };
 }
 
-export function useDashboardNftList() {
-  const [list, setList] = useState();
-  const [loading, setLoading] = useState(true);
-  const fetch = useCallback(async () => {
-    const res = await get('ts/v1/nft/general/infos');
-    setLoading(false);
-    if (res.code === 200) {
-      setList(res.data.list);
-    }
-  }, []);
-  useEffect(() => {
-    fetch();
-  }, [fetch]);
-  const reFetch = () => fetch();
-  return { list, loading, reFetch };
-}
-
 export function useBountyList({ skip, take, title, status }) {
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(true);

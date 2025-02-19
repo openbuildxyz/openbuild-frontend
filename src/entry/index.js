@@ -24,6 +24,7 @@ import setInterceptorsForHttpClients from './aspects/http';
 import { Providers } from './components/Providers';
 import { RouteIntercept } from './components/RouteIntercept';
 import { RouterProgress } from './components/RouterProgress';
+import RunLlmWidget from './components/RunLlmWidget';
 import { Toast } from './components/Toast';
 
 setInterceptorsForHttpClients();
@@ -39,6 +40,7 @@ function ClientEntry({ config, children }) {
             <RouteIntercept />
           </ReduxProviders>
         </RouterProgress>
+        <RunLlmWidget />
       </AppConfigContext.Provider>
     </Providers>
   );

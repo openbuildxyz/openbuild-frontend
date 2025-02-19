@@ -14,17 +14,6 @@
  * limitations under the License.
  */
 
-'use client';
-
-import { MyReputationListView } from '#/domain/reputation';
-
-export default function Page() {
-  return (
-    <div className="pb-12">
-      <div className="mb-8 flex items-center justify-between">
-        <h1 className="text-[32px] font-bold">Achievements</h1>
-      </div>
-      <MyReputationListView />
-    </div>
-  );
-}
+export { fetchNftInfo } from './repository';
+export { default as NftSkeletonWidget } from './widgets/nft-skeleton';
+export { default as MyReputationListView } from './views/my-reputation-list';

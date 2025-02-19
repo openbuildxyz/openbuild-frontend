@@ -26,10 +26,10 @@ import { OViewer } from '@/components/MarkDown';
 import { Player } from '@/components/Player';
 import { Share } from '@/components/Share';
 
+import { resolveChapter } from '#/domain/course/helper';
 import { updateLessonMenu } from '#/state/application/reducer';
 import { useAppDispatch } from '#/state/hooks';
 
-import { resolveChapter } from '../../../helper';
 import LockedPlaceholder from './Locked';
 import { Menu } from './Menu';
 

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-export const NFTAbi = [
+const abi = [
   {
     inputs: [],
     stateMutability: 'nonpayable',
@@ -784,3 +784,5 @@ export const NFTAbi = [
     type: 'function',
   },
 ];
+
+export default abi;

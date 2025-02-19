@@ -30,6 +30,7 @@ import { post, fetcher } from '@/utils/request';
 import { useUser } from '#/state/application/hooks';
 
 import SocialInfoWidget from '../social-info';
+import IdentityInfo from './IdentityInfo';
 
 function ProfileCardWidget({ data }) {
   const router = useRouter();
@@ -41,6 +42,7 @@ function ProfileCardWidget({ data }) {
 
   const uid = data?.base.user_id;
   const handle = data?.base.user_handle;
+  const creatorAvailable = data.base?.user_project_owner;
 
   const follow = async () => {
     if (status !== 'authenticated') {
@@ -85,7 +87,7 @@ function ProfileCardWidget({ data }) {
         <h6 className="text-[24px] leading-none">
           <a href={`/u/${handle}`}>{data?.base.user_nick_name}</a>
         </h6>
-        {!data.base?.user_project_owner && <div className="flex items-center text-sm">
+        {!creatorAvailable && <div className="flex items-center text-sm">
           <RepositioningIcon className="mr-1" />
           <p className="text-sm opacity-60">
             {data.base?.user_city}, {data.base?.user_country}
@@ -113,7 +115,7 @@ function ProfileCardWidget({ data }) {
           <span className="!font-bold">Follow</span>
         </Button>
       )}
-      {/* {!data.base?.user_project_owner &&  <>
+      {/* {!creatorAvailable &&  <>
         <p className="mt-6 uppercase text-xs opacity-60 font-bold">Community</p>
         <div className="flex border border-gray-600 rounded gap-2 p-4 items-center">
           <Image width={36} height={36} className="rounded-full object-fill" src={'https://s3.us-west-1.amazonaws.com/file.openbuild.xyz/config/avatar/04.svg'} alt="avatar" />
@@ -124,6 +126,7 @@ function ProfileCardWidget({ data }) {
           <Link href="/" className="text-xs opacity-60">+ Follow</Link>
         </div>
       </>} */}
+      {creatorAvailable && <IdentityInfo userName={handle} />}
       <SocialInfoWidget className="hidden md:block" data={data} />
     </div>
   );

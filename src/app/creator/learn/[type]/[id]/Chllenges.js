@@ -25,7 +25,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 import  { BASE_INPUT_STYLE } from '@/constants/config';
 import { TIME_ZONE } from '@/constants/timezone';
-import range from '@/utils';
+import { range } from '@/utils';
 import { getTime } from '@/utils/date';
 
 import { SelectCountry } from '../../../../profile/SelectCountry';

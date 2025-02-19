@@ -25,9 +25,16 @@ import { ChallengesCard } from './ChallengesCard';
 import { CourseCard } from './CourseCard';
 import { GrowPathCard } from './GrowPathCard';
 
-export function List({type, data}) {
+const CardComponents = {
+  courses: CourseCard,
+  challenges: ChallengesCard,
+  career_path: GrowPathCard,
+};
+
+export function List({ type, data }) {
   const openFilter = useOpenFilter();
-  // console.log(data, 'datadatadatadata')
+  const CardComponent = CardComponents[type];
+
   return (
     <div>
       <div
@@ -40,11 +47,7 @@ export function List({type, data}) {
           '3xl:grid-cols-5': !openFilter,
         })}
       >
-        {type === 'courses' && data.list?.map(i => <CourseCard data={i} key={`open-courses-${i.base.course_series_id}`} />)}
-        {type === 'challenges' &&
-          data.list?.map(i => <ChallengesCard data={i} key={`Challenges-${i.base.course_series_id}`} />)}
-        {type === 'career_path' &&
-          data.list?.map(i => <GrowPathCard data={i} key={`GrowPathCard-${i.base.course_series_id}`} />)}
+        {CardComponent && data.list?.map(i => <CardComponent data={i} key={`${type}-${i.base.course_series_id}`} />)}
       </div>
       <OPagination total={data.count} />
     </div>

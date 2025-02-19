@@ -26,6 +26,7 @@ import { Button } from '@/components/Button';
 import { SvgIcon } from '@/components/Image';
 import Loader from '@/components/Loader';
 import useMounted from '@/hooks/useMounted';
+import { getCopyrightText } from '@/utils/app';
 
 import { fetchOauthClientInfo, fetchOauthClientCode } from '#/domain/auth/repository';
 
@@ -87,7 +88,7 @@ export default function Page() {
           <div className="absolute top-1/2 left-0 w-full border-b-2 border-dashed border-[#d1d9e0]" />
           <div className="flex items-center justify-between py-9">
             <div className="relative bg-white rounded-full size-[60px] md:size-[100px]">
-              <img src={clientInfo?.logo} alt="Logo" className="!size-full" />
+              <img src={clientInfo?.icon} alt="Logo" className="!size-full" />
             </div>
             <div className="flex items-center gap-2 relative">
               <SvgIcon name="circle-check" size={20} />
@@ -128,9 +129,7 @@ export default function Page() {
         </div>
         <footer className="flex absolute bottom-9 gap-3 items-center">
           <Image className="h-4 w-auto" src={Logo} alt="" />
-          <span className="text-sm leading-[24px] opacity-60">
-          © 2023 OpenBuild, All rights reserved.
-          </span>
+          <span className="text-sm leading-[24px] opacity-60">{getCopyrightText()}</span>
         </footer>
       </div>
     )
