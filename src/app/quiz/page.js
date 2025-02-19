@@ -26,7 +26,8 @@ import { useEffect,useState } from 'react';
 
 import { ArrowRightIcon } from '@/components/Icons';
 
-import { StartOnOpenBuild } from '../learn/StartOnOpenBuild';
+import StartOnOpenBuild from '#/entry/components/StartOnOpenBuild';
+
 import { QuizList } from './List';
 
 const Steps = [

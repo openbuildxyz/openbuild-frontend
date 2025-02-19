@@ -26,7 +26,7 @@ import { CheckCircleIcon } from '@/components/icon/solid';
 
 import { useMediaUrl } from '#/state/application/hooks';
 
-import CourseListView from '../../../course/views/course-list';
+import { CourseListViewWidget } from '../../../course';
 
 function StepList({ data, permission, roadmapId, executeEnroll }) {
   const mediaUrl = useMediaUrl();
@@ -81,7 +81,7 @@ function StepList({ data, permission, roadmapId, executeEnroll }) {
           <p className="max-w-[672px] mt-2">{i.info}</p>
           {
             i.step === 1 && i.extra_data?.length > 0 && (
-              <CourseListView className="mt-6 gap-4 grid-cols-3" data={i.extra_data} source={`from=career_path&fromid=${roadmapId}`} />
+              <CourseListViewWidget className="mt-6 gap-4 grid-cols-3" data={i.extra_data} source={`from=career_path&fromid=${roadmapId}`} />
             )
           }
           {i.img !== '' && <div className="mt-4">

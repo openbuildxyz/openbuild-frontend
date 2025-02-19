@@ -18,7 +18,7 @@
 
 import { Share } from '@/components/Share';
 
-import RoadmapDetailView from '#/domain/roadmap/views/roadmap-detail';
+import { RoadmapDetailViewWidget } from '#/domain/roadmap';
 
 import { growPathEnrollAction } from './actions';
 import { Back } from './Back';
@@ -32,7 +32,7 @@ function GrowPath({ params, data, permission }) {
   );
 
   return (
-    <RoadmapDetailView id={params.id} data={data} permission={permission} headerExtra={headerExtra} executeEnroll={growPathEnrollAction} />
+    <RoadmapDetailViewWidget id={params.id} data={data} permission={permission} headerExtra={headerExtra} executeEnroll={growPathEnrollAction} />
   );
 }
 

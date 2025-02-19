@@ -29,10 +29,10 @@ import { HistoryIcon } from '@/components/Icons';
 import { OViewer } from '@/components/MarkDown';
 import { fetcher } from '@/utils/request';
 
+import { CourseListViewWidget } from '#/domain/course';
 import QuizLimiterWidget from '#/domain/quiz/widgets/quiz-limiter';
 import { useMediaUrl } from '#/state/application/hooks';
 
-import { CourseCard } from '../../learn/[type]/CourseCard';
 import RankList from './RankList';
 import { RankListModal } from './RankListModal';
 import { Record } from './Record';
@@ -101,9 +101,7 @@ export default function Quiz({params}) {
         coursesList?.count > 0 && (
           <div className="max-w-[800px] max-md:mt-9 mx-6 md:mx-auto relative md:top-[-105px] max-md:pb-14">
             <h3 className="text-[18px] max-md:leading-[24px] md:text-lg mb-6">Related courses</h3>
-            <div className="grid gap-y-6 md:gap-4 md:grid-cols-2">
-              {coursesList?.list?.map(i => <CourseCard data={i} key={`open-courses-${i.base.course_series_id}`} />)}
-            </div>
+            <CourseListViewWidget className="gap-y-6 md:gap-4 md:grid-cols-2" data={coursesList?.list} />
           </div>)
       }
       <RankListModal quizId={params.id} shown={openRankList} onClose={() => setOpenRankList(false)}  rank={data?.my_rank}/>

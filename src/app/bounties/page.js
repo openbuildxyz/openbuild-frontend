@@ -18,7 +18,8 @@ import { Suspense } from 'react';
 
 import { Filter } from '@/components/Filter';
 
-import { StartOnOpenBuild } from '../learn/StartOnOpenBuild';
+import StartOnOpenBuild from '#/entry/components/StartOnOpenBuild';
+
 import { Title } from '../learn/Title';
 import { Container } from './Container';
 import { BountyFilter } from './Filter';

@@ -31,7 +31,6 @@ import { getAppConfig } from '@/utils/app';
 import { nunito_sans } from '#/lib/font';
 import { siteConfig } from '#/lib/site';
 import { getConfigs } from '#/services/common';
-// import { StartOnOpenBuild } from '@/components/StartOnOpenBuild'
 
 import ClientEntry from '../entry';
 import DefaultLayout from '../entry/layouts/default';
