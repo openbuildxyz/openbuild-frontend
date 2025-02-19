@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+'use client';
+
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -21,7 +23,7 @@ import TaskPic from 'public/images/svg/task.svg';
 
 import { Button } from '@/components/Button';
 
-export default function StartOnOpenBuild() {
+export function StartOnOpenBuild() {
   const { status } = useSession();
   return (
     <div className="md:flex justify-between bg-green max-md:pt-4 md:py-[30px] px-11 relative">
@@ -37,31 +39,17 @@ export default function StartOnOpenBuild() {
           >
             🎉 Join Community
           </Button>
-          {status === 'unauthenticated' && (
-            <Link href="/signup">
-              <Button className="mr-l max-md:!h-9 max-md:text-xs max-md:font-normal max-md:px-6 relative btn btn-primary text-white pl-9 pr-2 hover:!opacity-90">
-                Sign Up
-                <span className="max-md:hidden p-2 bg-white rounded ml-14">
-                  <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      d="M1 12L12 1"
-                      stroke="#1A1A1A"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    <path
-                      d="M2.57143 1H12V10.4286"
-                      stroke="#1A1A1A"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </span>
-              </Button>
-            </Link>
-          )}
+          {status === 'unauthenticated' && <Link href="/signup">
+            <Button className="mr-l max-md:!h-9 max-md:text-xs max-md:font-normal max-md:px-6 relative btn btn-primary text-white pl-9 pr-2 hover:!opacity-90">
+              Sign Up
+              <span className="max-md:hidden p-2 bg-white rounded ml-14">
+                <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M1 12L12 1" stroke="#1A1A1A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M2.57143 1H12V10.4286" stroke="#1A1A1A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </span>
+            </Button>
+          </Link>}
         </div>
       </div>
 

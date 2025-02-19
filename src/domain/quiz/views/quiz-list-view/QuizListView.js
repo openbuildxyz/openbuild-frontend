@@ -26,13 +26,12 @@ import { ReactSelect } from '@/components/Select/ReactSelect';
 import useMounted from '@/hooks/useMounted';
 import { fetcher } from '@/utils/request';
 
-import { fetchTeamList } from '#/domain/quiz/repository';
-
-import QuizListItem from '../quiz-list-item';
+import { fetchTeamList } from '../../repository';
+import QuizItem from './QuizItem';
 
 const pageSize = 10;
 
-export default function QuizList() {
+export default function QuizListView() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [query, setQuery] = useState(searchParams?.get('search') || '');
@@ -124,7 +123,7 @@ export default function QuizList() {
       ) : (
         <>
           {data?.list.map((i, k) => (
-            <QuizListItem key={`quiz-list-${k}`} data={i} />
+            <QuizItem key={`quiz-list-${k}`} data={i} />
           ))}
           <OPagination page={page} pageSize={pageSize} total={data?.total} changeCallback={handlePageChange} />
         </>
