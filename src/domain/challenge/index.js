@@ -15,3 +15,4 @@
  */
 
 export { default as ChallengeListViewWidget } from './views/challenge-list';
+export { default as ChallengeDetailViewWidget } from './views/challenge-detail';

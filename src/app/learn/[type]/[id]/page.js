@@ -15,19 +15,10 @@
  */
 
 import { PreviewAlert } from '@/components/PreviewAlert';
-import { Share } from '@/components/Share';
 import { get } from '@/utils/request';
 
-import { Chapters } from '../../Chapters';
-import { Speaker } from '../../Speaker';
-import { Author } from './Author';
-import { Back } from './Back';
+import CourseOrChallengeDetail from './CourseOrChallengeDetail';
 import GrowPath from './GrowPath';
-import { LearnInfo } from './LearnInfo';
-import { LearnRightCard } from './RightCard';
-import { Summary, Title } from './Summary';
-import { Tabs } from './Tabs';
-import { ChallengesTags } from './Tags';
 
 export async function generateMetadata({ params }) {
   // fetch data
@@ -83,27 +74,7 @@ export default async function LearnDetailsPage({ params, searchParams }) {
   return learnType !== 'career_path' ? (
     <>
       <PreviewAlert searchParams={searchParams} />
-      <div className="mx-auto px-6 lg:flex max-w-[1400px] justify-center">
-        <div className="flex flex-1 border-gray-400 pt-6 lg:border-r lg:pr-14">
-          <div className="w-full">
-            <div className="flex justify-between">
-              <Back params={params} />
-              <Share img={data?.base?.course_series_img} title={data?.base?.course_series_title} type={learnType} id={learnId} excerpt={data?.base?.course_series_summary}/>
-            </div>
-            <Title data={data} />
-            {learnType === 'challenges' && <ChallengesTags data={data} />}
-            {data?.base?.course_series_summary && <Summary data={data} />}
-            {data && <Author data={data} />}
-            {data && <Tabs data={data} />}
-            {data && <LearnInfo data={data} />}
-            {data && data?.courses?.length > 0 && <Chapters type={learnType} data={data} id={data?.base?.course_series_id} />}
-            <div className="h-6" />
-            {data && data?.speaker?.length > 0 && <Speaker data={data?.speaker} />}
-            <div className="h-[72px]" />
-          </div>
-        </div>
-        <LearnRightCard data={data} type={learnType} permission={permission} related={related} />
-      </div>
+      <CourseOrChallengeDetail params={params} data={data} permission={permission} related={related} />
     </>
   ) : <GrowPath params={params} data={data} permission={permission} />;
 }

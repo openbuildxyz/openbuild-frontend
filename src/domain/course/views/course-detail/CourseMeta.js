@@ -14,12 +14,10 @@
  * limitations under the License.
  */
 
-'use client';
-
 import Avatar from '@/components/Avatar';
 import { formatTime } from '@/utils/date';
 
-export function Author({ data }) {
+function CourseMeta({ data }) {
   return (
     <div className="flex justify-between pb-6 mt-6">
       <div className="flex items-center" suppressHydrationWarning>
@@ -37,3 +35,5 @@ export function Author({ data }) {
     </div>
   );
 }
+
+export default CourseMeta;

@@ -23,12 +23,12 @@ import { formatTime } from '@/utils/date';
 import { BuilderListWidget } from '../../../course';
 import StepList from './StepList';
 
-function RoadmapDetailView({ data, permission, headerExtra, executeEnroll }) {
+function RoadmapDetailView({ data, permission, actionBar, executeEnroll }) {
   return (
     <div className="">
       <div className="w-full bg-black text-white">
         <div className="mx-auto p-6 max-w-[1080px]">
-          {headerExtra && <div className="flex justify-between">{headerExtra}</div>}
+          {actionBar && <div className="flex justify-between">{actionBar}</div>}
           <h3 className="my-6 text-[36px] font-bold leading-9 md:text-[36px] md:leading-[48px]">
             <ContentEditable html={HTMLDecode(data?.title)} disabled />
           </h3>
