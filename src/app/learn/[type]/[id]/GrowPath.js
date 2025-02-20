@@ -24,7 +24,7 @@ import { growPathEnrollAction } from './actions';
 import { Back } from './Back';
 
 function GrowPath({ params, data, permission }) {
-  const headerExtra = (
+  const actionBar = (
     <>
       <Back params={params} />
       <Share img={data?.img} title={data?.title} type={params.type} id={params.id} />
@@ -32,7 +32,7 @@ function GrowPath({ params, data, permission }) {
   );
 
   return (
-    <RoadmapDetailViewWidget id={params.id} data={data} permission={permission} headerExtra={headerExtra} executeEnroll={growPathEnrollAction} />
+    <RoadmapDetailViewWidget id={params.id} data={data} permission={permission} actionBar={actionBar} executeEnroll={growPathEnrollAction} />
   );
 }
 

@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-'use client';
-
 import Image from 'next/image';
 import GithubIcon from 'public/images/svg/github_p.svg';
 
@@ -31,8 +29,9 @@ function resolveTwitterUrl(urlOrHandle) {
   return `https://x.com/${urlOrHandle.startsWith('@') ? urlOrHandle.slice(1) : urlOrHandle}`;
 }
 
-export function Speaker({ data }) {
+function SpeakerSection({ data }) {
   const mediaUrl = useMediaUrl();
+
   return (
     <div id="learn-speaker">
       <h3 className="text-lg font-bold">Speaker</h3>
@@ -68,3 +67,5 @@ export function Speaker({ data }) {
     </div>
   );
 }
+
+export default SpeakerSection;

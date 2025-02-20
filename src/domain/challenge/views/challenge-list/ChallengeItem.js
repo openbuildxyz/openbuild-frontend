@@ -20,7 +20,6 @@ import Link from 'next/link';
 import LocationIcon from 'public/images/location.svg';
 import TicketPic from 'public/images/ticket.png';
 import TimeIcon from 'public/images/time.svg';
-import { useMemo } from 'react';
 import ContentEditable from 'react-contenteditable';
 
 import { USDTIcon } from '@/components/Icons';
@@ -29,33 +28,9 @@ import { HTMLDecode } from '@/utils';
 import { formatTime } from '@/utils/date';
 
 import { countries } from '#/lib/countries';
-import { useConfig } from '#/state/application/hooks';
 
 import { CardTitleWidget } from '../../../course';
-import ChallengeStatus from './ChallengeStatus';
-
-
-export const typeStyle = 'flex items-center mb-1 text-xs border border-gray-600 rounded-[6px] px-2 h-6 opacity-60 mr-1';
-
-export function useTags(data) {
-  const configs = useConfig();
-  const tags = useMemo(() => {
-    const _filters = configs && configs.find(f => f.config_id === 1);
-    if (data.base?.course_series_label_ids?.length > 0) {
-      const _tag = data.base.course_series_label_ids.map(i => {
-        const f = _filters?.config_value['challenges']?.map(cv => {
-          const findedTag = cv.labels.find(cvf => cvf.id === i);
-          return findedTag?.name;
-        });
-        return f;
-      });
-      return Array.from(new Set(_tag.flat().filter(d => d)));
-    } else {
-      return [];
-    }
-  }, [data.base.course_series_label_ids, configs]);
-  return tags;
-}
+import TagListWidget from '../../widgets/tag-list';
 
 export function TimeAndLocation({data, from, openTicket, permission, type}) {
   // console.log(data)
@@ -97,8 +72,6 @@ export function TimeAndLocation({data, from, openTicket, permission, type}) {
 }
 
 function ChallengeItem({ data }) {
-  const tags = useTags(data);
-
   return (
     <Link
       href={`/learn/challenges/${data.base?.course_series_id}`}
@@ -110,14 +83,7 @@ function ChallengeItem({ data }) {
         data={data}
         showStatus
       />
-      <div className="flex flex-wrap px-6 mt-4">
-        <ChallengeStatus data={data} />
-        {tags.map((t, i) => (
-          <span key={`learn-card-tag-${i}`} className={typeStyle}>
-            {t}
-          </span>
-        ))}
-      </div>
+      <TagListWidget className="flex-wrap px-6 mt-4" data={data} />
       <div className="border-b border-gray-400 px-6 pb-4 pt-2 flex-1">
         <h6 className="text-lg font-bold leading-6 line-clamp-2">
           <ContentEditable

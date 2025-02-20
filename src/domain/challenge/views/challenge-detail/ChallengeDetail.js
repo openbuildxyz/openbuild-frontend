@@ -14,17 +14,18 @@
  * limitations under the License.
  */
 
-'use client';
+import { CourseDetailViewWidget } from '../../../course';
+import TagListWidget from '../../widgets/tag-list';
 
-import { OViewer } from '@/components/MarkDown';
-
-export function LearnInfo({ data }) {
+function ChallengeDetailView({ params, data, actionBar }) {
   return (
-    <div
-      id="learn-info"
-      className="[&>div>a]:font-bold [&>div>a]:underline"
-    >
-      {data && <OViewer value={data?.base?.course_series_introduction} />}
-    </div>
+    <CourseDetailViewWidget
+      params={params}
+      data={data}
+      actionBar={actionBar}
+      extraMeta={<TagListWidget data={data} />}
+    />
   );
 }
+
+export default ChallengeDetailView;

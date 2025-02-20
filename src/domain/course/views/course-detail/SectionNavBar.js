@@ -14,13 +14,11 @@
  * limitations under the License.
  */
 
-'use client';
-
 // import { Button } from '@/components/Button';
 import clsx from 'clsx';
 import { useState, useLayoutEffect } from 'react';
 
-export function Tabs({ data }) {
+function SectionNavBar({ data }) {
   const [active, setActive] = useState(0);
   useLayoutEffect(() => {
     window.addEventListener('scroll', () => {
@@ -126,3 +124,5 @@ export function Tabs({ data }) {
     </div>
   );
 }
+
+export default SectionNavBar;

@@ -14,21 +14,4 @@
  * limitations under the License.
  */
 
-'use client';
-import { typeStyle, useTags } from '../ChallengesCard';
-import { ChallengesStatus } from '../ChallengesStatus';
-
-
-export function ChallengesTags({ data }) {
-  const tags = useTags(data);
-  return (
-    <div className="flex">
-      {data && <ChallengesStatus data={data} />}
-      {tags.map((t, i) => (
-        <span key={`learn-card-tag-${i}`} className={typeStyle}>
-          {t}
-        </span>
-      ))}
-    </div>
-  );
-}
+export { default } from './CourseDetail';
