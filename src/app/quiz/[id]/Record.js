@@ -14,17 +14,15 @@
  * limitations under the License.
  */
 
-import Image from 'next/image';
-import Link from 'next/link';
 import useSWR from 'swr';
 
 import { ModalCloseIcon } from '@/components/Icons';
 import { Modal } from '@/components/Modal';
 // import clsx from 'clsx'
 import { NoData } from '@/components/NoData';
-import { formatTime, fromUtcOffset, formatTimeMeridiem } from '@/utils/date';
 import { fetcher } from '@/utils/request';
 
+import RecordListView from '#/domain/quiz/views/record-list-view';
 import { useMediaUrl } from '#/state/application/hooks';
 
 export function Record({quizId, shown, onClose}) {
@@ -39,54 +37,7 @@ export function Record({quizId, shown, onClose}) {
           <h3 className="text-center py-4 border-b border-gray-600">
             Challenge Record
           </h3>
-          <div className="px-6 py-4">
-            <ul className="hidden md:grid grid-cols-4 gap-4 text-xs opacity-60">
-              <li className="col-span-2">Quiz</li>
-              <li className="text-right">Time</li>
-              <li className="text-right">Score</li>
-            </ul>
-            <div className="max-h-[300px] mt-2 md:mt-4 overflow-y-auto">
-              {data?.map((i, k) => (
-                <div key={`challenge-record-${k}`} className=" mb-4 ">
-                  <ul className="grid md:grid-cols-4 max-md:gap-y-4 md:gap-x-4 items-center">
-                    <li className="md:col-span-2">
-                      <Link href={`/quiz/${i.quiz_id}/questions/${i.id}`} className="text-sm font-bold hover:underline">{i.quiz_info.title}</Link>
-                      <div className="flex items-center mt-1">
-                        {mediaUrl && <Image
-                          className="h-[18px] w-[18px] rounded object-cover mr-2"
-                          height={18}
-                          width={18}
-                          alt={'user_avatar'}
-                          src={mediaUrl + i.quiz_user?.user_avatar}
-                        />}
-                        <p className="opacity-90 text-xs">by  <a href={`/u/${i.quiz_user?.user_handle}`}><strong>{i.quiz_user?.user_nick_name}</strong></a> </p>
-                      </div>
-                    </li>
-                    <li className="flex md:block justify-between md:text-right text-xs">
-                      <div>
-                        <p className="md:hidden opacity-60 mb-1">Time</p>
-                        <p>{formatTime(i.created_at * 1000, 'YYYY-MM-DD hh:mm:ss')}&nbsp;
-                          <span className="max-md:hidden">{formatTimeMeridiem(i.created_at * 1000)}
-                            <span className="text-xs">
-                              (UTC+{fromUtcOffset()})
-                            </span>
-                          </span>
-                        </p>
-                      </div>
-                      <div className="md:hidden">
-                        <p className="opacity-60 mb-1">Score</p>
-                        <p className="text-right"><strong>{i.score}</strong></p>
-                      </div>
-                    </li>
-                    <li className="max-md:hidden text-right">
-                      <strong>{i.score}</strong>
-                    </li>
-                  </ul>
-                  <hr className="border-t border-gray-600 mt-4" />
-                </div>
-              ))}
-            </div>
-          </div>
+          <RecordListView data={data} mediaUrl={mediaUrl}/>
           {(!data|| data?.length === 0) && <div className="pb-12"><NoData /></div>}
         </div>
       </div>

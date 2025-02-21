@@ -41,10 +41,10 @@ function QuizItem({ data, children }) {
                   <div suppressHydrationWarning className="flex [&>img]:ml-[-8px] [&>img]:rounded-full [&>img]:border [&>img]:border-white [&>img:first-child]:ml-0">
                     {data?.user_list?.slice(0, 10).map(i => (
                       <Image
-                        key={`courses-enrool-users-${i.user_nick_name}`}
+                        key={`courses-enrool-users-${i?.user_nick_name}`}
                         width={24}
                         height={24}
-                        src={i.user_avatar}
+                        src={i?.user_avatar}
                         alt=""
                         className="h-6 w-6 object-cover"
                       />

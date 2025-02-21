@@ -14,12 +14,4 @@
  * limitations under the License.
  */
 
-'use client';
-
-import QuizQuestionListView from '#/domain/quiz/views/quiz-question-list';
-
-export default function QuizQuestions({ params }) {
-  return (
-    <QuizQuestionListView id={params.id} />
-  );
-}
+export { default } from './RecordListView';
