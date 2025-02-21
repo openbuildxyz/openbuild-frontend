@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+'use client';
+
 import Image from 'next/image';
 import Rank1Icon from 'public/images/svg/rank-1.svg';
 import Rank2Icon from 'public/images/svg/rank-2.svg';
@@ -21,7 +23,7 @@ import Rank3Icon from 'public/images/svg/rank-3.svg';
 
 import { useMediaUrl } from '#/state/application/hooks';
 
-export  default function RankList({ rank, list }) {
+export default function RankList({ rank, list }) {
   const mediaUrl = useMediaUrl();
 
   return (

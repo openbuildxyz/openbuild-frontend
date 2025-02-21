@@ -27,7 +27,7 @@ import { fetcher } from '@/utils/request';
 
 import { useMediaUrl } from '#/state/application/hooks';
 
-export default function Record({quizId, shown, onClose}) {
+export function Record({quizId, shown, onClose}) {
   const mediaUrl = useMediaUrl();
   const { data } = useSWR(shown ? `/ts/v1/quiz/${quizId}/answer` : null, fetcher);
 

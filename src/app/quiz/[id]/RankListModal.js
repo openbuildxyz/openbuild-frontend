@@ -23,9 +23,9 @@ import useMounted from '@/hooks/useMounted';
 
 import { fetchRankList } from '#/domain/quiz/repository';
 
-import RankList from '../rank-list';
+import RankList from './RankList';
 
-export default function RankListModal({ quizId, shown, onClose, rank }) {
+export function RankListModal({ quizId, shown, onClose, rank }) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
 
