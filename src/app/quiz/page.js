@@ -26,7 +26,7 @@ import { useState } from 'react';
 
 import { ArrowRightIcon } from '@/components/Icons';
 
-import QuizListView from '#/domain/quiz/views/quiz-list-view';
+import { QuizListViewWidget } from '#/domain/quiz';
 import StartOnOpenBuild from '#/entry/components/StartOnOpenBuild';
 import useMounted from '#/shared/hooks/useMounted';
 
@@ -122,7 +122,7 @@ export default function Quiz() {
         })}
       </div>
       <div className="md:w-[1200px] mx-6 md:mx-auto mb-14 md:mb-[110px]">
-        <QuizListView />
+        <QuizListViewWidget />
         <div className="md:flex mt-14">
           <h3 className="md:flex-1 text-[24px] md:text-[32px] max-md:leading-10 max-md:pb-4">Quiz FAQ</h3>
           <div className="md:w-[640px]">

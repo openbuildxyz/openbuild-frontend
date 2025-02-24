@@ -14,4 +14,4 @@
  * limitations under the License.
  */
 
-export { default } from './RankListView';
+export { default } from './RankList';

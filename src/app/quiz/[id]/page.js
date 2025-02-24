@@ -30,8 +30,7 @@ import { OViewer } from '@/components/MarkDown';
 import { fetcher } from '@/utils/request';
 
 import { CourseListViewWidget } from '#/domain/course';
-import RankListView from '#/domain/quiz/views/rank-list-view';
-import QuizLimiterWidget from '#/domain/quiz/widgets/quiz-limiter';
+import { QuizLimiterWidget, RankListViewWidget } from '#/domain/quiz';
 import { useMediaUrl } from '#/state/application/hooks';
 
 import { RankListModal } from './RankListModal';
@@ -94,7 +93,7 @@ export default function Quiz({params}) {
           className="mt-4 md:mt-6 mb-9 md:mb-10 !font-bold px-[64px] !text-base max-md:w-full">
             Challenge now
         </Button>
-        <RankListView rank={data?.my_rank} list={data?.rank}/>
+        <RankListViewWidget rank={data?.my_rank} list={data?.rank}/>
         <p className="text-sm text-center mt-6 cursor-pointer" onClick={()=>{setOpenRankList(true);}}><strong>{data?.user_num}</strong> builders have participated</p>
       </div>
       {

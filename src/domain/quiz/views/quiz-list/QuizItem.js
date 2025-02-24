@@ -16,13 +16,16 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import TrophiesSvg from 'public/images/trophies.svg';
 
-import { markdownToPlainText } from '#/shared/utils/markdown';
+import { markdownToPlainText } from '@/utils/markdown';
+
 import { useMediaUrl } from '#/state/application/hooks';
+
+import TrophiesSvg from './trophies.svg';
+
 export default function QuizListItem({ data }) {
   const mediaUrl = useMediaUrl();
-  
+
   return (
     <Link
       href={`/quiz/${data.id}`}

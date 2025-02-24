@@ -22,11 +22,9 @@ import { Modal } from '@/components/Modal';
 import { NoData } from '@/components/NoData';
 import { fetcher } from '@/utils/request';
 
-import RecordListView from '#/domain/quiz/views/record-list-view';
-import { useMediaUrl } from '#/state/application/hooks';
+import { RecordListViewWidget } from '#/domain/quiz';
 
 export function Record({quizId, shown, onClose}) {
-  const mediaUrl = useMediaUrl();
   const { data } = useSWR(shown ? `/ts/v1/quiz/${quizId}/answer` : null, fetcher);
 
   return (
@@ -37,7 +35,7 @@ export function Record({quizId, shown, onClose}) {
           <h3 className="text-center py-4 border-b border-gray-600">
             Challenge Record
           </h3>
-          <RecordListView data={data} mediaUrl={mediaUrl}/>
+          <RecordListViewWidget data={data} />
           {(!data|| data?.length === 0) && <div className="pb-12"><NoData /></div>}
         </div>
       </div>
