@@ -14,6 +14,4 @@
  * limitations under the License.
  */
 
-'use client';
-
-export { default } from '#/entry/pages/quiz-list';
+export { default } from './QuizListPage';
