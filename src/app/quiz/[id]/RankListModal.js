@@ -21,8 +21,7 @@ import Loader from '@/components/Loader';
 import { Modal } from '@/components/Modal';
 import useMounted from '@/hooks/useMounted';
 
-import { fetchRankList } from '#/domain/quiz/repository';
-import RankListView from '#/domain/quiz/views/rank-list-view';
+import { fetchRankList, RankListViewWidget } from '#/domain/quiz';
 
 export function RankListModal({ quizId, shown, onClose, rank }) {
   const [data, setData] = useState(null);
@@ -47,7 +46,7 @@ export function RankListModal({ quizId, shown, onClose, rank }) {
       />
       <div className="md:h-[600px] h-[400px] flex flex-col overflow-y-auto rounded-inherit overflow-hidden">
         {loading && <Loader classname="mr-2" />}
-        <RankListView rank={rank} list={data} />
+        <RankListViewWidget rank={rank} list={data} />
       </div>
     </Modal>
   );

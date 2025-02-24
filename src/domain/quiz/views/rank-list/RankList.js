@@ -15,11 +15,12 @@
  */
 
 import Image from 'next/image';
-import Rank1Icon from 'public/images/svg/rank-1.svg';
-import Rank2Icon from 'public/images/svg/rank-2.svg';
-import Rank3Icon from 'public/images/svg/rank-3.svg';
 
 import { useMediaUrl } from '#/state/application/hooks';
+
+import Rank1Icon from './rank-1.svg';
+import Rank2Icon from './rank-2.svg';
+import Rank3Icon from './rank-3.svg';
 
 export default function RankListView({ rank, list }) {
   const mediaUrl = useMediaUrl();

@@ -19,10 +19,11 @@ import Link from 'next/link';
 
 import { formatTime, fromUtcOffset, formatTimeMeridiem } from '@/utils/date';
 
-function RecordListView({
-  data = [],
-  mediaUrl,
-}) {
+import { useMediaUrl } from '#/state/application/hooks';
+
+function RecordListView({ data = [] }) {
+  const mediaUrl = useMediaUrl();
+
   return (
     <div className="px-6 py-4">
       <ul className="hidden md:grid grid-cols-4 gap-4 text-xs opacity-60">
