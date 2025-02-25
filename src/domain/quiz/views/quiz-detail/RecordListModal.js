@@ -18,13 +18,12 @@ import useSWR from 'swr';
 
 import { ModalCloseIcon } from '@/components/Icons';
 import { Modal } from '@/components/Modal';
-// import clsx from 'clsx'
 import { NoData } from '@/components/NoData';
 import { fetcher } from '@/utils/request';
 
-import { RecordListViewWidget } from '#/domain/quiz';
+import RecordList from './RecordList';
 
-export function Record({quizId, shown, onClose}) {
+function RecordListModal({quizId, shown, onClose}) {
   const { data } = useSWR(shown ? `/ts/v1/quiz/${quizId}/answer` : null, fetcher);
 
   return (
@@ -35,10 +34,12 @@ export function Record({quizId, shown, onClose}) {
           <h3 className="text-center py-4 border-b border-gray-600">
             Challenge Record
           </h3>
-          <RecordListViewWidget data={data} />
+          <RecordList data={data} />
           {(!data|| data?.length === 0) && <div className="pb-12"><NoData /></div>}
         </div>
       </div>
     </Modal>
   );
 }
+
+export default RecordListModal;

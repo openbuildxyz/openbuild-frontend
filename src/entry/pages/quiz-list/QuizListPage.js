@@ -20,9 +20,9 @@ import QuizBannerPic from 'public/images/quiz-banner.svg';
 import { useState } from 'react';
 
 import { ArrowRightIcon } from '@/components/Icons';
+import useMounted from '@/hooks/useMounted';
 
 import { QuizListViewWidget } from '#/domain/quiz';
-import useMounted from '#/shared/hooks/useMounted';
 
 import StartOnOpenBuild from '../../components/StartOnOpenBuild';
 import QuizS1 from './quiz-s-1.svg';
