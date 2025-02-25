@@ -19,17 +19,17 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import QuizBannerPic from 'public/images/quiz-banner.png';
 import { useState } from 'react';
-import useSWR from 'swr';
 
 import { Button } from '@/components/Button';
 import { ArrowUturnLeftIcon } from '@/components/icon/solid';
 import { HistoryIcon } from '@/components/Icons';
 import { OViewer } from '@/components/MarkDown';
-import { fetcher } from '@/utils/request';
+import useMounted from '@/hooks/useMounted';
 
 import { useMediaUrl } from '#/state/application/hooks';
 
-import { CourseListViewWidget } from '../../../course';
+import { fetchList as fetchCourseList, CourseListViewWidget } from '../../../course';
+import { fetchOne } from '../../repository';
 import QuizLimiterWidget from '../../widgets/quiz-limiter';
 import RankList from './RankList';
 import RankListModal from './RankListModal';
@@ -40,10 +40,21 @@ function QuizDetailView({ quizId }) {
   const [openChallenge, setOpenChallenge] = useState(false);
   const [openRankList, setOpenRankList] = useState(false);
   const [checkLimit, setCheckLimit] = useState(false);
-  const { data } = useSWR(`/ts/v1/quiz/${quizId}/index`, fetcher);
-  const { data: coursesList } = useSWR(`v1/learn/course/opencourse?skip=0&take=2&order=default&quiz_bind_id=${quizId}`, fetcher);
+  const [data, setData] = useState();
+  const [coursesList, setCoursesList] = useState();
   const { status } = useSession();
   const router = useRouter();
+
+  useMounted(() => {
+    Promise.all([
+      fetchOne(quizId),
+      fetchCourseList({ skip: 0, take: 2, quiz_bind_id: quizId }),
+    ])
+      .then(([quizDetailRes, courseListRes]) => {
+        setData(quizDetailRes.data);
+        setCoursesList(courseListRes.data);
+      });
+  });
 
   return (
     <QuizLimiterWidget

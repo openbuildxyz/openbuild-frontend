@@ -14,17 +14,25 @@
  * limitations under the License.
  */
 
-import useSWR from 'swr';
+import { useState, useEffect } from 'react';
 
 import { ModalCloseIcon } from '@/components/Icons';
 import { Modal } from '@/components/Modal';
 import { NoData } from '@/components/NoData';
-import { fetcher } from '@/utils/request';
 
+import { fetchAnsweredRecordList } from '../../repository';
 import RecordList from './RecordList';
 
-function RecordListModal({quizId, shown, onClose}) {
-  const { data } = useSWR(shown ? `/ts/v1/quiz/${quizId}/answer` : null, fetcher);
+function RecordListModal({ quizId, shown, onClose }) {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    if (!shown) {
+      return;
+    }
+
+    fetchAnsweredRecordList(quizId).then(res => setData(res.data));
+  }, [shown]);  // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <Modal isOpen={shown} onClose={onClose} container mode="640">
@@ -35,7 +43,7 @@ function RecordListModal({quizId, shown, onClose}) {
             Challenge Record
           </h3>
           <RecordList data={data} />
-          {(!data|| data?.length === 0) && <div className="pb-12"><NoData /></div>}
+          {(!data || data?.length === 0) && <div className="pb-12"><NoData /></div>}
         </div>
       </div>
     </Modal>

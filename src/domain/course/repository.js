@@ -17,19 +17,22 @@
 import { merge } from '@/utils';
 import { legacyClient } from '@/utils/http';
 
+async function fetchList(params = {}) {
+  const { sort, ...others } = params;
+
+  return legacyClient.get('/learn/course/opencourse', {
+    params: merge({ take: 20 }, others, {
+      order: sort || 'default',
+    }),
+  });
+}
+
 async function fetchOne(id) {
   return legacyClient.get(`/learn/course/opencourse/${id}`);
 }
 
 async function fetchPublishedCourseList(params = {}) {
-  const { userId, sort, ...others } = params;
-
-  return legacyClient.get('/learn/course/opencourse', {
-    params: merge({ take: 20 }, others, {
-      team_uid: userId,
-      order: sort || 'default',
-    }),
-  });
+  return fetchList({ ...params, team_uid: params.userId });
 }
 
 async function fetchEnrolledCourseList(params = {}) {
@@ -44,4 +47,4 @@ async function fetchEnrolledCourseList(params = {}) {
   });
 }
 
-export { fetchOne, fetchPublishedCourseList, fetchEnrolledCourseList };
+export { fetchList, fetchOne, fetchPublishedCourseList, fetchEnrolledCourseList };
