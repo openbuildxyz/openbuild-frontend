@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-export { default as QuizLimiterWidget } from './widgets/quiz-limiter';
-
 export { default as QuizListViewWidget } from './views/quiz-list';
 export { default as QuizDetailViewWidget } from './views/quiz-detail';
+export { default as QuizQuestionListViewWidget } from './views/quiz-question-list';
