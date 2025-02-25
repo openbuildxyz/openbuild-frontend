@@ -14,10 +14,7 @@
  * limitations under the License.
  */
 
-export { fetchRankList } from './repository';
-
 export { default as QuizLimiterWidget } from './widgets/quiz-limiter';
 
 export { default as QuizListViewWidget } from './views/quiz-list';
-export { default as RankListViewWidget } from './views/rank-list';
-export { default as RecordListViewWidget } from './views/record-list';
+export { default as QuizDetailViewWidget } from './views/quiz-detail';

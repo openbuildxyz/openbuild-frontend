@@ -21,7 +21,7 @@ import { formatTime, fromUtcOffset, formatTimeMeridiem } from '@/utils/date';
 
 import { useMediaUrl } from '#/state/application/hooks';
 
-function RecordListView({ data = [] }) {
+function RecordList({ data = [] }) {
   const mediaUrl = useMediaUrl();
 
   return (
@@ -76,4 +76,4 @@ function RecordListView({ data = [] }) {
   );
 }
 
-export default RecordListView;
+export default RecordList;

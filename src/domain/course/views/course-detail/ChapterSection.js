@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-'use client';
-
 import BigNumber from 'bignumber.js';
 import { useRouter } from 'next/navigation';
 import { useMemo } from 'react';

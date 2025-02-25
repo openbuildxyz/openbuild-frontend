@@ -22,7 +22,7 @@ import Rank1Icon from './rank-1.svg';
 import Rank2Icon from './rank-2.svg';
 import Rank3Icon from './rank-3.svg';
 
-export default function RankListView({ rank, list }) {
+export default function RankList({ rank, list }) {
   const mediaUrl = useMediaUrl();
 
   return (
