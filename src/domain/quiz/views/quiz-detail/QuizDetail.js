@@ -56,6 +56,8 @@ function QuizDetailView({ quizId }) {
       });
   });
 
+  const bannerImage = data?.background_img ? `${mediaUrl}${data?.background_img}` : QuizBannerPic.src;
+
   return (
     <QuizLimiterWidget
       id={quizId}
@@ -64,7 +66,7 @@ function QuizDetailView({ quizId }) {
       quiz
       onReset={() => setCheckLimit(false)}
     >
-      <div className="max-md:flex max-md:flex-col max-md:gap-y-4 h-[250px] md:h-[360px] bg-cover bg-center bg-no-repeat relative" style={{ backgroundImage: `url(${QuizBannerPic.src})`  }}>
+      <div className="max-md:flex max-md:flex-col max-md:gap-y-4 h-[250px] md:h-[360px] bg-cover bg-center bg-no-repeat relative" style={{ backgroundImage: `url(${bannerImage})`  }}>
         <div className="md:absolute flex items-center mt-[15px] md:mt-6 mx-4 md:mx-14">
           <span
             onClick={() => window.history.back()}
