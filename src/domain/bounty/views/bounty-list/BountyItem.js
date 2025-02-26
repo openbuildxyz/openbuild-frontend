@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-'use client';
-
 import Link from 'next/link';
 
 import Avatar from '@/components/Avatar';
@@ -27,7 +25,7 @@ import { useConfig } from '#/state/application/hooks';
 
 import StatusBadge from './StatusBadge';
 
-export function BountiesCard({ data }) {
+function BountyItem({ data }) {
   const config = useConfig();
   const filters = config?.find(f => f.config_id === 1)?.config_value['bounty'];
   const ecosystem = filters?.find(f => f.name === 'Ecosystem')?.labels.find(f => f.id === data.ecosystem);
@@ -84,3 +82,5 @@ export function BountiesCard({ data }) {
     </Link>
   );
 }
+
+export default BountyItem;

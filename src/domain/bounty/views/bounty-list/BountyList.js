@@ -14,28 +14,32 @@
  * limitations under the License.
  */
 
-'use client';
+import clsx from 'clsx';
 
-import { BountyListView } from '#/domain/bounty';
-import { useOpenFilter } from '#/state/application/hooks';
+import { OPagination } from '@/components/Pagination';
 
-export function List({ data }) {
-  const openFilter = useOpenFilter();
-  const otherClassNames = {
-    'lg:grid-cols-2': openFilter,
-    'lg:grid-cols-3': !openFilter,
-    'xl:grid-cols-3': openFilter,
-    'xl:grid-cols-4': !openFilter,
-    '3xl:grid-cols-4': openFilter,
-    '3xl:grid-cols-5': !openFilter,
-  };
+import BountyItem from './BountyItem';
+
+function BountyList({
+  className,
+  data = [],
+  total = 0,
+}) {
   return (
-    <div>
-      <BountyListView
-        className={otherClassNames}
-        data={data.list}
-        total={data.total}
-      />
-    </div>
+    <>
+      <div
+        className={clsx(
+          'mb-9 mt-6 grid gap-5 md:grid-cols-3',
+          className
+        )}
+      >
+        {data?.list?.map(item => (
+          <BountyItem key={`BountyItem-${item.id}`} data={item} />
+        ))}
+      </div>
+      <OPagination total={total} />
+    </>
   );
 }
+
+export default BountyList;
