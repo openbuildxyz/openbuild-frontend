@@ -15,3 +15,4 @@
  */
 
 export { default as BountyListView } from './views/bounty-list';
+export { default as ActivityListView } from './views/activity-list';

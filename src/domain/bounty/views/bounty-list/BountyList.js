@@ -33,7 +33,7 @@ function BountyList({
           className
         )}
       >
-        {data?.list?.map(item => (
+        {data?.map?.(item => (
           <BountyItem key={`BountyItem-${item.id}`} data={item} />
         ))}
       </div>
