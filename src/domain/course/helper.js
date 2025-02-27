@@ -30,4 +30,25 @@ function resolveChapter(chapter, course) {
   return { ...chapter, isLock: false };
 }
 
-export { resolveChapter };
+function reducerList(data) {
+  const map = data?.courses?.reduce(
+    (p, c) =>
+      [
+        (p[c.base.course_single_chapter] = p[c.base.course_single_chapter] || []),
+        p[c.base.course_single_chapter].push(c),
+        p,
+      ][2],
+    {}
+  );
+  const sorted = map
+    ? Object.keys(map)
+      .map(i => map[i])
+      .map(j => {
+        const mapList = j.map(t => resolveChapter(t, data));
+        return mapList.sort((a, b) => a.base.course_single_index - b.base.course_single_index);
+      })
+    : [];
+  return sorted;
+}
+
+export { resolveChapter, reducerList };

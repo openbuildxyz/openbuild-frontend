@@ -15,14 +15,5 @@
  */
 
 'use client';
-import { useSession } from 'next-auth/react';
 
-import useInterval from '@/hooks/useInterval';
-
-import { uploadSingleProgress } from '#/services/learn';
-
-export function PostTime({ id }) {
-  const { status } = useSession();
-  useInterval(() => status === 'authenticated' && uploadSingleProgress(id), 10000);
-  return <></>;
-}
+export { default } from '#/entry/pages/lesson-detail';

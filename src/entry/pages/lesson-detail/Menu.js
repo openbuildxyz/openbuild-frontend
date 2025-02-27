@@ -15,7 +15,6 @@
  */
 
 /* eslint-disable jsx-a11y/anchor-is-valid */
-'use client';
 
 import clsx from 'clsx';
 import { useState } from 'react';
@@ -24,7 +23,7 @@ import { Transition } from '@/components/control';
 import { ListBulletIcon } from '@/components/icon/outlined';
 import useMounted from '@/hooks/useMounted';
 
-export function Menu() {
+function Menu() {
   const [anchors, setAnchors] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -51,7 +50,7 @@ export function Menu() {
     setIsOpen(false);
   };
 
-  return (
+  return anchors.length > 0 && (
     <div className={clsx('relative')}>
       <div
         onClick={() => setIsOpen(!isOpen)}
@@ -87,3 +86,5 @@ export function Menu() {
     </div>
   );
 }
+
+export default Menu;

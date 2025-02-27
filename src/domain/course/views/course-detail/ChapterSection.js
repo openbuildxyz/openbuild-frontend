@@ -24,28 +24,7 @@ import { VideoIcon, AgreementIcon } from '@/components/Icons';
 import { ProgressBar } from '@/components/ProgressBar';
 import { millisecondFormat } from '@/utils/date';
 
-import { resolveChapter } from '../../helper';
-
-export function reducerList(data) {
-  const map = data?.courses?.reduce(
-    (p, c) =>
-      [
-        (p[c.base.course_single_chapter] = p[c.base.course_single_chapter] || []),
-        p[c.base.course_single_chapter].push(c),
-        p,
-      ][2],
-    {}
-  );
-  const sorted = map
-    ? Object.keys(map)
-      .map(i => map[i])
-      .map(j => {
-        const mapList = j.map(t => resolveChapter(t, data));
-        return mapList.sort((a, b) => a.base.course_single_index - b.base.course_single_index);
-      })
-    : [];
-  return sorted;
-}
+import { reducerList } from '../../helper';
 
 function ChapterSection({ type, data, id }) {
   const router = useRouter();

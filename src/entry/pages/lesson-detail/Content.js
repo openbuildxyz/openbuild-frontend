@@ -14,45 +14,23 @@
  * limitations under the License.
  */
 
-'use client';
-
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useMemo } from 'react';
 
 import { ChevronLeftIcon, ChevronRightIcon } from '@/components/icon/outlined';
 import { FilterIcon } from '@/components/Icons';
-import { OViewer } from '@/components/MarkDown';
-import { Player } from '@/components/Player';
 import { Share } from '@/components/Share';
 
 import { resolveChapter } from '#/domain/course/helper';
+import LessonDetailViewWidget from '#/domain/course/views/lesson-detail';
 import { updateLessonMenu } from '#/state/application/reducer';
 import { useAppDispatch } from '#/state/hooks';
 
 import LockedPlaceholder from './Locked';
-import { Menu } from './Menu';
+import Menu from './Menu';
 
-// FIXME: 临时方案
-function resolveContent(rawContent) {
-  if (!rawContent) {
-    return rawContent;
-  }
-
-  const matchedSrc = /src="([^"]*)"/i.exec(rawContent);
-
-  // FIXME: 暂且这么不严谨地判断视频地址
-  if (!matchedSrc || matchedSrc[1].toLowerCase().indexOf('youtube') > -1) {
-    return rawContent;
-  }
-
-  const videoUrl = matchedSrc[1];
-  const videoStr = `<video autoplay controls controlslist="nodownload"><source src="${videoUrl}" type="video/${videoUrl.split('.').pop().toLowerCase()}"></source></video>`;
-
-  return rawContent.replace(/<iframe\s+([^>]*)><\/iframe>/i, videoStr);
-}
-
-export function Content({ type, id, single, data, menuData }) {
+function Content({ id, single, menuData, collection }) {
   const router = useRouter();
   const dispatch = useAppDispatch();
 
@@ -82,15 +60,18 @@ export function Content({ type, id, single, data, menuData }) {
   // 最好统一数据返回逻辑
   const chapterFromCourse = menuData && (menuData.courses || []).find(chapter => chapter.base.course_single_id === single?.base?.course_single_id);
 
-  return !resolveChapter(chapterFromCourse, data).isLock ? (
+  const resolveCourseLink = (courseId = id) => `${collection.link}/${courseId}`;
+  const currentCourseLink = resolveCourseLink();
+
+  return !resolveChapter(chapterFromCourse, single?.base.course_single_content).isLock ? (
     <div className="flex-1 pt-[30px] lg:border-l lg:border-gray-400 lg:px-14">
       <div className="mb-2 items-center justify-between lg:flex">
         <p className="items-center text-sm text-gray-200 lg:flex">
-          <span onClick={() => router.push(`/learn/${type}/`)} className="cursor-pointer hover:underline">
-            {type === 'courses' ? 'Open Courses' : 'Challenges'}
+          <span onClick={() => router.push(collection.link)} className="cursor-pointer hover:underline">
+            {collection.text}
           </span>
           &nbsp;&gt;&nbsp;
-          {<span onClick={() => router.push(`/learn/${type}/${menuData.base.course_series_id}`)} className="cursor-pointer hover:underline">
+          {<span onClick={() => router.push(resolveCourseLink(menuData.base.course_series_id))} className="cursor-pointer hover:underline">
             {menuData.base.course_series_title}
           </span>}
           &nbsp;&gt;&nbsp;
@@ -111,18 +92,11 @@ export function Content({ type, id, single, data, menuData }) {
           </div>
         </div>
       </div>
-      <h2 className="text-4xl mb-9 pb-9 border-b border-gray-400">{single.base.course_single_name}</h2>
-      {
-        !!single.base.course_single_video_url &&
-          <div className="w-full aspect-video mb-6">
-            <Player url={single.base.course_single_video_url} />
-          </div>
-      }
-      <OViewer value={resolveContent(data)} />
+      <LessonDetailViewWidget data={single.base} />
       <hr className="my-9 border-gray-400" />
       <div className="flex justify-between">
         <div>
-          {bothSides.prev && <Link href={`/learn/${type}/${id}/${bothSides.prev.base.course_single_id}`} className="flex items-center">
+          {bothSides.prev && <Link href={`${currentCourseLink}/${bothSides.prev.base.course_single_id}`} className="flex items-center">
             <ChevronLeftIcon className="h-6 w-6 mr-4" />
             <div>
               <p className="text-sm opacity-60">Previous course</p>
@@ -131,7 +105,7 @@ export function Content({ type, id, single, data, menuData }) {
           </Link>}
         </div>
         <div>
-          {bothSides.next && <Link href={`/learn/${type}/${id}/${bothSides.next.base.course_single_id}`} className="flex items-center">
+          {bothSides.next && <Link href={`${currentCourseLink}/${bothSides.next.base.course_single_id}`} className="flex items-center">
             <div>
               <p className="text-sm opacity-60">Next course</p>
               <h5>{bothSides.next.base.course_single_name}</h5>
@@ -144,6 +118,8 @@ export function Content({ type, id, single, data, menuData }) {
       <div className="h-[72px]" />
     </div>
   ) : (
-    <LockedPlaceholder type={type} id={id} />
+    <LockedPlaceholder backLink={currentCourseLink} />
   );
 }
+
+export default Content;
