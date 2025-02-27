@@ -18,9 +18,9 @@
 
 import clsx from 'clsx';
 
-import { ChallengeListViewWidget } from '#/domain/challenge';
-import { CourseListViewWidget } from '#/domain/course';
-import { RoadmapListViewWidget } from '#/domain/roadmap';
+import ChallengeListViewWidget from '#/domain/challenge/views/challenge-list';
+import CourseListViewWidget from '#/domain/course/views/course-list';
+import RoadmapListViewWidget from '#/domain/roadmap/views/roadmap-list';
 import { useOpenFilter } from '#/state/application/hooks';
 
 const viewMap = {

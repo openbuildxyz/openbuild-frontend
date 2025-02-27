@@ -16,7 +16,7 @@
 
 'use client';
 
-import { MyReputationListView } from '#/domain/reputation';
+import MyReputationListView from '#/domain/reputation/views/my-reputation-list';
 
 export default function Page() {
   return (

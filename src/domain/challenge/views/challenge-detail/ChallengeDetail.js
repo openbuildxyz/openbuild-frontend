@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { CourseDetailViewWidget } from '../../../course';
+import CourseDetailViewWidget from '../../../course/views/course-detail';
 import TagListWidget from '../../widgets/tag-list';
 
 function ChallengeDetailView({ params, data, actionBar }) {

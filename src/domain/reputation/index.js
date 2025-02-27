@@ -15,5 +15,6 @@
  */
 
 export { fetchNftInfo } from './repository';
+
 export { default as NftSkeletonWidget } from './widgets/nft-skeleton';
 export { default as MyReputationListView } from './views/my-reputation-list';

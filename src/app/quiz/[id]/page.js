@@ -16,7 +16,7 @@
 
 'use client';
 
-import { QuizDetailViewWidget } from '#/domain/quiz';
+import QuizDetailViewWidget from '#/domain/quiz/views/quiz-detail';
 
 export default function QuizDetailPage({ params }) {
   return <QuizDetailViewWidget quizId={params.id} />;

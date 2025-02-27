@@ -22,7 +22,7 @@ import { useState } from 'react';
 import { ArrowRightIcon } from '@/components/Icons';
 import useMounted from '@/hooks/useMounted';
 
-import { QuizListViewWidget } from '#/domain/quiz';
+import QuizListViewWidget from '#/domain/quiz/views/quiz-list';
 
 import StartOnOpenBuild from '../../components/StartOnOpenBuild';
 import QuizS1 from './quiz-s-1.svg';

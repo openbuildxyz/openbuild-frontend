@@ -26,7 +26,7 @@ import { CheckCircleIcon } from '@/components/icon/solid';
 
 import { useMediaUrl } from '#/state/application/hooks';
 
-import { CourseListViewWidget } from '../../../course';
+import CourseListViewWidget from '../../../course/views/course-list';
 
 function StepList({ data, permission, roadmapId, executeEnroll }) {
   const mediaUrl = useMediaUrl();

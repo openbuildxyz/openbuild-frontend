@@ -28,7 +28,8 @@ import useMounted from '@/hooks/useMounted';
 
 import { useMediaUrl } from '#/state/application/hooks';
 
-import { fetchList as fetchCourseList, CourseListViewWidget } from '../../../course';
+import { fetchList as fetchCourseList } from '../../../course';
+import CourseListViewWidget from '../../../course/views/course-list';
 import { fetchOne } from '../../repository';
 import QuizLimiterWidget from '../../widgets/quiz-limiter';
 import RankList from './RankList';

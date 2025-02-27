@@ -18,7 +18,7 @@
 
 import { Share } from '@/components/Share';
 
-import { RoadmapDetailViewWidget } from '#/domain/roadmap';
+import RoadmapDetailViewWidget from '#/domain/roadmap/views/roadmap-detail';
 
 import { growPathEnrollAction } from './actions';
 import { Back } from './Back';

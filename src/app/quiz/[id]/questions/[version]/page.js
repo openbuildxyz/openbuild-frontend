@@ -16,7 +16,7 @@
 
 'use client';
 
-import { QuizQuestionListViewWidget } from '#/domain/quiz';
+import QuizQuestionListViewWidget from '#/domain/quiz/views/quiz-question-list';
 
 export default function QuizVersion({ params }) {
   return (

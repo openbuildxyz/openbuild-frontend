@@ -18,8 +18,8 @@
 
 import { Share } from '@/components/Share';
 
-import { ChallengeDetailViewWidget } from '#/domain/challenge';
-import { CourseDetailViewWidget } from '#/domain/course';
+import ChallengeDetailViewWidget from '#/domain/challenge/views/challenge-detail';
+import CourseDetailViewWidget from '#/domain/course/views/course-detail';
 
 import { Back } from './Back';
 import { LearnRightCard } from './RightCard';
