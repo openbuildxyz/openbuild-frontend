@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-'use client';
-
 import BigNumber from 'bignumber.js';
 import { clsx } from 'clsx';
 import { useRouter } from 'next/navigation';
@@ -26,12 +24,12 @@ import { ChevronDoubleLeftIcon, XMarkIcon } from '@/components/icon/solid';
 import { ContentIcon, ReadingIcon, ReadedIcon, BlackPointIcon, LockedIcon } from '@/components/Icons';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 
-import { reducerList } from '#/app/learn/Chapters';
+import { reducerList } from '#/domain/course/helper';
 import { useLessonMenu, useLessonMenuToggleStatus } from '#/state/application/hooks';
 import { updateLessonMenu, updateLessonMenuToggleStatus } from '#/state/application/reducer';
 import { useAppDispatch } from '#/state/hooks';
 
-export function Steper({ type, data, id, singleId }) {
+function LessonList({ courseLink, data, singleId }) {
   const dispatch = useAppDispatch();
   const show = useLessonMenu();
 
@@ -99,7 +97,7 @@ export function Steper({ type, data, id, singleId }) {
                       if (j.isLock) {
                         toast.info('The content has not been made public, please contact the publisher');
                       } else {
-                        router.push(`/learn/${type}/${id}/${j.base.course_single_id}`);
+                        router.push(`${courseLink}/${j.base.course_single_id}`);
                       }
                     }}
                   >
@@ -139,3 +137,5 @@ export function Steper({ type, data, id, singleId }) {
     <></>
   );
 }
+
+export default LessonList;
