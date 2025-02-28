@@ -40,7 +40,6 @@ import { joinChallengesEnrool, pay } from '#/services/learn/';
 // import { currentTime } from '@/utils/date'
 import { useMediaUrl } from '#/state/application/hooks';
 
-import { enrollAction, revalidatePathAction } from '../../../app/learn/[type]/[id]/actions';
 // import { USDTIcon } from '@/components/Icons'
 import EmailModal from './EmailModal';
 
@@ -195,7 +194,7 @@ function ButtonGroup({
   );
 }
 
-export default function LearnRightCard({ data, type, permission, related }) {
+export default function LearnRightCard({ data, type, permission, related, enrollAction, revalidatePathAction }) {
   // const { data: walletClient } = useWalletClient()
   const searchParams = useSearchParams();
   const mediaUrl = useMediaUrl();
@@ -529,6 +528,7 @@ export default function LearnRightCard({ data, type, permission, related }) {
           setIsEmailVerify(true);
           setSurveyJson(data.challenges_extra?.course_challenges_extra_check_schema);
         }}
+        revalidatePathAction={revalidatePathAction}
       />
       {surveyJson !== '' && surveyJson && (
         <EnrollModal

@@ -27,7 +27,7 @@ const viewWidgetMap = {
   challenges: ChallengeDetailViewWidget,
 };
 
-function CourseDetailPage({ params, data, permission, related }) {
+function CourseDetailPage({ params, data, permission, related, enrollAction, revalidatePathAction }) {
   const learnType = params.type;
   const DetailViewWidget = viewWidgetMap[learnType];
 
@@ -47,7 +47,7 @@ function CourseDetailPage({ params, data, permission, related }) {
       <div className="flex flex-1 border-gray-400 pt-6 lg:border-r lg:pr-14">
         <DetailViewWidget params={params} data={data} actionBar={actionBar} />
       </div>
-      <LearnRightCard data={data} type={learnType} permission={permission} related={related} />
+      <LearnRightCard data={data} type={learnType} permission={permission} related={related} enrollAction={enrollAction} revalidatePathAction={revalidatePathAction} />
     </div>
   );
 }
