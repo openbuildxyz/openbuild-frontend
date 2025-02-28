@@ -17,6 +17,7 @@
 import { PreviewAlert } from '@/components/PreviewAlert';
 import { get } from '@/utils/request';
 
+import { enrollAction, revalidatePathAction } from './actions';
 import CourseDetailPageAdapter from './CourseDetailPageAdapter';
 import GrowPath from './GrowPath';
 
@@ -74,7 +75,7 @@ export default async function LearnDetailsPage({ params, searchParams }) {
   return learnType !== 'career_path' ? (
     <>
       <PreviewAlert searchParams={searchParams} />
-      <CourseDetailPageAdapter params={params} data={data} permission={permission} related={related} />
+      <CourseDetailPageAdapter params={params} data={data} permission={permission} related={related} enrollAction={enrollAction} revalidatePathAction={revalidatePathAction} />
     </>
   ) : <GrowPath params={params} data={data} permission={permission} />;
 }
