@@ -1,0 +1,27 @@
+# Changelog
+
+{{#each releases}}
+  ## {{title}} ({{isoDate}})
+
+  {{#if merges}}
+    ### Merged
+    {{#each merges}}
+      - {{message}} ({{id}})
+    {{/each}}
+  {{/if}}
+
+  {{#if fixes}}
+    ### Fixed
+    {{#each fixes}}
+      - {{commit.subject}} ({{shorthash}})
+    {{/each}}
+  {{/if}}
+
+  {{#if commits}}
+    ### Commits
+    {{#each commits}}
+      - {{subject}} ({{shorthash}})
+    {{/each}}
+  {{/if}}
+
+{{/each}}
