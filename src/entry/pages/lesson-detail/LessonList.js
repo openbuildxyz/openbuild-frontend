@@ -119,7 +119,7 @@ function LessonList({ courseLink, data, singleId }) {
                     })}>
                       <div className="flex items-center mb-3 justify-between">
                         <p className="flex items-center text-sm">
-                          <ContentIcon className="mr-2" /> Chapter {t+1}
+                          <ContentIcon className="mr-2" /> Lesson {t+1}
                         </p>
                         {(j.analytics.analytice_user_time / j.analytics.analytice_estimated_time * 100) > 0 && <span className={clsx('text-xs opacity-40', {'!opacity-100': j.analytics.analytice_user_end || j.isLock})}>{(j.analytics.analytice_user_time / j.analytics.analytice_estimated_time * 100).toFixed(1)}%</span>}
                       </div>

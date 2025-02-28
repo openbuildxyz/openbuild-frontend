@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-export default function LearnDetailsLayout({children}) {
-  return (
-    <>{children}</>
-  );
-}
+'use client';
+
+export { default } from '#/entry/pages/course-detail';

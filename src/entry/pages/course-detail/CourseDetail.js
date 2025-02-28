@@ -14,22 +14,20 @@
  * limitations under the License.
  */
 
-'use client';
-
 import { Share } from '@/components/Share';
 
 import ChallengeDetailViewWidget from '#/domain/challenge/views/challenge-detail';
 import CourseDetailViewWidget from '#/domain/course/views/course-detail';
 
-import { Back } from './Back';
-import { LearnRightCard } from './RightCard';
+import Back from './Back';
+import LearnRightCard from './RightCard';
 
 const viewWidgetMap = {
   courses: CourseDetailViewWidget,
   challenges: ChallengeDetailViewWidget,
 };
 
-function CourseOrChallengeDetail({ params, data, permission, related }) {
+function CourseDetailPage({ params, data, permission, related }) {
   const learnType = params.type;
   const DetailViewWidget = viewWidgetMap[learnType];
 
@@ -54,4 +52,4 @@ function CourseOrChallengeDetail({ params, data, permission, related }) {
   );
 }
 
-export default CourseOrChallengeDetail;
+export default CourseDetailPage;

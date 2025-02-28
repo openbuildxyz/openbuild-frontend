@@ -15,61 +15,16 @@
  */
 
 import clsx from 'clsx';
-import Image from 'next/image';
 import Link from 'next/link';
-import LocationIcon from 'public/images/location.svg';
-import TicketPic from 'public/images/ticket.png';
-import TimeIcon from 'public/images/time.svg';
 import ContentEditable from 'react-contenteditable';
 
 import { USDTIcon } from '@/components/Icons';
 import { ArrowRightLineIcon } from '@/components/Icons';
 import { HTMLDecode } from '@/utils';
-import { formatTime } from '@/utils/date';
-
-import { countries } from '#/lib/countries';
 
 import { CardTitleWidget } from '../../../course';
+import DatePlaceWidget from '../../widgets/date-place';
 import TagListWidget from '../../widgets/tag-list';
-
-export function TimeAndLocation({data, from, openTicket, permission, type}) {
-  // console.log(data)
-
-  return (
-    <>
-      <div className="my-2 flex items-center justify-between">
-        <div className="flex items-center">
-          <Image src={TimeIcon} alt="" />
-          <p className="text-sm opacity-60 ml-2">Time</p>
-        </div>
-        <div className="h-4">
-          <p className="text-sm text-gray">
-            {formatTime(data.challenges_extra.course_challenges_extra_start_date * 1000, 'YYYY/MM/DD')} -{' '}
-            {formatTime(data.challenges_extra.course_challenges_extra_end_date * 1000, 'MM/DD')}
-            {data.challenges_extra.course_challenges_extra_time_zone?.label?.substr(0, 11) && <span className="text-xs h-4 py-[2px]">{data.challenges_extra.course_challenges_extra_time_zone?.label?.substr(0, 11)}</span>}
-          </p>
-        </div>
-      </div>
-      <div className="mt-2 flex items-center justify-between gap-10">
-        <div className="flex items-center">
-          <Image src={LocationIcon} alt="" />
-          <p className="text-sm opacity-60 ml-2">Location</p>
-        </div>
-        <p className="text-sm text-gray flex-1 text-right flex items-center justify-end gap-1">
-          {
-            data?.challenges_extra.course_challenges_extra_online ?
-              'Online'
-              :
-              data?.challenges_extra.course_challenges_extra_country ?
-                countries.find(f => f.code === data?.challenges_extra.course_challenges_extra_country)?.name
-            + ', ' + data?.challenges_extra.course_challenges_extra_city : ''
-          }
-          {!data?.challenges_extra.course_challenges_extra_online && from === 'rc' && (permission?.course_user_permission_status === 1 && type === 'challenges') && <Image onClick={openTicket} height={12} src={TicketPic} alt="" className="cursor-pointer" />}
-        </p>
-      </div>
-    </>
-  );
-}
 
 function ChallengeItem({ data }) {
   return (
@@ -91,7 +46,7 @@ function ChallengeItem({ data }) {
             disabled={true}
           />
         </h6>
-        <TimeAndLocation data={data} />
+        <DatePlaceWidget data={data} />
       </div>
       <div className="flex items-center justify-between py-4 px-6">
         <div className="flex items-center gap-14">

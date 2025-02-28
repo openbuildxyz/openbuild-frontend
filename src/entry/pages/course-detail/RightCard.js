@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-'use client';
-
 import { useConnectModal } from '@rainbow-me/rainbowkit';
 import { waitForTransaction } from '@wagmi/core';
 import { writeContract } from '@wagmi/core';
@@ -45,18 +43,16 @@ import { formatTime } from '@/utils/date';
 import { resolvePathWithSearch } from '@/utils/url';
 import { parseTokenUnits } from '@/utils/web3';
 
+import DatePlaceWidget from '#/domain/challenge/widgets/date-place';
 import { joinChallengesEnrool, pay } from '#/services/learn/';
 // import { currentTime } from '@/utils/date'
 import { useMediaUrl } from '#/state/application/hooks';
 
-import { TimeAndLocation } from '../ChallengesCard';
-import { enrollAction, revalidatePathAction } from './actions';
+import { enrollAction, revalidatePathAction } from '../../../app/learn/[type]/[id]/actions';
 // import { USDTIcon } from '@/components/Icons'
-import { EmailModal } from './EmailModal';
+import EmailModal from './EmailModal';
 
-const EnrollModal = dynamic(() => import('./EnrollModal'), {
-  ssr: false,
-});
+const EnrollModal = dynamic(() => import('./EnrollModal'), { ssr: false });
 
 function ButtonGroup({
   data,
@@ -207,7 +203,7 @@ function ButtonGroup({
   );
 }
 
-export function LearnRightCard({ data, type, permission, related }) {
+export default function LearnRightCard({ data, type, permission, related }) {
   // const { data: walletClient } = useWalletClient()
   const searchParams = useSearchParams();
   const mediaUrl = useMediaUrl();
@@ -442,7 +438,7 @@ export function LearnRightCard({ data, type, permission, related }) {
           </div>
           {type === 'challenges' && (
             <div className="my-4">
-              <TimeAndLocation
+              <DatePlaceWidget
                 data={data}
                 from={'rc'}
                 openTicket={() => setOpen(true)}

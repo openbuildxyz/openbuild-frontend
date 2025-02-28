@@ -49,7 +49,7 @@ export default async function ChapterPage({ params }) {
   const collection = { link: `/learn/${collectionType}`, text: collectionTextMap[collectionType] };
 
   const datas = await Promise.all([
-    get(`v1/learn/course/${params.type === 'courses' ? 'opencourse' : 'challenges'}/${params.id}`, {isServer: true}),
+    get(`v1/learn/course/${collectionType === 'courses' ? 'opencourse' : 'challenges'}/${params.id}`, {isServer: true}),
     get(`ts/v1/learn/general/course/single/${params.chapter_id}`, {isServer: true}),
   ]);
   const [{ data }, { data: lessonData }] = [...datas];

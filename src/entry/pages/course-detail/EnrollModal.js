@@ -22,7 +22,7 @@ import { Survey } from 'survey-react-ui';
 
 import { Modal } from '@/components/Modal';
 
-import { joinChallengesEnrool } from '#/services/learn/';
+import { joinChallengesEnrool } from '#/services/learn';
 
 export default function EnrollModal({ open, closeModal, json, id, successCallback }) {
   const { status } = useSession();
