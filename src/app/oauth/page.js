@@ -28,6 +28,7 @@ import Loader from '@/components/Loader';
 import useMounted from '@/hooks/useMounted';
 import { getCopyrightText } from '@/utils/app';
 
+import { setOauthSource } from '#/domain/auth/helper';
 import { fetchOauthClientInfo, fetchOauthClientCode } from '#/domain/auth/repository';
 
 import Link from './Link';
@@ -76,8 +77,10 @@ export default function Page() {
 
   useEffect(() => {
     if (status !== 'loading' && status !== 'authenticated') {
+      const oauthSrcKey = Date.now().toString(36);
       const encodedParams = `client_id=${encodeURIComponent(clientId)}&redirect_uri=${encodeURIComponent(redirectUri)}`;
-      router.push(`/signin?from=${encodeURIComponent(`${pathname}?${encodedParams}`)}`);
+      setOauthSource(oauthSrcKey, encodeURIComponent(`${pathname}?${encodedParams}`));
+      router.push(`/signin?ob_oauth_src=${oauthSrcKey}`);
     }
   }, [status]); // eslint-disable-line react-hooks/exhaustive-deps
 
