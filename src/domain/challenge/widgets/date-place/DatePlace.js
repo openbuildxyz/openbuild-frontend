@@ -15,6 +15,7 @@
  */
 
 import Image from 'next/image';
+import { useState } from 'react';
 
 import { formatTime } from '@/utils/date';
 
@@ -22,9 +23,12 @@ import { countries } from '#/lib/countries';
 
 import LocationIcon from './location.svg';
 import TicketPic from './ticket.png';
+import TicketDialog from './TicketDialog';
 import TimeIcon from './time.svg';
 
-function DatePlace({data, from, openTicket, permission, type}) {
+function DatePlace({ data, showTicket = false }) {
+  const [open, setOpen] = useState(false);
+
   return (
     <>
       <div className="my-2 flex items-center justify-between">
@@ -54,9 +58,10 @@ function DatePlace({data, from, openTicket, permission, type}) {
                 countries.find(f => f.code === data?.challenges_extra.course_challenges_extra_country)?.name
             + ', ' + data?.challenges_extra.course_challenges_extra_city : ''
           }
-          {!data?.challenges_extra.course_challenges_extra_online && from === 'rc' && (permission?.course_user_permission_status === 1 && type === 'challenges') && <Image onClick={openTicket} height={12} src={TicketPic} alt="" className="cursor-pointer" />}
+          {showTicket && <Image onClick={() => setOpen(true)} height={12} src={TicketPic} alt="" className="cursor-pointer" />}
         </p>
       </div>
+      {showTicket && <TicketDialog data={data} open={open} onClose={() => setOpen(false)} />}
     </>
   );
 }

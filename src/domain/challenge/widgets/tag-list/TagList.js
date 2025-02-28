@@ -19,7 +19,7 @@ import { useMemo } from 'react';
 
 import { useConfig } from '#/state/application/hooks';
 
-import StatusTag from '../status-tag';
+import StatusTagWidget from '../status-tag';
 
 function useTags(data) {
   const configs = useConfig();
@@ -46,7 +46,7 @@ function TagList({ className, data }) {
 
   return data && (
     <div className={clsx('flex', className)}>
-      <StatusTag data={data} />
+      <StatusTagWidget data={data} />
       {tags.map((t, i) => (
         <span key={`learn-card-tag-${i}`} className="flex items-center mb-1 text-xs border border-gray-600 rounded-[6px] px-2 h-6 opacity-60 mr-1">
           {t}
