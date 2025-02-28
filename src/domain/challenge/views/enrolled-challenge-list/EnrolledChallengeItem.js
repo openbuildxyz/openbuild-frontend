@@ -20,7 +20,7 @@ import Avatar from '@/components/Avatar';
 import Image from '@/components/Image';
 import { formatTime } from '@/utils/date';
 
-import { ChallengesStatus } from '#/app/learn/[type]/ChallengesStatus';
+import StatusTag from '../../widgets/status-tag';
 
 function EnrolledChallengeItem({ data }) {
   const router = useRouter();
@@ -51,7 +51,7 @@ function EnrolledChallengeItem({ data }) {
 
         </div>
         <div className="flex mt-4 items-center text-sm opacity-80 md:mt-0">
-          <ChallengesStatus data={data} />
+          <StatusTag data={data} />
           <p>
             <span className="hidden md:inline">Time:&nbsp;</span>
             {formatTime(data.challenges_extra.course_challenges_extra_start_date * 1000, 'YYYY/MM/DD')} -{' '}

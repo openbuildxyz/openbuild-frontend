@@ -17,7 +17,7 @@
 import { PreviewAlert } from '@/components/PreviewAlert';
 import { get } from '@/utils/request';
 
-import CourseOrChallengeDetail from './CourseOrChallengeDetail';
+import CourseDetailPageAdapter from './CourseDetailPageAdapter';
 import GrowPath from './GrowPath';
 
 export async function generateMetadata({ params }) {
@@ -74,7 +74,7 @@ export default async function LearnDetailsPage({ params, searchParams }) {
   return learnType !== 'career_path' ? (
     <>
       <PreviewAlert searchParams={searchParams} />
-      <CourseOrChallengeDetail params={params} data={data} permission={permission} related={related} />
+      <CourseDetailPageAdapter params={params} data={data} permission={permission} related={related} />
     </>
   ) : <GrowPath params={params} data={data} permission={permission} />;
 }

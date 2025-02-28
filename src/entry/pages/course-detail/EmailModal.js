@@ -26,9 +26,9 @@ import { Modal } from '@/components/Modal';
 import { baseInputStyles } from '#/domain/profile/widgets/blocks';
 import { sendCode, emailCodeLogin } from '#/services/auth';
 
-import { revalidatePathAction } from './actions';
+import { revalidatePathAction } from '../../../app/learn/[type]/[id]/actions';
 
-export function EmailModal({ open, closeModal, successCallback }) {
+export default function EmailModal({ open, closeModal, successCallback }) {
   const [email, setEmail] = useState('');
   const [verificationCode, setVerificationCode] = useState('');
   const [cdMss, setCdMss] = useState(0);

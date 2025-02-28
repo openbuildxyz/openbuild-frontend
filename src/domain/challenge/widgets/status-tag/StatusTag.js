@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-'use client';
-
 import clsx from 'clsx';
 
 const statusMap = {
@@ -39,7 +37,7 @@ const statusMap = {
   },
 };
 
-export function ChallengesStatus({ data }) {
+function StatusTag({ data }) {
   const status = statusMap[data?.challenges_extra.course_challenges_extra_time_order];
 
   return (
@@ -54,3 +52,5 @@ export function ChallengesStatus({ data }) {
     </div>
   );
 }
+
+export default StatusTag;

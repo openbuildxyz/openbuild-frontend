@@ -59,7 +59,7 @@ function ChapterSection({ type, data, id }) {
       <div className="mb-6 items-center justify-between md:flex">
         <h3 className="text-lg font-bold">Chapters</h3>
         <p className="text-sm text-gray-200">
-          {list.length} Chapters / {data?.courses?.length} Classes / {millisecondFormat(allTimes)}
+          {list.length} Chapters / {data?.courses?.length} Lessons / {millisecondFormat(allTimes)}
         </p>
       </div>
 
