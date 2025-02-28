@@ -29,6 +29,7 @@ import Loader from '@/components/Loader';
 import { isEmpty } from '@/utils';
 import { wrapOnChange } from '@/utils/form';
 
+import { getOauthSourceFromParams } from '#/domain/auth/helper';
 import { signin, emailCodeLogin } from '#/services/auth';
 
 import LoginTypeSwitcher from './LoginTypeSwitcher';
@@ -86,6 +87,7 @@ export default function Login() {
           token: response.data.token,
           redirect: false,
           callbackUrl: decodeURIComponent(
+            getOauthSourceFromParams(searchParams) ||
             searchParams?.get('from') ||
             searchParams?.get('callbackUrl') ||
             '/profile'

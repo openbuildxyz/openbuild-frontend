@@ -44,4 +44,21 @@ const authWithGoogle = gotoOauthUrl.bind(null, 'google');
 const authWithGithub = gotoOauthUrl.bind(null, 'github');
 const authWithAspecta = gotoOauthUrl.bind(null, 'aspecta');
 
-export { authWithGoogle, authWithGithub, authWithAspecta };
+const obOauthRedirectBaseKey = 'OB_OAUTH_SRC';
+
+function setOauthSource(key, queryString) {
+  sessionStorage.setItem(`${obOauthRedirectBaseKey}-${key}`, queryString);
+}
+
+function getOauthSource(key) {
+  return key && sessionStorage.getItem(`${obOauthRedirectBaseKey}-${key}`) || '';
+}
+
+function getOauthSourceFromParams(searchParams) {
+  return getOauthSource(searchParams?.get('ob_oauth_src')) || '';
+}
+
+export {
+  authWithGoogle, authWithGithub, authWithAspecta,
+  setOauthSource, getOauthSourceFromParams,
+};
