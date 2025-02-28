@@ -12,6 +12,8 @@ pnpm-lock.yaml
 /coverage
 #vscode
 /.vscode/
+#webstorm
+.idea
 
 # next.js
 /.next/
