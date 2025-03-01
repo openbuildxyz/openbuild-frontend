@@ -15,7 +15,7 @@
  */
 
 import { merge } from '@/utils';
-import { legacyClient } from '@/utils/http';
+import httpClient, { legacyClient, mergeMultipleResponses } from '@/utils/http';
 
 async function fetchList(params = {}) {
   const { sort, ...others } = params;
@@ -29,6 +29,32 @@ async function fetchList(params = {}) {
 
 async function fetchOne(id) {
   return legacyClient.get(`/learn/course/opencourse/${id}`);
+}
+
+async function enrollOne(id) {
+  return httpClient.post(`/learn/general/course/opencourse/${id}/permission/enrool`);
+}
+
+async function fetchPermission(id) {
+  return httpClient.get(`/learn/general/course/series/${id}/permission`);
+}
+
+async function fetchOneWithPermission(id) {
+  return mergeMultipleResponses([fetchOne(id), fetchPermission(id)], ([{ data, ...others }, permission]) => ({
+    ...others,
+    data: { ...data, permission: permission.data },
+  }));
+}
+
+async function fetchLessonDetail(id) {
+  return httpClient.get(`/learn/general/course/single/${id}`);
+}
+
+async function fetchLessonWithEntity({ id, entityId }) {
+  return mergeMultipleResponses([fetchOne(entityId), fetchLessonDetail(id)], ([entity, { extra, ...others }]) => ({
+    ...others,
+    extra: { ...extra, entity: entity.data },
+  }));
 }
 
 async function fetchPublishedCourseList(params = {}) {
@@ -47,4 +73,9 @@ async function fetchEnrolledCourseList(params = {}) {
   });
 }
 
-export { fetchList, fetchOne, fetchPublishedCourseList, fetchEnrolledCourseList };
+export {
+  fetchList, fetchOne, enrollOne,
+  fetchPermission, fetchOneWithPermission,
+  fetchLessonDetail, fetchLessonWithEntity,
+  fetchPublishedCourseList, fetchEnrolledCourseList,
+};

@@ -17,6 +17,9 @@
 import { PreviewAlert } from '@/components/PreviewAlert';
 import { get } from '@/utils/request';
 
+import { fetchOneWithPermission as fetchChallengeWithPermission } from '#/domain/challenge/repository';
+import { fetchOneWithPermission as fetchCourseWithPermission } from '#/domain/course/repository';
+
 import { enrollAction, revalidatePathAction } from './actions';
 import CourseDetailPageAdapter from './CourseDetailPageAdapter';
 import GrowPath from './GrowPath';
@@ -46,21 +49,21 @@ export default async function LearnDetailsPage({ params, searchParams }) {
   const learnType = params.type;
   const learnId = params.id;
 
-  let datas;
+  let data, permission;
 
   if (learnType === 'career_path') {
-    datas = await Promise.all([
+    const datas = await Promise.all([
       get(`ts/v1/learn/general/course/grow_path/${learnId}`, {isServer: true}),
       get(`ts/v1/learn/general/course/grow_path/${learnId}/permission`, {isServer: true}),
     ]);
+    data = datas[0].data;
+    permission = datas[1].data;
   } else {
-    datas = await Promise.all([
-      get(`v1/learn/course/${learnType === 'courses' ? 'opencourse' : 'challenges'}/${learnId}`, {isServer: true}),
-      get(`ts/v1/learn/general/course/series/${learnId}/permission`, {isServer: true}),
-    ]);
+    const fetchOneWithPermission = learnType === 'courses' ? fetchCourseWithPermission : fetchChallengeWithPermission;
+    const res = await fetchOneWithPermission(learnId);
+    data = res.data;
+    permission = (res.data || {}).permission;
   }
-
-  const [{ data }, { data: permission }] = [...datas];
 
   let related = null;
 

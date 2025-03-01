@@ -14,18 +14,32 @@
  * limitations under the License.
  */
 
-import { get } from '@/utils/request';
+import { fetchOne as fetchChallenge, fetchLessonWithEntity as fetchLessonWithChallenge } from '#/domain/challenge/repository';
+import { fetchOne as fetchCourse, fetchLessonWithEntity as fetchLessonWithCourse } from '#/domain/course/repository';
 
 import LessonDetailPageAdapter from './LessonDetailPageAdapter';
 
-const collectionTextMap = {
-  courses: 'Open Courses',
-  challenges: 'Challenges',
+const learnTypeMap = {
+  courses: {
+    collectionText: 'Open Courses',
+    fetchOne: fetchCourse,
+    fetchLessonWithEntity: fetchLessonWithCourse,
+  },
+  challenges: {
+    collectionText: 'Challenges',
+    fetchOne: fetchChallenge,
+    fetchLessonWithEntity: fetchLessonWithChallenge,
+  },
 };
 
 export async function generateMetadata({ params }) {
-  // fetch data
-  const { data } = await get(`v1/learn/course/${params.type === 'courses' ? 'opencourse' : 'challenges'}/${params.id}`, {isServer: true});
+  const { fetchOne } = learnTypeMap[params.type] || {};
+
+  if (!fetchOne) {
+    return {};
+  }
+
+  const { data } = await fetchOne(params.id);
   const previousImages = data?.base?.course_series_img ? `https://file-cdn.openbuild.xyz${data.base.course_series_img}` : '';
   const chapter = data.courses.find(course => String(course?.base?.course_single_id) === params.chapter_id);
 
@@ -45,16 +59,18 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function ChapterPage({ params }) {
-  const collectionType = params.type;
-  const collection = { link: `/learn/${collectionType}`, text: collectionTextMap[collectionType] };
+  const learnType = params.type;
+  const learnTypeInfo = learnTypeMap[learnType];
 
-  const datas = await Promise.all([
-    get(`v1/learn/course/${collectionType === 'courses' ? 'opencourse' : 'challenges'}/${params.id}`, {isServer: true}),
-    get(`ts/v1/learn/general/course/single/${params.chapter_id}`, {isServer: true}),
-  ]);
-  const [{ data }, { data: lessonData }] = [...datas];
+  if (!learnTypeInfo) {
+    return null;
+  }
+
+  const { collectionText, fetchLessonWithEntity } = learnTypeInfo;
+  const collection = { link: `/learn/${learnType}`, text: collectionText };
+  const res = await fetchLessonWithEntity({ id: params.chapter_id, entityId: params.id });
 
   return (
-    <LessonDetailPageAdapter collection={collection} data={data} lessonData={lessonData} />
+    <LessonDetailPageAdapter collection={collection} data={res.extra.entity} lessonData={res.data} />
   );
 }

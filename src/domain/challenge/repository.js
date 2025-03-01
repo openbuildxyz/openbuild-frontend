@@ -15,10 +15,26 @@
  */
 
 import { merge } from '@/utils';
-import httpClient, { legacyClient } from '@/utils/http';
+import httpClient, { legacyClient, mergeMultipleResponses } from '@/utils/http';
+
+import { fetchPermission, fetchLessonDetail } from '../course/repository';
 
 async function fetchOne(id) {
   return legacyClient.get(`/learn/course/challenges/${id}`);
+}
+
+async function fetchOneWithPermission(id) {
+  return mergeMultipleResponses([fetchOne(id), fetchPermission(id)], ([{ data, ...others }, permission]) => ({
+    ...others,
+    data: { ...data, permission: permission.data },
+  }));
+}
+
+async function fetchLessonWithEntity({ id, entityId }) {
+  return mergeMultipleResponses([fetchOne(entityId), fetchLessonDetail(id)], ([entity, { extra, ...others }]) => ({
+    ...others,
+    extra: { ...extra, entity: entity.data },
+  }));
 }
 
 async function fetchPublishedChallengeList(params = {}) {
@@ -63,10 +79,8 @@ async function updateEmailTemplate(id, { title, body }) {
 }
 
 export {
-  fetchOne,
-  fetchPublishedChallengeList,
-  fetchEnrolledChallengeList,
+  fetchOne, fetchOneWithPermission, fetchLessonWithEntity,
+  fetchPublishedChallengeList, fetchEnrolledChallengeList,
   updateMultipleApplicantStatus,
-  fetchEmailTemplate,
-  updateEmailTemplate,
+  fetchEmailTemplate, updateEmailTemplate,
 };
