@@ -15,21 +15,50 @@
  */
 
 import { merge } from '@/utils';
-import { legacyClient } from '@/utils/http';
+import httpClient, { legacyClient, mergeMultipleResponses } from '@/utils/http';
+
+async function fetchList(params = {}) {
+  const { sort, ...others } = params;
+
+  return legacyClient.get('/learn/course/opencourse', {
+    params: merge({ take: 20 }, others, {
+      order: sort || 'default',
+    }),
+  });
+}
 
 async function fetchOne(id) {
   return legacyClient.get(`/learn/course/opencourse/${id}`);
 }
 
-async function fetchPublishedCourseList(params = {}) {
-  const { userId, sort, ...others } = params;
+async function enrollOne(id) {
+  return httpClient.post(`/learn/general/course/opencourse/${id}/permission/enrool`);
+}
 
-  return legacyClient.get('/learn/course/opencourse', {
-    params: merge({ take: 20 }, others, {
-      team_uid: userId,
-      order: sort || 'default',
-    }),
-  });
+async function fetchPermission(id) {
+  return httpClient.get(`/learn/general/course/series/${id}/permission`);
+}
+
+async function fetchOneWithPermission(id) {
+  return mergeMultipleResponses([fetchOne(id), fetchPermission(id)], ([{ data, ...others }, permission]) => ({
+    ...others,
+    data: { ...data, permission: permission.data },
+  }));
+}
+
+async function fetchLessonDetail(id) {
+  return httpClient.get(`/learn/general/course/single/${id}`);
+}
+
+async function fetchLessonWithEntity({ id, entityId }) {
+  return mergeMultipleResponses([fetchOne(entityId), fetchLessonDetail(id)], ([entity, { extra, ...others }]) => ({
+    ...others,
+    extra: { ...extra, entity: entity.data },
+  }));
+}
+
+async function fetchPublishedCourseList(params = {}) {
+  return fetchList({ ...params, team_uid: params.userId });
 }
 
 async function fetchEnrolledCourseList(params = {}) {
@@ -44,4 +73,9 @@ async function fetchEnrolledCourseList(params = {}) {
   });
 }
 
-export { fetchOne, fetchPublishedCourseList, fetchEnrolledCourseList };
+export {
+  fetchList, fetchOne, enrollOne,
+  fetchPermission, fetchOneWithPermission,
+  fetchLessonDetail, fetchLessonWithEntity,
+  fetchPublishedCourseList, fetchEnrolledCourseList,
+};

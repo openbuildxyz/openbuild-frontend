@@ -15,38 +15,48 @@
  */
 
 'use client';
+
 import clsx from 'clsx';
 
-import { OPagination } from '@/components/Pagination';
-
+import ChallengeListViewWidget from '#/domain/challenge/views/challenge-list';
+import CourseListViewWidget from '#/domain/course/views/course-list';
+import RoadmapListViewWidget from '#/domain/roadmap/views/roadmap-list';
 import { useOpenFilter } from '#/state/application/hooks';
 
-import { ChallengesCard } from './ChallengesCard';
-import { CourseCard } from './CourseCard';
-import { GrowPathCard } from './GrowPathCard';
+const viewMap = {
+  courses: {
+    widget: CourseListViewWidget,
+    className: 'mb-9 mt-6 gap-5 md:grid-cols-3',
+  },
+  challenges: {
+    widget: ChallengeListViewWidget,
+  },
+  career_path: {
+    widget: RoadmapListViewWidget,
+  },
+};
 
-export function List({type, data}) {
+export function List({ type, data }) {
   const openFilter = useOpenFilter();
-  // console.log(data, 'datadatadatadata')
+  const view = viewMap[type];
+
+  if (!view) {
+    return null;
+  }
+
+  const otherClassNames = {
+    'lg:grid-cols-2': openFilter,
+    'lg:grid-cols-3': !openFilter,
+    'xl:grid-cols-3': openFilter,
+    'xl:grid-cols-4': !openFilter,
+    '3xl:grid-cols-4': openFilter,
+    '3xl:grid-cols-5': !openFilter,
+  };
+  const ListViewWidget = view.widget;
+
   return (
     <div>
-      <div
-        className={clsx('mb-9 mt-6 grid gap-5 md:grid-cols-3', {
-          'lg:grid-cols-2': openFilter,
-          'lg:grid-cols-3': !openFilter,
-          'xl:grid-cols-3': openFilter,
-          'xl:grid-cols-4': !openFilter,
-          '3xl:grid-cols-4': openFilter,
-          '3xl:grid-cols-5': !openFilter,
-        })}
-      >
-        {type === 'courses' && data.list?.map(i => <CourseCard data={i} key={`open-courses-${i.base.course_series_id}`} />)}
-        {type === 'challenges' &&
-          data.list?.map(i => <ChallengesCard data={i} key={`Challenges-${i.base.course_series_id}`} />)}
-        {type === 'career_path' &&
-          data.list?.map(i => <GrowPathCard data={i} key={`GrowPathCard-${i.base.course_series_id}`} />)}
-      </div>
-      <OPagination total={data.count} />
+      <ListViewWidget className={clsx(view.className, otherClassNames)} data={data.list} total={data.count} />
     </div>
   );
 }

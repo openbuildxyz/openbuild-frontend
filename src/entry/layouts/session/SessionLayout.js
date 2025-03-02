@@ -17,6 +17,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
+import { getCopyrightText } from '@/utils/app';
+
 import { Header } from '../../components/Header';
 import { Close } from './Close';
 import bgImage from './login_bg.png';
@@ -32,7 +34,7 @@ function SessionLayout({ children }) {
       <div className="hidden flex-1 flex-col justify-between bg-gray md:flex md:h-screen">
         <Image className="h-[calc(100%-85px)] object-cover" src={bgImage} alt="" />
         <p className="relative mb-4 hidden text-center text-sm text-white md:block">
-          © {new Date().getFullYear()} OpenBuild, All rights reserved.
+          {getCopyrightText()}
         </p>
       </div>
       <div className="flex w-full flex-1 flex-col items-center justify-center bg-white px-6 md:relative md:w-[43.75%]">

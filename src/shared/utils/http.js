@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { isFunction, isPlainObject } from 'lodash';
+import { isBoolean, isFunction, isPlainObject } from 'lodash';
 import { stringify } from 'qs';
 
 import { isLogicalSuccess, request } from './request';
@@ -49,13 +49,33 @@ async function normalizeResponse(res) {
   };
 }
 
+async function mergeMultipleResponses(reqs, resolver) {
+  return Promise.all(reqs).then(results => {
+    const failed = results.find(res => !res.success);
+
+    return failed ? { ...failed, data: null } : resolver(results);
+  });
+}
+
+function isServerSide(inServer) {
+  if (isBoolean(inServer)) {
+    return inServer;
+  }
+
+  try {
+    return !window;
+  } catch (error) {
+    return true;
+  }
+}
+
 function HttpClient({ baseUrl }) {
   let resInterceptor;
 
   this._setInterceptor = interceptor => (resInterceptor = interceptor);
 
   this._req = async (url, method, data, config) => {
-    const res = await request(url, method, data, { ...config, baseUrl });
+    const res = await request(url, method, data, { ...config, baseUrl, isServer: isServerSide(config?.isServer) });
     const normalized = await normalizeResponse(res);
 
     return resInterceptor ? resInterceptor(normalized) : normalized;
@@ -82,5 +102,5 @@ HttpClient.prototype.use = function(interceptor) {
 const legacyClient = new HttpClient({ baseUrl: '/v1' });
 const httpClient = new HttpClient({ baseUrl: '/ts/v1' });
 
-export { legacyClient };
+export { mergeMultipleResponses, legacyClient };
 export default httpClient;

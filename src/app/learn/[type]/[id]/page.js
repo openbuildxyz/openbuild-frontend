@@ -15,19 +15,14 @@
  */
 
 import { PreviewAlert } from '@/components/PreviewAlert';
-import { Share } from '@/components/Share';
 import { get } from '@/utils/request';
 
-import { Chapters } from '../../Chapters';
-import { Speaker } from '../../Speaker';
-import { Author } from './Author';
-import { Back } from './Back';
-import { GrowPath } from './GrowPath';
-import { LearnInfo } from './LearnInfo';
-import { LearnRightCard } from './RightCard';
-import { Summary, Title } from './Summary';
-import { Tabs } from './Tabs';
-import { ChallengesTags } from './Tags';
+import { fetchOneWithPermission as fetchChallengeWithPermission } from '#/domain/challenge/repository';
+import { fetchOneWithPermission as fetchCourseWithPermission } from '#/domain/course/repository';
+
+import { enrollAction, revalidatePathAction } from './actions';
+import CourseDetailPageAdapter from './CourseDetailPageAdapter';
+import GrowPath from './GrowPath';
 
 export async function generateMetadata({ params }) {
   // fetch data
@@ -54,21 +49,21 @@ export default async function LearnDetailsPage({ params, searchParams }) {
   const learnType = params.type;
   const learnId = params.id;
 
-  let datas;
+  let data, permission;
 
   if (learnType === 'career_path') {
-    datas = await Promise.all([
+    const datas = await Promise.all([
       get(`ts/v1/learn/general/course/grow_path/${learnId}`, {isServer: true}),
       get(`ts/v1/learn/general/course/grow_path/${learnId}/permission`, {isServer: true}),
     ]);
+    data = datas[0].data;
+    permission = datas[1].data;
   } else {
-    datas = await Promise.all([
-      get(`v1/learn/course/${learnType === 'courses' ? 'opencourse' : 'challenges'}/${learnId}`, {isServer: true}),
-      get(`ts/v1/learn/general/course/series/${learnId}/permission`, {isServer: true}),
-    ]);
+    const fetchOneWithPermission = learnType === 'courses' ? fetchCourseWithPermission : fetchChallengeWithPermission;
+    const res = await fetchOneWithPermission(learnId);
+    data = res.data;
+    permission = (res.data || {}).permission;
   }
-
-  const [{ data }, { data: permission }] = [...datas];
 
   let related = null;
 
@@ -83,27 +78,7 @@ export default async function LearnDetailsPage({ params, searchParams }) {
   return learnType !== 'career_path' ? (
     <>
       <PreviewAlert searchParams={searchParams} />
-      <div className="mx-auto px-6 lg:flex max-w-[1400px] justify-center">
-        <div className="flex flex-1 border-gray-400 pt-6 lg:border-r lg:pr-14">
-          <div className="w-full">
-            <div className="flex justify-between">
-              <Back params={params} />
-              <Share img={data?.base?.course_series_img} title={data?.base?.course_series_title} type={learnType} id={learnId} excerpt={data?.base?.course_series_summary}/>
-            </div>
-            <Title data={data} />
-            {learnType === 'challenges' && <ChallengesTags data={data} />}
-            {data?.base?.course_series_summary && <Summary data={data} />}
-            {data && <Author data={data} />}
-            {data && <Tabs data={data} />}
-            {data && <LearnInfo data={data} />}
-            {data && data?.courses?.length > 0 && <Chapters type={learnType} data={data} id={data?.base?.course_series_id} />}
-            <div className="h-6" />
-            {data && data?.speaker?.length > 0 && <Speaker data={data?.speaker} />}
-            <div className="h-[72px]" />
-          </div>
-        </div>
-        <LearnRightCard data={data} type={learnType} permission={permission} related={related} />
-      </div>
+      <CourseDetailPageAdapter params={params} data={data} permission={permission} related={related} enrollAction={enrollAction} revalidatePathAction={revalidatePathAction} />
     </>
   ) : <GrowPath params={params} data={data} permission={permission} />;
 }

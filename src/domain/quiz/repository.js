@@ -17,6 +17,10 @@
 import { merge } from '@/utils';
 import httpClient from '@/utils/http';
 
+async function fetchOne(id) {
+  return httpClient.get(`/quiz/${id}/index`);
+}
+
 async function fetchPublishedQuizList(params = {}) {
   const { userId, sort, ...others } = params;
 
@@ -36,6 +40,10 @@ async function fetchAnsweredQuizList(params = {}) {
   });
 }
 
+async function fetchAnsweredRecordList(id) {
+  return httpClient.get(`/quiz/${id}/answer`);
+}
+
 async function fetchAnsweredResult({ id, quid }) {
   return httpClient.get(`/quiz/${id}/answer/${quid}`);
 }
@@ -52,4 +60,10 @@ async function fetchRankList({ quizId }){
   return httpClient.get(`/quiz/${quizId}/users`);
 }
 
-export { updateRespondentContacts, fetchPublishedQuizList, fetchAnsweredQuizList, fetchAnsweredResult, fetchTeamList, fetchRankList };
+export {
+  fetchOne,
+  fetchTeamList,
+  fetchRankList, fetchAnsweredRecordList, fetchAnsweredResult,
+  updateRespondentContacts,
+  fetchPublishedQuizList, fetchAnsweredQuizList,
+};

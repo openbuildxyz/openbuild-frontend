@@ -19,6 +19,7 @@
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useMemo } from 'react';
 
+import { getOauthSourceFromParams } from '#/domain/auth/helper';
 import QuickAuthWidget from '#/domain/auth/widgets/quick-auth';
 
 const descs = {
@@ -47,7 +48,7 @@ export function UCTop() {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const currentPage = useMemo(() => pathname.split('/')[1], [pathname]);
-  const from = useMemo(() => searchParams?.get('from') || '/profile', [searchParams]);
+  const from = useMemo(() => getOauthSourceFromParams(searchParams) || searchParams?.get('from') || '/profile', [searchParams]);
 
   return (
     <>

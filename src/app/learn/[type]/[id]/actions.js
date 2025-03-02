@@ -20,14 +20,12 @@ import { revalidatePath } from 'next/cache';
 
 import { post } from '@/utils/request';
 
+import { enrollOne as enrollCourse } from '#/domain/course/repository';
+
 export async function enrollAction(id) {
   try {
-    const res = await post(`ts/v1/learn/general/course/opencourse/${id}/permission/enrool`, {}, { isServer: true });
-    if (res.code === 200) {
-      return revalidatePath('/');
-    } else {
-      return res;
-    }
+    const res = await enrollCourse(id);
+    return res.success ? revalidatePath('/') : res;
   } catch (e) {
     return { message: 'Failed to request' };
   }

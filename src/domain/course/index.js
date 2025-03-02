@@ -14,4 +14,7 @@
  * limitations under the License.
  */
 
+export { fetchList } from './repository';
+
 export { default as BuilderListWidget } from './widgets/builder-list';
+export { default as CardTitleWidget } from './widgets/card-title';

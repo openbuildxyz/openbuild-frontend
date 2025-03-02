@@ -16,10 +16,10 @@
 
 'use client';
 
-import QuizQuestionListView from '#/domain/quiz/views/quiz-question-list';
+import QuizQuestionListViewWidget from '#/domain/quiz/views/quiz-question-list';
 
-export default function QuizDetails({ params }) {
+export default function QuizVersion({ params }) {
   return (
-    <QuizQuestionListView id={params.id} version={params.version} />
+    <QuizQuestionListViewWidget id={params.id} version={params.version} />
   );
 }
