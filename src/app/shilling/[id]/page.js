@@ -15,23 +15,21 @@
  */
 
 'use client';
-import clsx from 'clsx';
 import { useEffect, useState } from 'react';
 
 import { OViewer } from '@/components/MarkDown';
 import { Skeleton } from '@/components/Skeleton/details';
 import { fromNow } from '@/utils/date';
 
-import SkillInsight from '#/domain/skill/widgets/skill-insight';
+import SkillOverviewView from '#/domain/skill/views/skill-overview';
+import SkillLabel from '#/domain/skill/widgets/skill-label';
 import { ownedNFTs } from '#/services/common';
 import { useDetails } from '#/services/shilling/hooks';
-import { useAllSkills } from '#/state/application/hooks';
 
 import { Author } from './Author';
 import { Header } from './Header';
 
 export default function Page({ params }) {
-  const skills = useAllSkills();
   const { data, loading } = useDetails(params.id);
   const [nfts, setNfts] = useState([]);
 
@@ -83,89 +81,10 @@ export default function Page({ params }) {
             {data?.rec && <OViewer value={data?.rec} />}
           </div>
           {/* <BountiesDetail data={data?.detail} /> */}
-          <div className="mb-14">
-            {data?.skill_datas.map(i => (
-              <span
-                key={`skill-tag-${i.id}`}
-                className="mr-[6px] inline-block mb-2 h-7 rounded-md border border-gray-600 px-2 text-sm  leading-7 text-gray-100"
-              >
-                {skills?.find(f => f.value === Number(i.skill))?.label}
-              </span>
-            ))}
-          </div>
+          <SkillLabel userId={params.id}/>
           <hr className="my-14 border-gray-400" />
-          <div>
-            <h6 className="mb-6 text-lg">Skills</h6>
-            <div className="grid grid-cols-3 gap-4">
-              {data?.skill_datas.map(i => (
-                <div key={`skill-${i.id}`} className="rounded-lg border border-gray-400 p-4">
-                  <div className="flex items-start justify-between">
-                    <div>
-                      <h6 className="mb-2 text-base">{skills?.find(f => f.value === i.skill)?.label}</h6>
-                      <div className="text-xs">
-                        {i.level && (
-                          <span
-                            className={clsx('mr-2 rounded-sm px-1 py-[2px] capitalize', {
-                              'bg-[rgba(58,171,118,0.1)] text-[#3AAB76]': i.level === 'generally',
-                              'bg-[rgba(24,160,251,0.1)] text-[#18A0FB]': i.level === 'well',
-                              'bg-[rgba(216,97,65,0.1)] text-[#D86141]': i.level === 'proficient',
-                              'bg-[rgba(118,82,237,0.1)] text-[#7652ED]': i.level === 'skilled',
-                            })}
-                          >
-                            {i.level}
-                          </span>
-                        )}
-
-                        <span className="opacity-80">Usage time {i.time}Y</span>
-                      </div>
-                    </div>
-                    <svg width="20" height="20" viewBox="0 0 440 440">
-                      <circle
-                        cx="220"
-                        cy="220"
-                        r="170"
-                        strokeWidth="40"
-                        stroke="rgba(16,16,16,0.1)"
-                        fill="none"
-                      />
-                      <circle
-                        cx="220"
-                        cy="220"
-                        r="170"
-                        strokeWidth="40"
-                        stroke="rgba(16,16,16,0.4)"
-                        fill="none"
-                        transform="matrix(0,-1,1,0,0,440)"
-                        style={{
-                          strokeDasharray:
-                            i.level === 'generally'
-                              ? '267 1069'
-                              : i.level === 'well'
-                                ? '534 1069'
-                                : i.level === 'proficient'
-                                  ? '801 1069'
-                                  : '1069 1069',
-                        }}
-                      />
-                    </svg>
-                  </div>
-                  <div className="mt-3 flex items-center justify-between border-t border-gray-400 pt-3 text-xs">
-                    <p className="opacity-80">Estimated cost</p>
-                    <p>
-                      <strong>
-                        ${Number(i.cost_min).toFixed(2)}-${Number(i.cost_max).toFixed(2)}
-                      </strong>{' '}
-                      / Hourly
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+          <SkillOverviewView userId={params.id} />
           <div className="h-6" />
-          {data?.aspecta_show && (
-            <SkillInsight data={data?.skill_user.user_extra_skills} />
-          )}
           {data?.onchain_show && nfts.length > 0 && (
             <div>
               <div className="mb-4 mt-14 flex items-center justify-between">
