@@ -15,7 +15,7 @@
  */
 
 import { merge } from '@/utils';
-import httpClient, { legacyClient, mergeMultipleResponses } from '@/utils/http';
+import httpClient, { legacyClient, makeLoginInsensitive, mergeMultipleResponses } from '@/utils/http';
 
 async function fetchList(params = {}) {
   const { sort, ...others } = params;
@@ -36,7 +36,7 @@ async function enrollOne(id) {
 }
 
 async function fetchPermission(id) {
-  return httpClient.get(`/learn/general/course/series/${id}/permission`);
+  return makeLoginInsensitive(httpClient.get(`/learn/general/course/series/${id}/permission`));
 }
 
 async function fetchOneWithPermission(id) {

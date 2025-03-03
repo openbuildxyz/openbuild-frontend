@@ -49,6 +49,10 @@ async function normalizeResponse(res) {
   };
 }
 
+async function makeLoginInsensitive(req) {
+  return req.then(({ success, ...others }) => ({ ...others, success: !success && others.code === 401 ? true : success }));
+}
+
 async function mergeMultipleResponses(reqs, resolver) {
   return Promise.all(reqs).then(results => {
     const failed = results.find(res => !res.success);
@@ -102,5 +106,5 @@ HttpClient.prototype.use = function(interceptor) {
 const legacyClient = new HttpClient({ baseUrl: '/v1' });
 const httpClient = new HttpClient({ baseUrl: '/ts/v1' });
 
-export { mergeMultipleResponses, legacyClient };
+export { makeLoginInsensitive, mergeMultipleResponses, legacyClient };
 export default httpClient;
