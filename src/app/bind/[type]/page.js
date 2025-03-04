@@ -49,6 +49,10 @@ export default function Bind({ params }) {
                 from = searchParams?.get('state');
               } else {
                 from = searchParams?.get('from');
+
+                if (from) {
+                  from = decodeURIComponent(from);
+                }
               }
               window.location.href = window.location.origin + from;
             } else {
