@@ -327,6 +327,7 @@ export function CreatorLearnStepThree({ data, change }) {
               }}
               className={BASE_INPUT_STYLE}
             />
+            <p className="mt-2 text-sm text-red-50">请注意「Serial Number」值为数字，按 1-100 顺序增加，从小到大排序，并且整个活动或者课程不能出现重复。</p>
           </div>
           <div className="mt-3">
             <p className="text-sm text-gray-100">Title</p>
