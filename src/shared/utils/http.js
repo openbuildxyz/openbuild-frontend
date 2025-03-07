@@ -21,14 +21,26 @@ import { isLogicalSuccess, request } from './request';
 
 async function normalizeResponse(res) {
   if (res.ok) {
-    const { code, message, data, ...extra } = await res.json();
+    const jsonData = await res.json();
+
+    if (isPlainObject(jsonData)) {
+      const { code, message, data, ...extra } = jsonData;
+
+      return {
+        success: isLogicalSuccess(code),
+        code,
+        message,
+        data,
+        extra,
+      };
+    }
 
     return {
-      success: isLogicalSuccess(code),
-      code,
-      message,
-      data,
-      extra,
+      success: true,
+      code: res.status,
+      message: undefined,
+      data: jsonData,
+      extra: {},
     };
   }
 
