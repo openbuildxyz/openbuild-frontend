@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 
+import { revalidatePathAction } from '#/app/actions';
 import { fetchUser } from '#/domain/profile/repository';
 
-import { Banner } from './Banner';
+import BannerWidget from './Banner';
 import InfoCard from './InfoCard';
 
 export default async function UserProfileLayout({ params, children }) {
@@ -24,7 +25,7 @@ export default async function UserProfileLayout({ params, children }) {
 
   return (
     <>
-      <Banner data={data} />
+      <BannerWidget data={data} onUpload={revalidatePathAction} />
       <div className="relative max-w-[1440px] min-h-[620px] mx-auto p-6 bg-white md:p-0 md:bg-transparent">
         <InfoCard data={data} />
         <div className="pt-6">{children}</div>
