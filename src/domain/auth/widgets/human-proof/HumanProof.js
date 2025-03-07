@@ -16,11 +16,11 @@
 
 import Script from 'next/script';
 
-import { isFunction } from '../../../utils';
+import { isFunction } from '../../../../shared/utils';
 
 const sitekey = process.env.NEXT_PUBLIC_TURNSTILE_SITEKEY;
 
-function CloudflareTurnstile({ className, onVerify }) {
+function HumanProof({ className, onVerify }) {
   const handleScriptLoad = () => {
     window.turnstile.render('#cfTurnstile', {
       sitekey,
@@ -40,4 +40,4 @@ function CloudflareTurnstile({ className, onVerify }) {
   );
 };
 
-export default CloudflareTurnstile;
+export default HumanProof;

@@ -23,7 +23,6 @@ import Logo from 'public/images/svg/logo-black.svg';
 import { useEffect, useState } from 'react';
 
 import { Button } from '@/components/Button';
-import CloudflareTurnstile from '@/components/control/cf-turnstile';
 import { SvgIcon } from '@/components/Image';
 import Loader from '@/components/Loader';
 import useMounted from '@/hooks/useMounted';
@@ -31,6 +30,7 @@ import { getCopyrightText } from '@/utils/app';
 
 import { setOauthSource } from '#/domain/auth/helper';
 import { fetchOauthClientInfo, fetchOauthClientCode } from '#/domain/auth/repository';
+import HumanProofWidget from '#/domain/auth/widgets/human-proof';
 
 import Link from './Link';
 import NoteItem from './NoteItem';
@@ -133,7 +133,7 @@ export default function Page() {
             <NoteItem icon="international" title="Public data only" description="Limited access to your public data" />
           </div>
           <div className="mx-[-24px] p-6 border-y border-gray-600">
-            <CloudflareTurnstile className="mb-2" onVerify={handleVerify} />
+            <HumanProofWidget className="mb-2" onVerify={handleVerify} />
             <div className="flex gap-3">
               <Button variant="outlined" className="flex-1" onClick={handleCancel}>
                 Cancel
