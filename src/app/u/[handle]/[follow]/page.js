@@ -19,7 +19,6 @@
 import { useSession } from 'next-auth/react';
 import { usePathname, useRouter } from 'next/navigation';
 import { useState, useCallback, useEffect } from 'react';
-import { toast } from 'react-toastify';
 
 import Avatar from '@/components/Avatar';
 import { Button } from '@/components/Button';
@@ -77,8 +76,6 @@ export default function Follow({ params }) {
         const _prevList = [...list];
         _prevList[index].mutual = type;
         setList(_prevList);
-      } else {
-        toast.error(res.message);
       }
     }
   };
@@ -94,8 +91,6 @@ export default function Follow({ params }) {
         const _prevList = [...list];
         _prevList[index].mutual = type;
         setList(_prevList);
-      } else {
-        toast.error(res.message);
       }
     }
   };
