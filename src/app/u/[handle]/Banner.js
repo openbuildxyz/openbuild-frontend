@@ -23,8 +23,8 @@ import { toast } from 'react-toastify';
 import Image from '@/components/Image';
 
 import { revalidatePathAction } from '#/app/actions';
+import { updateBanner } from '#/domain/profile/repository';
 import { upload } from '#/services/common';
-import { changeBanner } from '#/services/user';
 import { useUser } from '#/state/application/hooks';
 
 export function Banner({data}) {
@@ -47,7 +47,7 @@ export function Banner({data}) {
       setLoading(true);
       upload({ file: formData })
         .then(async res => {
-          await changeBanner(res.data.user_upload_path);
+          await updateBanner(res.data.user_upload_path);
           setLoading(false);
           revalidatePathAction();
         })

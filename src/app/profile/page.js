@@ -27,10 +27,10 @@ import Switch from '@/components/Switch';
 import { BASE_INPUT_STYLE } from '@/constants/config';
 import { classNames } from '@/utils';
 
+import { updateUser } from '#/domain/profile/repository';
 import SocialSettingsFormView from '#/domain/profile/views/social-settings-form';
 import { ProfileTitle, ProfileLabel } from '#/domain/profile/widgets/blocks';
 import { upload } from '#/services/common';
-import { postUserInfo } from '#/services/user';
 import { useUser } from '#/state/application/hooks';
 import { useConfig } from '#/state/application/hooks';
 
@@ -149,7 +149,7 @@ export default function Profile() {
     ) {
       setFromError(true);
     } else {
-      const res = await postUserInfo({
+      const res = await updateUser({
         user_avatar: forms.avatar,
         user_bio: forms.bio,
         user_city: forms.city,
@@ -170,12 +170,10 @@ export default function Profile() {
         user_show_email: forms.emailVisible,
         user_show_github: forms.githubVisible,
       });
-      if (res.code === 200) {
+      if (res.success) {
         toast.success('Saved successfully');
         setShowSave(false);
         // doFetch()
-      } else {
-        toast.error(res.message);
       }
     }
   };

@@ -17,6 +17,12 @@
 import { unwrapBlockData, wrapBlockData } from '@/components/block-editor/helper';
 import httpClient from '@/utils/http';
 
+async function fetchWeb3BioProfile(address) {
+  return httpClient.get(`https://api.web3.bio/profile/${address}`, {
+    headers: { 'X-API-KEY': process.env.NEXT_PUBLIC_WEB3BIO },
+  });
+}
+
 async function fetchUser(handle) {
   const res = await httpClient.get(`/user/info/handle/${handle}`);
 
@@ -27,14 +33,15 @@ async function fetchUser(handle) {
   const { data, ...others } = res;
 
   if (data?.social.user_wallet && data?.base.user_show_wallet) {
-    data.web3Bio = await httpClient.get(`https://api.web3.bio/profile/${data?.social.user_wallet}`, {
-      headers: {
-        'X-API-KEY': process.env.NEXT_PUBLIC_WEB3BIO,
-      },
-    });
+    const { data: web3BioProfile } = await fetchWeb3BioProfile(data?.social.user_wallet);
+    data.web3Bio = web3BioProfile;
   }
 
   return { ...others, data, success: true };
+}
+
+async function updateUser(data) {
+  return httpClient.post('/user/info', data);
 }
 
 async function fetchUserActivityList(uid) {
@@ -70,6 +77,10 @@ async function unfollowUser(uid) {
   return httpClient.post(`/user/follow/${uid}/del`);
 }
 
+async function updateBanner(url) {
+  return httpClient.post('/user/info/banner', { background_image: url });
+}
+
 async function fetchBlockContent(uid) {
   return httpClient.get('/user/devplaza', { params: { uid } }).then(res => res.success ? ({
     ...res,
@@ -82,7 +93,8 @@ async function updateBlockContent(data) {
 }
 
 export {
-  fetchUser, fetchUserActivityList,
+  fetchUser, updateUser, fetchUserActivityList,
   fetchFollowerList, fetchFollowedList, followUser, unfollowUser,
+  updateBanner,
   fetchBlockContent, updateBlockContent,
 };
