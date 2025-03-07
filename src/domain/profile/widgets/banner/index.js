@@ -14,6 +14,4 @@
  * limitations under the License.
  */
 
-'use client';
-
-export { default } from '#/domain/profile/widgets/banner';
+export { default } from './Banner';
