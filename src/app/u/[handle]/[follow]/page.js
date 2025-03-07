@@ -26,10 +26,15 @@ import { Button } from '@/components/Button';
 import { SvgIcon } from '@/components/Image';
 import Loader from '@/components/Loader';
 import { NoData } from '@/components/NoData';
-import { post, get } from '@/utils/request';
 
+import { fetchFollowerList, fetchFollowedList, followUser, unfollowUser } from '#/domain/profile/repository';
 import TabBarWidget from '#/domain/profile/widgets/tab-bar';
 import { useUser } from '#/state/application/hooks';
+
+const followFetchMap = {
+  followers: fetchFollowerList,
+  following: fetchFollowedList,
+};
 
 export default function Follow({ params }) {
   const { status } = useSession();
@@ -47,7 +52,7 @@ export default function Follow({ params }) {
   const fetchList = useCallback(async () => {
     // handle
     setLoading(true);
-    const data = await get(`ts/v1/user/${params.handle}/${params.follow}?&skip=${(page - 1) * 20}&take=${20}`);
+    const data = await followFetchMap[params.follow]({ handle: params.handle, pageNum: page });
     setLoading(false);
     if (page === 1) {
       setList(data.data.list);
@@ -66,9 +71,9 @@ export default function Follow({ params }) {
       router.push(`/signin?from=${pathname}`);
     } else {
       setFollowLoading(index);
-      const res = await post(`ts/v1/user/follow/${item.user.user_id}`);
+      const res = await followUser(item.user.user_id);
       setFollowLoading(null);
-      if (res.code === 200) {
+      if (res.success) {
         const _prevList = [...list];
         _prevList[index].mutual = type;
         setList(_prevList);
@@ -83,9 +88,9 @@ export default function Follow({ params }) {
       router.push(`/signin?from=${pathname}`);
     } else {
       setFollowLoading(index);
-      const res = await post(`ts/v1/user/follow/${item.user.user_id}/del`);
+      const res = await unfollowUser(item.user.user_id);
       setFollowLoading(null);
-      if (res.code === 200) {
+      if (res.success) {
         const _prevList = [...list];
         _prevList[index].mutual = type;
         setList(_prevList);

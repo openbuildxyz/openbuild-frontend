@@ -41,6 +41,35 @@ async function fetchUserActivityList(uid) {
   return httpClient.get(`/user/info/${uid}/creator/activity`);
 }
 
+function resolvePaginationParams(pageNum) {
+  const pageSize = 20;
+
+  return {
+    skip: (pageNum - 1) * pageSize,
+    take: pageSize,
+  };
+}
+
+async function fetchFollowerList(params = {}) {
+  const { handle, pageNum } = params;
+
+  return httpClient.get(`/user/${handle}/followers`, { params: resolvePaginationParams(pageNum) });
+}
+
+async function fetchFollowedList(params = {}) {
+  const { handle, pageNum } = params;
+
+  return httpClient.get(`/user/${handle}/following`, { params: resolvePaginationParams(pageNum) });
+}
+
+async function followUser(uid) {
+  return httpClient.post(`/user/follow/${uid}`);
+}
+
+async function unfollowUser(uid) {
+  return httpClient.post(`/user/follow/${uid}/del`);
+}
+
 async function fetchBlockContent(uid) {
   return httpClient.get('/user/devplaza', { params: { uid } }).then(res => res.success ? ({
     ...res,
@@ -54,5 +83,6 @@ async function updateBlockContent(data) {
 
 export {
   fetchUser, fetchUserActivityList,
+  fetchFollowerList, fetchFollowedList, followUser, unfollowUser,
   fetchBlockContent, updateBlockContent,
 };
