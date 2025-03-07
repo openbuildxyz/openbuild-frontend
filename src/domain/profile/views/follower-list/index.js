@@ -14,12 +14,4 @@
  * limitations under the License.
  */
 
-'use client';
-
-import FollowerListViewWidget from '#/domain/profile/views/follower-list';
-
-export default function Follow({ params }) {
-  return (
-    <FollowerListViewWidget userHandle={params.handle} followType={params.follow} />
-  );
-}
+export { default } from './FollowerList';

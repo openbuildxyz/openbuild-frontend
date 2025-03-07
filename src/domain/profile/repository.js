@@ -48,25 +48,20 @@ async function fetchUserActivityList(uid) {
   return httpClient.get(`/user/info/${uid}/creator/activity`);
 }
 
-function resolvePaginationParams(pageNum) {
-  const pageSize = 20;
-
-  return {
-    skip: (pageNum - 1) * pageSize,
-    take: pageSize,
-  };
+function resolvePaginationParams(params) {
+  return { ...params, take: 20 };
 }
 
 async function fetchFollowerList(params = {}) {
-  const { handle, pageNum } = params;
+  const { handle, ...others } = params;
 
-  return httpClient.get(`/user/${handle}/followers`, { params: resolvePaginationParams(pageNum) });
+  return httpClient.get(`/user/${handle}/followers`, { params: resolvePaginationParams(others) });
 }
 
 async function fetchFollowedList(params = {}) {
-  const { handle, pageNum } = params;
+  const { handle, ...others } = params;
 
-  return httpClient.get(`/user/${handle}/following`, { params: resolvePaginationParams(pageNum) });
+  return httpClient.get(`/user/${handle}/following`, { params: resolvePaginationParams(others) });
 }
 
 async function followUser(uid) {
