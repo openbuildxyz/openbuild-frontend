@@ -30,6 +30,7 @@ import { isEmpty } from '@/utils';
 import { wrapOnChange } from '@/utils/form';
 
 import { getOauthSourceFromParams } from '#/domain/auth/helper';
+import HumanProofWidget from '#/domain/auth/widgets/human-proof';
 import { signin, emailCodeLogin } from '#/services/auth';
 
 import { NavButtonStyle } from '../helper';
@@ -42,6 +43,7 @@ export default function Login() {
   const emailFieldName = 'Email';
   const searchParams = useSearchParams();
   const [loading, setLoading] = useState(false);
+  const [humanVerified, setHumanVerified] = useState(false);
   const [passwordType, setPasswordType] = useState('password');
   const [loginType, setLoginType] = useState('verifyCode');
 
@@ -153,6 +155,7 @@ export default function Login() {
             <button
               type="submit"
               disabled={
+                !humanVerified ||
                 !watchAllFields.Email ||
                 (loginType === 'password' && !watchAllFields.Password) ||
                 (loginType === 'verifyCode' && !watchAllFields.VerifyCode) ||
@@ -164,7 +167,7 @@ export default function Login() {
               <span>Continue</span>
             </button>
           </form>
-
+          <HumanProofWidget onVerify={setHumanVerified} />
           {!isEmpty(errors) && watchAllFields.Email !== '' && (
             <p className="mt-4 text-xs text-center text-red">
               {loginType === 'password'
@@ -172,12 +175,10 @@ export default function Login() {
                 : 'The email or code is wrong.'}
             </p>
           )}
-
           <LoginTypeSwitcher
             loginType={loginType}
             handleChangeLoginType={handleChangeLoginType}
           />
-
           {loginType == 'password' && (
             <div className="mt-6 text-center">
               Forget your password?&nbsp;
