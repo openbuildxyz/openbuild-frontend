@@ -14,24 +14,13 @@
  * limitations under the License.
  */
 
-// import { Content } from './Content'
-import { get } from '@/utils/request';
+import { fetchUser } from '#/domain/profile/repository';
 
 import { Banner } from './Banner';
 import InfoCard from './InfoCard';
 
 export default async function UserProfileLayout({ params, children }) {
-  const config = {isServer: true};
-  const { data } = await get(`ts/v1/user/info/handle/${params.handle}`, config);
-
-  if (data?.social.user_wallet && data?.base.user_show_wallet) {
-    data.web3Bio = await get(`https://api.web3.bio/profile/${data?.social.user_wallet}`, {
-      ...config,
-      headers: {
-        'X-API-KEY': process.env.NEXT_PUBLIC_WEB3BIO,
-      },
-    });
-  }
+  const { data } = await fetchUser(params.handle);
 
   return (
     <>

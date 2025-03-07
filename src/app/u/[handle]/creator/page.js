@@ -14,24 +14,18 @@
  * limitations under the License.
  */
 
-import { get } from '@/utils/request';
+import { fetchUser, fetchUserActivityList } from '#/domain/profile/repository';
 
 import ProjectOwner from '../ProjectOwner';
 
 export default async function CreatorProfile({ params }) {
-  const config = { isServer: true };
-  const { data } = await get(`ts/v1/user/info/handle/${params.handle}`, config);
-  if (data?.social.user_wallet && data?.base.user_show_wallet) {
-    data.web3Bio = await get(`https://api.web3.bio/profile/${data?.social.user_wallet}`, {
-      ...config,
-      headers: {
-        'X-API-KEY': process.env.NEXT_PUBLIC_WEB3BIO,
-      },
-    });
-  }
+  const { data } = await fetchUser(params.handle);
+
   if (!data?.base?.user_project_owner) {
     return <div>This user is not a creator.</div>;
   }
-  const { data: activityData } = await get(`ts/v1/user/info/${data?.base.user_id}/creator/activity`, config);
+
+  const { data: activityData } = await fetchUserActivityList(data?.base.user_id);
+
   return <ProjectOwner data={data} activities={activityData?.list || []} />;
 }
