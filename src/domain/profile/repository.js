@@ -14,8 +14,32 @@
  * limitations under the License.
  */
 
-import { unwrapBlockData, wrapBlockData } from '@/components/block-editor';
+import { unwrapBlockData, wrapBlockData } from '@/components/block-editor/helper';
 import httpClient from '@/utils/http';
+
+async function fetchUser(handle) {
+  const res = await httpClient.get(`/user/info/handle/${handle}`);
+
+  if (!res.success) {
+    return res;
+  }
+
+  const { data, ...others } = res;
+
+  if (data?.social.user_wallet && data?.base.user_show_wallet) {
+    data.web3Bio = await httpClient.get(`https://api.web3.bio/profile/${data?.social.user_wallet}`, {
+      headers: {
+        'X-API-KEY': process.env.NEXT_PUBLIC_WEB3BIO,
+      },
+    });
+  }
+
+  return { ...others, data, success: true };
+}
+
+async function fetchUserActivityList(uid) {
+  return httpClient.get(`/user/info/${uid}/creator/activity`);
+}
 
 async function fetchBlockContent(uid) {
   return httpClient.get('/user/devplaza', { params: { uid } }).then(res => res.success ? ({
@@ -28,4 +52,7 @@ async function updateBlockContent(data) {
   return httpClient.post('/user/devplaza', { body: wrapBlockData(data) });
 }
 
-export { fetchBlockContent, updateBlockContent };
+export {
+  fetchUser, fetchUserActivityList,
+  fetchBlockContent, updateBlockContent,
+};

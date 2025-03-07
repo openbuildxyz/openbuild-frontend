@@ -14,21 +14,12 @@
  * limitations under the License.
  */
 
-import { get } from '@/utils/request';
+import { fetchUser } from '#/domain/profile/repository';
 
 import ProjectPersonal from './ProjectPersonal';
 
 export default async function UserProfile({ params }) {
-  const config = { isServer: true };
-  const { data } = await get(`ts/v1/user/info/handle/${params.handle}`, config);
+  const { data } = await fetchUser(params.handle);
 
-  if (data?.social.user_wallet && data?.base.user_show_wallet) {
-    data.web3Bio = await get(`https://api.web3.bio/profile/${data?.social.user_wallet}`, {
-      ...config,
-      headers: {
-        'X-API-KEY': process.env.NEXT_PUBLIC_WEB3BIO,
-      },
-    });
-  }
   return <ProjectPersonal data={data} />;
 }
