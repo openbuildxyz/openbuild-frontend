@@ -15,31 +15,28 @@
  */
 
 import clsx from 'clsx';
+import { Suspense } from 'react';
 
-import { OPagination } from '@/components/Pagination';
+import StartOnOpenBuild from '../../components/StartOnOpenBuild';
+import Header from './Header';
 
-import BountyItem from './BountyItem';
-
-function BountyListView({
-  className,
-  data = [],
-  total = 0,
-}) {
+function ListLayout({ title, description, bodyClassName, children, filter, skeleton }) {
   return (
-    <>
-      <div
-        className={clsx(
-          'mb-9 mt-6 grid gap-5 md:grid-cols-3',
-          className
+    <div>
+      <div className="px-6">
+        {(title || description) && (
+          <Header title={title} desc={description} />
         )}
-      >
-        {data?.map?.(item => (
-          <BountyItem key={`BountyItem-${item.id}`} data={item} />
-        ))}
+        <div className={clsx('flex', bodyClassName)}>
+          {filter}
+          <Suspense fallback={skeleton}>
+            {children}
+          </Suspense>
+        </div>
       </div>
-      <OPagination total={total} />
-    </>
+      <StartOnOpenBuild />
+    </div>
   );
 }
 
-export default BountyListView;
+export default ListLayout;

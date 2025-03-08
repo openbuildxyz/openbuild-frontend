@@ -16,7 +16,7 @@
 
 'use client';
 
-import { BountyListView } from '#/domain/bounty';
+import BountyListViewWidget from '#/domain/bounty/views/bounty-list';
 import { useOpenFilter } from '#/state/application/hooks';
 
 export function List({ data }) {
@@ -29,13 +29,8 @@ export function List({ data }) {
     '3xl:grid-cols-4': openFilter,
     '3xl:grid-cols-5': !openFilter,
   };
+
   return (
-    <div>
-      <BountyListView
-        className={otherClassNames}
-        data={data.list}
-        total={data.total}
-      />
-    </div>
+    <BountyListViewWidget className={otherClassNames} data={data.list} total={data.total} />
   );
 }

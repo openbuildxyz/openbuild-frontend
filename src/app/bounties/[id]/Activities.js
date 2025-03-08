@@ -21,7 +21,7 @@ import useSWR from 'swr';
 import { NoData } from '@/components/NoData';
 import { fetcher } from '@/utils/request';
 
-import { ActivityListView } from '#/domain/bounty';
+import BountyActivityListViewWidget from '#/domain/bounty/views/bounty-activity-list';
 
 
 export function Activities({ id }) {
@@ -35,7 +35,7 @@ export function Activities({ id }) {
           Publish a discussion
         </Button> */}
       </div>
-      <ActivityListView data={data?.list} />
+      <BountyActivityListViewWidget data={data?.list} />
       <div className="pb-14">{(!data || data?.list?.length === 0) && <NoData />}</div>
     </div>
   );
