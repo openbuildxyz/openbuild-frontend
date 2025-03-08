@@ -18,7 +18,7 @@ import Link from 'next/link';
 
 import { ArrowRightIcon } from '@/components/Icons';
 
-export function Title({ title, desc, link, linkText }) {
+function Header({ title, desc, link, linkText }) {
   return (
     <div className="pt-6 pb-6 text-center">
       <h1 className="text-[24px] font-bold leading-[32px] md:text-[36px] md:leading-[42px]">{title}</h1>
@@ -36,3 +36,5 @@ export function Title({ title, desc, link, linkText }) {
     </div>
   );
 }
+
+export default Header;
