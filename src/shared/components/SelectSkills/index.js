@@ -15,112 +15,32 @@
  */
 
 'use client';
+import { ReactSelect } from '@/components/Select/ReactSelect';
 
-import { useMemo, useState, Fragment, useEffect } from 'react';
+import { useAllSkills } from '#/state/application/hooks';
 
-import { classNames, arrRemove } from '@/utils';
+export default function SelectSkills({ selectedSkills, onChange, limit = Infinity, className = 'no-bg hauto' }) {
+  const allSkills = useAllSkills();
 
-import { baseInputStyles } from '#/domain/profile/widgets/blocks';
-import { useConfig } from '#/state/application/hooks';
+  const selectedOptions = selectedSkills?.map(id =>
+    allSkills?.find(skill => skill.value === id)
+  ) || []; 
 
-import { Transition } from '../control/headlessui';
-import { CheckIcon, XMarkIcon } from '../icon/solid';
+  const handleChange = selectedOptions => {
+    const limitedOptions = selectedOptions.slice(0, limit);
+    const selectedIds = limitedOptions.map(option => option.value);
+    onChange(selectedIds);
+  };
 
-export default function SelectSkills({ skills, setSkills }) {
-  const config = useConfig();
-
-  const allOpts = config?.find(f => f.config_id === 3)?.config_value;
-
-  const skillOpts = useMemo(() => {
-    return allOpts?.skills?.map(i => ({
-      key: i.id,
-      name: i.name,
-    }));
-  }, [allOpts]);
-
-  const [openSkills, setOpenSkills] = useState(false);
-  const [skillsInputValue, setSkillsInputValue] = useState('');
-  // const [delFlag, setDelFlag] = useState(0)
-  const [searchSkillOpts, setSearchSkillOpts] = useState([]);
-
-  useEffect(() => {
-    if (skillOpts) {
-      const _search = skillOpts.filter(f => f.name.toLocaleLowerCase().includes(skillsInputValue.toLocaleLowerCase()));
-      setSearchSkillOpts(_search);
-    }
-  }, [skillsInputValue, skillOpts]);
   return (
-    <div className="relative">
-      <div
-        className={classNames(
-          'relative flex w-full flex-nowrap items-center overflow-x-auto rounded border border-gray-600 bg-transparent px-2 text-sm text-gray-1300'
-        )}
-      >
-        {skills?.map((i, k) => {
-          const finded = skillOpts?.find(f => f.key === i);
-          return (
-            finded && (
-              <div
-                key={`user-skill-${k}`}
-                className="mr-2 flex h-[34px] items-center rounded-md bg-gray-400 px-2 text-gray"
-              >
-                {finded?.name}
-                <XMarkIcon
-                  onClick={() => {
-                    const _sk = [...skills];
-                    setSkills(arrRemove(_sk, i));
-                  }}
-                  className="ml-3 h-4 w-4 cursor-pointer text-gray-50"
-                />
-              </div>
-            )
-          );
-        })}
-        <input
-          type="text"
-          onBlur={() => setOpenSkills(false)}
-          onFocus={() => setOpenSkills(true)}
-          value={skillsInputValue}
-          onChange={e => setSkillsInputValue(e.target.value)}
-          className={classNames(baseInputStyles, 'w-auto border-0')}
-        />
-      </div>
-      <Transition
-        as={Fragment}
-        show={openSkills}
-        leave="transition ease-in duration-100"
-        leaveFrom="opacity-100"
-        leaveTo="opacity-0"
-      >
-        <div className="absolute top-0 left-0 z-50 mt-[50px] max-h-60 w-full overflow-auto rounded-2xl bg-white py-4 px-3 shadow-lg">
-          {searchSkillOpts &&
-            searchSkillOpts.map((o, oIdx) => (
-              <div
-                key={oIdx}
-                className={
-                  'relative cursor-default select-none rounded py-2 px-4 text-sm leading-6 hover:bg-gray-900 hover:text-gray'
-                }
-                onClick={() => {
-                  const _skills = skills || [];
-                  _skills.push(o.key);
-                  const _setSkills = Array.from(new Set(_skills));
-                  setSkills(_setSkills);
-                  setSkillsInputValue('');
-                }}
-              >
-                <div className="flex">
-                  <span className={'block flex-1 truncate'}>{o.name}</span>
-                  {skills?.filter(f => f === o.key).length > 0 ? (
-                    <span className="flex items-center pl-3">
-                      <CheckIcon className="h-5 w-5" aria-hidden="true" />
-                    </span>
-                  ) : null}
-                </div>
-              </div>
-            ))}
-          {searchSkillOpts.length === 0 && <div className="text-center">No items</div>}
-        </div>
-      </Transition>
-    </div>
+    <ReactSelect
+      value={selectedOptions}
+      isMulti
+      name="skills"
+      options={allSkills}
+      className={className}
+      onChange={handleChange}
+      limit={limit}
+    />
   );
 }
