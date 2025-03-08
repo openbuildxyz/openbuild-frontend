@@ -14,17 +14,13 @@
  * limitations under the License.
  */
 
-import { Suspense } from 'react';
-
 import { Filter } from '@/components/Filter';
 
-import StartOnOpenBuild from '#/entry/components/StartOnOpenBuild';
+import ListLayout from '#/entry/layouts/list';
 
 import { ChallengesFilter } from '../ChallengesFilter';
-import { Title } from '../Title';
 import { Container } from './Container';
 import { ListSkeleton } from './ListSkeleton';
-// import { LearnNavBar } from './nav'
 
 const titles = {
   courses: {
@@ -45,20 +41,18 @@ export default async function Page({ params, searchParams }) {
   const titleData = titles?.[params?.type];
 
   return (
-    <div>
-      <div className="px-6">
-        {titleData && <Title title={titleData.title} desc={titleData.desc} />}
-        {/* <LearnNavBar /> */}
-        <div className="relative flex max-md:overflow-x-hidden">
-          <Filter type={params.type === 'courses' ? 'open_course' : params.type}>
-            {params.type === 'challenges' && <ChallengesFilter />}
-          </Filter>
-          <Suspense fallback={<ListSkeleton />}>
-            <Container type={params.type} searchParams={searchParams} />
-          </Suspense>
-        </div>
-      </div>
-      <StartOnOpenBuild />
-    </div>
+    <ListLayout
+      title={titleData?.title}
+      description={titleData?.desc}
+      bodyClassName="relative max-md:overflow-x-hidden"
+      filter={(
+        <Filter type={params.type === 'courses' ? 'open_course' : params.type}>
+          {params.type === 'challenges' && <ChallengesFilter />}
+        </Filter>
+      )}
+      skeleton={<ListSkeleton />}
+    >
+      <Container type={params.type} searchParams={searchParams} />
+    </ListLayout>
   );
 }

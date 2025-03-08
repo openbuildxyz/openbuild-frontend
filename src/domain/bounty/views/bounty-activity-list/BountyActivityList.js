@@ -22,11 +22,9 @@ import { fromNow } from '@/utils/date';
 
 import { useMediaUrl } from '#/state/application/hooks';
 
-function ActivityList({
-  data=[],
-}) {
+function BountyActivityListView({ data = [] }) {
   const mediaUrl = useMediaUrl();
-    
+
   return <div>
     {data?.map?.((i, k) => (
       <div
@@ -149,4 +147,4 @@ function ActivityList({
   </div>;
 }
 
-export default ActivityList;
+export default BountyActivityListView;

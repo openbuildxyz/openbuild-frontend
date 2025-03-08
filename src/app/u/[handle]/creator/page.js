@@ -16,7 +16,7 @@
 
 import { fetchUser, fetchUserActivityList } from '#/domain/profile/repository';
 
-import ProjectOwner from '../ProjectOwner';
+import ProjectOwner from './ProjectOwner';
 
 export default async function CreatorProfile({ params }) {
   const { data } = await fetchUser(params.handle);
