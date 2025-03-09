@@ -35,9 +35,10 @@ module.exports = {
     let allPassed = true;
 
     Object.entries(packagesToCheck).forEach(([pkg, expectedVersion]) => {
+      const pkgJsonPath = path.join(process.cwd(), 'node_modules', pkg, 'package.json');
       let installedVersion;
       try {
-        const pkgJson = require(`${pkg}/package.json`);
+        const pkgJson = JSON.parse(fs.readFileSync(pkgJsonPath, 'utf8'));
         installedVersion = pkgJson.version;
       } catch (error) {
         console.error(`Package ${pkg} is not installed.`);
