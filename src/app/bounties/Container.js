@@ -15,25 +15,31 @@
  */
 
 import { NoData } from '@/components/NoData';
-import { PAGE_SIZE } from '@/constants/config';
-import { get } from '@/utils/request';
+
+import { fetchList } from '#/domain/bounty/repository';
 
 import { FilterToggle } from '../learn/[type]/FilterToggle';
 import { Search } from '../learn/[type]/Search';
 import { Sort } from '../learn/[type]/Sort';
 import { List } from './List';
 
-
 export async function Container({ type, searchParams }) {
-  const page = Number(searchParams?.page) || 1;
-  const order = searchParams?.order || 'default';
+  const page = searchParams?.page;
+  const order = searchParams?.order;
   const labels = searchParams?.labels || '';
   const query = searchParams?.query || '';
   const status = searchParams?.status || '';
   const skills = searchParams?.skills || '';
-  const URL = `ts/v1/build/general/bounties?ecosystem=${labels}&skip=${(page - 1) * PAGE_SIZE}&take=${PAGE_SIZE}&title=${query}&status=${status}&skills=${skills}&sort_by=${order}`;
-  const { data } = await get(URL, {isServer: true});
-  // console.log(data)
+
+  const { data } = await fetchList({
+    ecosystem: labels,
+    page,
+    title: query,
+    status,
+    skills,
+    sort: order,
+  });
+
   return (
     <div className="flex-1 pb-14">
       <div className="flex flex-col-reverse justify-between md:flex-row md:items-center">

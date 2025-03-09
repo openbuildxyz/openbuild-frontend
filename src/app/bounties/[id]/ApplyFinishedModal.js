@@ -30,7 +30,7 @@ import { biulderFinish } from '#/services/bounties';
 
 import { revalidatePathAction } from '../../actions';
 
-export function ApplyFinishedModal({open, close, bounty}) {
+export function ApplyFinishedModal({ open, close, bounty }) {
   const _contracts = contracts[BOUNTY_SUPPORTED_CHAIN()];
   const payToken = payTokens[BOUNTY_SUPPORTED_CHAIN()].usdt;
   const wrapBountyEnvCheck = useBountyEnvCheck();
