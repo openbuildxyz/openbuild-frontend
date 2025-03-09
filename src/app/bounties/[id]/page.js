@@ -18,7 +18,8 @@ import { Suspense } from 'react';
 
 import { PreviewAlert } from '@/components/PreviewAlert';
 import { fromNow } from '@/utils/date';
-import { get } from '@/utils/request';
+
+import { fetchOne } from '#/domain/bounty/repository';
 
 import { ChainNetworkTips } from '../Tips';
 import { Activities } from './Activities';
@@ -27,11 +28,7 @@ import { Employers } from './Employers';
 import { BountiesHeader } from './Header';
 
 export default async function Page({ params, searchParams }) {
-  const datas = await Promise.all([
-    get(`ts/v1/build/general/bounties/${params.id}`, {isServer: true}),
-    // get(`ts/v1/build/general/bounties/${params.id}/builders`, {isServer: true})
-  ]);
-  const [{ data }] = [...datas];
+  const { data } = await fetchOne(params.id);
 
   return (
     <>
