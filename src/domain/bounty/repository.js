@@ -39,6 +39,14 @@ async function fetchList(params = {}) {
   });
 }
 
+async function fetchOne(id) {
+  return httpClient.get(`/build/general/bounties/${id}`);
+}
+
+async function applyOne(id, data) {
+  return httpClient.post(`/build/general/bounties/${id}/builders`, data);
+}
+
 async function fetchPublishedBountyList(params = {}) {
   const { userId, ...others } = params;
 
@@ -53,4 +61,7 @@ async function fetchAppliedBountyList(params = {}) {
   });
 }
 
-export { fetchList, fetchPublishedBountyList, fetchAppliedBountyList };
+export {
+  fetchList, fetchOne, applyOne,
+  fetchPublishedBountyList, fetchAppliedBountyList,
+};

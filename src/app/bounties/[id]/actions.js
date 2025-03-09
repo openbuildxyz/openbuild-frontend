@@ -18,16 +18,12 @@
 
 import { revalidatePath } from 'next/cache';
 
-import { post } from '@/utils/request';
+import { applyOne } from '#/domain/bounty/repository';
 
 export async function applyAction(id, comment) {
   try {
-    const res = await post(`ts/v1/build/general/bounties/${id}/builders`, { comment }, { isServer: true });
-    if (res.code === 200) {
-      return revalidatePath('/');
-    } else {
-      return res;
-    }
+    const res = await applyOne(id, { comment });
+    return res.success ? revalidatePath('/') : res;
   } catch (e) {
     return { message: 'Failed to request' };
   }
