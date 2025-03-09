@@ -30,6 +30,7 @@ import { useAccount } from 'wagmi';
 import { EyeIcon, EyeSlashIcon } from '@/components/icon/outlined';
 import Loader from '@/components/Loader';
 
+import HumanProofWidget from '#/domain/auth/widgets/human-proof';
 import { registerEmail, sendCode } from '#/services/auth';
 
 import { NavButtonStyle } from '../signin/page';
@@ -40,6 +41,7 @@ export default function SignUp() {
   const router = useRouter();
   const [cdMss, setCdMss] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [humanVerified, setHumanVerified] = useState(false);
   const { address } = useAccount();
   const searchParams = useSearchParams();
   const [sendLoading, setSendLoading] = useState(false);
@@ -149,6 +151,7 @@ export default function SignUp() {
           <button
             type="submit"
             disabled={
+              !humanVerified ||
               watchAllFields.Email === '' ||
               watchAllFields.ConfirmPassword === '' ||
               watchAllFields.VerificationCode === '' ||
@@ -166,7 +169,7 @@ export default function SignUp() {
           {watchAllFields.ConfirmPassword !== watchAllFields.Password && (
             <p className="mt-4 text-center text-xs text-red">The passwords entered twice are inconsistent</p>
           )}
-
+          <HumanProofWidget onVerify={setHumanVerified} />
           <div className="mt-6 text-center">
             Already have an account?&nbsp;
             <span
