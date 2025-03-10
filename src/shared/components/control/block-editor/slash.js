@@ -31,7 +31,9 @@ import {
   Columns3,
   Columns4,
 } from 'lucide-react';
-import { createSuggestionItems, Command, renderItems } from 'novel/extensions';
+import { createSuggestionItems, Command, renderItems } from 'novel';
+
+import uploadFn from './upload';
 
 function createColumnItems() {
   return [
@@ -141,8 +143,7 @@ const suggestionItems = createSuggestionItems([
         if (input.files?.length) {
           const file = input.files[0];
           const pos = editor.view.state.selection.from;
-          console.log(file, editor.view, pos);
-          alert('Isn\'t implemented yet.');
+          uploadFn(file, editor.view, pos);
         }
       };
       input.click();

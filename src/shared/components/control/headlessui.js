@@ -14,4 +14,4 @@
  * limitations under the License.
  */
 
-export { Disclosure, Popover, Dialog, Listbox, Transition, Switch } from '@headlessui/react';
+export { Disclosure, Popover, Dialog, Listbox, Transition, Switch, Menu } from '@headlessui/react';

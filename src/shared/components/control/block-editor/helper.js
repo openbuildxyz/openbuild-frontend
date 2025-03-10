@@ -14,7 +14,21 @@
  * limitations under the License.
  */
 
-import { isPlainObject } from '../../utils';
+import { isFunction, isPlainObject } from '../../../utils';
+
+let uploadHandler;
+
+function setUploadHandler(handler) {
+  if (!isFunction(handler)) {
+    return;
+  }
+
+  uploadHandler = handler;
+}
+
+function getUploadHandler() {
+  return uploadHandler;
+}
 
 const BLOCK_DATA_SPEC_VERSION = '0.0.1';
 
@@ -34,4 +48,7 @@ function wrapBlockData(data) {
   return { version: BLOCK_DATA_SPEC_VERSION, data };
 }
 
-export { getInitialBlockData, isBlockDataValid, wrapBlockData, unwrapBlockData };
+export {
+  getUploadHandler, setUploadHandler,
+  getInitialBlockData, isBlockDataValid, wrapBlockData, unwrapBlockData,
+};
