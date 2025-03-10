@@ -26,7 +26,6 @@ import {
   GlobalDragHandle,
   HighlightExtension,
   HorizontalRule,
-  MarkdownExtension,
   Placeholder,
   StarterKit,
   TaskItem,
@@ -39,8 +38,9 @@ import {
   UpdatedImage,
   Youtube,
   Mathematics,
-} from 'novel/extensions';
-import { UploadImagesPlugin } from 'novel/plugins';
+  UploadImagesPlugin,
+} from 'novel';
+import { Markdown } from 'tiptap-markdown';
 
 //TODO I am using cx here to get tailwind autocomplete working, idk if someone else can write a regex to just capture the class key in objects
 const aiHighlight = AIHighlight;
@@ -164,7 +164,7 @@ const mathematics = Mathematics.configure({
 
 const characterCount = CharacterCount.configure();
 
-const markdownExtension = MarkdownExtension.configure({
+const markdownExtension = Markdown.configure({
   html: true,
   tightLists: true,
   tightListClass: 'tight',

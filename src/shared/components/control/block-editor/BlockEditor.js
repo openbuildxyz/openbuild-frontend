@@ -20,10 +20,10 @@ import clsx from 'clsx';
 import {
   EditorRoot, EditorContent,
   EditorCommand, EditorCommandEmpty, EditorCommandList, EditorCommandItem,
+  ImageResizer, handleCommandNavigation,
 } from 'novel';
-import { ImageResizer, handleCommandNavigation } from 'novel/extensions';
 
-import { isFunction } from '../../utils';
+import { isFunction } from '../../../utils';
 import BlockEditorBubble from './bubble';
 import { defaultExtensions } from './extensions';
 import { isBlockDataValid } from './helper';
