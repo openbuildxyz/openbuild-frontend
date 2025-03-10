@@ -23,6 +23,8 @@ import { DiscordIcon } from '@/components/Icons';
 
 export default function Error({
   error,
+}: {
+  error: Error;
 }) {
   useEffect(() => {
     // Log the error to an error reporting service
