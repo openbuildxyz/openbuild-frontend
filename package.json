@@ -140,6 +140,7 @@
     "prettier": "^2.5.1",
     "sass": "^1.64.2",
     "semver": "^7.6.3",
-    "tailwindcss": "3.4.16"
+    "tailwindcss": "3.4.16",
+    "typescript": "5.8.2"
   }
 }
