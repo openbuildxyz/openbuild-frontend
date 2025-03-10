@@ -29,7 +29,9 @@ import { BASE_INPUT_STYLE } from '@/constants/config';
 import { get } from '@/utils/request';
 
 import { publishBounty, editBounty } from '#/services/creator';
-import { useAllSkills, useConfig, useMediaUrl } from '#/state/application/hooks';
+import SelectSkills from '#/shared/components/SelectSkills';
+import { useConfig, useMediaUrl } from '#/state/application/hooks';
+
 
 const options = [
   {
@@ -61,7 +63,6 @@ export default function Page({params: { id }}) {
   const router = useRouter();
   const config = useConfig();
   const mediaUrl = useMediaUrl();
-  const allSkills = useAllSkills();
 
   const [ecosystem, setEcosystem] = useState('');
   const [skills, setSkills] = useState([]);
@@ -228,19 +229,7 @@ export default function Page({params: { id }}) {
         </div>
         <div className="col-span-2">
           <h5>Required Skills <span className={clsx('text-xs font-normal', {' opacity-60': !skillsErr, 'text-red': skillsErr}) }>Select up to 3 items </span></h5>
-          <ReactSelect
-            value={skills.map(i => allSkills?.find(f => f.value === i))}
-            isMulti
-            name="skills"
-            options={allSkills}
-            className="no-bg"
-            onChange={e => {
-              const _skills = e.map(i => i.value);
-              setSkills(_skills);
-            }}
-          />
-
-          {/* <SelectSkills skills={skills} setSkills={setSkills} /> */}
+          <SelectSkills selectedSkills={skills} onChange={setSkills} />
         </div>
       </div>
       <div className="grid grid-cols-2 gap-4 mt-4">
