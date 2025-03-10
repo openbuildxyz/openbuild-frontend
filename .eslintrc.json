@@ -46,18 +46,29 @@
         "perfectionist/sort-imports": [
           "error",
           {
-            "groups": [
-              ["builtin", "external"],
-              "shared",
-              "src",
-              "unknown"
-            ],
-            "customGroups": { 
+            "groups": [["builtin", "external"], "shared", "src", "type", "unknown"],
+            "customGroups": {
               "value": {
                 "shared": ["^@/"],
                 "src": ["#/*"]
               }
-             }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "files": ["src/**/*.ts", "src/**/*.tsx"],
+      "parser": "@typescript-eslint/parser",
+      "plugins": ["@typescript-eslint"],
+      "extends": ["plugin:@typescript-eslint/recommended"],
+      "rules": {
+        "@typescript-eslint/consistent-type-imports": [
+          "error",
+          {
+            "disallowTypeAnnotations": false,
+            "fixStyle": "separate-type-imports",
+            "prefer": "type-imports"
           }
         ]
       }
