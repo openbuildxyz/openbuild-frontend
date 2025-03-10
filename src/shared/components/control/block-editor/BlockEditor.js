@@ -22,9 +22,11 @@ import {
   EditorCommand, EditorCommandEmpty, EditorCommandList, EditorCommandItem,
   ImageResizer, handleCommandNavigation,
 } from 'novel';
+import { useState } from 'react';
 
 import { isFunction } from '../../../utils';
 import BlockEditorBubble from './bubble';
+import DragHandle from './DragHandle';
 import { defaultExtensions } from './extensions';
 import { isBlockDataValid } from './helper';
 import { slashCommand, suggestionItems } from './slash';
@@ -32,6 +34,12 @@ import { slashCommand, suggestionItems } from './slash';
 const extensions = [...defaultExtensions, slashCommand];
 
 function BlockEditor({ className, data, onChange, editable = false }) {
+  const [cachedEditor, setCachedEditor] = useState(null);
+
+  const handleCreate = ({ editor }) => {
+    setCachedEditor(editor);
+  };
+
   const handleUpdate = ({ editor }) => {
     isFunction(onChange) && onChange(editor.getJSON());
   };
@@ -53,9 +61,11 @@ function BlockEditor({ className, data, onChange, editable = false }) {
             },
           }}
           editable={editable}
+          onCreate={handleCreate}
           onUpdate={handleUpdate}
           slotAfter={<ImageResizer />}
         >
+          <DragHandle editor={cachedEditor} />
           <EditorCommand className="z-50 h-auto max-h-[330px] overflow-y-auto rounded-md border border-muted bg-background px-1 py-2 shadow-md transition-all">
             <EditorCommandEmpty className="px-2 text-muted-foreground">No results</EditorCommandEmpty>
             <EditorCommandList>

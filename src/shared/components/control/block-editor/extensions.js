@@ -175,6 +175,10 @@ const markdownExtension = Markdown.configure({
   transformCopiedText: false,
 });
 
+const dragHandle = GlobalDragHandle.configure({
+  dragHandleSelector: '.BlockEditor-dragHandle',
+});
+
 const defaultExtensions = [
   starterKit,
   placeholder,
@@ -196,7 +200,7 @@ const defaultExtensions = [
   TextStyle,
   Color,
   CustomKeymap,
-  GlobalDragHandle,
+  dragHandle,
   ColumnsExtension,
 ];
 
