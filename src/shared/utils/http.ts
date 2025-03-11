@@ -17,9 +17,39 @@
 import { isBoolean, isFunction, isPlainObject } from 'lodash';
 import { stringify } from 'qs';
 
+import type { DataValue, ResponseResult as DefaultResponseResult } from '@handie/runtime-core';
+
 import { isLogicalSuccess, request } from './request';
 
-async function normalizeResponse(res) {
+type ResponseResult<VT extends DataValue = DataValue> = Omit<DefaultResponseResult<VT>, 'code' | 'message' | 'extra'> & {
+  code: number;
+  message?: string;
+  extra?: Record<string, DataValue>;
+};
+
+type RequestConfig = {
+  params?: Record<string, DataValue>;
+  isServer?: boolean;
+};
+
+type ResponseInterceptor = (res: ResponseResult) => ResponseResult;
+
+interface IHttpClient {
+  new (options: { baseUrl?: string }): {
+    _setInterceptor: (interceptor: ResponseInterceptor) => void;
+    _req: (
+      url: string,
+      method: string,
+      data?: Record<string, DataValue> | string,
+      config?: RequestConfig
+    ) => Promise<ResponseResult>;
+    get: (url: string, config?: RequestConfig) => Promise<ResponseResult>;
+    post: (url: string, data?: Record<string, DataValue>, config?: RequestConfig) => Promise<ResponseResult>;
+    use: (interceptor: ResponseInterceptor) => void;
+  };
+}
+
+async function normalizeResponse<VT extends DataValue = DataValue>(res: Response): Promise<ResponseResult<VT>> {
   if (res.ok) {
     const jsonData = await res.json();
 
@@ -56,16 +86,19 @@ async function normalizeResponse(res) {
     success: false,
     code: res.status,
     message,
-    data: undefined,
+    data: undefined as VT,
     extra: {},
   };
 }
 
-async function makeLoginInsensitive(req) {
+async function makeLoginInsensitive(req: Promise<ResponseResult>): Promise<ResponseResult> {
   return req.then(({ success, ...others }) => ({ ...others, success: !success && others.code === 401 ? true : success }));
 }
 
-async function mergeMultipleResponses(reqs, resolver) {
+async function mergeMultipleResponses(
+  reqs: Promise<ResponseResult>[],
+  resolver: (results: ResponseResult[]) => ResponseResult,
+): Promise<ResponseResult> {
   return Promise.all(reqs).then(results => {
     const failed = results.find(res => !res.success);
 
@@ -73,7 +106,7 @@ async function mergeMultipleResponses(reqs, resolver) {
   });
 }
 
-function isServerSide(inServer) {
+function isServerSide(inServer?: boolean): boolean {
   if (isBoolean(inServer)) {
     return inServer;
   }
@@ -85,12 +118,17 @@ function isServerSide(inServer) {
   }
 }
 
-function HttpClient({ baseUrl }) {
-  let resInterceptor;
+function HttpClient(this: any, { baseUrl }: { baseUrl?: string }) { // eslint-disable-line @typescript-eslint/no-explicit-any
+  let resInterceptor: ResponseInterceptor;
 
-  this._setInterceptor = interceptor => (resInterceptor = interceptor);
+  this._setInterceptor = (interceptor: ResponseInterceptor) => (resInterceptor = interceptor);
 
-  this._req = async (url, method, data, config) => {
+  this._req = async (
+    url: string,
+    method: Request['method'],
+    data?: Record<string, DataValue> | string,
+    config?: RequestConfig,
+  ) => {
     const res = await request(url, method, data, { ...config, baseUrl, isServer: isServerSide(config?.isServer) });
     const normalized = await normalizeResponse(res);
 
@@ -98,25 +136,26 @@ function HttpClient({ baseUrl }) {
   };
 }
 
-HttpClient.prototype.get = function(url, config = {}) {
+HttpClient.prototype.get = function(url: string, config: RequestConfig = {}) {
   const { params, ...others } = config;
   const queryString = isPlainObject(params) ? stringify(params) : '';
 
   return this._req(queryString ? `${url}?${queryString}` : url, 'GET', '', others);
 };
 
-HttpClient.prototype.post = function(url, data, config) {
+HttpClient.prototype.post = function(url: string, data?: Record<string, DataValue>, config?: RequestConfig) {
   return this._req(url, 'POST', data ? data : {}, config);
 };
 
-HttpClient.prototype.use = function(interceptor) {
+HttpClient.prototype.use = function(interceptor: ResponseInterceptor) {
   if (isFunction(interceptor)) {
     this._setInterceptor(interceptor);
   }
 };
 
-const legacyClient = new HttpClient({ baseUrl: '/v1' });
-const httpClient = new HttpClient({ baseUrl: '/ts/v1' });
+const HttpClientConstructor: IHttpClient = HttpClient as unknown as IHttpClient;
+const legacyClient = new HttpClientConstructor({ baseUrl: '/v1' });
+const httpClient = new HttpClientConstructor({ baseUrl: '/ts/v1' });
 
 export { makeLoginInsensitive, mergeMultipleResponses, legacyClient };
 export default httpClient;
