@@ -35,7 +35,6 @@
     "@bytemd/react": "^1.21.0",
     "@ethersproject/address": "^5.7.0",
     "@ethersproject/units": "^5.7.0",
-    "@handie/runtime-core": "0.0.13",
     "@headlessui/react": "^1.7.7",
     "@heroicons/react": "^2.0.16",
     "@mysten/dapp-kit": "^0.11.1",
