@@ -38,7 +38,7 @@ setUploadHandler(async file => {
   };
 });
 
-function CustomContent({ className, data, onChange, editable }) {
+function CustomContent({ className = undefined, data, onChange, editable }) {
   const [content, setContent] = useState(data);
 
   if (!isBlockDataValid(content)) {
