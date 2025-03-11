@@ -20,11 +20,12 @@ import clsx from 'clsx';
 import {
   EditorRoot, EditorContent,
   EditorCommand, EditorCommandEmpty, EditorCommandList, EditorCommandItem,
+  ImageResizer, handleCommandNavigation,
 } from 'novel';
-import { ImageResizer, handleCommandNavigation } from 'novel/extensions';
 
-import { isFunction } from '../../utils';
+import { isFunction } from '../../../utils';
 import BlockEditorBubble from './bubble';
+import DragHandle from './DragHandle';
 import { defaultExtensions } from './extensions';
 import { isBlockDataValid } from './helper';
 import { slashCommand, suggestionItems } from './slash';
@@ -56,6 +57,7 @@ function BlockEditor({ className, data, onChange, editable = false }) {
           onUpdate={handleUpdate}
           slotAfter={<ImageResizer />}
         >
+          <DragHandle />
           <EditorCommand className="z-50 h-auto max-h-[330px] overflow-y-auto rounded-md border border-muted bg-background px-1 py-2 shadow-md transition-all">
             <EditorCommandEmpty className="px-2 text-muted-foreground">No results</EditorCommandEmpty>
             <EditorCommandList>

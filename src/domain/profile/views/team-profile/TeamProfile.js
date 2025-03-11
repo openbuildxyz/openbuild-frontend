@@ -17,7 +17,7 @@
 import { useState } from 'react';
 import { useDebouncedCallback } from 'use-debounce';
 
-import { isBlockDataValid } from '@/components/block-editor';
+import { isBlockDataValid } from '@/components/control/block-editor/helper';
 import useAppConfig from '@/hooks/useAppConfig';
 import useMounted from '@/hooks/useMounted';
 

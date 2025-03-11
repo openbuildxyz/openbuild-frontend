@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { unwrapBlockData, wrapBlockData } from '@/components/block-editor/helper';
+import { unwrapBlockData, wrapBlockData } from '@/components/control/block-editor/helper';
 import httpClient from '@/utils/http';
 
 async function fetchWeb3BioProfile(address) {
