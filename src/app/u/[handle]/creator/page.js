@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { fetchUser, fetchUserActivityList } from '#/domain/profile/repository';
+import { fetchUser } from '#/domain/profile/repository';
 
 import ProjectOwner from './ProjectOwner';
 
@@ -25,7 +25,5 @@ export default async function CreatorProfile({ params }) {
     return <div>This user is not a creator.</div>;
   }
 
-  const { data: activityData } = await fetchUserActivityList(data?.base.user_id);
-
-  return <ProjectOwner data={data} activities={activityData?.list || []} />;
+  return <ProjectOwner data={data} />;
 }
