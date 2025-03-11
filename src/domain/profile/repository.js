@@ -44,10 +44,6 @@ async function updateUser(data) {
   return httpClient.post('/user/info', data);
 }
 
-async function fetchUserActivityList(uid) {
-  return httpClient.get(`/user/info/${uid}/creator/activity`);
-}
-
 function resolvePaginationParams(params) {
   return { ...params, take: 20 };
 }
@@ -88,7 +84,7 @@ async function updateBlockContent(data) {
 }
 
 export {
-  fetchUser, updateUser, fetchUserActivityList,
+  fetchUser, updateUser,
   fetchFollowerList, fetchFollowedList, followUser, unfollowUser,
   updateBanner,
   fetchBlockContent, updateBlockContent,
