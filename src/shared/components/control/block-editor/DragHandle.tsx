@@ -18,6 +18,7 @@ import { useInteractions, useFloating, useClick } from '@floating-ui/react';
 import { useEditor } from 'novel';
 import { useState } from 'react';
 
+import type { EditorInstance} from 'novel';
 import type { ReactNode } from 'react';
 
 function Item({ children, onClick }: { children: ReactNode; onClick: () => void }) {
@@ -41,6 +42,13 @@ function DragHandle() {
   const click = useClick(context);
   const { getReferenceProps, getFloatingProps } = useInteractions([click]);
 
+  const getDragHandlePos = (editor: EditorInstance) => {
+    const { left, top } = refs.reference.current!.getBoundingClientRect();
+    const posAtCoords = editor.view.posAtCoords({ left: left + 50, top: top + 1 });
+
+    return posAtCoords;
+  };
+
   const insertNewBlockBelow = () => {
     if (!editor) return;
 
@@ -48,8 +56,11 @@ function DragHandle() {
       .chain()
       .focus()
       .command(({ tr }) => {
-        const { $from } = tr.selection;
-        const insertPos = $from.after($from.depth);
+        const posAtCoords = getDragHandlePos(editor);
+        if (!posAtCoords) return false;
+
+        const $pos = editor.state.doc.resolve(posAtCoords.pos);
+        const insertPos = $pos.after($pos.depth);
         tr.insert(insertPos, editor.schema.nodes.paragraph.create());
 
         setIsOpen(false);
@@ -64,8 +75,13 @@ function DragHandle() {
       .chain()
       .focus()
       .command(({ tr }) => {
-        const { $from } = tr.selection;
-        tr.delete($from.before($from.depth), $from.after($from.depth));
+        const posAtCoords = getDragHandlePos(editor);
+        if (!posAtCoords) return false;
+
+        const $pos = editor.state.doc.resolve(posAtCoords.pos);
+        const from = $pos.before($pos.depth);
+        const to = $pos.after($pos.depth);
+        tr.delete(from, to);
 
         setIsOpen(false);
         return true;
