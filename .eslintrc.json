@@ -70,7 +70,8 @@
             "fixStyle": "separate-type-imports",
             "prefer": "type-imports"
           }
-        ]
+        ],
+        "@typescript-eslint/no-explicit-any": "off"
       }
     }
   ]

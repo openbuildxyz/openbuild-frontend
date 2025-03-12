@@ -23,6 +23,8 @@ import {
   ImageResizer, handleCommandNavigation,
 } from 'novel';
 
+import type { EditorInstance} from 'novel';
+
 import { isFunction } from '../../../utils';
 import BlockEditorBubble from './bubble';
 import DragHandle from './DragHandle';
@@ -32,8 +34,15 @@ import { slashCommand, suggestionItems } from './slash';
 
 const extensions = [...defaultExtensions, slashCommand];
 
-function BlockEditor({ className, data, onChange, editable = false }) {
-  const handleUpdate = ({ editor }) => {
+interface BlockEditorProps {
+  className?: string;
+  data: any;
+  onChange: (data: any) => void;
+  editable?: boolean;
+}
+
+function BlockEditor({ className, data, onChange, editable = false }: BlockEditorProps) {
+  const handleUpdate = ({ editor }: { editor: EditorInstance }) => {
     isFunction(onChange) && onChange(editor.getJSON());
   };
 
@@ -64,7 +73,7 @@ function BlockEditor({ className, data, onChange, editable = false }) {
               {suggestionItems.map(item => (
                 <EditorCommandItem
                   value={item.title}
-                  onCommand={val => item.command(val)}
+                  onCommand={val => item.command?.(val)}
                   className="flex w-full items-center space-x-2 rounded-md px-2 py-1 text-left text-sm hover:bg-neutral-200 aria-selected:bg-neutral-200"
                   key={item.title}
                 >
