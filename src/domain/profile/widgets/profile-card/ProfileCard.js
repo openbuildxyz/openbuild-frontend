@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import clsx from 'clsx';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
@@ -30,9 +31,9 @@ import { post, fetcher } from '@/utils/request';
 import { useUser } from '#/state/application/hooks';
 
 import SocialInfoWidget from '../social-info';
-import IdentityInfo from './IdentityInfo';
+import IdentitySwitch from './IdentitySwitch';
 
-function ProfileCardWidget({ data }) {
+function ProfileCardWidget({ className, data }) {
   const router = useRouter();
   const pathname = usePathname();
   const user = useUser();
@@ -75,7 +76,7 @@ function ProfileCardWidget({ data }) {
   };
 
   return (
-    <div className="md:absolute md:top-[-161px] md:w-[360px] md:rounded-lg md:p-6 md:bg-white">
+    <div className={clsx('relative md:w-[360px] md:rounded-lg md:p-6 md:bg-white', className)}>
       <div className="flex flex-col gap-2 items-center">
         <Avatar
           className="-mt-[104px] md:mt-0"
@@ -126,7 +127,9 @@ function ProfileCardWidget({ data }) {
           <Link href="/" className="text-xs opacity-60">+ Follow</Link>
         </div>
       </>} */}
-      {creatorAvailable && <IdentityInfo userName={handle} />}
+      {creatorAvailable && (
+        <IdentitySwitch className="absolute top-4 right-4" userName={handle} />
+      )}
       <SocialInfoWidget className="hidden md:block" data={data} />
     </div>
   );

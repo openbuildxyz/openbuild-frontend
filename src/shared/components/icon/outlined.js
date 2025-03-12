@@ -15,7 +15,7 @@
  */
 
 export {
-  ArrowLeftIcon, ArrowDownTrayIcon,
+  ArrowLeftIcon, ArrowDownTrayIcon, ArrowsRightLeftIcon,
   EyeIcon, EyeSlashIcon,
   PlusIcon, MinusCircleIcon,
   ChevronLeftIcon, ChevronRightIcon,
