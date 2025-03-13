@@ -21,7 +21,7 @@ import { useState } from 'react';
 import type { EditorInstance} from 'novel';
 import type { ReactNode } from 'react';
 
-function Item({ children, onClick }: { children: ReactNode; onClick: () => void }) {
+function PropsWithChildren({ children, onClick }: { children: ReactNode; onClick: () => void }) {
   return (
     <div className="cursor-pointer rounded-sm px-2 py-1 hover:bg-gray-900" onClick={onClick}>
       {children}
@@ -32,18 +32,20 @@ function Item({ children, onClick }: { children: ReactNode; onClick: () => void 
 function DragHandle() {
   const { editor } = useEditor();
 
-  const [isOpen, setIsOpen] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const { refs, floatingStyles, context } = useFloating({
     placement: 'left-start',
-    open: isOpen,
-    onOpenChange: setIsOpen,
+    open,
+    onOpenChange: setOpen,
   });
   const click = useClick(context);
   const { getReferenceProps, getFloatingProps } = useInteractions([click]);
 
   const getDragHandlePos = (editor: EditorInstance) => {
     const { left, top } = refs.reference.current!.getBoundingClientRect();
+    // https://github.com/NiclasDev63/tiptap-extension-global-drag-handle/blob/3c327114aa54293392369c6c5bb311f2eabc50bd/src/index.ts#L84-L95
+    // add 50px to the left and 1px to the top to make sure the position is inside the editor
     const posAtCoords = editor.view.posAtCoords({ left: left + 50, top: top + 1 });
 
     return posAtCoords;
@@ -63,7 +65,7 @@ function DragHandle() {
         const insertPos = $pos.after($pos.depth);
         tr.insert(insertPos, editor.schema.nodes.paragraph.create());
 
-        setIsOpen(false);
+        setOpen(false);
         return true;
       })
       .run();
@@ -83,7 +85,7 @@ function DragHandle() {
         const to = $pos.after($pos.depth);
         tr.delete(from, to);
 
-        setIsOpen(false);
+        setOpen(false);
         return true;
       })
       .run();
@@ -93,15 +95,15 @@ function DragHandle() {
     <>
       <div className="BlockEditor-dragHandle" ref={refs.setReference} {...getReferenceProps()} />
 
-      {isOpen && (
+      {open && (
         <div
           className="flex flex-col gap-2 rounded-md border py-1 px-2 border-gray-300 bg-background shadow-md"
           ref={refs.setFloating}
           style={floatingStyles}
           {...getFloatingProps()}
         >
-          <Item onClick={deleteBlock}>Delete</Item>
-          <Item onClick={insertNewBlockBelow}>Insert</Item>
+          <PropsWithChildren onClick={deleteBlock}>Delete</PropsWithChildren>
+          <PropsWithChildren onClick={insertNewBlockBelow}>Insert</PropsWithChildren>
         </div>
       )}
     </>
