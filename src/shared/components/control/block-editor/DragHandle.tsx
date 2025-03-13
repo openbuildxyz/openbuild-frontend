@@ -18,10 +18,10 @@ import { useInteractions, useFloating, useClick } from '@floating-ui/react';
 import { useEditor } from 'novel';
 import { useState } from 'react';
 
-import type { EditorInstance} from 'novel';
-import type { ReactNode } from 'react';
+import type { EditorInstance } from 'novel';
+import type { PropsWithChildren } from 'react';
 
-function PropsWithChildren({ children, onClick }: { children: ReactNode; onClick: () => void }) {
+function DropdownItem({ children, onClick }: PropsWithChildren<{ onClick: () => void }>) {
   return (
     <div className="cursor-pointer rounded-sm px-2 py-1 hover:bg-gray-900" onClick={onClick}>
       {children}
@@ -102,8 +102,8 @@ function DragHandle() {
           style={floatingStyles}
           {...getFloatingProps()}
         >
-          <PropsWithChildren onClick={deleteBlock}>Delete</PropsWithChildren>
-          <PropsWithChildren onClick={insertNewBlockBelow}>Insert</PropsWithChildren>
+          <DropdownItem onClick={deleteBlock}>Delete</DropdownItem>
+          <DropdownItem onClick={insertNewBlockBelow}>Insert</DropdownItem>
         </div>
       )}
     </>
