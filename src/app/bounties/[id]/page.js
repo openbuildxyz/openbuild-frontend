@@ -26,12 +26,37 @@ import { BountiesDetail } from './BountiesDetail';
 import { Employers } from './Employers';
 import { BountiesHeader } from './Header';
 
+const STATUS_MAP = {
+  3:{
+    label:'Recruiting',
+    class:'bg-black',
+  },
+  30:{
+    label:'Completed',
+    class:'bg-gray-100',
+  },
+  20:{
+    label:'Termination',
+    class:'bg-black',
+  },
+  24:{
+    label:'Termination',
+    class:'bg-black',
+  },
+};
 export default async function Page({ params, searchParams }) {
   const datas = await Promise.all([
     get(`ts/v1/build/general/bounties/${params.id}`, {isServer: true}),
     // get(`ts/v1/build/general/bounties/${params.id}/builders`, {isServer: true})
   ]);
   const [{ data }] = [...datas];
+  let statusObject = STATUS_MAP[data?.status];
+  if(data?.status > 6 && data?.status < 24){
+    statusObject = {
+      label:'Building',
+      class:'bg-[#60CA98]',
+    };
+  }
 
   return (
     <>
@@ -42,21 +67,16 @@ export default async function Page({ params, searchParams }) {
           <div className="w-full max-w-[1024px]">
             <BountiesHeader data={data} employers={{ id: params.id, data, list: data?.builders }} />
             <div className="flex items-center justify-between">
-              {data?.status === 3 && <span className="mr-2 rounded-md bg-black p-1 text-xs text-white">Recruiting</span>}
-              {data?.status > 6 && data?.status < 24 && (
-                <span className="mr-2 rounded-md bg-[#60CA98] p-1 text-xs text-white">Building</span>
-              )}
-              {data?.status === 30 && (
-                <span className="mr-2 rounded-md bg-gray-100 p-1 text-xs text-white">Completed</span>
-              )}
-              {(data?.status === 24 || data?.status === 20) && (
-                <span className="mr-2 rounded-md bg-black p-1 text-xs text-white">Termination</span>
+              {statusObject && (
+                <span className={`mr-2 rounded-md ${statusObject.class} p-1 text-xs text-white`}>{statusObject.label}</span>
               )}
               <div className="flex items-center text-sm text-gray-50">
                 {data?.created_at && (
                   <p>
                     {fromNow(data?.created_at * 1000)} by{' '}
-                    <a className="underline" href={`/u/${data?.employer_user?.user_handle}`}>{data?.employer_user?.user_nick_name}</a>
+                    <a className="underline" href={`/u/${data?.employer_user?.user_handle}`}>
+                      {data?.employer_user?.user_nick_name}
+                    </a>
                   </p>
                 )}
               </div>
@@ -74,9 +94,13 @@ export default async function Page({ params, searchParams }) {
             </div>
             <BountiesDetail data={data} />
             <hr className="my-6 border-gray-400" />
-            <Suspense fallback={<div className="flex justify-center py-14">
-              <span className="loading loading-spinner loading-md" />
-            </div>}>
+            <Suspense
+              fallback={
+                <div className="flex justify-center py-14">
+                  <span className="loading loading-spinner loading-md" />
+                </div>
+              }
+            >
               <Activities id={params.id} />
             </Suspense>
           </div>
