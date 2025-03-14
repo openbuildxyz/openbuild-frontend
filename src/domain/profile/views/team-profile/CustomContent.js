@@ -25,7 +25,7 @@ setUploadHandler(async file => {
   const formData = new FormData();
 
   formData.append('file', file, file.name);
-  formData.append('intent', 'course_series');
+  formData.append('intent', 'devplaza');
 
   const { code, data, message } = await upload({ file: formData });
 
