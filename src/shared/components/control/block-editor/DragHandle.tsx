@@ -66,7 +66,10 @@ function DragHandle() {
         if (!posAtCoords) return false;
 
         const $pos = editor.state.doc.resolve(posAtCoords.pos);
-        const insertPos = $pos.after($pos.depth);
+
+        const depth = $pos.depth;
+        // if depth is 0, we are inserting a new block at the top level
+        const insertPos = depth === 0 ? $pos.pos + 1 : $pos.after(depth);
         tr.insert(insertPos, editor.schema.nodes.paragraph.create());
 
         setOpen(false);
@@ -80,14 +83,26 @@ function DragHandle() {
     return editor
       .chain()
       .focus()
-      .command(({ tr }) => {
+      .command(({ tr, state }) => {
         const posAtCoords = getDragHandlePos(editor);
         if (!posAtCoords) return false;
 
-        const $pos = editor.state.doc.resolve(posAtCoords.pos);
-        const from = $pos.before($pos.depth);
-        const to = $pos.after($pos.depth);
-        tr.delete(from, to);
+        // Ensure position is within document bounds
+        const pos = Math.min(posAtCoords.pos, state.doc.content.size);
+        const $pos = state.doc.resolve(pos);
+
+        // Find the closest parent block node
+        const depth = $pos.depth;
+
+        // Get node position
+        // if depth is 0, we are deleting the block itself
+        const start = depth === 0 ? $pos.pos : $pos.before(depth);
+        const end = depth === 0 ? $pos.pos + 1 : $pos.after(depth);
+
+        // Ensure we're not trying to delete beyond document boundaries
+        if (start >= 0 && end <= state.doc.content.size && start < end) {
+          tr.delete(start, end);
+        }
 
         setOpen(false);
         return true;
