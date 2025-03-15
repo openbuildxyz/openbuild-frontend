@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { useInteractions, useFloating, useClick } from '@floating-ui/react';
+import { useInteractions, useFloating, useClick, useDismiss } from '@floating-ui/react';
 import { useEditor } from 'novel';
 import { useState } from 'react';
 
@@ -40,7 +40,9 @@ function DragHandle() {
     onOpenChange: setOpen,
   });
   const click = useClick(context);
-  const { getReferenceProps, getFloatingProps } = useInteractions([click]);
+  const dismiss = useDismiss(context);
+
+  const { getReferenceProps, getFloatingProps } = useInteractions([click, dismiss]);
 
   const getDragHandlePos = (editor: EditorInstance) => {
     const { left, top } = refs.reference.current!.getBoundingClientRect();
