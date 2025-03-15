@@ -40,7 +40,9 @@ function DragHandle() {
     onOpenChange: setOpen,
   });
   const click = useClick(context);
-  const dismiss = useDismiss(context);
+  const dismiss = useDismiss(context, {
+    ancestorScroll: true,
+  });
 
   const { getReferenceProps, getFloatingProps } = useInteractions([click, dismiss]);
 
