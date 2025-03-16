@@ -28,11 +28,10 @@ import { BASE_INPUT_STYLE } from '@/constants/config';
 import { classNames } from '@/utils';
 
 import { ProfileTitle, ProfileLabel } from '#/domain/profile/widgets/blocks';
+import SkillSelect from '#/domain/skill/widgets/skill-select';
 import { EXPERIENCE_OPTIONS } from '#/lib/user';
 import { upload } from '#/services/common';
-import SelectSkills from '#/shared/components/SelectSkills';
 import { useConfig } from '#/state/application/hooks';
-
 
 export function MySkill({ forms, set, formsError }) {
   const [uploading, setUploading] = useState(false);
@@ -97,7 +96,17 @@ export function MySkill({ forms, set, formsError }) {
         <ProfileLabel className="mt-9 text-gray-50">
           Skills <span className="text-red">*</span>
         </ProfileLabel>
-        <SelectSkills selectedSkills={forms.skills} onChange={_skills => set('skills',_skills)} />
+        <SkillSelect
+          value={forms.skills}
+          onChange={_skills => set('skills', _skills)}
+          className={'no-bg'}
+          styles={{
+            control: () => ({
+              height: 'auto !important',
+              minHeight: '40px',
+            }),
+          }}
+        />
         {/* <div className="relative">
           <div
             className={classNames(
@@ -241,7 +250,7 @@ export function MySkill({ forms, set, formsError }) {
                   'border-[#D9D9D9]': !uploadFileSizeError,
                   'border-[#E43150] bg-[rgba(228,49,80,0.02)]': uploadFileSizeError,
                   'bg-[#F3F3F3] hover:border-gray-100 hover:bg-[#EFEFEF]': forms.resume === '' && !uploadFileSizeError,
-                }
+                },
               )}
             >
               {uploading && (

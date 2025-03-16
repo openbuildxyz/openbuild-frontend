@@ -21,15 +21,17 @@ import { OViewer } from '@/components/MarkDown';
 import { Skeleton } from '@/components/Skeleton/details';
 import { fromNow } from '@/utils/date';
 
-import SkillOverviewView from '#/domain/skill/views/skill-overview';
-import SkillLabel from '#/domain/skill/widgets/skill-label';
+import SkillInsight from '#/domain/skill/widgets/skill-insight';
+import SkillLevel from '#/domain/skill/widgets/skill-level';
 import { ownedNFTs } from '#/services/common';
 import { useDetails } from '#/services/shilling/hooks';
+import { useAllSkills } from '#/state/application/hooks';
 
 import { Author } from './Author';
 import { Header } from './Header';
 
 export default function Page({ params }) {
+  const skills = useAllSkills();
   const { data, loading } = useDetails(params.id);
   const [nfts, setNfts] = useState([]);
 
@@ -81,9 +83,25 @@ export default function Page({ params }) {
             {data?.rec && <OViewer value={data?.rec} />}
           </div>
           {/* <BountiesDetail data={data?.detail} /> */}
-          <SkillLabel userId={params.id}/>
+          <div className="mb-14">
+            {data?.skill_datas.map(i => (
+              <span
+                key={`skill-tag-${i.id}`}
+                className="mr-[6px] inline-block mb-2 h-7 rounded-md border border-gray-600 px-2 text-sm  leading-7 text-gray-100"
+              >
+                {skills?.find(f => f.value === Number(i.skill))?.label}
+              </span>
+            ))}
+          </div>
           <hr className="my-14 border-gray-400" />
-          <SkillOverviewView userId={params.id} />
+          <div>
+            <h6 className="mb-6 text-lg">Skills</h6>
+            <SkillLevel data={data} />
+          </div>
+          <div className="h-6" />
+          {data?.aspecta_show && (
+            <SkillInsight data={data?.skill_user.user_extra_skills} />
+          )}
           <div className="h-6" />
           {data?.onchain_show && nfts.length > 0 && (
             <div>

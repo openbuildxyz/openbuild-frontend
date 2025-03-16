@@ -15,12 +15,10 @@
  */
 
 'use client';
-import { useSelector } from 'react-redux';
-
 import { ReactSelect } from '@/components/Select/ReactSelect';
 
 // import { useRouter, useSearchParams } from 'next/navigation'
-import SelectSkills from '#/shared/components/SelectSkills';
+import SkillSelect from '#/domain/skill/widgets/skill-select';
 import { useAppDispatch } from '#/state/hooks';
 import { setRequiredSkills, setExperience, setSortBy } from '#/state/shilling/reducer';
 
@@ -71,13 +69,12 @@ const SORT_BYS = [
 
 export function ShillingFilters() {
   const dispatch = useAppDispatch();
-  const selectedSkills = useSelector(state => state.shilling.requiredSkills);
 
   return (
     <div className="flex">
       <div className="mr-6 w-[568px]">
         <h5 className="mb-2 text-sm">Required Skills:</h5>
-        <SelectSkills selectedSkills={selectedSkills} limit={3} onChange={_skills => dispatch(setRequiredSkills(_skills))} className="react-select-noborder !h-12 border-0 "/>
+        <SkillSelect limit={3} onChange={_skills => dispatch(setRequiredSkills(_skills))} className="react-select-noborder !h-12 border-0 "/>
       </div>
       <div className="mr-6 w-[240px]">
         <h5 className="mb-2 text-sm">Experience:</h5>

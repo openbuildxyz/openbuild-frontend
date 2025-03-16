@@ -14,33 +14,29 @@
  * limitations under the License.
  */
 
-'use client';
 import { ReactSelect } from '@/components/Select/ReactSelect';
+import { isFunction } from '@/utils';
 
 import { useAllSkills } from '#/state/application/hooks';
 
-export default function SelectSkills({ selectedSkills, onChange, limit = Infinity, className = 'no-bg hauto' }) {
+export default function SkillSelect({ value = [], placeholder = 'Select skills', onChange, limit, className, styles = {} }) {
   const allSkills = useAllSkills();
 
-  const selectedOptions = selectedSkills?.map(id =>
-    allSkills?.find(skill => skill.value === id)
-  ) || []; 
-
-  const handleChange = selectedOptions => {
-    const limitedOptions = selectedOptions.slice(0, limit);
-    const selectedIds = limitedOptions.map(option => option.value);
-    onChange(selectedIds);
+  const handleChange = resolvedOptions => {
+    isFunction(onChange) && onChange(resolvedOptions.map(option => option.value));
   };
 
   return (
     <ReactSelect
-      value={selectedOptions}
       isMulti
+      value={value?.map(id => allSkills?.find(skill => skill.value === id)) || []}
       name="skills"
       options={allSkills}
       className={className}
+      styles={styles}
       onChange={handleChange}
       limit={limit}
+      placeholder={placeholder}
     />
   );
 }

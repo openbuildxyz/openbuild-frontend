@@ -14,12 +14,4 @@
  * limitations under the License.
  */
 
-import httpClient from '@/utils/http';
-
-async function fetchUserSkills(userId) {
-  return httpClient.get(`/hub/general/skills/${userId}`);
-}
-
-export {
-  fetchUserSkills,
-};
+export { default } from './SkillLevel';

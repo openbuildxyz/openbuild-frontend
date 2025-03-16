@@ -28,15 +28,14 @@ import { RepositioningIcon, TriangleIcon, InformationIcon } from '@/components/I
 import { Modal } from '@/components/Modal';
 
 import { baseInputStyles } from '#/domain/profile/widgets/blocks';
+import SkillSelect from '#/domain/skill/widgets/skill-select';
 import { countries } from '#/lib/countries';
 import { applyGetContact } from '#/services/shilling';
 import { useDetailsPermission } from '#/services/shilling/hooks';
-import SelectSkills from '#/shared/components/SelectSkills';
 
 import { ContactModal } from '../ContactModal';
 import { HireConfirmModal } from '../HireConfirmModal';
 import { HireOnChainModal } from '../HireOnChainModal';
-
 
 export function Author({ data }) {
   const { status } = useSession();
@@ -138,7 +137,7 @@ export function Author({ data }) {
         <div>
           <div>
             <p className="mb-1 text-sm opacity-60">Choose the Skill you interested</p>
-            <SelectSkills selectedSkills={selectSkills} onChange={setSelectSkills} className="react-select-container !min-h-12 border-0"/>
+            <SkillSelect onChange={setSelectSkills} className="react-select-container !min-h-12 border-0"/>
           </div>
           <div className="mt-4">
             <p className="mb-1 text-sm opacity-60">The developer need you provide your introduction & demand</p>

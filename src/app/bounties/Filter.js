@@ -25,9 +25,8 @@ import { useState } from 'react';
 import { ChevronUpIcon } from '@/components/icon/solid';
 import { createQueryString } from '@/utils';
 
+import SkillSelect from '#/domain/skill/widgets/skill-select';
 import { bountyFilterList } from '#/lib/bountyFilterList';
-import SelectSkills from '#/shared/components/SelectSkills';
-
 
 export function SkillsFilter() {
   const searchParams = useSearchParams();
@@ -82,7 +81,7 @@ export function SkillsFilter() {
           closed: { opacity: 0, height: '0' },
         }}
       >
-        <SelectSkills selectedSkills={selectedSkills} onChange={handleSearch}/>
+        <SkillSelect value={selectedSkills} onChange={handleSearch}/>
         <div className="h-8" />
       </motion.div>
     </>
