@@ -19,7 +19,7 @@ import { isFunction } from '@/utils';
 
 import { useAllSkills } from '#/state/application/hooks';
 
-export default function SkillSelect({ value = [], placeholder = 'Select skills', onChange, limit, className, styles = {} }) {
+export default function SkillSelect({ value, placeholder = 'Select skills', onChange, limit, className, styles = {} }) {
   const allSkills = useAllSkills();
 
   const handleChange = resolvedOptions => {
@@ -29,7 +29,7 @@ export default function SkillSelect({ value = [], placeholder = 'Select skills',
   return (
     <ReactSelect
       isMulti
-      value={value?.map(id => allSkills?.find(skill => skill.value === id)) || []}
+      value={value && value.map(id => allSkills?.find(skill => skill.value === id))}
       name="skills"
       options={allSkills}
       className={className}
