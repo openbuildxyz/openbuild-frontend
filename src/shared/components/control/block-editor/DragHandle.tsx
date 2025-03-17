@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-import { useInteractions, useFloating, useClick } from '@floating-ui/react';
+import { useInteractions, useFloating, useClick, useDismiss } from '@floating-ui/react';
 import { useEditor } from 'novel';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
-import type { EditorInstance } from 'novel';
 import type { PropsWithChildren } from 'react';
 
 function DropdownItem({ children, onClick }: PropsWithChildren<{ onClick: () => void }>) {
@@ -33,16 +32,11 @@ function DragHandle() {
   const { editor } = useEditor();
 
   const [open, setOpen] = useState(false);
+  const pos = useRef<number | null>(null);
 
-  const { refs, floatingStyles, context } = useFloating({
-    placement: 'left-start',
-    open,
-    onOpenChange: setOpen,
-  });
-  const click = useClick(context);
-  const { getReferenceProps, getFloatingProps } = useInteractions([click]);
+  const getDragHandlePos = () => {
+    if (!editor) return null;
 
-  const getDragHandlePos = (editor: EditorInstance) => {
     const { left, top } = refs.reference.current!.getBoundingClientRect();
     // https://github.com/NiclasDev63/tiptap-extension-global-drag-handle/blob/3c327114aa54293392369c6c5bb311f2eabc50bd/src/index.ts#L84-L95
     // add 50px to the left and 1px to the top to make sure the position is inside the editor
@@ -51,22 +45,50 @@ function DragHandle() {
     return posAtCoords;
   };
 
+  const { refs, floatingStyles, context } = useFloating({
+    placement: 'left-start',
+    open,
+    onOpenChange: open => {
+      setOpen(open);
+
+      if (open) {
+        const posAtCoords = getDragHandlePos();
+        if (!posAtCoords) return;
+
+        pos.current = posAtCoords.pos;
+      }
+    },
+  });
+  const click = useClick(context);
+  const dismiss = useDismiss(context, {
+    ancestorScroll: true,
+  });
+
+  const { getReferenceProps, getFloatingProps } = useInteractions([click, dismiss]);
+
   const insertNewBlockBelow = () => {
     if (!editor) return;
 
     return editor
       .chain()
       .focus()
-      .command(({ tr }) => {
-        const posAtCoords = getDragHandlePos(editor);
-        if (!posAtCoords) return false;
+      .command(({ commands, state }) => {
+        if (!pos.current) return false;
 
-        const $pos = editor.state.doc.resolve(posAtCoords.pos);
-        const insertPos = $pos.after($pos.depth);
-        tr.insert(insertPos, editor.schema.nodes.paragraph.create());
+        const $pos = editor.state.doc.resolve(pos.current);
 
-        setOpen(false);
-        return true;
+        const depth = $pos.depth;
+        // if depth is 0, we are inserting a new block at the top level
+        const insertPos = depth === 0 ? $pos.pos + 1 : $pos.after(depth);
+
+        if (insertPos >= 0 && insertPos <= state.doc.content.size) {
+          commands.insertContentAt(insertPos, editor.schema.nodes.paragraph.create());
+
+          setOpen(false);
+          return true;
+        }
+
+        return false;
       })
       .run();
   };
@@ -76,17 +98,28 @@ function DragHandle() {
     return editor
       .chain()
       .focus()
-      .command(({ tr }) => {
-        const posAtCoords = getDragHandlePos(editor);
-        if (!posAtCoords) return false;
+      .command(({ state, commands }) => {
+        if (!pos.current) return false;
 
-        const $pos = editor.state.doc.resolve(posAtCoords.pos);
-        const from = $pos.before($pos.depth);
-        const to = $pos.after($pos.depth);
-        tr.delete(from, to);
+        // Ensure position is within document bounds
+        const $pos = state.doc.resolve(Math.min(pos.current, state.doc.content.size));
 
-        setOpen(false);
-        return true;
+        // Find the closest parent block node
+        const depth = $pos.depth;
+
+        // if depth is 0, we are deleting the block itself
+        const start = depth === 0 ? $pos.pos : $pos.before(depth);
+        const end = depth === 0 ? $pos.pos + 1 : $pos.after(depth);
+
+        // Ensure we're not trying to delete beyond document boundaries
+        if (start >= 0 && end <= state.doc.content.size && start < end) {
+          commands.deleteRange({ from: start, to: end });
+
+          setOpen(false);
+          return true;
+        }
+
+        return false;
       })
       .run();
   };
