@@ -28,7 +28,7 @@ import { ChevronDoubleLeftIcon } from '@/components/icon/solid';
 import { ArrowLeftIcon } from '@/components/Icons';
 // import { useDebouncedCallback } from 'use-debounce'
 import { useAsyncState } from '@/hooks/useAsyncState';
-import useInterval from '@/hooks/useInterval';
+// import useInterval from '@/hooks/useInterval';
 import useMounted from '@/hooks/useMounted';
 // import PreviewIcon from 'public/images/svg/preview.svg'
 
@@ -191,21 +191,22 @@ export default function LearnPublish({ params }) {
       .finally(() => setIsLoading(false));
   });
 
-  useInterval(() => {
-    if (contents) {
-      addSeries({...contents})
-        // FIXME:
-        // I don't know how to prevent accessing page when user has no permissions for now,
-        // so I prevent by this a little tricky way.
-        .then(res => {
-          if (res.code === 403) {
-            toast.error(res.message, {
-              onClose: () => replace('/'),
-            });
-          }
-        });
-    }
-  }, 10000);
+  // TODO: disable before this module being refactored
+  // useInterval(() => {
+  //   if (contents) {
+  //     addSeries({...contents})
+  //       // FIXME:
+  //       // I don't know how to prevent accessing page when user has no permissions for now,
+  //       // so I prevent by this a little tricky way.
+  //       .then(res => {
+  //         if (res.code === 403) {
+  //           toast.error(res.message, {
+  //             onClose: () => replace('/'),
+  //           });
+  //         }
+  //       });
+  //   }
+  // }, 10000);
 
   const publish  = async () => {
     setPublishing(true);

@@ -14,33 +14,27 @@
  * limitations under the License.
  */
 
-import { Suspense } from 'react';
-
 import { Filter } from '@/components/Filter';
 
-import { StartOnOpenBuild } from '../learn/StartOnOpenBuild';
-import { Title } from '../learn/Title';
+import ListLayout from '#/entry/layouts/list';
+
 import { Container } from './Container';
 import { BountyFilter } from './Filter';
 import { ListSkeleton } from './ListSkeleton';
 
 export default function Page({ params, searchParams }) {
   return (
-    <div>
-      <div className="px-6 md:px-6">
-        <Title title="Bounties" desc="Post and Discover Bounties with Payment Secured by OpenBuild Smart Contract." />
-        <div className="flex">
-          <Filter type={'bounty'}>
-            <BountyFilter />
-          </Filter>
-          <Suspense fallback={<ListSkeleton />}>
-            <Container type={params.type} searchParams={searchParams}  />
-          </Suspense>
-          {/* <Content type={'bounty'} /> */}
-        </div>
-      </div>
-      {/* {status !== } */}
-      <StartOnOpenBuild />
-    </div>
+    <ListLayout
+      title="Bounties"
+      description="Post and Discover Bounties with Payment Secured by OpenBuild Smart Contract."
+      filter={(
+        <Filter type="bounty">
+          <BountyFilter />
+        </Filter>
+      )}
+      skeleton={<ListSkeleton />}
+    >
+      <Container type={params.type} searchParams={searchParams} />
+    </ListLayout>
   );
 }

@@ -28,6 +28,7 @@ import Loader from '@/components/Loader';
 import useMounted from '@/hooks/useMounted';
 import { getCopyrightText } from '@/utils/app';
 
+import { setOauthSource } from '#/domain/auth/helper';
 import { fetchOauthClientInfo, fetchOauthClientCode } from '#/domain/auth/repository';
 
 import Link from './Link';
@@ -46,17 +47,19 @@ export default function Page() {
   const [loading, setLoading] = useState(true);
   const [clientInfo, setClientInfo] = useState(null);
 
-  function handleAuthorize() {
+  function authorize() {
     setDisabled(true);
 
-    fetchOauthClientCode(clientId).then(res => {
-      const url = decodeURIComponent(redirectUri);
-      const tag = url.includes('?') ? '&' : '?';
-      const code = res.data.code ? `${tag}code=${res.data.code}` : '';
-      window.location.href = `${url}${code}`;
-    }).finally(() => {
-      setDisabled(false);
-    });
+    fetchOauthClientCode(clientId)
+      .then(res => {
+        const url = decodeURIComponent(redirectUri);
+        const tag = url.includes('?') ? '&' : '?';
+        const code = res.data.code ? `${tag}code=${res.data.code}` : '';
+        window.location.href = `${url}${code}`;
+      })
+      .finally(() => {
+        setDisabled(false);
+      });
   }
 
   function handleCancel() {
@@ -64,20 +67,28 @@ export default function Page() {
   }
 
   useMounted(() => {
-    if(clientId) {
+    if (clientId) {
       setLoading(true);
-      fetchOauthClientInfo(clientId).then(res => {
-        setClientInfo(res.data);
-      }).finally(() => {
-        setLoading(false);
-      });
+      fetchOauthClientInfo(clientId)
+        .then(({ data }) => {
+          setClientInfo(data);
+
+          if (data?.action === 1) {
+            authorize();
+          }
+        })
+        .finally(() => {
+          setLoading(false);
+        });
     }
   });
 
   useEffect(() => {
     if (status !== 'loading' && status !== 'authenticated') {
+      const oauthSrcKey = Date.now().toString(36);
       const encodedParams = `client_id=${encodeURIComponent(clientId)}&redirect_uri=${encodeURIComponent(redirectUri)}`;
-      router.push(`/signin?from=${encodeURIComponent(`${pathname}?${encodedParams}`)}`);
+      setOauthSource(oauthSrcKey, encodeURIComponent(`${pathname}?${encodedParams}`));
+      router.push(`/signin?ob_oauth_src=${oauthSrcKey}`);
     }
   }, [status]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -116,7 +127,7 @@ export default function Page() {
             <Button variant="outlined" className="flex-1" onClick={handleCancel}>
               Cancel
             </Button>
-            <Button variant="contained" className="flex-1" onClick={handleAuthorize} disabled={disabled}>
+            <Button variant="contained" className="flex-1" onClick={authorize} disabled={disabled}>
             Authorize
             </Button>
           </div>

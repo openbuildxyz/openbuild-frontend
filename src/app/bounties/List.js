@@ -16,33 +16,21 @@
 
 'use client';
 
-import clsx from 'clsx';
-
-import { OPagination } from '@/components/Pagination';
-
+import BountyListViewWidget from '#/domain/bounty/views/bounty-list';
 import { useOpenFilter } from '#/state/application/hooks';
-
-import { BountiesCard } from './Card';
 
 export function List({ data }) {
   const openFilter = useOpenFilter();
+  const otherClassNames = {
+    'lg:grid-cols-2': openFilter,
+    'lg:grid-cols-3': !openFilter,
+    'xl:grid-cols-3': openFilter,
+    'xl:grid-cols-4': !openFilter,
+    '3xl:grid-cols-4': openFilter,
+    '3xl:grid-cols-5': !openFilter,
+  };
+
   return (
-    <div>
-      <div
-        className={clsx('mb-9 mt-6 grid gap-5 md:grid-cols-3', {
-          'lg:grid-cols-2': openFilter,
-          'lg:grid-cols-3': !openFilter,
-          'xl:grid-cols-3': openFilter,
-          'xl:grid-cols-4': !openFilter,
-          '3xl:grid-cols-4': openFilter,
-          '3xl:grid-cols-5': !openFilter,
-        })}
-      >
-        {data?.list?.map(i => (
-          <BountiesCard key={`BountiesCard-${i.id}`} data={i} />
-        ))}
-      </div>
-      <OPagination total={data.total} />
-    </div>
+    <BountyListViewWidget className={otherClassNames} data={data.list} total={data.total} />
   );
 }

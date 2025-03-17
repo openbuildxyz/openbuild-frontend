@@ -22,29 +22,18 @@ import { Button } from '@/components/Button';
 import { UploadIcon } from '@/components/Icons';
 import Loader from '@/components/Loader';
 import { Select } from '@/components/Select';
-import { ReactSelect } from '@/components/Select/ReactSelect';
 // import { Transition } from '@/components/control';
 // import { CheckIcon, XMarkIcon } from '@/components/icon/solid'
 import { BASE_INPUT_STYLE } from '@/constants/config';
 import { classNames } from '@/utils';
 
 import { ProfileTitle, ProfileLabel } from '#/domain/profile/widgets/blocks';
+import SkillSelect from '#/domain/skill/widgets/skill-select';
 import { EXPERIENCE_OPTIONS } from '#/lib/user';
 import { upload } from '#/services/common';
-import { useAllSkills, useConfig } from '#/state/application/hooks';
+import { useConfig } from '#/state/application/hooks';
 
 export function MySkill({ forms, set, formsError }) {
-  const allSkills = useAllSkills();
-
-  // const [openSkills, setOpenSkills] = useState(false)
-  // const [skillsInputValue, setSkillsInputValue] = useState('')
-  // // const [delFlag, setDelFlag] = useState(0)
-  // const [searchSkillOpts, setSearchSkillOpts] = useState<
-  //   {
-  //     key: number
-  //     name: string
-  //   }[]
-  // >([])
   const [uploading, setUploading] = useState(false);
   const [uploadFileSizeError, setUploadFileSizeError] = useState(false);
   const uploadRef = useRef(null);
@@ -58,20 +47,6 @@ export function MySkill({ forms, set, formsError }) {
       name: i.name,
     }));
   }, [allOpts]);
-
-  // const skillOpts = useMemo(() => {
-  //   return allOpts?.skills?.map(i => ({
-  //     key: i.id,
-  //     name: i.name,
-  //   }))
-  // }, [allOpts])
-
-  // useEffect(() => {
-  //   if (skillOpts) {
-  //     const _search = skillOpts.filter(f => f.name.toLocaleLowerCase().includes(skillsInputValue.toLocaleLowerCase()))
-  //     setSearchSkillOpts(_search)
-  //   }
-  // }, [skillsInputValue, skillOpts])
 
   const handleFileChange = event => {
     const files = event.target.files;
@@ -121,21 +96,15 @@ export function MySkill({ forms, set, formsError }) {
         <ProfileLabel className="mt-9 text-gray-50">
           Skills <span className="text-red">*</span>
         </ProfileLabel>
-        <ReactSelect
-          value={forms.skills.map(i => allSkills?.find(f => f.value === i))}
-          isMulti
-          name="skills"
-          options={allSkills}
-          className="no-bg"
+        <SkillSelect
+          value={forms.skills}
+          onChange={_skills => set('skills', _skills)}
+          className={'no-bg'}
           styles={{
             control: () => ({
               height: 'auto !important',
               minHeight: '40px',
             }),
-          }}
-          onChange={e => {
-            const _skills = e.map(i => i.value);
-            set('skills', _skills);
           }}
         />
         {/* <div className="relative">
@@ -281,7 +250,7 @@ export function MySkill({ forms, set, formsError }) {
                   'border-[#D9D9D9]': !uploadFileSizeError,
                   'border-[#E43150] bg-[rgba(228,49,80,0.02)]': uploadFileSizeError,
                   'bg-[#F3F3F3] hover:border-gray-100 hover:bg-[#EFEFEF]': forms.resume === '' && !uploadFileSizeError,
-                }
+                },
               )}
             >
               {uploading && (

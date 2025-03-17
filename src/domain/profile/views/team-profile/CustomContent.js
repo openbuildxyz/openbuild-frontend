@@ -17,9 +17,28 @@
 import clsx from 'clsx';
 import { useState } from 'react';
 
-import BlockEditor, { getInitialBlockData, isBlockDataValid } from '@/components/block-editor';
+import BlockEditor, { setUploadHandler, getInitialBlockData, isBlockDataValid } from '@/components/control/block-editor';
 
-function CustomContent({ className, data, onChange, editable }) {
+import { upload } from '#/services/common';
+
+setUploadHandler(async file => {
+  const formData = new FormData();
+
+  formData.append('file', file, file.name);
+  formData.append('intent', 'devplaza');
+
+  const { code, data, message } = await upload({ file: formData });
+
+  return {
+    success: code === 200,
+    data: data?.user_upload_path ? `https://file-cdn.openbuild.xyz${data.user_upload_path}` : '',
+    code,
+    message,
+    extra: {},
+  };
+});
+
+function CustomContent({ className = undefined, data, onChange, editable }) {
   const [content, setContent] = useState(data);
 
   if (!isBlockDataValid(content)) {

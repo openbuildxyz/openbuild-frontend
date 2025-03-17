@@ -23,7 +23,8 @@ import HomeTopBg from 'public/images/home-top-bg.png';
 import { useEffect } from 'react';
 import Typed from 'react-typed';
 
-import { StartOnOpenBuild } from '../learn/StartOnOpenBuild';
+import StartOnOpenBuild from '#/entry/components/StartOnOpenBuild';
+
 import { BuilderWay } from './BuilderWay';
 import { BuildWith } from './BuildWith';
 import { Contributor } from './Contributor';

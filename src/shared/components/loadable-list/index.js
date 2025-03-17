@@ -49,7 +49,7 @@ function LoadableList({ params, fetch, resolveResponse, renderList }) {
 
   return (
     <>
-      {list.length > 0 && renderList(list)}
+      {list.length > 0 && renderList(list, setList)}
       {loading ? (
         <div className="flex justify-center">
           <Loader color="#1a1a1a" />
