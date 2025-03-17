@@ -227,7 +227,7 @@ export default function Page({params: { id }}) {
         </div>
         <div className="col-span-2">
           <h5>Required Skills <span className={clsx('text-xs font-normal', {' opacity-60': !skillsErr, 'text-red': skillsErr}) }>Select up to 3 items </span></h5>
-          <SkillSelect onChange={setSkills} />
+          <SkillSelect value={skills} onChange={setSkills} />
         </div>
       </div>
       <div className="grid grid-cols-2 gap-4 mt-4">
