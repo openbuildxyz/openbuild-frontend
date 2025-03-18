@@ -20,7 +20,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import Web3BioIcon from 'public/images/svg/web3bio.svg';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { toast } from 'react-toastify';
 import useSWR from 'swr';
 
@@ -46,6 +46,12 @@ function ProfileCardWidget({ className, data }) {
   const uid = data?.base.user_id;
   const handle = data?.base.user_handle;
   const creatorAvailable = data.base?.user_project_owner;
+
+  const userDesc = useMemo(() => {
+    const baseUserDesc = data?.base.user_bio;
+    const web3BioDesc = data?.web3Bio?.find(v => v.description)?.description;
+    return baseUserDesc || web3BioDesc || '--';
+  }, [data]);
 
   const follow = async () => {
     if (status !== 'authenticated') {
@@ -108,7 +114,7 @@ function ProfileCardWidget({ className, data }) {
             </p>
           </div>
         )}
-        <p className="text-sm text-center">{data?.base.user_bio !== '' ? data?.base.user_bio : '--'}</p>
+        <p className="text-sm text-center">{userDesc}</p>
       </div>
       <div className="my-6 flex gap-7 justify-center text-sm">
         <Link href={`/u/${handle}/followers`}>
