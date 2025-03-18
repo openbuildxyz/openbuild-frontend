@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { unwrapBlockData, wrapBlockData } from '@/components/block-editor/helper';
+import { unwrapBlockData, wrapBlockData } from '@/components/control/block-editor/helper';
 import httpClient from '@/utils/http';
 
 async function fetchWeb3BioProfile(address) {
@@ -42,10 +42,6 @@ async function fetchUser(handle) {
 
 async function updateUser(data) {
   return httpClient.post('/user/info', data);
-}
-
-async function fetchUserActivityList(uid) {
-  return httpClient.get(`/user/info/${uid}/creator/activity`);
 }
 
 function resolvePaginationParams(params) {
@@ -88,7 +84,7 @@ async function updateBlockContent(data) {
 }
 
 export {
-  fetchUser, updateUser, fetchUserActivityList,
+  fetchUser, updateUser,
   fetchFollowerList, fetchFollowedList, followUser, unfollowUser,
   updateBanner,
   fetchBlockContent, updateBlockContent,

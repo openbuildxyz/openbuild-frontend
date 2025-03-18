@@ -27,7 +27,7 @@ export default async function UserProfileLayout({ params, children }) {
     <>
       <BannerWidget data={data} onUpload={revalidatePathAction} />
       <div className="relative max-w-[1440px] min-h-[620px] mx-auto p-6 bg-white md:p-0 md:bg-transparent">
-        <InfoCard data={data} />
+        <InfoCard className="md:absolute md:top-[-161px]" data={data} />
         <div className="pt-6">{children}</div>
       </div>
     </>

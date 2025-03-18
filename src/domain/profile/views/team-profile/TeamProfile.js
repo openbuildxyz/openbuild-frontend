@@ -15,26 +15,20 @@
  */
 
 import { useState } from 'react';
-import { useDebouncedCallback } from 'use-debounce';
 
-import { isBlockDataValid } from '@/components/block-editor';
 import useAppConfig from '@/hooks/useAppConfig';
-import useMounted from '@/hooks/useMounted';
 
-import { useViewingSelf } from '../../../auth/hooks';
 import PublishedBountyListView from '../../../bounty/views/published-bounty-list';
 import PublishedChallengeListView from '../../../challenge/views/published-challenge-list';
 import PublishedCourseListView from '../../../course/views/published-course-list';
 import PublishedQuizListView from '../../../quiz/views/published-quiz-list';
-import { fetchBlockContent, updateBlockContent } from '../../repository';
 import ActivityTabListWidget from '../../widgets/activity-tab-list';
 import SocialInfoWidget from '../../widgets/social-info';
 import TabBarWidget from '../../widgets/tab-bar';
-import CustomContent from './CustomContent';
-import LatestActivityList from './LatestActivityList';
+import DevPlaza from './DevPlaza';
 
-function resolveTabs(published) {
-  return [
+function resolveTabs(published, extraTabs = []) {
+  return [].concat(extraTabs, [
     {
       text: 'Open Course',
       node: (
@@ -75,56 +69,44 @@ function resolveTabs(published) {
       ),
       view: PublishedQuizListView,
     },
-  ];
+  ]);
 };
 
-function TeamProfileView({ data, activities }) {
-  const [tabActive, setTabActive] = useState(1);
-  const [blockContent, setBlockContent] = useState(null);
-  const viewingSelf = useViewingSelf(data?.base.user_id);
+function TeamProfileView({ data }) {
+  const [tabActive, setTabActive] = useState(0);
   const devPlazaEnabled = useAppConfig('devPlaza.enabled');
-
-  useMounted(() => {
-    devPlazaEnabled &&
-      fetchBlockContent(data?.base.user_id).then(res => {
-        if (res.success) {
-          setBlockContent(res.data);
-        }
-      });
-  });
-
-  const handleBlockChange = useDebouncedCallback(updateBlockContent, 3000);
 
   const tabContent = [
     <SocialInfoWidget key="social" data={data} />,
-    <LatestActivityList key="activity" activities={activities} />,
   ];
 
-  const rerenderKey = [
-    'CustomContent',
-    `${viewingSelf ? 'editable' : 'readonly'}`,
-    isBlockDataValid(blockContent),
-  ].join('-');
+  const extraTabs = [];
+
+  if (devPlazaEnabled) {
+    extraTabs.push({
+      text: 'DevPlaza',
+      node: (
+        <>
+          <span className="inline md:hidden">DevPlaza</span>
+          <span className="hidden md:inline">DevPlaza</span>
+        </>
+      ),
+      view: DevPlaza,
+      filterable: false,
+    });
+  }
 
   return (
     <div className="md:pl-[410px] md:pb-14 md:pr-14">
-      {devPlazaEnabled && (
-        <CustomContent
-          key={rerenderKey}
-          className="mb-6"
-          data={blockContent}
-          onChange={handleBlockChange}
-          editable={viewingSelf}
-        />
-      )}
       <TabBarWidget
-        tabs={['Info', 'Activities']}
-        tabClassName="h-14 md:h-9 md:w-[111px] md:first:hidden"
+        className="md:hidden"
+        tabs={['Info']}
+        tabClassName="h-14 md:h-9 md:w-[111px]"
         current={tabActive}
         onChange={setTabActive}
       />
-      {tabContent[tabActive]}
-      <ActivityTabListWidget userId={data?.base.user_id} tabs={resolveTabs(data?.num)} />
+      <div className="mb-9 md:hidden">{tabContent[tabActive]}</div>
+      <ActivityTabListWidget userId={data?.base.user_id} tabs={resolveTabs(data?.num, extraTabs)} />
     </div>
   );
 }

@@ -14,16 +14,6 @@
  * limitations under the License.
  */
 
-import { fetchUser } from '#/domain/profile/repository';
+const NavButtonStyle = 'h-12 relative rounded-t-xl text-gray-100 px-6 [&.active]:bg-gray-1400 [&.active]:!text-gray';
 
-import ProjectOwner from './ProjectOwner';
-
-export default async function CreatorProfile({ params }) {
-  const { data } = await fetchUser(params.handle);
-
-  if (!data?.base?.user_project_owner) {
-    return <div>This user is not a creator.</div>;
-  }
-
-  return <ProjectOwner data={data} />;
-}
+export { NavButtonStyle };

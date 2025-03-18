@@ -18,7 +18,8 @@ import { Suspense } from 'react';
 
 import { PreviewAlert } from '@/components/PreviewAlert';
 import { fromNow } from '@/utils/date';
-import { get } from '@/utils/request';
+
+import { fetchOne } from '#/domain/bounty/repository';
 
 import { ChainNetworkTips } from '../Tips';
 import { Activities } from './Activities';
@@ -45,11 +46,7 @@ const STATUS_MAP = {
   },
 };
 export default async function Page({ params, searchParams }) {
-  const datas = await Promise.all([
-    get(`ts/v1/build/general/bounties/${params.id}`, {isServer: true}),
-    // get(`ts/v1/build/general/bounties/${params.id}/builders`, {isServer: true})
-  ]);
-  const [{ data }] = [...datas];
+  const { data } = await fetchOne(params.id);
   let statusObject = STATUS_MAP[data?.status];
   if(data?.status > 6 && data?.status < 24){
     statusObject = {
@@ -94,13 +91,9 @@ export default async function Page({ params, searchParams }) {
             </div>
             <BountiesDetail data={data} />
             <hr className="my-6 border-gray-400" />
-            <Suspense
-              fallback={
-                <div className="flex justify-center py-14">
-                  <span className="loading loading-spinner loading-md" />
-                </div>
-              }
-            >
+            <Suspense fallback={<div className="flex justify-center py-14">
+              <span className="loading loading-spinner loading-md" />
+            </div>}>
               <Activities id={params.id} />
             </Suspense>
           </div>

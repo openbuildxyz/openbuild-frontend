@@ -1,4 +1,4 @@
 {
-  "src/**/*.{js,css,scss}": "npm run license src",
-  "src/**/*.js": "eslint"
+  "src/**/*.{js,ts,tsx,css,scss}": "npm run license src",
+  "src/**/*.{js,ts,tsx}": "eslint"
 }

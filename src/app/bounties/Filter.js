@@ -20,32 +20,31 @@ import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { useRouter, useSearchParams, usePathname } from 'next/navigation';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 
 import { ChevronUpIcon } from '@/components/icon/solid';
-import { ReactSelect } from '@/components/Select/ReactSelect';
 import { createQueryString } from '@/utils';
 
+import SkillSelect from '#/domain/skill/widgets/skill-select';
 import { bountyFilterList } from '#/lib/bountyFilterList';
-import { useAllSkills } from '#/state/application/hooks';
 
 export function SkillsFilter() {
   const searchParams = useSearchParams();
   const { replace } = useRouter();
   const pathname = usePathname();
 
-  const skillOpts = useAllSkills();
   const [open, setOpen] = useState(true);
 
-  const defaultValue = useMemo(() => {
-    const current = searchParams.get('skills')?.split(',');
-    return current?.length > 0 ? current.map(ci => skillOpts?.filter(f => f.value === Number(ci))).flat(1) : null;
-  }, [skillOpts, searchParams]);
+  const selectedSkills =
+  searchParams
+    .get('skills')
+    ?.split(',')
+    .map(id => Number(id)) || [];
 
   const handleSearch = term => {
     const params = new URLSearchParams(searchParams);
     params.set('page', '1');
-    if (term) {
+    if (term && term.length > 0) {
       params.set('skills', term);
     } else {
       params.delete('skills');
@@ -82,18 +81,7 @@ export function SkillsFilter() {
           closed: { opacity: 0, height: '0' },
         }}
       >
-        <ReactSelect
-          isMulti
-          name="skills"
-          value={defaultValue}
-          options={skillOpts}
-          onChange={e => {
-            const _skills = e.map(i => i.value);
-            handleSearch(_skills);
-          }}
-          placeholder={'Select skills'}
-          className="no-bg hauto"
-        />
+        <SkillSelect value={selectedSkills} onChange={handleSearch}/>
         <div className="h-8" />
       </motion.div>
     </>

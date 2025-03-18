@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import { PAGE_SIZE } from '@/constants/config';
 import { merge } from '@/utils';
 import httpClient, { legacyClient, makeLoginInsensitive, mergeMultipleResponses } from '@/utils/http';
 
@@ -21,7 +22,7 @@ async function fetchList(params = {}) {
   const { sort, ...others } = params;
 
   return legacyClient.get('/learn/course/opencourse', {
-    params: merge({ take: 20 }, others, {
+    params: merge({ take: PAGE_SIZE }, others, {
       order: sort || 'default',
     }),
   });
@@ -65,7 +66,7 @@ async function fetchEnrolledCourseList(params = {}) {
   const { userId, sort, ...others } = params;
 
   return legacyClient.get('/learn/dashboard/public/enrool/series', {
-    params: merge({ take: 20 }, others, {
+    params: merge({ take: PAGE_SIZE }, others, {
       id: userId,
       series_type: 'open_course',
       order: sort || 'default',

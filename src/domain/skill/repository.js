@@ -14,16 +14,12 @@
  * limitations under the License.
  */
 
-import { fetchUser } from '#/domain/profile/repository';
+import httpClient from '@/utils/http';
 
-import ProjectOwner from './ProjectOwner';
-
-export default async function CreatorProfile({ params }) {
-  const { data } = await fetchUser(params.handle);
-
-  if (!data?.base?.user_project_owner) {
-    return <div>This user is not a creator.</div>;
-  }
-
-  return <ProjectOwner data={data} />;
+async function fetchUserSkills(userId) {
+  return httpClient.get(`/hub/general/skills/${userId}`);
 }
+
+export {
+  fetchUserSkills,
+};

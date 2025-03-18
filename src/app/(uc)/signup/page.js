@@ -32,7 +32,8 @@ import Loader from '@/components/Loader';
 
 import { registerEmail, sendCode } from '#/services/auth';
 
-import { NavButtonStyle } from '../signin/page';
+import { NavButtonStyle } from '../helper';
+
 const SignupAfterStyle = 'after:content-[\'\'] after:absolute after:left-[-12px] after:bottom-0 after:w-3 after:h-3 after:bg-signup-gradient';
 
 export default function SignUp() {
@@ -80,9 +81,9 @@ export default function SignUp() {
       <div>
         <div>
           <Link href="/signin">
-            <button className={clsx(NavButtonStyle())}>Sign in</button>
+            <button className={clsx(NavButtonStyle)}>Sign in</button>
           </Link>
-          <button className={clsx(NavButtonStyle(), SignupAfterStyle, 'active')}>Sign up</button>
+          <button className={clsx(NavButtonStyle, SignupAfterStyle, 'active')}>Sign up</button>
         </div>
         <form onSubmit={handleSubmit(onSubmit)}>
           <input

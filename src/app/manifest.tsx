@@ -16,7 +16,9 @@
 
 import { siteConfig } from '#/lib/site';
 
-export default function manifest() {
+import type { MetadataRoute } from 'next';
+
+export default function manifest(): MetadataRoute.Manifest {
   return {
     name: siteConfig.name,
     short_name: siteConfig.name,

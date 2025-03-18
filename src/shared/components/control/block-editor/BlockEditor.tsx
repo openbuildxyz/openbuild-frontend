@@ -20,19 +20,29 @@ import clsx from 'clsx';
 import {
   EditorRoot, EditorContent,
   EditorCommand, EditorCommandEmpty, EditorCommandList, EditorCommandItem,
+  ImageResizer, handleCommandNavigation,
 } from 'novel';
-import { ImageResizer, handleCommandNavigation } from 'novel/extensions';
 
-import { isFunction } from '../../utils';
+import type { EditorInstance} from 'novel';
+
+import { isFunction } from '../../../utils';
 import BlockEditorBubble from './bubble';
+import DragHandle from './DragHandle';
 import { defaultExtensions } from './extensions';
 import { isBlockDataValid } from './helper';
 import { slashCommand, suggestionItems } from './slash';
 
 const extensions = [...defaultExtensions, slashCommand];
 
-function BlockEditor({ className, data, onChange, editable = false }) {
-  const handleUpdate = ({ editor }) => {
+interface BlockEditorProps {
+  className?: string;
+  data: any;
+  onChange: (data: any) => void;
+  editable?: boolean;
+}
+
+function BlockEditor({ className, data, onChange, editable = false }: BlockEditorProps) {
+  const handleUpdate = ({ editor }: { editor: EditorInstance }) => {
     isFunction(onChange) && onChange(editor.getJSON());
   };
 
@@ -56,13 +66,14 @@ function BlockEditor({ className, data, onChange, editable = false }) {
           onUpdate={handleUpdate}
           slotAfter={<ImageResizer />}
         >
+          <DragHandle />
           <EditorCommand className="z-50 h-auto max-h-[330px] overflow-y-auto rounded-md border border-muted bg-background px-1 py-2 shadow-md transition-all">
             <EditorCommandEmpty className="px-2 text-muted-foreground">No results</EditorCommandEmpty>
             <EditorCommandList>
               {suggestionItems.map(item => (
                 <EditorCommandItem
                   value={item.title}
-                  onCommand={val => item.command(val)}
+                  onCommand={val => item.command?.(val)}
                   className="flex w-full items-center space-x-2 rounded-md px-2 py-1 text-left text-sm hover:bg-neutral-200 aria-selected:bg-neutral-200"
                   key={item.title}
                 >

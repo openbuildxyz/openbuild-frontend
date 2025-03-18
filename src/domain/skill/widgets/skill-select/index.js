@@ -14,16 +14,4 @@
  * limitations under the License.
  */
 
-import { fetchUser } from '#/domain/profile/repository';
-
-import ProjectOwner from './ProjectOwner';
-
-export default async function CreatorProfile({ params }) {
-  const { data } = await fetchUser(params.handle);
-
-  if (!data?.base?.user_project_owner) {
-    return <div>This user is not a creator.</div>;
-  }
-
-  return <ProjectOwner data={data} />;
-}
+export { default } from './SkillSelect';
