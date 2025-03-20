@@ -40,7 +40,7 @@ function onUpload(file) {
       })
       .catch(err => {
         reject(err);
-        return e.message;
+        return err.message;
       });
   });
 }
