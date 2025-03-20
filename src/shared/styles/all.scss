@@ -58,6 +58,9 @@
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
+    --novel-custom-background: var(--background, 0 0% 100%);
+    --novel-custom-border: var(--border, 214.3 31.8% 91.4%);
+
     --novel-highlight-default: #ffffff;
     --novel-highlight-purple: #f6f3f8;
     --novel-highlight-red: #fdebeb;
@@ -86,6 +89,9 @@
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
+
+    --novel-custom-background: var(--background, 222.2 84% 4.9%);
+    --novel-custom-border: var(--border, 217.2 32.6% 17.5%);
 
     --novel-highlight-default: #000000;
     --novel-highlight-purple: #3f2c4b;
