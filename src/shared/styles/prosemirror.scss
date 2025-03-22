@@ -19,7 +19,10 @@
 }
 
 .ProseMirror {
-  p, h1, h2, h3 {
+  p,
+  h1,
+  h2,
+  h3 {
     &.is-editor-empty:first-child::before {
       content: attr(data-placeholder);
       float: left;
@@ -30,7 +33,10 @@
   }
 }
 .ProseMirror {
-  p, h1, h2, h3 {
+  p,
+  h1,
+  h2,
+  h3 {
     &.is-empty::before {
       content: attr(data-placeholder);
       float: left;
