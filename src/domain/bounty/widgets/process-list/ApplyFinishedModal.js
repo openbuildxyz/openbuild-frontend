@@ -28,9 +28,7 @@ import { parseTokenUnits, signBounty } from '@/utils/web3';
 import { useBountyEnvCheck } from '#/domain/bounty/hooks';
 import { biulderFinish } from '#/services/bounties';
 
-import { revalidatePathAction } from '../../actions';
-
-export function ApplyFinishedModal({ open, close, bounty }) {
+export function ApplyFinishedModal({ open, close, bounty, revalidatePathAction }) {
   const _contracts = contracts[BOUNTY_SUPPORTED_CHAIN()];
   const payToken = payTokens[BOUNTY_SUPPORTED_CHAIN()].usdt;
   const wrapBountyEnvCheck = useBountyEnvCheck();
