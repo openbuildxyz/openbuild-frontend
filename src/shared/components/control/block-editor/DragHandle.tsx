@@ -79,7 +79,14 @@ function DragHandle() {
 
         const depth = $pos.depth;
         // if depth is 0, we are inserting a new block at the top level
-        const insertPos = depth === 0 ? $pos.pos + 1 : $pos.after(depth);
+        let insertPos = depth === 0 ? $pos.pos + 1 : $pos.after(depth);
+
+        const node = $pos.node();
+        if (node.type.name === 'column') {
+          const columnBlock = $pos.node(1);
+          if (columnBlock.type.name !== 'columnBlock') return false;
+          insertPos = $pos.pos + columnBlock.content.size;
+        }
 
         if (insertPos >= 0 && insertPos <= state.doc.content.size) {
           commands.insertContentAt(insertPos, editor.schema.nodes.paragraph.create());
@@ -108,8 +115,17 @@ function DragHandle() {
         const depth = $pos.depth;
 
         // if depth is 0, we are deleting the block itself
-        const start = depth === 0 ? $pos.pos : $pos.before(depth);
-        const end = depth === 0 ? $pos.pos + 1 : $pos.after(depth);
+        let start = depth === 0 ? $pos.pos : $pos.before(depth);
+        let end = depth === 0 ? $pos.pos + 1 : $pos.after(depth);
+
+        const node = $pos.node();
+        if (node.type.name === 'column') {
+          const columnBlock = $pos.node(1);
+
+          if (columnBlock.type.name !== 'columnBlock') return false;
+          start -= 1;
+          end = start + columnBlock.nodeSize;
+        }
 
         // Ensure we're not trying to delete beyond document boundaries
         if (start >= 0 && end <= state.doc.content.size && start < end) {

@@ -33,6 +33,8 @@ import {
 } from 'lucide-react';
 import { createSuggestionItems, Command, renderItems } from 'novel';
 
+import type { SuggestionItem } from 'novel';
+
 import uploadFn from './upload';
 
 function createColumnItems() {
@@ -40,7 +42,7 @@ function createColumnItems() {
     { count: 2, ItemIcon: Columns2 },
     { count: 3, ItemIcon: Columns3 },
     { count: 4, ItemIcon: Columns4 },
-  ].map(({ count, ItemIcon }) => ({
+  ].map<SuggestionItem>(({ count, ItemIcon }) => ({
     title: `${count} Columns`,
     description: `Create ${count} columns block.`,
     searchTerms: ['columnBlock', 'column'],
@@ -155,7 +157,8 @@ const suggestionItems = createSuggestionItems([
     searchTerms: ['video', 'youtube', 'embed'],
     icon: <Youtube size={18} />,
     command: ({ editor, range }) => {
-      const videoLink = prompt('Please enter Youtube Video Link');
+      const videoLink = prompt('Please enter Youtube Video Link') ?? '';
+
       //From https://regexr.com/3dj5t
       const ytregex = new RegExp(
         // eslint-disable-next-line no-useless-escape
@@ -184,7 +187,8 @@ const suggestionItems = createSuggestionItems([
     searchTerms: ['twitter', 'embed'],
     icon: <Twitter size={18} />,
     command: ({ editor, range }) => {
-      const tweetLink = prompt('Please enter Twitter Link');
+      const tweetLink = prompt('Please enter Twitter Link') ?? '';
+
       const tweetRegex = new RegExp(/^https?:\/\/(www\.)?x\.com\/([a-zA-Z0-9_]{1,15})(\/status\/(\d+))?(\/\S*)?$/);
 
       if (tweetRegex.test(tweetLink)) {
