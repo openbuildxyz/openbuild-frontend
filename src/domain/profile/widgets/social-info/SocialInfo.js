@@ -24,13 +24,8 @@ import Web3BioProfile from './Web3BioProfile';
 const web3BioSocialKeyMap = {
   user_github: 'github',
   user_discord: 'discord',
-  user_twitter: 'x',
+  user_x: 'twitter',
 };
-
-function web3BioLink(type, { web3Bio = [] }) {
-  const web3BioLinks = web3Bio.reduce((p, c) => (c.links ? { ...p, ...c.links } : p), {});
-  return web3BioLinks[web3BioSocialKeyMap[type]]?.link;
-}
 
 function socialsInfo(type, link, web3BioLink) {
   const showWeb3Bio = !link && web3BioLink;
@@ -66,21 +61,21 @@ function socialsInfo(type, link, web3BioLink) {
 }
 
 function SocialInfoWidget({ className, data }) {
-  const socials = useMemo(
-    () =>
-      Object.keys(data.social)
-        .map(i => socialsInfo(i, data.social[i], web3BioLink(i, data)))
-        .filter(s => {
-          if (!s) {
-            return false;
-          }
+  const socials = useMemo(() => {
+    const web3BioSocials = (data?.web3Bio ?? []).reduce((p, c) => (c.links ? { ...p, ...c.links } : p), {});
 
-          const enabled = s.enableKey ? data.base[s.enableKey] : true;
+    return Object.keys(data.social)
+      .map(i => socialsInfo(i, data.social[i], web3BioSocials[web3BioSocialKeyMap[i]]?.link))
+      .filter(s => {
+        if (!s) {
+          return false;
+        }
 
-          return enabled && !!s.link;
-        }),
-    [data],
-  );
+        const enabled = s.enableKey ? data.base[s.enableKey] : true;
+
+        return enabled && !!s.link;
+      });
+  }, [data]);
 
   return (
     <div className={className}>

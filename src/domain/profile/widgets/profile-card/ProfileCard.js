@@ -16,15 +16,12 @@
 
 import clsx from 'clsx';
 import { useSession } from 'next-auth/react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import Web3BioIcon from 'public/images/svg/web3bio.svg';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { toast } from 'react-toastify';
 import useSWR from 'swr';
 
-import Avatar from '@/components/Avatar';
 import { Button } from '@/components/Button';
 import { RepositioningIcon } from '@/components/Icons';
 import { SvgIcon } from '@/components/Image';
@@ -34,6 +31,13 @@ import { useUser } from '#/state/application/hooks';
 
 import SocialInfoWidget from '../social-info';
 import IdentitySwitch from './IdentitySwitch';
+import ProfileAvatar from './ProfileAvatar';
+
+function getUserDesc(data) {
+  const baseUserDesc = data?.base.user_bio;
+  const web3BioDesc = data?.web3Bio?.find(v => v.description)?.description;
+  return baseUserDesc || web3BioDesc || '--';
+}
 
 function ProfileCardWidget({ className, data }) {
   const router = useRouter();
@@ -46,12 +50,6 @@ function ProfileCardWidget({ className, data }) {
   const uid = data?.base.user_id;
   const handle = data?.base.user_handle;
   const creatorAvailable = data.base?.user_project_owner;
-
-  const userDesc = useMemo(() => {
-    const baseUserDesc = data?.base.user_bio;
-    const web3BioDesc = data?.web3Bio?.find(v => v.description)?.description;
-    return baseUserDesc || web3BioDesc || '--';
-  }, [data]);
 
   const follow = async () => {
     if (status !== 'authenticated') {
@@ -86,23 +84,7 @@ function ProfileCardWidget({ className, data }) {
   return (
     <div className={clsx('relative md:w-[360px] md:rounded-lg md:p-6 md:bg-white', className)}>
       <div className="flex flex-col gap-2 items-center">
-        <div className="relative">
-          <Avatar
-            className="-mt-[104px] md:mt-0"
-            size={110}
-            src={data.base.user_avatar}
-            defaultSrc="https://s3.us-west-1.amazonaws.com/file.openbuild.xyz/config/avatar/04.svg"
-            alt={data?.base.user_nick_name}
-          />
-          {data.web3Bio && (
-            <Image
-              src={Web3BioIcon}
-              alt="web3bio"
-              className="size-6 rounded-full absolute right-1 bottom-1 border-1 border-white"
-            />
-          )}
-        </div>
-
+        <ProfileAvatar data={data} className="-mt-[104px] md:mt-0 relative" />
         <h6 className="text-[24px] leading-none">
           <a href={`/u/${handle}`}>{data?.base.user_nick_name}</a>
         </h6>
@@ -114,7 +96,7 @@ function ProfileCardWidget({ className, data }) {
             </p>
           </div>
         )}
-        <p className="text-sm text-center">{userDesc}</p>
+        <p className="text-sm text-center">{getUserDesc(data)}</p>
       </div>
       <div className="my-6 flex gap-7 justify-center text-sm">
         <Link href={`/u/${handle}/followers`}>
