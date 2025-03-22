@@ -255,8 +255,8 @@ mark[style] > strong {
 .ProseMirror .column {
   border: 1px dashed transparent;
   overflow: hidden;
-  padding: 8px;
-  margin: -8px;
+  // padding: 8px;
+  // margin: -8px;
 }
 
 .ProseMirror-focused .column {
