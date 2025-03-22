@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import '@/styles/prosemirror.css';
+import '@/styles/prosemirror.scss';
 
 import clsx from 'clsx';
 import {
