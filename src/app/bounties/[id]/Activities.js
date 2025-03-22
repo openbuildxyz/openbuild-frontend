@@ -23,7 +23,6 @@ import { fetcher } from '@/utils/request';
 
 import BountyActivityListViewWidget from '#/domain/bounty/views/bounty-activity-list';
 
-
 export function Activities({ id }) {
   const { data } = useSWR(`ts/v1/build/general/bounties/${id}/events/activities`, fetcher, {suspense: true});
 

@@ -27,33 +27,31 @@ import { BountiesDetail } from './BountiesDetail';
 import { Employers } from './Employers';
 import { BountiesHeader } from './Header';
 
-const STATUS_MAP = {
-  3:{
-    label:'Recruiting',
-    class:'bg-black',
+const statusList = [
+  {
+    label: 'Recruiting',
+    bgColor: 'bg-black',
+    isMatched: status => status === 3,
   },
-  30:{
-    label:'Completed',
-    class:'bg-gray-100',
+  {
+    label: 'Completed',
+    bgColor: 'bg-gray-100',
+    isMatched: status => status === 30,
   },
-  20:{
-    label:'Termination',
-    class:'bg-black',
+  {
+    label: 'Termination',
+    bgColor: 'bg-black',
+    isMatched: status => status === 20 || status === 24,
   },
-  24:{
-    label:'Termination',
-    class:'bg-black',
+  {
+    label: 'Building',
+    bgColor: 'bg-[#60CA98]',
+    isMatched: status => status > 6 && status < 24,
   },
-};
+];
 export default async function Page({ params, searchParams }) {
   const { data } = await fetchOne(params.id);
-  let statusObject = STATUS_MAP[data?.status];
-  if(data?.status > 6 && data?.status < 24){
-    statusObject = {
-      label:'Building',
-      class:'bg-[#60CA98]',
-    };
-  }
+  const statusObject = statusList.find(({isMatched}) =>  isMatched(data?.status));
 
   return (
     <>
@@ -65,7 +63,7 @@ export default async function Page({ params, searchParams }) {
             <BountiesHeader data={data} employers={{ id: params.id, data, list: data?.builders }} />
             <div className="flex items-center justify-between">
               {statusObject && (
-                <span className={`mr-2 rounded-md ${statusObject.class} p-1 text-xs text-white`}>{statusObject.label}</span>
+                <span className={`mr-2 rounded-md ${statusObject.bgColor} p-1 text-xs text-white`}>{statusObject.label}</span>
               )}
               <div className="flex items-center text-sm text-gray-50">
                 {data?.created_at && (

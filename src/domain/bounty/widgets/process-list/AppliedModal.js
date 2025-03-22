@@ -23,6 +23,7 @@ import { useAccount } from 'wagmi'; // useNetwork
 
 import { Modal } from '@/components/Modal';
 import { Confirm } from '@/components/Modal/Confirm';
+import { NoData } from '@/components/NoData';
 import { BountyABI } from '@/constants/abis/bounty';
 import { BOUNTY_SUPPORTED_CHAIN } from '@/constants/chain';
 import { contracts, payTokens } from '@/constants/contract';
@@ -30,17 +31,15 @@ import { useAllowance, useApprove } from '@/hooks/useERC20';
 import { fetcher } from '@/utils/request';
 import { parseTokenUnits } from '@/utils/web3';
 
+import { useBountyEnvCheck } from '#/domain/bounty/hooks';
 import AppliedBuilderListView from '#/domain/bounty/views/applied-builder-list';
-//import { useBountyEnvCheck } from '#/domain/bounty/hooks';
 import { approveBuilder } from '#/services/creator';
 
-import { revalidatePathAction } from '../../actions';
-
-export function AppliedModal({ open, closeModal, bounty }) {
+export function AppliedModal({ open, closeModal, bounty, revalidatePathAction }) {
   const { data, isLoading, mutate } = useSWR(`ts/v1/build/creator/bounties/${bounty.id}/builders?skip=${0}&take=${25}`, fetcher);
   const { address } = useAccount();
   // const { chain } = useNetwork()
-  //const wrapBountyEnvCheck = useBountyEnvCheck();
+  const wrapBountyEnvCheck = useBountyEnvCheck();
   const _contracts = contracts[BOUNTY_SUPPORTED_CHAIN()];
   const payToken = payTokens[BOUNTY_SUPPORTED_CHAIN()].usdt;
 
@@ -134,6 +133,12 @@ export function AppliedModal({ open, closeModal, bounty }) {
 
   }, [allowance, approveAsync, bounty, payToken, write]);
 
+  const approve = wrapBountyEnvCheck(i=>{
+    setCurrUser(i);
+    setConfirmModalOpen(true);
+    setApproveConfirmIds({ bid:i.id, bountyId:i.bounty_id });
+  });
+
   return (
     <Modal
       isOpen={open}
@@ -151,13 +156,23 @@ export function AppliedModal({ open, closeModal, bounty }) {
           <li className="text-right">Operation</li>
         </ul>
       </div>
-      <AppliedBuilderListView
-        data={data}
-        isLoading={isLoading}
-        setCurrUser={setCurrUser}
-        setConfirmModalOpen={setConfirmModalOpen}
-        setApproveConfirmIds={setApproveConfirmIds}
-      />
+      <div className="max-h-[400px] overflow-auto">
+        <AppliedBuilderListView
+          data={data}
+          isLoading={isLoading}
+          approve={approve}
+        />
+        {isLoading && (
+          <div className="flex justify-center items-center h-[200px]">
+            <span className="loading loading-spinner loading-md" />
+          </div>
+        )}
+        {data?.list?.length === 0 && !isLoading && (
+          <div className="flex justify-center">
+            <NoData />
+          </div>
+        )}
+      </div>
 
       <Confirm
         loading={approveConfirmLoading}

@@ -21,6 +21,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import DepositBg from 'public/images/deposit-bg.png';
 import { useState } from 'react';
+import ProcessListView from 'src/domain/bounty/widgets/process-list';
 
 import Avatar from '@/components/Avatar';
 import { Button } from '@/components/Button';
@@ -30,14 +31,10 @@ import { ArrowTopRightOnSquareIcon } from '@/components/Icons';
 
 import { useAuthGuard } from '#/domain/auth/hooks';
 import { isBountyApplied } from '#/domain/bounty/helper';
-import { default as ProcessListView } from '#/domain/bounty/views/process-list';
 import CompleteProfileDialogWidget from '#/domain/profile/widgets/complete-profile-dialog';
 import { useBountyBuildersList } from '#/services/bounties/hooks';
 import { useMediaUrl, useUser } from '#/state/application/hooks';
 
-import { AgreeFinishedModal } from './AgreeFinishedModal';
-import { AppliedModal } from './AppliedModal';
-import { ApplyFinishedModal } from './ApplyFinishedModal';
 import { ApplyModal } from './ApplyModal';
 
 const process = [
@@ -110,9 +107,6 @@ export function Employers({ id, list, data, mobile }) {
     }
   };
 
-  const [appliedModalOpen, setAppliedModalOpen] = useState(false);
-  const [applyFinishedModalOpen, setApplyFinishedModalOpen] = useState(false);
-  const [agreeFinishedModalOpen, setAgreeFinishedModalOpen] = useState(false);
   const currentUserApplied = !buildersLoading && builderList.some(({ builder_uid }) => builder_uid === user?.base.user_id);
   const handleApplyDialogClose = () => {
     setOpenModal(false);
@@ -229,14 +223,11 @@ export function Employers({ id, list, data, mobile }) {
           }
         </div>
 
-        <ProcessListView process={process} data={data} setAppliedModalOpen={setAppliedModalOpen} setApplyFinishedModalOpen={setApplyFinishedModalOpen} setAgreeFinishedModalOpen={setAgreeFinishedModalOpen} />
+        <ProcessListView process={process} data={data}/>
       </div>
 
       <ApplyModal id={id} open={openModal} closeModal={handleApplyDialogClose} />
       <CompleteProfileDialogWidget notBindWallet={notBindWallet} notComplete={notComplete} open={needOpen} close={() => setNeedOpen(false)} title="Before applying, you need to:" />
-      <AppliedModal open={appliedModalOpen} closeModal={() => setAppliedModalOpen(false)} bounty={data} />
-      <ApplyFinishedModal open={applyFinishedModalOpen} close={() => setApplyFinishedModalOpen(false)} bounty={data} />
-      <AgreeFinishedModal open={agreeFinishedModalOpen} close={() => setAgreeFinishedModalOpen(false)} bounty={data} />
     </div>
   );
 }

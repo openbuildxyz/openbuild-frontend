@@ -15,15 +15,25 @@
  */
 
 import clsx from 'clsx';
+import { useState } from 'react';
 
 import { formatTime } from '@/utils/date';
 
-import { useBountyEnvCheck } from '#/domain/bounty/hooks';
+import { revalidatePathAction } from '#/app/actions';
+import { AgreeFinishedModal } from '#/domain/bounty/widgets/process-list/AgreeFinishedModal';
+import { AppliedModal } from '#/domain/bounty/widgets/process-list/AppliedModal';
+import { ApplyFinishedModal } from '#/domain/bounty/widgets/process-list/ApplyFinishedModal';
 import { useUser } from '#/state/application/hooks';
 
-function ProcessListView({process=[],data={},setAppliedModalOpen,setApplyFinishedModalOpen,setAgreeFinishedModalOpen}) {
+import { useBountyEnvCheck } from '../../hooks';
+
+function ProcessListView({process=[],data={}}) {
   const user = useUser();
   const wrapBountyEnvCheck = useBountyEnvCheck();
+
+  const [appliedModalOpen, setAppliedModalOpen] = useState(false);
+  const [applyFinishedModalOpen, setApplyFinishedModalOpen] = useState(false);
+  const [agreeFinishedModalOpen, setAgreeFinishedModalOpen] = useState(false);
   
   return <div className="mt-1 rounded-2xl bg-gray-1000 py-4">
     {process.map((i, k) => (
@@ -138,6 +148,24 @@ function ProcessListView({process=[],data={},setAppliedModalOpen,setApplyFinishe
         </div>
       </div>
     ))}
+    <AppliedModal
+      open={appliedModalOpen}
+      closeModal={() => setAppliedModalOpen(false)}
+      bounty={data}
+      revalidatePathAction={revalidatePathAction}
+    />
+    <ApplyFinishedModal
+      open={applyFinishedModalOpen}
+      close={() => setApplyFinishedModalOpen(false)}
+      bounty={data}
+      revalidatePathAction={revalidatePathAction}
+    />
+    <AgreeFinishedModal
+      open={agreeFinishedModalOpen}
+      close={() => setAgreeFinishedModalOpen(false)}
+      bounty={data}
+      revalidatePathAction={revalidatePathAction}
+    />
   </div>;
 }
 
