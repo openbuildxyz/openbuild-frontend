@@ -18,9 +18,23 @@ import clsx from 'clsx';
 
 import Image from '../Image';
 
-function Avatar({ className, size, src, defaultSrc, alt, user }) {
+function Avatar({
+  size,
+  className,
+  src,
+  defaultSrc,
+  alt,
+  user,
+}: {
+  size: number;
+  className?: string;
+  src?: string;
+  defaultSrc?: string;
+  alt?: string;
+  user?: { user_handle: string; user_nick_name: string; user_avatar: string };
+}) {
   const resolvedAlt = alt || (user && user.user_nick_name) || '';
-  const imgClassName = `rounded-full object-fill w-[${size}px] h-[${size}px]`;
+  const imgClassName = 'rounded-full object-fill';
   const imgProps = {
     width: size,
     height: size,
@@ -29,10 +43,12 @@ function Avatar({ className, size, src, defaultSrc, alt, user }) {
   };
 
   return user ? (
-    <a className={clsx('block', `w-[${size}px]`, `h-[${size}px]`, className)} href={`/u/${user.user_handle}`}>
+    <a className={clsx('block', className)} href={`/u/${user.user_handle}`}>
       <Image {...imgProps} className={imgClassName} alt={resolvedAlt} />
     </a>
-  ) : <Image {...imgProps} className={clsx(imgClassName, className)} alt={resolvedAlt} />;
+  ) : (
+    <Image {...imgProps} className={clsx(imgClassName, className)} alt={resolvedAlt} />
+  );
 }
 
 export default Avatar;
