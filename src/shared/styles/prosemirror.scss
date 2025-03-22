@@ -18,19 +18,33 @@
   @apply p-12 px-8 sm:px-12;
 }
 
-.ProseMirror .is-editor-empty:first-child::before {
-  content: attr(data-placeholder);
-  float: left;
-  color: hsl(var(--muted-foreground));
-  pointer-events: none;
-  height: 0;
+.ProseMirror {
+  p,
+  h1,
+  h2,
+  h3 {
+    &.is-editor-empty:first-child::before {
+      content: attr(data-placeholder);
+      float: left;
+      color: hsl(var(--muted-foreground));
+      pointer-events: none;
+      height: 0;
+    }
+  }
 }
-.ProseMirror .is-empty::before {
-  content: attr(data-placeholder);
-  float: left;
-  color: hsl(var(--muted-foreground));
-  pointer-events: none;
-  height: 0;
+.ProseMirror {
+  p,
+  h1,
+  h2,
+  h3 {
+    &.is-empty::before {
+      content: attr(data-placeholder);
+      float: left;
+      color: hsl(var(--muted-foreground));
+      pointer-events: none;
+      height: 0;
+    }
+  }
 }
 
 /* Custom image styles */
@@ -53,7 +67,7 @@
   position: relative;
 
   &:before {
-    content: "";
+    content: '';
     box-sizing: border-box;
     position: absolute;
     top: 50%;
@@ -75,18 +89,18 @@
 
 /* Custom TODO list checkboxes – shoutout to this awesome tutorial: https://moderncss.dev/pure-css-custom-checkbox-style/ */
 
-ul[data-type="taskList"] li > label {
+ul[data-type='taskList'] li > label {
   margin-right: 0.2rem;
   user-select: none;
 }
 
 @media screen and (max-width: 768px) {
-  ul[data-type="taskList"] li > label {
+  ul[data-type='taskList'] li > label {
     margin-right: 0.5rem;
   }
 }
 
-ul[data-type="taskList"] li > label input[type="checkbox"] {
+ul[data-type='taskList'] li > label input[type='checkbox'] {
   -webkit-appearance: none;
   appearance: none;
   background-color: hsl(var(--novel-custom-background));
@@ -110,7 +124,7 @@ ul[data-type="taskList"] li > label input[type="checkbox"] {
   }
 
   &::before {
-    content: "";
+    content: '';
     width: 0.65em;
     height: 0.65em;
     transform: scale(0);
@@ -125,7 +139,7 @@ ul[data-type="taskList"] li > label input[type="checkbox"] {
   }
 }
 
-ul[data-type="taskList"] li[data-checked="true"] > div > p {
+ul[data-type='taskList'] li[data-checked='true'] > div > p {
   color: var(--muted-foreground);
   text-decoration: line-through;
   text-decoration-thickness: 2px;
@@ -241,8 +255,8 @@ mark[style] > strong {
 .ProseMirror .column {
   border: 1px dashed transparent;
   overflow: hidden;
-  padding: 8px;
-  margin: -8px;
+  // padding: 8px;
+  // margin: -8px;
 }
 
 .ProseMirror-focused .column {
