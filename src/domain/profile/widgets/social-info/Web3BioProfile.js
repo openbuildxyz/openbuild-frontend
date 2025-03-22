@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 
-import { capitalize } from '@/utils';
+import clsx from 'clsx';
 
-import SocialLink from './SocialLink';
+import { SvgIcon } from '@/components/Image';
+import { capitalize } from '@/utils';
 
 const socialKeyMap = {
   github: 'user_github',
@@ -26,6 +27,25 @@ const socialKeyMap = {
 
 const specialTextMap = {
   linkedin: 'LinkedIn',
+};
+
+const socialsConfig = {
+  farcaster: {
+    icon: 'farcaster-purple',
+    class: 'bg-[#8A63D2]/10 border-[#8A63D2]/10',
+  },
+  lens: {
+    icon: 'lens-green',
+    class: 'bg-[#6BC674]/10 border-[#6BC674]/10',
+  },
+  basenames: {
+    icon: 'basenames-blue',
+    class: 'bg-[#0052FF]/10 border-[#0052FF]/10',
+  },
+  default: {
+    icon: 'link',
+    class: 'bg-[#1A1A1A]/10 border-[#1A1A1A]/10',
+  },
 };
 
 function filterExistsInOpenBuild(links, social) {
@@ -39,15 +59,36 @@ function resolveLinks({ social, web3Bio = [] }) {
 function Web3BioProfile({ data }) {
   const links = resolveLinks(data);
 
-  return links.length > 0 && (
-    <>
-      <p className="mt-6 uppercase text-xs opacity-60 font-bold">More from <a className="underline" href={`https://web3.bio/${data.social.user_wallet}`} target="_blank" rel="noreferrer">web3.bio</a></p>
-      <div className="border border-gray-600 rounded overflow-hidden mt-2">
-        {links.map(([k, profile]) => (
-          <SocialLink key={`web3bio-social-${k}`} icon="link" url={profile.link}>{specialTextMap[k] || capitalize(k)}</SocialLink>
-        ))}
-      </div>
-    </>
+  return (
+    links.length > 0 && (
+      <>
+        <div className="mt-6 text-xs flex gap-1">
+          <p className="uppercase opacity-60 font-bold flex-1">Onchain Identities</p>
+          <div className="opacity-40">Built with</div>
+          <a href={`https://web3.bio/${data.social.user_wallet}`} target="_blank" rel="noreferrer">
+            Web3.bio
+          </a>
+        </div>
+
+        <div className="mt-3 flex gap-2 flex-wrap">
+          {links.map(([k, profile]) => {
+            const socialConfig = socialsConfig[k] ?? socialsConfig.default;
+            return (
+              <a
+                key={`web3bio-social-${k}`}
+                className={clsx(socialConfig.class, 'flex gap-1 rounded-[6px] px-1 h-7 text-sm border items-center')}
+                href={profile.link}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <SvgIcon name={socialConfig.icon} size={16} />
+                {specialTextMap[k] || capitalize(k)}
+              </a>
+            );
+          })}
+        </div>
+      </>
+    )
   );
 }
 
