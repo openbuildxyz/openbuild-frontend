@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import clsx from 'clsx';
 import Image from 'next/image';
 import Web3BioIcon from 'public/images/svg/web3bio.svg';
 
@@ -32,7 +33,7 @@ function ProfileAvatar({
   className: string;
 }) {
   const size = 110;
-  const avatarClassName = 'rounded-full object-fill';
+  const avatarClassName = 'size-[110px] rounded-full object-fill';
 
   const baseAvatar = data?.base?.user_avatar;
   const web3BioAvatar = data?.web3Bio?.filter(v => v.avatar).find(v => v.avatar)?.avatar ?? '';
@@ -40,7 +41,7 @@ function ProfileAvatar({
   const showBaseAvatar = (baseAvatar && !baseAvatar.includes('/config/avatar')) || !web3BioAvatar;
 
   return (
-    <div className={className}>
+    <div className={clsx('relative', className)}>
       {showBaseAvatar ? (
         <Avatar
           size={size}

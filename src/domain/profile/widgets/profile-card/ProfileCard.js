@@ -84,7 +84,7 @@ function ProfileCardWidget({ className, data }) {
   return (
     <div className={clsx('relative md:w-[360px] md:rounded-lg md:p-6 md:bg-white', className)}>
       <div className="flex flex-col gap-2 items-center">
-        <ProfileAvatar data={data} className="-mt-[104px] md:mt-0 relative" />
+        <ProfileAvatar data={data} className="-mt-[104px] md:mt-0" />
         <h6 className="text-[24px] leading-none">
           <a href={`/u/${handle}`}>{data?.base.user_nick_name}</a>
         </h6>
