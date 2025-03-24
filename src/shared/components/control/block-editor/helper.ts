@@ -16,9 +16,9 @@
 
 import { isFunction, isPlainObject } from '../../../utils';
 
-let uploadHandler;
+let uploadHandler: any;
 
-function setUploadHandler(handler) {
+function setUploadHandler(handler: any) {
   if (!isFunction(handler)) {
     return;
   }
@@ -36,15 +36,15 @@ function getInitialBlockData() {
   return { type: 'doc', content: [] };
 }
 
-function isBlockDataValid(data) {
+function isBlockDataValid(data: any) {
   return isPlainObject(data) && data.type === 'doc' && Array.isArray(data.content);
 }
 
-function unwrapBlockData({ data }) {
+function unwrapBlockData({ data }: { data: any }) {
   return data;
 }
 
-function wrapBlockData(data) {
+function wrapBlockData(data: any) {
   return { version: BLOCK_DATA_SPEC_VERSION, data };
 }
 

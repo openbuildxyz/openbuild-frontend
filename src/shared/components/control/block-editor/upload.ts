@@ -20,7 +20,7 @@ import { toast } from 'react-toastify';
 import { isFunction } from '../../../utils';
 import { getUploadHandler } from './helper';
 
-function onUpload(file) {
+function onUpload(file: File) {
   const uploadHandler = getUploadHandler();
 
   if (!isFunction(uploadHandler)) {
@@ -31,14 +31,14 @@ function onUpload(file) {
 
   return new Promise((resolve, reject) => {
     req
-      .then(res => {
+      .then((res: any) => {
         if (res.success) {
           resolve(res.data);
         } else {
           throw new Error('Error uploading image. Please try again.');
         }
       })
-      .catch(err => {
+      .catch((err: any) => {
         reject(err);
         return err.message;
       });
