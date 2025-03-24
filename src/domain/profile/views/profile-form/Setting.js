@@ -14,13 +14,11 @@
  * limitations under the License.
  */
 
-'use client';
-
 import Link from 'next/link';
 
 import { Button } from '@/components/Button';
 
-import { ProfileTitle } from '#/domain/profile/widgets/blocks';
+import { ProfileTitle } from '../../widgets/blocks';
 // import { useState } from 'react'
 // import Switch from '@/components/Switch'
 

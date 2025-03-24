@@ -14,6 +14,4 @@
  * limitations under the License.
  */
 
-'use client';
-
-export { default } from '#/domain/profile/views/profile-form';
+export { default } from './ProfileForm';
