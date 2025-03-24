@@ -40,8 +40,28 @@ async function fetchUser(handle) {
   return { ...others, data, success: true };
 }
 
-async function updateUser(data) {
-  return httpClient.post('/user/info', data);
+async function updateUser(userId, data) {
+  return httpClient.post('/user/info', {
+    user_avatar: data.avatar,
+    user_bio: data.bio,
+    user_city: data.city,
+    user_company: data.company,
+    user_country: data.country,
+    user_experience: data.experience,
+    user_handle: data.userHandle,
+    user_id: userId,
+    user_nick_name: data.fullName,
+    user_resume: data.resume,
+    user_roles: data.roles,
+    user_skills: data.skills,
+    user_x: data.twitter,
+    user_show_x: data.twitterVisible,
+    user_discord: data.discord,
+    user_show_discord: data.discordVisible,
+    user_show_wallet: data.walletVisible,
+    user_show_email: data.emailVisible,
+    user_show_github: data.githubVisible,
+  });
 }
 
 function resolvePaginationParams(params) {
