@@ -16,15 +16,27 @@
 
 import { Fragment } from 'react';
 
-import { Listbox, Transition } from '@/components/control';
-import { ChevronDownIcon, CheckIcon, XMarkIcon } from '@/components/icon/solid';
-import { classNames } from '@/utils';
-
 import { countries } from '#/lib/countries';
 
-export function SelectCountry({ placeholder, selected, setSelected, className }) {
+import { classNames, noop } from '../../../utils';
+import { ChevronDownIcon, CheckIcon, XMarkIcon } from '../../icon/solid';
+import { Listbox, Transition } from '../headlessui';
+
+type CountrySelectProps = {
+  className?: string;
+  placeholder?: string;
+  value?: string;
+  onChange?: (value: string) => void;
+}
+
+function CountrySelect({
+  className,
+  placeholder = 'Select country',
+  value,
+  onChange = noop,
+}: CountrySelectProps) {
   return (
-    <Listbox value={selected} onChange={e => setSelected(e)}>
+    <Listbox value={value} onChange={onChange}>
       <div className="relative mt-1">
         <Listbox.Button
           className={classNames(
@@ -32,13 +44,13 @@ export function SelectCountry({ placeholder, selected, setSelected, className })
             className
           )}
         >
-          {selected ? (
+          {value ? (
             <div className="flex flex-1 items-center justify-between">
               <span className="flex items-center truncate">
-                <span className="text-lg mr-2">{countries.find(f => f.code === selected)?.emoji}</span>
-                {countries.find(f => f.code === selected)?.name}
+                <span className="text-lg mr-2">{countries.find(f => f.code === value)?.emoji}</span>
+                {countries.find(f => f.code === value)?.name}
               </span>
-              <XMarkIcon onClick={() => setSelected('')} className="hidden h-4 w-4 group-hover:block opacity-40" />
+              <XMarkIcon onClick={() => onChange('')} className="hidden h-4 w-4 group-hover:block opacity-40" />
             </div>
           ) : (
             <span className="block truncate opacity-60">{placeholder}</span>
@@ -93,3 +105,5 @@ export function SelectCountry({ placeholder, selected, setSelected, className })
     </Listbox>
   );
 }
+
+export default CountrySelect;

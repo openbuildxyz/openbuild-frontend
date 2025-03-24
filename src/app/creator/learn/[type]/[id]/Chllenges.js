@@ -18,17 +18,16 @@ import clsx from 'clsx';
 import { forwardRef } from 'react';
 import DatePicker from 'react-datepicker';
 
+import CountrySelect from '@/components/control/country-select';
 import { ChevronLeftIcon, ChevronRightIcon, CalendarDaysIcon } from '@/components/icon/outlined';
-import { ReactSelect } from '@/components/Select/ReactSelect';
 
 import 'react-datepicker/dist/react-datepicker.css';
 
+import { ReactSelect } from '@/components/Select/ReactSelect';
 import  { BASE_INPUT_STYLE } from '@/constants/config';
 import { TIME_ZONE } from '@/constants/timezone';
 import { range } from '@/utils';
 import { getTime } from '@/utils/date';
-
-import { SelectCountry } from '../../../../profile/SelectCountry';
 
 const RenderCustomInput = forwardRef(({ value, onClick }, ref) => (
   <button
@@ -123,11 +122,10 @@ export function ChllengesForms({forms, change}) {
               <div className="flex items-center gap-4">
                 <div className="mb-2 flex-1">
                   <p className="text-sm mb-2 opacity-80">Address</p>
-                  <SelectCountry
-                    selected={forms?.course_challenges_extra_country}
-                    setSelected={e => change('course_challenges_extra_country', e, 'challenges')}
-                    placeholder="Select country"
+                  <CountrySelect
                     className={clsx(BASE_INPUT_STYLE)}
+                    value={forms?.course_challenges_extra_country}
+                    onChange={e => change('course_challenges_extra_country', e, 'challenges')}
                   />
                 </div>
                 <div className="mb-2 flex-1">

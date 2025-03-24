@@ -20,6 +20,7 @@ import { useEffect, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 
 import { Button } from '@/components/Button';
+import CountrySelect from '@/components/control/country-select';
 import Loader from '@/components/Loader';
 import Switch from '@/components/Switch';
 import { BASE_INPUT_STYLE } from '@/constants/config';
@@ -34,7 +35,6 @@ import { ProfileTitle, ProfileLabel } from '../../widgets/blocks';
 import SocialSettingsFormView from '../social-settings-form';
 import { MySkill } from './MySkill';
 import { ProfileNav } from './Navs';
-import { SelectCountry } from './SelectCountry';
 import { Setting } from './Setting';
 
 function ProfileFormView() {
@@ -307,11 +307,10 @@ function ProfileFormView() {
                 <ProfileLabel className="mt-9 text-gray-50">
                   Country/Area <span className="text-red">*</span>
                 </ProfileLabel>
-                <SelectCountry
-                  selected={forms.country}
-                  setSelected={s => changeForms('country', s)}
-                  placeholder="Select country"
+                <CountrySelect
                   className={classNames(BASE_INPUT_STYLE, formsError && forms.country === '' && 'border-red')}
+                  value={forms.country}
+                  onChange={s => changeForms('country', s)}
                 />
               </div>
               <div>
