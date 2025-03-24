@@ -21,28 +21,39 @@ import { SvgIcon } from '@/components/Image';
 import SocialLink from './SocialLink';
 import Web3BioProfile from './Web3BioProfile';
 
-function socialsInfo(type, link) {
+const web3BioSocialKeyMap = {
+  user_github: 'github',
+  user_discord: 'discord',
+  user_x: 'twitter',
+};
+
+function resolveSocialsInfo(type, link, web3BioLink) {
+  const showWeb3Bio = !link && !!web3BioLink;
+
   switch (type) {
   case 'user_github':
     return {
       name: 'GitHub',
       icon: 'github-black',
-      link: link && `https://github.com/${link}`,
+      link: link ? `https://github.com/${link}` : web3BioLink,
       enableKey: 'user_show_github',
+      showWeb3Bio,
     };
   case 'user_x':
     return {
       name: 'X',
       icon: 'x-black',
-      link: link && `https://x.com/${link}`,
+      link: link ? `https://x.com/${link}` : web3BioLink,
       enableKey: 'user_show_x',
+      showWeb3Bio,
     };
   case 'user_discord':
     return {
       name: 'Discord',
       icon: 'discord-black',
-      link: link && `https://discord.com/invite/${link}`,
+      link: link ? `https://discord.com/invite/${link}` : web3BioLink,
       enableKey: 'user_show_discord',
+      showWeb3Bio,
     };
   default:
     return null;
@@ -50,21 +61,25 @@ function socialsInfo(type, link) {
 }
 
 function SocialInfoWidget({ className, data }) {
-  const socials = useMemo(
-    () =>
-      Object.keys(data.social)
-        .map(i => socialsInfo(i, data.social[i]))
-        .filter(s => {
-          if (!s) {
-            return false;
-          }
+  const socials = useMemo(() => {
+    const web3BioSocials = (data?.web3Bio ?? []).reduce((p, c) => (c.links ? { ...p, ...c.links } : p), {});
 
-          const enabled = s.enableKey ? data.base[s.enableKey] : true;
+    return Object.keys(data.social)
+      .map(i => resolveSocialsInfo(i, data.social[i], web3BioSocials[web3BioSocialKeyMap[i]]?.link))
+      .filter(s => {
+        if (!s) {
+          return false;
+        }
 
-          return enabled && !!s.link;
-        }),
-    [data],
-  );
+        let enabled = true;
+
+        if (s.enableKey) {
+          enabled = data.base[s.enableKey] || s.showWeb3Bio;
+        }
+
+        return enabled && !!s.link;
+      });
+  }, [data]);
 
   return (
     <div className={className}>
@@ -73,7 +88,7 @@ function SocialInfoWidget({ className, data }) {
           <p className="mt-6 uppercase text-xs opacity-60 font-bold">Social Profiles</p>
           <div className="border border-gray-600 rounded overflow-hidden mt-2">
             {socials.map(i => (
-              <SocialLink key={`user-social-${i.name}`} url={i.link} icon={i.icon} extra={i.extra}>
+              <SocialLink key={`user-social-${i.name}`} url={i.link} icon={i.icon} showWeb3Bio={i.showWeb3Bio}>
                 {i.name}
               </SocialLink>
             ))}

@@ -19,6 +19,16 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
 
+const openbuildDomains = [
+  'openbuild.xyz',
+  'file-cdn.openbuild.xyz',
+  's3.us-west-1.amazonaws.com',
+];
+
+const web3bioDomains = [
+  'gw.ipfs-lens.dev',
+];
+
 module.exports = withBundleAnalyzer({
   // env: {
   //     NEXT_PUBLIC_ENV: 'PRODUCTION', //your next configs goes here
@@ -35,15 +45,14 @@ module.exports = withBundleAnalyzer({
   },
   images: {
     domains: [
-      'openbuild.xyz',
+      ...openbuildDomains,
       'assets.website-files.com',
       'images.unsplash.com',
       'img.foresightnews.pro',
       'statics.ambcrypto.com',
       's1.ax1x.com',
       'imgse.com',
-      's3.us-west-1.amazonaws.com',
-      'file-cdn.openbuild.xyz',
+      ...web3bioDomains,
     ],
   },
   webpack: config => {

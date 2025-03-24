@@ -22,7 +22,6 @@ import { useState } from 'react';
 import { toast } from 'react-toastify';
 import useSWR from 'swr';
 
-import Avatar from '@/components/Avatar';
 import { Button } from '@/components/Button';
 import { RepositioningIcon } from '@/components/Icons';
 import { SvgIcon } from '@/components/Image';
@@ -32,6 +31,13 @@ import { useUser } from '#/state/application/hooks';
 
 import SocialInfoWidget from '../social-info';
 import IdentitySwitch from './IdentitySwitch';
+import ProfileAvatar from './ProfileAvatar';
+
+function getUserDesc(data) {
+  const baseUserDesc = data?.base.user_bio;
+  const web3BioDesc = data?.web3Bio?.find(v => v.description)?.description;
+  return baseUserDesc || web3BioDesc || '--';
+}
 
 function ProfileCardWidget({ className, data }) {
   const router = useRouter();
@@ -78,27 +84,27 @@ function ProfileCardWidget({ className, data }) {
   return (
     <div className={clsx('relative md:w-[360px] md:rounded-lg md:p-6 md:bg-white', className)}>
       <div className="flex flex-col gap-2 items-center">
-        <Avatar
-          className="-mt-[104px] md:mt-0"
-          size={110}
-          src={data.base.user_avatar}
-          defaultSrc="https://s3.us-west-1.amazonaws.com/file.openbuild.xyz/config/avatar/04.svg"
-          alt={data?.base.user_nick_name}
-        />
+        <ProfileAvatar data={data} className="-mt-[104px] md:mt-0" />
         <h6 className="text-[24px] leading-none">
           <a href={`/u/${handle}`}>{data?.base.user_nick_name}</a>
         </h6>
-        {!creatorAvailable && <div className="flex items-center text-sm">
-          <RepositioningIcon className="mr-1" />
-          <p className="text-sm opacity-60">
-            {data.base?.user_city}, {data.base?.user_country}
-          </p>
-        </div>}
-        <p className="text-sm text-center">{data?.base.user_bio !== '' ? data?.base.user_bio : '--'}</p>
+        {!creatorAvailable && (
+          <div className="flex items-center text-sm">
+            <RepositioningIcon className="mr-1" />
+            <p className="text-sm opacity-60">
+              {data.base?.user_city}, {data.base?.user_country}
+            </p>
+          </div>
+        )}
+        <p className="text-sm text-center">{getUserDesc(data)}</p>
       </div>
       <div className="my-6 flex gap-7 justify-center text-sm">
-        <Link href={`/u/${handle}/followers`}><strong>{data?.follow?.followers}</strong> <span className="opacity-60">followers</span></Link>
-        <Link href={`/u/${handle}/following`}><strong>{data?.follow?.following}</strong> <span className="opacity-60">following</span></Link>
+        <Link href={`/u/${handle}/followers`}>
+          <strong>{data?.follow?.followers}</strong> <span className="opacity-60">followers</span>
+        </Link>
+        <Link href={`/u/${handle}/following`}>
+          <strong>{data?.follow?.following}</strong> <span className="opacity-60">following</span>
+        </Link>
       </div>
       {user?.base.user_id === data?.base?.user_id ? (
         <Link href="/profile">
@@ -107,11 +113,13 @@ function ProfileCardWidget({ className, data }) {
             <span className="!font-bold">Edit</span>
           </Button>
         </Link>
-      ) : ((status === 'authenticated' && followData?.follow) || followLoading ?
+      ) : (status === 'authenticated' && followData?.follow) || followLoading ? (
         <Button className="group" loading={followLoading} fullWidth variant="outlined" onClick={unfollow}>
           <span className="!font-bold block group-hover:hidden">Following</span>
           <span className="!font-bold hidden group-hover:block">Unfollow</span>
-        </Button> : <Button fullWidth variant="contained" loading={followLoading} onClick={follow}>
+        </Button>
+      ) : (
+        <Button fullWidth variant="contained" loading={followLoading} onClick={follow}>
           <SvgIcon name="plus" size={16} />
           <span className="!font-bold">Follow</span>
         </Button>
@@ -127,9 +135,7 @@ function ProfileCardWidget({ className, data }) {
           <Link href="/" className="text-xs opacity-60">+ Follow</Link>
         </div>
       </>} */}
-      {creatorAvailable && (
-        <IdentitySwitch className="absolute top-4 right-4" userName={handle} />
-      )}
+      {creatorAvailable && <IdentitySwitch className="absolute top-4 right-4" userName={handle} />}
       <SocialInfoWidget className="hidden md:block" data={data} />
     </div>
   );
