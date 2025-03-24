@@ -31,11 +31,12 @@ import { useAllowance, useApprove } from '@/hooks/useERC20';
 import { fetcher } from '@/utils/request';
 import { parseTokenUnits } from '@/utils/web3';
 
-import { useBountyEnvCheck } from '#/domain/bounty/hooks';
 import AppliedBuilderListView from '#/domain/bounty/views/applied-builder-list';
 import { approveBuilder } from '#/services/creator';
 
-export function AppliedModal({ open, closeModal, bounty, revalidatePathAction }) {
+import { useBountyEnvCheck } from '../../hooks';
+
+function AppliedModal({ open, closeModal, bounty, revalidatePathAction }) {
   const { data, isLoading, mutate } = useSWR(`ts/v1/build/creator/bounties/${bounty.id}/builders?skip=${0}&take=${25}`, fetcher);
   const { address } = useAccount();
   // const { chain } = useNetwork()
@@ -133,7 +134,7 @@ export function AppliedModal({ open, closeModal, bounty, revalidatePathAction })
 
   }, [allowance, approveAsync, bounty, payToken, write]);
 
-  const approve = wrapBountyEnvCheck(i=>{
+  const onApprove = wrapBountyEnvCheck(i=>{
     setCurrUser(i);
     setConfirmModalOpen(true);
     setApproveConfirmIds({ bid:i.id, bountyId:i.bounty_id });
@@ -159,8 +160,7 @@ export function AppliedModal({ open, closeModal, bounty, revalidatePathAction })
       <div className="max-h-[400px] overflow-auto">
         <AppliedBuilderListView
           data={data}
-          isLoading={isLoading}
-          approve={approve}
+          onApprove={onApprove}
         />
         {isLoading && (
           <div className="flex justify-center items-center h-[200px]">
@@ -187,3 +187,4 @@ export function AppliedModal({ open, closeModal, bounty, revalidatePathAction })
     </Modal>
   );
 }
+export  default  AppliedModal;

@@ -29,6 +29,7 @@ import { CertifiedIcon } from '@/components/Icons';
 // WarningIcon
 import { ArrowTopRightOnSquareIcon } from '@/components/Icons';
 
+import { revalidatePathAction } from '#/app/actions';
 import { useAuthGuard } from '#/domain/auth/hooks';
 import { isBountyApplied } from '#/domain/bounty/helper';
 import CompleteProfileDialogWidget from '#/domain/profile/widgets/complete-profile-dialog';
@@ -223,7 +224,7 @@ export function Employers({ id, list, data, mobile }) {
           }
         </div>
 
-        <ProcessListView process={process} data={data}/>
+        <ProcessListView process={process} data={data} revalidatePathAction={revalidatePathAction} />
       </div>
 
       <ApplyModal id={id} open={openModal} closeModal={handleApplyDialogClose} />

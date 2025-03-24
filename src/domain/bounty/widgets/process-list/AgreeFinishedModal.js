@@ -22,13 +22,14 @@ import { Button } from '@/components/Button';
 import { Modal } from '@/components/Modal';
 import { withdraw } from '@/constants/bounty';
 
-import { useBountyEnvCheck } from '#/domain/bounty/hooks';
 import {
   finishConfirm,
   finishDeny,
 } from '#/services/bounties';
 
-export function AgreeFinishedModal({open, close, bounty, revalidatePathAction}) {
+import { useBountyEnvCheck } from '../../hooks';
+
+function AgreeFinishedModal({open, close, bounty, revalidatePathAction}) {
   const [loading, setLoading] = useState(false);
   const [disagreeLoading, setDisagreeLoading] = useState(false);
   const { chain } = useNetwork();
@@ -95,3 +96,4 @@ export function AgreeFinishedModal({open, close, bounty, revalidatePathAction}) 
     </Modal>
   );
 }
+export  default  AgreeFinishedModal;

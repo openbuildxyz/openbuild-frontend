@@ -19,15 +19,14 @@ import { useState } from 'react';
 
 import { formatTime } from '@/utils/date';
 
-import { revalidatePathAction } from '#/app/actions';
-import { AgreeFinishedModal } from '#/domain/bounty/widgets/process-list/AgreeFinishedModal';
-import { AppliedModal } from '#/domain/bounty/widgets/process-list/AppliedModal';
-import { ApplyFinishedModal } from '#/domain/bounty/widgets/process-list/ApplyFinishedModal';
 import { useUser } from '#/state/application/hooks';
 
 import { useBountyEnvCheck } from '../../hooks';
+import AgreeFinishedModal from './AgreeFinishedModal';
+import AppliedModal from './AppliedModal';
+import ApplyFinishedModal from './ApplyFinishedModal';
 
-function ProcessListView({process=[],data={}}) {
+function ProcessListView({process=[],data={},revalidatePathAction}) {
   const user = useUser();
   const wrapBountyEnvCheck = useBountyEnvCheck();
 

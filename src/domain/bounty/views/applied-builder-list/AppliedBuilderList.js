@@ -25,7 +25,7 @@ import { EXPERIENCE_OPTIONS } from '#/lib/user';
 import { denyBuilder } from '#/services/creator';
 import { useConfig, useMediaUrl } from '#/state/application/hooks';
 
-function AppliedBuilderListView({data,approve}) {
+function AppliedBuilderListView({data,onApprove}) {
   const mediaUrl = useMediaUrl();
   const config = useConfig();
   const allOpts = config?.find(f => f.config_id === 3)?.config_value;
@@ -145,7 +145,7 @@ function AppliedBuilderListView({data,approve}) {
             <Button
 
               className="ml-2 h-9"
-              onClick={()=>approve(i)}
+              onClick={()=>onApprove(i)}
             >
               Approve
               {/* {chain?.id !== BOUNTY_SUPPORTED_CHAIN() ? 'Switch' : ''} */}
