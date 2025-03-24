@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import { TextSelection } from '@tiptap/pm/state';
 import {
   CheckSquare,
   Code,
@@ -47,7 +48,22 @@ function createColumnItems() {
     description: `Create ${count} columns block.`,
     searchTerms: ['columnBlock', 'column'],
     icon: <ItemIcon size={18} />,
-    command: ({ editor, range }) => editor.chain().focus().deleteRange(range).setColumns(count).run(),
+    command: ({ editor, range }) =>
+      editor
+        .chain()
+        .focus()
+        .deleteRange(range)
+        .setColumns(count)
+        .command(({ editor, tr, dispatch }) => {
+          if (!dispatch) return false;
+          const selection = editor.view.state.selection;
+
+          tr.setSelection(TextSelection.create(tr.doc, selection.$from.pos + 1, selection.$to.pos));
+          dispatch(tr);
+
+          return true;
+        })
+        .run(),
   }));
 }
 
