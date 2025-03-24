@@ -27,8 +27,8 @@ const web3BioSocialKeyMap = {
   user_x: 'twitter',
 };
 
-function socialsInfo(type, link, web3BioLink) {
-  const showWeb3Bio = !link && web3BioLink;
+function resolveSocialsInfo(type, link, web3BioLink) {
+  const showWeb3Bio = !link && !!web3BioLink;
 
   switch (type) {
   case 'user_github':
@@ -65,13 +65,17 @@ function SocialInfoWidget({ className, data }) {
     const web3BioSocials = (data?.web3Bio ?? []).reduce((p, c) => (c.links ? { ...p, ...c.links } : p), {});
 
     return Object.keys(data.social)
-      .map(i => socialsInfo(i, data.social[i], web3BioSocials[web3BioSocialKeyMap[i]]?.link))
+      .map(i => resolveSocialsInfo(i, data.social[i], web3BioSocials[web3BioSocialKeyMap[i]]?.link))
       .filter(s => {
         if (!s) {
           return false;
         }
 
-        const enabled = s.enableKey ? data.base[s.enableKey] : true;
+        let enabled = true;
+
+        if (s.enableKey) {
+          enabled = data.base[s.enableKey] || s.showWeb3Bio;
+        }
 
         return enabled && !!s.link;
       });
