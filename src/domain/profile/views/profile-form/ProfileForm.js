@@ -26,6 +26,7 @@ import { updateUser } from '../../repository';
 import { ProfileTitle } from '../../widgets/blocks';
 import SocialSettingsFormView from '../social-settings-form';
 import BasicSection from './BasicSection';
+import { getDefaultFormValue, resolveFormValueFromUser, isFormValueModified } from './helper';
 import { MySkill } from './MySkill';
 import { ProfileNav } from './Navs';
 import { Setting } from './Setting';
@@ -34,56 +35,13 @@ function ProfileFormView() {
   const info = useUser();
   const config = useConfig();
   const [showSave, setShowSave] = useState(false);
-  const [formsError, setFromError] = useState(false);
+  const [formsError, setFormError] = useState(false);
   const mediaUrl = config?.find(f => f.config_id === 2);
-  const [forms, setForms] = useState({
-    showavatar: '',
-    avatar: '',
-    email: '',
-    fullName: '',
-    userHandle: '',
-    country: '',
-    city: '',
-    bio: '',
-    roles: null,
-    skills: [],
-    experience: null,
-    company: '',
-    resume: '',
-    twitter: '',
-    twitterVisible: false,
-    discord: '',
-    discordVisible: false,
-    walletVisible: false,
-    emailVisible: false,
-    githubVisible: false,
-  });
+  const [forms, setForms] = useState(getDefaultFormValue());
 
   useEffect(() => {
     if (info !== null) {
-      const email = info.binds.find(f => f.auth_user_bind_type === 'email');
-      setForms({
-        showavatar: mediaUrl ? mediaUrl.config_value.url + info.base.user_avatar : '',
-        avatar: info.base.user_avatar,
-        email: email?.auth_user_bind_key || '',
-        fullName: info.base.user_nick_name,
-        userHandle: info.base.user_handle,
-        country: info.base.user_country,
-        city: info.base.user_city,
-        bio: info.base.user_bio,
-        roles: info.base.user_roles,
-        skills: info.base.user_skills,
-        experience: info.base.user_experience,
-        company: info.base.user_company,
-        resume: info.base.user_resume,
-        twitter: info.base.user_x,
-        twitterVisible: info.base.user_show_x,
-        discord: info.base.user_discord,
-        discordVisible: info.base.user_show_discord,
-        walletVisible: info.base.user_show_wallet,
-        emailVisible: info.base.user_show_email,
-        githubVisible: info.base.user_show_github,
-      });
+      setForms(resolveFormValueFromUser(info, mediaUrl?.config_value.url));
     }
   }, [info, mediaUrl?.config_value.url, mediaUrl]);
 
@@ -105,33 +63,12 @@ function ProfileFormView() {
       forms.skills?.length === 0 ||
       forms.experience === 0
     ) {
-      setFromError(true);
+      setFormError(true);
     } else {
-      const res = await updateUser({
-        user_avatar: forms.avatar,
-        user_bio: forms.bio,
-        user_city: forms.city,
-        user_company: forms.company,
-        user_country: forms.country,
-        user_experience: forms.experience,
-        user_handle: forms.userHandle,
-        user_id: info?.base.user_id,
-        user_nick_name: forms.fullName,
-        user_resume: forms.resume,
-        user_roles: forms.roles,
-        user_skills: forms.skills,
-        user_x: forms.twitter,
-        user_show_x: forms.twitterVisible,
-        user_discord: forms.discord,
-        user_show_discord: forms.discordVisible,
-        user_show_wallet: forms.walletVisible,
-        user_show_email: forms.emailVisible,
-        user_show_github: forms.githubVisible,
-      });
+      const res = await updateUser(info?.base.user_id, forms);
       if (res.success) {
         toast.success('Saved successfully');
         setShowSave(false);
-        // doFetch()
       }
     }
   };
@@ -140,31 +77,7 @@ function ProfileFormView() {
   useEffect(() => {
     if (info) {
       setLoading(false);
-      if (
-        forms.avatar !== info.base.user_avatar ||
-        forms.bio !== info.base.user_bio ||
-        forms.city !== info.base.user_city ||
-        forms.company !== info.base.user_company ||
-        forms.experience !== info.base.user_experience ||
-        forms.country !== info.base.user_country ||
-        forms.fullName !== info.base.user_nick_name ||
-        forms.resume !== info.base.user_resume ||
-        forms.roles !== info.base.user_roles ||
-        forms.skills !== info.base.user_skills ||
-        forms.userHandle !== info.base.user_handle ||
-        forms.twitter !== info.base.user_x ||
-        forms.twitterVisible !== info.base.user_show_x ||
-        forms.discord !== info.base.user_discord ||
-        forms.discordVisible !== info.base.user_show_discord ||
-        forms.walletVisible !== info.base.user_show_wallet ||
-        forms.emailVisible !== info.base.user_show_email ||
-        forms.githubVisible !== info.base.user_show_github ||
-        forms.country === ''
-      ) {
-        setShowSave(true);
-      } else {
-        setShowSave(false);
-      }
+      setShowSave(isFormValueModified(forms, info.base));
     }
   }, [forms, info, showSave]);
 
