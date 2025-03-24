@@ -14,38 +14,28 @@
  * limitations under the License.
  */
 
-import clsx from 'clsx';
-import Image from 'next/image';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
 import { Button } from '@/components/Button';
-import CountrySelect from '@/components/control/country-select';
-import Loader from '@/components/Loader';
-import Switch from '@/components/Switch';
-import { BASE_INPUT_STYLE } from '@/constants/config';
-import { classNames } from '@/utils';
 
-import { upload } from '#/services/common';
 import { useUser } from '#/state/application/hooks';
 import { useConfig } from '#/state/application/hooks';
 
 import { updateUser } from '../../repository';
-import { ProfileTitle, ProfileLabel } from '../../widgets/blocks';
+import { ProfileTitle } from '../../widgets/blocks';
 import SocialSettingsFormView from '../social-settings-form';
+import BasicSection from './BasicSection';
 import { MySkill } from './MySkill';
 import { ProfileNav } from './Navs';
 import { Setting } from './Setting';
 
 function ProfileFormView() {
   const info = useUser();
-  const uploadRef = useRef(null);
   const config = useConfig();
   const [showSave, setShowSave] = useState(false);
   const [formsError, setFromError] = useState(false);
   const mediaUrl = config?.find(f => f.config_id === 2);
-  const [uploading, setUploading] = useState(false);
-  const [userAvatarLoaded, setUserAvatarLoaded] = useState(false);
   const [forms, setForms] = useState({
     showavatar: '',
     avatar: '',
@@ -96,36 +86,6 @@ function ProfileFormView() {
       });
     }
   }, [info, mediaUrl?.config_value.url, mediaUrl]);
-
-  const handleImageFileChange = event => {
-    const files = event.target.files;
-    if (files && files[0]) {
-      const file = files[0];
-      if (file.size > 1024 * 1024 * 2) {
-        toast.error('The file is too large');
-        event.target.value = '';
-        return;
-      }
-      setUploading(true);
-      const formData = new FormData();
-      formData.append('file', files[0], files[0].name);
-      formData.append('intent', 'avatar');
-      upload({ file: formData })
-        .then(res => {
-          setUploading(false);
-          const _forms = Object.assign({ ...forms }, {});
-          _forms.showavatar = mediaUrl?.config_value.url + res.data.user_upload_path;
-          _forms.avatar = res.data.user_upload_path;
-          setForms(_forms);
-          const current = uploadRef.current;
-          current.value = '';
-        })
-        .catch(() => {
-          toast.error('Upload error');
-          setUploading(false);
-        });
-    }
-  };
 
   const changeForms = (type, value) => {
     const _forms = Object.assign({ ...forms }, {});
@@ -208,6 +168,13 @@ function ProfileFormView() {
     }
   }, [forms, info, showSave]);
 
+  const handleAvatarUpload = url => {
+    const _forms = Object.assign({ ...forms }, {});
+    _forms.showavatar = mediaUrl?.config_value.url + url;
+    _forms.avatar = url;
+    setForms(_forms);
+  };
+
   return (
     <div className="flex flex-col md:flex-row min-h-screen px-4 pb-12 md:px-[67px]">
       {loading && <div className="fixed w-screen h-screen top-0 left-0 flex items-center justify-center z-[999999999] bg-gray-1100">
@@ -217,122 +184,13 @@ function ProfileFormView() {
       <div className="mb-14 mt-2 max-w-[736px] flex-1 md:pl-10">
         <div id="about">
           <ProfileTitle>About Me</ProfileTitle>
-          <div className="mt-6">
-            <ProfileLabel className="text-gray-50">Avatar</ProfileLabel>
-            <div className="flex items-center">
-              {!userAvatarLoaded && (
-                <span className="mr-9 inline-block h-[96px] w-[96px] rounded-full bg-gray-400" />
-              )}
-              <Image
-                width={96}
-                height={96}
-                className={clsx('mr-9 h-[96px] w-[96px] rounded-full', {
-                  hidden: !userAvatarLoaded,
-                })}
-                src={forms.showavatar}
-                alt=""
-                onLoad={() => {
-                  setTimeout(() => setUserAvatarLoaded(true), 1000);
-                }}
-              />
-
-              <input
-                className="hidden"
-                ref={uploadRef}
-                onChange={handleImageFileChange}
-                accept="image/png, image/gif, image/jpeg, image/jpg,"
-                id="upload-cover"
-                type="file"
-              />
-              <div>
-                <button className="mb-2 block h-9 w-[100px] rounded-full bg-gray-1200 text-sm hover:bg-[#e0e0e0]">
-                  <label htmlFor="upload-cover" className="flex items-center justify-center">
-                    {uploading && <Loader color={'#1a1a1a'} classname="mr-1" />}
-                    <span className="cursor-pointer">Upload</span>
-                  </label>
-                </button>
-                <span className="text-xs opacity-60">
-                  Support PNG, JPG, or GIF, recommended size 400x400px, size within 2M
-                </span>
-              </div>
-            </div>
-
-            <ProfileLabel className="mt-9 text-gray-50 flex items-center justify-between">
-              <span>E-mail</span>
-              <Switch checked={forms.emailVisible} onChange={checked => changeForms('emailVisible', checked)} />
-            </ProfileLabel>
-            <input
-              type="text"
-              value={forms.email}
-              readOnly
-              // onChange={e => changeForms('email', e.target.value)}
-              className={`${BASE_INPUT_STYLE}`}
-            />
-            <div>
-              <ProfileLabel className="mt-9 flex justify-between text-gray-50">
-                <span>
-                  Full Name <span className="text-red">*</span>
-                </span>
-                <span className="text-xs opacity-80">{forms.fullName.length}/50</span>
-              </ProfileLabel>
-              <input
-                type="text"
-                value={forms.fullName}
-                maxLength={50}
-                onChange={e => changeForms('fullName', e.target.value)}
-                className={classNames(BASE_INPUT_STYLE, formsError && forms.fullName === '' && 'border-red')}
-              />
-            </div>
-            <ProfileLabel className="mt-9 text-gray-50">
-              Username<span className="text-red"> *</span><span className="text-xs opacity-60"> (Allows input of uppercase and lowercase letters plus numbers and _-)</span>
-
-            </ProfileLabel>
-            <input
-              type="text"
-              value={forms.userHandle}
-              onChange={e => {
-                const pattern = /^([a-zA-Z0-9]([-_]?[a-zA-Z0-9])*)?$/;
-                const r = pattern.test(e.target.value);
-                console.log(r);
-                if (r) {
-                  changeForms('userHandle', e.target.value);
-                }
-
-              }}
-              placeholder={'Please enter your username'}
-              className={classNames(BASE_INPUT_STYLE, formsError && forms.userHandle === '' && 'border-red')}
-            />
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <ProfileLabel className="mt-9 text-gray-50">
-                  Country/Area <span className="text-red">*</span>
-                </ProfileLabel>
-                <CountrySelect
-                  className={classNames(BASE_INPUT_STYLE, formsError && forms.country === '' && 'border-red')}
-                  value={forms.country}
-                  onChange={s => changeForms('country', s)}
-                />
-              </div>
-              <div>
-                <ProfileLabel className="mt-9 text-gray-50">
-                  City/State <span className="text-red">*</span>
-                </ProfileLabel>
-                <input
-                  type="text"
-                  value={forms.city}
-                  onChange={e => changeForms('city', e.target.value)}
-                  className={classNames(BASE_INPUT_STYLE, formsError && forms.city === '' && 'border-red')}
-                />
-              </div>
-            </div>
-            <ProfileLabel className="mt-9 text-gray-50">Your Bio</ProfileLabel>
-            <textarea
-              value={forms.bio}
-              onChange={e => changeForms('bio', e.target.value)}
-              placeholder={'Brief description for your profile.'}
-              className={classNames(BASE_INPUT_STYLE, 'h-14 pt-2 focus:!ring-0')}
-            />
-          </div>
+          <BasicSection
+            className="mt-6"
+            forms={forms}
+            formsError={formsError}
+            onFieldChange={changeForms}
+            onUpload={handleAvatarUpload}
+          />
         </div>
         <MySkill formsError={formsError} forms={forms} set={(type, val) => changeForms(type, val)} />
         <SocialSettingsFormView
