@@ -27,11 +27,12 @@ import { Select } from '@/components/Select';
 import { BASE_INPUT_STYLE } from '@/constants/config';
 import { classNames } from '@/utils';
 
-import { ProfileTitle, ProfileLabel } from '#/domain/profile/widgets/blocks';
-import SkillSelect from '#/domain/skill/widgets/skill-select';
 import { EXPERIENCE_OPTIONS } from '#/lib/user';
 import { upload } from '#/services/common';
 import { useConfig } from '#/state/application/hooks';
+
+import SkillSelect from '../../../skill/widgets/skill-select';
+import { ProfileTitle, ProfileLabel } from '../../widgets/blocks';
 
 export function MySkill({ forms, set, formsError }) {
   const [uploading, setUploading] = useState(false);
