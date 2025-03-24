@@ -23,7 +23,7 @@ import InfoCard from './InfoCard';
 export default async function UserProfileLayout({ params, children }) {
   const { data } = await fetchUser(params.handle);
 
-  return (
+  return data ? (
     <>
       <BannerWidget data={data} onUpload={revalidatePathAction} />
       <div className="relative max-w-[1440px] min-h-[620px] mx-auto p-6 bg-white md:p-0 md:bg-transparent">
@@ -31,5 +31,9 @@ export default async function UserProfileLayout({ params, children }) {
         <div className="pt-6">{children}</div>
       </div>
     </>
+  ) : (
+    <div className="flex items-center justify-center py-12">
+      <div className="text-3xl font-bold text-gray-500">User not found</div>
+    </div>
   );
 }
