@@ -31,10 +31,10 @@ import { useAllowance, useApprove } from '@/hooks/useERC20';
 import { fetcher } from '@/utils/request';
 import { parseTokenUnits } from '@/utils/web3';
 
-import AppliedBuilderListView from '#/domain/bounty/views/applied-builder-list';
 import { approveBuilder } from '#/services/creator';
 
 import { useBountyEnvCheck } from '../../hooks';
+import AppliedBuilderListView from '../../views/applied-builder-list';
 
 function AppliedModal({ open, closeModal, bounty, revalidatePathAction }) {
   const { data, isLoading, mutate } = useSWR(`ts/v1/build/creator/bounties/${bounty.id}/builders?skip=${0}&take=${25}`, fetcher);
@@ -187,4 +187,4 @@ function AppliedModal({ open, closeModal, bounty, revalidatePathAction }) {
     </Modal>
   );
 }
-export  default  AppliedModal;
+export default AppliedModal;

@@ -170,4 +170,4 @@ function AppliedBuilderListView({data,onApprove}) {
   ));
 }
 
-export  default  AppliedBuilderListView;
+export default AppliedBuilderListView;

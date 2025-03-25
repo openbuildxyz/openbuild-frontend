@@ -29,13 +29,13 @@ import { CertifiedIcon } from '@/components/Icons';
 // WarningIcon
 import { ArrowTopRightOnSquareIcon } from '@/components/Icons';
 
-import { revalidatePathAction } from '#/app/actions';
 import { useAuthGuard } from '#/domain/auth/hooks';
 import { isBountyApplied } from '#/domain/bounty/helper';
 import CompleteProfileDialogWidget from '#/domain/profile/widgets/complete-profile-dialog';
 import { useBountyBuildersList } from '#/services/bounties/hooks';
 import { useMediaUrl, useUser } from '#/state/application/hooks';
 
+import { revalidatePathAction } from '../../actions';
 import { ApplyModal } from './ApplyModal';
 
 const process = [

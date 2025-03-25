@@ -33,7 +33,7 @@ function ProcessListView({process=[],data={},revalidatePathAction}) {
   const [appliedModalOpen, setAppliedModalOpen] = useState(false);
   const [applyFinishedModalOpen, setApplyFinishedModalOpen] = useState(false);
   const [agreeFinishedModalOpen, setAgreeFinishedModalOpen] = useState(false);
-  
+
   return <div className="mt-1 rounded-2xl bg-gray-1000 py-4">
     {process.map((i, k) => (
       <div key={`lesson-step-${k}`}>
@@ -168,4 +168,4 @@ function ProcessListView({process=[],data={},revalidatePathAction}) {
   </div>;
 }
 
-export  default  ProcessListView;
+export default ProcessListView;

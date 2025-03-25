@@ -96,4 +96,4 @@ function AgreeFinishedModal({open, close, bounty, revalidatePathAction}) {
     </Modal>
   );
 }
-export  default  AgreeFinishedModal;
+export default AgreeFinishedModal;
