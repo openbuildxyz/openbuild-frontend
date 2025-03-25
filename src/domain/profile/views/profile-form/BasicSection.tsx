@@ -113,7 +113,6 @@ function BasicSection({
       </div>
       <ProfileLabel className="mt-9 text-gray-50">
         Username<span className="text-red"> *</span><span className="text-xs opacity-60"> (Allows input of uppercase and lowercase letters plus numbers and _-)</span>
-
       </ProfileLabel>
       <input
         type="text"
@@ -125,7 +124,6 @@ function BasicSection({
           if (r) {
             onFieldChange('userHandle', e.target.value);
           }
-
         }}
         placeholder={'Please enter your username'}
         className={classNames(BASE_INPUT_STYLE, formsError && forms.userHandle === '' && 'border-red')}

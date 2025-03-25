@@ -18,16 +18,14 @@ import Link from 'next/link';
 
 import { Button } from '@/components/Button';
 
-import { ProfileTitle } from '../../widgets/blocks';
 // import { useState } from 'react'
 // import Switch from '@/components/Switch'
 
-export function Setting() {
+function SettingsSection({ className }) {
   // const [enabled, setEnabled] = useState(false)
   return (
-    <div id="setting" className="mt-14 mb-9">
-      <ProfileTitle>Setting</ProfileTitle>
-      <div className="mt-6 flex items-center justify-between">
+    <div className={className}>
+      <div className="flex items-center justify-between">
         <p className="text-sm md:text-lg">Change password</p>
         <Link href="/change" target={'_blank'}>
           <Button variant="outlined" className="h-9">
@@ -62,3 +60,5 @@ export function Setting() {
     </div>
   );
 }
+
+export default SettingsSection;

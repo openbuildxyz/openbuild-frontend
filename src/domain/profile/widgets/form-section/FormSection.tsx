@@ -14,4 +14,19 @@
  * limitations under the License.
  */
 
-export { default } from './SocialSettingsForm';
+import type { FormSectionWidgetProps } from './typing';
+
+import { getTitle } from './helper';
+
+function FormSection({ className, children, type }: FormSectionWidgetProps) {
+  return (
+    <div id={type} className={className}>
+      <h2 className="text-[24px] leading-none font-bold md:text-[44px]">
+        {getTitle(type)}
+      </h2>
+      {children}
+    </div>
+  );
+}
+
+export default FormSection;
