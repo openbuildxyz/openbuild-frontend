@@ -23,13 +23,12 @@ import { useUser } from '#/state/application/hooks';
 import { useConfig } from '#/state/application/hooks';
 
 import { updateUser } from '../../repository';
-import { ProfileTitle } from '../../widgets/blocks';
-import SocialSettingsFormView from '../social-settings-form';
+import FormSectionWidget, { SectionNavs } from '../../widgets/form-section';
 import BasicSection from './BasicSection';
 import { getDefaultFormValue, resolveFormValueFromUser, isFormValueModified } from './helper';
-import { MySkill } from './MySkill';
-import { ProfileNav } from './Navs';
-import { Setting } from './Setting';
+import SettingsSection from './SettingsSection';
+import SkillSection from './SkillSection';
+import SocialSection from './SocialSection';
 
 function ProfileFormView() {
   const info = useUser();
@@ -93,10 +92,9 @@ function ProfileFormView() {
       {loading && <div className="fixed w-screen h-screen top-0 left-0 flex items-center justify-center z-[999999999] bg-gray-1100">
         <span className="loading loading-spinner loading-lg" />
       </div>}
-      <ProfileNav />
+      <SectionNavs />
       <div className="mb-14 mt-2 max-w-[736px] flex-1 md:pl-10">
-        <div id="about">
-          <ProfileTitle>About Me</ProfileTitle>
+        <FormSectionWidget type="about">
           <BasicSection
             className="mt-6"
             forms={forms}
@@ -104,16 +102,21 @@ function ProfileFormView() {
             onFieldChange={changeForms}
             onUpload={handleAvatarUpload}
           />
-        </div>
-        <MySkill formsError={formsError} forms={forms} set={(type, val) => changeForms(type, val)} />
-        <SocialSettingsFormView
-          id="social"
-          className="mt-14"
-          binds={info?.binds}
-          values={forms}
-          onFieldChange={changeForms}
-        />
-        <Setting />
+        </FormSectionWidget>
+        <FormSectionWidget className="mt-14" type="skill">
+          <SkillSection formsError={formsError} forms={forms} set={(type, val) => changeForms(type, val)} />
+        </FormSectionWidget>
+        <FormSectionWidget className="mt-14" type="social">
+          <SocialSection
+            className="mt-6"
+            binds={info?.binds}
+            values={forms}
+            onFieldChange={changeForms}
+          />
+        </FormSectionWidget>
+        <FormSectionWidget className="mt-14 mb-9" type="setting">
+          <SettingsSection className="mt-6" />
+        </FormSectionWidget>
       </div>
       {showSave && (
         <div className="fixed bottom-0 left-0 flex h-[100px] w-full items-center justify-center bg-white">

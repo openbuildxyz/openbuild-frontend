@@ -21,7 +21,7 @@ import { useMemo } from 'react';
 // import { useSearchParams } from 'next/navigation'
 import Switch from '@/components/Switch';
 
-import { ProfileTitle, ProfileLabel } from '#/domain/profile/widgets/blocks';
+import { ProfileLabel } from '#/domain/profile/widgets/blocks';
 
 import BindableField from './BindableField';
 // import StackoverflowIcon from 'public/images/svg/stackoverflow.svg'
@@ -30,7 +30,7 @@ import GoogleIcon from './google_p.svg';
 import InputField from './InputField';
 import WalletIcon from './wallet.svg';
 
-function SocialSettingsFormView({ id, className, binds, values, onFieldChange }) {
+function SocialSection({ className, binds, values, onFieldChange }) {
   // const searchParams = useSearchParams()
 
   const list = useMemo(() => {
@@ -85,25 +85,22 @@ function SocialSettingsFormView({ id, className, binds, values, onFieldChange })
   }, [binds, values]);
 
   return (
-    <div id={id} className={className}>
-      <ProfileTitle>Social Profiles</ProfileTitle>
-      <div className="mt-6">
-        {list.map(i => (
-          <div key={`profile-social-${i.name}`}>
-            <ProfileLabel className="flex items-center justify-between">
-              <span>{i.showName || i.name}</span>
-              {i.enableBy && <Switch checked={values[i.enableBy]} onChange={onFieldChange.bind(null, i.enableBy)} />}
-            </ProfileLabel>
-            {i.bindable ? (
-              <BindableField data={i} />
-            ) : (
-              <InputField data={i} onChange={value => i.field && onFieldChange(i.field, value)} />
-            )}
-          </div>
-        ))}
-      </div>
+    <div className={className}>
+      {list.map(i => (
+        <div key={`profile-social-${i.name}`}>
+          <ProfileLabel className="flex items-center justify-between">
+            <span>{i.showName || i.name}</span>
+            {i.enableBy && <Switch checked={values[i.enableBy]} onChange={onFieldChange.bind(null, i.enableBy)} />}
+          </ProfileLabel>
+          {i.bindable ? (
+            <BindableField data={i} />
+          ) : (
+            <InputField data={i} onChange={value => i.field && onFieldChange(i.field, value)} />
+          )}
+        </div>
+      ))}
     </div>
   );
 }
 
-export default SocialSettingsFormView;
+export default SocialSection;

@@ -17,6 +17,8 @@
 import clsx from 'clsx';
 import { useState, useEffect } from 'react';
 
+import { getNavs } from './helper';
+
 const navWrapperBaseClassName = 'sticky z-10';
 const navWrapperMobileClassName = 'top-[65px] right-0 left-0 -mx-4 mb-8 bg-gray-1000';
 const navWrapperDesktopClassName = 'md:top-[120px] md:h-[280px] md:w-[300px] md:m-0 md:bg-transparent 2xl:w-[350px]';
@@ -30,26 +32,9 @@ const navItemMobileClassName = 'overflow-hidden px-2 py-4 border-b-2 whitespace-
 const navItemDesktopClassName = 'md:float-none md:h-[56px] md:border-b-0 md:border-l-2 md:pl-[38px] md:pr-0 md:py-0 md:text-medium md:leading-[48px] md:text-left';
 const navItemActiveClassName = '!border-gray font-bold !text-gray';
 
-const menus = [
-  {
-    name: 'About Me',
-    linkId: 'about',
-  },
-  {
-    name: 'My Skill',
-    linkId: 'skill',
-  },
-  {
-    name: 'Social Profiles',
-    linkId: 'social',
-  },
-  {
-    name: 'Setting',
-    linkId: 'setting',
-  },
-];
-export function ProfileNav() {
+function SectionNavs() {
   const [active, setActive] = useState(0);
+
   useEffect(() => {
     window.addEventListener('scroll', () => {
       const scrollTop =
@@ -71,15 +56,16 @@ export function ProfileNav() {
       }
     });
   });
+
   return (
     <div className={clsx(navWrapperBaseClassName, navWrapperMobileClassName, navWrapperDesktopClassName)}>
       <ul className={clsx(navListBaseClassName, navListMobileClassName, navListDesktopClassName)}>
-        {menus.map((i, k) => (
+        {getNavs().map((i, k) => (
           <li
             onClick={() => {
               window.scrollTo({
                 left: 0,
-                top: document.getElementById(i.linkId)?.offsetTop - 150,
+                top: document.getElementById(i.linkId)!.offsetTop - 150,
                 behavior: 'smooth',
               });
             }}
@@ -95,3 +81,5 @@ export function ProfileNav() {
     </div>
   );
 }
+
+export default SectionNavs;

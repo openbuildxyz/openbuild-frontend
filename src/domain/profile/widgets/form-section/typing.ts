@@ -14,20 +14,13 @@
  * limitations under the License.
  */
 
-'use client';
+import type { PropsWithChildren } from 'react';
 
-import clsx from 'clsx';
+type SectionType = 'about' | 'skill' | 'social' | 'setting';
 
-export const ProfileLabel = ({ className, children, ...props }) => {
-  return (
-    <p
-      className={clsx('text-[14px] leading-none mb-2', className)}
-      {...props}
-    >
-      {children}
-    </p>
-  );
-};
+type FormSectionWidgetProps = PropsWithChildren<{
+  className?: string;
+  type: SectionType;
+}>;
 
-export const baseInputStyles =
-  'block w-full rounded border border-gray-600 bg-transparent px-3 py-3 text-sm text-gray placeholder:text-gray-500';
+export type { SectionType, FormSectionWidgetProps };

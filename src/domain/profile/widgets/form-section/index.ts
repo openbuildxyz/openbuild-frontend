@@ -14,20 +14,5 @@
  * limitations under the License.
  */
 
-'use client';
-
-import clsx from 'clsx';
-
-export const ProfileLabel = ({ className, children, ...props }) => {
-  return (
-    <p
-      className={clsx('text-[14px] leading-none mb-2', className)}
-      {...props}
-    >
-      {children}
-    </p>
-  );
-};
-
-export const baseInputStyles =
-  'block w-full rounded border border-gray-600 bg-transparent px-3 py-3 text-sm text-gray placeholder:text-gray-500';
+export { default as SectionNavs } from './SectionNavs';
+export { default } from './FormSection';
