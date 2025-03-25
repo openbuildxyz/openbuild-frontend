@@ -17,19 +17,9 @@
 import { isBoolean, isFunction, isPlainObject } from 'lodash';
 import { stringify } from 'qs';
 
+import type { DataValue, ResponseResult } from '../types';
+
 import { isLogicalSuccess, request } from './request';
-
-// copied from https://github.com/future-js/handie/blob/master/packages/runtime-core/src/vendors/organik/core/typing/value.ts#L1
-type DataValue = any; // eslint-disable-line @typescript-eslint/no-explicit-any
-
-// modified from https://github.com/future-js/handie/blob/master/packages/runtime-core/src/vendors/organik/core/typing/http.ts#L16-L20
-type ResponseResult<VT extends DataValue = DataValue> = {
-  success: boolean;
-  code: number;
-  data: VT;
-  message?: string;
-  extra?: Record<string, DataValue>;
-};
 
 type RequestConfig = {
   params?: Record<string, DataValue>;
