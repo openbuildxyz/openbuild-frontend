@@ -25,7 +25,7 @@ import { EXPERIENCE_OPTIONS } from '#/lib/user';
 import { denyBuilder } from '#/services/creator';
 import { useConfig, useMediaUrl } from '#/state/application/hooks';
 
-function AppliedBuilderListView({data,onApprove}) {
+function AppliedBuilderListView({ data, bounty, onApprove }) {
   const mediaUrl = useMediaUrl();
   const config = useConfig();
   const allOpts = config?.find(f => f.config_id === 3)?.config_value;

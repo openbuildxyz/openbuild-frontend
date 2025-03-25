@@ -41,6 +41,5 @@ export function BountiesDetail({ data }) {
         </span>
       </div>
     </div>
-
   );
 }

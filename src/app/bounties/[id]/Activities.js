@@ -23,7 +23,7 @@ import { fetchActivityList } from '#/domain/bounty/repository';
 import BountyActivityListViewWidget from '#/domain/bounty/views/bounty-activity-list';
 
 export function Activities({ id }) {
-  const { data } = useUpToDate(id, fetchActivityList, { suspense: true });
+  const { data } = useUpToDate(fetchActivityList, id, { suspense: true });
 
   return (
     <div>

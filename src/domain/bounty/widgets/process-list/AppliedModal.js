@@ -18,7 +18,6 @@ import { writeContract } from '@wagmi/core';
 import clsx from 'clsx';
 import { useState, useCallback } from 'react';
 import { toast } from 'react-toastify';
-import useSWR from 'swr';
 import { useAccount } from 'wagmi'; // useNetwork
 
 import { Modal } from '@/components/Modal';
@@ -28,16 +27,17 @@ import { BountyABI } from '@/constants/abis/bounty';
 import { BOUNTY_SUPPORTED_CHAIN } from '@/constants/chain';
 import { contracts, payTokens } from '@/constants/contract';
 import { useAllowance, useApprove } from '@/hooks/useERC20';
-import { fetcher } from '@/utils/request';
+import useUpToDate from '@/hooks/useUpToDate';
 import { parseTokenUnits } from '@/utils/web3';
 
 import { approveBuilder } from '#/services/creator';
 
 import { useBountyEnvCheck } from '../../hooks';
+import { fetchBuilderList } from '../../repository';
 import AppliedBuilderListView from '../../views/applied-builder-list';
 
 function AppliedModal({ open, closeModal, bounty, revalidatePathAction }) {
-  const { data, isLoading, mutate } = useSWR(`ts/v1/build/creator/bounties/${bounty.id}/builders?skip=${0}&take=${25}`, fetcher);
+  const { data, isLoading, mutate } = useUpToDate(fetchBuilderList, [bounty.id, { skip: 0, take: 25 }]);
   const { address } = useAccount();
   // const { chain } = useNetwork()
   const wrapBountyEnvCheck = useBountyEnvCheck();
@@ -106,7 +106,6 @@ function AppliedModal({ open, closeModal, bounty, revalidatePathAction }) {
         }
       }
       setApproveConfirmLoading(false);
-
     } catch (err) {
       console.log(err);
       setApproveConfirmLoading(false);
@@ -142,10 +141,10 @@ function AppliedModal({ open, closeModal, bounty, revalidatePathAction }) {
 
   return (
     <Modal
+      title="Builder applied"
       isOpen={open}
-      title={'Builder applied'}
       closeModal={closeModal}
-      big={true}
+      big
     >
       <div className="w-full bg-white">
         <ul
@@ -160,6 +159,7 @@ function AppliedModal({ open, closeModal, bounty, revalidatePathAction }) {
       <div className="max-h-[400px] overflow-auto">
         <AppliedBuilderListView
           data={data}
+          bounty={bounty}
           onApprove={onApprove}
         />
         {isLoading && (
@@ -173,7 +173,6 @@ function AppliedModal({ open, closeModal, bounty, revalidatePathAction }) {
           </div>
         )}
       </div>
-
       <Confirm
         loading={approveConfirmLoading}
         confirmEvt={approveConfirm}

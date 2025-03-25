@@ -46,7 +46,6 @@ export function ApplyModal({ open, closeModal, id }) {
       <Button
         loading={applying}
         disabled={!checked || comment === ''}
-
         fullWidth
         onClick={async () => {
           setApplying(true);

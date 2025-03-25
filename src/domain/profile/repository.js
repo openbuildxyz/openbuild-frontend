@@ -80,6 +80,10 @@ async function fetchFollowedList(params = {}) {
   return httpClient.get(`/user/${handle}/following`, { params: resolvePaginationParams(others) });
 }
 
+async function fetchFollowedStatus(uid) {
+  return httpClient.get(`/user/follow/${uid}`);
+}
+
 async function followUser(uid) {
   return httpClient.post(`/user/follow/${uid}`);
 }
@@ -105,7 +109,7 @@ async function updateBlockContent(data) {
 
 export {
   fetchUser, updateUser,
-  fetchFollowerList, fetchFollowedList, followUser, unfollowUser,
+  fetchFollowerList, fetchFollowedList, fetchFollowedStatus, followUser, unfollowUser,
   updateBanner,
   fetchBlockContent, updateBlockContent,
 };

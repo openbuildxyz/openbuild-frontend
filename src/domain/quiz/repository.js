@@ -17,8 +17,16 @@
 import { merge } from '@/utils';
 import httpClient from '@/utils/http';
 
+async function fetchList(params) {
+  return httpClient.get('/quiz', { params });
+}
+
 async function fetchOne(id) {
   return httpClient.get(`/quiz/${id}/index`);
+}
+
+async function fetchOneWithQuestionList(id) {
+  return httpClient.get(`/quiz/${id}/info`);
 }
 
 async function fetchPublishedQuizList(params = {}) {
@@ -61,7 +69,7 @@ async function fetchRankList({ quizId }){
 }
 
 export {
-  fetchOne,
+  fetchList, fetchOne, fetchOneWithQuestionList,
   fetchTeamList,
   fetchRankList, fetchAnsweredRecordList, fetchAnsweredResult,
   updateRespondentContacts,

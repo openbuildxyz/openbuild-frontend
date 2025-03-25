@@ -20,15 +20,21 @@ import type { DataValue, ResponseResult } from '../types';
 import type { SWRConfiguration } from 'swr';
 
 function useUpToDate(
-  params: DataValue,
   request: (...args: DataValue[]) => Promise<ResponseResult>,
+  params: DataValue,
   config?: SWRConfiguration,
 ) {
-  const requestId = `${request.name}${JSON.stringify(params)}`;
-  // const requestId = request.name;
+  let resolvedParams: DataValue[] = [];
+  let requestId = null;
+
+  if (params != null) {
+    resolvedParams = [].concat(params);
+    requestId = `${request.name}(${resolvedParams.map(p => JSON.stringify(p)).join(', ')})`;
+  }
+
   console.log('requestId', requestId);
 
-  return useSWR(requestId, () => request(...[].concat(params)).then(res => res.data), config);
+  return useSWR(requestId, () => request(...resolvedParams).then(res => res.data), config);
 }
 
 export default useUpToDate;

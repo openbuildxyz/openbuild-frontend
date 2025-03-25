@@ -49,6 +49,7 @@ const statusList = [
     isMatched: status => status > 6 && status < 24,
   },
 ];
+
 export default async function Page({ params, searchParams }) {
   const { data } = await fetchOne(params.id);
   const statusObject = statusList.find(({isMatched}) =>  isMatched(data?.status));
