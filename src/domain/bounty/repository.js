@@ -47,6 +47,11 @@ async function applyOne(id, data) {
   return httpClient.post(`/build/general/bounties/${id}/builders`, data);
 }
 
+async function fetchActivityList(id) {
+  console.log('fetchActivityList', id);
+  return httpClient.get(`/build/general/bounties/${id}/events/activities`);
+}
+
 async function fetchPublishedBountyList(params = {}) {
   const { userId, ...others } = params;
 
@@ -63,5 +68,6 @@ async function fetchAppliedBountyList(params = {}) {
 
 export {
   fetchList, fetchOne, applyOne,
+  fetchActivityList,
   fetchPublishedBountyList, fetchAppliedBountyList,
 };
