@@ -15,57 +15,32 @@
  */
 
 import clsx from 'clsx';
-import { useRef, useState } from 'react';
-import { toast } from 'react-toastify';
+import { useState } from 'react';
 
-import { upload } from '#/services/common';
-
+import FileUploadWidget from '../../../oss/widgets/file-upload';
 import { updateBanner } from '../../repository';
 
 function ImageUpload({ onSuccess }) {
-  const uploadRef = useRef(null);
   const [loading, setLoading] = useState(false);
 
-  const handleImageFileChange = event => {
-    const files = event.target.files;
-    if (files && files[0]) {
-      const file = files[0];
-      if (file.size > 1024 * 1024 * 20) {
-        toast.error('The file is too large');
-        event.target.value = '';
-        return;
-      }
-      const formData = new FormData();
-      formData.append('file', files[0], files[0].name);
-      formData.append('intent', 'avatar');
-      setLoading(true);
-      upload({ file: formData })
-        .then(async res => {
-          await updateBanner(res.data.user_upload_path);
-          setLoading(false);
-          onSuccess();
-        })
-        .catch(() => {
-          toast.error('Upload error');
-          setLoading(false);
-        });
-    }
+  const handleImageFileChange = async url => {
+    await updateBanner(url);
+    onSuccess();
   };
 
   return (
     <button className="absolute top-3 right-3 md:top-4 md:right-[60px]">
-      <label htmlFor="upload-cover" className="flex items-center text-white gap-2 bg-[rgba(26,26,26,0.6)] hover:bg-[rgba(26,26,26,0.8)] rounded px-3 py-2 cursor-pointer">
+      <FileUploadWidget
+        className="flex items-center text-white gap-2 bg-[rgba(26,26,26,0.6)] hover:bg-[rgba(26,26,26,0.8)] rounded px-3 py-2 cursor-pointer"
+        intent="avatar"
+        type="image"
+        size="20MB"
+        onUploading={setLoading}
+        onChange={handleImageFileChange}
+      >
         <img className={clsx({'animate-spin': loading})} src={'/images/svg/refetch.svg'} alt="" />
         Change cover
-      </label>
-      <input
-        className="hidden"
-        ref={uploadRef}
-        onChange={handleImageFileChange}
-        accept="image/png, image/gif, image/jpeg, image/jpg,"
-        id="upload-cover"
-        type="file"
-      />
+      </FileUploadWidget>
     </button>
   );
 }

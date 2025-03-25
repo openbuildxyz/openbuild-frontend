@@ -16,8 +16,7 @@
 
 import clsx from 'clsx';
 import Image from 'next/image';
-import { useRef, useState } from 'react';
-import { toast } from 'react-toastify';
+import { useState } from 'react';
 
 import CountrySelect from '@/components/control/country-select';
 import Loader from '@/components/Loader';
@@ -25,10 +24,7 @@ import Switch from '@/components/Switch';
 import { BASE_INPUT_STYLE } from '@/constants/config';
 import { classNames } from '@/utils';
 
-import { upload } from '#/services/common';
-
-import type { ChangeEvent } from 'react';
-
+import FileUploadWidget from '../../../oss/widgets/file-upload';
 import { ProfileLabel } from '../../widgets/blocks';
 
 type BasicSectionProps = {
@@ -46,35 +42,8 @@ function BasicSection({
   onFieldChange,
   onUpload,
 }: BasicSectionProps) {
-  const uploadRef = useRef<HTMLInputElement>(null);
   const [uploading, setUploading] = useState(false);
   const [userAvatarLoaded, setUserAvatarLoaded] = useState(false);
-
-  const handleImageFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const files = event.target.files;
-    if (files && files[0]) {
-      const file = files[0];
-      if (file.size > 1024 * 1024 * 2) {
-        toast.error('The file is too large');
-        event.target.value = '';
-        return;
-      }
-      setUploading(true);
-      const formData = new FormData();
-      formData.append('file', files[0], files[0].name);
-      formData.append('intent', 'avatar');
-      upload({ file: formData })
-        .then(res => {
-          setUploading(false);
-          onUpload(res.data.user_upload_path);
-          uploadRef.current!.value = '';
-        })
-        .catch(() => {
-          toast.error('Upload error');
-          setUploading(false);
-        });
-    }
-  };
 
   return (
     <div className={className}>
@@ -95,21 +64,19 @@ function BasicSection({
             setTimeout(() => setUserAvatarLoaded(true), 1000);
           }}
         />
-
-        <input
-          className="hidden"
-          ref={uploadRef}
-          onChange={handleImageFileChange}
-          accept="image/png, image/gif, image/jpeg, image/jpg,"
-          id="upload-cover"
-          type="file"
-        />
         <div>
           <button className="mb-2 block h-9 w-[100px] rounded-full bg-gray-1200 text-sm hover:bg-[#e0e0e0]">
-            <label htmlFor="upload-cover" className="flex items-center justify-center">
+            <FileUploadWidget
+              className="flex items-center justify-center"
+              intent="avatar"
+              type="image"
+              size="2MB"
+              onUploading={setUploading}
+              onChange={onUpload}
+            >
               {uploading && <Loader color={'#1a1a1a'} classname="mr-1" />}
               <span className="cursor-pointer">Upload</span>
-            </label>
+            </FileUploadWidget>
           </button>
           <span className="text-xs opacity-60">
             Support PNG, JPG, or GIF, recommended size 400x400px, size within 2M

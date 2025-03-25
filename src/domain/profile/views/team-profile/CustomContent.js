@@ -19,22 +19,14 @@ import { useState } from 'react';
 
 import BlockEditor, { setUploadHandler, getInitialBlockData, isBlockDataValid } from '@/components/control/block-editor';
 
-import { upload } from '#/services/common';
+import { upload } from '../../../oss/repository';
 
 setUploadHandler(async file => {
-  const formData = new FormData();
-
-  formData.append('file', file, file.name);
-  formData.append('intent', 'devplaza');
-
-  const { code, data, message } = await upload({ file: formData });
+  const { data, ...others } = await upload(file, 'devplaza');
 
   return {
-    success: code === 200,
-    data: data?.user_upload_path ? `https://file-cdn.openbuild.xyz${data.user_upload_path}` : '',
-    code,
-    message,
-    extra: {},
+    ...others,
+    data: data ? `https://file-cdn.openbuild.xyz${data}` : '',
   };
 });
 
