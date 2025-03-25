@@ -71,6 +71,7 @@ function BasicSection({
               intent="avatar"
               type="image"
               size="2MB"
+              flag="profileAvatar"
               onUploading={setUploading}
               onChange={onUpload}
             >
