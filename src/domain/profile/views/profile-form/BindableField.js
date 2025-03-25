@@ -25,9 +25,9 @@ import { Confirm } from '@/components/Modal/Confirm';
 import { BASE_INPUT_STYLE } from '@/constants/config';
 import { shorten } from '@/utils';
 
-import { authWithGoogle, authWithGithub } from '#/domain/auth/helper';
-import { useBindWallet } from '#/domain/auth/hooks';
-import { unbindWallet } from '#/domain/auth/repository';
+import { authWithGoogle, authWithGithub } from '../../../auth/helper';
+import { useBindWallet } from '../../../auth/hooks';
+import { unbindWallet } from '../../../auth/repository';
 
 function BindableField({ data }) {
   const [confirmModalVisible, setConfirmModalVisible] = useState(false);

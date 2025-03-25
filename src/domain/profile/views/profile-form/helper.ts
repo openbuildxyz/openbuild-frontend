@@ -39,7 +39,7 @@ function getDefaultFormValue(): Record<string, any> {
   };
 }
 
-function resolveFormValueFromUser(user: Record<string, any>, cdnBaseUrl: string): Record<string, any> {
+function resolveFormValueFromUser(user: Record<string, any>, cdnBaseUrl?: string): Record<string, any> {
   const email = user.binds.find((f: { auth_user_bind_type: string }) => f.auth_user_bind_type === 'email');
 
   return {

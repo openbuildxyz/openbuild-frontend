@@ -21,8 +21,7 @@ import { useMemo } from 'react';
 // import { useSearchParams } from 'next/navigation'
 import Switch from '@/components/Switch';
 
-import { ProfileLabel } from '#/domain/profile/widgets/blocks';
-
+import { ProfileLabel } from '../../widgets/blocks';
 import BindableField from './BindableField';
 // import StackoverflowIcon from 'public/images/svg/stackoverflow.svg'
 import DiscordIcon from './discord.svg';
