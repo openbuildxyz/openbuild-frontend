@@ -19,16 +19,15 @@ import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { toast } from 'react-toastify';
-import useSWR from 'swr';
 
 import { Button } from '@/components/Button';
 import { RepositioningIcon } from '@/components/Icons';
 import { SvgIcon } from '@/components/Image';
-import { post, fetcher } from '@/utils/request';
+import useUpToDate from '@/hooks/useUpToDate';
 
 import { useUser } from '#/state/application/hooks';
 
+import { fetchFollowedStatus, followUser, unfollowUser } from '../../repository';
 import SocialInfoWidget from '../social-info';
 import IdentitySwitch from './IdentitySwitch';
 import ProfileAvatar from './ProfileAvatar';
@@ -44,7 +43,7 @@ function ProfileCardWidget({ className, data }) {
   const pathname = usePathname();
   const user = useUser();
   const { status } = useSession();
-  const { data: followData, mutate } = useSWR(data ? `ts/v1/user/follow/${data?.base.user_id}` : null, fetcher);
+  const { data: followData, mutate } = useUpToDate(fetchFollowedStatus, data?.base.user_id);
   const [followLoading, setFollowLoading] = useState(false);
 
   const uid = data?.base.user_id;
@@ -56,12 +55,10 @@ function ProfileCardWidget({ className, data }) {
       router.push(`/signin?from=${pathname}`);
     } else {
       setFollowLoading(true);
-      const res = await post(`ts/v1/user/follow/${uid}`);
+      const res = await followUser(uid);
       setFollowLoading(false);
-      if (res.code === 200) {
+      if (res.success) {
         mutate(res.data);
-      } else {
-        toast.error(res.message);
       }
     }
   };
@@ -71,12 +68,10 @@ function ProfileCardWidget({ className, data }) {
       router.push(`/signin?from=${pathname}`);
     } else {
       setFollowLoading(true);
-      const res = await post(`ts/v1/user/follow/${uid}/del`);
+      const res = await unfollowUser(uid);
       setFollowLoading(false);
-      if (res.code === 200) {
+      if (res.success) {
         mutate(res.data);
-      } else {
-        toast.error(res.message);
       }
     }
   };

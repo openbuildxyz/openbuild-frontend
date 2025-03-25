@@ -114,24 +114,3 @@ export function useBountyEvents(id) {
   }, [fetch]);
   return { list, loading };
 }
-
-export function useBountyActivities(id) {
-  // console.log(id)
-  const [list, setList] = useState();
-  const [loading, setLoading] = useState(true);
-  const fetch = useCallback(async () => {
-    if (id) {
-      setLoading(true);
-      get(`ts/v1/build/general/bounties/${id}/events/activities`).then(result => {
-        // console.log(result)
-        setList(result.data.list);
-        setLoading(false);
-      });
-    }
-  }, [id]);
-
-  useEffect(() => {
-    fetch();
-  }, [fetch]);
-  return { list, loading };
-}

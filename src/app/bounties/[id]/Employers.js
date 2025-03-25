@@ -130,7 +130,6 @@ export function Employers({ id, list, data, mobile }) {
           <p className="text-sm opacity-80">{data?.employer_user?.user_bio}</p>
         </div>
       </div>
-
       <div>
         <div className="mt-6 relative">
           <Image src={DepositBg} alt="" className="absolute left-0 top-0 z-0" />
@@ -141,7 +140,6 @@ export function Employers({ id, list, data, mobile }) {
           </div>
         </div>
       </div>
-
       <div
         className={clsx('mt-4 grid gap-4', {
           'grid-cols-2':
@@ -188,7 +186,6 @@ export function Employers({ id, list, data, mobile }) {
         )}
       </div>
       <hr className="border-gray-400 my-6" />
-
       {data?.builders && data?.builders.length > 0 && (
         <div>
           <h6>Who are building</h6>
@@ -211,8 +208,6 @@ export function Employers({ id, list, data, mobile }) {
           <hr className="border-gray-400 my-6" />
         </div>
       )}
-
-
       <div>
         <div className="flex justify-between items-center">
           <h6>Bounty Process</h6>
@@ -226,7 +221,6 @@ export function Employers({ id, list, data, mobile }) {
 
         <ProcessListView process={process} data={data} revalidatePathAction={revalidatePathAction} />
       </div>
-
       <ApplyModal id={id} open={openModal} closeModal={handleApplyDialogClose} />
       <CompleteProfileDialogWidget notBindWallet={notBindWallet} notComplete={notComplete} open={needOpen} close={() => setNeedOpen(false)} title="Before applying, you need to:" />
     </div>

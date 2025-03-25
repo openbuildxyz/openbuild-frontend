@@ -16,15 +16,14 @@
 
 'use client';
 
-import useSWR from 'swr';
-
 import { NoData } from '@/components/NoData';
-import { fetcher } from '@/utils/request';
+import useUpToDate from '@/hooks/useUpToDate';
 
+import { fetchActivityList } from '#/domain/bounty/repository';
 import BountyActivityListViewWidget from '#/domain/bounty/views/bounty-activity-list';
 
 export function Activities({ id }) {
-  const { data } = useSWR(`ts/v1/build/general/bounties/${id}/events/activities`, fetcher, {suspense: true});
+  const { data } = useUpToDate(fetchActivityList, id, { suspense: true });
 
   return (
     <div>

@@ -18,14 +18,14 @@ import { PAGE_SIZE } from '@/constants/config';
 import { isInteger, merge } from '@/utils';
 import httpClient from '@/utils/http';
 
-function resolveSkipped(page) {
+function resolveSkipped(page, size = PAGE_SIZE) {
   let resolved = Number(page);
 
   if (!isInteger(resolved) || resolved < 1) {
     resolved = 1;
   }
 
-  return (resolved - 1) * PAGE_SIZE;
+  return (resolved - 1) * size;
 }
 
 async function fetchList(params = {}) {
@@ -47,6 +47,14 @@ async function applyOne(id, data) {
   return httpClient.post(`/build/general/bounties/${id}/builders`, data);
 }
 
+async function fetchActivityList(id) {
+  return httpClient.get(`/build/general/bounties/${id}/events/activities`);
+}
+
+async function fetchBuilderList(id, params) {
+  return httpClient.get(`/build/creator/bounties/${id}/builders`, { params });
+}
+
 async function fetchPublishedBountyList(params = {}) {
   const { userId, ...others } = params;
 
@@ -63,5 +71,6 @@ async function fetchAppliedBountyList(params = {}) {
 
 export {
   fetchList, fetchOne, applyOne,
+  fetchActivityList, fetchBuilderList,
   fetchPublishedBountyList, fetchAppliedBountyList,
 };

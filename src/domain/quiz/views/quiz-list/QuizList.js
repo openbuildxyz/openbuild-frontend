@@ -16,7 +16,6 @@
 
 import { useSearchParams, useRouter } from 'next/navigation';
 import { useState } from 'react';
-import useSWR from 'swr';
 import { useDebouncedCallback } from 'use-debounce';
 
 import { SearchIcon } from '@/components/Icons';
@@ -24,9 +23,9 @@ import Input from '@/components/Input';
 import { OPagination } from '@/components/Pagination';
 import { ReactSelect } from '@/components/Select/ReactSelect';
 import useMounted from '@/hooks/useMounted';
-import { fetcher } from '@/utils/request';
+import useUpToDate from '@/hooks/useUpToDate';
 
-import { fetchTeamList } from '../../repository';
+import { fetchList, fetchTeamList } from '../../repository';
 import QuizItem from './QuizItem';
 
 const pageSize = 10;
@@ -40,9 +39,9 @@ export default function QuizListView() {
   const [pageOffset, setPageOffset] = useState(0);
   const [selectedTeam, setSelectedTeam] = useState(null);
   const [teamOptions, setTeamOptions] = useState([]);
-  const { data, isLoading } = useSWR(
-    `ts/v1/quiz?skip=${pageOffset}&take=${pageSize}&search=${query}&team_uid=${teamUid}`,
-    fetcher,
+  const { data, isLoading } = useUpToDate(
+    fetchList,
+    { skip: pageOffset, take: pageSize, search: query, team_uid: teamUid },
   );
 
   const updateUrlParams = (search, teamUid) => {
