@@ -25,12 +25,11 @@ import { contracts, payTokens } from '@/constants/contract';
 import { currentTime } from '@/utils/date';
 import { parseTokenUnits, signBounty } from '@/utils/web3';
 
-import { useBountyEnvCheck } from '#/domain/bounty/hooks';
 import { biulderFinish } from '#/services/bounties';
 
-import { revalidatePathAction } from '../../actions';
+import { useBountyEnvCheck } from '../../hooks';
 
-export function ApplyFinishedModal({ open, close, bounty }) {
+function ApplyFinishedModal({ open, close, bounty, revalidatePathAction }) {
   const _contracts = contracts[BOUNTY_SUPPORTED_CHAIN()];
   const payToken = payTokens[BOUNTY_SUPPORTED_CHAIN()].usdt;
   const wrapBountyEnvCheck = useBountyEnvCheck();
@@ -84,3 +83,4 @@ export function ApplyFinishedModal({ open, close, bounty }) {
     </Modal>
   );
 }
+export default  ApplyFinishedModal;

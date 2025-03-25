@@ -22,18 +22,14 @@ import { Button } from '@/components/Button';
 import { Modal } from '@/components/Modal';
 import { withdraw } from '@/constants/bounty';
 
-import { useBountyEnvCheck } from '#/domain/bounty/hooks';
-// import { writeContract } from '@wagmi/core';
 import {
-  // termination,
   finishConfirm,
   finishDeny,
-  // arbitrate,
 } from '#/services/bounties';
 
-import { revalidatePathAction } from '../../actions';
+import { useBountyEnvCheck } from '../../hooks';
 
-export function AgreeFinishedModal({open, close, bounty}) {
+function AgreeFinishedModal({open, close, bounty, revalidatePathAction}) {
   const [loading, setLoading] = useState(false);
   const [disagreeLoading, setDisagreeLoading] = useState(false);
   const { chain } = useNetwork();
@@ -100,3 +96,4 @@ export function AgreeFinishedModal({open, close, bounty}) {
     </Modal>
   );
 }
+export  default  AgreeFinishedModal;

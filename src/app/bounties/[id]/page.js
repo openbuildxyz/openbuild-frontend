@@ -27,8 +27,31 @@ import { BountiesDetail } from './BountiesDetail';
 import { Employers } from './Employers';
 import { BountiesHeader } from './Header';
 
+const statusList = [
+  {
+    label: 'Recruiting',
+    bgColor: 'bg-black',
+    isMatched: status => status === 3,
+  },
+  {
+    label: 'Completed',
+    bgColor: 'bg-gray-100',
+    isMatched: status => status === 30,
+  },
+  {
+    label: 'Termination',
+    bgColor: 'bg-black',
+    isMatched: status => status === 20 || status === 24,
+  },
+  {
+    label: 'Building',
+    bgColor: 'bg-[#60CA98]',
+    isMatched: status => status > 6 && status < 24,
+  },
+];
 export default async function Page({ params, searchParams }) {
   const { data } = await fetchOne(params.id);
+  const statusObject = statusList.find(({isMatched}) =>  isMatched(data?.status));
 
   return (
     <>
@@ -39,21 +62,16 @@ export default async function Page({ params, searchParams }) {
           <div className="w-full max-w-[1024px]">
             <BountiesHeader data={data} employers={{ id: params.id, data, list: data?.builders }} />
             <div className="flex items-center justify-between">
-              {data?.status === 3 && <span className="mr-2 rounded-md bg-black p-1 text-xs text-white">Recruiting</span>}
-              {data?.status > 6 && data?.status < 24 && (
-                <span className="mr-2 rounded-md bg-[#60CA98] p-1 text-xs text-white">Building</span>
-              )}
-              {data?.status === 30 && (
-                <span className="mr-2 rounded-md bg-gray-100 p-1 text-xs text-white">Completed</span>
-              )}
-              {(data?.status === 24 || data?.status === 20) && (
-                <span className="mr-2 rounded-md bg-black p-1 text-xs text-white">Termination</span>
+              {statusObject && (
+                <span className={`mr-2 rounded-md ${statusObject.bgColor} p-1 text-xs text-white`}>{statusObject.label}</span>
               )}
               <div className="flex items-center text-sm text-gray-50">
                 {data?.created_at && (
                   <p>
                     {fromNow(data?.created_at * 1000)} by{' '}
-                    <a className="underline" href={`/u/${data?.employer_user?.user_handle}`}>{data?.employer_user?.user_nick_name}</a>
+                    <a className="underline" href={`/u/${data?.employer_user?.user_handle}`}>
+                      {data?.employer_user?.user_nick_name}
+                    </a>
                   </p>
                 )}
               </div>
