@@ -15,8 +15,7 @@
  */
 
 import clsx from 'clsx';
-import { useState, useMemo, useRef } from 'react';
-import { toast } from 'react-toastify';
+import { useState, useMemo } from 'react';
 
 import { Button } from '@/components/Button';
 import { UploadIcon } from '@/components/Icons';
@@ -28,16 +27,15 @@ import { BASE_INPUT_STYLE } from '@/constants/config';
 import { classNames } from '@/utils';
 
 import { EXPERIENCE_OPTIONS } from '#/lib/user';
-import { upload } from '#/services/common';
 import { useConfig } from '#/state/application/hooks';
 
+import FileUploadWidget from '../../../oss/widgets/file-upload';
 import SkillSelect from '../../../skill/widgets/skill-select';
 import { ProfileTitle, ProfileLabel } from '../../widgets/blocks';
 
 export function MySkill({ forms, set, formsError }) {
   const [uploading, setUploading] = useState(false);
-  const [uploadFileSizeError, setUploadFileSizeError] = useState(false);
-  const uploadRef = useRef(null);
+  const [uploadFileSizeError] = useState(false);
   const config = useConfig();
   const mediaUrl = config?.find(f => f.config_id === 2)?.config_value.url;
   const allOpts = config?.find(f => f.config_id === 3)?.config_value;
@@ -48,34 +46,6 @@ export function MySkill({ forms, set, formsError }) {
       name: i.name,
     }));
   }, [allOpts]);
-
-  const handleFileChange = event => {
-    const files = event.target.files;
-    if (files && files[0]) {
-      const file = files[0];
-      setUploadFileSizeError(false);
-      if (file.size > 1024 * 1024 * 10) {
-        event.target.value = '';
-        setUploadFileSizeError(true);
-        return;
-      }
-      setUploading(true);
-      const formData = new FormData();
-      formData.append('file', files[0], files[0].name);
-      formData.append('intent', 'resume');
-      upload({ file: formData })
-        .then(res => {
-          setUploading(false);
-          set('resume', res.data.user_upload_path);
-          const current = uploadRef.current;
-          current.value = '';
-        })
-        .catch(() => {
-          toast.error('Upload error');
-          setUploading(false);
-        });
-    }
-  };
 
   return (
     <div id="skill" className="mt-14">
@@ -233,15 +203,15 @@ export function MySkill({ forms, set, formsError }) {
 
         <ProfileLabel className="mt-9 text-gray-50">Resume</ProfileLabel>
         <div className="group relative w-fit">
-          <input
-            className="hidden"
-            ref={uploadRef}
-            onChange={handleFileChange}
+          <FileUploadWidget
+            className="relative h-[158px] w-[320px]"
+            intent="resume"
             accept=".pdf"
-            id="upload-resume"
-            type="file"
-          />
-          <label htmlFor="upload-resume" className="relative h-[158px] w-[320px]">
+            size="10MB"
+            flag="profileResume"
+            onUploading={setUploading}
+            onChange={url => set('resume', url)}
+          >
             <div
               className={clsx(
                 'flex w-[320px] cursor-pointer items-center justify-between rounded border border-dashed  p-4 ',
@@ -315,7 +285,7 @@ export function MySkill({ forms, set, formsError }) {
                 </div>
               )}
             </div>
-          </label>
+          </FileUploadWidget>
           {forms.resume !== '' && (
             <div className="absolute top-0 left-0 hidden h-full w-full items-center justify-center rounded-2xl bg-gray-1100 group-hover:flex">
               <Button onClick={() => set('resume', '')} variant="contained">
@@ -340,7 +310,6 @@ export function MySkill({ forms, set, formsError }) {
               </Button>
             </div>
           )}
-          {uploadFileSizeError && <p className="mt-2 text-xs text-[#E43150]">The file is bigger than 2MB</p>}
         </div>
       </div>
     </div>

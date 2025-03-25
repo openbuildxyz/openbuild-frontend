@@ -29,6 +29,7 @@ type FileUploadProps = PropsWithChildren<{
   accept?: FileUploadAccept;
   size?: FileUploadSize;
   intent: UploadIntent;
+  flag?: string;
   onUploading?: (uploading: boolean) => void;
   onChange?: (url: string) => void;
 }>;

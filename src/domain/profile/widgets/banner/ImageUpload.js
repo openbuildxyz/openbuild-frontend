@@ -35,6 +35,7 @@ function ImageUpload({ onSuccess }) {
         intent="avatar"
         type="image"
         size="20MB"
+        flag="profileBanner"
         onUploading={setLoading}
         onChange={handleImageFileChange}
       >

@@ -17,7 +17,7 @@
 import { useRef } from 'react';
 import { toast } from 'react-toastify';
 
-import { noop } from '@/utils';
+import { noop, capitalize } from '@/utils';
 
 import type { FileUploadProps } from './typing';
 import type { ChangeEvent } from 'react';
@@ -32,10 +32,14 @@ function FileUpload({
   accept,
   size,
   intent,
+  flag,
   onUploading = noop,
   onChange = noop,
 }: FileUploadProps) {
   const uploadRef = useRef<HTMLInputElement>(null);
+
+  const id = 'fileUploadWidget';
+  const resolvedId = flag ? `${id}For${capitalize(flag.charAt(0))}${flag.slice(1)}` : id;
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
@@ -44,7 +48,7 @@ function FileUpload({
       const file = files[0];
 
       if (size && file.size > resolveFileSize(size)) {
-        toast.error('The file is too large');
+        toast.error(`The file's size is larger than ${size}`);
         event.target.value = '';
         return;
       }
@@ -62,12 +66,12 @@ function FileUpload({
 
   return (
     <>
-      <label htmlFor="fileUploadWidget" className={className}>
+      <label htmlFor={resolvedId} className={className}>
         {children}
       </label>
       <input
         ref={uploadRef}
-        id="fileUploadWidget"
+        id={resolvedId}
         className="hidden"
         type="file"
         accept={resolveFileAccept(accept, type)}
