@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import { useMemo } from 'react';
 import useSWR from 'swr';
 
 import type { DataValue, ResponseResult } from '../types';
@@ -24,17 +25,19 @@ function useUpToDate(
   params: DataValue,
   config?: SWRConfiguration,
 ) {
-  let resolvedParams: DataValue[] = [];
-  let requestId = null;
+  const memoized = useMemo(() => {
+    let resolvedParams: DataValue[] = [];
+    let requestId = null;
 
-  if (params != null) {
-    resolvedParams = [].concat(params);
-    requestId = `${request.name}(${resolvedParams.map(p => JSON.stringify(p)).join(', ')})`;
-  }
+    if (params != null) {
+      resolvedParams = [].concat(params);
+      requestId = `${request.name}(${resolvedParams.map(p => JSON.stringify(p)).join(', ')})`;
+    }
 
-  console.log('requestId', requestId);
+    return { resolvedParams, requestId };
+  }, [request, params]);
 
-  return useSWR(requestId, () => request(...resolvedParams).then(res => res.data), config);
+  return useSWR(memoized.requestId, () => request(...memoized.resolvedParams).then(res => res.data), config);
 }
 
 export default useUpToDate;
