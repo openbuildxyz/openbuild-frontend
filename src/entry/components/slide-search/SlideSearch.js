@@ -14,14 +14,13 @@
  * limitations under the License.
  */
 
-'use client';
-
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 
+import { ChevronUpIcon, XMarkIcon, ChevronLeftIcon } from '@/components/icon/solid';
 import { FilterIcon } from '@/components/Icons';
 import { createQueryString } from '@/utils';
 
@@ -29,9 +28,7 @@ import { useConfig, useMediaUrl, useOpenFilter } from '#/state/application/hooks
 import { updateOpenFilter } from '#/state/application/reducer';
 import { useAppDispatch } from '#/state/hooks';
 
-import { ChevronUpIcon, XMarkIcon, ChevronLeftIcon } from '../icon/solid';
-
-export function Filter({ type, children }) {
+function SlideSearch({ type, children }) {
   const config = useConfig();
   const openFilter = useOpenFilter();
   const dispatch = useAppDispatch();
@@ -147,3 +144,5 @@ export function Filter({ type, children }) {
     </div>
   );
 }
+
+export default SlideSearch;

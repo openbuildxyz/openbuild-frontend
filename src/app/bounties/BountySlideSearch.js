@@ -20,15 +20,42 @@ import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { useRouter, useSearchParams, usePathname } from 'next/navigation';
+import closedIcon from 'public/images/svg/closed.svg';
+import ongoingIcon from 'public/images/svg/ongoing.svg';
+import soonIcon from 'public/images/svg/soon.svg';
 import { useState } from 'react';
 
 import { ChevronUpIcon } from '@/components/icon/solid';
 import { createQueryString } from '@/utils';
 
 import SkillSelect from '#/domain/skill/widgets/skill-select';
-import { bountyFilterList } from '#/lib/bountyFilterList';
+import SlideSearch from '#/entry/components/slide-search';
 
-export function SkillsFilter() {
+const bountyFilterList = [
+  {
+    name: 'Status',
+    open: true,
+    labels: [
+      {
+        img: soonIcon,
+        name: 'Recruiting',
+        key: '3',
+      },
+      {
+        img: ongoingIcon,
+        name: 'Building',
+        key: '7',
+      },
+      {
+        img: closedIcon,
+        name: 'Completed',
+        key: '30',
+      },
+    ],
+  },
+];
+
+function SkillsFilter() {
   const searchParams = useSearchParams();
   const { replace } = useRouter();
   const pathname = usePathname();
@@ -88,7 +115,7 @@ export function SkillsFilter() {
   );
 }
 
-export function BountyFilter() {
+function BountyFilter() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
@@ -157,3 +184,13 @@ export function BountyFilter() {
     </div>
   );
 }
+
+function BountySlideSearch() {
+  return (
+    <SlideSearch type="bounty">
+      <BountyFilter />
+    </SlideSearch>
+  );
+}
+
+export default BountySlideSearch;

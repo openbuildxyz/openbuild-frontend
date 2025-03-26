@@ -14,12 +14,10 @@
  * limitations under the License.
  */
 
-import { Filter } from '@/components/Filter';
-
 import ListLayout from '#/entry/layouts/list';
 
+import BountySlideSearch from './BountySlideSearch';
 import { Container } from './Container';
-import { BountyFilter } from './Filter';
 import { ListSkeleton } from './ListSkeleton';
 
 export default function Page({ params, searchParams }) {
@@ -27,11 +25,7 @@ export default function Page({ params, searchParams }) {
     <ListLayout
       title="Bounties"
       description="Post and Discover Bounties with Payment Secured by OpenBuild Smart Contract."
-      filter={(
-        <Filter type="bounty">
-          <BountyFilter />
-        </Filter>
-      )}
+      filter={<BountySlideSearch />}
       skeleton={<ListSkeleton />}
     >
       <Container type={params.type} searchParams={searchParams} />

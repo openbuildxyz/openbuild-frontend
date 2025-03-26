@@ -14,10 +14,4 @@
  * limitations under the License.
  */
 
-export function ChainNetworkTips () {
-  return (
-    <div>
-      To use full functionality, please <span>switch networks</span>
-    </div>
-  );
-}
+export { default } from './SlideSearch';

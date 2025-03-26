@@ -21,11 +21,11 @@ import { fromNow } from '@/utils/date';
 
 import { fetchOne } from '#/domain/bounty/repository';
 
-import { ChainNetworkTips } from '../Tips';
 import { Activities } from './Activities';
 import { BountiesDetail } from './BountiesDetail';
 import { Employers } from './Employers';
 import { BountiesHeader } from './Header';
+import { ChainNetworkTips } from './Tips';
 
 const statusList = [
   {

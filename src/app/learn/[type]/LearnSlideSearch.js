@@ -19,14 +19,65 @@
 import clsx from 'clsx';
 import Image from 'next/image';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
+import closedIcon from 'public/images/svg/closed.svg';
+import depositIcon from 'public/images/svg/deposit.svg';
+import freeIcon from 'public/images/svg/free.svg';
+import ongoingIcon from 'public/images/svg/ongoing.svg';
+import paidIcon from 'public/images/svg/paid.svg';
+import soonIcon from 'public/images/svg/soon.svg';
 import { useState } from 'react';
 
 import { ChevronUpIcon, ChevronDownIcon } from '@/components/icon/solid';
 import { createQueryString } from '@/utils';
 
-import { challengesFilterList } from '#/lib/challengesFilterList';
+import SlideSearch from '#/entry/components/slide-search';
 
-export function ChallengesFilter() {
+const challengesFilterList = [
+  {
+    name: 'Fees',
+    open: true,
+    labels: [
+      {
+        img: freeIcon,
+        name: 'Free',
+        key: 'free',
+      },
+      {
+        img: paidIcon,
+        name: 'Paid',
+        key: 'paid',
+      },
+      {
+        img: depositIcon,
+        name: 'Deposit',
+        key: 'deposit',
+      },
+    ],
+  },
+  {
+    name: 'Status',
+    open: true,
+    labels: [
+      {
+        img: soonIcon,
+        name: 'Soon',
+        key: 'soon',
+      },
+      {
+        img: ongoingIcon,
+        name: 'Ongoing',
+        key: 'ongoing',
+      },
+      {
+        img: closedIcon,
+        name: 'Closed',
+        key: 'closed',
+      },
+    ],
+  },
+];
+
+function ChallengesFilter() {
   const [list, setList] = useState(challengesFilterList);
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -87,3 +138,13 @@ export function ChallengesFilter() {
     </div>
   );
 }
+
+function LearnSlideSearch({ type }) {
+  return (
+    <SlideSearch type={type === 'courses' ? 'open_course' : type}>
+      {type === 'challenges' && <ChallengesFilter />}
+    </SlideSearch>
+  );
+}
+
+export default LearnSlideSearch;

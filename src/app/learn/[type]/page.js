@@ -14,12 +14,10 @@
  * limitations under the License.
  */
 
-import { Filter } from '@/components/Filter';
-
 import ListLayout from '#/entry/layouts/list';
 
-import { ChallengesFilter } from '../ChallengesFilter';
 import { Container } from './Container';
+import LearnSlideSearch from './LearnSlideSearch';
 import { ListSkeleton } from './ListSkeleton';
 
 const titles = {
@@ -45,11 +43,7 @@ export default async function Page({ params, searchParams }) {
       title={titleData?.title}
       description={titleData?.desc}
       bodyClassName="relative max-md:overflow-x-hidden"
-      filter={(
-        <Filter type={params.type === 'courses' ? 'open_course' : params.type}>
-          {params.type === 'challenges' && <ChallengesFilter />}
-        </Filter>
-      )}
+      filter={<LearnSlideSearch type={params.type} />}
       skeleton={<ListSkeleton />}
     >
       <Container type={params.type} searchParams={searchParams} />
