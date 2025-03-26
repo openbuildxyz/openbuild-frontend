@@ -17,16 +17,9 @@
 import { isBoolean, isFunction, isPlainObject } from 'lodash';
 import { stringify } from 'qs';
 
-import type { DataValue, ResponseResult } from '../types';
+import type { DataValue, ResponseResult, RequestConfig, ResponseInterceptor } from '../types';
 
 import { isLogicalSuccess, request } from './request';
-
-type RequestConfig = {
-  params?: Record<string, DataValue>;
-  isServer?: boolean;
-};
-
-type ResponseInterceptor = (res: ResponseResult) => ResponseResult;
 
 interface IHttpClient {
   new (options: { baseUrl?: string }): {
