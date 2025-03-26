@@ -14,35 +14,14 @@
  * limitations under the License.
  */
 
-'use client';
-
 import clsx from 'clsx';
 
-import ChallengeListViewWidget from '#/domain/challenge/views/challenge-list';
-import CourseListViewWidget from '#/domain/course/views/course-list';
-import RoadmapListViewWidget from '#/domain/roadmap/views/roadmap-list';
 import { useOpenFilter } from '#/state/application/hooks';
 
-const viewMap = {
-  courses: {
-    widget: CourseListViewWidget,
-    className: 'mb-9 mt-6 gap-5 md:grid-cols-3',
-  },
-  challenges: {
-    widget: ChallengeListViewWidget,
-  },
-  career_path: {
-    widget: RoadmapListViewWidget,
-  },
-};
+import type { ListProxyProps } from './typing';
 
-export function List({ type, data }) {
+function ListProxy({ className, listCtor: List, ...rest }: ListProxyProps) {
   const openFilter = useOpenFilter();
-  const view = viewMap[type];
-
-  if (!view) {
-    return null;
-  }
 
   const otherClassNames = {
     'lg:grid-cols-2': openFilter,
@@ -52,11 +31,10 @@ export function List({ type, data }) {
     '3xl:grid-cols-4': openFilter,
     '3xl:grid-cols-5': !openFilter,
   };
-  const ListViewWidget = view.widget;
 
   return (
-    <div>
-      <ListViewWidget className={clsx(view.className, otherClassNames)} data={data.list} total={data.count} />
-    </div>
+    <List className={clsx(className, otherClassNames)} {...rest} />
   );
 }
+
+export default ListProxy;

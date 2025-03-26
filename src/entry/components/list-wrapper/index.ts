@@ -14,6 +14,5 @@
  * limitations under the License.
  */
 
-'use client';
-
-export { default } from '#/entry/components/basic-search';
+export type { ListWrapperProps } from './typing';
+export { default } from './ListWrapper';

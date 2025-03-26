@@ -14,19 +14,17 @@
  * limitations under the License.
  */
 
-import clsx from 'clsx';
-import Image from 'next/image';
+'use client';
 
-import nodataPic from './nodata.svg';
+import BountyListViewWidget from '#/domain/bounty/views/bounty-list';
+import ListWrapper from '#/entry/components/list-wrapper';
 
-export function NoData({ className, style }) {
+import type { ListWrapperProps } from '#/entry/components/list-wrapper';
+
+function BountyListAdapter(props: Pick<ListWrapperProps, 'data' | 'total'>) {
   return (
-    <div
-      className={clsx('mt-14 flex flex-col items-center', className)}
-      style={style}
-    >
-      <Image src={nodataPic} alt="No data" />
-      <p className="mt-5 text-sm opacity-60">No content yet</p>
-    </div>
+    <ListWrapper {...props} listCtor={BountyListViewWidget as ListWrapperProps['listCtor']} />
   );
 }
+
+export default BountyListAdapter;
