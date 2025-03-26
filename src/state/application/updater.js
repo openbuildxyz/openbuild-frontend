@@ -30,7 +30,7 @@ export default function Updater({ datas }) {
   const isMobile = !useMediaQuery('(min-width: 768px)');
   const isNotLg = useMediaQuery('(min-width: 1024px)');
   const gc = useCallback(async () => {
-    if (datas?.configs?.code === 200) {
+    if (datas?.configs?.success) {
       dispatch(updateConfig(datas.configs.data.list));
     }
   }, [dispatch, datas]);

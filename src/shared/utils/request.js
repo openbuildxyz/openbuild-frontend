@@ -18,6 +18,7 @@ import { getServerSession } from 'next-auth';
 import { getSession } from 'next-auth/react';
 
 import { authOptions } from '../../lib/auth';
+import { omit } from './index';
 
 const DEFAULT_PARAMS = {
   mode: 'cors',
@@ -49,10 +50,12 @@ export function isLogicalSuccess(code) {
   return code >= 200 && code < 300;
 }
 
-export async function request(url, method, data, config) {
+export async function request(url, method, data, config = {}) {
+  const { isServer, type, baseUrl, ...others } = config;
+
   let session;
 
-  if (config?.isServer) {
+  if (isServer) {
     session = await getServerSession(authOptions);
   } else {
     session = await getSession();
@@ -66,16 +69,15 @@ export async function request(url, method, data, config) {
   if (method === 'POST') {
     sendBody = JSON.stringify(data);
   }
-  if (config && config.type === 'upload' && method === 'POST') {
+  if (type === 'upload' && method === 'POST') {
     sendBody = data;
   } else {
     headers['Content-Type'] = 'application/json';
   }
 
-  // console.log(process.env.NEXT_PUBLIC_API_BASE_URL, 'NEXT_PUBLIC_API_BASE_URL')
-
-  return await fetch(resolveRequestUrl(config && config.baseUrl, url), {
+  return await fetch(resolveRequestUrl(baseUrl, url), {
     ...DEFAULT_PARAMS,
+    ...omit(others, ['params']),
     headers,
     method,
     body: sendBody,

@@ -25,4 +25,13 @@ type ResponseResult<VT extends DataValue = DataValue> = {
   extra?: Record<string, DataValue>;
 };
 
-export type { ResponseResult };
+type RequestConfig = RequestInit & {
+  baseUrl?: string;
+  params?: Record<string, DataValue>;
+  isServer?: boolean;
+  type?: 'upload';
+};
+
+type ResponseInterceptor = (res: ResponseResult) => ResponseResult;
+
+export type { ResponseResult, RequestConfig, ResponseInterceptor };

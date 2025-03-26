@@ -14,21 +14,10 @@
  * limitations under the License.
  */
 
-import { post, get } from '@/utils/request';
+import httpClient from '@/utils/http';
 
-export async function adsEmail(email, type) {
-  const res = await post('v1/public/contact/email', { email, type });
-  return res;
+function fetchConfig() {
+  return httpClient.get('/config', { cache: 'no-store' });
 }
 
-export async function upload(parmas) {
-  const res = await post('v1/util/upload/file', parmas.file, {
-    type: 'upload',
-  });
-  return res;
-}
-
-export async function ownedNFTs(address) {
-  const res = await get(`ts/v1/nft/general/tools/address/owned?address=${address}`);
-  return res;
-}
+export { fetchConfig };

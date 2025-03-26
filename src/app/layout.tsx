@@ -28,9 +28,9 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 import { GoogleAnalytics } from '@/components/GoogleAnalytics';
 import { getAppConfig } from '@/utils/app';
 
+import { fetchConfig } from '#/domain/system/repository';
 import { nunito_sans } from '#/lib/font';
 import { siteConfig } from '#/lib/site';
-import { getConfigs } from '#/services/common';
 
 import ClientEntry from '../entry';
 import DefaultLayout from '../entry/layouts/default';
@@ -101,12 +101,12 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const configRes = await getConfigs();
+  const config = await fetchConfig();
 
   return (
     <html lang="en" data-theme="light" className={`${nunito_sans.className} light`} suppressHydrationWarning>
       <body>
-        <ClientEntry config={{ static: getAppConfig(), dynamic: configRes }}>
+        <ClientEntry config={{ static: getAppConfig(), dynamic: config }}>
           <DefaultLayout>{children}</DefaultLayout>
         </ClientEntry>
         <GoogleAnalytics />
