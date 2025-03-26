@@ -23,12 +23,14 @@ import GainedReputationItem from './GainedReputationItem';
 
 function ControlledGainedReputationList({ list }) {
   return list && list.length > 0 ? (
-    <div className="grid grid-cols-2 gap-5 md:flex md:gap-6 mt-6">
+    <div className="grid grid-cols-2 gap-5 md:grid-cols-5 md:gap-2 md:mt-4 mt-6">
       {list.map(item => (
         <GainedReputationItem key={`reputation-${item.id}`} data={item} />
       ))}
     </div>
-  ) : <NoData className="mt-6" />;
+  ) : (
+    <NoData className="mt-6" />
+  );
 }
 
 function GainedReputationList({ userId }) {

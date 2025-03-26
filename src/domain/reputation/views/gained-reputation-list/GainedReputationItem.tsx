@@ -17,15 +17,26 @@
 import Avatar from '@/components/Avatar';
 import { formatTime } from '@/utils/date';
 
-function GainedReputationItem({ data }) {
+function GainedReputationItem({
+  data,
+}: {
+  data: {
+    img: string;
+    title: string;
+    updated_at: number;
+  };
+}) {
   return (
-    <div className="w-full aspect-square md:w-[180px] text-center p-4 border border-gray-600 rounded">
-      <div className="flex justify-center">
-        <Avatar src={data.img} alt={data.title} size={100} />
+    <>
+      <Avatar src={data.img} alt={data.title} size={55} className="max-md:hidden" />
+      <div className="md:hidden w-full aspect-square text-center p-4 border border-gray-600 rounded">
+        <div className="flex justify-center">
+          <Avatar src={data.img} alt={data.title} size={100} />
+        </div>
+        <h3 className="text-sm truncate leading-5 flex-1 mt-2">{data.title}</h3>
+        <p className="text-xs opacity-40">{formatTime(data.updated_at * 1000, 'MMM D, YYYY')}</p>
       </div>
-      <h3 className="text-sm truncate leading-5 flex-1 mt-2">{data.title}</h3>
-      <p className="text-xs opacity-40">{formatTime(data.updated_at * 1000, 'MMM D, YYYY')}</p>
-    </div>
+    </>
   );
 }
 

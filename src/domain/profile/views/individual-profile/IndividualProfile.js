@@ -25,6 +25,7 @@ import SkillOverviewView from '../../../skill/views/skill-overview';
 import ActivityTabListWidget from '../../widgets/activity-tab-list';
 import SocialInfoWidget from '../../widgets/social-info';
 import TabBarWidget from '../../widgets/tab-bar';
+import style from './style.module.scss';
 
 const tabs = [
   {
@@ -70,12 +71,12 @@ const tabs = [
 ];
 
 function IndividualProfileView({ data }) {
-  const [tabActive, setTabActive] = useState(1);
+  const [tabActive, setTabActive] = useState(2);
   const userId = data?.base.user_id;
 
   const tabContent = [
     <SocialInfoWidget key="social" data={data} />,
-    <GainedReputationListView key="reputation" userId={userId} />,
+    <GainedReputationListView key="reputation" userId={userId} data={data?.reputationList} />,
     <SkillOverviewView key="skill" userId={userId} />,
   ];
 
@@ -83,11 +84,12 @@ function IndividualProfileView({ data }) {
     <div className="md:pl-[410px] md:pb-14 md:pr-14">
       <TabBarWidget
         tabs={['Info', 'Reputation', 'Skill insight']}
-        tabClassName="h-14 md:h-9 md:w-[119px] md:first:hidden"
+        tabClassName={`h-14 md:h-9 md:w-[119px] ${style.Tab}`}
         current={tabActive}
         onChange={setTabActive}
       />
       {tabContent[tabActive]}
+      <div className="md:h-4" />
       <ActivityTabListWidget userId={userId} tabs={tabs} />
     </div>
   );
