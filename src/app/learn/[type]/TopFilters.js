@@ -47,7 +47,7 @@ function getBrowserLanguage() {
   return navigator.language.startsWith('zh') ? 'zh' : 'en';
 }
 
-export function TopFilters({ type }) {
+function TopFilters({ type }) {
   const searchParams = useSearchParams();
   const { replace } = useRouter();
   const pathname = usePathname();
@@ -138,7 +138,6 @@ export function TopFilters({ type }) {
           </div>
           <div className="w-[140px]">
             <ReactSelect
-              id="learn-order-select"
               isSearchable={false}
               value={langOptions.find(f => f.value === lang)}
               className="no-bg showDropdownIndicator w-full bg-transparent height-sm"
@@ -153,3 +152,5 @@ export function TopFilters({ type }) {
     </div>
   );
 }
+
+export default TopFilters;

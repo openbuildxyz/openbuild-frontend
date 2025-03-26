@@ -79,17 +79,13 @@ export function ListSkeleton() {
                   <div className="h-8" />
                 </div>
               </div>
-              
               <div className="skeleton rounded-lg">
                 <div className="h-8 w-14" />
               </div>
             </div>
           </div>
         ))}
-        
       </div>
     </div>
-    
-    
   );
 }

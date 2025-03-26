@@ -14,23 +14,26 @@
  * limitations under the License.
  */
 
-'use client';
+import clsx from 'clsx';
+import Image from 'next/image';
 
-import BountyListViewWidget from '#/domain/bounty/views/bounty-list';
-import { useOpenFilter } from '#/state/application/hooks';
+import type { CSSProperties } from 'react';
 
-export function List({ data }) {
-  const openFilter = useOpenFilter();
-  const otherClassNames = {
-    'lg:grid-cols-2': openFilter,
-    'lg:grid-cols-3': !openFilter,
-    'xl:grid-cols-3': openFilter,
-    'xl:grid-cols-4': !openFilter,
-    '3xl:grid-cols-4': openFilter,
-    '3xl:grid-cols-5': !openFilter,
-  };
+import nodataPic from './nodata.svg';
 
+type NoDataProps = {
+  className?: string;
+  style?: CSSProperties;
+};
+
+export function NoData({ className, style }: NoDataProps) {
   return (
-    <BountyListViewWidget className={otherClassNames} data={data.list} total={data.total} />
+    <div
+      className={clsx('mt-14 flex flex-col items-center', className)}
+      style={style}
+    >
+      <Image src={nodataPic} alt="No data" />
+      <p className="mt-5 text-sm opacity-60">No content yet</p>
+    </div>
   );
 }

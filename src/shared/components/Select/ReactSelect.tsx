@@ -20,7 +20,7 @@ import Select, { components } from 'react-select';
 import { classNames } from '@/utils';
 
 import type { DataValue } from '../../types';
-import type { Props, DropdownIndicatorProps, ClearIndicatorProps, MultiValueRemoveProps, OnChangeValue } from 'react-select';
+import type { Props, DropdownIndicatorProps, ClearIndicatorProps, MultiValueRemoveProps, OnChangeValue, ActionMeta } from 'react-select';
 
 import { isInteger, isFunction } from '../../utils';
 import { XMarkIcon, ChevronDownIcon } from '../icon/solid';
@@ -71,7 +71,7 @@ export function ReactSelect({
 
   const resolvedLimit = limit && isInteger(limit) && limit > 0 ? limit : 0;
 
-  const handleChange: ReactSelectProps['onChange'] = isMulti ? (...args) => {
+  const handleChange: ReactSelectProps['onChange'] = isMulti ? (...args: [OnChangeValue<DataValue[], boolean>, ActionMeta<DataValue[]>]) => {
     setSelectedOpts(args[0]);
     isFunction(onChange) && onChange(...args);
   } : onChange;

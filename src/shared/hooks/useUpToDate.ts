@@ -27,7 +27,7 @@ function useUpToDate(
 ) {
   const memoized = useMemo(() => {
     let resolvedParams: DataValue[] = [];
-    let requestId = null;
+    let requestId: string | null = null;
 
     if (params != null) {
       resolvedParams = [].concat(params);

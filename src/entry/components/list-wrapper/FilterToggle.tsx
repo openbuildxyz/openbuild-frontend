@@ -14,15 +14,18 @@
  * limitations under the License.
  */
 
-'use client';
-
 import { FilterIcon } from '@/components/Icons';
 
 import { useOpenFilter } from '#/state/application/hooks';
 import { updateOpenFilter } from '#/state/application/reducer';
 import { useAppDispatch } from '#/state/hooks';
 
-export function FilterToggle({type, count}) {
+type FilterToggleProps = {
+  type?: string;
+  count: number;
+};
+
+function FilterToggle({ type, count }: FilterToggleProps) {
   const openFilter = useOpenFilter();
   const dispatch = useAppDispatch();
 
@@ -41,3 +44,5 @@ export function FilterToggle({type, count}) {
     </div>
   );
 }
+
+export default FilterToggle;

@@ -14,15 +14,11 @@
  * limitations under the License.
  */
 
-import { NoData } from '@/components/NoData';
-
 import { fetchList } from '#/domain/bounty/repository';
 
-import { FilterToggle } from '../learn/[type]/FilterToggle';
-import { List } from './List';
-import SearchAdapter from './SearchAdapter';
+import BountyListAdapter from './BountyListAdapter';
 
-export async function Container({ type, searchParams }) {
+export async function Container({ searchParams }: { searchParams?: Record<string, any> }) {
   const page = searchParams?.page;
   const order = searchParams?.order;
   const labels = searchParams?.labels || '';
@@ -40,12 +36,6 @@ export async function Container({ type, searchParams }) {
   });
 
   return (
-    <div className="flex-1 pb-14">
-      <div className="flex flex-col-reverse justify-between md:flex-row md:items-center">
-        <FilterToggle type={type} count={data?.total} />
-        <SearchAdapter />
-      </div>
-      {data?.total === 0 ? <NoData /> : <List type={type} data={data} />}
-    </div>
+    <BountyListAdapter data={data.list} total={data.total} />
   );
 }

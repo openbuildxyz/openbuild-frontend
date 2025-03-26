@@ -14,18 +14,12 @@
  * limitations under the License.
  */
 
-import clsx from 'clsx';
-
-import { NoData } from '@/components/NoData';
 import { PAGE_SIZE } from '@/constants/config';
 import { get } from '@/utils/request';
 
-import { FilterToggle } from './FilterToggle';
-import { List } from './List';
-import { ListSkeleton } from './ListSkeleton';
-import { TopFilters } from './TopFilters';
+import LearnListAdapter from './LearnListAdapter';
 
-export async function Container({ type, searchParams }) {
+export async function Container({ type, searchParams }: { type: string; searchParams?: Record<string, any> }) {
   const page = Number(searchParams?.page) || 1;
   const order = searchParams?.order || 'default';
   const labels = searchParams?.labels || '';
@@ -51,22 +45,18 @@ export async function Container({ type, searchParams }) {
   let data;
 
   if (URL) {
-    const res = await get(URL, {isServer: true});
+    const res = await get(URL, { isServer: true });
     data = res.data;
   } else {
     data = await Promise.resolve({ count: 0 });
   }
 
-  const courseLangNotSpecified = type === 'courses' && !lang;
-  const EmptyPlaceholder = courseLangNotSpecified ? ListSkeleton : NoData;
-
   return (
-    <div className="flex-1 pb-14">
-      <div className={clsx('flex flex-col-reverse justify-between md:flex-row md:items-center', { hidden: courseLangNotSpecified })}>
-        <FilterToggle type={type} count={data.count} />
-        <TopFilters type={type} />
-      </div>
-      {data.count === 0 ? <EmptyPlaceholder /> : <List type={type} data={data} />}
-    </div>
+    <LearnListAdapter
+      data={data.list}
+      total={data.count}
+      type={type}
+      courseLangNotSpecified={type === 'courses' && !lang}
+    />
   );
 }

@@ -44,7 +44,7 @@ function SortFilter() {
         isSearchable={false}
         value={options.find(f => f.value === value)}
         className="no-bg showDropdownIndicator w-full bg-transparent height-sm"
-        onChange={e => {
+        onChange={(e: any) => {
           const params = new URLSearchParams(searchParams.toString());
           params.set('page', '1');
           if (e === null) {
