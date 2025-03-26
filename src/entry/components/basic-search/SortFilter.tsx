@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-'use client';
-
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useMemo } from 'react';
 
@@ -32,7 +30,7 @@ const options = [
   },
 ];
 
-export function Sort() {
+function SortFilter() {
   const searchParams = useSearchParams();
   const { replace } = useRouter();
   const pathname = usePathname();
@@ -42,13 +40,12 @@ export function Sort() {
   return (
     <div className="w-[180px] ml-2">
       <ReactSelect
-        id="learn-order-select"
         isClearable
         isSearchable={false}
         value={options.find(f => f.value === value)}
         className="no-bg showDropdownIndicator w-full bg-transparent height-sm"
         onChange={e => {
-          const params = new URLSearchParams(searchParams);
+          const params = new URLSearchParams(searchParams.toString());
           params.set('page', '1');
           if (e === null) {
             params.delete('order');
@@ -64,3 +61,5 @@ export function Sort() {
     </div>
   );
 }
+
+export default SortFilter;

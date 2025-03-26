@@ -19,9 +19,8 @@ import { NoData } from '@/components/NoData';
 import { fetchList } from '#/domain/bounty/repository';
 
 import { FilterToggle } from '../learn/[type]/FilterToggle';
-import { Search } from '../learn/[type]/Search';
-import { Sort } from '../learn/[type]/Sort';
 import { List } from './List';
+import SearchAdapter from './SearchAdapter';
 
 export async function Container({ type, searchParams }) {
   const page = searchParams?.page;
@@ -44,10 +43,7 @@ export async function Container({ type, searchParams }) {
     <div className="flex-1 pb-14">
       <div className="flex flex-col-reverse justify-between md:flex-row md:items-center">
         <FilterToggle type={type} count={data?.total} />
-        <div className="flex items-center">
-          <Search />
-          <Sort />
-        </div>
+        <SearchAdapter />
       </div>
       {data?.total === 0 ? <NoData /> : <List type={type} data={data} />}
     </div>

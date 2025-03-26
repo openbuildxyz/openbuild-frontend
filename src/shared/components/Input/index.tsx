@@ -15,7 +15,9 @@
  */
 
 import { useInput } from '@nextui-org/input';
-import React, {forwardRef} from 'react';
+import React, { forwardRef } from 'react';
+
+import type { InputProps } from '@nextui-org/input';
 
 const styles = {
   input: [ 'bg-transparent', 'placeholder:opacity-40', 'ml-1' ],
@@ -23,7 +25,7 @@ const styles = {
   inputWrapper: [ 'shadow-none' ],
 };
 
-const MyInput = forwardRef((props, ref) => {
+const MyInput = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProps>((props, ref) => {
   const {
     Component,
     startContent,

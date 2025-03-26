@@ -19,10 +19,17 @@ import Select, { components } from 'react-select';
 
 import { classNames } from '@/utils';
 
+import type { DataValue } from '../../types';
+import type { Props, DropdownIndicatorProps, ClearIndicatorProps, MultiValueRemoveProps, OnChangeValue } from 'react-select';
+
 import { isInteger, isFunction } from '../../utils';
 import { XMarkIcon, ChevronDownIcon } from '../icon/solid';
 
-export const DropdownIndicator = props => {
+type ReactSelectProps = Props<DataValue> & {
+  limit?: number; // to limit the max count of selectable options in multiple mode
+};
+
+export const DropdownIndicator = (props: DropdownIndicatorProps) => {
   return (
     <components.DropdownIndicator {...props}>
       <ChevronDownIcon className="h-5 w-5" />
@@ -30,7 +37,7 @@ export const DropdownIndicator = props => {
   );
 };
 
-export const ClearIndicator = props => {
+export const ClearIndicator = (props: ClearIndicatorProps) => {
   return (
     <components.ClearIndicator {...props}>
       <XMarkIcon className="h-4 w-4" />
@@ -38,7 +45,7 @@ export const ClearIndicator = props => {
   );
 };
 
-export const MultiValueRemove = props => {
+export const MultiValueRemove = (props: MultiValueRemoveProps) => {
   return (
     <components.MultiValueRemove {...props}>
       <XMarkIcon className="h-3 w-3" />
@@ -58,18 +65,18 @@ export function ReactSelect({
   classNamePrefix,
   isClearable,
   isSearchable = true,
-  limit,  // to limit the max count of selectable options in multiple mode
-}) {
-  const [selectedOpts, setSelectedOpts] = React.useState([]);
+  limit,
+}: ReactSelectProps) {
+  const [selectedOpts, setSelectedOpts] = React.useState<OnChangeValue<DataValue[], boolean>>([]);
 
-  const resolvedLimit = isInteger(limit) && limit > 0 ? limit : 0;
+  const resolvedLimit = limit && isInteger(limit) && limit > 0 ? limit : 0;
 
-  const handleChange = isMulti ? (...args) => {
+  const handleChange: ReactSelectProps['onChange'] = isMulti ? (...args) => {
     setSelectedOpts(args[0]);
     isFunction(onChange) && onChange(...args);
   } : onChange;
 
-  const resolveOptionDisabled = () => isMulti && resolvedLimit > 0 ? selectedOpts.length >= resolvedLimit : false;
+  const resolveOptionDisabled = () => isMulti && resolvedLimit > 0 ? selectedOpts!.length >= resolvedLimit : false;
 
   return (
     <Select
@@ -83,7 +90,7 @@ export function ReactSelect({
           ...baseStyles,
           height: '40px',
           borderRadius: '8px',
-          ...(styles && isFunction(styles.control) && styles.control()),
+          ...(styles && isFunction(styles.control) && (styles.control as any)({})),
         }),
         option: styles => ({
           ...styles,
