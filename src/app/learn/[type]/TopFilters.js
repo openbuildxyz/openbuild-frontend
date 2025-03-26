@@ -26,8 +26,7 @@ import { useMemo } from 'react';
 import { ReactSelect } from '@/components/Select/ReactSelect';
 import useMounted from '@/hooks/useMounted';
 
-import { Search } from './Search';
-import { Sort } from './Sort';
+import BasicSearch from '#/entry/components/basic-search';
 
 const tabStyle = 'inline-block border-gray-600 px-4 h-10 leading-10 text-gray-500 cursor-pointer';
 
@@ -150,10 +149,7 @@ export function TopFilters({ type }) {
           </div>
         </div>
       )}
-      <div className="flex">
-        <Search />
-        <Sort />
-      </div>
+      <BasicSearch />
     </div>
   );
 }

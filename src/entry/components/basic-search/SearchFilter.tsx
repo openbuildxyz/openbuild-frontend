@@ -14,27 +14,28 @@
  * limitations under the License.
  */
 
-'use client';
-
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useDebouncedCallback } from 'use-debounce';
 
 import { SearchIcon } from '@/components/Icons';
 import Input from '@/components/Input';
 
-export function Search() {
+function SearchFilter() {
   const searchParams = useSearchParams();
   const { replace } = useRouter();
   const pathname = usePathname();
 
   const handleSearch = useDebouncedCallback(term => {
-    const params = new URLSearchParams(searchParams);
+    const params = new URLSearchParams(searchParams.toString());
+
     params.set('page', '1');
+
     if (term) {
       params.set('query', term);
     } else {
       params.delete('query');
     }
+
     replace(`${pathname}?${params.toString()}`);
   }, 300);
 
@@ -49,6 +50,7 @@ export function Search() {
         className="h-10 [&>div]:pb-0"
       />
     </div>
-
   );
 }
+
+export default SearchFilter;
