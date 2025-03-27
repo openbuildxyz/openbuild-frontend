@@ -51,7 +51,11 @@ async function fetchActivityList(id) {
   return httpClient.get(`/build/general/bounties/${id}/events/activities`);
 }
 
-async function fetchBuilderList(id, params) {
+async function fetchBuilderList(id) {
+  return httpClient.get(`/build/general/bounties/${id}/builders`);
+}
+
+async function fetchBuilderListForCreator(id, params) {
   return httpClient.get(`/build/creator/bounties/${id}/builders`, { params });
 }
 
@@ -69,8 +73,13 @@ async function fetchAppliedBountyList(params = {}) {
   });
 }
 
+async function requestTermination(id, data) {
+  return httpClient.post(`/build/creator/bounties/${id}/status/termination/propose`, data);
+}
+
 export {
   fetchList, fetchOne, applyOne,
-  fetchActivityList, fetchBuilderList,
+  fetchActivityList, fetchBuilderList, fetchBuilderListForCreator,
   fetchPublishedBountyList, fetchAppliedBountyList,
+  requestTermination,
 };

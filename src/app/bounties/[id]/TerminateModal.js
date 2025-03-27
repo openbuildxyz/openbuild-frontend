@@ -25,7 +25,7 @@ import { contracts, payTokens } from '@/constants/contract';
 import { currentTime } from '@/utils/date';
 import { parseTokenUnits, signBounty } from '@/utils/web3';
 
-import { termination } from '#/services/bounties';
+import { requestTermination } from '#/domain/bounty/repository';
 
 import { revalidatePathAction } from '../../actions';
 
@@ -57,20 +57,20 @@ export function TerminateModal({open, close, bounty, type}) {
       setLoading(false);
       return;
     }
-    const res = await termination(
+    const res = await requestTermination(
       bounty.id,
-      Number(amount) * 100,
-      _s,
-      type,
-      _deadline
+      {
+        amount: Number(amount) * 100,
+        sig: _s,
+        close_type: type,
+        deadline: _deadline,
+      },
     );
     setLoading(false);
-    if (res.code === 200) {
+    if (res.success) {
       toast.success('Termination successful');
       close();
       revalidatePathAction();
-    } else {
-      toast.error(res.message);
     }
   };
 

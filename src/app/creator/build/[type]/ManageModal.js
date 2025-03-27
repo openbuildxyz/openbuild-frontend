@@ -31,9 +31,9 @@ import { currentTime, fromNow } from '@/utils/date';
 import { formatTime } from '@/utils/date';
 import { parseTokenUnits, signBounty } from '@/utils/web3';
 
+import { requestTermination } from '#/domain/bounty/repository';
 import {
   getProgressList,
-  termination,
   finishConfirm,
   finishDeny,
   arbitrate,
@@ -112,20 +112,19 @@ export function ManageModal({
       setTerminateLoading(false);
       return;
     }
-    const res = await termination(
-      bounty.id,
-      Number(amount) * 100,
-      _s,
-      closeBounty,
-      _deadline
+    const res = await requestTermination(bounty.id,
+      {
+        amount: Number(amount) * 100,
+        sig: _s,
+        close_type: closeBounty,
+        deadline: _deadline,
+      },
     );
     setTerminateLoading(false);
-    if (res.code === 200) {
+    if (res.success) {
       toast.success('Termination successful');
       successCallback(18);
       close();
-    } else {
-      toast.error('Termination failed');
     }
   };
 

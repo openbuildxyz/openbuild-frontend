@@ -31,15 +31,6 @@ export async function getProgressList(id, bid) {
   return await get(`ts/v1/build/general/bounties/${id}/builders/${bid}/events/progress`);
 }
 
-export async function termination(id, amount, sig, close_bounty, deadline) {
-  return await post(`ts/v1/build/creator/bounties/${id}/status/termination/propose`, {
-    amount,
-    sig,
-    close_type: close_bounty,
-    deadline,
-  });
-}
-
 export async function finishConfirm(id, hash) {
   return await post(`ts/v1/build/creator/bounties/${id}/status/finish/confirm`, { hash });
 }
