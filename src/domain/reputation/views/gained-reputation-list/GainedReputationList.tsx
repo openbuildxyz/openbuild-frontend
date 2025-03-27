@@ -14,31 +14,38 @@
  * limitations under the License.
  */
 
-import Avatar from '@/components/Avatar';
-import { formatTime } from '@/utils/date';
+import clsx from 'clsx';
 
-function GainedReputationItem({
+import { NoData } from '@/components/NoData';
+
+import GainedReputationItem from './GainedReputationItem';
+
+function GainedReputationListView({
   data,
   compact = false,
 }: {
-  data: {
+  data?: Array<{
     img: string;
     title: string;
     updated_at: number;
-  };
+    id: string;
+  }>;
   compact?: boolean;
 }) {
-  return compact ? (
-    <Avatar src={data.img} alt={data.title} size={55} />
-  ) : (
-    <div className="w-full aspect-square md:w-[180px] text-center p-4 border border-gray-600 rounded">
-      <div className="flex justify-center">
-        <Avatar src={data.img} alt={data.title} size={100} />
-      </div>
-      <h3 className="text-sm truncate leading-5 flex-1 mt-2">{data.title}</h3>
-      <p className="text-xs opacity-40">{formatTime(data.updated_at * 1000, 'MMM D, YYYY')}</p>
+  return data && data.length > 0 ? (
+    <div
+      className={clsx({
+        'grid grid-cols-5 gap-2 mt-4': compact,
+        'grid grid-cols-2 gap-5 md:flex md:gap-6 mt-6': !compact,
+      })}
+    >
+      {data.map(item => (
+        <GainedReputationItem key={`reputation-${item.id}`} data={item} compact={compact} />
+      ))}
     </div>
+  ) : (
+    <NoData className="mt-6" />
   );
 }
 
-export default GainedReputationItem;
+export default GainedReputationListView;

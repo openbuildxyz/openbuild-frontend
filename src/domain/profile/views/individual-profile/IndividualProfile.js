@@ -76,7 +76,7 @@ function IndividualProfileView({ data }) {
 
   const tabContent = [
     <SocialInfoWidget key="social" data={data} />,
-    <GainedReputationListView key="reputation" userId={userId} data={data?.reputationList} />,
+    <GainedReputationListView key="reputation" data={data?.extra.reputationList} />,
     <SkillOverviewView key="skill" userId={userId} />,
   ];
 
@@ -89,7 +89,6 @@ function IndividualProfileView({ data }) {
         onChange={setTabActive}
       />
       {tabContent[tabActive]}
-      <div className="md:h-4" />
       <ActivityTabListWidget userId={userId} tabs={tabs} />
     </div>
   );

@@ -96,10 +96,10 @@ function SocialInfoWidget({ className, data }) {
           </div>
         </>
       )}
-      {data?.reputationList.length > 0 && (
+      {data?.extra?.reputationList?.length > 0 && (
         <>
           <p className="mt-6 uppercase text-xs opacity-60 font-bold">Reputation</p>
-          <GainedReputationListView key="reputation" data={data?.reputationList} />
+          <GainedReputationListView data={data?.extra?.reputationList} compact />
         </>
       )}
       <Web3BioProfile data={data} />

@@ -39,10 +39,11 @@ async function fetchUser(handle) {
     data.web3Bio = web3BioProfile;
   }
 
-  if (data?.base.user_id) {
-    const { data: reputation } = await fetchGainedReputationList(data?.base.user_id);
-    data.reputationList = reputation.list;
-  }
+  const { data: reputation } = await fetchGainedReputationList(data?.base.user_id);
+  data.extra = {
+    ...data.extra,
+    reputationList: reputation.list,
+  };
 
   return { ...others, data, success: true };
 }

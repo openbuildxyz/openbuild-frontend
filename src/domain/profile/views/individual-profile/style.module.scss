@@ -16,9 +16,7 @@
 
 .Tab {
   @media (min-width: 768px) {
-    &:nth-child(1) {
-      display: none;
-    }
+    &:nth-child(1),
     &:nth-child(2) {
       display: none;
     }
