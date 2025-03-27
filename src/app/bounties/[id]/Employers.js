@@ -28,11 +28,12 @@ import { Button } from '@/components/Button';
 import { CertifiedIcon } from '@/components/Icons';
 // WarningIcon
 import { ArrowTopRightOnSquareIcon } from '@/components/Icons';
+import useListFetcher from '@/hooks/useListFetcher';
 
 import { useAuthGuard } from '#/domain/auth/hooks';
 import { isBountyApplied } from '#/domain/bounty/helper';
+import { fetchBuilderList } from '#/domain/bounty/repository';
 import CompleteProfileDialogWidget from '#/domain/profile/widgets/complete-profile-dialog';
-import { useBountyBuildersList } from '#/services/bounties/hooks';
 import { useMediaUrl, useUser } from '#/state/application/hooks';
 
 import { revalidatePathAction } from '../../actions';
@@ -72,8 +73,7 @@ export function Employers({ id, list, data, mobile }) {
   const [notComplete, setNotComplete] = useState(false);
   const mediaUrl = useMediaUrl();
   const user = useUser();
-  //const wrapBountyEnvCheck = useBountyEnvCheck();
-  const { loading: buildersLoading, list: builderList = [], doFetch } = useBountyBuildersList(id);
+  const { loading: buildersLoading, response, refetch } = useListFetcher(fetchBuilderList, id);
   const { withAuth } = useAuthGuard();
 
   const apply = () => {
@@ -108,10 +108,10 @@ export function Employers({ id, list, data, mobile }) {
     }
   };
 
-  const currentUserApplied = !buildersLoading && builderList.some(({ builder_uid }) => builder_uid === user?.base.user_id);
+  const currentUserApplied = !buildersLoading && (response?.data?.list || []).some(({ builder_uid }) => builder_uid === user?.base.user_id);
   const handleApplyDialogClose = () => {
     setOpenModal(false);
-    doFetch();
+    refetch();
   };
 
   return (

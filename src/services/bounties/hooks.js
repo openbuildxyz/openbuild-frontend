@@ -76,26 +76,6 @@ export function useDetails(id) {
   return { data, loading };
 }
 
-export function useBountyBuildersList(id) {
-  const [list, setList] = useState();
-  const [loading, setLoading] = useState(true);
-  const fetch = useCallback(async () => {
-    if (id) {
-      setLoading(true);
-      get(`ts/v1/build/general/bounties/${id}/builders`).then(result => {
-        setList(result.data?.list || []);
-        setLoading(false);
-      });
-    }
-  }, [id]);
-
-  useEffect(() => {
-    fetch();
-  }, [fetch]);
-  const doFetch = () => fetch();
-  return { list, loading, doFetch };
-}
-
 export function useBountyEvents(id) {
   const [list, setList] = useState();
   const [loading, setLoading] = useState(true);

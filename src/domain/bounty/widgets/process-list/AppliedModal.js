@@ -33,11 +33,11 @@ import { parseTokenUnits } from '@/utils/web3';
 import { approveBuilder } from '#/services/creator';
 
 import { useBountyEnvCheck } from '../../hooks';
-import { fetchBuilderList } from '../../repository';
+import { fetchBuilderListForCreator } from '../../repository';
 import AppliedBuilderListView from '../../views/applied-builder-list';
 
 function AppliedModal({ open, closeModal, bounty, revalidatePathAction }) {
-  const { data, isLoading, mutate } = useUpToDate(fetchBuilderList, [bounty.id, { skip: 0, take: 25 }]);
+  const { data, isLoading, mutate } = useUpToDate(fetchBuilderListForCreator, [bounty.id, { skip: 0, take: 25 }]);
   const { address } = useAccount();
   // const { chain } = useNetwork()
   const wrapBountyEnvCheck = useBountyEnvCheck();
