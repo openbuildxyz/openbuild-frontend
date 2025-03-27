@@ -18,11 +18,11 @@ import { useSession } from 'next-auth/react';
 
 import useInterval from '@/hooks/useInterval';
 
-import { uploadSingleProgress } from '#/services/learn';
+import { updateWatchProgress } from '#/domain/course/repository';
 
 function PostTime({ id }) {
   const { status } = useSession();
-  useInterval(() => status === 'authenticated' && uploadSingleProgress(id), 10000);
+  useInterval(() => status === 'authenticated' && updateWatchProgress(id), 10000);
   return <></>;
 }
 

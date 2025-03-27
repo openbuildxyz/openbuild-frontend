@@ -97,7 +97,7 @@ export function HTMLDecode(text) {
 export {
   isEmpty, isNumber, isInteger, isString, isFunction, isPlainObject,
   noop,
-  get, cloneDeep, merge, omit,
+  get, cloneDeep, merge, omit, pick,
   capitalize,
   chunk, range,
 } from 'lodash';

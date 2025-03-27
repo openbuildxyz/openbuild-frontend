@@ -58,6 +58,10 @@ async function fetchLessonWithEntity({ id, entityId }) {
   }));
 }
 
+async function updateWatchProgress(lessonId) {
+  return httpClient.post(`/learn/general/course/single/${lessonId}/time`);
+}
+
 async function fetchPublishedCourseList(params = {}) {
   return fetchList({ ...params, team_uid: params.userId });
 }
@@ -77,6 +81,6 @@ async function fetchEnrolledCourseList(params = {}) {
 export {
   fetchList, fetchOne, enrollOne,
   fetchPermission, fetchOneWithPermission,
-  fetchLessonDetail, fetchLessonWithEntity,
+  fetchLessonDetail, fetchLessonWithEntity, updateWatchProgress,
   fetchPublishedCourseList, fetchEnrolledCourseList,
 };

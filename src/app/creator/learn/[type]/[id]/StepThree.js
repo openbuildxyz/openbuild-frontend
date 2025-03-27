@@ -23,7 +23,6 @@ import { Button } from '@/components/Button';
 import { PlusIcon } from '@/components/icon/outlined';
 import { EditIcon, DeleteIcon, AddIcon } from '@/components/Icons';
 import { OEditor } from '@/components/MarkDown';
-// import { useCourseDetails } from '#/services/learn/hooks'
 import { Modal } from '@/components/Modal';
 import { Select } from '@/components/Select';
 import  { BASE_INPUT_STYLE } from '@/constants/config';
