@@ -15,18 +15,18 @@
  */
 
 import { PreviewAlert } from '@/components/PreviewAlert';
-import { get } from '@/utils/request';
 
-import { fetchOneWithPermission as fetchChallengeWithPermission } from '#/domain/challenge/repository';
-import { fetchOneWithPermission as fetchCourseWithPermission } from '#/domain/course/repository';
+import { fetchOne as fetchChallenge, fetchOneWithPermission as fetchChallengeWithPermission, fetchRelatedCourse } from '#/domain/challenge/repository';
+import { fetchOne as fetchCourse, fetchOneWithPermission as fetchCourseWithPermission } from '#/domain/course/repository';
+import { fetchOneWithPermission as fetchRoadmapWithPermission } from '#/domain/roadmap/repository';
 
 import { enrollAction, revalidatePathAction } from './actions';
 import CourseDetailPageAdapter from './CourseDetailPageAdapter';
 import GrowPath from './GrowPath';
 
 export async function generateMetadata({ params }) {
-  // fetch data
-  const { data } = await get(`v1/learn/course/${params.type === 'courses' ? 'opencourse' : 'challenges'}/${params.id}`, {isServer: true});
+  const fetchOne = params.type === 'courses'? fetchCourse : fetchChallenge;
+  const { data } = await fetchOne(params.id);
   const previousImages = data?.base?.course_series_img ? `https://file-cdn.openbuild.xyz${data.base.course_series_img}` : '';
   return {
     title: data?.base?.course_series_title,
@@ -52,12 +52,9 @@ export default async function LearnDetailsPage({ params, searchParams }) {
   let data, permission;
 
   if (learnType === 'career_path') {
-    const datas = await Promise.all([
-      get(`ts/v1/learn/general/course/grow_path/${learnId}`, {isServer: true}),
-      get(`ts/v1/learn/general/course/grow_path/${learnId}/permission`, {isServer: true}),
-    ]);
-    data = datas[0].data;
-    permission = datas[1].data;
+    const roadmapRes = await fetchRoadmapWithPermission(learnId);
+    data = roadmapRes.data;
+    permission = (roadmapRes.data || {}).permission;
   } else {
     const fetchOneWithPermission = learnType === 'courses' ? fetchCourseWithPermission : fetchChallengeWithPermission;
     const res = await fetchOneWithPermission(learnId);
@@ -68,7 +65,7 @@ export default async function LearnDetailsPage({ params, searchParams }) {
   let related = null;
 
   if (learnType === 'challenges' && data?.challenges_extra?.course_challenges_extra_time_order === 0) {
-    const res = await get(`ts/v1/learn/general/course/challenges/${learnId}/link`, { isServer: true });
+    const res = await fetchRelatedCourse(learnId);
 
     if (res.data.link.toString() !== learnId) {
       related = res.data;

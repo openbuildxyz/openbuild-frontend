@@ -17,4 +17,8 @@
 // copied from https://github.com/future-js/handie/blob/master/packages/runtime-core/src/vendors/organik/core/typing/value.ts#L1
 type DataValue = any; // eslint-disable-line @typescript-eslint/no-explicit-any
 
-export type { DataValue };
+type EntityId = number | string;
+
+type ListValue<T extends DataValue = DataValue> = Record<string, T>[];
+
+export type { DataValue, EntityId, ListValue };

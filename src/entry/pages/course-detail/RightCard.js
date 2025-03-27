@@ -35,8 +35,8 @@ import useMounted from '@/hooks/useMounted';
 import { resolvePathWithSearch } from '@/utils/url';
 import { parseTokenUnits } from '@/utils/web3';
 
+import { enrollOne, updateTransaction } from '#/domain/challenge/repository';
 import DatePlaceWidget from '#/domain/challenge/widgets/date-place';
-import { joinChallengesEnrool, pay } from '#/services/learn/';
 // import { currentTime } from '@/utils/date'
 import { useMediaUrl } from '#/state/application/hooks';
 
@@ -249,14 +249,13 @@ export default function LearnRightCard({ data, type, permission, related, enroll
     } else {
       if (cExtraSchema === '' || cExtraSchema === '{"logoPosition":"right"}' || cExtraSchema === '{}') {
         setLoading(true);
-        const res = await joinChallengesEnrool(data.base.course_series_id, '', {
+        const res = await enrollOne(data.base.course_series_id, {
+          data: '',
           code: window.localStorage.getItem('shareCode') || '',
         });
-        if (res?.code === 200) {
+        if (res.success) {
           toast.success('Apply successfully');
           revalidatePathAction();
-        } else {
-          toast.error(res.message);
         }
       } else {
         setSurveyOpen(true);
@@ -302,12 +301,10 @@ export default function LearnRightCard({ data, type, permission, related, enroll
       });
       await waitForTransaction({ hash });
       setIsPay(true);
-      const res = await pay(data.base.course_series_id, hash);
-      if (res.code === 200) {
+      const res = await updateTransaction(data.base.course_series_id, { hash });
+      if (res.success) {
         revalidatePathAction();
         toast.success('Transaction successful');
-      } else {
-        toast.error('Transaction failed');
       }
       setPayLoading(false);
     } catch {

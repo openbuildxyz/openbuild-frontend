@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import type { DataValue } from '@/types';
+import type { ListValue } from '@/types';
 import type { ClassValue } from 'clsx';
 import type { JSXElementConstructor, PropsWithChildren, ReactNode } from 'react';
 
 type ListProps = {
   className?: ClassValue;
-  data: Record<string, DataValue>[];
+  data: ListValue;
   total: number;
 };
 

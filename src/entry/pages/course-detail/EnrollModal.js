@@ -22,7 +22,7 @@ import { Survey } from 'survey-react-ui';
 
 import { Modal } from '@/components/Modal';
 
-import { joinChallengesEnrool } from '#/services/learn';
+import { enrollOne } from '#/domain/challenge/repository';
 
 export default function EnrollModal({ open, closeModal, json, id, successCallback }) {
   const { status } = useSession();
@@ -44,11 +44,10 @@ export default function EnrollModal({ open, closeModal, json, id, successCallbac
     survey.onComplete.add(async sender => {
       if (requested) return;
       setRequested(true);
-      const results = JSON.stringify(sender.data);
-      const res = await joinChallengesEnrool(id, results, {code: window.localStorage.getItem('shareCode') || '' });
+      const res = await enrollOne(id, { data: JSON.stringify(sender.data), code: window.localStorage.getItem('shareCode') || '' });
       closeModal();
       setRequested(true);
-      if (res.code === 200) {
+      if (res.success) {
         successCallback();
       }
     });

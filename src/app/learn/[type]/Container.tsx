@@ -15,7 +15,13 @@
  */
 
 import { PAGE_SIZE } from '@/constants/config';
-import { get } from '@/utils/request';
+import { pick } from '@/utils';
+
+import { fetchList as fetchChallengeList } from '#/domain/challenge/repository';
+import { fetchList as fetchCourseList } from '#/domain/course/repository';
+import { fetchList as fetchRoadmapList } from '#/domain/roadmap/repository';
+
+import type { ListValue, ResponseResult } from '@/types';
 
 import LearnListAdapter from './LearnListAdapter';
 
@@ -32,23 +38,41 @@ export async function Container({ type, searchParams }: { type: string; searchPa
   const body_type = searchParams?.body_type || '';
   const lang = searchParams?.lang || '';
 
-  let URL;
+  const params = {
+    skip: (page - 1) * PAGE_SIZE,
+    take: PAGE_SIZE,
+    sort: order,
+    labels,
+    search: query,
+  };
+
+  let req: Promise<ResponseResult> | undefined;
 
   if (type === 'courses' && lang) {
-    URL = `v1/learn/course/opencourse?&skip=${(page - 1) * PAGE_SIZE}&take=${PAGE_SIZE}&labels=${labels}&order=${order}&search=${query}&recommend_type=${featured}&body_type=${body_type}&lang=${lang}`;
+    req = fetchCourseList({
+      ...params,
+      recommend_type: featured,
+      body_type,
+      lang,
+    });
   } else if (type === 'challenges') {
-    URL = `v1/learn/course/challenges?&skip=${(page - 1) * PAGE_SIZE}&take=${PAGE_SIZE}&labels=${labels}&order=${order}&search=${query}&status=${status}&feeds=${feeds}&c_type=${c_type}`;
+    req = fetchChallengeList({
+      ...params,
+      status,
+      feeds,
+      c_type,
+    });
   } else if (type === 'career_path') {
-    URL = `/ts/v1/learn/general/course/grow_path?order=${order}`;
+    req = fetchRoadmapList(pick(params, ['sort']));
   }
 
-  let data;
+  let data: { list: ListValue; count: number };
 
-  if (URL) {
-    const res = await get(URL, { isServer: true });
+  if (req) {
+    const res = await req;
     data = res.data;
   } else {
-    data = await Promise.resolve({ count: 0 });
+    data = await Promise.resolve({ list: [], count: 0 });
   }
 
   return (
