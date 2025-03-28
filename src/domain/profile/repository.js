@@ -17,6 +17,8 @@
 import { unwrapBlockData, wrapBlockData } from '@/components/control/block-editor/helper';
 import httpClient from '@/utils/http';
 
+import { fetchGainedReputationList } from '../reputation/repository';
+
 async function fetchWeb3BioProfile(address) {
   return httpClient.get(`https://api.web3.bio/profile/${address}`, {
     headers: { 'X-API-KEY': process.env.NEXT_PUBLIC_WEB3BIO },
@@ -36,6 +38,12 @@ async function fetchUser(handle) {
     const { data: web3BioProfile } = await fetchWeb3BioProfile(data?.social.user_wallet);
     data.web3Bio = web3BioProfile;
   }
+
+  const { data: reputation } = await fetchGainedReputationList(data?.base.user_id);
+  data.extra = {
+    ...data.extra,
+    reputationList: reputation.list,
+  };
 
   return { ...others, data, success: true };
 }

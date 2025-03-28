@@ -18,6 +18,7 @@ import { useMemo } from 'react';
 
 import { SvgIcon } from '@/components/Image';
 
+import GainedReputationListView from '../../../reputation/views/gained-reputation-list';
 import SocialLink from './SocialLink';
 import Web3BioProfile from './Web3BioProfile';
 
@@ -93,6 +94,12 @@ function SocialInfoWidget({ className, data }) {
               </SocialLink>
             ))}
           </div>
+        </>
+      )}
+      {data?.extra?.reputationList?.length > 0 && (
+        <>
+          <p className="mt-6 uppercase text-xs opacity-60 font-bold">Reputation</p>
+          <GainedReputationListView data={data?.extra?.reputationList} compact />
         </>
       )}
       <Web3BioProfile data={data} />

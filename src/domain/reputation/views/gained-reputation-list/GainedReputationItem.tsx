@@ -17,8 +17,20 @@
 import Avatar from '@/components/Avatar';
 import { formatTime } from '@/utils/date';
 
-function GainedReputationItem({ data }) {
-  return (
+function GainedReputationItem({
+  data,
+  compact = false,
+}: {
+  data: {
+    img: string;
+    title: string;
+    updated_at: number;
+  };
+  compact?: boolean;
+}) {
+  return compact ? (
+    <Avatar src={data.img} alt={data.title} size={55} />
+  ) : (
     <div className="w-full aspect-square md:w-[180px] text-center p-4 border border-gray-600 rounded">
       <div className="flex justify-center">
         <Avatar src={data.img} alt={data.title} size={100} />
