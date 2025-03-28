@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import clsx from 'clsx';
 import { useState } from 'react';
 
 import AppliedBountyListView from '../../../bounty/views/applied-bounty-list';
@@ -70,25 +71,45 @@ const tabs = [
   },
 ];
 
-function IndividualProfileView({ data }) {
-  const [tabActive, setTabActive] = useState(2);
-  const userId = data?.base.user_id;
+function resolveBasicTabGroup(data) {
+  const { reputationList, skill } = data?.extra || {};
 
+  const tabLabels = ['Info', 'Reputation'];
   const tabContent = [
     <SocialInfoWidget key="social" data={data} />,
-    <GainedReputationListView key="reputation" data={data?.extra.reputationList} />,
-    <SkillOverviewView key="skill" userId={userId} />,
+    <GainedReputationListView key="reputation" data={reputationList} />,
   ];
+
+  if (skill) {
+    tabLabels.push('Skill insight');
+    tabContent.push(<SkillOverviewView key="skill" data={skill} />);
+  }
+
+  return {
+    tabLabels,
+    tabContent,
+    hideInDesktop: !skill,
+  };
+}
+
+function IndividualProfileView({ data }) {
+  const [tabActive, setTabActive] = useState(data?.extra.skill ? 2 : 1);
+
+  const userId = data?.base.user_id;
+  const { tabLabels, tabContent, hideInDesktop } = resolveBasicTabGroup(data);
 
   return (
     <div className="md:pl-[410px] md:pb-14 md:pr-14">
       <TabBarWidget
-        tabs={['Info', 'Reputation', 'Skill insight']}
-        tabClassName={`h-14 md:h-9 md:w-[119px] ${style.Tab}`}
+        className={clsx({ 'md:hidden': hideInDesktop })}
+        tabs={tabLabels}
+        tabClassName={clsx('h-14 md:h-9 md:w-[119px]', style.Tab)}
         current={tabActive}
         onChange={setTabActive}
       />
-      {tabContent[tabActive]}
+      <div className={clsx('mb-9', { 'md:hidden': hideInDesktop })}>
+        {tabContent[tabActive]}
+      </div>
       <ActivityTabListWidget userId={userId} tabs={tabs} />
     </div>
   );

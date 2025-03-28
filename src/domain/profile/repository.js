@@ -18,6 +18,7 @@ import { unwrapBlockData, wrapBlockData } from '@/components/control/block-edito
 import httpClient from '@/utils/http';
 
 import { fetchGainedReputationList } from '../reputation/repository';
+import { fetchUserSkills } from '../skill/repository';
 
 async function fetchWeb3BioProfile(address) {
   return httpClient.get(`https://api.web3.bio/profile/${address}`, {
@@ -39,10 +40,15 @@ async function fetchUser(handle) {
     data.web3Bio = web3BioProfile;
   }
 
-  const { data: reputation } = await fetchGainedReputationList(data?.base.user_id);
+  const userId = data.base.user_id;
+
+  const { data: reputation } = await fetchGainedReputationList(userId);
+  const { data: skill } = await fetchUserSkills(userId);
+
   data.extra = {
     ...data.extra,
     reputationList: reputation.list,
+    skill,
   };
 
   return { ...others, data, success: true };

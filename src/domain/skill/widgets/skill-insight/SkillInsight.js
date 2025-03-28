@@ -59,7 +59,7 @@ function CustomizedContent(props) {
 }
 
 function SkillInsight({
-  className,
+  className = undefined,
   headerClassName,
   titleClassName,
   data,

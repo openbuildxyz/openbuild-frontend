@@ -97,10 +97,10 @@ function SocialInfoWidget({ className, data }) {
         </>
       )}
       {data?.extra?.reputationList?.length > 0 && (
-        <>
-          <p className="mt-6 uppercase text-xs opacity-60 font-bold">Reputation</p>
+        <div className="mt-6 max-md:hidden">
+          <p className="uppercase text-xs opacity-60 font-bold">Reputation</p>
           <GainedReputationListView data={data?.extra?.reputationList} compact />
-        </>
+        </div>
       )}
       <Web3BioProfile data={data} />
       {data.base?.user_show_email && data?.social?.user_email !== '' && (
