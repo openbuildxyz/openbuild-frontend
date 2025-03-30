@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+import { abiContractFactory } from '#/shared/utils/abiContractFactory';
+
 const abi = [
   {
     inputs: [],
@@ -783,6 +785,14 @@ const abi = [
     stateMutability: 'view',
     type: 'function',
   },
-];
+] as const;
 
+
+
+const {readActions, writeActions} = abiContractFactory(abi);
+
+export {
+  readActions,
+  writeActions,
+};
 export default abi;

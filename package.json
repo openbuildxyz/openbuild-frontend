@@ -53,6 +53,8 @@
     "@tiptap-extend/columns": "2.1.6",
     "@vercel/speed-insights": "^1.0.12",
     "@wagmi/chains": "^0.2.18",
+    "@wagmi/core": "1.4.13",
+    "abitype": "0.9.8",
     "animate.css": "^4.1.1",
     "aos": "^2.3.4",
     "bignumber.js": "^9.1.1",

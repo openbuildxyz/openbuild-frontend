@@ -15,12 +15,14 @@
  */
 
 import { TransactionBlock } from '@mysten/sui.js/transactions';
-import { writeContract } from '@wagmi/core';
 import { waitForTransaction } from '@wagmi/core';
 
 import httpClient from '@/utils/http';
 
-import nftAbi from './helper/nftAbi';
+import type { Address } from '@wagmi/core';
+
+import { writeActions } from './helper/nftAbi';
+
 
 async function fetchGainedReputationList(userId) {
   return httpClient.get(`/nft/general/public/${userId}/infos`);
@@ -42,7 +44,19 @@ async function sendMintedHash({ id, chainId, hash }) {
   return await httpClient.post(`/nft/general/infos/${id}/hash`, { mint_hash: hash, mint_chain_id: chainId });
 }
 
-async function mintNft({ id, chainId, contract, address, userId }) {
+async function mintNft({
+  id,
+  chainId,
+  contract,
+  address,
+  userId,
+}: {
+  id: bigint;
+  chainId: number;
+  contract: Address;
+  address: Address;
+  userId: bigint;
+}) {
   const signRes = await nftSign(id);
 
   if (!signRes.success) {
@@ -50,12 +64,15 @@ async function mintNft({ id, chainId, contract, address, userId }) {
   }
 
   const signed = signRes.data;
-  const { hash } = await writeContract({
-    address: contract,
-    abi: nftAbi,
-    functionName: 'safeMint',
-    args: [address, id, userId, signed.url, signed.hash, signed.sign],
-  });
+
+  const { hash } = await writeActions.safeMint(contract, [
+    address,
+    id,
+    userId,
+    signed.url,
+    signed.hash,
+    signed.sign,
+  ]);
 
   await waitForTransaction({ hash });
 
@@ -90,4 +107,11 @@ async function fetchSuiTransactionBlock(id) {
   return { ...others, data: txb };
 }
 
-export { fetchGainedReputationList, fetchMyReputationList, fetchNftInfo, sendMintedHash, mintNft, fetchSuiTransactionBlock };
+export {
+  fetchGainedReputationList,
+  fetchMyReputationList,
+  fetchNftInfo,
+  sendMintedHash,
+  mintNft,
+  fetchSuiTransactionBlock,
+};
