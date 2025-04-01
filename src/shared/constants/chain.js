@@ -28,13 +28,34 @@ import {
   trustWallet,
 } from '@rainbow-me/rainbowkit/wallets';
 import { bsc } from '@wagmi/chains';
+import { defineChain } from 'viem';
 import { configureChains, createConfig } from 'wagmi';
 import { bscTestnet } from 'wagmi/chains';
 import { alchemyProvider } from 'wagmi/providers/alchemy';
 import { infuraProvider } from 'wagmi/providers/infura';
 import { publicProvider } from 'wagmi/providers/public';
 
-const supportedChains = [bsc];
+const monadTestnet = defineChain({
+  id: 10143,
+  name: 'Monad Testnet',
+  network: 'monad-testnet',
+  nativeCurrency: {
+    decimals: 18,
+    name: 'MON',
+    symbol: 'MON',
+  },
+  rpcUrls: {
+    default: { http: ['https://testnet-rpc.monad.xyz'] },
+    public: { http: ['https://testnet-rpc.monad.xyz'] },
+  },
+  blockExplorers: {
+    etherscan: { name: 'MonadExplorer', url: 'https://testnet.monadexplorer.com' },
+    default: { name: 'MonadExplorer', url: 'https://testnet.monadexplorer.com' },
+  },
+  testnet: true,
+});
+
+const supportedChains = [bsc, monadTestnet];
 
 if (process.env.NODE_ENV !== 'production') {
   supportedChains.push(bscTestnet);
@@ -95,12 +116,3 @@ export function BOUNTY_SUPPORTED_CHAIN() {
     return 56;
   }
 }
-
-export function NFT_SUPPORTED_CHAIN() {
-  if (process.env.NEXT_PUBLIC_DOMAIN_ENV === 'development' || process.env.NEXT_PUBLIC_DOMAIN_ENV === 'test') {
-    return 97;
-  } else {
-    return 56;
-  }
-}
-

@@ -27,7 +27,9 @@ export const contracts = {
     nft: '0xD3763ccfb312b14758848f47575b20Be6bE5AD04',
     bounty: '0x728206E44A0AD7E4226D3Ca6f2a3E79e344373E3',
   },
-  
+  10143: {
+    nft: '0xD27b2f759dD59B32401aBa3B94D5d27f44164832',
+  },
 };
 
 // nft: `0x${string}`

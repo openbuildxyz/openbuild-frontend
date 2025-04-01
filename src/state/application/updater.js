@@ -20,9 +20,7 @@ import { useCallback, useEffect } from 'react';
 
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 
-import { useAppDispatch } from '#/state/hooks';
-
-// import { getConfig } from '#/services/common'
+import { useAppDispatch } from '../hooks';
 import { updateConfig, updateOpenFilter, updateLessonMenu } from './reducer';
 
 export default function Updater({ datas }) {
