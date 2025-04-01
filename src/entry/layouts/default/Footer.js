@@ -35,9 +35,10 @@ const menus = [
       {
         name: 'Testnet Faucet',
         link: 'https://faucet.openbuild.xyz',
+        type: 'Hot',
       },
       {
-        name: 'Documents',
+        name: 'Product Docs',
         link: 'https://openbuild-2.gitbook.io',
       },
     ],
@@ -199,8 +200,8 @@ export function Footer() {
                       <span className="transition-all duration-300 hover:text-green hover:underline text-sm">
                         {subItem.name}
                       </span>
-                      {subItem.name === 'Testnet Faucet' && (
-                        <span className="text-[10px] px-1 py-[1px] rounded-md border border-[#FDB17E] text-[#FDB17E] ml-1 align-top">
+                      {subItem.type === 'Hot' && (
+                        <span className="ml-2 text-[10px] px-1 py-[1px] rounded-md border border-[#FDB17E] text-[#FDB17E] align-top">
                           HOT
                         </span>
                       )}
