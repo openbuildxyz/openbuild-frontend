@@ -30,6 +30,19 @@ const mediasStyle = '[&>a>svg]:h-4 [&>a>svg]:w-4 [&>a>svg]:cursor-pointer';
 
 const menus = [
   {
+    name: 'Resources',
+    items: [
+      {
+        name: 'Testnet Faucet',
+        link: 'https://faucet.openbuild.xyz',
+      },
+      {
+        name: 'Documents',
+        link: 'https://openbuild-2.gitbook.io',
+      },
+    ],
+  },
+  {
     name: 'Product',
     items: [
       {
@@ -172,10 +185,7 @@ export function Footer() {
               <h4 className="mb-0 font-semibold max-md:mb-2 md:mb-12 md:text-lg">{i.name}</h4>
               <ul>
                 {i.items.map(subItem => (
-                  <li
-                    className="leading-7 transition-all duration-300 hover:text-green hover:underline text-sm md:leading-10"
-                    key={`footer-menus-sub-${subItem.name}`}
-                  >
+                  <li className="leading-7 md:leading-10" key={`footer-menus-sub-${subItem.name}`}>
                     {/* href={subItem.link} */}
                     <div
                       className="cursor-pointer"
@@ -186,7 +196,14 @@ export function Footer() {
                         }
                       }}
                     >
-                      {subItem.name}
+                      <span className="transition-all duration-300 hover:text-green hover:underline text-sm">
+                        {subItem.name}
+                      </span>
+                      {subItem.name === 'Testnet Faucet' && (
+                        <span className="text-[10px] px-1 py-[1px] rounded-md border border-[#FDB17E] text-[#FDB17E] ml-1 align-top">
+                          HOT
+                        </span>
+                      )}
                       {subItem.type === 'Soon' && (
                         <span className="ml-2 inline-block h-4 w-9 rounded-md bg-yellow text-center text-xs font-normal leading-4 text-gray">
                           Soon
