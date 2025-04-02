@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-import { writeContract } from '@wagmi/core';
 import clsx from 'clsx';
 import { useState, useCallback } from 'react';
 import { toast } from 'react-toastify';
@@ -23,7 +22,6 @@ import { useAccount } from 'wagmi'; // useNetwork
 import { Modal } from '@/components/Modal';
 import { Confirm } from '@/components/Modal/Confirm';
 import { NoData } from '@/components/NoData';
-import { BountyABI } from '@/constants/abis/bounty';
 import { BOUNTY_SUPPORTED_CHAIN } from '@/constants/chain';
 import { contracts, payTokens } from '@/constants/contract';
 import { useAllowance, useApprove } from '@/hooks/useERC20';
@@ -31,6 +29,7 @@ import useUpToDate from '@/hooks/useUpToDate';
 import { parseTokenUnits } from '@/utils/web3';
 
 import { approveBuilder } from '#/services/creator';
+import { writeBountyAbiActions } from '#/shared/constants/abis/bounty';
 
 import { useBountyEnvCheck } from '../../hooks';
 import { fetchBuilderListForCreator } from '../../repository';
@@ -50,7 +49,7 @@ function AppliedModal({ open, closeModal, bounty, revalidatePathAction }) {
     bid: undefined,
     bountyId: undefined,
   });
-  const [currUser, setCurrUser] = useState();
+  const [currUser, setCurrUser] = useState<any>();
 
   const { allowance } = useAllowance(
     payToken.address,
@@ -78,18 +77,12 @@ function AppliedModal({ open, closeModal, bounty, revalidatePathAction }) {
 
   const write = useCallback(async() => {
     try {
-      const { hash } = await writeContract({
-        address: _contracts.bounty,
-        abi: BountyABI,
-        functionName: 'createTask',
-        args: [
-          bounty.task,
-          currUser?.user_wallet,
-          payToken.address,
-          parseTokenUnits((bounty.amount / 100).toString(), payToken.decimals),
-        ],
-      });
-      // console.log(hash)
+      const { hash } = await writeBountyAbiActions.createTask(_contracts.bounty, [
+        bounty.task,
+        currUser?.user_wallet,
+        payToken.address,
+        parseTokenUnits((bounty.amount / 100).toString(), payToken.decimals).toBigInt(),
+      ]);
 
       if (approveConfirmIds.bountyId && approveConfirmIds.bid) {
         const res = await approveBuilder(
@@ -106,7 +99,7 @@ function AppliedModal({ open, closeModal, bounty, revalidatePathAction }) {
         }
       }
       setApproveConfirmLoading(false);
-    } catch (err) {
+    } catch (err: any) {
       console.log(err);
       setApproveConfirmLoading(false);
       toast.error(err.message);
@@ -126,7 +119,7 @@ function AppliedModal({ open, closeModal, bounty, revalidatePathAction }) {
       } else {
         write();
       }
-    } catch (error) {
+    } catch (error: any) {
       setApproveConfirmLoading(false);
       toast.error(error.message);
     }

@@ -20,6 +20,20 @@ import React, { Fragment } from 'react';
 import { isFunction } from '../../utils';
 import { Dialog, Transition } from '../control/headlessui';
 
+interface ModalProps {
+  isOpen: boolean;
+  closeModal: () => void;
+  title?: string;
+  children: React.ReactNode;
+  big?: boolean;
+  mode?: 'base' | '640';
+  container?: boolean;
+  className?: string;
+  containerClassName?: string;
+  titleClassName?: string;
+  closeExplicitly?: boolean;
+}
+
 export function Modal({
   isOpen,
   closeModal,
@@ -32,7 +46,7 @@ export function Modal({
   containerClassName,
   titleClassName,
   closeExplicitly = false,  // 阻止点击遮罩层或按 ESC 键时关闭
-}) {
+}: ModalProps) {
   const handleClose = () => {
     if (closeExplicitly === true || !isFunction(closeModal)) {
       return;
