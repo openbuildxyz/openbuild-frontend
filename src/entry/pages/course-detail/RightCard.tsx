@@ -16,7 +16,6 @@
 
 import { useConnectModal } from '@rainbow-me/rainbowkit';
 import { waitForTransaction } from '@wagmi/core';
-import { writeContract } from '@wagmi/core';
 import clsx from 'clsx';
 import { useSession } from 'next-auth/react';
 import dynamic from 'next/dynamic';
@@ -24,7 +23,7 @@ import Image from 'next/image';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useCallback, useState, useEffect, useMemo } from 'react';
 import { toast } from 'react-toastify';
-import { useAccount, useNetwork, useSwitchNetwork, erc20ABI } from 'wagmi';
+import { useAccount, useNetwork, useSwitchNetwork } from 'wagmi';
 
 import { Button } from '@/components/Button';
 // import { getBalance } from '@wagmi/core'
@@ -37,6 +36,7 @@ import { parseTokenUnits } from '@/utils/web3';
 
 import { enrollOne, updateTransaction } from '#/domain/challenge/repository';
 import DatePlaceWidget from '#/domain/challenge/widgets/date-place';
+import { writeErc20AbiActions } from '#/shared/constants/abis/erc20ABI';
 // import { currentTime } from '@/utils/date'
 import { useMediaUrl } from '#/state/application/hooks';
 
@@ -194,7 +194,21 @@ function ButtonGroup({
   );
 }
 
-export default function LearnRightCard({ data, type, permission, related, enrollAction, revalidatePathAction }) {
+export default function LearnRightCard({
+  data,
+  type,
+  permission,
+  related,
+  enrollAction,
+  revalidatePathAction,
+}: {
+  data: any;
+  type: string;
+  permission: any;
+  related: any;
+  enrollAction: any;
+  revalidatePathAction: any;
+}) {
   // const { data: walletClient } = useWalletClient()
   const searchParams = useSearchParams();
   const mediaUrl = useMediaUrl();
@@ -276,7 +290,7 @@ export default function LearnRightCard({ data, type, permission, related, enroll
       router.push(`/signin?from=${sourceFrom}`);
     }
     if (!isConnected) {
-      openConnectModal();
+      openConnectModal?.();
       return;
     }
     if (chain?.id !== chainId) {
@@ -293,12 +307,12 @@ export default function LearnRightCard({ data, type, permission, related, enroll
       //   functionName: 'transfer',
       //   args: [toAddress, _amount],
       // })
-      const { hash } = await writeContract({
-        address: data.challenges_extra?.course_challenges_extra_feeds_contract,
-        abi: erc20ABI,
-        functionName: 'transfer',
-        args: [toAddress, _amount],
-      });
+
+      const { hash } = await writeErc20AbiActions.transfer(
+        data.challenges_extra?.course_challenges_extra_feeds_contract,
+        [toAddress, _amount.toBigInt()],
+      );
+
       await waitForTransaction({ hash });
       setIsPay(true);
       const res = await updateTransaction(data.base.course_series_id, { hash });
@@ -313,7 +327,7 @@ export default function LearnRightCard({ data, type, permission, related, enroll
     }
   };
 
-  const [width, setWidth] = useState();
+  const [width, setWidth] = useState(0);
   const [enrollModalOpen, setEnrollModalOpen] = useState(width < 1024 ? false : true);
 
   useMounted(() => {
@@ -411,7 +425,10 @@ export default function LearnRightCard({ data, type, permission, related, enroll
             <div className="my-4">
               <DatePlaceWidget
                 data={data}
-                showTicket={!data?.challenges_extra.course_challenges_extra_online && (permission?.course_user_permission_status === 1)}
+                showTicket={
+                  !data?.challenges_extra.course_challenges_extra_online &&
+                  permission?.course_user_permission_status === 1
+                }
               />
             </div>
           )}
