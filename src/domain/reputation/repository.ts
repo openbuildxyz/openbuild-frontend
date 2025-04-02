@@ -21,7 +21,7 @@ import httpClient from '@/utils/http';
 
 import type { Address } from '@wagmi/core';
 
-import { writeActions } from './helper/nftAbi';
+import { writeNftAbiActions } from './helper/nftAbi';
 
 
 async function fetchGainedReputationList(userId) {
@@ -65,7 +65,7 @@ async function mintNft({
 
   const signed = signRes.data;
 
-  const { hash } = await writeActions.safeMint(contract, [
+  const { hash } = await writeNftAbiActions.safeMint(contract, [
     address,
     id,
     userId,

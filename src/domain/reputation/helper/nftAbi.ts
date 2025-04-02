@@ -787,12 +787,6 @@ const abi = [
   },
 ] as const;
 
+export const { readActions: readNftAbiActions, writeActions: writeNftAbiActions } = abiContractFactory(abi);
 
-
-const {readActions, writeActions} = abiContractFactory(abi);
-
-export {
-  readActions,
-  writeActions,
-};
 export default abi;
