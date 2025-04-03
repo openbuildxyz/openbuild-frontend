@@ -14,35 +14,23 @@
  * limitations under the License.
  */
 
-import { BSC_MAINNET_CHAIN_ID, BSC_TESTNET_CHAIN_ID, ARBITRUM_GOERLI_CHAIN_ID } from '@/constants/chain';
-import { isInteger } from '@/utils';
+import { BSC_MAINNET_CHAIN_ID, BSC_TESTNET_CHAIN_ID, ARBITRUM_GOERLI_CHAIN_ID, MONAD_TESTNET_CHAIN_ID } from '@/constants/chain';
 
-import type { Address, Chain } from '@wagmi/core';
+import type { Address } from '@wagmi/core';
 
 const contractAddressMap: Record<number, Address> = {
-  [BSC_MAINNET_CHAIN_ID]: '0x495e20d29c43753dd3b9587e14cb436e1ed1fbb2',
-  [BSC_TESTNET_CHAIN_ID]: '0x728206E44A0AD7E4226D3Ca6f2a3E79e344373E3',
-  [ARBITRUM_GOERLI_CHAIN_ID]: '0x6f6852b7c579eccc46637d546628029c952ac1dd',
+  [BSC_MAINNET_CHAIN_ID]: '0x2d18e7c7b52aa14b00bd91f123cb4b65afcfed8b',
+  [BSC_TESTNET_CHAIN_ID]: '0xD3763ccfb312b14758848f47575b20Be6bE5AD04',
+  [ARBITRUM_GOERLI_CHAIN_ID]: '0x3987ebac1e98bc090434fa5367fff5fba811b83a',
+  [MONAD_TESTNET_CHAIN_ID]: '0xD27b2f759dD59B32401aBa3B94D5d27f44164832',
 };
 
 function getChainId(): number {
   return BSC_MAINNET_CHAIN_ID;
 }
 
-function isChainValid(chainOrId?: Chain | Chain['id']): boolean {
-  let chainId: Chain['id'] | undefined;
-
-  if (isInteger(chainOrId)) {
-    chainId = chainOrId as Chain['id'];
-  } else {
-    chainId = (chainOrId as Chain | undefined)?.id;
-  }
-
-  return chainId === getChainId();
-}
-
 function getContractAddress(chainId: number = getChainId()): Address {
   return contractAddressMap[chainId];
 }
 
-export { getChainId, isChainValid, getContractAddress };
+export { getContractAddress };
