@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { abiContractFactory } from '#/shared/utils/abiContractFactory';
+import { abiContractFactory } from '../../utils/abiContractFactory';
 
 export const BountyABI = [
   { inputs: [], stateMutability: 'nonpayable', type: 'constructor' },
