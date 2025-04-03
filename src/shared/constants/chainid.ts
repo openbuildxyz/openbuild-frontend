@@ -14,16 +14,9 @@
  * limitations under the License.
  */
 
-const BOUNTY_STATUS_APPLIED = 101;
-const BOUNTY_STATUS_TERMINATION = 120;
-const BOUNTY_STATUS_FINISHED = 130;
+const BSC_MAINNET_CHAIN_ID = 56;
+const BSC_TESTNET_CHAIN_ID = 97;
+const MONAD_TESTNET_CHAIN_ID = 10143;
+const ARBITRUM_GOERLI_CHAIN_ID = 421613;
 
-function isBountyApplied(status) {
-  return status === BOUNTY_STATUS_APPLIED;
-}
-
-function isBountyFinished(status) {
-  return [BOUNTY_STATUS_TERMINATION, BOUNTY_STATUS_FINISHED].includes(status);
-}
-
-export { isBountyApplied, isBountyFinished };
+export { BSC_MAINNET_CHAIN_ID, BSC_TESTNET_CHAIN_ID, MONAD_TESTNET_CHAIN_ID, ARBITRUM_GOERLI_CHAIN_ID };

@@ -17,7 +17,6 @@
 import { waitForTransaction } from '@wagmi/core';
 
 import { PAGE_SIZE } from '@/constants/config';
-import { payTokens } from '@/constants/contract';
 import { isInteger, merge } from '@/utils';
 import { createContractActions } from '@/utils/contract';
 import httpClient from '@/utils/http';
@@ -25,9 +24,10 @@ import { parseTokenUnits } from '@/utils/web3';
 
 import type { Address } from '@wagmi/core';
 
-import { getContractAddress } from './helper';
+import { getContractAddress, getUsdtToken } from './helper';
 import bountyAbi from './helper/abi';
 
+const defaultStableCoin = getUsdtToken();
 const { writeActions: { createTask: createTaskFromAbi, withdraw: withdrawFromAbi } } = createContractActions(bountyAbi);
 
 function resolveSkipped(page: number | string, size: number = PAGE_SIZE) {
@@ -89,15 +89,20 @@ async function requestTermination(id, data) {
   return httpClient.post(`/build/creator/bounties/${id}/status/termination/propose`, data);
 }
 
-async function createTask(args: [bigint, Address, Address, bigint]) {
-  return createTaskFromAbi(getContractAddress(), args);
+async function createTask(args: [bigint, Address, string]) {
+  return createTaskFromAbi(getContractAddress(), [
+    args[0],
+    args[1],
+    defaultStableCoin.address,
+    parseTokenUnits(args[2], defaultStableCoin.decimals).toBigInt(),
+  ]);
 }
 
 async function withdraw(walletClient, chainId, taskId, amount, deadline, signature) {
   try {
     const { hash } = await withdrawFromAbi(getContractAddress(chainId), [
       taskId,
-      parseTokenUnits(amount.toString(), payTokens[chainId].usdt.decimals).toBigInt(),
+      parseTokenUnits(amount.toString(), getUsdtToken(chainId).decimals).toBigInt(),
       deadline,
       signature,
     ]);
@@ -108,10 +113,37 @@ async function withdraw(walletClient, chainId, taskId, amount, deadline, signatu
   }
 }
 
+async function signBounty(chainId, singer, taskId, amount: string, deadline) {
+  const domain = {
+    name: 'Task',
+    version: '1',
+    chainId,
+    verifyingContract: getContractAddress(),
+  };
+
+  const types = {
+    Withdraw: [
+      { name: 'taskId', type: 'uint256' },
+      { name: 'amount', type: 'uint256' },
+      { name: 'deadline', type: 'uint256' },
+    ],
+  };
+
+  try {
+    const sig = await singer?.signTypedData({domain, types, primaryType: 'Withdraw', message: {
+      taskId, amount: parseTokenUnits(amount, defaultStableCoin.decimals).toString(), deadline,
+    }});
+    return sig;
+  } catch (err) {
+    console.log(err, 'err');
+    return 'error';
+  }
+}
+
 export {
   fetchList, fetchOne, applyOne,
   fetchActivityList, fetchBuilderList, fetchBuilderListForCreator,
   fetchPublishedBountyList, fetchAppliedBountyList,
   requestTermination,
-  createTask, withdraw,
+  createTask, withdraw, signBounty,
 };

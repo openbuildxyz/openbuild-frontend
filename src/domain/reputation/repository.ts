@@ -22,6 +22,7 @@ import httpClient from '@/utils/http';
 
 import type { Address } from '@wagmi/core';
 
+import { getContractAddress } from './helper';
 import nftAbi from './helper/abi';
 
 const { writeActions: { safeMint } } = createContractActions(nftAbi);
@@ -49,13 +50,11 @@ async function sendMintedHash({ id, chainId, hash }) {
 async function mintNft({
   id,
   chainId,
-  contract,
   address,
   userId,
 }: {
   id: bigint;
   chainId: number;
-  contract: Address;
   address: Address;
   userId: bigint;
 }) {
@@ -67,7 +66,7 @@ async function mintNft({
 
   const signed = signRes.data;
 
-  const { hash } = await safeMint(contract, [
+  const { hash } = await safeMint(getContractAddress(chainId), [
     address,
     id,
     userId,

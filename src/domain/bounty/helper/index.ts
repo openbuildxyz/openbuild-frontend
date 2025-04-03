@@ -14,10 +14,23 @@
  * limitations under the License.
  */
 
-import { BSC_MAINNET_CHAIN_ID, BSC_TESTNET_CHAIN_ID, ARBITRUM_GOERLI_CHAIN_ID } from '@/constants/chain';
+import { BSC_MAINNET_CHAIN_ID, BSC_TESTNET_CHAIN_ID, ARBITRUM_GOERLI_CHAIN_ID } from '@/constants/chainid';
 import { isInteger } from '@/utils';
 
+import type { Stablecoin } from '../typing';
 import type { Address, Chain } from '@wagmi/core';
+
+const BOUNTY_STATUS_APPLIED = 101;
+const BOUNTY_STATUS_TERMINATION = 120;
+const BOUNTY_STATUS_FINISHED = 130;
+
+function isBountyApplied(status: number): boolean {
+  return status === BOUNTY_STATUS_APPLIED;
+}
+
+function isBountyFinished(status: number): boolean {
+  return [BOUNTY_STATUS_TERMINATION, BOUNTY_STATUS_FINISHED].includes(status);
+}
 
 const contractAddressMap: Record<number, Address> = {
   [BSC_MAINNET_CHAIN_ID]: '0x495e20d29c43753dd3b9587e14cb436e1ed1fbb2',
@@ -45,4 +58,58 @@ function getContractAddress(chainId: number = getChainId()): Address {
   return contractAddressMap[chainId];
 }
 
-export { getChainId, isChainValid, getContractAddress };
+const usdtMap: Record<number, Stablecoin<'USDT'>> = {
+  [BSC_MAINNET_CHAIN_ID]: {
+    name: 'USDT',
+    symbol: 'USDT',
+    address: '0x55d398326f99059fF775485246999027B3197955',
+    decimals: '18',
+  },
+  [BSC_TESTNET_CHAIN_ID]: {
+    name: 'USDT',
+    symbol: 'USDT',
+    address: '0x55d398326f99059fF775485246999027B3197955',
+    decimals: '18',
+  },
+  [ARBITRUM_GOERLI_CHAIN_ID]: {
+    name: 'USDT',
+    symbol: 'USDT',
+    address: '0xb25f7D74E6E7aECA804c473eBC4F81A0557956D6',
+    decimals: '6',
+  },
+};
+
+const usdcMap: Record<number, Stablecoin<'USDC'>> = {
+  [BSC_MAINNET_CHAIN_ID]: {
+    name: 'USDC',
+    symbol: 'USDC',
+    address: '0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d',
+    decimals: '18',
+  },
+  [BSC_TESTNET_CHAIN_ID]: {
+    name: 'USDC',
+    symbol: 'USDC',
+    address: '0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d',
+    decimals: '18',
+  },
+  [ARBITRUM_GOERLI_CHAIN_ID]: {
+    name: 'USDC',
+    symbol: 'USDC',
+    address: '0xb25f7D74E6E7aECA804c473eBC4F81A0557956D6',
+    decimals: '6',
+  },
+};
+
+function getUsdtToken(chainId: number = getChainId()): Stablecoin<'USDT'> {
+  return usdtMap[chainId];
+}
+
+function getUsdcToken(chainId: number = getChainId()): Stablecoin<'USDC'> {
+  return usdcMap[chainId];
+}
+
+export {
+  isBountyApplied, isBountyFinished,
+  getChainId, isChainValid, getContractAddress,
+  getUsdtToken, getUsdcToken,
+};

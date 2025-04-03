@@ -26,7 +26,6 @@ import { formatTime } from '@/utils/date';
 import { useMediaUrl, useUser } from '#/state/application/hooks';
 
 import useEnsureRightEnv from '../../../auth/hooks/useEnsureRightEnv';
-import { getContractAddress } from '../../helper';
 import { mintNft, fetchSuiTransactionBlock, sendMintedHash } from '../../repository';
 
 export default function MyReputationItem({ dataSource, onNotConnected, onMint }) {
@@ -43,7 +42,6 @@ export default function MyReputationItem({ dataSource, onNotConnected, onMint })
     await mintNft({
       id,
       chainId: mint_chain_id,
-      contract: getContractAddress(mint_chain_id),
       address,
       userId: user?.base.user_id,
     })

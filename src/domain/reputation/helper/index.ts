@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { BSC_MAINNET_CHAIN_ID, BSC_TESTNET_CHAIN_ID, ARBITRUM_GOERLI_CHAIN_ID, MONAD_TESTNET_CHAIN_ID } from '@/constants/chain';
+import { BSC_MAINNET_CHAIN_ID, BSC_TESTNET_CHAIN_ID, ARBITRUM_GOERLI_CHAIN_ID, MONAD_TESTNET_CHAIN_ID } from '@/constants/chainid';
 
 import type { Address } from '@wagmi/core';
 

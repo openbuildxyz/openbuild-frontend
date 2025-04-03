@@ -35,10 +35,7 @@ import { alchemyProvider } from 'wagmi/providers/alchemy';
 import { infuraProvider } from 'wagmi/providers/infura';
 import { publicProvider } from 'wagmi/providers/public';
 
-const BSC_MAINNET_CHAIN_ID = 56;
-const BSC_TESTNET_CHAIN_ID = 97;
-const MONAD_TESTNET_CHAIN_ID = 10143;
-const ARBITRUM_GOERLI_CHAIN_ID = 421613;
+import { MONAD_TESTNET_CHAIN_ID } from './chainid';
 
 const monadTestnet = defineChain({
   id: MONAD_TESTNET_CHAIN_ID,
@@ -113,5 +110,3 @@ export const wagmiConfig = createConfig({
   connectors,
   publicClient,
 });
-
-export { BSC_MAINNET_CHAIN_ID, BSC_TESTNET_CHAIN_ID, MONAD_TESTNET_CHAIN_ID, ARBITRUM_GOERLI_CHAIN_ID };

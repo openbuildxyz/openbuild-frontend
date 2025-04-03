@@ -29,11 +29,10 @@ import Loader from '@/components/Loader';
 import { Modal } from '@/components/Modal';
 import { Confirm } from '@/components/Modal/Confirm';
 import { NoData } from '@/components/NoData';
-import { payTokens } from '@/constants/contract';
 import { useAllowance, useApprove } from '@/hooks/useERC20';
 import { parseTokenUnits } from '@/utils/web3';
 
-import { getChainId, getContractAddress } from '#/domain/bounty/helper';
+import { getContractAddress, getUsdtToken } from '#/domain/bounty/helper';
 import { createTask } from '#/domain/bounty/repository';
 import { EXPERIENCE_OPTIONS } from '#/lib/user';
 import { denyBuilder, approveBuilder } from '#/services/creator';
@@ -44,7 +43,7 @@ import { CommentsModal } from './CommentsModal';
 
 export function AppliedModal({ open, closeModal, bounty, applyCallback }) {
   const bountyContract = getContractAddress();
-  const payToken = payTokens[getChainId()].usdt;
+  const payToken = getUsdtToken();
 
   const { isConnected, address } = useAccount();
   const { openConnectModal } = useConnectModal();
@@ -145,8 +144,7 @@ export function AppliedModal({ open, closeModal, bounty, applyCallback }) {
       const { hash } = await createTask([
         bounty.task,
         currUser?.user_wallet,
-        payToken.address,
-        parseTokenUnits((bounty.amount / 100).toString(), payToken.decimals).toBigInt(),
+        (bounty.amount / 100).toString(),
       ]);
 
       if (approveConfirmIds.bountyId && approveConfirmIds.bid) {

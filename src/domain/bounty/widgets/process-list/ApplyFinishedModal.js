@@ -20,17 +20,14 @@ import { useNetwork, useWalletClient } from 'wagmi';
 
 import { Button } from '@/components/Button';
 import { Modal } from '@/components/Modal';
-import { payTokens } from '@/constants/contract';
 import { currentTime } from '@/utils/date';
-import { parseTokenUnits, signBounty } from '@/utils/web3';
 
 import { biulderFinish } from '#/services/bounties';
 
-import { getChainId, getContractAddress } from '../../helper';
 import { useBountyEnvCheck } from '../../hooks';
+import { signBounty } from '../../repository';
 
 function ApplyFinishedModal({ open, close, bounty, revalidatePathAction }) {
-  const payToken = payTokens[getChainId()].usdt;
   const wrapBountyEnvCheck = useBountyEnvCheck();
 
   const [amount, setAmount] = useState('');
@@ -43,7 +40,7 @@ function ApplyFinishedModal({ open, close, bounty, revalidatePathAction }) {
     setLoading(true);
     const _deadline = currentTime() + 7 * 24 * 60 * 60;
     // bounty withdraw
-    const _s = await signBounty(chain?.id, getContractAddress(), walletClient, bounty.task, parseTokenUnits(amount.toString(), payToken.decimals), _deadline);
+    const _s = await signBounty(chain?.id, walletClient, bounty.task, amount.toString(), _deadline);
     if (_s === 'error') {
       setLoading(false);
       return;
@@ -81,4 +78,5 @@ function ApplyFinishedModal({ open, close, bounty, revalidatePathAction }) {
     </Modal>
   );
 }
+
 export default  ApplyFinishedModal;

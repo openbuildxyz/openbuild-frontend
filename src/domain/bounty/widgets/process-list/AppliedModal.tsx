@@ -22,14 +22,13 @@ import { useAccount } from 'wagmi'; // useNetwork
 import { Modal } from '@/components/Modal';
 import { Confirm } from '@/components/Modal/Confirm';
 import { NoData } from '@/components/NoData';
-import { payTokens } from '@/constants/contract';
 import { useAllowance, useApprove } from '@/hooks/useERC20';
 import useUpToDate from '@/hooks/useUpToDate';
 import { parseTokenUnits } from '@/utils/web3';
 
 import { approveBuilder } from '#/services/creator';
 
-import { getChainId, getContractAddress } from '../../helper';
+import { getContractAddress, getUsdtToken } from '../../helper';
 import { useBountyEnvCheck } from '../../hooks';
 import { fetchBuilderListForCreator, createTask } from '../../repository';
 import AppliedBuilderListView from '../../views/applied-builder-list';
@@ -40,7 +39,7 @@ function AppliedModal({ open, closeModal, bounty, revalidatePathAction }) {
   // const { chain } = useNetwork()
   const wrapBountyEnvCheck = useBountyEnvCheck();
   const bountyContract = getContractAddress();
-  const payToken = payTokens[getChainId()].usdt;
+  const payToken = getUsdtToken();
 
   const [confirmModalOpen, setConfirmModalOpen] = useState(false);
   const [approveConfirmLoading, setApproveConfirmLoading] = useState(false);
@@ -79,8 +78,7 @@ function AppliedModal({ open, closeModal, bounty, revalidatePathAction }) {
       const { hash } = await createTask([
         bounty.task,
         currUser?.user_wallet,
-        payToken.address,
-        parseTokenUnits((bounty.amount / 100).toString(), payToken.decimals).toBigInt(),
+        (bounty.amount / 100).toString(),
       ]);
 
       if (approveConfirmIds.bountyId && approveConfirmIds.bid) {
