@@ -14,9 +14,18 @@
  * limitations under the License.
  */
 
+import { waitForTransaction } from '@wagmi/core';
+
 import { PAGE_SIZE } from '@/constants/config';
+import { contracts, payTokens } from '@/constants/contract';
 import { isInteger, merge } from '@/utils';
+import { createContractActions } from '@/utils/contract';
 import httpClient from '@/utils/http';
+import { parseTokenUnits } from '@/utils/web3';
+
+import bountyAbi from './helper/abi';
+
+const { writeActions: { createTask, withdraw: withdrawFromAbi } } = createContractActions(bountyAbi);
 
 function resolveSkipped(page, size = PAGE_SIZE) {
   let resolved = Number(page);
@@ -28,7 +37,7 @@ function resolveSkipped(page, size = PAGE_SIZE) {
   return (resolved - 1) * size;
 }
 
-async function fetchList(params = {}) {
+async function fetchList(params = {} as any) {
   const { page = 1, sort, ...others } = params;
 
   return httpClient.get('/build/general/bounties', {
@@ -59,13 +68,13 @@ async function fetchBuilderListForCreator(id, params) {
   return httpClient.get(`/build/creator/bounties/${id}/builders`, { params });
 }
 
-async function fetchPublishedBountyList(params = {}) {
+async function fetchPublishedBountyList(params = {} as any) {
   const { userId, ...others } = params;
 
   return fetchList({ ...others, team_uid: userId  });
 }
 
-async function fetchAppliedBountyList(params = {}) {
+async function fetchAppliedBountyList(params = {} as any) {
   const { userId, sort, ...others } = params;
 
   return httpClient.get(`/build/dashboard/bounties/public/${userId}`, {
@@ -77,9 +86,25 @@ async function requestTermination(id, data) {
   return httpClient.post(`/build/creator/bounties/${id}/status/termination/propose`, data);
 }
 
+async function withdraw(walletClient, chainId, taskId, amount, deadline, signature) {
+  try {
+    const { hash } = await withdrawFromAbi(contracts[chainId].bounty, [
+      taskId,
+      parseTokenUnits(amount.toString(), payTokens[chainId].usdt.decimals).toBigInt(),
+      deadline,
+      signature,
+    ]);
+    const wait = await waitForTransaction({ hash });
+    return { hash, wait };
+  } catch {
+    return { hash: 'error', wait: null };
+  }
+}
+
 export {
   fetchList, fetchOne, applyOne,
   fetchActivityList, fetchBuilderList, fetchBuilderListForCreator,
   fetchPublishedBountyList, fetchAppliedBountyList,
   requestTermination,
+  createTask, withdraw,
 };

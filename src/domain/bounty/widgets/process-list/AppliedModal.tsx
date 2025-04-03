@@ -22,7 +22,6 @@ import { useAccount } from 'wagmi'; // useNetwork
 import { Modal } from '@/components/Modal';
 import { Confirm } from '@/components/Modal/Confirm';
 import { NoData } from '@/components/NoData';
-import { writeBountyAbiActions } from '@/constants/abis/bounty';
 import { BOUNTY_SUPPORTED_CHAIN } from '@/constants/chain';
 import { contracts, payTokens } from '@/constants/contract';
 import { useAllowance, useApprove } from '@/hooks/useERC20';
@@ -32,7 +31,7 @@ import { parseTokenUnits } from '@/utils/web3';
 import { approveBuilder } from '#/services/creator';
 
 import { useBountyEnvCheck } from '../../hooks';
-import { fetchBuilderListForCreator } from '../../repository';
+import { fetchBuilderListForCreator, createTask } from '../../repository';
 import AppliedBuilderListView from '../../views/applied-builder-list';
 
 function AppliedModal({ open, closeModal, bounty, revalidatePathAction }) {
@@ -77,7 +76,7 @@ function AppliedModal({ open, closeModal, bounty, revalidatePathAction }) {
 
   const write = useCallback(async() => {
     try {
-      const { hash } = await writeBountyAbiActions.createTask(_contracts.bounty, [
+      const { hash } = await createTask(_contracts.bounty, [
         bounty.task,
         currUser?.user_wallet,
         payToken.address,

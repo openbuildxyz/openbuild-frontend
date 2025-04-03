@@ -24,14 +24,13 @@ import { useNetwork, useWalletClient } from 'wagmi';
 import { Button } from '@/components/Button';
 import { Modal } from '@/components/Modal';
 import { NoData } from '@/components/NoData';
-import { withdraw } from '@/constants/bounty';
 import { BOUNTY_SUPPORTED_CHAIN } from '@/constants/chain';
 import { contracts, payTokens } from '@/constants/contract';
 import { currentTime, fromNow } from '@/utils/date';
 import { formatTime } from '@/utils/date';
 import { parseTokenUnits, signBounty } from '@/utils/web3';
 
-import { requestTermination } from '#/domain/bounty/repository';
+import { requestTermination, withdraw } from '#/domain/bounty/repository';
 import {
   getProgressList,
   finishConfirm,

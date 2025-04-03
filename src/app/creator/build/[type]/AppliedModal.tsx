@@ -29,12 +29,12 @@ import Loader from '@/components/Loader';
 import { Modal } from '@/components/Modal';
 import { Confirm } from '@/components/Modal/Confirm';
 import { NoData } from '@/components/NoData';
-import { writeBountyAbiActions } from '@/constants/abis/bounty';
 import { BOUNTY_SUPPORTED_CHAIN } from '@/constants/chain';
 import { contracts, payTokens } from '@/constants/contract';
 import { useAllowance, useApprove } from '@/hooks/useERC20';
 import { parseTokenUnits } from '@/utils/web3';
 
+import { createTask } from '#/domain/bounty/repository';
 import { EXPERIENCE_OPTIONS } from '#/lib/user';
 import { denyBuilder, approveBuilder } from '#/services/creator';
 import { useCreatorBountyBuilders } from '#/services/creator/hooks';
@@ -142,7 +142,7 @@ export function AppliedModal({ open, closeModal, bounty, applyCallback }) {
 
   const write = async () => {
     try {
-      const { hash } = await writeBountyAbiActions.createTask(_contracts.bounty, [
+      const { hash } = await createTask(_contracts.bounty, [
         bounty.task,
         currUser?.user_wallet,
         payToken.address,
