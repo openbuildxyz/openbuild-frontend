@@ -19,7 +19,7 @@ import { readContract, writeContract } from '@wagmi/core';
 import type { Address, ReadContractConfig, ReadContractResult, WriteContractPreparedArgs, WriteContractResult } from '@wagmi/core';
 import type { Abi, ExtractAbiFunctionNames } from 'abitype';
 
-export function abiContractFactory<
+export function createContractActions<
   TAbi extends Abi,
   ViewFunctionNames extends ExtractAbiFunctionNames<TAbi, 'view' | 'pure'>,
   WriteFunctionNames extends ExtractAbiFunctionNames<TAbi, 'payable' | 'nonpayable'>,

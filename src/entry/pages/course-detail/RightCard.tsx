@@ -30,13 +30,13 @@ import { Button } from '@/components/Button';
 // import { prepareWriteContract, writeContract } from '@wagmi/core'
 import { CheckIcon } from '@/components/icon/solid';
 import { USDTIcon } from '@/components/Icons';
-import { writeErc20AbiActions } from '@/constants/abis/erc20ABI';
 import useMounted from '@/hooks/useMounted';
 import { resolvePathWithSearch } from '@/utils/url';
 import { parseTokenUnits } from '@/utils/web3';
 
 import { enrollOne, updateTransaction } from '#/domain/challenge/repository';
 import DatePlaceWidget from '#/domain/challenge/widgets/date-place';
+import { transferToken } from '#/domain/crypto/repository';
 // import { currentTime } from '@/utils/date'
 import { useMediaUrl } from '#/state/application/hooks';
 
@@ -308,7 +308,7 @@ export default function LearnRightCard({
       //   args: [toAddress, _amount],
       // })
 
-      const { hash } = await writeErc20AbiActions.transfer(
+      const { hash } = await transferToken(
         data.challenges_extra?.course_challenges_extra_feeds_contract,
         [toAddress, _amount.toBigInt()],
       );

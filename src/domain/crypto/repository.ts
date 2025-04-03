@@ -16,6 +16,8 @@
 
 import { erc20ABI } from '@wagmi/core';
 
-import { abiContractFactory } from '../../utils/abiContractFactory';
+import { createContractActions } from '@/utils/contract';
 
-export const { readActions: readErc20AbiActions, writeActions: writeErc20AbiActions } = abiContractFactory(erc20ABI);
+const { writeActions: { transfer: transferToken } } = createContractActions(erc20ABI);
+
+export { transferToken };
