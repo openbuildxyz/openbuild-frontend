@@ -29,11 +29,11 @@ import Loader from '@/components/Loader';
 import { Modal } from '@/components/Modal';
 import { Confirm } from '@/components/Modal/Confirm';
 import { NoData } from '@/components/NoData';
-import { BOUNTY_SUPPORTED_CHAIN } from '@/constants/chain';
-import { contracts, payTokens } from '@/constants/contract';
+import { payTokens } from '@/constants/contract';
 import { useAllowance, useApprove } from '@/hooks/useERC20';
 import { parseTokenUnits } from '@/utils/web3';
 
+import { getChainId, getContractAddress } from '#/domain/bounty/helper';
 import { createTask } from '#/domain/bounty/repository';
 import { EXPERIENCE_OPTIONS } from '#/lib/user';
 import { denyBuilder, approveBuilder } from '#/services/creator';
@@ -43,8 +43,8 @@ import { useMediaUrl, useConfig } from '#/state/application/hooks';
 import { CommentsModal } from './CommentsModal';
 
 export function AppliedModal({ open, closeModal, bounty, applyCallback }) {
-  const _contracts = contracts[BOUNTY_SUPPORTED_CHAIN()];
-  const payToken = payTokens[BOUNTY_SUPPORTED_CHAIN()].usdt;
+  const bountyContract = getContractAddress();
+  const payToken = payTokens[getChainId()].usdt;
 
   const { isConnected, address } = useAccount();
   const { openConnectModal } = useConnectModal();
@@ -64,8 +64,8 @@ export function AppliedModal({ open, closeModal, bounty, applyCallback }) {
   });
   const [currUser, setCurrUser] = useState<any>();
 
-  const { allowance } = useAllowance(payToken.address, _contracts.bounty, address);
-  const { approveAsync } = useApprove(payToken.address, _contracts.bounty, address);
+  const { allowance } = useAllowance(payToken.address, bountyContract, address);
+  const { approveAsync } = useApprove(payToken.address, bountyContract, address);
 
   const rolesOpts = useMemo(() => {
     return allOpts?.roles?.map(i => ({
@@ -142,7 +142,7 @@ export function AppliedModal({ open, closeModal, bounty, applyCallback }) {
 
   const write = async () => {
     try {
-      const { hash } = await createTask(_contracts.bounty, [
+      const { hash } = await createTask(bountyContract, [
         bounty.task,
         currUser?.user_wallet,
         payToken.address,

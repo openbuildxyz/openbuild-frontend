@@ -17,12 +17,13 @@
 import { waitForTransaction } from '@wagmi/core';
 
 import { PAGE_SIZE } from '@/constants/config';
-import { contracts, payTokens } from '@/constants/contract';
+import { payTokens } from '@/constants/contract';
 import { isInteger, merge } from '@/utils';
 import { createContractActions } from '@/utils/contract';
 import httpClient from '@/utils/http';
 import { parseTokenUnits } from '@/utils/web3';
 
+import { getContractAddress } from './helper';
 import bountyAbi from './helper/abi';
 
 const { writeActions: { createTask, withdraw: withdrawFromAbi } } = createContractActions(bountyAbi);
@@ -88,7 +89,7 @@ async function requestTermination(id, data) {
 
 async function withdraw(walletClient, chainId, taskId, amount, deadline, signature) {
   try {
-    const { hash } = await withdrawFromAbi(contracts[chainId].bounty, [
+    const { hash } = await withdrawFromAbi(getContractAddress(chainId), [
       taskId,
       parseTokenUnits(amount.toString(), payTokens[chainId].usdt.decimals).toBigInt(),
       deadline,

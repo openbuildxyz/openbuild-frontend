@@ -108,11 +108,3 @@ export const wagmiConfig = createConfig({
   connectors,
   publicClient,
 });
-
-export function BOUNTY_SUPPORTED_CHAIN() {
-  if (process.env.NEXT_PUBLIC_DOMAIN_ENV === 'development' || process.env.NEXT_PUBLIC_DOMAIN_ENV === 'test') {
-    return 56;
-  } else {
-    return 56;
-  }
-}

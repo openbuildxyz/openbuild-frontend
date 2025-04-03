@@ -22,14 +22,14 @@ import { useAccount } from 'wagmi'; // useNetwork
 import { Modal } from '@/components/Modal';
 import { Confirm } from '@/components/Modal/Confirm';
 import { NoData } from '@/components/NoData';
-import { BOUNTY_SUPPORTED_CHAIN } from '@/constants/chain';
-import { contracts, payTokens } from '@/constants/contract';
+import { payTokens } from '@/constants/contract';
 import { useAllowance, useApprove } from '@/hooks/useERC20';
 import useUpToDate from '@/hooks/useUpToDate';
 import { parseTokenUnits } from '@/utils/web3';
 
 import { approveBuilder } from '#/services/creator';
 
+import { getChainId, getContractAddress } from '../../helper';
 import { useBountyEnvCheck } from '../../hooks';
 import { fetchBuilderListForCreator, createTask } from '../../repository';
 import AppliedBuilderListView from '../../views/applied-builder-list';
@@ -39,8 +39,8 @@ function AppliedModal({ open, closeModal, bounty, revalidatePathAction }) {
   const { address } = useAccount();
   // const { chain } = useNetwork()
   const wrapBountyEnvCheck = useBountyEnvCheck();
-  const _contracts = contracts[BOUNTY_SUPPORTED_CHAIN()];
-  const payToken = payTokens[BOUNTY_SUPPORTED_CHAIN()].usdt;
+  const bountyContract = getContractAddress();
+  const payToken = payTokens[getChainId()].usdt;
 
   const [confirmModalOpen, setConfirmModalOpen] = useState(false);
   const [approveConfirmLoading, setApproveConfirmLoading] = useState(false);
@@ -52,13 +52,13 @@ function AppliedModal({ open, closeModal, bounty, revalidatePathAction }) {
 
   const { allowance } = useAllowance(
     payToken.address,
-    _contracts.bounty,
+    bountyContract,
     address
   );
 
   const { approveAsync } = useApprove(
     payToken.address,
-    _contracts.bounty,
+    bountyContract,
     address
   );
 
@@ -76,7 +76,7 @@ function AppliedModal({ open, closeModal, bounty, revalidatePathAction }) {
 
   const write = useCallback(async() => {
     try {
-      const { hash } = await createTask(_contracts.bounty, [
+      const { hash } = await createTask(bountyContract, [
         bounty.task,
         currUser?.user_wallet,
         payToken.address,
@@ -103,7 +103,7 @@ function AppliedModal({ open, closeModal, bounty, revalidatePathAction }) {
       setApproveConfirmLoading(false);
       toast.error(err.message);
     }
-  }, [_contracts, approveConfirmIds, bounty, currUser, payToken, updateList]);
+  }, [bountyContract, approveConfirmIds, bounty, currUser, payToken, updateList]);
 
   const approveConfirm = useCallback(async () => {
     setApproveConfirmLoading(true);

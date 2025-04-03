@@ -24,12 +24,12 @@ import { useNetwork, useWalletClient } from 'wagmi';
 import { Button } from '@/components/Button';
 import { Modal } from '@/components/Modal';
 import { NoData } from '@/components/NoData';
-import { BOUNTY_SUPPORTED_CHAIN } from '@/constants/chain';
-import { contracts, payTokens } from '@/constants/contract';
+import { payTokens } from '@/constants/contract';
 import { currentTime, fromNow } from '@/utils/date';
 import { formatTime } from '@/utils/date';
 import { parseTokenUnits, signBounty } from '@/utils/web3';
 
+import { getChainId, getContractAddress } from '#/domain/bounty/helper';
 import { requestTermination, withdraw } from '#/domain/bounty/repository';
 import {
   getProgressList,
@@ -53,8 +53,7 @@ export function ManageModal({
 }) {
   const { chain } = useNetwork();
   const { data: walletClient } = useWalletClient();
-  const _contracts = contracts[BOUNTY_SUPPORTED_CHAIN()];
-  const payToken = payTokens[BOUNTY_SUPPORTED_CHAIN()].usdt;
+  const payToken = payTokens[getChainId()].usdt;
   const mediaUrl = useMediaUrl();
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [addProgressOpen, setAddProgressOpen] = useState(false);
@@ -100,7 +99,7 @@ export function ManageModal({
     const _deadline = currentTime() + 7 * 24 * 60 * 60;
     const _s = await signBounty(
       chain?.id,
-      _contracts.bounty,
+      getContractAddress(),
       walletClient,
       bounty.task,
       parseTokenUnits(amount.toString(), payToken.decimals),
