@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { abiContractFactory } from '#/shared/utils/abiContractFactory';
+import { abiContractFactory } from '@/utils/abiContractFactory';
 
 const abi = [
   {
