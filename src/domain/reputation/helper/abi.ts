@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-import { abiContractFactory } from '@/utils/abiContractFactory';
-
 const abi = [
   {
     inputs: [],
@@ -786,7 +784,5 @@ const abi = [
     type: 'function',
   },
 ] as const;
-
-export const { readActions: readNftAbiActions, writeActions: writeNftAbiActions } = abiContractFactory(abi);
 
 export default abi;

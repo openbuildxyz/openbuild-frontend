@@ -17,12 +17,14 @@
 import { TransactionBlock } from '@mysten/sui.js/transactions';
 import { waitForTransaction } from '@wagmi/core';
 
+import { createContractActions } from '@/utils/contract';
 import httpClient from '@/utils/http';
 
 import type { Address } from '@wagmi/core';
 
-import { writeNftAbiActions } from './helper/nftAbi';
+import nftAbi from './helper/abi';
 
+const { writeActions: { safeMint } } = createContractActions(nftAbi);
 
 async function fetchGainedReputationList(userId) {
   return httpClient.get(`/nft/general/public/${userId}/infos`);
@@ -65,7 +67,7 @@ async function mintNft({
 
   const signed = signRes.data;
 
-  const { hash } = await writeNftAbiActions.safeMint(contract, [
+  const { hash } = await safeMint(contract, [
     address,
     id,
     userId,
