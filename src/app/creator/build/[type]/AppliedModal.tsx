@@ -142,7 +142,7 @@ export function AppliedModal({ open, closeModal, bounty, applyCallback }) {
 
   const write = async () => {
     try {
-      const { hash } = await createTask(bountyContract, [
+      const { hash } = await createTask([
         bounty.task,
         currUser?.user_wallet,
         payToken.address,

@@ -23,12 +23,14 @@ import { createContractActions } from '@/utils/contract';
 import httpClient from '@/utils/http';
 import { parseTokenUnits } from '@/utils/web3';
 
+import type { Address } from '@wagmi/core';
+
 import { getContractAddress } from './helper';
 import bountyAbi from './helper/abi';
 
-const { writeActions: { createTask, withdraw: withdrawFromAbi } } = createContractActions(bountyAbi);
+const { writeActions: { createTask: createTaskFromAbi, withdraw: withdrawFromAbi } } = createContractActions(bountyAbi);
 
-function resolveSkipped(page, size = PAGE_SIZE) {
+function resolveSkipped(page: number | string, size: number = PAGE_SIZE) {
   let resolved = Number(page);
 
   if (!isInteger(resolved) || resolved < 1) {
@@ -85,6 +87,10 @@ async function fetchAppliedBountyList(params = {} as any) {
 
 async function requestTermination(id, data) {
   return httpClient.post(`/build/creator/bounties/${id}/status/termination/propose`, data);
+}
+
+async function createTask(args: [bigint, Address, Address, bigint]) {
+  return createTaskFromAbi(getContractAddress(), args);
 }
 
 async function withdraw(walletClient, chainId, taskId, amount, deadline, signature) {

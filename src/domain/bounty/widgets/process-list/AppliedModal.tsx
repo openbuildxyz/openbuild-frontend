@@ -76,7 +76,7 @@ function AppliedModal({ open, closeModal, bounty, revalidatePathAction }) {
 
   const write = useCallback(async() => {
     try {
-      const { hash } = await createTask(bountyContract, [
+      const { hash } = await createTask([
         bounty.task,
         currUser?.user_wallet,
         payToken.address,
