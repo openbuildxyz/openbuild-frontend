@@ -15,7 +15,6 @@
  */
 
 import { useConnectModal } from '@rainbow-me/rainbowkit';
-import { writeContract } from '@wagmi/core';
 // import { formatTime } from '@/utils/date'
 import clsx from 'clsx';
 import Image from 'next/image';
@@ -30,7 +29,7 @@ import Loader from '@/components/Loader';
 import { Modal } from '@/components/Modal';
 import { Confirm } from '@/components/Modal/Confirm';
 import { NoData } from '@/components/NoData';
-import { BountyABI } from '@/constants/abis/bounty';
+import { writeBountyAbiActions } from '@/constants/abis/bounty';
 import { BOUNTY_SUPPORTED_CHAIN } from '@/constants/chain';
 import { contracts, payTokens } from '@/constants/contract';
 import { useAllowance, useApprove } from '@/hooks/useERC20';
@@ -39,10 +38,7 @@ import { parseTokenUnits } from '@/utils/web3';
 import { EXPERIENCE_OPTIONS } from '#/lib/user';
 import { denyBuilder, approveBuilder } from '#/services/creator';
 import { useCreatorBountyBuilders } from '#/services/creator/hooks';
-import {
-  useMediaUrl,
-  useConfig,
-} from '#/state/application/hooks';
+import { useMediaUrl, useConfig } from '#/state/application/hooks';
 
 import { CommentsModal } from './CommentsModal';
 
@@ -66,18 +62,10 @@ export function AppliedModal({ open, closeModal, bounty, applyCallback }) {
     bid: undefined,
     bountyId: undefined,
   });
-  const [currUser, setCurrUser] = useState();
+  const [currUser, setCurrUser] = useState<any>();
 
-  const { allowance } = useAllowance(
-    payToken.address,
-    _contracts.bounty,
-    address
-  );
-  const { approveAsync } = useApprove(
-    payToken.address,
-    _contracts.bounty,
-    address
-  );
+  const { allowance } = useAllowance(payToken.address, _contracts.bounty, address);
+  const { approveAsync } = useApprove(payToken.address, _contracts.bounty, address);
 
   const rolesOpts = useMemo(() => {
     return allOpts?.roles?.map(i => ({
@@ -106,10 +94,7 @@ export function AppliedModal({ open, closeModal, bounty, applyCallback }) {
     skip: 0,
     take: 20,
   });
-  const { loading, list, hasNextPage, doSetList } = useCreatorBountyBuilders(
-    listParams,
-    open
-  );
+  const { loading, list, hasNextPage, doSetList } = useCreatorBountyBuilders(listParams, open);
 
   const [sentryRef] = useInfiniteScroll({
     loading,
@@ -123,13 +108,13 @@ export function AppliedModal({ open, closeModal, bounty, applyCallback }) {
   }
 
   const successCallback = useCallback(
-    (res, bid, status) => {
+    (res: any, bid: any, status: any) => {
       if (res.code === 200) {
         const _list = [...list];
-        const curr = _list.find(f => f.id === bid);
+        const curr: any = _list.find((f: any) => f.id === bid);
         if (curr) {
           curr.status = status;
-          const fixedList = _list.map(m => {
+          const fixedList = _list.map((m: any) => {
             return m.id === bid ? { ...curr } : m;
           });
           doSetList(fixedList);
@@ -143,7 +128,7 @@ export function AppliedModal({ open, closeModal, bounty, applyCallback }) {
         toast.error(res.message);
       }
     },
-    [doSetList, list, applyCallback]
+    [doSetList, list, applyCallback],
   );
 
   const decline = async (bountyId, bid) => {
@@ -157,28 +142,19 @@ export function AppliedModal({ open, closeModal, bounty, applyCallback }) {
 
   const write = async () => {
     try {
-      const { hash } = await writeContract({
-        address: _contracts.bounty,
-        abi: BountyABI,
-        functionName: 'createTask',
-        args: [
-          bounty.task,
-          currUser?.user_wallet,
-          payToken.address,
-          parseTokenUnits((bounty.amount / 100).toString(), payToken.decimals),
-        ],
-      });
+      const { hash } = await writeBountyAbiActions.createTask(_contracts.bounty, [
+        bounty.task,
+        currUser?.user_wallet,
+        payToken.address,
+        parseTokenUnits((bounty.amount / 100).toString(), payToken.decimals).toBigInt(),
+      ]);
 
       if (approveConfirmIds.bountyId && approveConfirmIds.bid) {
-        const res = await approveBuilder(
-          approveConfirmIds.bountyId,
-          approveConfirmIds.bid,
-          hash
-        );
+        const res = await approveBuilder(approveConfirmIds.bountyId, approveConfirmIds.bid, hash);
         successCallback(res, approveConfirmIds.bid, 6);
       }
       setApproveConfirmLoading(false);
-    } catch (err) {
+    } catch (err: any) {
       setApproveConfirmLoading(false);
       console.log(err);
       toast.error(err);
@@ -192,13 +168,13 @@ export function AppliedModal({ open, closeModal, bounty, applyCallback }) {
 
   const approveConfirm = async () => {
     if (!isConnected) {
-      openConnectModal();
+      openConnectModal?.();
       return;
     }
     setApproveConfirmLoading(true);
     if (
-      Number(allowance.toString()) < Number(parseTokenUnits((bounty.amount / 100).toString(), payToken.decimals).toString())
-      &&
+      Number(allowance.toString()) <
+        Number(parseTokenUnits((bounty.amount / 100).toString(), payToken.decimals).toString()) &&
       approveAsync
     ) {
       await approveAsync();
@@ -209,12 +185,7 @@ export function AppliedModal({ open, closeModal, bounty, applyCallback }) {
   };
 
   return (
-    <Modal
-      isOpen={open}
-      title={'Build applied'}
-      closeModal={closeModal}
-      big={true}
-    >
+    <Modal isOpen={open} title={'Build applied'} closeModal={closeModal} big={true}>
       <div className="w-full bg-white">
         <ul
           className={clsx('grid h-10 items-center font-bold text-xs', {
@@ -253,12 +224,7 @@ export function AppliedModal({ open, closeModal, bounty, applyCallback }) {
               <p>{i.builder_user.user_nick_name}</p>
             </li>
             <li className="text-center">
-              <p>
-                {
-                  rolesOpts?.find(f => f.key === i.builder_user.user_roles)
-                    ?.name
-                }
-              </p>
+              <p>{rolesOpts?.find(f => f.key === i.builder_user.user_roles)?.name}</p>
 
               <p>
                 {i.builder_user.user_skills.map(
@@ -268,28 +234,20 @@ export function AppliedModal({ open, closeModal, bounty, applyCallback }) {
                         {skillOpts?.find(f => f.key === s)?.name}
                         {k + 1 < i.builder_user.user_skills.length && ', '}{' '}
                       </span>
-                    )
+                    ),
                 )}
                 {/*  */}
               </p>
             </li>
             <li className="text-center">
-              {
-                EXPERIENCE_OPTIONS.find(
-                  f => f.key === i.builder_user.user_experience
-                )?.name
-              }
+              {EXPERIENCE_OPTIONS.find(f => f.key === i.builder_user.user_experience)?.name}
             </li>
             <li className="text-center">
               <div
                 className="truncate hover:underline cursor-pointer"
-                onClick={() =>
-                  window.open(mediaUrl + i.builder_user.user_resume)
-                }
+                onClick={() => window.open(mediaUrl + i.builder_user.user_resume)}
               >
-                {i.builder_user.user_resume
-                  .split('resume/')[1]
-                  ?.split('-')[1] || ''}
+                {i.builder_user.user_resume.split('resume/')[1]?.split('-')[1] || ''}
               </div>
             </li>
             {/* <li className="text-center">
@@ -356,11 +314,7 @@ export function AppliedModal({ open, closeModal, bounty, applyCallback }) {
 
         {(loading || hasNextPage) && <div ref={sentryRef} />}
       </div>
-      <CommentsModal
-        comment={userComment}
-        open={commentsModalOpen}
-        closeModal={() => setCommentsModalOpen(false)}
-      />
+      <CommentsModal comment={userComment} open={commentsModalOpen} closeModal={() => setCommentsModalOpen(false)} />
       <Confirm
         loading={approveConfirmLoading}
         confirmEvt={approveConfirm}

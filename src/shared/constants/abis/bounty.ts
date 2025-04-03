@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+import { abiContractFactory } from '#/shared/utils/abiContractFactory';
+
 export const BountyABI = [
   { inputs: [], stateMutability: 'nonpayable', type: 'constructor' },
   { inputs: [], name: 'AlreadyExists', type: 'error' },
@@ -201,4 +203,8 @@ export const BountyABI = [
     stateMutability: 'nonpayable',
     type: 'function',
   },
-];
+] as const;
+
+export const { readActions: readBountyAbiActions, writeActions: writeBountyAbiActions } = abiContractFactory(BountyABI);
+
+export default BountyABI;

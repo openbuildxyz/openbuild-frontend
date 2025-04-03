@@ -44,7 +44,6 @@ import { useMediaUrl } from '#/state/application/hooks';
 import { AddProgressModal } from './AddProgressModal';
 
 // import { writeContract, prepareWriteContract } from '@wagmi/core'
-// import { BountyABI } from '@/constants/abis/bounty'
 
 export function ManageModal({
   open,

@@ -26,7 +26,15 @@ import { Modal } from '@/components/Modal';
 import { baseInputStyles } from '#/domain/profile/widgets/blocks';
 import { sendCode, emailCodeLogin } from '#/services/auth';
 
-export default function EmailModal({ open, closeModal, successCallback, revalidatePathAction }) {
+interface EmailModalProps {
+  data: any;
+  open: boolean;
+  closeModal: () => void;
+  successCallback: () => void;
+  revalidatePathAction: () => void;
+}
+
+export default function EmailModal({ open, closeModal, successCallback, revalidatePathAction }: EmailModalProps) {
   const [email, setEmail] = useState('');
   const [verificationCode, setVerificationCode] = useState('');
   const [cdMss, setCdMss] = useState(0);
@@ -109,7 +117,6 @@ export default function EmailModal({ open, closeModal, successCallback, revalida
             onClick={() => emailVerify()}
             fullWidth
             className="mt-4"
-
           >
             Confirm
           </Button>

@@ -67,7 +67,19 @@ const VARIANT = {
   contained: 'contained',
 };
 
-export const Button = forwardRef(({
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  children: React.ReactNode;
+  className?: string;
+  disabled?: boolean;
+  loading?: boolean;
+  fullWidth?: boolean;
+  startIcon?: React.ReactNode;
+  endIcon?: React.ReactNode;
+  variant?: 'outlined' | 'text' | 'contained';
+  size?: 'xs' | 'sm' | 'lg' | 'md';
+}
+
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
   children,
   className = '',
   disabled,

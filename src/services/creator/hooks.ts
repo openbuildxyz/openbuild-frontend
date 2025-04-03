@@ -60,7 +60,7 @@ export function useBountyList({ skip, take, title, status, order }) {
 }
 
 export function useCreatorBountyBuilders({ skip, take, id }, open) {
-  const [list, setList] = useState([]);
+  const [list, setList] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [hasNextPage, setHasNextPage] = useState(false);
   // console.log(id)
