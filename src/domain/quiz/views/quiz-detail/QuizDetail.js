@@ -62,7 +62,7 @@ function QuizDetailView({ quizId }) {
   return (
     <QuizLimiterWidget
       id={quizId}
-      type={data?.limit?.limit_type}
+      limit={data?.limit}
       check={checkLimit}
       quiz
       onReset={() => setCheckLimit(false)}

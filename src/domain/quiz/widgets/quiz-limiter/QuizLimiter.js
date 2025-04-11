@@ -43,7 +43,7 @@ const limitTypeMap = {
 
 function QuizLimiterWidget({
   id,
-  type,
+  limit = {},
   quiz = false,
   check = false,
   children,
@@ -56,6 +56,7 @@ function QuizLimiterWidget({
   const questionsPath = useMemo(() => `${quizPath}/questions`, [quizPath]);
   const gotoQuiz = useCallback(() => router.push(quizPath), [quizPath]);  // eslint-disable-line react-hooks/exhaustive-deps
   const bindWallet = useBindWallet();
+  const { limit_type: type, extra } = limit;
 
   useEffect(() => {
     if (!check) {
@@ -66,7 +67,7 @@ function QuizLimiterWidget({
       router.push(`/signin?from=${quizPath}`);
     } else {
       if (type in limitTypeMap) {
-        if ([LimitType.Wallet, LimitType.Google, LimitType.GitHub].includes(type)) {
+        if ([LimitType.Wallet, LimitType.Google, LimitType.GitHub, LimitType.Enrolled].includes(type)) {
           setDialogVisible(true);
         } else {
           toast.error(limitTypeMap[type]);
@@ -84,7 +85,9 @@ function QuizLimiterWidget({
   const closeDialog = () => setDialogVisible(false);
 
   const handleConfirm = () => {
-    if (type === LimitType.Wallet) {
+    if (type === LimitType.Enrolled) {
+      router.push(`/learn/courses/${extra}`);
+    } else if (type === LimitType.Wallet) {
       bindWallet(closeDialog);
     } else {
       const redirectPath = quiz ? quizPath : questionsPath;
