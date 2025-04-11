@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import httpClient, { mergeMultipleResponses } from '@/utils/http';
+import httpClient, { makeLoginInsensitive, mergeMultipleResponses } from '@/utils/http';
 
 import type { EntityId } from '@/types';
 
@@ -33,7 +33,7 @@ async function enrollOne(id: EntityId) {
 }
 
 async function fetchPermission(id: EntityId) {
-  return httpClient.get(`/learn/general/course/grow_path/${id}/permission`);
+  return makeLoginInsensitive(httpClient.get(`/learn/general/course/grow_path/${id}/permission`));
 }
 
 async function fetchOneWithPermission(id: EntityId) {
