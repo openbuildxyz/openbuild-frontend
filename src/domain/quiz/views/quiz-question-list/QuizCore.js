@@ -41,8 +41,10 @@ export function QuizCore({
     const _quiz = [...quiz];
 
     if (multiple) {
-      if (_quiz[page - 1].answer.includes(item.id)) {
-        _quiz[page - 1].answer.splice( _quiz.indexOf(item.id), 1);
+      const answerIndex = _quiz[page - 1].answer.indexOf(item.id);
+
+      if (answerIndex !== -1) {
+        _quiz[page - 1].answer.splice(answerIndex, 1);
       } else {
         _quiz[page - 1].answer.push(item.id);
       }
