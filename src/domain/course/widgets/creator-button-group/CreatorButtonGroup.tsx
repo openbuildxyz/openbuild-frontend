@@ -14,15 +14,13 @@
  * limitations under the License.
  */
 
-'use client';
-
 import Link from 'next/link';
 import { useState } from 'react';
 // import { Button } from '@/components/Button'
 
 import { Confirm } from '@/components/Modal/Confirm';
 
-export function ButtonGroup({type, status, id, loading, mutate}) {
+function ButtonGroup({type, status, id, loading, mutate}) {
   const [confirmOpen, setConfirmOpen] = useState(false);
   const confirm = async () => {
     // console.log(id)
@@ -33,7 +31,7 @@ export function ButtonGroup({type, status, id, loading, mutate}) {
   return (
     <div className="col-span-3 flex justify-center">
       <div className="dropdown dropdown-hover">
-        <div tabIndex="0" role="button" className="m-1">
+        <div tabIndex={0} role="button" className="m-1">
           <svg
             className="cursor-pointer"
             width="15"
@@ -49,7 +47,7 @@ export function ButtonGroup({type, status, id, loading, mutate}) {
             </g>
           </svg>
         </div>
-        <ul tabIndex="0" className="dropdown-content z-[30] menu p-2 shadow bg-base-100 rounded-box w-52">
+        <ul tabIndex={0} className="dropdown-content z-[30] menu p-2 shadow bg-base-100 rounded-box w-52">
           <li>
             <Link href={`/learn/${type === 'opencourse' ? 'courses' : 'challenges'}/${id}?mode=preview`}>
                 Preview
@@ -152,12 +150,4 @@ export function ButtonGroup({type, status, id, loading, mutate}) {
   );
 }
 
-export function Status({status}) {
-  return <p className="col-span-1">
-    {status === 1 && <span>Draft</span>}
-    {status === 2 && <span>Online</span>}
-    {status === 3 && <span>Offline</span>}
-    {status === 4 && <span>Under review</span>}
-    {status === 5 && <span>Deny</span>}
-  </p>;
-}
+export default ButtonGroup;

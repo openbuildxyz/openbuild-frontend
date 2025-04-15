@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-'use client';
-
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -24,16 +22,25 @@ import ContentEditable from 'react-contenteditable';
 import { EyeIcon } from '@/components/icon/outlined';
 import { HTMLDecode } from '@/utils';
 
-import { useMediaUrl } from '#/state/application/hooks';
+import { useConfig, useMediaUrl } from '#/state/application/hooks';
 
-import { UsersModal } from '../../UsersModal';
-import { ButtonGroup, Status } from './ListItem';
+import CreatorButtonGroup from '../../widgets/creator-button-group';
+import CreatorStatusFieldCellWidget from '../../widgets/creator-status-field-cell';
+import CreatorUsersModalWidget from '../../widgets/creator-users-modal';
 
-export function OpenCourseList({ data, mutate, operation, itemTags }) {
+function OpenCourseList({ data, mutate, operation }) {
   const [openModal, setOpenModal] = useState(false);
   const [currentId, setCurrentId] = useState();
 
+  const config = useConfig();
   const mediaUrl = useMediaUrl();
+
+  const resolveLabels = tagIds => {
+    const filters = config?.find(f => f.config_id === 1)?.config_value.opencourse;
+    const allLabels = filters?.map(f => f.labels).flat(2);
+    const _tags = tagIds?.map(s => allLabels?.find(f => f.id === Number(s)));
+    return Array.from(new Set(_tags));
+  };
 
   return (
     <div className="mt-6">
@@ -45,14 +52,15 @@ export function OpenCourseList({ data, mutate, operation, itemTags }) {
         <p>Status</p>
         <p className="col-span-3">Operation</p>
       </div>
-      {data?.list?.map((i, k) => (
+      {data.map((i, k) => (
         <div key={`creator-learn-${k}`}>
           <div className="grid grid-cols-11 items-center gap-2 text-xs [&>*]:text-center">
             <div>
-              {mediaUrl && i.base.course_series_img && (
+              {mediaUrl && i.base.course_series_img ? (
                 <Image width={90} height={50.63} className="rounded w-[90px] aspect-video object-cover" src={mediaUrl + i.base.course_series_img} alt="" />
+              ) : (
+                <div className="rounded w-[90px] aspect-video bg-gray-400 flex items-center justify-center text-gray-50">No image</div>
               )}
-              {i.base.course_series_img === '' && <div className="rounded w-[90px] aspect-video bg-gray-400 flex items-center justify-center text-gray-50">No image</div>}
             </div>
 
             <div className="col-span-2">
@@ -66,7 +74,7 @@ export function OpenCourseList({ data, mutate, operation, itemTags }) {
 
               </Link>
               <p className="text-sm opacity-80">
-                {itemTags(i.base.course_series_label_ids).map(
+                {resolveLabels(i.base.course_series_label_ids).map(
                   t =>
                     t?.name && (
                       <span
@@ -92,13 +100,15 @@ export function OpenCourseList({ data, mutate, operation, itemTags }) {
             <p className="col-span-2">
               {i.base.course_series_chapter_num} / {i.base.course_series_single_num}
             </p>
-            <Status status={i.base.course_series_status} />
-            <ButtonGroup type="opencourse" status={i.base.course_series_status} id={i.base.course_series_id} loading={operation.operationLoading} mutate={mutate} />
+            <CreatorStatusFieldCellWidget status={i.base.course_series_status} />
+            <CreatorButtonGroup type="opencourse" status={i.base.course_series_status} id={i.base.course_series_id} loading={operation.operationLoading} mutate={mutate} />
           </div>
           <hr className="my-6 border-gray-400" />
         </div>
       ))}
-      {currentId && <UsersModal id={currentId} open={openModal} closeModal={() => setOpenModal(false)} />}
+      {currentId && <CreatorUsersModalWidget id={currentId} open={openModal} closeModal={() => setOpenModal(false)} />}
     </div>
   );
 }
+
+export default OpenCourseList;
