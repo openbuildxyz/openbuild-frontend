@@ -14,71 +14,28 @@
  * limitations under the License.
  */
 
-'use client';
-
 import clsx from 'clsx';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useMemo, useState } from 'react';
-import { useDebouncedCallback } from 'use-debounce';
+import { usePathname, useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 import { Button } from '@/components/Button';
 import { PlusIcon } from '@/components/icon/outlined';
 import { CheckCircleIcon } from '@/components/icon/solid';
-import { SearchIcon } from '@/components/Icons';
-import Input from '@/components/Input';
 import { Modal } from '@/components/Modal';
-import { ReactSelect } from '@/components/Select/ReactSelect';
 
 import { addSeries } from '#/services/creator';
 
-import { InitForms, InitChallengesForms } from '../[type]/init';
+import { InitForms, InitChallengesForms } from './init';
 import { SelectItemModal } from './SelectItemModal';
 
-const options = [
-  {
-    label: 'Draft',
-    value: 1,
-  },
-  {
-    label: 'Online',
-    value: 2,
-  },
-  {
-    label: 'Offline',
-    value: 3,
-  },
-  {
-    label: 'Under review',
-    value: 4,
-  },
-  {
-    label: 'Deny',
-    value: 5,
-  },
-];
-
-export function Search({type}) {
-  const searchParams = useSearchParams();
-  const { replace, push } = useRouter();
+function CreatorPublishAction({ type }: { type: 'opencourse' | 'challenges' }) {
+  const { push } = useRouter();
   const pathname = usePathname();
   const [selectModalOpen, setSelectModalOpen] = useState(false);
   const [selectActive, setSelectActive] = useState(0);
   const [selectItemModalOpen, setSelectItemModalOpen] = useState(false);
   const [confirming, setConfirming] = useState(false);
 
-  const handleSearch = useDebouncedCallback(term => {
-    const params = new URLSearchParams(searchParams);
-    params.set('page', '1');
-    if (term) {
-      params.set('query', term);
-    } else {
-      params.delete('query');
-    }
-    replace(`${pathname}?${params.toString()}`);
-  }, 300);
-  const statusValue = useMemo(() => {
-    return searchParams?.get('status') || null;
-  }, [searchParams]);
   const publishOptions = [
     {
       title: `Publish New ${type === 'opencourse' ? 'Course' : 'Challenge'}`,
@@ -91,40 +48,7 @@ export function Search({type}) {
   ];
 
   return (
-    <div className="flex items-center justify-between">
-      <div className="flex items-center">
-        <div className="flex items-center">
-          <Input
-            defaultValue={searchParams.get('query')?.toString()}
-            type="search"
-            placeholder="Search"
-            startContent={<SearchIcon />}
-            onChange={e => handleSearch(e.target.value)}
-            className="h-10 [&>div]:pb-0"
-          />
-        </div>
-        <div className="ml-6 flex items-center">
-          <ReactSelect
-            id="learn-order-select"
-            isClearable
-            value={options.find(f => f.value === Number(statusValue))}
-            className="w-[200px] no-bg showDropdownIndicator bg-transparent height-sm"
-            onChange={e => {
-              const params = new URLSearchParams(searchParams);
-              params.set('page', '1');
-              if (e === null) {
-                params.delete('status');
-              } else {
-                params.set('status', e.value);
-              }
-              replace(`${pathname}?${params.toString()}`);
-            }}
-            options={options}
-            placeholder={'Select status'}
-          />
-        </div>
-      </div>
-      {/* <Link href={`${pathname}/publish`}> */}
+    <>
       <Button onClick={() => setSelectModalOpen(true)} className="h-10">
         <PlusIcon className="h-4 w-4" />
         Publish
@@ -187,7 +111,10 @@ export function Search({type}) {
         back={() => {
           setSelectModalOpen(true);
           setSelectItemModalOpen(false);
-        }} />
-    </div>
+        }}
+      />
+    </>
   );
 }
+
+export default CreatorPublishAction;

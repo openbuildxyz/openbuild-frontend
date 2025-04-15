@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-'use client';
-
 import clsx from 'clsx';
 import React, { useState, useMemo } from 'react';
 import { toast } from 'react-toastify';
@@ -34,7 +32,7 @@ import { updateMultipleApplicantStatus } from '#/domain/challenge/repository';
 import { enroolStatus } from '#/services/creator';
 import { useConfig } from '#/state/application/hooks';
 
-import { ChallengesExportModal } from './learn/[type]/ChallengesExportModal';
+import { ChallengesExportModal } from './ChallengesExportModal';
 
 function resolveValidUserIds(userMap, targetStatus) {
   return Object.values(userMap).filter(cache => {
@@ -50,7 +48,7 @@ function resolveValidUserIds(userMap, targetStatus) {
   }).map(({ id }) => id);
 }
 
-export function UsersModal({ open, closeModal, id, type, challenges }) {
+function UsersModal({ open, closeModal, id, type, challenges }) {
   const config = useConfig();
 
   const { data, isLoading, mutate } = useSWR(`v1/learn/creator/series/${id}/enrool?&skip=${0}&take=${2000}`, fetcher);
@@ -287,3 +285,5 @@ export function UsersModal({ open, closeModal, id, type, challenges }) {
     </Modal>
   );
 }
+
+export default UsersModal;

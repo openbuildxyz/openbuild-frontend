@@ -20,18 +20,17 @@ import { useState } from 'react';
 import { toast } from 'react-toastify';
 import useSWR from 'swr';
 
-import { NoData } from '@/components/NoData';
-import { OPagination } from '@/components/Pagination';
-import { CommonListSkeleton } from '@/components/Skeleton/CommonListSkeleton';
 import { PAGE_SIZE } from '@/constants/config';
 import { fetcher } from '@/utils/request';
 
+import CreatorChallengeListViewWidget from '#/domain/challenge/views/creator-challenge-list';
+import CreatorCourseListViewWidget from '#/domain/course/views/creator-course-list';
 import { seriesStatus, deleteSeries } from '#/services/creator';
-import { useConfig } from '#/state/application/hooks';
 
-import { ChallengesList } from './ChallengesList';
-import { OpenCourseList } from './OpenCourseList';
-import { Search } from './Search';
+const listViewMap = {
+  opencourse: CreatorCourseListViewWidget,
+  challenges: CreatorChallengeListViewWidget,
+};
 
 export default function CreatorLearn({ params, searchParams }) {
   const page = Number(searchParams?.page) || 1;
@@ -40,10 +39,13 @@ export default function CreatorLearn({ params, searchParams }) {
   const learnType = params.type === 'opencourse' ? 'open_course' : 'challenges';
   const url = `v1/learn/creator/series?series_type=${learnType}&skip=${(page - 1) * PAGE_SIZE}&take=${PAGE_SIZE}&status=${status}&title=${query}&order=latest`;
   const { data, isLoading, mutate } = useSWR(url, fetcher);
-  const config = useConfig();
-
 
   const [operationLoading, setOperationLoading] = useState(null);
+  const CreatorListViewWidget = listViewMap[params.type];
+
+  if (!CreatorListViewWidget) {
+    return null;
+  }
 
   const changeSeriesStatus = async (id, status, type) => {
     if (!id) return;
@@ -75,28 +77,14 @@ export default function CreatorLearn({ params, searchParams }) {
     setOperationLoading(null);
   };
 
-  const itemTags = tagIds => {
-    const filters = config?.find(f => f.config_id === 1)?.config_value[params.type];
-    const allLabels = filters?.map(f => f.labels).flat(2);
-    const _tags = tagIds?.map(s => allLabels?.find(f => f.id === Number(s)));
-    return Array.from(new Set(_tags));
-  };
-
   return (
-    <div className="flex-1 p-10">
-      <Search type={params.type} />
-      {params.type === 'opencourse' && <OpenCourseList data={data} mutate={changeSeriesStatus} operation={{operationLoading, setOperationLoading}} itemTags={itemTags} />}
-      {params.type === 'challenges' && <ChallengesList data={data} mutate={changeSeriesStatus} operation={{operationLoading, setOperationLoading}} itemTags={itemTags} />}
-      {isLoading && <CommonListSkeleton />}
-      {data?.count === 0 && !isLoading && (
-        <div className="flex justify-center min-h-[300px] items-center">
-          <NoData />
-        </div>
-      )}
-      {data && <div className="flex justify-end mt-4">
-        <OPagination total={data?.count} />
-      </div>}
-
-    </div>
+    <CreatorListViewWidget
+      className="p-10"
+      data={data?.list || []}
+      total={data?.total || 0}
+      loading={isLoading}
+      onMutate={changeSeriesStatus}
+      operation={{ operationLoading, setOperationLoading }}
+    />
   );
 }

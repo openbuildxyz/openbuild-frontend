@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-'use client';
-
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -25,15 +23,25 @@ import { EyeIcon } from '@/components/icon/outlined';
 import { HTMLDecode } from '@/utils';
 import { formatTime } from '@/utils/date';
 
-import { useMediaUrl } from '#/state/application/hooks';
+import { useConfig, useMediaUrl } from '#/state/application/hooks';
 
-import { UsersModal } from '../../UsersModal';
-import { ButtonGroup, Status } from './ListItem';
+import CreatorButtonGroup from '../../../course/widgets/creator-button-group';
+import CreatorStatusFieldCellWidget from '../../../course/widgets/creator-status-field-cell';
+import CreatorUsersModalWidget from '../../../course/widgets/creator-users-modal';
 
-export function ChallengesList({ data, mutate, operation, itemTags }) {
+function ChallengeList({ data, mutate, operation }) {
   const [openModal, setOpenModal] = useState(false);
   const [current, setCurrent] = useState();
+
+  const config = useConfig();
   const mediaUrl = useMediaUrl();
+
+  const resolveLabels = tagIds => {
+    const filters = config?.find(f => f.config_id === 1)?.config_value.challenges;
+    const allLabels = filters?.map(f => f.labels).flat(2);
+    const _tags = tagIds?.map(s => allLabels?.find(f => f.id === Number(s)));
+    return Array.from(new Set(_tags));
+  };
 
   return (
     <div className="mt-6">
@@ -46,7 +54,7 @@ export function ChallengesList({ data, mutate, operation, itemTags }) {
         <p className="col-span-1">Status</p>
         <p className="col-span-3">Operation</p>
       </div>
-      {data?.list?.map((i, k) => (
+      {data.map((i, k) => (
         <div key={`creator-learn-${k}`}>
           <div className="grid grid-cols-12 items-center gap-2 text-xs [&>*]:text-center">
             <div>
@@ -67,7 +75,7 @@ export function ChallengesList({ data, mutate, operation, itemTags }) {
                 </h3>
               </Link>
               <p className="text-sm opacity-80">
-                {itemTags(i.base.course_series_label_ids).map(
+                {resolveLabels(i.base.course_series_label_ids).map(
                   t =>
                     t?.name && (
                       <span
@@ -116,16 +124,16 @@ export function ChallengesList({ data, mutate, operation, itemTags }) {
                 </span>
               )}
             </p>
-            <Status status={i.base.course_series_status} />
-            <ButtonGroup type="challenges" status={i.base.course_series_status} id={i.base.course_series_id} loading={operation.operationLoading} mutate={mutate} />
+            <CreatorStatusFieldCellWidget status={i.base.course_series_status} />
+            <CreatorButtonGroup type="challenges" status={i.base.course_series_status} id={i.base.course_series_id} loading={operation.operationLoading} mutate={mutate} />
           </div>
           <hr className="my-6 border-gray-400" />
         </div>
       ))}
       {current && (
-        <UsersModal
+        <CreatorUsersModalWidget
           challenges={current}
-          type={'challenges'}
+          type="challenges"
           id={current.base.course_series_id}
           open={openModal}
           closeModal={() => {
@@ -137,3 +145,5 @@ export function ChallengesList({ data, mutate, operation, itemTags }) {
     </div>
   );
 }
+
+export default ChallengeList;
