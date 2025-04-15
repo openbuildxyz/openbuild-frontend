@@ -119,7 +119,7 @@ function HttpClient(this: any, { baseUrl }: { baseUrl?: string }) { // eslint-di
     const res = await request(url, method, data, { ...config, baseUrl, isServer: isServerSide(config?.isServer) });
     const normalized = await normalizeResponse(res);
 
-    return resInterceptor ? resInterceptor(normalized) : normalized;
+    return resInterceptor ? resInterceptor(normalized, config || {}) : normalized;
   };
 }
 
