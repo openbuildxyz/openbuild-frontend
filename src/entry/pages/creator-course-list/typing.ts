@@ -14,12 +14,9 @@
  * limitations under the License.
  */
 
-'use client';
+type CreatorCourseListPageProps = {
+  type: 'opencourse' | 'challenges';
+  searchParams?: Record<string, any>;
+};
 
-import CreatorCourseListPage from '#/entry/pages/creator-course-list';
-
-export default function CreatorLearn({ params, searchParams }) {
-  return ['opencourse', 'challenges'].includes(params.type) && (
-    <CreatorCourseListPage type={params.type} searchParams={searchParams} />
-  );
-}
+export type { CreatorCourseListPageProps };

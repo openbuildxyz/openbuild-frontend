@@ -32,9 +32,9 @@ import { useAsyncState } from '@/hooks/useAsyncState';
 import useMounted from '@/hooks/useMounted';
 // import PreviewIcon from 'public/images/svg/preview.svg'
 
-import { fetchOne as fetchChallenge } from '#/domain/challenge/repository';
-import { fetchOne as fetchCourse } from '#/domain/course/repository';
-import { addSeries, seriesStatus } from '#/services/creator';
+import { fetchOne as fetchChallenge, updateStatus as updateChallengeStatus } from '#/domain/challenge/repository';
+import { fetchOne as fetchCourse, updateStatus as updateCourseStatus } from '#/domain/course/repository';
+import { addSeries } from '#/services/creator';
 
 import { Sections } from './Sections';
 import { CreatorLearnStepFive } from './StepFive';
@@ -207,16 +207,15 @@ export default function LearnPublish({ params }) {
   //       });
   //   }
   // }, 10000);
+  const updateStatus = params.type === 'challenges' ? updateChallengeStatus : updateCourseStatus;
 
   const publish  = async () => {
     setPublishing(true);
-    const res = await seriesStatus({ id: params.id, status: 4 });
+    const res = await updateStatus({ id: params.id, status: 4 });
     setPublishing(false);
-    if (res?.code === 200) {
+    if (res.success) {
       push(`/creator/learn/${params.type}`);
       console.log('success');
-    } else {
-      toast.error(res.message);
     }
   };
 

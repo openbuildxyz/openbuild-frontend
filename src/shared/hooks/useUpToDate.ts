@@ -20,10 +20,14 @@ import useSWR from 'swr';
 import type { DataValue, ResponseResult } from '../types';
 import type { SWRConfiguration } from 'swr';
 
+import { omit } from '../utils';
+
 function useUpToDate(
   request: (...args: DataValue[]) => Promise<ResponseResult>,
   params: DataValue,
-  config?: SWRConfiguration,
+  config: SWRConfiguration & {
+    requestName?: string;
+  } = {},
 ) {
   const memoized = useMemo(() => {
     let resolvedParams: DataValue[] = [];
@@ -31,13 +35,13 @@ function useUpToDate(
 
     if (params != null) {
       resolvedParams = [].concat(params);
-      requestId = `${request.name}(${resolvedParams.map(p => JSON.stringify(p)).join(', ')})`;
+      requestId = `${config.requestName || request.name}(${resolvedParams.map(p => JSON.stringify(p)).join(', ')})`;
     }
 
     return { resolvedParams, requestId };
-  }, [request, params]);
+  }, [request, params, config]);
 
-  return useSWR(memoized.requestId, () => request(...memoized.resolvedParams).then(res => res.data), config);
+  return useSWR(memoized.requestId, () => request(...memoized.resolvedParams).then(res => res.data), omit(config, ['requestName']));
 }
 
 export default useUpToDate;
