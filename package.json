@@ -100,6 +100,7 @@
     "striptags": "3.2.0",
     "survey-analytics": "^1.9.109",
     "survey-core": "^1.9.90",
+    "survey-creator-core": "^1.9.90",
     "survey-creator-react": "^1.9.90",
     "survey-react-ui": "^1.9.90",
     "swr": "^2.2.4",

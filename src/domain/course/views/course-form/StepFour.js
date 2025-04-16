@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-'use client';
-
 import Image from 'next/image';
 import GithubIcon from 'public/images/svg/github_p.svg';
 import { useState, useRef, useEffect } from 'react';

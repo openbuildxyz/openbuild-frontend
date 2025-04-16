@@ -14,10 +14,4 @@
  * limitations under the License.
  */
 
-'use client';
-
-import CourseFormViewWidget from '#/domain/course/views/course-form';
-
-export default function LearnPublish({ params }) {
-  return <CourseFormViewWidget params={params} />;
-}
+export { default } from './CourseForm';
