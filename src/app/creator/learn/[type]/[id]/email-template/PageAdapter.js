@@ -14,18 +14,6 @@
  * limitations under the License.
  */
 
-import { fetchOne } from '#/domain/challenge/repository';
+'use client';
 
-import PageAdapter from './PageAdapter';
-
-async function EmailTemplatePage({ params: { type, id } }) {
-  if (type !== 'challenges') {
-    return <div className="flex-grow pt-10 text-center">Hey, dude.</div>;
-  }
-
-  const { data } = await fetchOne(id);
-
-  return <PageAdapter data={data} />;
-}
-
-export default EmailTemplatePage;
+export { default } from '#/entry/pages/challenge-email-template-form';

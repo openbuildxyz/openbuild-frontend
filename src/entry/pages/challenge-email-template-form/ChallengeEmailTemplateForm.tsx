@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-'use client';
-
 import Link from 'next/link';
 
 import { ArrowLeftIcon } from '@/components/Icons';
 
 import EmailTemplateFormView from '#/domain/challenge/views/email-template-form';
 
-function ChallengeEmailTemplatePage({ data }) {
-  const { base } = data || {};
+import type { ChallengeEmailTemplateFormPageProps } from './typing';
 
+function ChallengeEmailTemplateFormPage({ data }: ChallengeEmailTemplateFormPageProps) {
+  const { base } = data || {};
+  
   return base ? (
     <div className="flex-grow flex justify-center pt-10">
       <div className="flex-grow max-w-screen-xl">
@@ -40,4 +40,4 @@ function ChallengeEmailTemplatePage({ data }) {
   ) : null;
 }
 
-export default ChallengeEmailTemplatePage;
+export default ChallengeEmailTemplateFormPage;
