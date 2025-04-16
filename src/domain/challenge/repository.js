@@ -18,7 +18,7 @@ import { PAGE_SIZE } from '@/constants/config';
 import { merge } from '@/utils';
 import httpClient, { legacyClient, mergeMultipleResponses } from '@/utils/http';
 
-import { fetchPermission, fetchLessonDetail } from '../course/repository';
+import { fetchPermission, fetchLessonDetail, deleteOne, updateStatus } from '../course/repository';
 
 async function fetchList(params = {}) {
   const { sort, ...others } = params;
@@ -94,10 +94,22 @@ async function updateEmailTemplate(id, { title, body }) {
   });
 }
 
+async function fetchManageableList(params = {}) {
+  const { sort, ...others } = params;
+
+  return legacyClient.get('/learn/creator/series', {
+    params: merge({ take: PAGE_SIZE }, others, {
+      series_type: 'challenges',
+      order: sort || 'latest',
+    }),
+  });
+}
+
 export {
   fetchList, fetchOne, enrollOne,
   fetchOneWithPermission, fetchLessonWithEntity, fetchRelatedCourse,
   fetchPublishedChallengeList, fetchEnrolledChallengeList,
   updateTransaction, updateMultipleApplicantStatus,
   fetchEmailTemplate, updateEmailTemplate,
+  fetchManageableList, deleteOne, updateStatus,
 };

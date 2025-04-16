@@ -78,9 +78,29 @@ async function fetchEnrolledCourseList(params = {}) {
   });
 }
 
+async function fetchManageableList(params = {}) {
+  const { sort, ...others } = params;
+
+  return legacyClient.get('/learn/creator/series', {
+    params: merge({ take: PAGE_SIZE }, others, {
+      series_type: 'open_course',
+      order: sort || 'latest',
+    }),
+  });
+}
+
+async function deleteOne(id) {
+  return httpClient.post(`/learn/creator/series/${id}/delete`);
+}
+
+async function updateStatus({ id, status }) {
+  return httpClient.post(`/learn/creator/series/${id}/status`, { status });
+}
+
 export {
   fetchList, fetchOne, enrollOne,
   fetchPermission, fetchOneWithPermission,
   fetchLessonDetail, fetchLessonWithEntity, updateWatchProgress,
   fetchPublishedCourseList, fetchEnrolledCourseList,
+  fetchManageableList, deleteOne, updateStatus,
 };
