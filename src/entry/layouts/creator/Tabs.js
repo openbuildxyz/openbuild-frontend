@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-'use client';
-
 import clsx from 'clsx';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';

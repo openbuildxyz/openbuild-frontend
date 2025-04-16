@@ -14,6 +14,4 @@
  * limitations under the License.
  */
 
-'use client';
-
-export { default } from '#/entry/layouts/creator';
+export { default } from './CreatorLayout';
