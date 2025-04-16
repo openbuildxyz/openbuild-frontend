@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-'use client';
-
 import dynamic from 'next/dynamic';
 
 const SurveyContainer = dynamic(() => import('./SurveyContainer'), {

@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-'use client';
-
 import { useState, useEffect, useMemo } from 'react';
 import { toast } from 'react-toastify';
 
