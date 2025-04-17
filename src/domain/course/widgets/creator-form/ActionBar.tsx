@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import type { CreatorFormActionBarProps } from './typing';
+import type { ActionBarProps } from './typing';
 
 import PreviewAction from './PreviewAction';
 import PublishAction from './PublishAction';
 import SaveAction from './SaveAction';
 
-function CreatorFormActionBar({ entity, entityId, entityUrl, collectionUrl, actions }: CreatorFormActionBarProps) {
+function ActionBar({ entity, entityId, entityUrl, collectionUrl, actions }: ActionBarProps) {
   return (
     <>
       <SaveAction className="mr-3" entity={entity} updateAction={actions.updateAction} />
@@ -30,4 +30,4 @@ function CreatorFormActionBar({ entity, entityId, entityUrl, collectionUrl, acti
   );
 }
 
-export default CreatorFormActionBar;
+export default ActionBar;

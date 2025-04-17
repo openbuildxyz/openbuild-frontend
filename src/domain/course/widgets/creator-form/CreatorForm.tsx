@@ -23,7 +23,7 @@ import useMounted from '@/hooks/useMounted';
 
 import type { CreatorFormWidgetProps } from './typing';
 
-import CreatorFormActionBarWidget from '../creator-form-action-bar';
+import ActionBar from './ActionBar';
 
 function CreatorForm({
   label,
@@ -96,7 +96,7 @@ function CreatorForm({
   const segments = resolveSegments(contents, onChange);
 
   const actionBar = (
-    <CreatorFormActionBarWidget
+    <ActionBar
       entity={contents}
       entityId={entityId}
       entityUrl={entityUrl}

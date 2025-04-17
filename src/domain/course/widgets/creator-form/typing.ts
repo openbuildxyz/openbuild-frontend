@@ -16,8 +16,40 @@
 
 import type { SegmentedFormProps } from '@/components/control/segmented-form';
 import type { DataValue, EntityId, ResponseResult } from '@/types';
+import type { ClassValue } from 'clsx';
+
+type BaseProps = {
+  className?: ClassValue;
+};
 
 type HttpRequestAction = (...args: DataValue[]) => Promise<ResponseResult>;
+
+type SaveActionProps = BaseProps & {
+  entity?: Record<string, DataValue>;
+  updateAction: HttpRequestAction;
+};
+
+type PreviewActionProps = BaseProps & {
+  entityUrl: string;
+};
+
+type PublishActionProps = BaseProps & {
+  entityId: EntityId;
+  collectionUrl: string;
+  updateAction: HttpRequestAction;
+};
+
+type ActionBarProps =
+  BaseProps &
+  Pick<SaveActionProps, 'entity'> &
+  Pick<PreviewActionProps, 'entityUrl'> &
+  Pick<PublishActionProps, 'entityId' | 'collectionUrl'> &
+  {
+    actions: {
+      updateAction: SaveActionProps['updateAction'];
+      updateStatusAction: PublishActionProps['updateAction'];
+    };
+  };
 
 type CreatorFormWidgetProps = {
   label: string;
@@ -25,11 +57,9 @@ type CreatorFormWidgetProps = {
   entityUrl: string;
   collectionUrl: string;
   segments: (entity: Record<string, DataValue>, onChange: (...args: DataValue[]) => Promise<void>) => SegmentedFormProps['segments'];
-  actions: {
+  actions: ActionBarProps['actions'] & {
     fetchAction: HttpRequestAction;
-    updateAction: HttpRequestAction;
-    updateStatusAction: HttpRequestAction;
   };
 }
 
-export type { CreatorFormWidgetProps };
+export type { SaveActionProps, PreviewActionProps, PublishActionProps, ActionBarProps, CreatorFormWidgetProps };
