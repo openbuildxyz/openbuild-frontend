@@ -16,8 +16,31 @@
 
 'use client';
 
+import {
+  fetchOne as fetchChallenge,
+  updateOne as updateChallenge,
+  updateStatus as updateChallengeStatus,
+} from '#/domain/challenge/repository';
+import {
+  fetchOne as fetchCourse,
+  updateOne as updateCourse,
+  updateStatus as updateCourseStatus,
+} from '#/domain/course/repository';
 import CourseFormViewWidget from '#/domain/course/views/course-form';
 
+const actionMap = {
+  challenges: {
+    fetchOne: fetchChallenge,
+    updateOne: updateChallenge,
+    updateStatus: updateChallengeStatus,
+  },
+  opencourse: {
+    fetchOne: fetchCourse,
+    updateOne: updateCourse,
+    updateStatus: updateCourseStatus,
+  },
+};
+
 export default function LearnPublish({ params }) {
-  return <CourseFormViewWidget params={params} />;
+  return <CourseFormViewWidget params={params} actions={actionMap[params.type]} />;
 }

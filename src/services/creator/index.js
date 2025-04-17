@@ -16,12 +16,6 @@
 
 import { post } from '@/utils/request';
 
-export async function enroolStatus(params) {
-  return await post(`ts/v1/learn/creator/series/${params.id}/enrool/${params.uid}/status`, {
-    status: params.status,
-  });
-}
-
 export async function publishBounty(params) {
   return await post('ts/v1/build/creator/bounties', params);
 }
@@ -44,4 +38,3 @@ export async function approveBuilder(id, bid, hash) {
 export async function deleteSpeaker(id, sid) {
   return await post(`ts/v1/learn/creator/series/${id}/speaker/${sid}/delete`);
 }
-

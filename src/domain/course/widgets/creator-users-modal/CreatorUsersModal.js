@@ -16,7 +16,6 @@
 
 import clsx from 'clsx';
 import React, { useState, useMemo } from 'react';
-import { toast } from 'react-toastify';
 import useSWR from 'swr';
 
 import { Button } from '@/components/Button';
@@ -28,8 +27,7 @@ import { formatTime } from '@/utils/date';
 import { fetcher } from '@/utils/request';
 
 import { isAgreeable, isDeclinable, isBeDeclined, getStatusLabel } from '#/domain/challenge/helper';
-import { updateMultipleApplicantStatus } from '#/domain/challenge/repository';
-import { enroolStatus } from '#/services/creator';
+import { updateApplicantStatus, updateMultipleApplicantStatus } from '#/domain/challenge/repository';
 import { useConfig } from '#/state/application/hooks';
 
 import { ChallengesExportModal } from './ChallengesExportModal';
@@ -81,24 +79,24 @@ function UsersModal({ open, closeModal, id, type, challenges }) {
   }, [allOpts]);
 
   const handleStatusChanged = (res, userIds, status) => {
-    if (res.code === 200) {
-      const _list = data.list.map(i => {
-        if (userIds.includes(i.base.user_id)) {
-          i.base.course_user_permission_status = status;
-          return { ...i };
-        } else {
-          return { ...i };
-        }
-      });
-      mutate({...data, list: _list});
-    } else {
-      toast.error(res.message);
+    if (!res.success) {
+      return;
     }
+
+    const _list = data.list.map(i => {
+      if (userIds.includes(i.base.user_id)) {
+        i.base.course_user_permission_status = status;
+        return { ...i };
+      } else {
+        return { ...i };
+      }
+    });
+    mutate({...data, list: _list});
   };
 
   const changeStatus = async (id, status, uid) => {
     status === 1 ? setOperationAgreeLoading(uid) : setOperationDeclineLoading(uid);
-    const res = await enroolStatus({ id, status, uid });
+    const res = await updateApplicantStatus({ id, status, uid });
     handleStatusChanged(res, [uid], status);
     setOperationAgreeLoading(9999999999);
     setOperationDeclineLoading(9999999999);

@@ -29,17 +29,6 @@ import { useAsyncState } from '@/hooks/useAsyncState';
 import useMounted from '@/hooks/useMounted';
 // import PreviewIcon from 'public/images/svg/preview.svg'
 
-import {
-  fetchOne as fetchChallenge,
-  updateOne as updateChallenge,
-  updateStatus as updateChallengeStatus,
-} from '#/domain/challenge/repository';
-import {
-  fetchOne as fetchCourse,
-  updateOne as updateCourse,
-  updateStatus as updateCourseStatus,
-} from '#/domain/course/repository';
-
 import { Sections } from './Sections';
 import { CreatorLearnStepFive } from './StepFive';
 import { CreatorLearnStepFour } from './StepFour';
@@ -47,20 +36,7 @@ import { CreatorLearnStepOne } from './StepOne';
 import { CreatorLearnStepThree } from './StepThree';
 import { CreatorLearnStepTwo } from './StepTwo';
 
-const actionMap = {
-  challenges: {
-    fetchOne: fetchChallenge,
-    updateOne: updateChallenge,
-    updateStatus: updateChallengeStatus,
-  },
-  opencourse: {
-    fetchOne: fetchCourse,
-    updateOne: updateCourse,
-    updateStatus: updateCourseStatus,
-  },
-};
-
-function CourseFormView({ params }) {
+function CourseFormView({ params, actions }) {
   const [open, setOpen] = useState(true);
   const { replace, push } = useRouter();
   const [isLoading, setIsLoading] = useState(false);
@@ -77,10 +53,10 @@ function CourseFormView({ params }) {
     }
     setSaved(false);
     // console.log(contents)
-    const res = await actionMap[params.type].updateOne({...contents});
+    const res = await actions.updateOne({...contents});
     setSaving(false);
     setSaved(res.success);
-  }, [contents, params]);
+  }, [contents, actions]);
 
   useEffect(() => {
     if (saved) {
@@ -195,7 +171,7 @@ function CourseFormView({ params }) {
       return;
     }
 
-    actionMap[params.type].fetchOne(params.id)
+    actions.fetchOne(params.id)
       .then(res => res.success && setData(res.data))
       .finally(() => setIsLoading(false));
   });
@@ -203,7 +179,7 @@ function CourseFormView({ params }) {
   // TODO: disable before this module being refactored
   // useInterval(() => {
   //   if (contents) {
-  //     actionMap[params.type].updateOne({...contents})
+  //     actions.updateOne({...contents})
   //       // FIXME:
   //       // I don't know how to prevent accessing page when user has no permissions for now,
   //       // so I prevent by this a little tricky way.
@@ -219,7 +195,7 @@ function CourseFormView({ params }) {
 
   const publish  = async () => {
     setPublishing(true);
-    const res = await actionMap[params.type].updateStatus({ id: params.id, status: 4 });
+    const res = await actions.updateStatus({ id: params.id, status: 4 });
     setPublishing(false);
     if (res.success) {
       push(`/creator/learn/${params.type}`);
