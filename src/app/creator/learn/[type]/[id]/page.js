@@ -21,6 +21,7 @@ import {
   updateOne as updateChallenge,
   updateStatus as updateChallengeStatus,
 } from '#/domain/challenge/repository';
+import ChallengeFormViewWidget from '#/domain/challenge/views/challenge-form';
 import {
   fetchOne as fetchCourse,
   updateOne as updateCourse,
@@ -30,11 +31,13 @@ import CourseFormViewWidget from '#/domain/course/views/course-form';
 
 const actionMap = {
   challenges: {
+    viewWidget: ChallengeFormViewWidget,
     fetchOne: fetchChallenge,
     updateOne: updateChallenge,
     updateStatus: updateChallengeStatus,
   },
   opencourse: {
+    viewWidget: CourseFormViewWidget,
     fetchOne: fetchCourse,
     updateOne: updateCourse,
     updateStatus: updateCourseStatus,
@@ -42,5 +45,9 @@ const actionMap = {
 };
 
 export default function LearnPublish({ params }) {
-  return <CourseFormViewWidget params={params} actions={actionMap[params.type]} />;
+  const { viewWidget: ViewWidget, ...actions } = actionMap[params.type] || {};
+
+  return ViewWidget && (
+    <ViewWidget id={params.id} actions={actions} />
+  );
 }
