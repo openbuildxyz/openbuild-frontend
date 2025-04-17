@@ -14,12 +14,15 @@
  * limitations under the License.
  */
 
-import CreatorFormWidget from '../../widgets/creator-form';
-import { BasicSection, IntroSection, LessonSection, SpeakerSection } from '../../widgets/creator-form-section';
+import type { SegmentedFormProps } from '@/components/control/segmented-form';
 
-const collectionName = 'opencourse';
+import CreatorFormWidget from '../../../course/widgets/creator-form';
+import { BasicSection, IntroSection, LessonSection, SpeakerSection } from '../../../course/widgets/creator-form-section';
+import { CreatorLearnStepFive } from './StepFive';
 
-function resolveSegments({ data, id, onChange }) {
+const collectionName = 'challenges';
+
+function resolveSegments({ data, id, onChange }): SegmentedFormProps['segments'] {
   const props = { id, type: collectionName, data, change: onChange };
 
   return [
@@ -51,15 +54,22 @@ function resolveSegments({ data, id, onChange }) {
         <SpeakerSection key={key} {...props} />
       ),
     },
+    {
+      key: 'five',
+      title: 'Application Forms',
+      render: key => (
+        <CreatorLearnStepFive key={key} {...props} />
+      ),
+    },
   ];
 }
 
-function CourseFormView({ id, actions }) {
+function ChallengeFormView({ id, actions }) {
   return (
     <CreatorFormWidget
-      label="Open course"
+      label="Challenge"
       entityId={id}
-      entityUrl={`/learn/courses/${id}`}
+      entityUrl={`/learn/challenges/${id}`}
       collectionUrl={`/creator/learn/${collectionName}`}
       segments={(entity, onChange) => resolveSegments({ id, data: entity, onChange })}
       actions={{
@@ -71,4 +81,4 @@ function CourseFormView({ id, actions }) {
   );
 }
 
-export default CourseFormView;
+export default ChallengeFormView;
