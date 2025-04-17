@@ -29,10 +29,9 @@ import { CommonListSkeleton } from '@/components/Skeleton/CommonListSkeleton';
 import { formatTime } from '@/utils/date';
 import { fetcher } from '@/utils/request';
 
-import { addSeries } from '#/services/creator';
 import { useMediaUrl } from '#/state/application/hooks';
 
-export function SelectItemModal({type, open, close, back}) {
+export function SelectItemModal({ type, open, close, back, insertAction }) {
   const { push } = useRouter();
   const mediaUrl = useMediaUrl();
   const [active, setActive] = useState(null);
@@ -44,20 +43,18 @@ export function SelectItemModal({type, open, close, back}) {
     if (active) {
       setConfirmLoading(true);
       const item = data.list.find(f => f.base.course_series_id === active);
-      // res = await addSeries({ base: _forms })
+      // res = await insertAction({ base: _forms })
       let res;
       const _forms = {...item.base};
       _forms.course_series_id = 0;
       _forms.course_series_type = type === 'opencourse' ? 'open_course' : 'challenges';
       if (type === 'opencourse') {
-        res = await addSeries({ base: _forms });
+        res = await insertAction({ base: _forms });
       } else {
-        res = await addSeries({ base: _forms, challenges_extra: item.challenges_extra });
+        res = await insertAction({ base: _forms, challenges_extra: item.challenges_extra });
       }
-      if (res.code === 200) {
+      if (res.success) {
         push(`/creator/learn/${type}/${res.data.base.course_series_id}`);
-      } else {
-        toast.error(res.message);
       }
       setConfirmLoading(false);
     } else {

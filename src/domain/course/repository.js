@@ -89,6 +89,14 @@ async function fetchManageableList(params = {}) {
   });
 }
 
+async function insertOne(data) {
+  return httpClient.post('/learn/creator/series', data);
+}
+
+async function updateOne(data) {
+  return httpClient.post('/learn/creator/series', data);
+}
+
 async function deleteOne(id) {
   return httpClient.post(`/learn/creator/series/${id}/delete`);
 }
@@ -102,5 +110,5 @@ export {
   fetchPermission, fetchOneWithPermission,
   fetchLessonDetail, fetchLessonWithEntity, updateWatchProgress,
   fetchPublishedCourseList, fetchEnrolledCourseList,
-  fetchManageableList, deleteOne, updateStatus,
+  fetchManageableList, insertOne, updateOne, deleteOne, updateStatus,
 };

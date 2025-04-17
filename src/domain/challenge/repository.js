@@ -18,7 +18,7 @@ import { PAGE_SIZE } from '@/constants/config';
 import { merge } from '@/utils';
 import httpClient, { legacyClient, mergeMultipleResponses } from '@/utils/http';
 
-import { fetchPermission, fetchLessonDetail, deleteOne, updateStatus } from '../course/repository';
+import { fetchPermission, fetchLessonDetail, insertOne, updateOne, deleteOne, updateStatus } from '../course/repository';
 
 async function fetchList(params = {}) {
   const { sort, ...others } = params;
@@ -111,5 +111,5 @@ export {
   fetchPublishedChallengeList, fetchEnrolledChallengeList,
   updateTransaction, updateMultipleApplicantStatus,
   fetchEmailTemplate, updateEmailTemplate,
-  fetchManageableList, deleteOne, updateStatus,
+  fetchManageableList, insertOne, updateOne, deleteOne, updateStatus,
 };

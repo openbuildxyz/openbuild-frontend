@@ -23,7 +23,8 @@ import { CommonListSkeleton } from '@/components/Skeleton/CommonListSkeleton';
 import type { CreatorChallengeListViewProps } from './typing';
 
 import CreatorListSearchWidget from '../../../course/widgets/creator-list-search';
-import CreatorPublishAction from '../../../course/widgets/creator-publish-action';
+import CreatorPublishActionWidget from '../../../course/widgets/creator-publish-action';
+import { insertOne } from '../../repository';
 import ChallengeList from './ChallengeList';
 
 function CreatorChallengeListView({
@@ -38,7 +39,7 @@ function CreatorChallengeListView({
     <div className={clsx('flex-1', className)}>
       <div className="flex items-center justify-between">
         <CreatorListSearchWidget />
-        <CreatorPublishAction type="challenges" />
+        <CreatorPublishActionWidget type="challenges" insertAction={insertOne} />
       </div>
       <ChallengeList data={data} mutate={onMutate} operation={operation} />
       {loading ? (

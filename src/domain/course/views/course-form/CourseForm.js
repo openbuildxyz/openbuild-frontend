@@ -19,7 +19,6 @@ import clsx from 'clsx';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useMemo, useState, useCallback, useEffect, useRef } from 'react';
-import { toast } from 'react-toastify';
 
 import { Button } from '@/components/Button';
 import { ChevronDoubleLeftIcon } from '@/components/icon/solid';
@@ -30,9 +29,16 @@ import { useAsyncState } from '@/hooks/useAsyncState';
 import useMounted from '@/hooks/useMounted';
 // import PreviewIcon from 'public/images/svg/preview.svg'
 
-import { fetchOne as fetchChallenge, updateStatus as updateChallengeStatus } from '#/domain/challenge/repository';
-import { fetchOne as fetchCourse, updateStatus as updateCourseStatus } from '#/domain/course/repository';
-import { addSeries } from '#/services/creator';
+import {
+  fetchOne as fetchChallenge,
+  updateOne as updateChallenge,
+  updateStatus as updateChallengeStatus,
+} from '#/domain/challenge/repository';
+import {
+  fetchOne as fetchCourse,
+  updateOne as updateCourse,
+  updateStatus as updateCourseStatus,
+} from '#/domain/course/repository';
 
 import { Sections } from './Sections';
 import { CreatorLearnStepFive } from './StepFive';
@@ -40,6 +46,19 @@ import { CreatorLearnStepFour } from './StepFour';
 import { CreatorLearnStepOne } from './StepOne';
 import { CreatorLearnStepThree } from './StepThree';
 import { CreatorLearnStepTwo } from './StepTwo';
+
+const actionMap = {
+  challenges: {
+    fetchOne: fetchChallenge,
+    updateOne: updateChallenge,
+    updateStatus: updateChallengeStatus,
+  },
+  opencourse: {
+    fetchOne: fetchCourse,
+    updateOne: updateCourse,
+    updateStatus: updateCourseStatus,
+  },
+};
 
 function CourseFormView({ params }) {
   const [open, setOpen] = useState(true);
@@ -58,16 +77,10 @@ function CourseFormView({ params }) {
     }
     setSaved(false);
     // console.log(contents)
-    const res = await addSeries({...contents});
+    const res = await actionMap[params.type].updateOne({...contents});
     setSaving(false);
-    if (res.code !== 200) {
-      toast.error(res.message);
-      setSaved(false);
-    } else {
-      // await mutate({ ...res.data })
-      setSaved(true);
-    }
-  }, [contents]);
+    setSaved(res.success);
+  }, [contents, params]);
 
   useEffect(() => {
     if (saved) {
@@ -182,9 +195,7 @@ function CourseFormView({ params }) {
       return;
     }
 
-    const fetchDetail = params.type === 'challenges' ? fetchChallenge : fetchCourse;
-
-    fetchDetail(params.id)
+    actionMap[params.type].fetchOne(params.id)
       .then(res => res.success && setData(res.data))
       .finally(() => setIsLoading(false));
   });
@@ -192,7 +203,7 @@ function CourseFormView({ params }) {
   // TODO: disable before this module being refactored
   // useInterval(() => {
   //   if (contents) {
-  //     addSeries({...contents})
+  //     actionMap[params.type].updateOne({...contents})
   //       // FIXME:
   //       // I don't know how to prevent accessing page when user has no permissions for now,
   //       // so I prevent by this a little tricky way.
@@ -205,11 +216,10 @@ function CourseFormView({ params }) {
   //       });
   //   }
   // }, 10000);
-  const updateStatus = params.type === 'challenges' ? updateChallengeStatus : updateCourseStatus;
 
   const publish  = async () => {
     setPublishing(true);
-    const res = await updateStatus({ id: params.id, status: 4 });
+    const res = await actionMap[params.type].updateStatus({ id: params.id, status: 4 });
     setPublishing(false);
     if (res.success) {
       push(`/creator/learn/${params.type}`);

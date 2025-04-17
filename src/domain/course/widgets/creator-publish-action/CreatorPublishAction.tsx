@@ -23,12 +23,12 @@ import { PlusIcon } from '@/components/icon/outlined';
 import { CheckCircleIcon } from '@/components/icon/solid';
 import { Modal } from '@/components/Modal';
 
-import { addSeries } from '#/services/creator';
+import type { CreatorPublishActionWidgetProps } from './typing';
 
 import { InitForms, InitChallengesForms } from './init';
 import { SelectItemModal } from './SelectItemModal';
 
-function CreatorPublishAction({ type }: { type: 'opencourse' | 'challenges' }) {
+function CreatorPublishAction({ type, insertAction }: CreatorPublishActionWidgetProps) {
   const { push } = useRouter();
   const pathname = usePathname();
   const [selectModalOpen, setSelectModalOpen] = useState(false);
@@ -87,12 +87,12 @@ function CreatorPublishAction({ type }: { type: 'opencourse' | 'challenges' }) {
               _forms.course_series_type = learnType;
               let res;
               if (type === 'challenges') {
-                res = await addSeries({ base: _forms, challenges_extra: { ..._challengesForms } });
+                res = await insertAction({ base: _forms, challenges_extra: { ..._challengesForms } });
               } else {
-                res = await addSeries({ base: _forms });
+                res = await insertAction({ base: _forms });
               }
               setConfirming(false);
-              if (res.code === 200) {
+              if (res.success) {
                 const _id = res.data.base.course_series_id;
                 push(`${pathname}/${_id}`);
               }
@@ -112,6 +112,7 @@ function CreatorPublishAction({ type }: { type: 'opencourse' | 'challenges' }) {
           setSelectModalOpen(true);
           setSelectItemModalOpen(false);
         }}
+        insertAction={insertAction}
       />
     </>
   );
