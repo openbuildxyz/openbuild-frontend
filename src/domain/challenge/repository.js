@@ -76,6 +76,10 @@ async function updateTransaction(id, data) {
   return httpClient.post(`/learn/general/course/challenges/${id}/permission/pay`, data);
 }
 
+async function updateApplicantStatus({ id, uid, status }) {
+  return httpClient.post(`/learn/creator/series/${id}/enrool/${uid}/status`, { status });
+}
+
 async function updateMultipleApplicantStatus(id, { userIds, status }) {
   return httpClient.post(`/learn/creator/series/${id}/batch/enrool/status`, { uids: userIds, status });
 }
@@ -109,7 +113,7 @@ export {
   fetchList, fetchOne, enrollOne,
   fetchOneWithPermission, fetchLessonWithEntity, fetchRelatedCourse,
   fetchPublishedChallengeList, fetchEnrolledChallengeList,
-  updateTransaction, updateMultipleApplicantStatus,
+  updateTransaction, updateApplicantStatus, updateMultipleApplicantStatus,
   fetchEmailTemplate, updateEmailTemplate,
   fetchManageableList, insertOne, updateOne, deleteOne, updateStatus,
 };
