@@ -22,8 +22,9 @@ import { CommonListSkeleton } from '@/components/Skeleton/CommonListSkeleton';
 
 import type { CreatorCourseListViewProps } from './typing';
 
+import { insertOne } from '../../repository';
 import CreatorListSearchWidget from '../../widgets/creator-list-search';
-import CreatorPublishAction from '../../widgets/creator-publish-action';
+import CreatorPublishActionWidget from '../../widgets/creator-publish-action';
 import OpenCourseList from './OpenCourseList';
 
 function CreatorCourseListView({
@@ -38,7 +39,7 @@ function CreatorCourseListView({
     <div className={clsx('flex-1', className)}>
       <div className="flex items-center justify-between">
         <CreatorListSearchWidget />
-        <CreatorPublishAction type="opencourse" />
+        <CreatorPublishActionWidget type="opencourse" insertAction={insertOne} />
       </div>
       <OpenCourseList data={data} mutate={onMutate} operation={operation} />
       {loading ? (

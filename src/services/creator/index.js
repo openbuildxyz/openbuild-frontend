@@ -16,10 +16,6 @@
 
 import { post } from '@/utils/request';
 
-export async function addSeries(params) {
-  return await post('ts/v1/learn/creator/series', params);
-}
-
 export async function enroolStatus(params) {
   return await post(`ts/v1/learn/creator/series/${params.id}/enrool/${params.uid}/status`, {
     status: params.status,
