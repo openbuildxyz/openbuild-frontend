@@ -48,6 +48,7 @@ function QuizLimiterWidget({
   check = false,
   children,
   onReset,
+  isClickedButton,
 }) {
   const [dialogVisible, setDialogVisible] = useState(false);
   const router = useRouter();
@@ -80,7 +81,7 @@ function QuizLimiterWidget({
         router.push(questionsPath);
       }
     }
-  }, [check]);  // eslint-disable-line react-hooks/exhaustive-deps
+  }, [check, isClickedButton]);  // eslint-disable-line react-hooks/exhaustive-deps
 
   const closeDialog = () => setDialogVisible(false);
 
