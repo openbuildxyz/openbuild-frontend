@@ -41,6 +41,13 @@ const limitTypeMap = {
   [LimitType.Enrolled]: 'Please enroll a specific course or challenge first.',
 };
 
+// FIXME: use a more precise way to judge instead
+function resolveCollectionName(linkedId) {
+  const stringified = linkedId.toString();
+
+  return stringified.length > 3 && stringified.startsWith('2') ? 'challenges' : 'courses';
+}
+
 function QuizLimiterWidget({
   id,
   limit = {},
@@ -86,7 +93,7 @@ function QuizLimiterWidget({
 
   const handleConfirm = () => {
     if (type === LimitType.Enrolled) {
-      router.push(`/learn/courses/${extra}`);
+      router.push(`/learn/${resolveCollectionName(extra)}/${extra}`);
     } else if (type === LimitType.Wallet) {
       bindWallet(closeDialog);
     } else {
