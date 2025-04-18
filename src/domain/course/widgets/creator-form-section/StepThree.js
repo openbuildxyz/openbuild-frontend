@@ -53,7 +53,6 @@ function getContentFormLabel(type) {
 }
 
 export function CreatorLearnStepThree({ data, change }) {
-
   const [currentRenderNumber, setCurrentRenderNumber] = useState(0);
   const [addChapterModalOpen, setAddChapterModalOpen] = useState(false);
 

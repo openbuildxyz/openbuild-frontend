@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-export { CreatorLearnStepOne as BasicSection } from './StepOne';
 export { CreatorLearnStepTwo as IntroSection } from './StepTwo';
 export { CreatorLearnStepThree as LessonSection } from './StepThree';
 export { CreatorLearnStepFour as SpeakerSection } from './StepFour';

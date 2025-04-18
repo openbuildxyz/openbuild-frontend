@@ -21,8 +21,7 @@ import { PlusCircleIcon } from '@/components/icon/solid';
 import { OEditor } from '@/components/MarkDown';
 import  { BASE_INPUT_STYLE } from '@/constants/config';
 
-export function CreatorLearnStepTwo({data, change}) {
-
+export function CreatorLearnStepTwo({ data, change }) {
   const [forms, setForms] = useState();
 
   useEffect(() => {
