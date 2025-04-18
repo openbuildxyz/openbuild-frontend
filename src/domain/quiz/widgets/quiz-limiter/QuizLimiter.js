@@ -24,6 +24,7 @@ import { isFunction } from '@/utils';
 
 import { authWithGoogle, authWithGithub } from '../../../auth/helper';
 import { useBindWallet } from '../../../auth/hooks';
+import { isChallenge } from '../../../challenge/helper';
 
 const LimitType = {
   Submission: 1,
@@ -40,13 +41,6 @@ const limitTypeMap = {
   [LimitType.GitHub]: 'Please connect your GitHub account first',
   [LimitType.Enrolled]: 'Please enroll a specific course or challenge first.',
 };
-
-// FIXME: use a more precise way to judge instead
-function resolveCollectionName(linkedId) {
-  const stringified = linkedId.toString();
-
-  return stringified.length > 3 && stringified.startsWith('2') ? 'challenges' : 'courses';
-}
 
 function QuizLimiterWidget({
   id,
@@ -93,7 +87,7 @@ function QuizLimiterWidget({
 
   const handleConfirm = () => {
     if (type === LimitType.Enrolled) {
-      router.push(`/learn/${resolveCollectionName(extra)}/${extra}`);
+      router.push(`/learn/${isChallenge(extra) ? 'challenges' : 'courses'}/${extra}`);
     } else if (type === LimitType.Wallet) {
       bindWallet(closeDialog);
     } else {

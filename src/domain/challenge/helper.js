@@ -14,6 +14,13 @@
  * limitations under the License.
  */
 
+// FIXME: use a more precise way to judge instead
+function isChallenge(id) {
+  const stringified = id.toString();
+
+  return stringified.length > 3 && stringified.startsWith('2');
+}
+
 const statusMap = {
   '-2': 'Declined',
   '-1': 'Waiting',
@@ -44,4 +51,4 @@ function getStatusLabel(status) {
   return statusMap[status] || '';
 }
 
-export { isAgreeable, isDeclinable, isBeAgreed, isBeDeclined, getStatusLabel };
+export { isChallenge, isAgreeable, isDeclinable, isBeAgreed, isBeDeclined, getStatusLabel };
