@@ -43,6 +43,7 @@ function QuizDetailView({ quizId }) {
   const [openChallenge, setOpenChallenge] = useState(false);
   const [openRankList, setOpenRankList] = useState(false);
   const [checkLimit, setCheckLimit] = useState(false);
+  const [checkedAt, setCheckedAt] = useState(0);
   const [data, setData] = useState();
   const [coursesList, setCoursesList] = useState();
   const [challengeList, setChallengeList] = useState();
@@ -71,6 +72,7 @@ function QuizDetailView({ quizId }) {
       check={checkLimit}
       quiz
       onReset={() => setCheckLimit(false)}
+      checkedAt={checkedAt}
     >
       <div className="max-md:flex max-md:flex-col max-md:gap-y-4 h-[250px] md:h-[360px] bg-cover bg-center bg-no-repeat relative" style={{ backgroundImage: `url(${bannerImage})`  }}>
         <div className="md:absolute flex items-center mt-[15px] md:mt-6 mx-4 md:mx-14">
@@ -107,7 +109,7 @@ function QuizDetailView({ quizId }) {
         <h5 className="text-lg mb-4 md:mb-3">Quiz Describe</h5>
         <OViewer value={data?.describe} />
         <Button
-          onClick={() => setCheckLimit(true)}
+          onClick={() => {setCheckLimit(true);setCheckedAt(Date.now());}}
           className="mt-4 md:mt-6 mb-9 md:mb-10 !font-bold px-[64px] !text-base max-md:w-full">
             Challenge now
         </Button>
