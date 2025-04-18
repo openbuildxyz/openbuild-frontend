@@ -15,19 +15,18 @@
  */
 
 import CreatorFormWidget from '../../widgets/creator-form';
-import { BasicSection, IntroSection, LessonSection, SpeakerSection } from '../../widgets/creator-form-section';
-
-const collectionName = 'opencourse';
+import { IntroSection, LessonSection, SpeakerSection } from '../../widgets/creator-form-section';
+import { CreatorLearnStepOne } from './StepOne';
 
 function resolveSegments({ data, id, onChange }) {
-  const props = { id, type: collectionName, data, change: onChange };
+  const props = { id, data, change: onChange };
 
   return [
     {
       key: 'one',
       title: 'Basic Information',
       render: key => (
-        <BasicSection key={key} {...props} />
+        <CreatorLearnStepOne key={key} {...props} />
       ),
     },
     {
@@ -60,7 +59,7 @@ function CourseFormView({ id, actions }) {
       label="Open course"
       entityId={id}
       entityUrl={`/learn/courses/${id}`}
-      collectionUrl={`/creator/learn/${collectionName}`}
+      collectionUrl="/creator/learn/opencourse"
       segments={(entity, onChange) => resolveSegments({ id, data: entity, onChange })}
       actions={{
         fetchAction: actions.fetchOne,

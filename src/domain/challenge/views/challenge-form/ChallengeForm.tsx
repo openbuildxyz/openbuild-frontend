@@ -17,20 +17,19 @@
 import type { SegmentedFormProps } from '@/components/control/segmented-form';
 
 import CreatorFormWidget from '../../../course/widgets/creator-form';
-import { BasicSection, IntroSection, LessonSection, SpeakerSection } from '../../../course/widgets/creator-form-section';
+import { IntroSection, LessonSection, SpeakerSection } from '../../../course/widgets/creator-form-section';
 import { CreatorLearnStepFive } from './StepFive';
-
-const collectionName = 'challenges';
+import { CreatorLearnStepOne } from './StepOne';
 
 function resolveSegments({ data, id, onChange }): SegmentedFormProps['segments'] {
-  const props = { id, type: collectionName, data, change: onChange };
+  const props = { id, data, change: onChange };
 
   return [
     {
       key: 'one',
       title: 'Basic Information',
       render: key => (
-        <BasicSection key={key} {...props} />
+        <CreatorLearnStepOne key={key} {...props} />
       ),
     },
     {
@@ -70,7 +69,7 @@ function ChallengeFormView({ id, actions }) {
       label="Challenge"
       entityId={id}
       entityUrl={`/learn/challenges/${id}`}
-      collectionUrl={`/creator/learn/${collectionName}`}
+      collectionUrl="/creator/learn/challenges"
       segments={(entity, onChange) => resolveSegments({ id, data: entity, onChange })}
       actions={{
         fetchAction: actions.fetchOne,

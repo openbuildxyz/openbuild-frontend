@@ -30,8 +30,6 @@ import { HTMLDecode } from '@/utils';
 import { upload } from '#/services/common';
 import { useConfig, useMediaUrl } from '#/state/application/hooks';
 
-import { ChllengesForms } from './Chllenges';
-
 const bodyTypeOptions = [
   {
     name: 'Video',
@@ -54,8 +52,7 @@ const langOptions = [
   },
 ];
 
-export function CreatorLearnStepOne({change, data, type}) {
-
+export function CreatorLearnStepOne({ change, data }) {
   const config = useConfig();
   const mediaUrl = useMediaUrl();
   const uploadRef = useRef(null);
@@ -117,7 +114,7 @@ export function CreatorLearnStepOne({change, data, type}) {
       setDirection(_direction);
       setLanguage(_language);
     }
-  }, [ecosystemOpts, directionOpts, languageOpts, data, type]);
+  }, [ecosystemOpts, directionOpts, languageOpts, data]);
 
   const [uploadFileSizeError, setUploadFileSizeError] = useState(false);
   const handleImageFileChange = async event => {
@@ -235,21 +232,16 @@ export function CreatorLearnStepOne({change, data, type}) {
           {uploadFileSizeError && <p className="mt-2 text-xs text-[#E43150]">The file is bigger than 2MB</p>}
         </div>
       </div>
-      {
-        type !== 'challenges' && (
-          <div className={clsx('mt-9 grid gap-2 grid-cols-2')}>
-            <div className="flex-1">
-              <h5 className="text-sm font-normal mb-2 opacity-80">Course language</h5>
-              {ecosystemOpts && <Select options={langOptions} selected={forms?.base.course_series_lang} change={e => change('course_series_lang', e)} />}
-            </div>
-            <div className="flex-1">
-              <h5 className="text-sm font-normal mb-2 opacity-80">Content form</h5>
-              {directionOpts && <Select options={bodyTypeOptions} selected={forms?.base.course_series_body_type} change={e =>  change('course_series_body_type', e)} />}
-            </div>
-          </div>
-        )
-      }
-
+      <div className={clsx('mt-9 grid gap-2 grid-cols-2')}>
+        <div className="flex-1">
+          <h5 className="text-sm font-normal mb-2 opacity-80">Course language</h5>
+          {ecosystemOpts && <Select options={langOptions} selected={forms?.base.course_series_lang} change={e => change('course_series_lang', e)} />}
+        </div>
+        <div className="flex-1">
+          <h5 className="text-sm font-normal mb-2 opacity-80">Content form</h5>
+          {directionOpts && <Select options={bodyTypeOptions} selected={forms?.base.course_series_body_type} change={e =>  change('course_series_body_type', e)} />}
+        </div>
+      </div>
       <div className="mt-9">
         <h4 className="text-sm font-normal mb-2 opacity-80">Summary</h4>
         <div className="">
@@ -262,10 +254,7 @@ export function CreatorLearnStepOne({change, data, type}) {
           />
         </div>
       </div>
-      <div className={clsx('mt-9 grid gap-2', {
-        'grid-cols-3': type !== 'challenges',
-        'grid-cols-2': type === 'challenges',
-      })}>
+      <div className="mt-9 grid gap-2 grid-cols-3">
         <div className="flex-1">
           <h5 className="text-sm font-normal mb-2 opacity-80">Ecosystem</h5>
           {ecosystemOpts && <Select options={ecosystemOpts} selected={ecosystem} change={e =>  change('course_series_label_ids', [e, direction, language])} />}
@@ -274,28 +263,22 @@ export function CreatorLearnStepOne({change, data, type}) {
           <h5 className="text-sm font-normal mb-2 opacity-80">Direction</h5>
           {directionOpts && <Select options={directionOpts} selected={direction} change={e =>  change('course_series_label_ids', [ecosystem, e, language])} />}
         </div>
-        {type !== 'challenges' && (
-          <div className="flex-1">
-            <h5 className="text-sm font-normal mb-2 opacity-80">Programming Language</h5>
-            {languageOpts && <Select options={languageOpts} selected={language} change={e =>  change('course_series_label_ids', [ecosystem, direction, e])} />}
-          </div>
-        )}
-      </div>
-
-      {type === 'challenges' && <ChllengesForms forms={forms?.challenges_extra} change={change} />}
-      {type !== 'challenges' && (
-        <div className="mt-9 flex justify-between">
-          <div>
-            <h4 className="text-sm font-normal opacity-80">Featured Courses</h4>
-          </div>
-          <input
-            type="checkbox"
-            className="toggle publish-toggle"
-            onChange={() => change('course_series_recommend_type', forms?.base.course_series_recommend_type === 'choice' ? 'default' : 'choice')}
-            checked={forms?.base?.course_series_recommend_type === 'choice'}
-          />
+        <div className="flex-1">
+          <h5 className="text-sm font-normal mb-2 opacity-80">Programming Language</h5>
+          {languageOpts && <Select options={languageOpts} selected={language} change={e =>  change('course_series_label_ids', [ecosystem, direction, e])} />}
         </div>
-      )}
+      </div>
+      <div className="mt-9 flex justify-between">
+        <div>
+          <h4 className="text-sm font-normal opacity-80">Featured Courses</h4>
+        </div>
+        <input
+          type="checkbox"
+          className="toggle publish-toggle"
+          onChange={() => change('course_series_recommend_type', forms?.base.course_series_recommend_type === 'choice' ? 'default' : 'choice')}
+          checked={forms?.base?.course_series_recommend_type === 'choice'}
+        />
+      </div>
     </>
   );
 }
