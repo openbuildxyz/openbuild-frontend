@@ -28,7 +28,9 @@ import useMounted from '@/hooks/useMounted';
 
 import { useMediaUrl } from '#/state/application/hooks';
 
-import { fetchList as fetchCourseList } from '../../../course';
+import { fetchList as fetchChallengeList } from '../../../challenge/repository';
+import ChallengeListViewWidget from '../../../challenge/views/challenge-list';
+import { fetchList as fetchCourseList } from '../../../course/repository';
 import CourseListViewWidget from '../../../course/views/course-list';
 import { fetchOne } from '../../repository';
 import QuizLimiterWidget from '../../widgets/quiz-limiter';
@@ -43,6 +45,7 @@ function QuizDetailView({ quizId }) {
   const [checkLimit, setCheckLimit] = useState(false);
   const [data, setData] = useState();
   const [coursesList, setCoursesList] = useState();
+  const [challengeList, setChallengeList] = useState();
   const { status } = useSession();
   const router = useRouter();
 
@@ -50,10 +53,12 @@ function QuizDetailView({ quizId }) {
     Promise.all([
       fetchOne(quizId),
       fetchCourseList({ skip: 0, take: 2, quiz_bind_id: quizId }),
+      fetchChallengeList({ skip: 0, take: 2, quiz_bind_id: quizId }),
     ])
-      .then(([quizDetailRes, courseListRes]) => {
+      .then(([quizDetailRes, courseListRes, challengeListRes]) => {
         setData(quizDetailRes.data);
         setCoursesList(courseListRes.data);
+        setChallengeList(challengeListRes.data);
       });
   });
 
@@ -111,10 +116,19 @@ function QuizDetailView({ quizId }) {
       </div>
       {
         coursesList?.count > 0 && (
-          <div className="max-w-[800px] max-md:mt-9 mx-6 md:mx-auto relative md:top-[-105px] max-md:pb-14">
+          <div className="max-w-[800px] mb-9 max-md:mt-9 mx-6 md:mx-auto relative md:top-[-105px] max-md:pb-14">
             <h3 className="text-[18px] max-md:leading-[24px] md:text-lg mb-6">Related courses</h3>
             <CourseListViewWidget className="gap-y-6 md:gap-4 md:grid-cols-2" data={coursesList?.list} />
-          </div>)
+          </div>
+        )
+      }
+      {
+        challengeList?.count > 0 && (
+          <div className="max-w-[800px] max-md:mt-9 mx-6 md:mx-auto relative md:top-[-105px] max-md:pb-14">
+            <h3 className="text-[18px] max-md:leading-[24px] md:text-lg mb-6">Related challenges</h3>
+            <ChallengeListViewWidget className="!gap-y-6 md:!gap-4 md:!grid-cols-2" data={challengeList?.list} />
+          </div>
+        )
       }
       <RankListModal quizId={quizId} shown={openRankList} onClose={() => setOpenRankList(false)}  rank={data?.my_rank}/>
       <RecordListModal quizId={quizId} shown={openChallenge} onClose={() => setOpenChallenge(false)} />
