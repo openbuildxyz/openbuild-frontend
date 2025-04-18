@@ -108,12 +108,21 @@ function QuizDetailView({ quizId }) {
       <div className="max-w-[800px] mx-auto bg-white rounded-xl p-6 md:px-9 md:pt-10 md:pb-6  relative z-[2] md:top-[-155px]">
         <h5 className="text-lg mb-4 md:mb-3">Quiz Describe</h5>
         <OViewer value={data?.describe} />
-        <Button
-          disabled={data?.date_limit && (Date.now() < data?.start_time || Date.now() > data?.end_time)}
-          onClick={() => {setCheckLimit(true);setCheckedAt(Date.now());}}
-          className="mt-4 md:mt-6 mb-9 md:mb-10 !font-bold px-[64px] !text-base max-md:w-full">
-            Challenge now
-        </Button>
+        {data?.date_limit && Date.now() / 1000 < data?.start_time
+          ? <Button
+            className="mt-4 md:mt-6 mb-9 md:mb-10 !font-bold px-[64px] !text-base max-md:w-full">
+            Waiting to start
+          </Button>
+          : data?.date_limit && Date.now() / 1000 > data?.end_time
+            ? <Button
+              className="mt-4 md:mt-6 mb-9 md:mb-10 !font-bold px-[64px] !text-base max-md:w-full">
+              End
+            </Button>
+            : <Button
+              onClick={() => {setCheckLimit(true);setCheckedAt(Date.now());}}
+              className="mt-4 md:mt-6 mb-9 md:mb-10 !font-bold px-[64px] !text-base max-md:w-full">
+              Challenge now
+            </Button>}
         <RankList rank={data?.my_rank} list={data?.rank}/>
         <p className="text-sm text-center mt-6 cursor-pointer" onClick={()=>{setOpenRankList(true);}}><strong>{data?.user_num}</strong> builders have participated</p>
       </div>
