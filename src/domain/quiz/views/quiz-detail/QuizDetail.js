@@ -109,6 +109,7 @@ function QuizDetailView({ quizId }) {
         <h5 className="text-lg mb-4 md:mb-3">Quiz Describe</h5>
         <OViewer value={data?.describe} />
         <Button
+          disabled={data?.date_limit && (Date.now() < data?.start_time || Date.now() > data?.end_time)}
           onClick={() => {setCheckLimit(true);setCheckedAt(Date.now());}}
           className="mt-4 md:mt-6 mb-9 md:mb-10 !font-bold px-[64px] !text-base max-md:w-full">
             Challenge now
