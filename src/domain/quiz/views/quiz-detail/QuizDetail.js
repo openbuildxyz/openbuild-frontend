@@ -18,13 +18,14 @@ import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import QuizBannerPic from 'public/images/quiz-banner.png';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import { Button } from '@/components/Button';
 import { ArrowUturnLeftIcon } from '@/components/icon/solid';
 import { HistoryIcon } from '@/components/Icons';
 import { OViewer } from '@/components/MarkDown';
 import useMounted from '@/hooks/useMounted';
+import { noop } from '@/utils';
 
 import { useMediaUrl } from '#/state/application/hooks';
 
@@ -64,6 +65,32 @@ function QuizDetailView({ quizId }) {
   });
 
   const bannerImage = data?.background_img ? `${mediaUrl}${data?.background_img}` : QuizBannerPic.src;
+
+  const challengeButtonProps = useMemo(() => {
+    const now = Date.now();
+    const nowSeconds = now / 1000;
+
+    let content = 'Challenge now';
+
+    let handleClick = () => {
+      setCheckLimit(true);
+      setCheckedAt(now);
+    };
+
+    const { date_limit, start_time, end_time } = data || {};
+
+    if (date_limit && start_time && end_time) {
+      if (nowSeconds < start_time) {
+        content = 'Waiting to start';
+        handleClick = noop;
+      } else if (nowSeconds > end_time) {
+        content = 'End';
+        handleClick = noop;
+      }
+    }
+
+    return { content, handleClick };
+  }, [data]);
 
   return (
     <QuizLimiterWidget
@@ -109,9 +136,10 @@ function QuizDetailView({ quizId }) {
         <h5 className="text-lg mb-4 md:mb-3">Quiz Describe</h5>
         <OViewer value={data?.describe} />
         <Button
-          onClick={() => {setCheckLimit(true);setCheckedAt(Date.now());}}
-          className="mt-4 md:mt-6 mb-9 md:mb-10 !font-bold px-[64px] !text-base max-md:w-full">
-            Challenge now
+          className="mt-4 md:mt-6 mb-9 md:mb-10 !font-bold px-[64px] !text-base max-md:w-full"
+          onClick={challengeButtonProps.handleClick}
+        >
+          {challengeButtonProps.content}
         </Button>
         <RankList rank={data?.my_rank} list={data?.rank}/>
         <p className="text-sm text-center mt-6 cursor-pointer" onClick={()=>{setOpenRankList(true);}}><strong>{data?.user_num}</strong> builders have participated</p>
