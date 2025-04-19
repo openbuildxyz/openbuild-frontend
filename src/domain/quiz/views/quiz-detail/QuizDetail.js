@@ -18,13 +18,14 @@ import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import QuizBannerPic from 'public/images/quiz-banner.png';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { Button } from '@/components/Button';
 import { ArrowUturnLeftIcon } from '@/components/icon/solid';
 import { HistoryIcon } from '@/components/Icons';
 import { OViewer } from '@/components/MarkDown';
 import useMounted from '@/hooks/useMounted';
+import { noop } from '@/utils';
 
 import { useMediaUrl } from '#/state/application/hooks';
 
@@ -44,7 +45,6 @@ function QuizDetailView({ quizId }) {
   const [openRankList, setOpenRankList] = useState(false);
   const [checkLimit, setCheckLimit] = useState(false);
   const [checkedAt, setCheckedAt] = useState(0);
-  const [challengeButtonContent, setChallengeButtonContent] = useState('Challenge now');
   const [data, setData] = useState();
   const [coursesList, setCoursesList] = useState();
   const [challengeList, setChallengeList] = useState();
@@ -64,26 +64,34 @@ function QuizDetailView({ quizId }) {
       });
   });
 
-  useEffect(() => {
-    const nowSeconds = Date.now() / 1000;
-    if (data?.date_limit && nowSeconds < data?.start_time) {
-      setChallengeButtonContent('Waiting to start');
-    } else if (data?.date_limit && nowSeconds > data?.end_time) {
-      setChallengeButtonContent('End');
-    } else {
-      setChallengeButtonContent('Challenge now');
-    }
-  }, [data]);
-
   const bannerImage = data?.background_img ? `${mediaUrl}${data?.background_img}` : QuizBannerPic.src;
 
-  const handleChallenge = () => {
+  const challengeButtonProps = () => {
     const now = Date.now();
     const nowSeconds = now / 1000;
-    if (!data?.date_limit || (data?.date_limit && nowSeconds >= data?.start_time && nowSeconds <= data?.end_time)) {
+
+    const handleChallenge = () => {
       setCheckLimit(true);
       setCheckedAt(now);
+    };
+
+    const onClick = (!data?.date_limit || (data?.date_limit && nowSeconds >= data?.start_time && nowSeconds <= data?.end_time))
+      ? handleChallenge
+      : noop;
+  
+    let content = '';
+    if (data?.date_limit && nowSeconds < data?.start_time) {
+      content = 'Waiting to start';
+    } else if (data?.date_limit && nowSeconds > data?.end_time) {
+      content = 'End';
+    } else {
+      content = 'Challenge now';
     }
+  
+    return {
+      onClick,
+      content,
+    };
   };
 
   return (
@@ -130,9 +138,9 @@ function QuizDetailView({ quizId }) {
         <h5 className="text-lg mb-4 md:mb-3">Quiz Describe</h5>
         <OViewer value={data?.describe} />
         <Button
-          onClick={handleChallenge}
+          onClick={challengeButtonProps().onClick}
           className="mt-4 md:mt-6 mb-9 md:mb-10 !font-bold px-[64px] !text-base max-md:w-full">
-          {challengeButtonContent}
+          {challengeButtonProps().content}
         </Button>
         <RankList rank={data?.my_rank} list={data?.rank}/>
         <p className="text-sm text-center mt-6 cursor-pointer" onClick={()=>{setOpenRankList(true);}}><strong>{data?.user_num}</strong> builders have participated</p>
