@@ -77,11 +77,13 @@ function QuizDetailView({ quizId }) {
       setCheckedAt(now);
     };
 
-    if (data?.date_limit) {
-      if (nowSeconds < data?.start_time) {
+    const { date_limit, start_time, end_time } = data || {};
+
+    if (date_limit && start_time && end_time) {
+      if (nowSeconds < start_time) {
         content = 'Waiting to start';
         handleClick = noop;
-      } else if (nowSeconds > data?.end_time) {
+      } else if (nowSeconds > end_time) {
         content = 'End';
         handleClick = noop;
       }
