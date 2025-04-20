@@ -79,11 +79,11 @@ function QuizDetailView({ quizId }) {
 
     const { date_limit, start_time, end_time } = data || {};
 
-    if (date_limit && start_time && end_time) {
+    if (date_limit && (start_time > 0 || end_time > 0)) {
       if (nowSeconds < start_time) {
         content = 'Waiting to start';
         handleClick = noop;
-      } else if (nowSeconds > end_time) {
+      } else if (end_time > 0 && nowSeconds > end_time) {
         content = 'End';
         handleClick = noop;
       }
