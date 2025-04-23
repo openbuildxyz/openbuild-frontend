@@ -27,7 +27,6 @@ import {
   argentWallet,
   trustWallet,
 } from '@rainbow-me/rainbowkit/wallets';
-import { bsc } from '@wagmi/chains';
 import { defineChain } from 'viem';
 import { configureChains, createConfig } from 'wagmi';
 import { bscTestnet } from 'wagmi/chains';
@@ -35,7 +34,7 @@ import { alchemyProvider } from 'wagmi/providers/alchemy';
 import { infuraProvider } from 'wagmi/providers/infura';
 import { publicProvider } from 'wagmi/providers/public';
 
-import { MONAD_TESTNET_CHAIN_ID } from './chainid';
+import { MONAD_TESTNET_CHAIN_ID, BSC_MAINNET_CHAIN_ID } from './chainid';
 
 const monadTestnet = defineChain({
   id: MONAD_TESTNET_CHAIN_ID,
@@ -55,6 +54,25 @@ const monadTestnet = defineChain({
     default: { name: 'MonadExplorer', url: 'https://testnet.monadexplorer.com' },
   },
   testnet: true,
+});
+
+const bsc = defineChain({
+  id: BSC_MAINNET_CHAIN_ID,
+  name: 'BNB Smart Chain',
+  network: 'bsc',
+  nativeCurrency: {
+    decimals: 18,
+    name: 'BNB',
+    symbol: 'BNB',
+  },
+  rpcUrls: {
+    default: { http: ['https://bsc-dataseed1.binance.org/'] },
+    public: { http: ['https://bsc-dataseed1.binance.org/'] },
+  },
+  blockExplorers: {
+    etherscan: { name: 'BscScan', url: 'https://bscscan.com' },
+    default: { name: 'BscScan', url: 'https://bscscan.com' },
+  },
 });
 
 const supportedChains = [bsc, monadTestnet];
