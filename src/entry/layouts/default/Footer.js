@@ -38,6 +38,10 @@ const menus = [
         type: 'Hot',
       },
       {
+        name: 'Forum',
+        link: 'https://forums.openbuild.xyz',
+      },
+      {
         name: 'Product Docs',
         link: 'https://openbuild-2.gitbook.io',
       },
@@ -57,6 +61,10 @@ const menus = [
       {
         name: 'Developer Profile',
         link: '/profile',
+      },
+      {
+        name: 'Feedback',
+        link: 'https://forums.openbuild.xyz/tags/support',
       },
       {
         name: 'On-Chain Contract & Payment',
