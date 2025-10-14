@@ -15,7 +15,7 @@
  */
 
 'use client';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import ReactPlayer from 'react-player';
 
 function formatTime(seconds) {
@@ -27,6 +27,7 @@ function formatTime(seconds) {
 
 function CustomVideoPlayer({ url, width = '100%', height = '100%' }) {
   const playerRef = useRef(null);
+  const controlsTimeoutRef = useRef(null);
   const [playing, setPlaying] = useState(false);
   const [played, setPlayed] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -35,9 +36,37 @@ function CustomVideoPlayer({ url, width = '100%', height = '100%' }) {
   const [seeking, setSeeking] = useState(false);
   const [playbackRate, setPlaybackRate] = useState(1);
   const [showRateMenu, setShowRateMenu] = useState(false);
+  const [showControls, setShowControls] = useState(true);
+
+  // Auto-hide controls after 3 seconds when playing
+  useEffect(() => {
+    if (playing && showControls) {
+      controlsTimeoutRef.current = setTimeout(() => {
+        setShowControls(false);
+      }, 3000);
+    }
+
+    return () => {
+      if (controlsTimeoutRef.current) {
+        clearTimeout(controlsTimeoutRef.current);
+      }
+    };
+  }, [playing, showControls]);
+
+  const handleShowControls = () => {
+    setShowControls(true);
+    if (controlsTimeoutRef.current) {
+      clearTimeout(controlsTimeoutRef.current);
+    }
+  };
+
+  const handleVideoClick = () => {
+    handleShowControls();
+  };
 
   const handlePlayPause = () => {
     setPlaying(!playing);
+    handleShowControls();
   };
 
   const handleProgress = state => {
@@ -55,6 +84,16 @@ function CustomVideoPlayer({ url, width = '100%', height = '100%' }) {
   };
 
   const handleSeekMouseUp = e => {
+    setSeeking(false);
+    playerRef.current?.seekTo(parseFloat(e.target.value));
+  };
+
+  const handleSeekTouchStart = () => {
+    setSeeking(true);
+    handleShowControls();
+  };
+
+  const handleSeekTouchEnd = e => {
     setSeeking(false);
     playerRef.current?.seekTo(parseFloat(e.target.value));
   };
@@ -82,7 +121,13 @@ function CustomVideoPlayer({ url, width = '100%', height = '100%' }) {
   };
 
   return (
-    <div className="relative w-full h-full bg-black group" onContextMenu={handleContextMenu}>
+    <div
+      className="relative w-full h-full bg-black group"
+      onContextMenu={handleContextMenu}
+      onClick={handleVideoClick}
+      onMouseMove={handleShowControls}
+      onTouchStart={handleShowControls}
+    >
       <ReactPlayer
         ref={playerRef}
         url={url}
@@ -106,7 +151,12 @@ function CustomVideoPlayer({ url, width = '100%', height = '100%' }) {
       />
 
       {/* Custom Controls */}
-      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 opacity-0 group-hover:opacity-100 transition-opacity">
+      <div
+        className={`absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 transition-opacity duration-300 ${
+          showControls ? 'opacity-100' : 'opacity-0'
+        }`}
+        onClick={e => e.stopPropagation()}
+      >
         {/* Progress Bar */}
         <input
           type="range"
@@ -117,6 +167,8 @@ function CustomVideoPlayer({ url, width = '100%', height = '100%' }) {
           onMouseDown={handleSeekMouseDown}
           onChange={handleSeekChange}
           onMouseUp={handleSeekMouseUp}
+          onTouchStart={handleSeekTouchStart}
+          onTouchEnd={handleSeekTouchEnd}
           className="w-full h-1 mb-3 bg-gray-600 rounded-lg appearance-none cursor-pointer accent-blue-500"
         />
 
@@ -139,7 +191,7 @@ function CustomVideoPlayer({ url, width = '100%', height = '100%' }) {
             </button>
 
             {/* Volume Control */}
-            <div className="relative flex items-center group/volume">
+            <div className="hidden md:flex items-center group/volume">
               <button
                 onClick={handleToggleMuted}
                 className="w-8 h-8 flex items-center justify-center hover:bg-white/20 rounded transition-colors"
@@ -159,7 +211,7 @@ function CustomVideoPlayer({ url, width = '100%', height = '100%' }) {
                 )}
               </button>
 
-              <div className="w-0 overflow-hidden group-hover/volume:w-20 transition-all duration-200 ml-2">
+              <div className="flex items-center w-0 overflow-hidden group-hover/volume:w-20 transition-all duration-200 ml-2">
                 <input
                   type="range"
                   min={0}
@@ -173,6 +225,40 @@ function CustomVideoPlayer({ url, width = '100%', height = '100%' }) {
                   }}
                 />
               </div>
+            </div>
+
+            {/* Mobile Volume Control */}
+            <div className="flex md:hidden items-center">
+              <button
+                onClick={handleToggleMuted}
+                className="w-8 h-8 flex items-center justify-center hover:bg-white/20 rounded transition-colors"
+              >
+                {muted || volume === 0 ? (
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
+                  </svg>
+                ) : volume < 0.5 ? (
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M7 9v6h4l5 5V4l-5 5H7z"/>
+                  </svg>
+                ) : (
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
+                  </svg>
+                )}
+              </button>
+              <input
+                type="range"
+                min={0}
+                max={1}
+                step={0.01}
+                value={muted ? 0 : volume}
+                onChange={handleVolumeChange}
+                className="w-16 h-1 ml-2 appearance-none bg-gray-600 rounded cursor-pointer accent-blue-500"
+                style={{
+                  background: `linear-gradient(to right, #3b82f6 0%, #3b82f6 ${(muted ? 0 : volume) * 100}%, #4b5563 ${(muted ? 0 : volume) * 100}%, #4b5563 100%)`,
+                }}
+              />
             </div>
 
             {/* Time Display */}
@@ -213,10 +299,10 @@ function CustomVideoPlayer({ url, width = '100%', height = '100%' }) {
 
       {/* Center Play Button Overlay */}
       {!playing && (
-        <div className="absolute inset-0 flex items-center justify-center">
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
           <button
             onClick={handlePlayPause}
-            className="w-20 h-20 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center transition-all backdrop-blur-sm"
+            className="w-20 h-20 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center transition-all backdrop-blur-sm pointer-events-auto"
           >
             <svg className="w-10 h-10 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
               <path d="M8 5v14l11-7z"/>
