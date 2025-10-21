@@ -20,7 +20,7 @@ import clsx from 'clsx';
 import Link from 'next/link';
 
 import BrandLogo from '@/components/brand-logo';
-import { GithubSolidIcon, TwitterIcon, YoutobeIcon, DiscordIcon, LinkedInFilled, SubstackFilled } from '@/components/Icons';
+import { GithubSolidIcon, TwitterIcon, YoutobeIcon, LinkedInFilled, SubstackFilled } from '@/components/Icons';
 import { useFooterDisplay } from '@/hooks/useHeaderAndFooterDisplay';
 import { getCopyrightText } from '@/utils/app';
 
@@ -75,10 +75,6 @@ const menus = [
   {
     name: 'Community',
     items: [
-      {
-        name: 'Discord',
-        link: 'https://discord.gg/cbmteR7yRN',
-      },
       {
         name: 'Twitter',
         link: 'https://twitter.com/OpenBuildxyz',
@@ -161,13 +157,6 @@ export function Footer() {
               className="transition-all duration-300 hover:text-green"
             >
               <YoutobeIcon />
-            </Link>
-            <Link
-              href="https://discord.gg/cbmteR7yRN"
-              target={'_blank'}
-              className="transition-all duration-300 hover:text-green"
-            >
-              <DiscordIcon />
             </Link>
             <Link
               href="https://www.linkedin.com/company/openbuildxyz"

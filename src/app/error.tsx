@@ -16,10 +16,7 @@
 
 'use client'; // Error components must be Client Components
 
-import Link from 'next/link';
 import { useEffect } from 'react';
-
-import { DiscordIcon } from '@/components/Icons';
 
 export default function Error({
   error,
@@ -132,9 +129,6 @@ export default function Error({
         <p>
           Please contact the operation staff
         </p>
-        <Link className="flex items-center mt-2" href="https://discord.gg/cbmteR7yRN" target={'_blank'}>
-          <DiscordIcon className="h-5 w-5 cursor-pointer" />&nbsp;&nbsp;Contact
-        </Link>
       </div>
 
     </div>
