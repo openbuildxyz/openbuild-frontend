@@ -67,7 +67,7 @@ export function Trusted() {
       {/* Tab Navigation */}
       <div className="flex justify-center mb-14 max-md:mb-14">
         <div className="inline-flex border border-[rgba(26,26,26,0.1)] rounded-[48px] bg-white p-1.5 gap-1.5 overflow-hidden">
-          {tabs.map((tab) => (
+          {tabs.map(tab => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
