@@ -61,11 +61,11 @@ const DATAS = [
 export function Contributor() {
   return (
     <div className="pt-14 rounded-t-2xl bg-home-contributor-bg !px-0">
-      <div className="max-md:flex-col flex justify-between items-end mb-10 max-md:mb-6 px-11">
-        <h1 className="max-md:text-center max-md:text-[28px] max-md:leading-9 text-[42px] leading-[52px] max-w-lg" data-aos="fade-right" data-aos-delay="500">OpenBuild Community Contributor</h1>
-        <p className="max-md:text-center max-md:mt-4 text-xl leading-8 line-clamp-2 max-w-[768px] hyphens-auto text-right" data-aos="fade-left" data-aos-delay="500">Provide high-quality Web3 technical content.Share job opportunities/bounties with developers.Build an open community together.</p>
+      <div className="max-md:flex-col flex justify-between items-end mb-10 max-md:mb-6 px-24">
+        <h1 className="max-md:text-center max-md:text-[28px] max-md:leading-9 text-[42px] leading-[52px] max-w-[508px]" data-aos="fade-right" data-aos-delay="500">OpenBuild Community Contributor</h1>
+        <p className="max-md:text-center max-md:mt-4 text-xl leading-8 max-w-[768px] hyphens-auto text-right shrink ml-4" data-aos="fade-left" data-aos-delay="500">Provide high-quality Web3 technical content.Share job opportunities/bounties with developers.Build an open community together.</p>
       </div>
-      <div className="px-11 mb-[160px] max-md:mb-14" data-aos="zoom-in-up" data-aos-delay="800">
+      <div className="px-24 mb-[160px] max-md:mb-14" data-aos="zoom-in-up" data-aos-delay="800">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4">
           {DATAS.map((contributor, index) => (
             <div
