@@ -16,101 +16,95 @@
 
 'use client';
 
-import Marquee from 'react-fast-marquee';
+import { useState } from 'react';
 
 import {
-  SuiIcon,
   BitKeepIcon,
-  LinkIcon,
-  ScrollIcon,
-  WalletConnectIcon,
-  ProximityIcon,
   SolanaIcon,
   InterchainIcon,
   ConsensysIcon,
-  SubqueryIcon,
   SmartTokenIcon,
-  GitcoinIcon,
   BNBChainIcon,
   ConfluxIcon,
-  EthStorageIcon,
   SeiIcon,
+  ForesightVenturesIcon,
+  AlchemyPayIcon,
+  ForesightNewsIcon,
+  ForesightXIcon,
 } from '@/components/Icons/Partners';
 
-const LineOne = [
-  {
-    ele: <ConsensysIcon />,
-  },
-  {
-    ele: <SolanaIcon />,
-  },
-  {
-    ele: <ProximityIcon />,
-  },
-  {
-    ele: <InterchainIcon />,
-  },
-  {
-    ele: <GitcoinIcon />,
-  },
-  {
-    ele: <BNBChainIcon />,
-  },
-  {
-    ele: <LinkIcon />,
-  },
-  {
-    ele: <ConfluxIcon />,
-  },
-];
-const LineTwo = [
-  {
-    ele: <ScrollIcon />,
-  },
-  {
-    ele: <EthStorageIcon />,
-  },
-  {
-    ele: <SuiIcon />,
-  },
-  {
-    ele: <SubqueryIcon />,
-  },
-  {
-    ele: <SeiIcon />,
-  },
-  {
-    ele: <SmartTokenIcon />,
-  },
-  {
-    ele: <WalletConnectIcon />,
-  },
-  {
-    ele: <BitKeepIcon />,
-  },
-];
+const tabs = ['Company', 'University', 'Community', 'Media'];
+
+const partnersData = {
+  Company: [
+    { ele: <ForesightVenturesIcon /> },
+    { ele: <BNBChainIcon /> },
+    { ele: <ForesightNewsIcon /> },
+    { ele: <ConfluxIcon /> },
+    { ele: <BitKeepIcon /> },
+    { ele: <AlchemyPayIcon /> },
+    { ele: <ForesightXIcon /> },
+    { ele: <SmartTokenIcon /> },
+    { ele: <InterchainIcon /> },
+    { ele: <SeiIcon /> },
+    { ele: <ConsensysIcon /> },
+    { ele: <SolanaIcon /> },
+  ],
+  University: [],
+  Community: [],
+  Media: [],
+};
+
 export function Trusted() {
+  const [activeTab, setActiveTab] = useState('Company');
+
+  const currentPartners = partnersData[activeTab] || [];
 
   return (
-    <div className="text-center mb-14 md:mb-[120px] newest !p-0" data-aos="fade-up" data-aos-delay="500">
-      <h1 className="text-[42px] leading-[52px] mb-9 max-md:text-[28px] max-md:leading-9 max-md:mb-6">Trusted By</h1>
-      <div>
-        <Marquee speed={30}>
-          {LineOne.map((i, k) => <div
-            key={`trusted-one-${k}`}
-            className="trusted-box border border-gray-600 rounded-full md:h-[96px] md:w-[320px] h-12 w-[160px] mr-3 flex justify-center items-center">
-            {i.ele}
-          </div>)}
-        </Marquee>
-        <div className="md:h-6 h-3" />
-        <Marquee direction="right" speed={30}>
-          {LineTwo.map((i, k) => <div
-            key={`trusted-one-${k}`}
-            className="trusted-box border border-gray-600 rounded-full md:h-[96px] md:w-[320px] h-12 w-[160px] mr-3 flex justify-center items-center">
-            {i.ele}
-          </div>)}
-        </Marquee>
+    <div className="text-center mb-14 md:mb-[120px] newest px-10" data-aos="fade-up" data-aos-delay="500">
+      <h1 className="text-[42px] leading-[52px] mb-6 max-md:text-[28px] max-md:leading-9 max-md:mb-6">Our Partners</h1>
+      
+      {/* Tab Navigation */}
+      <div className="flex justify-center mb-14 max-md:mb-14">
+        <div className="inline-flex border border-[rgba(26,26,26,0.1)] rounded-[48px] bg-white p-1.5 gap-1.5 overflow-hidden">
+          {tabs.map((tab, index) => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              className={`px-6 py-3 text-base leading-[18px] font-medium transition-all rounded-[40px] ${
+                activeTab === tab
+                  ? 'bg-[rgba(26,26,26,0.06)] text-black'
+                  : 'bg-transparent text-black'
+              }`}
+            >
+              {tab}
+            </button>
+          ))}
+        </div>
       </div>
+
+      {/* Partners Grid */}
+      {currentPartners.length > 0 ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-3 mb-6">
+          {currentPartners.map((partner, index) => (
+            <div
+              key={`partner-${activeTab}-${index}`}
+              className="trusted-box group border border-[rgba(26,26,26,0.1)] rounded-[1000px] px-4 py-8 flex justify-center items-center bg-white hover:bg-[#1a1a1a] transition-colors max-md:px-3 max-md:py-6 h-24 max-md:h-20"
+            >
+              <div className="flex justify-center items-center w-full h-full [&>svg]:max-w-full [&>svg]:h-8 [&>svg]:w-auto">
+                {partner.ele}
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div className="py-12">
+          <p className="text-base leading-8 text-[rgba(26,26,26,0.6)]">No partners available in this category.</p>
+        </div>
+      )}
+
+      {/* Footer Text */}
+      <p className="text-base leading-8 text-[rgba(26,26,26,0.6)] mt-14">Selected partners, in no particular order</p>
     </div>
   );
 }
