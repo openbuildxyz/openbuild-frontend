@@ -89,7 +89,7 @@ export function Trusted() {
           {currentPartners.map((partner, index) => (
             <div
               key={`partner-${activeTab}-${index}`}
-              className="trusted-box group border border-[rgba(26,26,26,0.1)] rounded-[1000px] px-4 py-8 flex justify-center items-center bg-white hover:bg-[#1a1a1a] transition-colors max-md:px-3 max-md:py-6 h-24 max-md:h-20"
+              className="trusted-box group border border-[rgba(26,26,26,0.1)] rounded-[1000px] px-4 py-8 flex justify-center items-center bg-white transition-colors max-md:px-3 max-md:py-6 h-24 max-md:h-20"
             >
               <div className="flex justify-center items-center w-full h-full [&>svg]:max-w-full [&>svg]:h-8 [&>svg]:w-auto">
                 {partner.ele}
@@ -104,7 +104,9 @@ export function Trusted() {
       )}
 
       {/* Footer Text */}
-      <p className="text-base leading-8 text-[rgba(26,26,26,0.6)] mt-14">Selected partners, in no particular order</p>
+      {currentPartners.length > 0 && (
+        <p className="text-base leading-8 text-[rgba(26,26,26,0.6)] mt-14">Selected partners, in no particular order</p>
+      )}
     </div>
   );
 }
