@@ -16,44 +16,57 @@
 
 'use client';
 
+import NextImage from 'next/image';
 import { useState } from 'react';
-
-import {
-  BitKeepIcon,
-  SolanaIcon,
-  InterchainIcon,
-  ConsensysIcon,
-  SmartTokenIcon,
-  BNBChainIcon,
-  ConfluxIcon,
-  SeiIcon,
-  ForesightVenturesIcon,
-  AlchemyPayIcon,
-  ForesightNewsIcon,
-  ForesightXIcon,
-} from '@/components/Icons/Partners';
 
 const tabs = ['Company', 'University', 'Community', 'Media'];
 
 const partnersData = {
-  Company: [
-    { ele: <ForesightVenturesIcon /> },
-    { ele: <BNBChainIcon /> },
-    { ele: <ForesightNewsIcon /> },
-    { ele: <ConfluxIcon /> },
-    { ele: <BitKeepIcon /> },
-    { ele: <AlchemyPayIcon /> },
-    { ele: <ForesightXIcon /> },
-    { ele: <SmartTokenIcon /> },
-    { ele: <InterchainIcon /> },
-    { ele: <SeiIcon /> },
-    { ele: <ConsensysIcon /> },
-    { ele: <SolanaIcon /> },
-  ],
+  Company: [],
   University: [],
   Community: [],
   Media: [],
 };
+
+function readyPartnersData() {
+  for (let i = 1; i <= 42; i++) {
+    partnersData.Company.push({ ele: <NextImage
+      className="max-w-[160px] max-h-[40px]"
+      width={160}
+      height={40}
+      src={`/images/svg/partner/Company/Company 0${i > 9 ? i : `0${i}`}.svg`}
+      alt={`partner/Company/Company 0${i > 9 ? i : `0${i}`}`}
+    />});
+  }
+  for (let i = 1; i <= 20; i++) {
+    partnersData.University.push({ ele: <NextImage
+      className="max-w-[160px] max-h-[40px]"
+      width={160}
+      height={40}
+      src={`/images/svg/partner/University/University 0${i > 9 ? i : `0${i}`}.svg`}
+      alt={`partner/University/University 0${i > 9 ? i : `0${i}`}`}
+    />});
+  }
+  for (let i = 1; i <= 35; i++) {
+    partnersData.Community.push({ ele: <NextImage
+      className="max-w-[160px] max-h-[40px]"
+      width={160}
+      height={40}
+      src={`/images/svg/partner/Community/Community 0${i > 9 ? i : `0${i}`}.svg`}
+      alt={`partner/Community/Community 0${i > 9 ? i : `0${i}`}`}
+    />});
+  }
+  for (let i = 1; i <= 5; i++) {
+    partnersData.Media.push({ ele: <NextImage
+      className="max-w-[160px] max-h-[40px]"
+      width={160}
+      height={40}
+      src={`/images/svg/partner/Media/Media 0${i > 9 ? i : `0${i}`}.svg`}
+      alt={`partner/Media/Media 0${i > 9 ? i : `0${i}`}`}
+    />});
+  }
+}
+readyPartnersData()
 
 export function Trusted() {
   const [activeTab, setActiveTab] = useState('Company');
@@ -89,7 +102,7 @@ export function Trusted() {
           {currentPartners.map((partner, index) => (
             <div
               key={`partner-${activeTab}-${index}`}
-              className="trusted-box group border border-[rgba(26,26,26,0.1)] rounded-[1000px] px-4 py-8 flex justify-center items-center bg-white transition-colors max-md:px-3 max-md:py-6 h-24 max-md:h-20"
+              className="trusted-box group border border-[rgba(26,26,26,0.1)] rounded-[1000px] px-4 py-7 flex justify-center items-center bg-white transition-colors max-md:px-3 max-md:py-6 h-24 max-md:h-20"
             >
               <div className="flex justify-center items-center w-full h-full [&>svg]:max-w-full [&>svg]:h-8 [&>svg]:w-auto">
                 {partner.ele}
