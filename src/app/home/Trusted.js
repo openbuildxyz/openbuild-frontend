@@ -168,11 +168,11 @@ export function Trusted() {
 
       {/* Partners Grid */}
       {currentPartners.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-3 mb-6">
+        <div className="flex flex-wrap justify-center gap-3 mb-6">
           {currentPartners.map((partner, index) => (
             <div
               key={`partner-${activeTab}-${index}`}
-              className="trusted-box group border border-[rgba(26,26,26,0.1)] rounded-[1000px] px-4 py-7 flex justify-center items-center bg-white transition-colors max-md:px-3 max-md:py-6 h-24 max-md:h-20"
+              className="trusted-box group border border-[rgba(26,26,26,0.1)] rounded-[1000px] px-4 py-7 flex justify-center items-center bg-white transition-colors max-md:px-3 max-md:py-6 h-24 max-md:h-20 w-full sm:w-[calc((100%-0.75rem)/2)] md:w-[calc((100%-1.5rem)/3)] lg:w-[calc((100%-2.25rem)/4)] xl:w-[calc((100%-3rem)/5)] 2xl:w-[calc((100%-3.75rem)/6)] flex-shrink-0"
             >
               <div className="flex justify-center items-center w-full h-full [&>svg]:max-w-full [&>svg]:h-8 [&>svg]:w-auto">
                 {partner.ele}
