@@ -48,6 +48,7 @@ function readyPartnersData() {
     />});
   }
   for (let i = 1; i <= 35; i++) {
+    if (i === 4 || i === 12) continue;
     partnersData.Community.push({ ele: <NextImage
       className="max-w-[160px] max-h-[40px]"
       width={160}
@@ -56,7 +57,7 @@ function readyPartnersData() {
       alt={`partner/Community/Community 0${i > 9 ? i : `0${i}`}`}
     />});
   }
-  for (let i = 1; i <= 5; i++) {
+  for (let i = 1; i <= 6; i++) {
     partnersData.Media.push({ ele: <NextImage
       className="max-w-[160px] max-h-[40px]"
       width={160}
