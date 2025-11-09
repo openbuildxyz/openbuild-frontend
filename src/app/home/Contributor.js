@@ -238,7 +238,7 @@ export function Contributor() {
                     className="text-gray-700 hover:text-gray-900 transition-colors"
                     aria-label={`${contributor.name} on GitHub`}
                   >
-                    <SvgIcon name="contributor-github" size={20} />
+                    <SvgIcon name="contributor-github" size={16} />
                   </a>
                 )}
               </div>
