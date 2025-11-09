@@ -169,7 +169,7 @@ export function Contributor() {
         <h1 className="max-md:text-center max-md:text-[28px] max-md:leading-9 text-[42px] leading-[52px] max-w-[508px]" data-aos="fade-right" data-aos-delay="500">Community Contributor</h1>
         <div className="max-md:text-center max-md:mt-4 text-xl leading-8 max-w-[537px] hyphens-auto text-right shrink ml-4" data-aos="fade-left" data-aos-delay="500">
           <div className="font-bold">Grateful for every builder contributing to OpenBuild.</div>
-          <div>Your expertise, creativity, and code make the Web3 ecosystem more open, connected, and empowering.</div>
+          <div>Your expertise, creativity, and code make the Web3 ecosystem more open, connected, and impactful.</div>
         </div>
       </div>
       <div className="px-24 mb-[160px] max-md:mb-14" data-aos="zoom-in-up" data-aos-delay="800">
