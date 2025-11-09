@@ -17,7 +17,7 @@
 'use client';
 
 import NextImage from 'next/image';
-import { useState } from 'react';
+import { useState, useRef, useLayoutEffect } from 'react';
 
 const tabs = ['Company', 'University', 'Community', 'Media'];
 
@@ -70,24 +70,94 @@ readyPartnersData()
 
 export function Trusted() {
   const [activeTab, setActiveTab] = useState('Company');
+  const tabRefs = useRef({});
+  const indicatorRef = useRef(null);
+  const containerRef = useRef(null);
+  const scrollContainerRef = useRef(null);
 
   const currentPartners = partnersData[activeTab] || [];
+
+  useLayoutEffect(() => {
+    const updateIndicator = () => {
+      const activeButton = tabRefs.current[activeTab];
+      const indicator = indicatorRef.current;
+      const container = containerRef.current;
+      const scrollContainer = scrollContainerRef.current;
+
+      if (activeButton && indicator && container) {
+        const containerRect = container.getBoundingClientRect();
+        const buttonRect = activeButton.getBoundingClientRect();
+        
+        const left = buttonRect.left - containerRect.left;
+        const width = buttonRect.width;
+        
+        indicator.style.transform = `translateX(${left}px)`;
+        indicator.style.width = `${width}px`;
+
+        // 移动端：确保激活的 tab 在可视区域内
+        if (scrollContainer && window.innerWidth < 768) {
+          const scrollRect = scrollContainer.getBoundingClientRect();
+          const buttonLeft = buttonRect.left - scrollRect.left;
+          const buttonRight = buttonRect.right - scrollRect.left;
+          const scrollLeft = scrollContainer.scrollLeft;
+          const scrollWidth = scrollRect.width;
+
+          // 如果按钮在可视区域外，滚动到可见位置
+          if (buttonLeft < 0) {
+            scrollContainer.scrollTo({
+              left: scrollLeft + buttonLeft - 16,
+              behavior: 'smooth'
+            });
+          } else if (buttonRight > scrollWidth) {
+            scrollContainer.scrollTo({
+              left: scrollLeft + buttonRight - scrollWidth + 16,
+              behavior: 'smooth'
+            });
+          }
+        }
+      }
+    };
+
+    // 初始化和更新指示器位置
+    updateIndicator();
+    
+    // 监听窗口大小变化
+    window.addEventListener('resize', updateIndicator);
+    return () => window.removeEventListener('resize', updateIndicator);
+  }, [activeTab]);
 
   return (
     <div className="text-center mb-14 md:mb-[120px] newest px-10" data-aos="fade-up" data-aos-delay="500">
       <h1 className="text-[42px] leading-[52px] mb-6 max-md:text-[28px] max-md:leading-9 max-md:mb-6">Our Partners</h1>
       
       {/* Tab Navigation */}
-      <div className="flex justify-center mb-14 max-md:mb-14">
-        <div className="inline-flex border border-[rgba(26,26,26,0.1)] rounded-[48px] bg-white p-1.5 gap-1.5 overflow-hidden">
+      <div 
+        ref={scrollContainerRef}
+        className="flex justify-center mb-14 max-md:mb-14 max-md:overflow-x-auto max-md:scroll-smooth max-md:justify-start"
+      >
+        <div 
+          ref={containerRef}
+          className="relative inline-flex border border-[rgba(26,26,26,0.1)] rounded-[48px] bg-white p-1.5 gap-1.5 overflow-hidden max-md:min-w-fit"
+        >
+          {/* 滑动指示器 */}
+          <div
+            ref={indicatorRef}
+            className="absolute top-1.5 bottom-1.5 bg-[rgba(26,26,26,0.06)] rounded-[40px] transition-all duration-300 ease-out"
+            style={{
+              left: 0,
+              width: 0,
+            }}
+          />
+          
           {tabs.map(tab => (
             <button
               key={tab}
+              ref={el => tabRefs.current[tab] = el}
               onClick={() => setActiveTab(tab)}
-              className={`px-6 py-3 text-base leading-[18px] font-medium transition-all rounded-[40px] ${
+              className={`relative z-10 px-6 py-3 text-base leading-[18px] font-medium transition-colors rounded-[40px] whitespace-nowrap ${
                 activeTab === tab
-                  ? 'bg-[rgba(26,26,26,0.06)] text-black'
-                  : 'bg-transparent text-black'
+                  ? 'text-black'
+                  : 'text-black'
               }`}
             >
               {tab}
