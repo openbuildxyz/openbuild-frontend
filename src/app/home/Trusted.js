@@ -133,7 +133,7 @@ export function Trusted() {
       {/* Tab Navigation */}
       <div 
         ref={scrollContainerRef}
-        className="flex justify-center mb-14 max-md:mb-14 max-md:overflow-x-auto max-md:scroll-smooth max-md:justify-start"
+        className="flex justify-center mb-14 max-md:mb-14 max-[686px]:overflow-x-auto max-[686px]:scroll-smooth max-[686px]:justify-start"
       >
         <div 
           ref={containerRef}
