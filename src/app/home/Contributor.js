@@ -16,47 +16,151 @@
 
 'use client';
 
-import P14 from 'public/images/home/AlongHudson.png';
-import P11 from 'public/images/home/Frank.png';
-import P3 from 'public/images/home/Fred.png';
-import P17 from 'public/images/home/Gabin.jpeg';
-import P13 from 'public/images/home/galois.png';
-import P16 from 'public/images/home/GianM.png';
-import P15 from 'public/images/home/hiCaptainZ.png';
-import P8 from 'public/images/home/HitchhikerW3.png';
-import P18 from 'public/images/home/Ivan.jpeg';
-import P4 from 'public/images/home/jason.svg';
-import P19 from 'public/images/home/Leo.jpg';
-import P10 from 'public/images/home/pseudoyu.jpeg';
-import P7 from 'public/images/home/qc_qizhou.png';
-import P1 from 'public/images/home/shooter.jpeg';
-import P5 from 'public/images/home/Sinka.png';
-import P2 from 'public/images/home/Skyhigh.png';
-import P9 from 'public/images/home/uvd.png';
-import P6 from 'public/images/home/xhyumiracle.png';
+// Import all available images
+/* eslint-disable */
+import KingImg from 'public/images/home/king.png';
+import WfnuserImg from 'public/images/home/wfnuser.jpeg';
+import XiangnuanImg from 'public/images/home/xiangnuan.jpeg';
+import AsQnPgq2Img from 'public/images/home/asQnPgq2.jpg';
+import OxIHRRImg from 'public/images/home/Ox_IHRR.jpeg';
+import ZJGpkRjRImg from 'public/images/home/ZJGpkRjR.jpg';
+import FQaCbA83Img from 'public/images/home/FQaCbA83.jpg';
+import DajiangjunokImg from 'public/images/home/dajiangjunok.jpg';
+import KkGgJzyfImg from 'public/images/home/KkGgJzyf.jpeg';
+import GJuJaje5Img from 'public/images/home/GJuJaje5.jpg';
+import VeithlyImg from 'public/images/home/veithly.jpg';
+import YoungImg from 'public/images/home/Young.jpg';
+import MdnPA6pRImg from 'public/images/home/MdnPA6pR.png';
+import YacoImg from 'public/images/home/YaCo.png';
+import Lww599Img from 'public/images/home/lww599.jpg';
+import SethzhaoImg from 'public/images/home/sethzhao.webp';
+import PhoouzeImg from 'public/images/home/Phoouze.jpg';
+import FJWcpmgaImg from 'public/images/home/fJWcpmga.jpg';
+import QiuqiuImg from 'public/images/home/qiuqiu.png';
+import BZvYnd5kImg from 'public/images/home/BZvYnd5k.gif';
+import LilittlekangImg from 'public/images/home/lilittlekang.jpg';
+import ZhangWenchaoImg from 'public/images/home/zhang-wenchao.png';
+import LeeMmaiImg from 'public/images/home/LeeMmai.jpg';
+import VCNelsonZImg from 'public/images/home/VCNelson_Z.jpeg';
+/* eslint-enable */
 
 import { SvgIcon } from '@/components/Image';
 
+// Image mapping: identifier -> image
+const IMAGE_MAP = {
+  // Handle mappings
+  'King': KingImg,
+  'wfnuser': WfnuserImg,
+  'xiangnuan': XiangnuanImg,
+  'asQnPgq2': AsQnPgq2Img,
+  'ZJGpkRjR': ZJGpkRjRImg,
+  'FQaCbA83': FQaCbA83Img,
+  'KkGgJzyf': KkGgJzyfImg,
+  'GJuJaje5': GJuJaje5Img,
+  'veithly': VeithlyImg,
+  'Young': YoungImg,
+  'MdnPA6pR': MdnPA6pRImg,
+  'YaCo': YacoImg,
+  'UmkZPTTF': Lww599Img, // ww uses lww599
+  'Phoouze': PhoouzeImg,
+  'fJWcpmga': FJWcpmgaImg,
+  'qiuqiu': QiuqiuImg,
+  'BZvYnd5k': BZvYnd5kImg,
+  'lilittlekang': LilittlekangImg,
+  
+  // GitHub mappings (for fallback)
+  'lispking': KingImg,
+  'wfnuser': WfnuserImg,
+  'xiangnuans': XiangnuanImg,
+  'JintolChan': AsQnPgq2Img,
+  '0x-IHRR': OxIHRRImg,
+  'sherryxie995': ZJGpkRjRImg,
+  'everyeveryV': FQaCbA83Img,
+  'dajiangjunok': DajiangjunokImg,
+  'Nakiswen': KkGgJzyfImg,
+  'blakeees': GJuJaje5Img,
+  'liyincode': YoungImg,
+  'majoson-chen': MdnPA6pRImg,
+  'OS-Lihua': YacoImg,
+  'lww599': Lww599Img,
+  'sethzhao': SethzhaoImg,
+  'phoouze': PhoouzeImg,
+  'jueduizone': FJWcpmgaImg,
+  'zhengqiuwan': QiuqiuImg,
+  'love2sweet': BZvYnd5kImg,
+  'Ritakang0451': LilittlekangImg,
+  'zhang-wenchao': ZhangWenchaoImg,
+  'LeeMaimai': LeeMmaiImg,
+  
+  // X/Twitter mappings (for fallback)
+  'lispking': KingImg,
+  'weriaolilun': WfnuserImg,
+  'coco69564520': XiangnuanImg,
+  'JintolOfficial': AsQnPgq2Img,
+  '0x_cat_Student': OxIHRRImg,
+  'VCNelson_Z': VCNelsonZImg,
+  'everyevery91608': FQaCbA83Img,
+  'Alger779503577': DajiangjunokImg,
+  'AlvinWang9521': KkGgJzyfImg,
+  'Blakeesss': GJuJaje5Img,
+  'RickyEACC': VeithlyImg,
+  'young_x_': YoungImg,
+  'YoukinChen': MdnPA6pRImg,
+  '0xYaCo': YacoImg,
+  'ww599_': Lww599Img,
+  'seth_zhao': SethzhaoImg,
+  'Phoouze': PhoouzeImg,
+  'imxy007': FJWcpmgaImg,
+  '0xqiuqiuu': QiuqiuImg,
+  'alwaylove2sweet': BZvYnd5kImg,
+  'kk860755': LilittlekangImg,
+  'wenchao_zh': ZhangWenchaoImg,
+  'LeeMmai': LeeMmaiImg,
+};
+
+// Function to get image by priority: handle -> github -> x
+const getImage = (handle, github, x) => {
+  if (handle && IMAGE_MAP[handle]) {
+    return IMAGE_MAP[handle];
+  }
+  if (github && IMAGE_MAP[github]) {
+    return IMAGE_MAP[github];
+  }
+  if (x && IMAGE_MAP[x]) {
+    return IMAGE_MAP[x];
+  }
+  return DefaultImg;
+};
+
 const DATAS = [
-  { name: 'NPC_Leo', picture: P19, x: 'NPC_Leo', title: 'Founder of DevBase @DevBase' },
-  { name: 'justin', picture: P15, x: 'hiCaptainZ', title: 'Researcher. Focusing on Onchain Game' },
-  { name: 'GianM', picture: P16, x: 'gianmalarcon', title: 'Developer @Cairo/Rust, Blockchain engineer @Quantum3 Labs' },
-  { name: 'Gabin', picture: P17, x: 'gabinmarignier', title: 'Founder @Focus Tree' },
-  { name: 'Ivan', picture: P18, x: 'Ivan_SpaceShard', title: '' },
-  { name: 'shooter', picture: P1, x: 'liushooter', title: 'Co-Founder @Rebase' },
-  { name: 'Skyhigh', picture: P2, x: 'skyh20', title: 'AA Community Initiator' },
-  { name: '大葱 Fred', picture: P3, x: 'Dacongfred', title: 'Ryze Labs Venture' },
-  { name: 'jason', picture: P4, x: 'jason_movebit', title: 'Security research @ScaleBit' },
-  { name: 'Sinka', picture: P5, x: 'sinka2022', title: 'Founder @Delphinuslab' },
-  { name: '于晓航', picture: P6, x: 'xhyumiracle', title: 'Core Researcher @Hyper Oracle' },
-  { name: '周期博士', picture: P7, x: 'qc_qizhou', title: 'Founder @EthStorage' },
-  { name: '任泓毅', picture: P8, x: 'HitchhikerW3', title: 'Co-founder & research @W3.Hitchhiker' },
-  { name: 'uvd', picture: P9, x: 'wangtxxl', title: 'Technical ambassador @Sui ' },
-  { name: 'pseudoyu', picture: P10, x: 'pseudo_yu', title: 'Back-end & Smart Contract Developer @RSS3 & Crossbell' },
-  { name: 'Frank@Beosin', picture: P11, x: 'BeosinAlert', title: 'Security Researcher & Leader @Beosin Security Incident Team' },
-  { name: 'galois', picture: P13, x: 'YQ996CO28254695', title: 'Backend Developer / EVM & MEV Researcher' },
-  { name: 'Frank', picture: P14, x: 'AlongHudson', title: 'Developer advocate @Chainlink' },
-];
+  { name: 'King', x: 'lispking', github: 'lispking', title: 'Fullstack Engineer', handle: 'King' },
+  { name: '微扰 \\ Qinghao', x: 'weriaolilun', github: 'wfnuser', title: 'Fullstack Engineer', handle: 'wfnuser' },
+  { name: '向暖', x: 'coco69564520', github: 'xiangnuans', title: 'Fullstack Engineer', handle: 'xiangnuan' },
+  { name: 'LeeMaimai', x: 'LeeMmai', github: 'LeeMaimai', title: 'Marketing', handle: null },
+  { name: 'Jintol', x: 'JintolOfficial', github: 'JintolChan', title: 'Fullstack Engineer', handle: 'asQnPgq2' },
+  { name: '小白', x: '0x_cat_Student', github: '0x-IHRR', title: 'Product Manager; Designer', handle: null },
+  { name: '许嘉媛', x: null, github: 'sherryxie995', title: 'Backend Engineer', handle: 'ZJGpkRjR' },
+  { name: 'Nelson', x: 'VCNelson_Z', github: null, title: 'Product Manager; Community Operation; Marketing', handle: null },
+  { name: '每每', x: 'everyevery91608', github: 'everyeveryV', title: 'Community Operation; Writer', handle: 'FQaCbA83' },
+  { name: '大大黄', x: 'Alger779503577', github: 'dajiangjunok', title: 'Contract Engineer; Frontend Engineer', handle: null },
+  { name: 'alvinwang', x: 'AlvinWang9521', github: 'Nakiswen', title: 'Fullstack Engineer', handle: 'KkGgJzyf' },
+  { name: 'Blake', x: 'Blakeesss', github: 'blakeees', title: 'Writer', handle: 'GJuJaje5' },
+  { name: 'veithly', x: 'RickyEACC', github: 'veithly', title: 'Fullstack Engineer; Writer', handle: 'veithly' },
+  { name: 'Young', x: 'young_x_', github: 'liyincode', title: 'Frontend Engineer;Fullstack Engineer', handle: 'Young' },
+  { name: 'Majoson', x: 'YoukinChen', github: 'majoson-chen', title: 'Fullstack Engineer; Product Manager; Community Operation; Writer', handle: 'MdnPA6pR' },
+  { name: 'YaCo', x: '0xYaCo', github: 'OS-Lihua', title: 'Contract Engineer; Backend Engineer; Product Manager; Community Operation', handle: 'YaCo' },
+  { name: 'ww', x: 'ww599_', github: 'lww599', title: 'BuilderHero', handle: 'UmkZPTTF' },
+  { name: 'Seth Zhao', x: 'seth_zhao', github: 'sethzhao', title: 'Fullstack Engineer', handle: null },
+  { name: '小符', x: 'Phoouze', github: 'phoouze', title: 'BuilderHero', handle: 'Phoouze' },
+  { name: 'Ian', x: 'imxy007', github: 'jueduizone', title: 'BuilderHero', handle: 'fJWcpmga' },
+  { name: '0xqiuqiuu', x: '0xqiuqiuu', github: 'zhengqiuwan', title: 'BuilderHero', handle: 'qiuqiu' },
+  { name: 'sweet', x: 'alwaylove2sweet', github: 'love2sweet', title: 'BuilderHero', handle: 'BZvYnd5k' },
+  { name: 'Kang', x: 'kk860755', github: 'Ritakang0451', title: 'BuilderHero', handle: 'lilittlekang' },
+  { name: 'WenChao', x: 'wenchao_zh', github: 'zhang-wenchao', title: 'BuilderHero', handle: null },
+].map(item => ({
+  ...item,
+  picture: getImage(item.handle, item.github, item.x)
+}));
 
 export function Contributor() {
   return (
@@ -73,18 +177,20 @@ export function Contributor() {
               className="relative bg-white rounded-xl shadow-sm flex flex-col hover:shadow-md transition-shadow border border-gray-600 overflow-hidden"
             >
               {/* External link icon in top-right */}
-              <a
-                href={`https://twitter.com/${contributor.x}`}
-                target="_blank"
-                rel="noreferrer"
-                className="absolute top-1 right-1 z-10 w-7 h-7 flex items-center justify-center rounded-[30px] bg-gray-800 hover:bg-gray transition-colors group"
-                aria-label="External link"
-              >
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M15.9095 7.23138L7.2312 15.9097" stroke="#1A1A1A" strokeLinecap="round" strokeLinejoin="round" className="group-hover:stroke-white transition-colors"/>
-                  <path d="M10.1254 7.23157H15.9109V13.0171" stroke="#1A1A1A" strokeLinecap="round" strokeLinejoin="round" className="group-hover:stroke-white transition-colors"/>
-                </svg>
-              </a>
+              {contributor.handle && (
+                <a
+                  href={`https://openbuild.xyz/u/${contributor.handle}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="absolute top-1 right-1 z-10 w-7 h-7 flex items-center justify-center rounded-[30px] bg-gray-800 hover:bg-gray transition-colors group"
+                  aria-label="External link"
+                >
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15.9095 7.23138L7.2312 15.9097" stroke="#1A1A1A" strokeLinecap="round" strokeLinejoin="round" className="group-hover:stroke-white transition-colors"/>
+                    <path d="M10.1254 7.23157H15.9109V13.0171" stroke="#1A1A1A" strokeLinecap="round" strokeLinejoin="round" className="group-hover:stroke-white transition-colors"/>
+                  </svg>
+                </a>
+              )}
 
               {/* Upper section with padding */}
               <div className="px-3 pt-5 pb-3 flex flex-col items-center flex-1">
@@ -112,16 +218,18 @@ export function Contributor() {
 
               {/* Social links section - full width */}
               <div className="w-full h-9 flex justify-center items-center gap-3 rounded-b-xl bg-gray-800">
-                <a
-                  href={`https://twitter.com/${contributor.x}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-gray-700 hover:text-gray-900 transition-colors"
-                  aria-label={`${contributor.name} on X (Twitter)`}
-                >
-                  <SvgIcon name="contributor-x" size={16} />
-                </a>
-                {/* GitHub link - placeholder for future use */}
+                {contributor.x && (
+                  <a
+                    href={`https://twitter.com/${contributor.x}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-gray-700 hover:text-gray-900 transition-colors"
+                    aria-label={`${contributor.name} on X (Twitter)`}
+                  >
+                    <SvgIcon name="contributor-x" size={16} />
+                  </a>
+                )}
+                {/* GitHub link */}
                 {contributor.github && (
                   <a
                     href={`https://github.com/${contributor.github}`}
