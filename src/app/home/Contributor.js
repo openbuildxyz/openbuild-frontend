@@ -159,7 +159,7 @@ const DATAS = [
   { name: 'WenChao', x: 'wenchao_zh', github: 'zhang-wenchao', title: 'BuilderHero', handle: null },
 ].map(item => ({
   ...item,
-  picture: getImage(item.handle, item.github, item.x)
+  picture: getImage(item.handle, item.github, item.x),
 }));
 
 export function Contributor() {
