@@ -67,7 +67,7 @@ function readyPartnersData() {
     />});
   }
 }
-readyPartnersData()
+readyPartnersData();
 
 export function Trusted() {
   const [activeTab, setActiveTab] = useState('Company');
@@ -107,12 +107,12 @@ export function Trusted() {
           if (buttonLeft < 0) {
             scrollContainer.scrollTo({
               left: scrollLeft + buttonLeft - 16,
-              behavior: 'smooth'
+              behavior: 'smooth',
             });
           } else if (buttonRight > scrollWidth) {
             scrollContainer.scrollTo({
               left: scrollLeft + buttonRight - scrollWidth + 16,
-              behavior: 'smooth'
+              behavior: 'smooth',
             });
           }
         }
