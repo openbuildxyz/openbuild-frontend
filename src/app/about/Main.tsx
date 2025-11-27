@@ -45,8 +45,9 @@ import findus1 from 'public/images/about/findus-1.svg';
 import findus2 from 'public/images/about/findus-2.svg';
 import findus3 from 'public/images/about/findus-3.svg';
 import findus4 from 'public/images/about/findus-4.svg';
-import findusHand from 'public/images/about/findus-hand.svg';
+import findusHand from 'public/images/about/findus-hand.png';
 import findusContributor from 'public/images/about/findus-contributor.png';
+import findusSocialMediaArrow from 'public/images/about/findus-social-media-arrow.svg';
 
 import { Button } from '@/components/Button';
 
@@ -240,11 +241,20 @@ export default function AboutMain() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
             {services.map(service => (
-              <div key={service.id} className="relative bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow flex flex-col overflow-hidden z-0 pt-[46%]">
+              <div key={service.id} className="relative bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 flex flex-col overflow-hidden z-0" style={{
+                paddingTop: '46%',
+                '--hover-padding-top': 'calc(46% - 20px)'
+              } as React.CSSProperties & { '--hover-padding-top': string }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.paddingTop = 'calc(46% - 20px)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.paddingTop = '46%';
+              }}>
                 <div className="absolute top-0 left-0 h-52 w-full overflow-hidden z-[-1]">
                   <Image src={service.image} alt={service.title} className="object-contain" />
                 </div>
-                <div className="flex flex-col flex-1 rounded-xl z-1 bg-white" style={{
+                <div className="flex flex-col flex-1 rounded-xl z-1 bg-white shadow-sm hover:shadow-md" style={{
                 }}>
                   <div className="px-6 py-5 flex-1">
                     <div className="text-xs mb-1">Services {service.id}</div>
@@ -283,7 +293,7 @@ export default function AboutMain() {
 
           <div className="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 z-0">
             {ecosystem.map((project, idx) => (
-              <div key={idx} className="rounded-xl shadow-sm hover:shadow-md transition-shadow py-8 px-6 flex gap-5 border bg-[#F8F8F8]" style={{
+              <div key={idx} className="rounded-xl shadow-sm hover:shadow-md transition-shadow py-8 px-6 flex gap-5 border bg-[#F8F8F8] hover:bg-white" style={{
                 margin: '-0.5px',
               }}>
                 <div className="w-18 h-18 rounded-full flex-shrink-0 flex items-center justify-center overflow-hidden">
@@ -329,7 +339,9 @@ export default function AboutMain() {
                 <Image src={findus1} alt="findus-bg-1" className="w-full" />
                 <h3 className="font-bold text-[26px]/[29px] text-[#2A600E] absolute left-4 right-10 bottom-6">WeChat Public Account</h3>
               </div>
-              <div className="absolute bottom-4 right-4 text-2xl opacity-50 pointer-events-none">👆</div>
+              <div className="absolute bottom-20 right-2 pointer-events-none">
+                <Image src={findusHand} alt="findus-wechat-hand" width={74} height={74} />
+              </div>
             </div>
 
             {/* Email */}
@@ -342,7 +354,7 @@ export default function AboutMain() {
                 boxShadow: '0px -4px 24px 0px rgba(201, 164, 63, 0.2)',
               }}>
                 <p className="text-[20px]/[26px] font-medium mb-2 mb-9">For business cooperation, please contact us.</p>
-                <a href="mailto:build@openbuild.xyz" className="font-semibold text-[20px]/[20px] underline tracking-[-0.4px]">build@openbuild.xyz</a>
+                <a href="mailto:build@openbuild.xyz" className="font-semibold text-[20px]/[20px] underline tracking-[-0.4px] hover:bg-gray hover:text-white">build@openbuild.xyz</a>
               </div>
               <div className="flex w-full absolute bottom-0 left-0 right-0">
                 <Image src={findus2} alt="findus-bg-2" className="w-full" />
@@ -353,25 +365,29 @@ export default function AboutMain() {
             {/* Social Media */}
             <div className="bg-[#E8755A] rounded-[24px] flex flex-col items-center relative w-[295px] h-[350px] overflow-hidden mx-[18px]">
               <div className="absolute w-[253px] top-[24px] left-[21px] right-[21px]">
-                <div className="flex pt-4 pl-6 bg-white rounded-xl h-[255px] w-full" style={{
+                <div className="group cursor-pointer flex items-start justify-between pt-4 px-6 bg-white rounded-xl h-[255px] w-full" style={{
                   boxShadow: '0px -4px 24px 0px rgba(232, 117, 90, 1)',
                 }}>
                   <span className="text-[20px]/[26px] font-bold">Bilibili</span>
+                  <Image src={findusSocialMediaArrow} alt="findus-social-media-arrow" width={15} height={9} className="mt-2.5 hidden group-hover:block" />
                 </div>
-                <div className="flex pt-4 pl-6 bg-white rounded-xl h-[255px] absolute top-[54px] w-full" style={{
+                <div className="group cursor-pointer flex items-start justify-between pt-4 px-6 bg-white rounded-xl h-[255px] absolute top-[54px] w-full" style={{
                   boxShadow: '0px -4px 24px 0px rgba(232, 117, 90, 1)',
                 }}>
                   <span className="text-[20px]/[26px] font-bold">YouTube</span>
+                  <Image src={findusSocialMediaArrow} alt="findus-social-media-arrow" width={15} height={9} className="mt-2.5 hidden group-hover:block" />
                 </div>
-                <div className="flex pt-4 pl-6 bg-white rounded-xl h-[255px] absolute top-[108px] w-full" style={{
+                <div className="group cursor-pointer flex items-start justify-between pt-4 px-6 bg-white rounded-xl h-[255px] absolute top-[108px] w-full" style={{
                   boxShadow: '0px -4px 24px 0px rgba(232, 117, 90, 1)',
                 }}>
                   <span className="text-[20px]/[26px] font-bold">Xiaohongshu</span>
+                  <Image src={findusSocialMediaArrow} alt="findus-social-media-arrow" width={15} height={9} className="mt-2.5 hidden group-hover:block" />
                 </div>
-                <div className="flex pt-4 pl-6 bg-white rounded-xl h-[255px] absolute top-[162px] w-full" style={{
+                <div className="group cursor-pointer flex items-start justify-between pt-4 px-6 bg-white rounded-xl h-[255px] absolute top-[162px] w-full" style={{
                   boxShadow: '0px -4px 24px 0px rgba(232, 117, 90, 1)',
                 }}>
                   <span className="text-[20px]/[26px] font-bold">Community</span>
+                  <Image src={findusSocialMediaArrow} alt="findus-social-media-arrow" width={15} height={9} className="mt-2.5 hidden group-hover:block" />
                 </div>
               </div>
               <div className="flex w-full absolute bottom-0 left-0 right-0">
