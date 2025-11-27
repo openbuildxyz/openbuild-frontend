@@ -35,19 +35,19 @@ import EcosystemHummanta from 'public/images/about/ecosystem-hummanta.png';
 import EcosystemOpenBuild from 'public/images/about/ecosystem-openbuild.png';
 import EcosystemOSKey from 'public/images/about/ecosystem-oskey.png';
 import EcosystemWeb3Insights from 'public/images/about/ecosystem-web3insights.png';
+import findus1 from 'public/images/about/findus-1.svg';
+import findus2 from 'public/images/about/findus-2.svg';
+import findus3 from 'public/images/about/findus-3.svg';
+import findus4 from 'public/images/about/findus-4.svg';
+import findusContributor from 'public/images/about/findus-contributor.png';
+import findusHand from 'public/images/about/findus-hand.png';
+import findusSocialMediaArrow from 'public/images/about/findus-social-media-arrow.svg';
+import letsstart from 'public/images/about/letsstart.png';
 import QRCode from 'public/images/about/qrcode.png'; // Placeholder
 import Service1 from 'public/images/about/service-1.png';
 import Service2 from 'public/images/about/service-2.png';
 import Service3 from 'public/images/about/service-3.png';
 import Service4 from 'public/images/about/service-4.png';
-import letsstart from 'public/images/about/letsstart.png';
-import findus1 from 'public/images/about/findus-1.svg';
-import findus2 from 'public/images/about/findus-2.svg';
-import findus3 from 'public/images/about/findus-3.svg';
-import findus4 from 'public/images/about/findus-4.svg';
-import findusHand from 'public/images/about/findus-hand.png';
-import findusContributor from 'public/images/about/findus-contributor.png';
-import findusSocialMediaArrow from 'public/images/about/findus-social-media-arrow.svg';
 import GithubIcon from 'public/images/svg/github_p.svg';
 
 import { Button } from '@/components/Button';
@@ -244,12 +244,12 @@ export default function AboutMain() {
             {services.map(service => (
               <div key={service.id} className="relative bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 flex flex-col overflow-hidden z-0" style={{
                 paddingTop: '46%',
-                '--hover-padding-top': 'calc(46% - 20px)'
+                '--hover-padding-top': 'calc(46% - 20px)',
               } as React.CSSProperties & { '--hover-padding-top': string }}
-              onMouseEnter={(e) => {
+              onMouseEnter={e => {
                 e.currentTarget.style.paddingTop = 'calc(46% - 20px)';
               }}
-              onMouseLeave={(e) => {
+              onMouseLeave={e => {
                 e.currentTarget.style.paddingTop = '46%';
               }}>
                 <div className="absolute top-0 left-0 h-52 w-full overflow-hidden z-[-1]">
@@ -318,7 +318,7 @@ export default function AboutMain() {
               top: '50%',
               left: '50%',
               transform: 'translate(-50%, -50%)',
-            }}></div>
+            }} />
           </div>
         </div>
       </div>
@@ -351,7 +351,7 @@ export default function AboutMain() {
               <div className="bg-white rounded-xl absolute w-[253px] h-[324px] top-[24px] left-[21px] right-[21px] p-6" style={{
                 boxShadow: '0px -4px 24px 0px rgba(201, 164, 63, 1)',
                 rotate: '3.8deg',
-              }}></div>
+              }} />
               <div className="bg-white rounded-xl absolute w-[253px] h-[324px] top-[48px] left-[21px] right-[21px] p-6" style={{
                 boxShadow: '0px -4px 24px 0px rgba(201, 164, 63, 0.2)',
               }}>
