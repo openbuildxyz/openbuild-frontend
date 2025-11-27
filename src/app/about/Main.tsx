@@ -16,7 +16,7 @@
 
 'use client';
 
-import { ArrowUpRight, ArrowDown } from 'lucide-react';
+import { ArrowUpRight, ArrowDown, ArrowRight, Check } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import HomeTopBg from 'public/images/about/about-top-bg.png';
@@ -48,6 +48,7 @@ import findus4 from 'public/images/about/findus-4.svg';
 import findusHand from 'public/images/about/findus-hand.png';
 import findusContributor from 'public/images/about/findus-contributor.png';
 import findusSocialMediaArrow from 'public/images/about/findus-social-media-arrow.svg';
+import GithubIcon from 'public/images/svg/github_p.svg';
 
 import { Button } from '@/components/Button';
 
@@ -161,22 +162,22 @@ export default function AboutMain() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <div className="relative pt-14 pb-24 overflow-hidden">
+      <div className="relative pt-14 pb-[92px] overflow-hidden">
         {/* Background gradient from green to white */}
         <div className="absolute top-0 left-0 w-full h-full z-0">
           <Image src={HomeTopBg} alt="Background" fill className="object-cover" />
         </div>
         
-        <div className="relative z-10 max-w-6xl mx-auto px-4 md:px-8 text-center">
-          <p className="text-lg mb-4">About OpenBuild</p>
-          <h1 className="text-4xl md:text-5xl lg:text-[56px] font-extrabold mb-9">
+        <div className="relative z-10 mx-auto px-4 md:px-8 text-center">
+          <p className="text-[18px]/[20px] mb-4">About OpenBuild</p>
+          <h1 className="text-[56px]/[64px] font-extrabold mb-9">
             Bridge Web2 to Web3
           </h1>
-          <p className="max-w-2xl mx-auto mb-7 text-[22px] font-bold">
+          <p className="max-w-2xl mx-auto mb-7 text-[22px]/[28px] font-bold">
             OpenBuild is the Biggest Web3 Open-Source Community in Asia. 
           </p>
 
-          <p className="max-w-2xl mx-auto mb-9 text-[22px]">
+          <p className="max-w-2xl mx-auto mb-9 text-[22px]/[28px]">
             We are committed to guiding more developers into Web3, encouraging open-source contributions, and fostering both individual and ecosystem-wide business success!
           </p>
           
@@ -197,7 +198,7 @@ export default function AboutMain() {
             ))}
           </div>
 
-          <p className="max-w-[385px] mx-auto mb-9 text-base leading-[18px] opacity-80">
+          <p className="max-w-[385px] mx-auto mb-9 text-[16px]/[18px] opacity-80">
             Backed by among the most influential developer and open-source communities in China.
           </p>
 
@@ -205,7 +206,7 @@ export default function AboutMain() {
 
           {/* Stats Cards */}
           <div 
-            className="flex flex-wrap justify-center gap-4 md:gap-[120px] max-w-4xl mx-auto px-6 md:px-8 py-8 rounded-full border-2"
+            className="flex flex-wrap justify-center gap-4 md:gap-[120px] max-w-[1180px] mx-auto px-6 md:px-8 py-8 rounded-full border-2"
             style={{
               background: 'linear-gradient(90deg, rgba(248, 248, 248, 0) 0%, rgba(255, 255, 255, 0.82) 55.29%, rgba(248, 248, 248, 0) 100%)',
               boxShadow: '0px 0px 24px 0px rgba(0, 0, 0, 0.08)',
@@ -220,8 +221,8 @@ export default function AboutMain() {
               { num: '40+', label: 'Partners' },
             ].map((stat, i) => (
               <div key={i} className="text-center">
-                <div className="text-3xl md:text-4xl font-bold mb-1">{stat.num}</div>
-                <div className="text-xs md:text-sm">{stat.label}</div>
+                <div className="text-[46px]/[56px] tracking-[-0.92px] mb-2 font-extrabold">{stat.num}</div>
+                <div className="text-[20px]/[20px]">{stat.label}</div>
               </div>
             ))}
           </div>
@@ -229,14 +230,14 @@ export default function AboutMain() {
       </div>
 
       {/* We're working on Section */}
-      <div className="py-12 md:py-16">
+      <div className="pt-7 pb-[60px]">
         <div className="max-w-[1680px] mx-auto px-11">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-3">We&apos;re working on</h2>
-          <p className="text-center mb-2 max-w-2xl mx-auto text-base">
-            Explore our services, witness our success stories, and join us to <span className="font-bold">build the next milestone together.</span>
+          <h2 className="text-[42px]/[52px] font-extrabold text-center mb-6">We&apos;re working on</h2>
+          <p className="text-center mb-9 max-w-2xl mx-auto text-[26px]/[36px]">
+            Explore our services, witness our success stories, and join us to <span className="font-extrabold">build the next milestone together.</span>
           </p>
-          <p className="text-center text-sm mb-10">
-            Let&apos;s discuss the next big thing in Web3. &gt; <a href="#" className="underline">Book a call</a>
+          <p className="text-center text-[16px]/[20px] mb-[56px] flex justify-center gap-3.5">
+            Let&apos;s discuss the next big thing in Web3. <ArrowRight size={24} /> <a href="#" className="underline font-bold text-[20px]/[20px] tracking-[-0.4px]">Book a call</a>
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
@@ -254,15 +255,16 @@ export default function AboutMain() {
                 <div className="absolute top-0 left-0 h-52 w-full overflow-hidden z-[-1]">
                   <Image src={service.image} alt={service.title} className="object-contain" />
                 </div>
-                <div className="flex flex-col flex-1 rounded-xl z-1 bg-white shadow-sm hover:shadow-md" style={{
+                <div className="flex flex-col flex-1 rounded-xl z-1 bg-white" style={{
+                  boxShadow: '0 -4px 6px -1px rgba(0, 0, 0, 0.1), 0 -2px 4px -2px rgba(0, 0, 0, 0.1)',
                 }}>
                   <div className="px-6 py-5 flex-1">
-                    <div className="text-xs mb-1">Services {service.id}</div>
-                    <h3 className="font-bold text-base mb-3 leading-tight">{service.title}</h3>
+                    <div className="text-[14px]/[18px] font-semibold mb-3 opacity-60">Services {service.id}</div>
+                    <h3 className="font-bold text-[26px]/[30px] mb-6">{service.title}</h3>
                     <ul className="space-y-1.5 mb-6 flex-grow">
                       {service.items.map((item, idx) => (
-                        <li key={idx} className="text-sm flex items-start">
-                          <span className="mr-2">✓</span> {item}
+                        <li key={idx} className="text-[16px]/[18px] font-semibold flex items-start">
+                          <Check size={14} className="mr-2 mt-[2px]" /> {item}
                         </li>
                       ))}
                     </ul>
@@ -270,8 +272,8 @@ export default function AboutMain() {
                   <div className="border-t p-6 mt-auto" style={{
                     borderColor: 'rgba(26, 26, 26, 0.06)',
                   }}>
-                    <Link href={service.link} className="flex items-center justify-between text-sm font-medium hover:text-black">
-                        More <ArrowUpRight size={14} />
+                    <Link href={service.link} className="flex items-center justify-between text-[18px]/[20px] font-bold tracking-[-0.36px]">
+                        More <ArrowUpRight size={24} />
                     </Link>
                   </div>
                 </div>
@@ -282,28 +284,28 @@ export default function AboutMain() {
       </div>
 
       {/* Our Open-Source Ecosystem */}
-      <div className="py-12 md:py-16">
+      <div className="py-[60px]">
         <div className="max-w-[1370px] mx-auto px-4 md:px-11">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-3">Our Open-Source Ecosystem</h2>
-          <div className="text-center mb-10">
-            <a href="#" className="text-sm inline-flex items-center">
-               For more projects, please visit &gt; <span className="underline">View More</span>
+          <h2 className="font-extrabold text-[42px]/[42px] text-center mb-9">Our Open-Source Ecosystem</h2>
+          <div className="text-center mb-9">
+            <a href="#" className="text-[16px]/[20px] inline-flex items-center gap-3.5">
+               For more projects, please visit <ArrowRight size={24} /> <a href="#" className="underline font-bold text-[20px]/[20px] tracking-[-0.4px]">View More</a>
             </a>
           </div>
 
           <div className="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 z-0">
             {ecosystem.map((project, idx) => (
-              <div key={idx} className="rounded-xl shadow-sm hover:shadow-md transition-shadow py-8 px-6 flex gap-5 border bg-[#F8F8F8] hover:bg-white" style={{
+              <div key={idx} className="rounded-[30px] py-8 px-6 flex gap-5 border bg-[#F8F8F8] hover:bg-white" style={{
                 margin: '-0.5px',
               }}>
                 <div className="w-18 h-18 rounded-full flex-shrink-0 flex items-center justify-center overflow-hidden">
                   <Image src={project.icon} alt={project.name} width={72} height={72} className="object-contain" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <h3 className="font-bold text-sm mb-1">{project.name}</h3>
-                  <p className="text-xs mb-2 line-clamp-2">{project.description}</p>
-                  <a href={`https://${project.url}`} target="_blank" rel="noopener noreferrer" className="text-xs text-blue-500 flex items-center gap-1">
-                    <svg className="w-3 h-3 flex-shrink-0" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                  <h3 className="font-bold text-[24px]/[28px] mb-2">{project.name}</h3>
+                  <p className="text-[16px]/[22px] mb-3">{project.description}</p>
+                  <a href={`https://${project.url}`} target="_blank" rel="noopener noreferrer" className="text-sm text-blue-500 flex items-center gap-1">
+                    <Image src={GithubIcon} alt="Github" width={16} height={16} />
                     {project.url}
                   </a>
                 </div>
@@ -322,10 +324,10 @@ export default function AboutMain() {
       </div>
 
       {/* Find Us Here */}
-      <div className="py-12 md:py-16">
+      <div className="pt-[60px] pb-[120px]">
         <div className="mx-auto px-4 md:px-8">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-3">Find Us Here</h2>
-          <p className="text-center mb-10 max-w-2xl mx-auto text-base">
+          <h2 className="font-extrabold text-[42px]/[52px] text-center mb-6">Find Us Here</h2>
+          <p className="text-center mb-9 max-w-2xl mx-auto text-[26px]/[36px]">
               Whether you&apos;re looking for updates, events, resources, or a place to meet fellow builders, you can find us here and stay plugged in.
           </p>
            
@@ -417,20 +419,20 @@ export default function AboutMain() {
 
       {/* Bottom CTA */}
       <div className="relative pt-12 overflow-hidden">
-        <div className="bg-[#00D183] px-4 md:px-8 pt-8 pb-6 flex flex-col md:flex-row items-center justify-between gap-8">
-          <div className="max-w-6xl mx-auto flex-1 text-center md:text-left">
-            <h2 className="text-2xl md:text-[32px]/[36px] font-bold mb-6">
+        <div className="bg-[#00D183] px-4 md:px-11 pt-8 pb-6 flex flex-col md:flex-row items-center justify-between gap-8">
+          <div className="mx-auto flex-1 text-center md:text-left">
+            <h2 className="text-[32px]/[36px] font-bold mb-6">
                  Let&apos;s start your Web3 Success way on OpenBuild!
             </h2>
             <div className="flex flex-col sm:flex-row gap-3 justify-center md:justify-start">
               <Button 
                 onClick={() => window.open('https://t.me/OpenBuildxyz/1')}
-                className="rounded px-9 h-12 text-sm font-normal bg-transparent border text-gray"
+                className="rounded px-9 h-12 text-sm font-normal bg-transparent border text-gray hover:text-white hover:bg-gray"
               >
                       🎉 Join Community
               </Button>
               <Link href="/signup">
-                <Button className="relative bg-black !text-white hover:bg-gray-800 !border-none rounded pl-9 pr-1 h-12 text-sm font-normal flex items-center gap-9">
+                <Button className="relative bg-gray text-white border-transparent rounded pl-9 pr-1 h-12 text-sm font-normal flex items-center gap-9 hover:bg-transparent hover:text-gray hover:border">
                         Sign Up <div className="w-10 h-10 bg-white rounded p-2 text-gray flex justify-center items-center"><ArrowUpRight size={24} /></div>
                 </Button>
               </Link>
