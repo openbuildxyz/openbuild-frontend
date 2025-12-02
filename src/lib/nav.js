@@ -128,11 +128,6 @@ export const APP_NAVS = [
     link: '/shilling',
   },
   {
-    name: 'About',
-    slug: '/about',
-    link: '/about',
-  },
-  {
     name: 'Community',
     link: '/community ',
     slug: 'community ',
