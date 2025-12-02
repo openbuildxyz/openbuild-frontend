@@ -361,85 +361,85 @@ export default function AboutMain() {
       {/* Find Us Here */}
       <div className="pt-[60px] pb-[120px]">
         <div className="mx-auto px-4 md:px-8">
-          <h2 className="font-extrabold text-[42px]/[52px] text-center mb-6">Find Us Here</h2>
-          <p className="text-center mb-9 max-w-2xl mx-auto text-[26px]/[36px]">
+          <h2 className="font-extrabold text-[32px]/[42px] md:text-[42px]/[52px] text-center mb-6">Find Us Here</h2>
+          <p className="text-center mb-9 max-w-2xl mx-auto text-[18px]/[26px] md:text-[26px]/[36px]">
               Whether you&apos;re looking for updates, events, resources, or a place to meet fellow builders, you can find us here and stay plugged in.
           </p>
            
-          <div className="flex justify-center">
+          <div className="flex flex-col md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:flex xl:flex-row justify-center items-center md:items-stretch gap-6 md:gap-8 lg:gap-6 xl:gap-0 max-w-[1400px] mx-auto">
             {/* WeChat */}
-            <div className="bg-[#A4D870] rounded-[24px] flex flex-col items-center relative w-[295px] h-[350px] overflow-hidden mx-[18px]">
-              <div className="bg-white rounded-xl absolute w-[253px] h-[324px] top-[24px] left-[21px] right-[21px]">
-                <Image src={QRCode} alt="WeChat" width={180} height={180} className="mx-auto mt-[23px]" />
+            <div className="bg-[#A4D870] rounded-[24px] flex flex-col items-center relative w-full max-w-[295px] md:max-w-none md:w-full xl:w-[295px] h-[350px] overflow-hidden xl:mx-[18px]">
+              <div className="bg-white rounded-xl absolute md:w-[calc(100%-42px)] md:h-[324px] w-[253px] h-[324px] top-[24px] left-[21px] right-[21px]">
+                <Image src={QRCode} alt="WeChat" width={180} height={180} className="mx-auto mt-[23px] md:h-auto" />
               </div>
               <div className="flex w-full absolute bottom-0 left-0 right-0">
                 <Image src={findus1} alt="findus-bg-1" className="w-full" />
-                <h3 className="font-bold text-[26px]/[29px] text-[#2A600E] absolute left-4 right-10 bottom-6">WeChat Public Account</h3>
+                <h3 className="font-bold text-[20px]/[24px] md:text-[22px]/[26px] xl:text-[26px]/[29px] text-[#2A600E] absolute left-4 right-10 bottom-4 md:bottom-5 xl:bottom-6">WeChat Public Account</h3>
               </div>
-              <div className="absolute bottom-20 right-2 pointer-events-none">
-                <Image src={findusHand} alt="findus-wechat-hand" width={74} height={74} />
+              <div className="absolute bottom-20 right-2 pointer-events-none md:w-[60px] md:h-[60px] xl:w-[74px] xl:h-[74px]">
+                <Image src={findusHand} alt="findus-wechat-hand" width={74} height={74} className="w-full h-full" />
               </div>
             </div>
 
             {/* Email */}
-            <div className="bg-[#E3BD59] rounded-[24px] flex flex-col items-center relative w-[295px] h-[350px] overflow-hidden mx-[18px]">
-              <div className="bg-white rounded-xl absolute w-[253px] h-[324px] top-[24px] left-[21px] right-[21px] p-6" style={{
+            <div className="bg-[#E3BD59] rounded-[24px] flex flex-col items-center relative w-full max-w-[295px] md:max-w-none md:w-full xl:w-[295px] h-[350px] overflow-hidden xl:mx-[18px]">
+              <div className="bg-white rounded-xl absolute md:w-[calc(100%-42px)] md:h-[324px] w-[253px] h-[324px] top-[24px] left-[21px] right-[21px] p-4 md:p-5 xl:p-6" style={{
                 boxShadow: '0px -4px 24px 0px rgba(201, 164, 63, 1)',
                 rotate: '3.8deg',
               }} />
-              <div className="bg-white rounded-xl absolute w-[253px] h-[324px] top-[48px] left-[21px] right-[21px] p-6" style={{
+              <div className="bg-white rounded-xl absolute md:w-[calc(100%-42px)] md:h-[324px] w-[253px] h-[324px] top-[48px] left-[21px] right-[21px] p-4 md:p-5 xl:p-6" style={{
                 boxShadow: '0px -4px 24px 0px rgba(201, 164, 63, 0.2)',
               }}>
-                <p className="text-[20px]/[26px] font-medium mb-2 mb-9">For business cooperation, please contact us.</p>
-                <a href="mailto:build@openbuild.xyz" className="font-semibold text-[20px]/[20px] underline tracking-[-0.4px] hover:bg-gray hover:text-white">build@openbuild.xyz</a>
+                <p className="text-[16px]/[22px] md:text-[18px]/[24px] xl:text-[20px]/[26px] font-medium mb-2 mb-6 md:mb-7 xl:mb-9">For business cooperation, please contact us.</p>
+                <a href="mailto:build@openbuild.xyz" className="font-semibold text-[16px]/[16px] md:text-[18px]/[18px] xl:text-[20px]/[20px] underline tracking-[-0.4px] hover:bg-gray hover:text-white">build@openbuild.xyz</a>
               </div>
               <div className="flex w-full absolute bottom-0 left-0 right-0">
                 <Image src={findus2} alt="findus-bg-2" className="w-full" />
-                <h3 className="font-bold text-[26px]/[29px] text-[#754913] absolute left-4 right-10 bottom-6">OpenBuild E-mail</h3>
+                <h3 className="font-bold text-[20px]/[24px] md:text-[22px]/[26px] xl:text-[26px]/[29px] text-[#754913] absolute left-4 right-10 bottom-4 md:bottom-5 xl:bottom-6">OpenBuild E-mail</h3>
               </div>
             </div>
 
             {/* Social Media */}
-            <div className="bg-[#E8755A] rounded-[24px] flex flex-col items-center relative w-[295px] h-[350px] overflow-hidden mx-[18px]">
-              <div className="absolute w-[253px] top-[24px] left-[21px] right-[21px]">
-                <div className="group cursor-pointer flex items-start justify-between pt-4 px-6 bg-white rounded-xl h-[255px] w-full" style={{
+            <div className="bg-[#E8755A] rounded-[24px] flex flex-col items-center relative w-full max-w-[295px] md:max-w-none md:w-full xl:w-[295px] h-[350px] overflow-hidden xl:mx-[18px]">
+              <div className="absolute md:w-[calc(100%-42px)] w-[253px] top-[24px] left-[21px] right-[21px]">
+                <div className="group cursor-pointer flex items-start justify-between pt-3 md:pt-4 px-4 md:px-5 xl:px-6 bg-white rounded-xl h-[255px] w-full" style={{
                   boxShadow: '0px -4px 24px 0px rgba(232, 117, 90, 1)',
                 }}>
-                  <span className="text-[20px]/[26px] font-bold">Bilibili</span>
-                  <Image src={findusSocialMediaArrow} alt="findus-social-media-arrow" width={15} height={9} className="mt-2.5 hidden group-hover:block" />
+                  <span className="text-[16px]/[22px] md:text-[18px]/[24px] xl:text-[20px]/[26px] font-bold">Bilibili</span>
+                  <Image src={findusSocialMediaArrow} alt="findus-social-media-arrow" width={15} height={9} className="mt-2 md:mt-2.5 hidden group-hover:block" />
                 </div>
-                <div className="group cursor-pointer flex items-start justify-between pt-4 px-6 bg-white rounded-xl h-[255px] absolute top-[54px] w-full" style={{
+                <div className="group cursor-pointer flex items-start justify-between pt-3 md:pt-4 px-4 md:px-5 xl:px-6 bg-white rounded-xl h-[255px] absolute top-[54px] w-full" style={{
                   boxShadow: '0px -4px 24px 0px rgba(232, 117, 90, .2)',
                 }}>
-                  <span className="text-[20px]/[26px] font-bold">YouTube</span>
-                  <Image src={findusSocialMediaArrow} alt="findus-social-media-arrow" width={15} height={9} className="mt-2.5 hidden group-hover:block" />
+                  <span className="text-[16px]/[22px] md:text-[18px]/[24px] xl:text-[20px]/[26px] font-bold">YouTube</span>
+                  <Image src={findusSocialMediaArrow} alt="findus-social-media-arrow" width={15} height={9} className="mt-2 md:mt-2.5 hidden group-hover:block" />
                 </div>
-                <div className="group cursor-pointer flex items-start justify-between pt-4 px-6 bg-white rounded-xl h-[255px] absolute top-[108px] w-full" style={{
+                <div className="group cursor-pointer flex items-start justify-between pt-3 md:pt-4 px-4 md:px-5 xl:px-6 bg-white rounded-xl h-[255px] absolute top-[108px] w-full" style={{
                   boxShadow: '0px -4px 24px 0px rgba(232, 117, 90, .2)',
                 }}>
-                  <span className="text-[20px]/[26px] font-bold">Xiaohongshu</span>
-                  <Image src={findusSocialMediaArrow} alt="findus-social-media-arrow" width={15} height={9} className="mt-2.5 hidden group-hover:block" />
+                  <span className="text-[16px]/[22px] md:text-[18px]/[24px] xl:text-[20px]/[26px] font-bold">Xiaohongshu</span>
+                  <Image src={findusSocialMediaArrow} alt="findus-social-media-arrow" width={15} height={9} className="mt-2 md:mt-2.5 hidden group-hover:block" />
                 </div>
               </div>
               <div className="flex w-full absolute bottom-0 left-0 right-0">
                 <Image src={findus3} alt="findus-bg-3" className="w-full" />
-                <h3 className="font-bold text-[26px]/[29px] text-[#801C1C] absolute left-4 right-10 bottom-6">Social media</h3>
+                <h3 className="font-bold text-[20px]/[24px] md:text-[22px]/[26px] xl:text-[26px]/[29px] text-[#801C1C] absolute left-4 right-10 bottom-4 md:bottom-5 xl:bottom-6">Social media</h3>
               </div>
             </div>
 
             {/* Contributor */}
-            <div className="bg-[#A282DF] rounded-[24px] flex flex-col items-center relative w-[295px] h-[350px] overflow-hidden mx-[18px]">
-              <div className="bg-white rounded-xl absolute w-[253px] h-[255px] top-[24px] left-[21px] right-[21px] bg-white pt-6 px-[18px]" style={{
+            <div className="bg-[#A282DF] rounded-[24px] flex flex-col items-center relative w-full max-w-[295px] md:max-w-none md:w-full xl:w-[295px] h-[350px] overflow-hidden xl:mx-[18px]">
+              <div className="bg-white rounded-xl absolute md:w-[calc(100%-42px)] w-[253px] h-[255px] top-[24px] left-[21px] right-[21px] bg-white pt-4 md:pt-5 xl:pt-6 px-4 md:px-[16px] xl:px-[18px]" style={{
                 boxShadow: '0px -4px 24px 0px rgba(130, 92, 199, 1)',
               }}>
-                <div className="text-[20px]/[24px]"><span className="text-gray-500">If you want to</span> participate in co-construction</div>
-                <div className="w-[241px] h-[137px] absolute left-[10px] top-[74px]">
-                  <Image src={findusContributor} alt="findus-contributor" width={241} height={137} />
+                <div className="text-[16px]/[20px] md:text-[18px]/[22px] xl:text-[20px]/[24px]"><span className="text-gray-500">If you want to</span> participate in co-construction</div>
+                <div className="md:w-[calc(100%-20px)] md:h-auto w-[241px] h-[137px] absolute left-[10px] top-[60px] md:top-[64px] xl:top-[74px]">
+                  <Image src={findusContributor} alt="findus-contributor" width={241} height={137} className="w-full h-auto" />
                 </div>
               </div>
               <div className="flex w-full absolute bottom-0 left-0 right-0">
                 <Image src={findus4} alt="findus-bg-4" className="w-full" />
-                <h3 className="font-bold text-[26px]/[29px] text-[#462382] absolute left-4 right-10 bottom-6">Contributor</h3>
+                <h3 className="font-bold text-[20px]/[24px] md:text-[22px]/[26px] xl:text-[26px]/[29px] text-[#462382] absolute left-4 right-10 bottom-4 md:bottom-5 xl:bottom-6">Contributor</h3>
               </div>
             </div>
           </div>
@@ -449,25 +449,25 @@ export default function AboutMain() {
       {/* Bottom CTA */}
       <div className="relative pt-12 overflow-hidden">
         <div className="bg-[#00D183] px-4 md:px-11 pt-8 pb-6 flex flex-col md:flex-row items-center justify-between gap-8">
-          <div className="mx-auto flex-1 text-center md:text-left">
-            <h2 className="text-[32px]/[36px] font-bold mb-6">
+          <div className="mx-auto md:mx-0 flex-1 text-center md:text-left max-w-full md:max-w-[60%]">
+            <h2 className="text-[24px]/[30px] md:text-[32px]/[36px] font-bold mb-6">
                  Let&apos;s start your Web3 Success way on OpenBuild!
             </h2>
             <div className="flex flex-col sm:flex-row gap-3 justify-center md:justify-start">
               <Button 
                 onClick={() => window.open('https://t.me/OpenBuildxyz/1')}
-                className="rounded px-9 h-12 text-sm font-normal bg-transparent border text-gray hover:text-white hover:bg-gray"
+                className="rounded px-6 md:px-9 h-12 text-sm font-normal bg-transparent border text-gray hover:text-white hover:bg-gray"
               >
                       🎉 Join Community
               </Button>
               <Link href="/signup">
-                <Button className="relative bg-gray text-white border-transparent rounded pl-9 pr-1 h-12 text-sm font-normal flex items-center gap-9 hover:bg-transparent hover:text-gray hover:border">
+                <Button className="relative bg-gray text-white border-transparent rounded pl-6 md:pl-9 pr-1 h-12 text-sm font-normal flex items-center gap-6 md:gap-9 hover:bg-transparent hover:text-gray hover:border">
                         Sign Up <div className="w-10 h-10 bg-white rounded p-2 text-gray flex justify-center items-center"><ArrowUpRight size={24} /></div>
                 </Button>
               </Link>
             </div>
           </div>
-          <div className="absolute right-11 bottom-0 w-71 flex-shrink-0">
+          <div className="hidden md:block absolute right-11 bottom-0 w-71 flex-shrink-0">
             <Image src={letsstart} alt="Illustration" className="w-full h-auto object-contain" />
           </div>
         </div>
