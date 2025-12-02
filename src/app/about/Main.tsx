@@ -16,7 +16,6 @@
 
 'use client';
 
-import { useEffect, useRef } from 'react';
 import { ArrowUpRight, ArrowDown, ArrowRight, Check } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -50,6 +49,7 @@ import Service2 from 'public/images/about/service-2.png';
 import Service3 from 'public/images/about/service-3.png';
 import Service4 from 'public/images/about/service-4.png';
 import GithubIcon from 'public/images/svg/github_p.svg';
+import { useEffect, useRef } from 'react';
 
 import { Button } from '@/components/Button';
 
@@ -306,7 +306,7 @@ export default function AboutMain() {
                   }}>
                     <div 
                       className="flex items-center justify-between text-[18px]/[20px] font-bold tracking-[-0.36px] opacity-50 cursor-not-allowed"
-                      onClick={(e) => e.preventDefault()}
+                      onClick={e => e.preventDefault()}
                     >
                         More <ArrowUpRight size={24} />
                     </div>
