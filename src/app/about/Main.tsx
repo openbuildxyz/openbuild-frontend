@@ -272,9 +272,12 @@ export default function AboutMain() {
                   <div className="border-t p-6 mt-auto" style={{
                     borderColor: 'rgba(26, 26, 26, 0.06)',
                   }}>
-                    <Link href={service.link} className="flex items-center justify-between text-[18px]/[20px] font-bold tracking-[-0.36px]">
+                    <div 
+                      className="flex items-center justify-between text-[18px]/[20px] font-bold tracking-[-0.36px] opacity-50 cursor-not-allowed"
+                      onClick={(e) => e.preventDefault()}
+                    >
                         More <ArrowUpRight size={24} />
-                    </Link>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -374,21 +377,15 @@ export default function AboutMain() {
                   <Image src={findusSocialMediaArrow} alt="findus-social-media-arrow" width={15} height={9} className="mt-2.5 hidden group-hover:block" />
                 </div>
                 <div className="group cursor-pointer flex items-start justify-between pt-4 px-6 bg-white rounded-xl h-[255px] absolute top-[54px] w-full" style={{
-                  boxShadow: '0px -4px 24px 0px rgba(232, 117, 90, 1)',
+                  boxShadow: '0px -4px 24px 0px rgba(232, 117, 90, .2)',
                 }}>
                   <span className="text-[20px]/[26px] font-bold">YouTube</span>
                   <Image src={findusSocialMediaArrow} alt="findus-social-media-arrow" width={15} height={9} className="mt-2.5 hidden group-hover:block" />
                 </div>
                 <div className="group cursor-pointer flex items-start justify-between pt-4 px-6 bg-white rounded-xl h-[255px] absolute top-[108px] w-full" style={{
-                  boxShadow: '0px -4px 24px 0px rgba(232, 117, 90, 1)',
+                  boxShadow: '0px -4px 24px 0px rgba(232, 117, 90, .2)',
                 }}>
                   <span className="text-[20px]/[26px] font-bold">Xiaohongshu</span>
-                  <Image src={findusSocialMediaArrow} alt="findus-social-media-arrow" width={15} height={9} className="mt-2.5 hidden group-hover:block" />
-                </div>
-                <div className="group cursor-pointer flex items-start justify-between pt-4 px-6 bg-white rounded-xl h-[255px] absolute top-[162px] w-full" style={{
-                  boxShadow: '0px -4px 24px 0px rgba(232, 117, 90, 1)',
-                }}>
-                  <span className="text-[20px]/[26px] font-bold">Community</span>
                   <Image src={findusSocialMediaArrow} alt="findus-social-media-arrow" width={15} height={9} className="mt-2.5 hidden group-hover:block" />
                 </div>
               </div>
