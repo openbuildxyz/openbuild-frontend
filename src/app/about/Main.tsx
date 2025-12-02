@@ -16,6 +16,7 @@
 
 'use client';
 
+import { useEffect, useRef } from 'react';
 import { ArrowUpRight, ArrowDown, ArrowRight, Check } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -159,6 +160,25 @@ export default function AboutMain() {
     },
   ];
 
+  const serviceCardRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      // 清除所有卡片的高度，恢复自动高度
+      serviceCardRefs.current.forEach(card => {
+        if (card) {
+          card.style.height = '';
+          delete card.dataset.initialHeight;
+        }
+      });
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -241,17 +261,29 @@ export default function AboutMain() {
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-            {services.map(service => (
-              <div key={service.id} className="relative bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 flex flex-col overflow-hidden z-0" style={{
-                paddingTop: '46%',
-                '--hover-padding-top': 'calc(46% - 20px)',
-              } as React.CSSProperties & { '--hover-padding-top': string }}
-              onMouseEnter={e => {
-                e.currentTarget.style.paddingTop = 'calc(46% - 20px)';
-              }}
-              onMouseLeave={e => {
-                e.currentTarget.style.paddingTop = '46%';
-              }}>
+            {services.map((service, index) => (
+              <div 
+                key={service.id} 
+                ref={el => { serviceCardRefs.current[index] = el; }}
+                className="group relative bg-white rounded-xl shadow-sm hover:shadow-md duration-300 flex flex-col overflow-hidden z-0" 
+                style={{
+                  paddingTop: '46%',
+                  transitionProperty: 'padding-top',
+                  transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
+                }}
+                onMouseEnter={e => {
+                  const element = e.currentTarget;
+                  if (!element.dataset.initialHeight) {
+                    element.dataset.initialHeight = element.offsetHeight + 'px';
+                  }
+                  element.style.height = element.dataset.initialHeight;
+                  element.style.paddingTop = 'calc(46% - 20px)';
+                }}
+                onMouseLeave={e => {
+                  const element = e.currentTarget;
+                  // element.style.height = '';
+                  element.style.paddingTop = '46%';
+                }}>
                 <div className="absolute top-0 left-0 h-52 w-full overflow-hidden z-[-1]">
                   <Image src={service.image} alt={service.title} className="object-contain" />
                 </div>
