@@ -42,6 +42,7 @@ import LilittlekangImg from 'public/images/home/lilittlekang.jpg';
 import ZhangWenchaoImg from 'public/images/home/zhang-wenchao.png';
 import LeeMmaiImg from 'public/images/home/LeeMmai.jpg';
 import VCNelsonZImg from 'public/images/home/VCNelson_Z.jpeg';
+import x142yImg from 'public/images/home/142y.jpg';
 /* eslint-enable */
 
 import { SvgIcon } from '@/components/Image';
@@ -116,6 +117,7 @@ const IMAGE_MAP = {
   'kk860755': LilittlekangImg,
   'wenchao_zh': ZhangWenchaoImg,
   'LeeMmai': LeeMmaiImg,
+  '14222y': x142yImg,
 };
 
 // Function to get image by priority: handle -> github -> x
@@ -157,6 +159,7 @@ const DATAS = [
   { name: 'sweet', x: 'alwaylove2sweet', github: 'love2sweet', title: 'BuilderHero', handle: 'BZvYnd5k' },
   { name: 'Kang', x: 'kk860755', github: 'Ritakang0451', title: 'BuilderHero', handle: 'lilittlekang' },
   { name: 'WenChao', x: 'wenchao_zh', github: 'zhang-wenchao', title: 'BuilderHero', handle: null },
+  { name: '142y', x: '14222y', github: '142y', title: 'BuilderHero', handle: null },
 ].map(item => ({
   ...item,
   picture: getImage(item.handle, item.github, item.x)
