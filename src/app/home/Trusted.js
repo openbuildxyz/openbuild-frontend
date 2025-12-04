@@ -71,12 +71,25 @@ readyPartnersData();
 
 export function Trusted() {
   const [activeTab, setActiveTab] = useState('Company');
+  const [showAll, setShowAll] = useState(false);
   const tabRefs = useRef({});
   const indicatorRef = useRef(null);
   const containerRef = useRef(null);
   const scrollContainerRef = useRef(null);
 
   const currentPartners = partnersData[activeTab] || [];
+  
+  // 移动端最多显示20个（10行 x 2列）
+  const MOBILE_MAX_DISPLAY = 20;
+  const shouldShowMore = currentPartners.length > MOBILE_MAX_DISPLAY;
+  const displayedPartners = shouldShowMore && !showAll 
+    ? currentPartners.slice(0, MOBILE_MAX_DISPLAY)
+    : currentPartners;
+
+  // 切换 tab 时重置显示状态
+  useLayoutEffect(() => {
+    setShowAll(false);
+  }, [activeTab]);
 
   useLayoutEffect(() => {
     const updateIndicator = () => {
@@ -169,18 +182,31 @@ export function Trusted() {
 
       {/* Partners Grid */}
       {currentPartners.length > 0 ? (
-        <div className="flex flex-wrap justify-center gap-3 mb-6">
-          {currentPartners.map((partner, index) => (
-            <div
-              key={`partner-${activeTab}-${index}`}
-              className="trusted-box group border border-[rgba(26,26,26,0.1)] rounded-[1000px] px-4 py-7 flex justify-center items-center bg-white transition-colors max-md:px-3 max-md:py-6 h-24 max-md:h-20 w-full sm:w-[calc((100%-0.75rem)/2)] md:w-[calc((100%-1.5rem)/3)] lg:w-[calc((100%-2.25rem)/4)] xl:w-[calc((100%-3rem)/5)] 2xl:w-[calc((100%-3.75rem)/6)] flex-shrink-0"
-            >
-              <div className="flex justify-center items-center w-full h-full [&>svg]:max-w-full [&>svg]:h-8 [&>svg]:w-auto">
-                {partner.ele}
+        <>
+          <div className="flex flex-wrap justify-center gap-3 mb-6">
+            {displayedPartners.map((partner, index) => (
+              <div
+                key={`partner-${activeTab}-${index}`}
+                className="trusted-box group border border-[rgba(26,26,26,0.1)] rounded-[1000px] px-4 py-7 flex justify-center items-center bg-white transition-colors max-md:px-3 max-md:py-6 h-24 max-md:h-20 w-full w-[calc((100%-0.75rem)/2)] md:w-[calc((100%-1.5rem)/3)] lg:w-[calc((100%-2.25rem)/4)] xl:w-[calc((100%-3rem)/5)] 2xl:w-[calc((100%-3.75rem)/6)] flex-shrink-0"
+              >
+                <div className="flex justify-center items-center w-full h-full [&>svg]:max-w-full [&>svg]:h-8 [&>svg]:w-auto">
+                  {partner.ele}
+                </div>
               </div>
+            ))}
+          </div>
+          {/* 显示更多按钮 - 仅在移动端且超过20个时显示 */}
+          {shouldShowMore && (
+            <div className="flex justify-center mb-6 md:hidden">
+              <button
+                onClick={() => setShowAll(!showAll)}
+                className="px-6 py-3 text-base leading-[18px] font-medium text-black border border-[rgba(26,26,26,0.1)] rounded-[40px] bg-white hover:bg-[rgba(26,26,26,0.02)] transition-colors"
+              >
+                {showAll ? 'Show Less' : 'Show More'}
+              </button>
             </div>
-          ))}
-        </div>
+          )}
+        </>
       ) : (
         <div className="py-12">
           <p className="text-base leading-8 text-[rgba(26,26,26,0.6)]">No partners available in this category.</p>

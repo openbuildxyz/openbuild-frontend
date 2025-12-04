@@ -18,7 +18,6 @@
 
 import { ArrowUpRight, ArrowDown, ArrowRight, Check } from 'lucide-react';
 import Image from 'next/image';
-import Link from 'next/link';
 import HomeTopBg from 'public/images/about/about-top-bg.png';
 // Placeholder for other images
 import Community1 from 'public/images/about/communities-1.png';
@@ -42,7 +41,6 @@ import findus4 from 'public/images/about/findus-4.svg';
 import findusContributor from 'public/images/about/findus-contributor.png';
 import findusHand from 'public/images/about/findus-hand.png';
 import findusSocialMediaArrow from 'public/images/about/findus-social-media-arrow.svg';
-import letsstart from 'public/images/about/letsstart.png';
 import QRCode from 'public/images/about/qrcode.png'; // Placeholder
 import Service1 from 'public/images/about/service-1.png';
 import Service2 from 'public/images/about/service-2.png';
@@ -51,7 +49,6 @@ import Service4 from 'public/images/about/service-4.png';
 import GithubIcon from 'public/images/svg/github_p.svg';
 import { useEffect, useRef } from 'react';
 
-import { Button } from '@/components/Button';
 import StartOnOpenBuild from '#/entry/components/StartOnOpenBuild';
 
 export default function AboutMain() {
