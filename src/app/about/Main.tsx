@@ -52,6 +52,7 @@ import GithubIcon from 'public/images/svg/github_p.svg';
 import { useEffect, useRef } from 'react';
 
 import { Button } from '@/components/Button';
+import StartOnOpenBuild from '#/entry/components/StartOnOpenBuild';
 
 export default function AboutMain() {
   const services = [
@@ -251,7 +252,7 @@ export default function AboutMain() {
 
       {/* We're working on Section */}
       <div className="pt-7 pb-[60px]">
-        <div className="max-w-[1680px] mx-auto px-11">
+        <div className="max-w-[1680px] mx-auto px-6 md:px-11">
           <h2 className="text-[42px]/[52px] font-extrabold text-center mb-6">We&apos;re working on</h2>
           <p className="text-center mb-9 max-w-2xl mx-auto text-[26px]/[36px]">
             Explore our services, witness our success stories, and join us to <span className="font-extrabold">build the next milestone together.</span>
@@ -320,7 +321,7 @@ export default function AboutMain() {
 
       {/* Our Open-Source Ecosystem */}
       <div className="py-[60px]">
-        <div className="max-w-[1370px] mx-auto px-4 md:px-11">
+        <div className="max-w-[1370px] mx-auto px-6 md:px-11">
           <h2 className="font-extrabold text-[42px]/[42px] text-center mb-9">Our Open-Source Ecosystem</h2>
           <div className="text-center mb-9">
             <a href="#" className="text-[16px]/[20px] inline-flex items-center gap-3.5">
@@ -446,32 +447,8 @@ export default function AboutMain() {
         </div>
       </div>
 
-      {/* Bottom CTA */}
-      <div className="relative pt-12 overflow-hidden">
-        <div className="bg-[#00D183] px-4 md:px-11 pt-8 pb-6 flex flex-col md:flex-row items-center justify-between gap-8">
-          <div className="mx-auto md:mx-0 flex-1 text-center md:text-left max-w-full md:max-w-[60%]">
-            <h2 className="text-[24px]/[30px] md:text-[32px]/[36px] font-bold mb-6">
-                 Let&apos;s start your Web3 Success way on OpenBuild!
-            </h2>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center md:justify-start">
-              <Button 
-                onClick={() => window.open('https://t.me/OpenBuildxyz/1')}
-                className="rounded px-6 md:px-9 h-12 text-sm font-normal bg-transparent border text-gray hover:text-white hover:bg-gray"
-              >
-                      🎉 Join Community
-              </Button>
-              <Link href="/signup">
-                <Button className="relative bg-gray text-white border-transparent rounded pl-6 md:pl-9 pr-1 h-12 text-sm font-normal flex items-center gap-6 md:gap-9 hover:bg-transparent hover:text-gray hover:border">
-                        Sign Up <div className="w-10 h-10 bg-white rounded p-2 text-gray flex justify-center items-center"><ArrowUpRight size={24} /></div>
-                </Button>
-              </Link>
-            </div>
-          </div>
-          <div className="hidden md:block absolute right-11 bottom-0 w-71 flex-shrink-0">
-            <Image src={letsstart} alt="Illustration" className="w-full h-auto object-contain" />
-          </div>
-        </div>
-      </div>
+
+      <StartOnOpenBuild />
     </div>
   );
 }
