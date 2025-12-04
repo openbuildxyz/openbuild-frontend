@@ -255,7 +255,7 @@ export default function AboutMain() {
             Explore our services, witness our success stories, and join us to <span className="font-extrabold">build the next milestone together.</span>
           </p>
           <p className="text-center text-[16px]/[20px] mb-[56px] flex justify-center gap-3.5">
-            Let&apos;s discuss the next big thing in Web3. <ArrowRight size={24} /> <a href="#" className="underline font-bold text-[20px]/[20px] tracking-[-0.4px]">Book a call</a>
+            Let&apos;s discuss the next big thing in Web3. <ArrowRight size={24} /> <a href="https://openbuildxyz.github.io/eco/" className="underline font-bold text-[20px]/[20px] tracking-[-0.4px]">Book a call</a>
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
@@ -400,24 +400,24 @@ export default function AboutMain() {
             {/* Social Media */}
             <div className="bg-[#E8755A] rounded-[24px] flex flex-col items-center relative w-full max-w-[295px] md:max-w-none md:w-full xl:w-[295px] h-[350px] overflow-hidden xl:mx-[18px]">
               <div className="absolute md:w-[calc(100%-42px)] w-[253px] top-[24px] left-[21px] right-[21px]">
-                <div className="group cursor-pointer flex items-start justify-between pt-3 md:pt-4 px-4 md:px-5 xl:px-6 bg-white rounded-xl h-[255px] w-full" style={{
+                <a href="https://space.bilibili.com/483336099?spm_id_from=333.337.0.0" target="_blank" rel="noopener noreferrer" className="group cursor-pointer flex items-start justify-between pt-3 md:pt-4 px-4 md:px-5 xl:px-6 bg-white rounded-xl h-[255px] w-full" style={{
                   boxShadow: '0px -4px 24px 0px rgba(232, 117, 90, 1)',
                 }}>
                   <span className="text-[16px]/[22px] md:text-[18px]/[24px] xl:text-[20px]/[26px] font-bold">Bilibili</span>
                   <Image src={findusSocialMediaArrow} alt="findus-social-media-arrow" width={15} height={9} className="mt-2 md:mt-2.5 hidden group-hover:block" />
-                </div>
-                <div className="group cursor-pointer flex items-start justify-between pt-3 md:pt-4 px-4 md:px-5 xl:px-6 bg-white rounded-xl h-[255px] absolute top-[54px] w-full" style={{
+                </a>
+                <a href="https://www.youtube.com/@openbuildxyz" target="_blank" rel="noopener noreferrer" className="group cursor-pointer flex items-start justify-between pt-3 md:pt-4 px-4 md:px-5 xl:px-6 bg-white rounded-xl h-[255px] absolute top-[54px] w-full" style={{
                   boxShadow: '0px -4px 24px 0px rgba(232, 117, 90, .2)',
                 }}>
                   <span className="text-[16px]/[22px] md:text-[18px]/[24px] xl:text-[20px]/[26px] font-bold">YouTube</span>
                   <Image src={findusSocialMediaArrow} alt="findus-social-media-arrow" width={15} height={9} className="mt-2 md:mt-2.5 hidden group-hover:block" />
-                </div>
-                <div className="group cursor-pointer flex items-start justify-between pt-3 md:pt-4 px-4 md:px-5 xl:px-6 bg-white rounded-xl h-[255px] absolute top-[108px] w-full" style={{
+                </a>
+                <a href="https://www.xiaohongshu.com/user/profile/642161b400000000110200c2?xsec_token=ABHZPYxxvFeGh6YzcDH9vyOYRUg1Joz9zAxOuzbnQAa_I%3D&xsec_source=pc_search" target="_blank" rel="noopener noreferrer" className="group cursor-pointer flex items-start justify-between pt-3 md:pt-4 px-4 md:px-5 xl:px-6 bg-white rounded-xl h-[255px] absolute top-[108px] w-full" style={{
                   boxShadow: '0px -4px 24px 0px rgba(232, 117, 90, .2)',
                 }}>
                   <span className="text-[16px]/[22px] md:text-[18px]/[24px] xl:text-[20px]/[26px] font-bold">Xiaohongshu</span>
                   <Image src={findusSocialMediaArrow} alt="findus-social-media-arrow" width={15} height={9} className="mt-2 md:mt-2.5 hidden group-hover:block" />
-                </div>
+                </a>
               </div>
               <div className="flex w-full absolute bottom-0 left-0 right-0">
                 <Image src={findus3} alt="findus-bg-3" className="w-full" />
