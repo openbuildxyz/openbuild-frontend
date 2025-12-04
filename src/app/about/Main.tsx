@@ -255,7 +255,7 @@ export default function AboutMain() {
             Explore our services, witness our success stories, and join us to <span className="font-extrabold">build the next milestone together.</span>
           </p>
           <p className="text-center text-[16px]/[20px] mb-[56px] flex justify-center gap-3.5">
-            Let&apos;s discuss the next big thing in Web3. <ArrowRight size={24} /> <a href="https://openbuildxyz.github.io/eco/" className="underline font-bold text-[20px]/[20px] tracking-[-0.4px]">Book a call</a>
+            Let&apos;s discuss the next big thing in Web3. <ArrowRight size={24} /> <a href="https://calendly.com/openbuild/30min?month=2025-12" className="underline font-bold text-[20px]/[20px] tracking-[-0.4px]">Book a call</a>
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
@@ -322,7 +322,7 @@ export default function AboutMain() {
           <h2 className="font-extrabold text-[42px]/[42px] text-center mb-9">Our Open-Source Ecosystem</h2>
           <div className="text-center mb-9">
             <a href="#" className="text-[16px]/[20px] inline-flex items-center gap-3.5">
-               For more projects, please visit <ArrowRight size={24} /> <a href="#" className="underline font-bold text-[20px]/[20px] tracking-[-0.4px]">View More</a>
+               For more projects, please visit <ArrowRight size={24} /> <a href="https://openbuildxyz.github.io/eco/" className="underline font-bold text-[20px]/[20px] tracking-[-0.4px]">View More</a>
             </a>
           </div>
 
