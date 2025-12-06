@@ -19,8 +19,13 @@
 import Image from 'next/image';
 import { useState } from 'react';
 
+import { Button } from '@/components/Button';
+
+import { URCardPopup } from '../Header/URCardPopup';
+
 function DifyWidget() {
   const [showFrame, setShowFrame] = useState(false);
+  const [isURPopupOpen, setIsURPopupOpen] = useState(false);
 
   const handleToggleFrame = () => {
     setShowFrame(!showFrame);
@@ -31,11 +36,17 @@ function DifyWidget() {
       {showFrame && (
         <div className="fixed inset-0 bg-black/50 z-40 flex items-center justify-center">
           <div className="w-full h-full max-w-4xl max-h-[80vh] bg-white dark:bg-gray-800 rounded-lg shadow-xl overflow-hidden relative">
-            <button 
+            <button
               onClick={handleToggleFrame}
               className="absolute right-3 top-3 z-10 h-6 w-6 cursor-pointer rounded border border-gray-400 fill-gray p-1"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+              >
                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
@@ -46,17 +57,23 @@ function DifyWidget() {
           </div>
         </div>
       )}
+
       <button
         onClick={handleToggleFrame}
         className="fixed bottom-6 right-6 z-50 hover:opacity-80 transition-all transform hover:scale-110"
       >
-        <Image
-          src="/cat.svg"
-          alt="Chat icon"
-          width={64}
-          height={64}
-        />
+        <Image src="/cat.svg" alt="Chat icon" width={64} height={64} />
       </button>
+
+      <Button
+        size="sm"
+        className="fixed bottom-24 right-8 z-50 h-10 w-10 p-0 bg-gradient-to-r from-[#41b8e7] to-[#db89fd] hover:from-[#3da8d7] hover:to-[#d079ed] text-white border-none"
+        onClick={() => setIsURPopupOpen(true)}
+      >
+        UR
+      </Button>
+
+      <URCardPopup open={isURPopupOpen} closeModal={() => setIsURPopupOpen(false)} />
     </>
   );
 }

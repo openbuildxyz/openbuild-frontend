@@ -20,7 +20,7 @@ import { useSession, signOut } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useSearchParams, useRouter } from 'next/navigation';
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useAccount, useDisconnect } from 'wagmi';
 
 import { Button } from '@/components/Button';
@@ -32,6 +32,7 @@ import { useMediaUrl } from '#/state/application/hooks';
 import { useUser } from '#/state/application/hooks';
 
 import { CustomConnectButton } from './CustomConnectButton';
+import { URCardPopup } from './URCardPopup';
 
 function Account() {
   const { isConnected, address } = useAccount();
@@ -42,6 +43,7 @@ function Account() {
   const info = useUser();
   const { status } = useSession();
   const mediaUrl = useMediaUrl();
+  const [isURPopupOpen, setIsURPopupOpen] = useState(false);
 
   useEffect(() => {
     if (!isConnected && window.localStorage.getItem('signType') === 'wallet') {
@@ -147,6 +149,7 @@ function Account() {
           <Button 
             size="sm" 
             className="w-[116px] h-9 p-0 flex justify-center items-center gap-2 bg-gradient-to-r from-[#41b8e7] to-[#db89fd] hover:from-[#3da8d7] hover:to-[#d079ed] text-white border-none max-md:h-7 max-md:w-7 max-md:!min-w-[28px]"
+            onClick={() => setIsURPopupOpen(true)}
           >
             <Image 
               src="/images/UR.png" 
@@ -160,11 +163,15 @@ function Account() {
           <Link href={`/signin?from=${sourceFrom}`} className="flex-1 md:flex-initial">
             <Button size="sm" className="min-w-9 w-[108px] h-9 p-0 flex justify-center max-md:h-7 max-md:w-7 max-md:!min-w-[28px]">
               <MeIcon />
-              Sign in
+              <span className="max-md:hidden">Sign in</span>
             </Button>
           </Link>
         </div>
       )}
+      <URCardPopup 
+        open={isURPopupOpen} 
+        closeModal={() => setIsURPopupOpen(false)} 
+      />
     </div>
   );
 }
