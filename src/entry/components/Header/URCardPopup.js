@@ -27,30 +27,30 @@ export function URCardPopup({ open, closeModal }) {
       isOpen={open}
       closeModal={closeModal}
       title=""
-      className="!max-w-[396px] !min-h-[406px] !p-6 flex justify-center"
+      className="!max-w-[396px] max-md:!max-w-[340px] !min-h-[406px] max-md:!min-h-[380px] !p-6 max-md:!p-4 flex justify-center"
     >
       <div className="flex flex-col items-left">
-        <div className="mb-8">
-          <Image src="/images/UR-card.png" alt="UR Card" width={0} height={150} sizes="100vw" className="rounded-2xl w-auto" />
+        <div className="mb-8 max-md:mb-6">
+          <Image src="/images/UR-card.png" alt="UR Card" width={0} height={150} sizes="100vw" className="rounded-2xl w-auto max-md:h-[120px]" />
         </div>
 
-        <h2 className="text-[20px] font-bold text-[#1a1a1a] mb-3 leading-6" style={{ fontFamily: 'Nunito Sans' }}>
+        <h2 className="text-[20px] max-md:text-[18px] font-bold text-[#1a1a1a] mb-3 max-md:mb-2 leading-6 max-md:leading-5" style={{ fontFamily: 'Nunito Sans' }}>
           Freedom and Efficiency in every
           <br />
           transaction
         </h2>
 
-        <p className="text-[#484848] mb-8" style={{ fontFamily: 'Nunito Sans' }}>
+        <p className="text-[#484848] max-md:text-[14px] mb-8 max-md:mb-6" style={{ fontFamily: 'Nunito Sans' }}>
           By <span className="font-semibold text-[#1a1a1a]">UR</span> · Deadline{' '}
           <span className="font-semibold text-[#1a1a1a]">30days</span>
         </p>
 
         <Button
           size="sm"
-          className="w-[348px] h-9 p-0 flex justify-center items-center gap-2 bg-gradient-to-r from-[#41B8E7] to-[#DB89FD] hover:from-[#3da8d7] hover:to-[#d079ed] text-white border-none max-md:h-[40px]"
+          className="w-[348px] max-md:w-[300px] h-9 max-md:h-[40px] p-0 flex justify-center items-center gap-2 bg-gradient-to-r from-[#41B8E7] to-[#DB89FD] hover:from-[#3da8d7] hover:to-[#d079ed] text-white border-none"
         >
           <Image src="/images/UR.png" alt="UR" width={20} height={20} className="max-md:w-4 max-md:h-4 rounded-md" />
-          <span >Get UR</span>
+          <span className="max-md:text-[14px]">Get UR</span>
         </Button>
       </div>
     </Modal>
