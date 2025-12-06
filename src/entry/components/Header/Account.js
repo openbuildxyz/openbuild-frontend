@@ -143,10 +143,24 @@ function Account() {
         </div>
       )}
       {status === 'unauthenticated' && (
-        <div className="flex">
+        <div className="flex gap-2">
+          <Button 
+            size="sm" 
+            className="w-[116px] h-9 p-0 flex justify-center items-center gap-2 bg-gradient-to-r from-[#41b8e7] to-[#db89fd] hover:from-[#3da8d7] hover:to-[#d079ed] text-white border-none max-md:h-7 max-md:w-7 max-md:!min-w-[28px]"
+          >
+            <Image 
+              src="/images/UR.png" 
+              alt="UR" 
+              width={20} 
+              height={20} 
+              className="max-md:w-4 max-md:h-4 rounded-md"
+            />
+            <span className="max-md:hidden">Get UR</span>
+          </Button>
           <Link href={`/signin?from=${sourceFrom}`} className="flex-1 md:flex-initial">
-            <Button size="sm" className="min-w-9 w-9 h-9 p-0 flex justify-center max-md:h-7 max-md:w-7 max-md:!min-w-[28px]">
+            <Button size="sm" className="min-w-9 w-[108px] h-9 p-0 flex justify-center max-md:h-7 max-md:w-7 max-md:!min-w-[28px]">
               <MeIcon />
+              Sign in
             </Button>
           </Link>
         </div>
