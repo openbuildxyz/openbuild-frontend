@@ -120,6 +120,10 @@ const menus = [
         name: 'Press Kit',
         link: 'https://logo.openbuild.xyz',
       },
+      {
+        name: 'About',
+        link: '/about',
+      },
     ],
   },
 ];
