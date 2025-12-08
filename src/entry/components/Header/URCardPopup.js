@@ -48,6 +48,7 @@ export function URCardPopup({ open, closeModal }) {
         <Button
           size="sm"
           className="w-[348px] max-md:w-[300px] h-9 max-md:h-[40px] p-0 flex justify-center items-center gap-2 bg-gradient-to-r from-[#41B8E7] to-[#DB89FD] hover:from-[#3da8d7] hover:to-[#d079ed] text-white border-none"
+          onClick={() => window.open('https://ur.app/', '_blank')}
         >
           <Image src="/images/UR.png" alt="UR" width={20} height={20} className="max-md:w-4 max-md:h-4 rounded-md" />
           <span className="max-md:text-[14px]">Get UR</span>
