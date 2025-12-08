@@ -205,11 +205,6 @@ export default function AboutMain() {
               <div 
                 key={i}
                 className="rounded-full border-1 p-3.5 bg-white relative"
-                style={{
-                  borderColor: 'rgba(26, 26, 26, 0.12)',
-                  marginLeft: i > 0 ? '-14px' : '0',
-                  zIndex: i + 1,
-                }}
               >
                 <Image src={img} alt={`Community ${i + 1}`} width={24} height={24} />
               </div>
