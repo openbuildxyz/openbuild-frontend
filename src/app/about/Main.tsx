@@ -20,10 +20,6 @@ import { ArrowUpRight, ArrowDown, ArrowRight, Check } from 'lucide-react';
 import Image from 'next/image';
 import HomeTopBg from 'public/images/about/about-top-bg.png';
 // Placeholder for other images
-import Community1 from 'public/images/about/communities-1.png';
-import Community2 from 'public/images/about/communities-2.png';
-import Community3 from 'public/images/about/communities-3.png';
-import Community4 from 'public/images/about/communities-4.png';
 import EcosystemAccording from 'public/images/about/ecosystem-according.png';
 import EcosystemAIMOverse from 'public/images/about/ecosystem-aimoverse.png';
 import EcosystemDeprank from 'public/images/about/ecosystem-deprank.png';
@@ -52,6 +48,14 @@ import { useEffect, useRef } from 'react';
 import StartOnOpenBuild from '#/entry/components/StartOnOpenBuild';
 
 export default function AboutMain() {
+  // Use static paths to ensure these community icons stay present after hydration in production.
+  const communities = [
+    '/images/about/communities-1.png',
+    '/images/about/communities-2.png',
+    '/images/about/communities-3.png',
+    '/images/about/communities-4.png',
+  ];
+
   const services = [
     {
       id: 1,
@@ -201,10 +205,15 @@ export default function AboutMain() {
           
           {/* Icons */}
           <div className="flex justify-center items-center mb-4">
-            {[Community1, Community2, Community3, Community4].map((img, i) => (
+            {communities.map((img, i) => (
               <div 
                 key={i}
                 className="rounded-full border-1 p-3.5 bg-white relative"
+                style={{
+                  borderColor: 'rgba(26, 26, 26, 0.12)',
+                  marginLeft: i > 0 ? '-14px' : '0',
+                  zIndex: i + 1,
+                }}
               >
                 <Image src={img} alt={`Community ${i + 1}`} width={24} height={24} />
               </div>
@@ -444,4 +453,3 @@ export default function AboutMain() {
     </div>
   );
 }
-
