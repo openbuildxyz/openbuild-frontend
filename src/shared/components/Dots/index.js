@@ -20,6 +20,7 @@ import { classNames } from '@/utils';
 export default function Dots({ children = <span />, className }) {
   return (
     <>
+      { /* eslint-disable-next-line react/no-unknown-property */ }
       <style jsx>
         {`
           .dots::after {

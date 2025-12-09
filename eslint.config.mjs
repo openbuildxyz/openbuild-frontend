@@ -4,6 +4,8 @@ import pluginNext from '@next/eslint-plugin-next';
 import headers from 'eslint-plugin-headers';
 import globals from 'globals';
 import pluginReact from 'eslint-plugin-react';
+import pluginTs from '@typescript-eslint/eslint-plugin';
+import parserTs from '@typescript-eslint/parser';
 import pluginReactHooks from 'eslint-plugin-react-hooks';
 import gitignore from 'eslint-config-flat-gitignore';
 
@@ -47,6 +49,29 @@ export default [
           varsIgnorePattern: '^_',
         },
       ],
+    },
+  },
+  {
+    name: 'eslint/typescript/rules',
+    files: ['src/**/*.{js,jsx,ts,tsx}'],
+    settings: {
+      react: {
+        version: 'detect',
+      },
+    },
+    languageOptions: {
+      parser: parserTs,
+      parserOptions: {
+        sourceType: 'module',
+      },
+    },
+    plugins: {
+      '@typescript-eslint': pluginTs,
+    },
+    rules: {
+      ...pluginTs.configs['eslint-recommended'].overrides?.[0]?.rules,
+      ...pluginTs.configs.strict.rules,
+      '@typescript-eslint/no-explicit-any': 'off',
     },
   },
   {

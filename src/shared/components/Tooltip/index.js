@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+/* eslint-disable react/no-unknown-property */
+
 import React, { useCallback, useState } from 'react';
 
 import { classNames } from '../../utils/index';
@@ -41,7 +43,7 @@ export default function Tooltip({ text, children, className, ...rest }) {
             width="200"
             height="200"
           >
-            <path d="M27.273 753.613l485.222-484.233 484.233 485.222z" fill="#1a1a1a" p-id="1523" />
+            <path d="M27.273 753.613l485.222-484.233 484.233 485.222z" fill="#1a1a1a" />
           </svg>
           {text}
         </div>

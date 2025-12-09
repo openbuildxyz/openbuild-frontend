@@ -76,6 +76,7 @@ export function ReactSelect({
     isFunction(onChange) && onChange(...args);
   } : onChange;
 
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const resolveOptionDisabled = () => isMulti && resolvedLimit > 0 ? selectedOpts!.length >= resolvedLimit : false;
 
   return (
