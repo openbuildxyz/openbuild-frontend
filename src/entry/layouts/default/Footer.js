@@ -100,10 +100,10 @@ const menus = [
   {
     name: 'Company',
     items: [
-      // {
-      //   name: 'About Us',
-      //   link: 'https://www.google.com',
-      // },
+      {
+        name: 'About us',
+        link: '/about',
+      },
       {
         name: 'Apply for Cooperation',
         link: 'https://forms.gle/s2tDbixtdqTU8xbp9',
@@ -119,10 +119,6 @@ const menus = [
       {
         name: 'Press Kit',
         link: 'https://logo.openbuild.xyz',
-      },
-      {
-        name: 'About',
-        link: '/about',
       },
     ],
   },
