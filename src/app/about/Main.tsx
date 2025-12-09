@@ -342,6 +342,7 @@ export default function AboutMain() {
                 href="https://openbuildxyz.github.io/eco/"
                 className="underline font-bold text-[20px]/[20px] tracking-[-0.4px]"
                 target="_blank"
+                rel="noreferrer"
               >
                 View More
               </a>
