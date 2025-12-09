@@ -32,12 +32,3 @@ export async function ownedNFTs(address) {
   const res = await get(`ts/v1/nft/general/tools/address/owned?address=${address}`);
   return res;
 }
-
-export async function getConfigs() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}ts/v1/config`, { cache: 'no-store' });
-  if (!res.ok) {
-    return null;
-    // throw console.error('Failed to fetch data')
-  }
-  return res.json();
-}

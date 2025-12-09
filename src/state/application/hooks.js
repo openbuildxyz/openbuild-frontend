@@ -14,10 +14,12 @@
  * limitations under the License.
  */
 
-import { useSelector } from 'react-redux';
-import { setOpenModal } from './reducer';
 import { useCallback } from 'react';
+import { useSelector } from 'react-redux';
+
 import { useAppDispatch } from '#/state/hooks';
+
+import { setOpenModal } from './reducer';
 
 export function useModalOpen(modal) {
   const openModal = useSelector(state => state.application.openModal);
@@ -43,7 +45,7 @@ export function useConfig() {
 }
 
 export function useMediaUrl() {
-  const config = useSelector(state => state.application.config);
+  const config = useConfig();
   return config?.find(f => f.config_name === 'media_url')?.config_value.url;
 }
 
@@ -53,12 +55,12 @@ export function useAssetUrl(relativePath) {
 }
 
 export function useSlillhubChain() {
-  const config = useSelector(state => state.application.config);
+  const config = useConfig();
   return config?.find(f => f.config_name === 'blockchain')?.config_value.skills_hub?.find(sf => sf.available === true);
 }
 
 export function useAllSkills() {
-  const config = useSelector(state => state.application.config);
+  const config = useConfig();
 
   return config
     ?.find(f => f.config_id === 3)

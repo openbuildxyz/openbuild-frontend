@@ -14,18 +14,19 @@
  * limitations under the License.
  */
 
-import { classNames } from '@/utils';
+import { waitForTransaction } from '@wagmi/core';
+import { writeContract } from '@wagmi/core';
+import { useState } from 'react';
+import { toast } from 'react-toastify';
 
 import { Button } from '@/components/Button';
 import { Modal } from '@/components/Modal';
-import { useState } from 'react';
-import { toast } from 'react-toastify';
-import { useSlillhubChain } from '#/state/application/hooks';
-import { waitForTransaction } from '@wagmi/core';
+import { classNames } from '@/utils';
+
+import { baseInputStyles } from '#/domain/profile/widgets/blocks';
 // import { writeContract, prepareWriteContract } from '@wagmi/core'
 import { hireCancel } from '#/services/shilling';
-import { writeContract } from '@wagmi/core';
-import { baseInputStyles } from '#/domain/profile/widgets/blocks';
+import { useSlillhubChain } from '#/state/application/hooks';
 
 export function TerminateModal({ open, closeModal, data }) {
   const slillhubChain = useSlillhubChain();

@@ -16,22 +16,22 @@
 
 'use client';
 
+import Aos from 'aos';
 import Image from 'next/image';
 import Link from 'next/link';
 import HomeTopBg from 'public/images/home-top-bg.png';
-
-import { BuilderWay } from './BuilderWay';
-import { MarqueeContent } from './Marquee';
-import { Contributor } from './Contributor';
-import { BuildWith } from './BuildWith';
-import { Newest } from './Newest';
-import { Trusted } from './Trusted';
-import { StartOnOpenBuild } from '../learn/StartOnOpenBuild';
-import Aos from 'aos';
-import Spin from './Spin';
-
 import { useEffect } from 'react';
 import Typed from 'react-typed';
+
+import StartOnOpenBuild from '#/entry/components/StartOnOpenBuild';
+
+import { BuilderWay } from './BuilderWay';
+import { BuildWith } from './BuildWith';
+import { Contributor } from './Contributor';
+import { MarqueeContent } from './Marquee';
+import { Newest } from './Newest';
+import Spin from './Spin';
+import { Trusted } from './Trusted';
 
 export function HomeMain({data}) {
   useEffect(() => {

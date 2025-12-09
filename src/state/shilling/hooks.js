@@ -14,9 +14,11 @@
  * limitations under the License.
  */
 
-import { useSelector } from 'react-redux';
 import { useCallback } from 'react';
+import { useSelector } from 'react-redux';
+
 import { useAppDispatch } from '#/state/hooks';
+
 import { setRequiredSkills } from './reducer';
 
 export function useSetRequiredSkills(skills) {

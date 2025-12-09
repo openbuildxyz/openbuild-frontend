@@ -14,14 +14,15 @@
  * limitations under the License.
  */
 
+import BitkeepIcon from 'public/images/svg/bitkeep.svg';
 import MatemaskIcon from 'public/images/svg/matemask.svg';
 import WalletconnectIcon from 'public/images/svg/walletconnect.svg';
-import BitkeepIcon from 'public/images/svg/bitkeep.svg';
-
 import { InjectedConnector } from 'wagmi/connectors/injected';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
-import { BitkeepConnector } from './BitkeepConnector';
+
 import { chains } from '@/constants/chain';
+
+import { BitkeepConnector } from './BitkeepConnector';
 
 export const injected = new InjectedConnector({
   chains,

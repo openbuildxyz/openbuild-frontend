@@ -15,6 +15,7 @@
  */
 
 import { useCallback, useState, useEffect } from 'react';
+
 import { get } from '@/utils/request';
 
 export function useDashboardEnroolSeries({ skip, take, status, series_type }) {
@@ -53,37 +54,6 @@ export function useDashboardEnroolSeries({ skip, take, status, series_type }) {
     setList(list);
   };
   return { loading, list, hasNextPage, doSetList };
-}
-
-export function useDashboardAnalytics() {
-  const [analytics, setAnalytics] = useState();
-  const fetch = useCallback(() => {
-    get('v1/learn/dashboard/enrool/series/analytics').then(result => {
-      if (result.code === 200) {
-        setAnalytics(result.data);
-      }
-    });
-  }, []);
-  useEffect(() => {
-    fetch();
-  }, [fetch]);
-  return analytics;
-}
-export function useDashboardNftList() {
-  const [list, setList] = useState();
-  const [loading, setLoading] = useState(true);
-  const fetch = useCallback(async () => {
-    const res = await get('ts/v1/nft/general/infos');
-    setLoading(false);
-    if (res.code === 200) {
-      setList(res.data.list);
-    }
-  }, []);
-  useEffect(() => {
-    fetch();
-  }, [fetch]);
-  const reFetch = () => fetch();
-  return { list, loading, reFetch };
 }
 
 export function useBountyList({ skip, take, title, status }) {

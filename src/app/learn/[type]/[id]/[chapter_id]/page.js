@@ -14,26 +14,63 @@
  * limitations under the License.
  */
 
-import { get } from '@/utils/request';
+import { fetchOne as fetchChallenge, fetchLessonWithEntity as fetchLessonWithChallenge } from '#/domain/challenge/repository';
+import { fetchOne as fetchCourse, fetchLessonWithEntity as fetchLessonWithCourse } from '#/domain/course/repository';
 
-import { Steper } from './Steper';
-import { Content } from './Content';
-import { PostTime } from './PostTime';
+import LessonDetailPageAdapter from './LessonDetailPageAdapter';
+
+const learnTypeMap = {
+  courses: {
+    collectionText: 'Open Courses',
+    fetchOne: fetchCourse,
+    fetchLessonWithEntity: fetchLessonWithCourse,
+  },
+  challenges: {
+    collectionText: 'Challenges',
+    fetchOne: fetchChallenge,
+    fetchLessonWithEntity: fetchLessonWithChallenge,
+  },
+};
+
+export async function generateMetadata({ params }) {
+  const { fetchOne } = learnTypeMap[params.type] || {};
+
+  if (!fetchOne) {
+    return {};
+  }
+
+  const { data } = await fetchOne(params.id);
+  const previousImages = data?.base?.course_series_img ? `https://file-cdn.openbuild.xyz${data.base.course_series_img}` : '';
+  const chapter = data.courses.find(course => String(course?.base?.course_single_id) === params.chapter_id);
+
+  return {
+    title: data?.base?.course_series_title,
+    description: data?.base?.course_series_summary,
+    openGraph: {
+      title: chapter?.base?.course_single_name || data?.base?.course_series_title,
+      images: [previousImages],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: chapter?.base?.course_single_name || data?.base?.course_series_title,
+      images: [previousImages],
+    },
+  };
+}
 
 export default async function ChapterPage({ params }) {
-  const datas = await Promise.all([
-    get(`v1/learn/course/${params.type === 'courses' ? 'opencourse' : 'challenges'}/${params.id}`, {isServer: true}),
-    get(`ts/v1/learn/general/course/single/${params.chapter_id}`, {isServer: true}),
-  ]);
-  const [{ data }, { data: lessonData }] = [...datas];
+  const learnType = params.type;
+  const learnTypeInfo = learnTypeMap[learnType];
+
+  if (!learnTypeInfo) {
+    return null;
+  }
+
+  const { collectionText, fetchLessonWithEntity } = learnTypeInfo;
+  const collection = { link: `/learn/${learnType}`, text: collectionText };
+  const res = await fetchLessonWithEntity({ id: params.chapter_id, entityId: params.id });
 
   return (
-    <div className="px-6 lg:flex">
-      {data?.base?.course_series_id && lessonData?.base?.course_single_id && (
-        <Steper type={params.type} data={data} id={data?.base?.course_series_id} singleId={lessonData?.base.course_single_id} />
-      )}
-      {lessonData && data && <Content type={params.type} id={params.id} single={lessonData} data={lessonData.base.course_single_content} menuData={data} />}
-      {lessonData?.base.course_single_id && <PostTime id={lessonData?.base.course_single_id} />}
-    </div>
+    <LessonDetailPageAdapter collection={collection} data={res.extra.entity} lessonData={res.data} />
   );
 }

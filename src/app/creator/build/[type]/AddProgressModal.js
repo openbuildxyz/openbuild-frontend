@@ -16,11 +16,13 @@
 
 'use client';
 
-import { Modal } from '@/components/Modal';
 import { useState } from 'react';
-import { Button } from '@/components/Button';
-import { addProgress } from '#/services/bounties';
 import { toast } from 'react-toastify';
+
+import { Button } from '@/components/Button';
+import { Modal } from '@/components/Modal';
+
+import { addProgress } from '#/services/bounties';
 
 export function AddProgressModal({ id, open, closeModal }) {
   const [content, setContent] = useState('');

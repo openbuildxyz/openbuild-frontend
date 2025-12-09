@@ -15,10 +15,11 @@
  */
 
 import { useState, useEffect } from 'react';
-import { isEmail } from 'validator';
 import { toast } from 'react-toastify';
+import { isEmail } from 'validator';
 
 import { wrapOnChange } from '@/utils/form';
+
 import { sendCode } from '#/services/auth';
 
 export default function VerifyCodeLogin({ register, loginType, email }) {

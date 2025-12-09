@@ -14,17 +14,18 @@
  * limitations under the License.
  */
 
+import BigNumber from 'bignumber.js';
 import Image from 'next/image';
-import { Modal } from '@/components/Modal';
+
+import { Button } from '@/components/Button';
 import { ModalCloseIcon, TipsIcon, TriangleIcon } from '@/components/Icons';
+import { OViewer } from '@/components/MarkDown';
+import { Modal } from '@/components/Modal';
+import { MouseoverTooltip } from '@/components/Tooltip';
+import { formatTime } from '@/utils/date';
+import { formatTokenUnits } from '@/utils/web3';
 
 import { useMediaUrl, useAllSkills, useSlillhubChain } from '#/state/application/hooks';
-import { Button } from '@/components/Button';
-import { formatTime } from '@/utils/date';
-import { MouseoverTooltip } from '@/components/Tooltip';
-import { OViewer } from '@/components/MarkDown';
-import BigNumber from 'bignumber.js';
-import { formatUnits } from '@ethersproject/units';
 
 export function ManageModal({
   open,
@@ -306,7 +307,7 @@ export function ManageModal({
                   <div className="mt-6">
                     <p className="text-sm opacity-60">Claimed Fees</p>
                     <p className="mt-1 font-bold">
-                      ${formatUnits(data.claimed_cost, slillhubChain?.use_coins[0].decimals).toString()}
+                      ${formatTokenUnits(data.claimed_cost, slillhubChain?.use_coins[0].decimals).toString()}
                     </p>
                   </div>
                 </div>

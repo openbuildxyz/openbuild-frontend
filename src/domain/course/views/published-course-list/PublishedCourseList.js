@@ -17,7 +17,6 @@
 import LoadableList from '@/components/loadable-list';
 
 import { useViewingSelf } from '../../../auth/hooks';
-
 import { fetchPublishedCourseList } from '../../repository';
 import PublishedCourseItem from './PublishedCourseItem';
 

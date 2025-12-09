@@ -16,6 +16,7 @@
 
 import { useSession, signIn } from 'next-auth/react';
 
+import { getOauthSourceFromParams } from '../helper';
 import { signInWithWallet } from '../repository';
 import useSignWallet from './useSignWallet';
 
@@ -36,7 +37,7 @@ function useSignInWithWallet() {
       }
 
       // router.push(`/bind/wallet?nonce=${_nonce.id}&signature=${signature}&account=${account}`)
-      const cUrl = pathname.includes('/signin') ? decodeURIComponent(search?.get('from') || '/profile') : window.location.href;
+      const cUrl = pathname.includes('/signin') ? decodeURIComponent(getOauthSourceFromParams(search) || search?.get('from') || '/profile') : window.location.href;
 
       window.localStorage.setItem('signType', 'wallet');
 

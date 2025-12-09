@@ -16,21 +16,24 @@
 
 'use client';
 
-import Link from 'next/link';
 import clsx from 'clsx';
-import { useEffect, useState } from 'react';
-import { registerEmail, sendCode } from '#/services/auth';
-import { useForm } from 'react-hook-form';
-import { useRouter } from 'next/navigation';
-import { toast } from 'react-toastify';
-import Loader from '@/components/Loader';
-import { useAccount } from 'wagmi';
-import { useSearchParams } from 'next/navigation';
 import { useSession } from 'next-auth/react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 import isEmail from 'validator/lib/isEmail';
-import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
+import { useAccount } from 'wagmi';
 
-import { NavButtonStyle } from '../signin/page';
+import { EyeIcon, EyeSlashIcon } from '@/components/icon/outlined';
+import Loader from '@/components/Loader';
+
+import { registerEmail, sendCode } from '#/services/auth';
+
+import { NavButtonStyle } from '../helper';
+
 const SignupAfterStyle = 'after:content-[\'\'] after:absolute after:left-[-12px] after:bottom-0 after:w-3 after:h-3 after:bg-signup-gradient';
 
 export default function SignUp() {
@@ -78,9 +81,9 @@ export default function SignUp() {
       <div>
         <div>
           <Link href="/signin">
-            <button className={clsx(NavButtonStyle())}>Sign in</button>
+            <button className={clsx(NavButtonStyle)}>Sign in</button>
           </Link>
-          <button className={clsx(NavButtonStyle(), SignupAfterStyle, 'active')}>Sign up</button>
+          <button className={clsx(NavButtonStyle, SignupAfterStyle, 'active')}>Sign up</button>
         </div>
         <form onSubmit={handleSubmit(onSubmit)}>
           <input

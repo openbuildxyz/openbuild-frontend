@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-import CoursesIcon from 'public/images/svg/courses.svg';
-import GrowthPathIcon from 'public/images/svg/path.svg';
-import QuizIcon from 'public/images/svg/quiz.svg';
 // import CareerIcon from 'public/images/svg/folder.svg'
 import ChallengesIcon from 'public/images/svg/challenges.svg';
-import GithubIcon from 'public/images/svg/github_l.svg';
-import TwitterIcon from 'public/images/svg/twitter_l.svg';
+import CoursesIcon from 'public/images/svg/courses.svg';
 import DiscordIcon from 'public/images/svg/discord-outlined.svg';
-import TelegramIcon from 'public/images/svg/telegram.svg';
+import GithubIcon from 'public/images/svg/github_l.svg';
 import LinkedInIcon from 'public/images/svg/linkedin-outlined.svg';
+import GrowthPathIcon from 'public/images/svg/path.svg';
+import QuizIcon from 'public/images/svg/quiz.svg';
 import SubstackIcon from 'public/images/svg/substack-outlined.svg';
+import TelegramIcon from 'public/images/svg/telegram.svg';
+import TwitterIcon from 'public/images/svg/twitter_l.svg';
 // import BountyIcon from 'public/images/svg/bounty.svg'
 // import ShillingIcon from 'public/images/svg/shilling.svg'
 

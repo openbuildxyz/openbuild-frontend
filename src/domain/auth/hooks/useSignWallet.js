@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-import { isFunction } from 'lodash';
 import { useSignMessage } from 'wagmi';
+
+import { isFunction } from '@/utils';
 
 import { signWallet } from '../repository';
 import useEnsureRightEnv from './useEnsureRightEnv';

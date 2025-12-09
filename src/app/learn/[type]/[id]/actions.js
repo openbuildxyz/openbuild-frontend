@@ -17,17 +17,15 @@
 'use server';
 
 import { revalidatePath } from 'next/cache';
-import { post } from '@/utils/request';
+
+import { enrollOne as enrollCourse } from '#/domain/course/repository';
+import { enrollOne as enrollRoadmap } from '#/domain/roadmap/repository';
 
 export async function enrollAction(id) {
   try {
-    const res = await post(`ts/v1/learn/general/course/opencourse/${id}/permission/enrool`, {}, { isServer: true });
-    if (res.code === 200) {
-      return revalidatePath('/');
-    } else {
-      return res;
-    }
-  } catch {
+    const res = await enrollCourse(id);
+    return res.success ? revalidatePath('/') : res;
+  } catch (e) {
     return { message: 'Failed to request' };
   }
 }
@@ -38,14 +36,9 @@ export async function revalidatePathAction() {
 
 export async function growPathEnrollAction(id) {
   try {
-    const res = await post(`ts/v1/learn/general/course/grow_path/${id}/permission/enrool`, {}, { isServer: true });
-    console.log(res, 'res');
-    if (res.code === 200) {
-      return revalidatePath('/');
-    } else {
-      return res;
-    }
-  } catch {
+    const res = await enrollRoadmap(id);
+    return res.success ? revalidatePath('/') : res;
+  } catch (e) {
     return { message: 'Failed to request' };
   }
 }

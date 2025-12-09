@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import { isInteger } from 'lodash';
 import clsx from 'clsx';
 
 import Image from '@/components/Image';
+import { isInteger } from '@/utils';
 
 const idKey = 'id';
 const avatarKey = 'id';

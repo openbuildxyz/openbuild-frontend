@@ -14,16 +14,13 @@
  * limitations under the License.
  */
 
-import useSWR from 'swr';
-
-import Image from '@/components/Image';
 import Avatar from '@/components/Avatar';
 import BrandLogo from '@/components/brand-logo';
+import Image from '@/components/Image';
+import useUpToDate from '@/hooks/useUpToDate';
 
-import { fetcher } from '@/utils/request';
-
+import { fetchOne, fetchOneWithQuestionList } from '../../repository';
 import QuizLimiterWidget from '../../widgets/quiz-limiter';
-
 import quizEco from './quiz-eco.png';
 import { QuizComponents } from './QuizComponents';
 
@@ -37,8 +34,8 @@ function QuizCreator({ creator }) {
 }
 
 function QuizQuestionListView({ id, version }) {
-  const { data } = useSWR(`/ts/v1/quiz/${id}/info`, fetcher);
-  const { data: quizIndex } = useSWR(`/ts/v1/quiz/${id}/index`, fetcher);
+  const { data } = useUpToDate(fetchOneWithQuestionList, id);
+  const { data: quizIndex } = useUpToDate(fetchOne, id);
 
   return (
     <QuizLimiterWidget id={id} type={quizIndex?.limit?.limit_type} check={!version && !!quizIndex}>

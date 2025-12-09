@@ -17,17 +17,20 @@
 'use client';
 
 import { useCallback, useEffect } from 'react';
+
+import { useMediaQuery } from '@/hooks/useMediaQuery';
+
+import { useAppDispatch } from '#/state/hooks';
+
 // import { getConfig } from '#/services/common'
 import { updateConfig, updateOpenFilter, updateLessonMenu } from './reducer';
-import { useAppDispatch } from '#/state/hooks';
-import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 export default function Updater({ datas }) {
   const dispatch = useAppDispatch();
   const isMobile = !useMediaQuery('(min-width: 768px)');
   const isNotLg = useMediaQuery('(min-width: 1024px)');
   const gc = useCallback(async () => {
-    if (datas?.configs?.code === 200) {
+    if (datas?.configs?.success) {
       dispatch(updateConfig(datas.configs.data.list));
     }
   }, [dispatch, datas]);

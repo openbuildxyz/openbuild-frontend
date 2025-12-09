@@ -15,6 +15,7 @@
  */
 
 import { useCallback, useState, useEffect } from 'react';
+
 import { get } from '@/utils/request';
 
 export function useList({ labels, skip, take, title, status, skills, order }) {
@@ -75,26 +76,6 @@ export function useDetails(id) {
   return { data, loading };
 }
 
-export function useBountyBuildersList(id) {
-  const [list, setList] = useState();
-  const [loading, setLoading] = useState(true);
-  const fetch = useCallback(async () => {
-    if (id) {
-      setLoading(true);
-      get(`ts/v1/build/general/bounties/${id}/builders`).then(result => {
-        setList(result.data?.list || []);
-        setLoading(false);
-      });
-    }
-  }, [id]);
-
-  useEffect(() => {
-    fetch();
-  }, [fetch]);
-  const doFetch = () => fetch();
-  return { list, loading, doFetch };
-}
-
 export function useBountyEvents(id) {
   const [list, setList] = useState();
   const [loading, setLoading] = useState(true);
@@ -102,27 +83,6 @@ export function useBountyEvents(id) {
     if (id) {
       setLoading(true);
       get('ts/v1/build/general/bounties/{id}/events').then(result => {
-        setList(result.data.list);
-        setLoading(false);
-      });
-    }
-  }, [id]);
-
-  useEffect(() => {
-    fetch();
-  }, [fetch]);
-  return { list, loading };
-}
-
-export function useBountyActivities(id) {
-  // console.log(id)
-  const [list, setList] = useState();
-  const [loading, setLoading] = useState(true);
-  const fetch = useCallback(async () => {
-    if (id) {
-      setLoading(true);
-      get(`ts/v1/build/general/bounties/${id}/events/activities`).then(result => {
-        // console.log(result)
         setList(result.data.list);
         setLoading(false);
       });

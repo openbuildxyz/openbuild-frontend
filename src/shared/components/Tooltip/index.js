@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import { classNames } from '@/utils';
 import React, { useCallback, useState } from 'react';
-// import { PlayCircleIcon } from '@heroicons/react/20/solid'
 
+import { classNames } from '../../utils/index';
+// import { PlayCircleIcon } from '../icon/solid';
 import Popover from '../Popover';
 
 export default function Tooltip({ text, children, className, ...rest }) {

@@ -14,12 +14,14 @@
  * limitations under the License.
  */
 
-import { Popover as HeadlessuiPopover } from '@headlessui/react';
-import { classNames } from '@/utils';
-import useInterval from '@/hooks/useInterval';
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { usePopper } from 'react-popper';
+
+import useInterval from '@/hooks/useInterval';
+import { classNames } from '@/utils';
+
+import { Popover as HeadlessuiPopover } from '../control/headlessui';
 
 export default function Popover({ content, children, placement = 'auto', show, modifiers }) {
   const [referenceElement, setReferenceElement] = useState(null);

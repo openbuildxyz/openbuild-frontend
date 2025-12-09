@@ -16,7 +16,8 @@
 
 import React from 'react';
 import { components } from 'react-select';
-import { XMarkIcon, ChevronDownIcon } from '@heroicons/react/20/solid';
+
+import { XMarkIcon, ChevronDownIcon } from '../icon/solid';
 
 export const DropdownIndicator = props => {
   return (

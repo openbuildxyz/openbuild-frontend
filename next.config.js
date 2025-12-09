@@ -16,8 +16,18 @@
 
 /** @type {import('next').NextConfig} */
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
-  enabled: process.env.ANALYZE === 'true'
-})
+  enabled: process.env.ANALYZE === 'true',
+});
+
+const openbuildDomains = [
+  'openbuild.xyz',
+  'file-cdn.openbuild.xyz',
+  's3.us-west-1.amazonaws.com',
+];
+
+const web3bioDomains = [
+  'gw.ipfs-lens.dev',
+];
 
 module.exports = withBundleAnalyzer({
   // env: {
@@ -28,29 +38,28 @@ module.exports = withBundleAnalyzer({
   swcMinify: true,
   staticPageGenerationTimeout: 180,
   experimental: {
-    serverActions: true
+    serverActions: true,
   },
   env: {
     NEXT_PUBLIC_DOMAIN_ENV: process.env.NEXT_PUBLIC_DOMAIN_ENV,
   },
   images: {
     domains: [
-      'openbuild.xyz',
+      ...openbuildDomains,
       'assets.website-files.com',
       'images.unsplash.com',
       'img.foresightnews.pro',
       'statics.ambcrypto.com',
       's1.ax1x.com',
       'imgse.com',
-      's3.us-west-1.amazonaws.com',
-      'file-cdn.openbuild.xyz'
+      ...web3bioDomains,
     ],
   },
   webpack: config => {
-    config.externals.push('pino-pretty', 'lokijs', 'encoding', 'bufferutil', 'utf-8-validate')
-    return config
+    config.externals.push('pino-pretty', 'lokijs', 'encoding', 'bufferutil', 'utf-8-validate');
+    return config;
   },
   compiler: {
     styledComponents: true,
   },
-})
+});

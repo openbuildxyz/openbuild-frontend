@@ -14,27 +14,72 @@
  * limitations under the License.
  */
 
-import { merge } from 'lodash';
-
+import { PAGE_SIZE } from '@/constants/config';
+import { isInteger, merge } from '@/utils';
 import httpClient from '@/utils/http';
 
-async function fetchPublishedBountyList(params = {}) {
-  const { userId, sort, ...others } = params;
+function resolveSkipped(page, size = PAGE_SIZE) {
+  let resolved = Number(page);
+
+  if (!isInteger(resolved) || resolved < 1) {
+    resolved = 1;
+  }
+
+  return (resolved - 1) * size;
+}
+
+async function fetchList(params = {}) {
+  const { page = 1, sort, ...others } = params;
 
   return httpClient.get('/build/general/bounties', {
-    params: merge({ take: 20 }, others, {
-      team_uid: userId,
+    params: merge({ take: PAGE_SIZE }, others, {
+      skip: resolveSkipped(page),
       sort_by: sort || 'default',
     }),
   });
+}
+
+async function fetchOne(id) {
+  return httpClient.get(`/build/general/bounties/${id}`);
+}
+
+async function applyOne(id, data) {
+  return httpClient.post(`/build/general/bounties/${id}/builders`, data);
+}
+
+async function fetchActivityList(id) {
+  return httpClient.get(`/build/general/bounties/${id}/events/activities`);
+}
+
+async function fetchBuilderList(id) {
+  return httpClient.get(`/build/general/bounties/${id}/builders`);
+}
+
+async function fetchBuilderListForCreator(id, params) {
+  return httpClient.get(`/build/creator/bounties/${id}/builders`, { params });
+}
+
+async function fetchPublishedBountyList(params = {}) {
+  const { userId, ...others } = params;
+
+  return fetchList({ ...others, team_uid: userId  });
 }
 
 async function fetchAppliedBountyList(params = {}) {
   const { userId, sort, ...others } = params;
 
   return httpClient.get(`/build/dashboard/bounties/public/${userId}`, {
-    params: merge({ take: 20 }, others, { sort_by: sort || 'default' }),
+    params: merge({ take: PAGE_SIZE }, others, { sort_by: sort || 'default' }),
   });
 }
 
-export { fetchPublishedBountyList, fetchAppliedBountyList };
+async function requestTermination(id, data) {
+  return httpClient.post(`/build/creator/bounties/${id}/status/termination/propose`, data);
+}
+
+export {
+  fetchList, fetchOne, applyOne,
+  fetchActivityList, fetchBuilderList, fetchBuilderListForCreator,
+  fetchPublishedBountyList, fetchAppliedBountyList,
+  requestTermination,
+};

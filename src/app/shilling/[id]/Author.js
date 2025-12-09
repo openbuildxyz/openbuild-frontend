@@ -16,24 +16,26 @@
 
 'use client';
 
-import { RepositioningIcon, TriangleIcon, InformationIcon } from '@/components/Icons';
-import { Button } from '@/components/Button';
-import Avatar from '@/components/Avatar';
-import { Modal } from '@/components/Modal';
-import { useState } from 'react';
-import { baseInputStyles } from '#/domain/profile/widgets/blocks';
-import { useAllSkills } from '#/state/application/hooks';
-import { countries } from '#/lib/countries';
-import { useDetailsPermission } from '#/services/shilling/hooks';
-import { applyGetContact } from '#/services/shilling';
-import { GoogleReCaptcha } from 'react-google-recaptcha-v3';
-import { toast } from 'react-toastify';
-import { ReactSelect } from '@/components/Select/ReactSelect';
-import { ContactModal } from '../ContactModal';
-import { HireOnChainModal } from '../HireOnChainModal';
-import { HireConfirmModal } from '../HireConfirmModal';
 import { useSession } from 'next-auth/react';
 import { useRouter, usePathname } from 'next/navigation';
+import { useState } from 'react';
+import { GoogleReCaptcha } from 'react-google-recaptcha-v3';
+import { toast } from 'react-toastify';
+
+import Avatar from '@/components/Avatar';
+import { Button } from '@/components/Button';
+import { RepositioningIcon, TriangleIcon, InformationIcon } from '@/components/Icons';
+import { Modal } from '@/components/Modal';
+
+import { baseInputStyles } from '#/domain/profile/widgets/blocks';
+import SkillSelect from '#/domain/skill/widgets/skill-select';
+import { countries } from '#/lib/countries';
+import { applyGetContact } from '#/services/shilling';
+import { useDetailsPermission } from '#/services/shilling/hooks';
+
+import { ContactModal } from '../ContactModal';
+import { HireConfirmModal } from '../HireConfirmModal';
+import { HireOnChainModal } from '../HireOnChainModal';
 
 export function Author({ data }) {
   const { status } = useSession();
@@ -49,7 +51,6 @@ export function Author({ data }) {
   const [applyLoading, setApplyLoading] = useState(false);
   const [openToken, setOpenToken] = useState(false);
   const [token, setToken] = useState('');
-  const skills = useAllSkills();
   const [selectSkills, setSelectSkills] = useState();
   const getContact = token => {
     setOpenToken(false);
@@ -136,15 +137,7 @@ export function Author({ data }) {
         <div>
           <div>
             <p className="mb-1 text-sm opacity-60">Choose the Skill you interested</p>
-            <ReactSelect
-              isMulti
-              options={skills}
-              onChange={e => {
-                const _skills = e.map(i => i.value);
-                setSelectSkills(_skills);
-              }}
-              className="react-select-container !min-h-12 border-0"
-            />
+            <SkillSelect onChange={setSelectSkills} className="react-select-container !min-h-12 border-0"/>
           </div>
           <div className="mt-4">
             <p className="mb-1 text-sm opacity-60">The developer need you provide your introduction & demand</p>

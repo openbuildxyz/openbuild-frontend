@@ -17,15 +17,15 @@
 'use client';
 
 import Link from 'next/link';
-import { useMemo } from 'react';
-import { PlusIcon } from '@heroicons/react/24/outline';
-import { ReactSelect } from '@/components/Select/ReactSelect';
-import Input from '@/components/Input';
-import { SearchIcon } from '@/components/Icons';
-
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useMemo } from 'react';
 import { useDebouncedCallback } from 'use-debounce';
+
 import { Button } from '@/components/Button';
+import { PlusIcon } from '@/components/icon/outlined';
+import { SearchIcon } from '@/components/Icons';
+import Input from '@/components/Input';
+import { ReactSelect } from '@/components/Select/ReactSelect';
 
 const options = [
   {

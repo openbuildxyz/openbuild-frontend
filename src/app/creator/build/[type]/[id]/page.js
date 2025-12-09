@@ -15,19 +15,21 @@
  */
 
 'use client';
-import { useState, useMemo, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { Select } from '@/components/Select';
-import { useAllSkills, useConfig, useMediaUrl } from '#/state/application/hooks';
-// import SelectSkills from '@/components/SelectSkills'
-import { Button } from '@/components/Button';
 import clsx from 'clsx';
+import { useRouter } from 'next/navigation';
+import { useState, useMemo, useEffect } from 'react';
 import { toast } from 'react-toastify';
-import { publishBounty, editBounty } from '#/services/creator';
-import { ReactSelect } from '@/components/Select/ReactSelect';
+
+import { Button } from '@/components/Button';
 import { OEditor } from '@/components/MarkDown';
+import { Select } from '@/components/Select';
+import { ReactSelect } from '@/components/Select/ReactSelect';
 import { BASE_INPUT_STYLE } from '@/constants/config';
 import { get } from '@/utils/request';
+
+import SkillSelect from '#/domain/skill/widgets/skill-select';
+import { publishBounty, editBounty } from '#/services/creator';
+import { useConfig, useMediaUrl } from '#/state/application/hooks';
 
 const options = [
   {
@@ -59,7 +61,6 @@ export default function Page({params: { id }}) {
   const router = useRouter();
   const config = useConfig();
   const mediaUrl = useMediaUrl();
-  const allSkills = useAllSkills();
 
   const [ecosystem, setEcosystem] = useState('');
   const [skills, setSkills] = useState([]);
@@ -226,19 +227,7 @@ export default function Page({params: { id }}) {
         </div>
         <div className="col-span-2">
           <h5>Required Skills <span className={clsx('text-xs font-normal', {' opacity-60': !skillsErr, 'text-red': skillsErr}) }>Select up to 3 items </span></h5>
-          <ReactSelect
-            value={skills.map(i => allSkills?.find(f => f.value === i))}
-            isMulti
-            name="skills"
-            options={allSkills}
-            className="no-bg"
-            onChange={e => {
-              const _skills = e.map(i => i.value);
-              setSkills(_skills);
-            }}
-          />
-
-          {/* <SelectSkills skills={skills} setSkills={setSkills} /> */}
+          <SkillSelect value={skills} onChange={setSkills} />
         </div>
       </div>
       <div className="grid grid-cols-2 gap-4 mt-4">

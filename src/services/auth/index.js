@@ -14,20 +14,20 @@
  * limitations under the License.
  */
 
+import { encryptWithSha256 } from '@/utils/encryption';
 import { post } from '@/utils/request';
-import sha256 from 'sha256';
 
 export async function signin(email, password) {
   const res = await post(
     'ts/v1/auth/user/email/login/password',
-    { email, password: sha256(password) },
+    { email, password: encryptWithSha256(password) },
     { isSetJwt: true }
   );
   return res;
 }
 
 export async function reset(key, password) {
-  const res = await post('ts/v1/auth/user/email/reset/password', { key, password: sha256(password) });
+  const res = await post('ts/v1/auth/user/email/reset/password', { key, password: encryptWithSha256(password) });
   return res;
 }
 
@@ -52,7 +52,7 @@ export async function bindEmail(email, verification_code) {
 export async function registerEmail(email, password, verification_code) {
   const res = await post('ts/v1/auth/user/email/register', {
     email,
-    password: sha256(password),
+    password: encryptWithSha256(password),
     verification_code,
   });
   return res;

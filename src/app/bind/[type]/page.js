@@ -16,12 +16,12 @@
 
 'use client';
 
-import { useSearchParams, useRouter } from 'next/navigation';
 import { signIn, signOut, useSession } from 'next-auth/react';
+import { useSearchParams, useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 
-import useMounted from '@/hooks/useMounted';
 import Loader from '@/components/Loader';
+import useMounted from '@/hooks/useMounted';
 
 import { bindOAuth } from '#/services/auth';
 
@@ -49,6 +49,10 @@ export default function Bind({ params }) {
                 from = searchParams?.get('state');
               } else {
                 from = searchParams?.get('from');
+
+                if (from) {
+                  from = decodeURIComponent(from);
+                }
               }
               window.location.href = window.location.origin + from;
             } else {

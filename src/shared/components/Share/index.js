@@ -16,27 +16,29 @@
 
 'use client';
 
-import { useMemo, useState } from 'react';
-import { Modal } from '@/components/Modal';
+import clsx from 'clsx';
+import copy from 'copy-to-clipboard';
 import Image from 'next/image';
-
-import { ModalCloseIcon, CopyIcon } from '@/components/Icons';
-import { ArrowLeftIcon } from '@heroicons/react/24/outline';
+import { usePathname, useSearchParams, useRouter } from 'next/navigation';
 import FacebookSvg from 'public/images/svg/share-facebook.svg';
 import XSvg from 'public/images/svg/share-x.svg';
-import copy from 'copy-to-clipboard';
-import { useMediaUrl, useUser } from '#/state/application/hooks';
-import { usePathname, useSearchParams, useRouter } from 'next/navigation';
-import clsx from 'clsx';
-import useSWR from 'swr';
-import { fetcher } from '@/utils/request';
-import { Button } from '../Button';
-import { formatTime } from '@/utils/date';
-import { NoData } from '@/components/NoData';
-import { toast } from 'react-toastify';
+import { useMemo, useState } from 'react';
 import ContentEditable from 'react-contenteditable';
+import { toast } from 'react-toastify';
+import useSWR from 'swr';
+
+import { ModalCloseIcon, CopyIcon } from '@/components/Icons';
+import { Modal } from '@/components/Modal';
+import { NoData } from '@/components/NoData';
 import { HTMLDecode } from '@/utils';
+import { formatTime } from '@/utils/date';
+import { fetcher } from '@/utils/request';
 import { resolvePathWithSearch } from '@/utils/url';
+
+import { useMediaUrl, useUser } from '#/state/application/hooks';
+
+import { Button } from '../Button';
+import { ArrowLeftIcon } from '../icon/outlined';
 
 const combineUrl = (type, user_code, summary) => {
   let baseUrl = '';
@@ -67,7 +69,7 @@ export function Share({ img, title, type, id, excerpt }) {
     }
   }, [user, pathname, searchParams]);
   const { data, isLoading } = useSWR((id && recordOpen) ? `ts/v1/user/invite/export?type=challenges&id=${id}` : null, fetcher);
-  
+
   const invitationRecordsAvailable = type === 'challenges';
   const handleViewRecords = invitationRecordsAvailable ? () => {
     if (user) {

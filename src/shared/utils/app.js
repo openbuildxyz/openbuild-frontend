@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { isString, isFunction, get, cloneDeep } from 'lodash';
+import { isString, isFunction, get, cloneDeep } from './index';
 
 function resolveConfigValue(valueFromEnv, defaultValue, resolve) {
   if (valueFromEnv === undefined) {
@@ -28,6 +28,9 @@ const appConfig = {
   devPlaza: {
     enabled: resolveConfigValue(process.env.OB_DEVPLAZA_ENABLED, true, value => value !== 'false'),
   },
+  aiAgent: {
+    enabled: resolveConfigValue(process.env.OB_AIAGENT_ENABLED, true, value => value !== 'false'),
+  },
 };
 
 function _getAppConfig(config, keyPath) {
@@ -36,4 +39,8 @@ function _getAppConfig(config, keyPath) {
 
 const getAppConfig = _getAppConfig.bind(null, appConfig);
 
-export { _getAppConfig, getAppConfig };
+function getCopyrightText() {
+  return `© ${new Date().getFullYear()} OpenBuild, All rights reserved.`;
+}
+
+export { _getAppConfig, getAppConfig, getCopyrightText };

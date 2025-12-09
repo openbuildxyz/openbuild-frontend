@@ -15,8 +15,8 @@
  */
 
 import clsx from 'clsx';
-import { ResponsiveContainer, Treemap } from 'recharts';
 import Image from 'next/image';
+import { ResponsiveContainer, Treemap } from 'recharts';
 
 import AspectaPic from './aspecta.png';
 
@@ -59,7 +59,7 @@ function CustomizedContent(props) {
 }
 
 function SkillInsight({
-  className,
+  className = undefined,
   headerClassName,
   titleClassName,
   data,

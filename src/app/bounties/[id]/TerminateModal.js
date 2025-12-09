@@ -14,22 +14,20 @@
  * limitations under the License.
  */
 
-import { Modal } from '@/components/Modal';
-import { Button } from '@/components/Button';
 import { useState } from 'react';
-import { currentTime } from '@/utils/date';
 import { toast } from 'react-toastify';
-
-import { signBounty } from '@/utils/web3';
-import { parseUnits } from '@ethersproject/units';
-
 import { useNetwork, useWalletClient } from 'wagmi';
+
+import { Button } from '@/components/Button';
+import { Modal } from '@/components/Modal';
 import { BOUNTY_SUPPORTED_CHAIN } from '@/constants/chain';
 import { contracts, payTokens } from '@/constants/contract';
+import { currentTime } from '@/utils/date';
+import { parseTokenUnits, signBounty } from '@/utils/web3';
+
+import { requestTermination } from '#/domain/bounty/repository';
 
 import { revalidatePathAction } from '../../actions';
-
-import { termination } from '#/services/bounties';
 
 export function TerminateModal({open, close, bounty, type}) {
   const [amount, setAmount] = useState('');
@@ -52,27 +50,27 @@ export function TerminateModal({open, close, bounty, type}) {
       _contracts.bounty,
       walletClient,
       bounty.task,
-      parseUnits(amount.toString(), payToken.decimals),
+      parseTokenUnits(amount.toString(), payToken.decimals),
       _deadline
     );
     if (_s === 'error') {
       setLoading(false);
       return;
     }
-    const res = await termination(
+    const res = await requestTermination(
       bounty.id,
-      Number(amount) * 100,
-      _s,
-      type,
-      _deadline
+      {
+        amount: Number(amount) * 100,
+        sig: _s,
+        close_type: type,
+        deadline: _deadline,
+      },
     );
     setLoading(false);
-    if (res.code === 200) {
+    if (res.success) {
       toast.success('Termination successful');
       close();
       revalidatePathAction();
-    } else {
-      toast.error(res.message);
     }
   };
 

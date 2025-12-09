@@ -16,26 +16,26 @@
 
 'use client';
 
-import { useState } from 'react';
-import { isEmpty } from 'lodash';
 import clsx from 'clsx';
-import { useSearchParams } from 'next/navigation';
-import Link from 'next/link';
 import { signIn } from 'next-auth/react';
+import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
-import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 
-import { signin, emailCodeLogin } from '#/services/auth';
-import { wrapOnChange } from '@/utils/form';
+import { EyeIcon, EyeSlashIcon } from '@/components/icon/outlined';
 import Loader from '@/components/Loader';
+import { isEmpty } from '@/utils';
+import { wrapOnChange } from '@/utils/form';
 
+import { getOauthSourceFromParams } from '#/domain/auth/helper';
+import { signin, emailCodeLogin } from '#/services/auth';
+
+import { NavButtonStyle } from '../helper';
 import LoginTypeSwitcher from './LoginTypeSwitcher';
 import VerifyCodeLogin from './VerifyCodeLogin';
 
-export function NavButtonStyle() {
-  return 'h-12 relative rounded-t-xl text-gray-100 px-6 [&.active]:bg-gray-1400 [&.active]:!text-gray';
-}
 const SigninAfterStyle = 'after:content-[\'\'] after:absolute after:right-[-12px] after:bottom-0 after:w-3 after:h-3 after:bg-signin-gradient';
 
 export default function Login() {
@@ -85,6 +85,7 @@ export default function Login() {
           token: response.data.token,
           redirect: false,
           callbackUrl: decodeURIComponent(
+            getOauthSourceFromParams(searchParams) ||
             searchParams?.get('from') ||
             searchParams?.get('callbackUrl') ||
             '/profile'
@@ -118,7 +119,7 @@ export default function Login() {
     <>
       <div>
         <div>
-          <button className={clsx(NavButtonStyle(), SigninAfterStyle, 'active')}>Sign in</button>
+          <button className={clsx(NavButtonStyle, SigninAfterStyle, 'active')}>Sign in</button>
         </div>
         <div>
           <form onSubmit={handleSubmit(onSubmit)}>

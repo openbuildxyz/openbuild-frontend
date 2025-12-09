@@ -15,6 +15,7 @@
  */
 
 import NextImage from 'next/image';
+
 import { useAssetUrl } from '#/state/application/hooks';
 
 function Image({ width, height, src, alt = '', defaultSrc, className, ...rest }) {

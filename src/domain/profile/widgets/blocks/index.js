@@ -18,20 +18,6 @@
 
 import clsx from 'clsx';
 
-export const ProfileTitle = ({ className, children, ...props }) => {
-  return (
-    <h2
-      className={clsx(
-        'text-[24px] leading-none font-bold md:text-[44px]',
-        className
-      )}
-      {...props}
-    >
-      {children}
-    </h2>
-  );
-};
-
 export const ProfileLabel = ({ className, children, ...props }) => {
   return (
     <p

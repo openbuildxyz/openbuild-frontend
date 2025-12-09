@@ -16,7 +16,7 @@
 
 'use client';
 
-import { XMarkIcon } from '@heroicons/react/20/solid';
+import { XMarkIcon } from '@/components/icon/solid';
 export function Close() {
   return (
     <div

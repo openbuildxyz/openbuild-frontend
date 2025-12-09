@@ -67,10 +67,7 @@ export function ListSkeleton() {
             </div>
           </div>
         ))}
-        
       </div>
     </div>
-    
-    
   );
 }

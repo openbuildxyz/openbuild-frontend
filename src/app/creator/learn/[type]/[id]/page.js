@@ -19,30 +19,29 @@
 import clsx from 'clsx';
 // import Image from 'next/image'
 import Link from 'next/link';
-import { useMemo, useState, useCallback, useEffect, useRef } from 'react';
-import { CreatorLearnStepOne } from './StepOne';
-import { CreatorLearnStepTwo } from './StepTwo';
-import { CreatorLearnStepThree } from './StepThree';
-import { CreatorLearnStepFour } from './StepFour';
-import { CreatorLearnStepFive } from './StepFive';
-
 import { useRouter } from 'next/navigation';
-import { ArrowLeftIcon } from '@/components/Icons';
-import { ChevronDoubleLeftIcon } from '@heroicons/react/20/solid';
-// import PreviewIcon from 'public/images/svg/preview.svg'
-
-import { addSeries, seriesStatus } from '#/services/creator';
-import { Button } from '@/components/Button';
+import { useMemo, useState, useCallback, useEffect, useRef } from 'react';
 import { toast } from 'react-toastify';
 
-import { Sections } from './Sections';
+import { Button } from '@/components/Button';
+import { ChevronDoubleLeftIcon } from '@/components/icon/solid';
+import { ArrowLeftIcon } from '@/components/Icons';
 // import { useDebouncedCallback } from 'use-debounce'
 import { useAsyncState } from '@/hooks/useAsyncState';
-import useInterval from '@/hooks/useInterval';
+// import useInterval from '@/hooks/useInterval';
 import useMounted from '@/hooks/useMounted';
+// import PreviewIcon from 'public/images/svg/preview.svg'
 
-import { fetchOne as fetchCourse } from '#/domain/course/repository';
 import { fetchOne as fetchChallenge } from '#/domain/challenge/repository';
+import { fetchOne as fetchCourse } from '#/domain/course/repository';
+import { addSeries, seriesStatus } from '#/services/creator';
+
+import { Sections } from './Sections';
+import { CreatorLearnStepFive } from './StepFive';
+import { CreatorLearnStepFour } from './StepFour';
+import { CreatorLearnStepOne } from './StepOne';
+import { CreatorLearnStepThree } from './StepThree';
+import { CreatorLearnStepTwo } from './StepTwo';
 
 export default function LearnPublish({ params }) {
   const [open, setOpen] = useState(true);
@@ -192,21 +191,22 @@ export default function LearnPublish({ params }) {
       .finally(() => setIsLoading(false));
   });
 
-  useInterval(() => {
-    if (contents) {
-      addSeries({...contents})
-        // FIXME:
-        // I don't know how to prevent accessing page when user has no permissions for now,
-        // so I prevent by this a little tricky way.
-        .then(res => {
-          if (res.code === 403) {
-            toast.error(res.message, {
-              onClose: () => replace('/'),
-            });
-          }
-        });
-    }
-  }, 10000);
+  // TODO: disable before this module being refactored
+  // useInterval(() => {
+  //   if (contents) {
+  //     addSeries({...contents})
+  //       // FIXME:
+  //       // I don't know how to prevent accessing page when user has no permissions for now,
+  //       // so I prevent by this a little tricky way.
+  //       .then(res => {
+  //         if (res.code === 403) {
+  //           toast.error(res.message, {
+  //             onClose: () => replace('/'),
+  //           });
+  //         }
+  //       });
+  //   }
+  // }, 10000);
 
   const publish  = async () => {
     setPublishing(true);

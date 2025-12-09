@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-import Navs from './Navs';
 import { APP_NAVS } from '#/lib/nav';
+
+import Navs from './Navs';
 
 export function Header() {
   return (

@@ -26,7 +26,6 @@ export function CommentsModal({
       <div className="text-sm opacity-80">
         <p>{comment}</p>
       </div>
-
     </Modal>
   );
 }

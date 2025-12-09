@@ -14,35 +14,66 @@
  * limitations under the License.
  */
 
-import { merge } from 'lodash';
+import { PAGE_SIZE } from '@/constants/config';
+import { merge } from '@/utils';
+import httpClient, { legacyClient, mergeMultipleResponses } from '@/utils/http';
 
-import httpClient, { legacyClient } from '@/utils/http';
+import { fetchPermission, fetchLessonDetail } from '../course/repository';
+
+async function fetchList(params = {}) {
+  const { sort, ...others } = params;
+
+  return legacyClient.get('/learn/course/challenges', {
+    params: merge({ take: PAGE_SIZE }, others, {
+      order: sort || 'default',
+    }),
+  });
+}
 
 async function fetchOne(id) {
   return legacyClient.get(`/learn/course/challenges/${id}`);
 }
 
-async function fetchPublishedChallengeList(params = {}) {
-  const { userId, sort, ...others } = params;
+async function enrollOne(id, data) {
+  return httpClient.post(`/learn/general/course/challenges/${id}/permission/enrool`, data);
+}
 
-  return legacyClient.get('/learn/course/challenges', {
-    params: merge({ take: 20 }, others, {
-      team_uid: userId,
-      order: sort || 'default',
-    }),
-  });
+async function fetchOneWithPermission(id) {
+  return mergeMultipleResponses([fetchOne(id), fetchPermission(id)], ([{ data, ...others }, permission]) => ({
+    ...others,
+    data: { ...data, permission: permission.data },
+  }));
+}
+
+async function fetchLessonWithEntity({ id, entityId }) {
+  return mergeMultipleResponses([fetchOne(entityId), fetchLessonDetail(id)], ([entity, { extra, ...others }]) => ({
+    ...others,
+    extra: { ...extra, entity: entity.data },
+  }));
+}
+
+async function fetchRelatedCourse(id) {
+  return httpClient.get(`/learn/general/course/challenges/${id}/link`);
+}
+
+async function fetchPublishedChallengeList(params = {}) {
+  return fetchList({ ...params, team_uid: params.userId });
 }
 
 async function fetchEnrolledChallengeList(params = {}) {
   const { userId, sort, ...others } = params;
 
   return legacyClient.get('/learn/dashboard/public/enrool/series', {
-    params: merge({ take: 20 }, others, {
+    params: merge({ take: PAGE_SIZE }, others, {
       id: userId,
       series_type: 'challenges',
       order: sort || 'default',
     }),
   });
+}
+
+async function updateTransaction(id, data) {
+  return httpClient.post(`/learn/general/course/challenges/${id}/permission/pay`, data);
 }
 
 async function updateMultipleApplicantStatus(id, { userIds, status }) {
@@ -64,10 +95,9 @@ async function updateEmailTemplate(id, { title, body }) {
 }
 
 export {
-  fetchOne,
-  fetchPublishedChallengeList,
-  fetchEnrolledChallengeList,
-  updateMultipleApplicantStatus,
-  fetchEmailTemplate,
-  updateEmailTemplate,
+  fetchList, fetchOne, enrollOne,
+  fetchOneWithPermission, fetchLessonWithEntity, fetchRelatedCourse,
+  fetchPublishedChallengeList, fetchEnrolledChallengeList,
+  updateTransaction, updateMultipleApplicantStatus,
+  fetchEmailTemplate, updateEmailTemplate,
 };

@@ -14,32 +14,26 @@
  * limitations under the License.
  */
 
-// import { Content } from './Content'
-import { get } from '@/utils/request';
+import { revalidatePathAction } from '#/app/actions';
+import { fetchUser } from '#/domain/profile/repository';
 
-import { Banner } from './Banner';
+import BannerWidget from './Banner';
 import InfoCard from './InfoCard';
 
 export default async function UserProfileLayout({ params, children }) {
-  const config = {isServer: true};
-  const { data } = await get(`ts/v1/user/info/handle/${params.handle}`, config);
+  const { data } = await fetchUser(params.handle);
 
-  if (data?.social.user_wallet && data?.base.user_show_wallet) {
-    data.web3Bio = await get(`https://api.web3.bio/profile/${data?.social.user_wallet}`, {
-      ...config,
-      headers: {
-        'X-API-KEY': process.env.NEXT_PUBLIC_WEB3BIO,
-      },
-    });
-  }
-
-  return (
+  return data ? (
     <>
-      <Banner data={data} />
+      <BannerWidget data={data} onUpload={revalidatePathAction} />
       <div className="relative max-w-[1440px] min-h-[620px] mx-auto p-6 bg-white md:p-0 md:bg-transparent">
-        <InfoCard data={data} />
+        <InfoCard className="md:absolute md:top-[-161px]" data={data} />
         <div className="pt-6">{children}</div>
       </div>
     </>
+  ) : (
+    <div className="flex items-center justify-center py-12">
+      <div className="text-3xl font-bold text-gray-500">User not found</div>
+    </div>
   );
 }

@@ -16,9 +16,11 @@
 
 'use client';
 
-import { useConfig } from '#/state/application/hooks';
-import { OViewer } from '@/components/MarkDown';
 import { useMemo } from 'react';
+
+import { OViewer } from '@/components/MarkDown';
+
+import { useConfig } from '#/state/application/hooks';
 
 export function BountiesDetail({ data }) {
   const config = useConfig();
@@ -39,6 +41,5 @@ export function BountiesDetail({ data }) {
         </span>
       </div>
     </div>
-
   );
 }

@@ -16,18 +16,17 @@
 
 'use client';
 
-import { PlusIcon } from '@heroicons/react/24/outline';
-import { Button } from '@/components/Button';
-import { EditIcon, DeleteIcon, AddIcon } from '@/components/Icons';
 import { useState, useEffect, useMemo } from 'react';
 import { toast } from 'react-toastify';
-// import { useCourseDetails } from '#/services/learn/hooks'
-import { Modal } from '@/components/Modal';
-import { OEditor } from '@/components/MarkDown';
-import { currentTime } from '@/utils/date';
-import { Select } from '@/components/Select';
 
+import { Button } from '@/components/Button';
+import { PlusIcon } from '@/components/icon/outlined';
+import { EditIcon, DeleteIcon, AddIcon } from '@/components/Icons';
+import { OEditor } from '@/components/MarkDown';
+import { Modal } from '@/components/Modal';
+import { Select } from '@/components/Select';
 import  { BASE_INPUT_STYLE } from '@/constants/config';
+import { currentTime } from '@/utils/date';
 
 const bodyTypeOptions = [
   {
@@ -327,6 +326,7 @@ export function CreatorLearnStepThree({ data, change }) {
               }}
               className={BASE_INPUT_STYLE}
             />
+            <p className="mt-2 text-sm text-red-50">请注意「Serial Number」值为数字，按 1-100 顺序增加，从小到大排序，并且整个活动或者课程不能出现重复。</p>
           </div>
           <div className="mt-3">
             <p className="text-sm text-gray-100">Title</p>

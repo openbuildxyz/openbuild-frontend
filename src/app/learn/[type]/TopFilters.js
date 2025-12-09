@@ -16,17 +16,17 @@
 
 'use client';
 
-import { Search } from './Search';
-import { Sort } from './Sort';
-
-import Image from 'next/image';
-import FeaturedIcon from 'public/images/svg/featured.svg';
-import FeaturedActiveIcon from 'public/images/svg/featured_active.svg';
 import clsx from 'clsx';
-import { ReactSelect } from '@/components/Select/ReactSelect';
-import { useMemo } from 'react';
+import Image from 'next/image';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import FeaturedActiveIcon from 'public/images/svg/featured_active.svg';
+import FeaturedIcon from 'public/images/svg/featured.svg';
+import { useMemo } from 'react';
+
+import { ReactSelect } from '@/components/Select/ReactSelect';
 import useMounted from '@/hooks/useMounted';
+
+import BasicSearch from '#/entry/components/basic-search';
 
 const tabStyle = 'inline-block border-gray-600 px-4 h-10 leading-10 text-gray-500 cursor-pointer';
 
@@ -47,7 +47,7 @@ function getBrowserLanguage() {
   return navigator.language.startsWith('zh') ? 'zh' : 'en';
 }
 
-export function TopFilters({ type }) {
+function TopFilters({ type }) {
   const searchParams = useSearchParams();
   const { replace } = useRouter();
   const pathname = usePathname();
@@ -138,7 +138,6 @@ export function TopFilters({ type }) {
           </div>
           <div className="w-[140px]">
             <ReactSelect
-              id="learn-order-select"
               isSearchable={false}
               value={langOptions.find(f => f.value === lang)}
               className="no-bg showDropdownIndicator w-full bg-transparent height-sm"
@@ -149,10 +148,9 @@ export function TopFilters({ type }) {
           </div>
         </div>
       )}
-      <div className="flex">
-        <Search />
-        <Sort />
-      </div>
+      <BasicSearch />
     </div>
   );
 }
+
+export default TopFilters;
