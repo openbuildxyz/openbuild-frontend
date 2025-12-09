@@ -18,17 +18,20 @@ import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import QuizBannerPic from 'public/images/quiz-banner.png';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import { Button } from '@/components/Button';
 import { ArrowUturnLeftIcon } from '@/components/icon/solid';
 import { HistoryIcon } from '@/components/Icons';
 import { OViewer } from '@/components/MarkDown';
 import useMounted from '@/hooks/useMounted';
+import { noop } from '@/utils';
 
 import { useMediaUrl } from '#/state/application/hooks';
 
-import { fetchList as fetchCourseList } from '../../../course';
+import { fetchList as fetchChallengeList } from '../../../challenge/repository';
+import ChallengeListViewWidget from '../../../challenge/views/challenge-list';
+import { fetchList as fetchCourseList } from '../../../course/repository';
 import CourseListViewWidget from '../../../course/views/course-list';
 import { fetchOne } from '../../repository';
 import QuizLimiterWidget from '../../widgets/quiz-limiter';
@@ -41,8 +44,10 @@ function QuizDetailView({ quizId }) {
   const [openChallenge, setOpenChallenge] = useState(false);
   const [openRankList, setOpenRankList] = useState(false);
   const [checkLimit, setCheckLimit] = useState(false);
+  const [checkedAt, setCheckedAt] = useState(0);
   const [data, setData] = useState();
   const [coursesList, setCoursesList] = useState();
+  const [challengeList, setChallengeList] = useState();
   const { status } = useSession();
   const router = useRouter();
 
@@ -50,22 +55,51 @@ function QuizDetailView({ quizId }) {
     Promise.all([
       fetchOne(quizId),
       fetchCourseList({ skip: 0, take: 2, quiz_bind_id: quizId }),
+      fetchChallengeList({ skip: 0, take: 2, quiz_bind_id: quizId }),
     ])
-      .then(([quizDetailRes, courseListRes]) => {
+      .then(([quizDetailRes, courseListRes, challengeListRes]) => {
         setData(quizDetailRes.data);
         setCoursesList(courseListRes.data);
+        setChallengeList(challengeListRes.data);
       });
   });
 
   const bannerImage = data?.background_img ? `${mediaUrl}${data?.background_img}` : QuizBannerPic.src;
 
+  const challengeButtonProps = useMemo(() => {
+    const now = Date.now();
+    const nowSeconds = now / 1000;
+
+    let content = 'Challenge now';
+
+    let handleClick = () => {
+      setCheckLimit(true);
+      setCheckedAt(now);
+    };
+
+    const { date_limit, start_time, end_time } = data || {};
+
+    if (date_limit && (start_time > 0 || end_time > 0)) {
+      if (nowSeconds < start_time) {
+        content = 'Waiting to start';
+        handleClick = noop;
+      } else if (end_time > 0 && nowSeconds > end_time) {
+        content = 'End';
+        handleClick = noop;
+      }
+    }
+
+    return { content, handleClick };
+  }, [data]);
+
   return (
     <QuizLimiterWidget
       id={quizId}
-      type={data?.limit?.limit_type}
+      limit={data?.limit}
       check={checkLimit}
       quiz
       onReset={() => setCheckLimit(false)}
+      checkedAt={checkedAt}
     >
       <div className="max-md:flex max-md:flex-col max-md:gap-y-4 h-[250px] md:h-[360px] bg-cover bg-center bg-no-repeat relative" style={{ backgroundImage: `url(${bannerImage})`  }}>
         <div className="md:absolute flex items-center mt-[15px] md:mt-6 mx-4 md:mx-14">
@@ -102,19 +136,29 @@ function QuizDetailView({ quizId }) {
         <h5 className="text-lg mb-4 md:mb-3">Quiz Describe</h5>
         <OViewer value={data?.describe} />
         <Button
-          onClick={() => setCheckLimit(true)}
-          className="mt-4 md:mt-6 mb-9 md:mb-10 !font-bold px-[64px] !text-base max-md:w-full">
-            Challenge now
+          className="mt-4 md:mt-6 mb-9 md:mb-10 !font-bold px-[64px] !text-base max-md:w-full"
+          onClick={challengeButtonProps.handleClick}
+        >
+          {challengeButtonProps.content}
         </Button>
         <RankList rank={data?.my_rank} list={data?.rank}/>
         <p className="text-sm text-center mt-6 cursor-pointer" onClick={()=>{setOpenRankList(true);}}><strong>{data?.user_num}</strong> builders have participated</p>
       </div>
       {
         coursesList?.count > 0 && (
-          <div className="max-w-[800px] max-md:mt-9 mx-6 md:mx-auto relative md:top-[-105px] max-md:pb-14">
+          <div className="max-w-[800px] mb-9 max-md:mt-9 mx-6 md:mx-auto relative md:top-[-105px] max-md:pb-14">
             <h3 className="text-[18px] max-md:leading-[24px] md:text-lg mb-6">Related courses</h3>
             <CourseListViewWidget className="gap-y-6 md:gap-4 md:grid-cols-2" data={coursesList?.list} />
-          </div>)
+          </div>
+        )
+      }
+      {
+        challengeList?.count > 0 && (
+          <div className="max-w-[800px] max-md:mt-9 mx-6 md:mx-auto relative md:top-[-105px] max-md:pb-14">
+            <h3 className="text-[18px] max-md:leading-[24px] md:text-lg mb-6">Related challenges</h3>
+            <ChallengeListViewWidget className="!gap-y-6 md:!gap-4 md:!grid-cols-2" data={challengeList?.list} />
+          </div>
+        )
       }
       <RankListModal quizId={quizId} shown={openRankList} onClose={() => setOpenRankList(false)}  rank={data?.my_rank}/>
       <RecordListModal quizId={quizId} shown={openChallenge} onClose={() => setOpenChallenge(false)} />

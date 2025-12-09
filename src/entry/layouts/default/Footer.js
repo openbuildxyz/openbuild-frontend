@@ -20,7 +20,7 @@ import clsx from 'clsx';
 import Link from 'next/link';
 
 import BrandLogo from '@/components/brand-logo';
-import { GithubSolidIcon, TwitterIcon, YoutobeIcon, DiscordIcon, LinkedInFilled, SubstackFilled } from '@/components/Icons';
+import { GithubSolidIcon, TwitterIcon, YoutobeIcon, LinkedInFilled, SubstackFilled } from '@/components/Icons';
 import { useFooterDisplay } from '@/hooks/useHeaderAndFooterDisplay';
 import { getCopyrightText } from '@/utils/app';
 
@@ -29,6 +29,24 @@ const mediasLinkStyle =
 const mediasStyle = '[&>a>svg]:h-4 [&>a>svg]:w-4 [&>a>svg]:cursor-pointer';
 
 const menus = [
+  {
+    name: 'Resources',
+    items: [
+      {
+        name: 'Testnet Faucet',
+        link: 'https://faucet.openbuild.xyz',
+        type: 'Hot',
+      },
+      {
+        name: 'Forum',
+        link: 'https://forums.openbuild.xyz',
+      },
+      {
+        name: 'Product Docs',
+        link: 'https://openbuild-2.gitbook.io',
+      },
+    ],
+  },
   {
     name: 'Product',
     items: [
@@ -45,6 +63,10 @@ const menus = [
         link: '/profile',
       },
       {
+        name: 'Feedback',
+        link: 'https://forums.openbuild.xyz/tags/support',
+      },
+      {
         name: 'On-Chain Contract & Payment',
         link: 'https://bscscan.com/address/0x495e20d29c43753dd3b9587e14cb436e1ed1fbb2',
       },
@@ -53,10 +75,6 @@ const menus = [
   {
     name: 'Community',
     items: [
-      {
-        name: 'Discord',
-        link: 'https://discord.gg/cbmteR7yRN',
-      },
       {
         name: 'Twitter',
         link: 'https://twitter.com/OpenBuildxyz',
@@ -82,10 +100,10 @@ const menus = [
   {
     name: 'Company',
     items: [
-      // {
-      //   name: 'About Us',
-      //   link: 'https://www.google.com',
-      // },
+      {
+        name: 'About us',
+        link: '/about',
+      },
       {
         name: 'Apply for Cooperation',
         link: 'https://forms.gle/s2tDbixtdqTU8xbp9',
@@ -141,13 +159,6 @@ export function Footer() {
               <YoutobeIcon />
             </Link>
             <Link
-              href="https://discord.gg/cbmteR7yRN"
-              target={'_blank'}
-              className="transition-all duration-300 hover:text-green"
-            >
-              <DiscordIcon />
-            </Link>
-            <Link
               href="https://www.linkedin.com/company/openbuildxyz"
               target={'_blank'}
               className="transition-all duration-300 hover:text-green"
@@ -172,10 +183,7 @@ export function Footer() {
               <h4 className="mb-0 font-semibold max-md:mb-2 md:mb-12 md:text-lg">{i.name}</h4>
               <ul>
                 {i.items.map(subItem => (
-                  <li
-                    className="leading-7 transition-all duration-300 hover:text-green hover:underline text-sm md:leading-10"
-                    key={`footer-menus-sub-${subItem.name}`}
-                  >
+                  <li className="leading-7 md:leading-10" key={`footer-menus-sub-${subItem.name}`}>
                     {/* href={subItem.link} */}
                     <div
                       className="cursor-pointer"
@@ -186,7 +194,14 @@ export function Footer() {
                         }
                       }}
                     >
-                      {subItem.name}
+                      <span className="transition-all duration-300 hover:text-green hover:underline text-sm">
+                        {subItem.name}
+                      </span>
+                      {subItem.type === 'Hot' && (
+                        <span className="ml-2 text-[10px] px-1 py-[1px] rounded-md border border-[#FDB17E] text-[#FDB17E] align-top">
+                          HOT
+                        </span>
+                      )}
                       {subItem.type === 'Soon' && (
                         <span className="ml-2 inline-block h-4 w-9 rounded-md bg-yellow text-center text-xs font-normal leading-4 text-gray">
                           Soon

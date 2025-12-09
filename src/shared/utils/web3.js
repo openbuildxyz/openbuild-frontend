@@ -14,34 +14,6 @@
  * limitations under the License.
  */
 
-async function signBounty(chainId, contractAddress, singer, taskId, amount, deadline) {
-  const domain = {
-    name: 'Task',
-    version: '1',
-    chainId,
-    verifyingContract: contractAddress,
-  };
-
-  const types = {
-    Withdraw: [
-      { name: 'taskId', type: 'uint256' },
-      { name: 'amount', type: 'uint256' },
-      { name: 'deadline', type: 'uint256' },
-    ],
-  };
-  // console.log(amount)
-  // return
-  try {
-    const sig = await singer?.signTypedData({domain, types, primaryType: 'Withdraw', message: {
-      taskId, amount: amount.toString(), deadline,
-    }});
-    return sig;
-  } catch (err) {
-    console.log(err, 'err');
-    return 'error';
-  }
-}
-
 async function signSkillHub(chainId, contractAddress, singer, amount, time, token, deadline) {
   const domain = {
     name: 'Employment',
@@ -72,5 +44,5 @@ async function signSkillHub(chainId, contractAddress, singer, amount, time, toke
   }
 }
 
-export { signBounty, signSkillHub };
+export { signSkillHub };
 export { formatUnits as formatTokenUnits, parseUnits as parseTokenUnits } from '@ethersproject/units';

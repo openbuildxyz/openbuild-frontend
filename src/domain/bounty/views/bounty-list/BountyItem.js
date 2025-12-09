@@ -40,7 +40,7 @@ function BountyItem({ data }) {
       `}
     >
       <div>
-        <Image className="mb-4 bg-neutral-300 rounded-xl" width={80} height={80} src={ecosystem?.img} alt={ecosystem?.name} />
+        <Image className="mb-4 bg-neutral-300 rounded-full object-cover" width={80} height={80} src={ecosystem?.img} alt={ecosystem?.name} />
         <h5 className="mb-2 text-lg line-clamp-2">
           <span className="relative top-[2px]">{data.title}</span>
         </h5>

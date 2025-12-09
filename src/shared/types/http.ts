@@ -30,8 +30,9 @@ type RequestConfig = RequestInit & {
   params?: Record<string, DataValue>;
   isServer?: boolean;
   type?: 'upload';
+  noToast?: boolean;
 };
 
-type ResponseInterceptor = (res: ResponseResult) => ResponseResult;
+type ResponseInterceptor = (res: ResponseResult, config: RequestConfig) => ResponseResult;
 
 export type { ResponseResult, RequestConfig, ResponseInterceptor };

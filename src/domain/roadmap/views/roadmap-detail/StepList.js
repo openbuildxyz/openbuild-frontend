@@ -69,7 +69,7 @@ function StepList({ data, permission, roadmapId, executeEnroll }) {
             <h2 className="text-2xl mb-1 flex items-center">{i.title}</h2>
             {i.step === 1 &&
             (
-              permission.course_user_permission_status === 0 ?
+              !permission || permission.course_user_permission_status === 0 ?
                 <Button loading={loading} className="w-[196px] !font-bold" onClick={() => enroll(i.gp_id)}>Enroll now</Button> :
                 <Button className="w-[196px] !font-bold bg-[rgba(26,26,26,0.06)] border-0 text-gray hover:bg-[rgba(26,26,26,0.06)]">
                   <CheckCircleIcon className="h-4 w-4" />

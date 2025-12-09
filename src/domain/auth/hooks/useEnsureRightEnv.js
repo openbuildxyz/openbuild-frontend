@@ -56,7 +56,11 @@ function useEnsureRightEnv({
       }
 
       if (!!chainId && chain.id !== chainId) {
-        await switchNetworkAsync(chainId);
+        try {
+          await switchNetworkAsync(chainId);
+        } catch (err) {
+          return toast.error(err.message);
+        }
       } else if (chain.unsupported) {
         // 由于 `openChainModal` 不支持回调，故无法将交互流程一次串起
         if (chains.length !== 1) {

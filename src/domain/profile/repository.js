@@ -95,7 +95,7 @@ async function fetchFollowedList(params = {}) {
 }
 
 async function fetchFollowedStatus(uid) {
-  return httpClient.get(`/user/follow/${uid}`);
+  return httpClient.get(`/user/follow/${uid}`, { noToast: true });
 }
 
 async function followUser(uid) {

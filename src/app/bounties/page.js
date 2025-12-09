@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+import { redirect } from 'next/navigation';
+
 import ListLayout from '#/entry/layouts/list';
 
 import BountySlideSearch from './BountySlideSearch';
@@ -21,6 +23,24 @@ import { Container } from './Container';
 import { ListSkeleton } from './ListSkeleton';
 
 export default function Page({ params, searchParams }) {
+  if (!searchParams?.order) {
+    const paramsWithDefault = new URLSearchParams();
+
+    Object.entries(searchParams || {}).forEach(([key, value]) => {
+      if (key === 'order') return;
+
+      if (Array.isArray(value)) {
+        value.forEach(v => paramsWithDefault.append(key, String(v)));
+      } else if (value !== undefined) {
+        paramsWithDefault.append(key, String(value));
+      }
+    });
+
+    paramsWithDefault.set('order', 'latest');
+
+    redirect(`/bounties?${paramsWithDefault.toString()}`);
+  }
+
   return (
     <ListLayout
       title="Bounties"

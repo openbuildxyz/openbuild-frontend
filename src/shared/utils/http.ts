@@ -37,9 +37,9 @@ interface IHttpClient {
 }
 
 async function normalizeResponse<VT extends DataValue = DataValue>(res: Response): Promise<ResponseResult<VT>> {
-  if (res.ok) {
-    const jsonData = await res.json();
+  const jsonData = await res.json();
 
+  if (res.ok) {
     if (isPlainObject(jsonData)) {
       const { code, message, data, ...extra } = jsonData;
 
@@ -65,14 +65,14 @@ async function normalizeResponse<VT extends DataValue = DataValue>(res: Response
 
   if (res.status === 404) {
     message = `\`${new URL(res.url).pathname}\` is not found`;
-  } else {
-    message = res.statusText;
+  } if (isPlainObject(jsonData)) {
+    message = jsonData.message;
   }
 
   return {
     success: false,
     code: res.status,
-    message,
+    message: message ?? res.statusText,
     data: undefined as VT,
     extra: {},
   };
@@ -119,7 +119,7 @@ function HttpClient(this: any, { baseUrl }: { baseUrl?: string }) { // eslint-di
     const res = await request(url, method, data, { ...config, baseUrl, isServer: isServerSide(config?.isServer) });
     const normalized = await normalizeResponse(res);
 
-    return resInterceptor ? resInterceptor(normalized) : normalized;
+    return resInterceptor ? resInterceptor(normalized, config || {}) : normalized;
   };
 }
 

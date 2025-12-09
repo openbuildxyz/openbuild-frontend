@@ -20,7 +20,6 @@ import {  useNetwork, useWalletClient } from 'wagmi';
 
 import { Button } from '@/components/Button';
 import { Modal } from '@/components/Modal';
-import { withdraw } from '@/constants/bounty';
 
 import {
   finishConfirm,
@@ -28,6 +27,7 @@ import {
 } from '#/services/bounties';
 
 import { useBountyEnvCheck } from '../../hooks';
+import { withdraw } from '../../repository';
 
 function AgreeFinishedModal({open, close, bounty, revalidatePathAction}) {
   const [loading, setLoading] = useState(false);

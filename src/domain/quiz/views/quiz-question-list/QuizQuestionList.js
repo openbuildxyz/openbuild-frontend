@@ -38,7 +38,7 @@ function QuizQuestionListView({ id, version }) {
   const { data: quizIndex } = useUpToDate(fetchOne, id);
 
   return (
-    <QuizLimiterWidget id={id} type={quizIndex?.limit?.limit_type} check={!version && !!quizIndex}>
+    <QuizLimiterWidget id={id} limit={quizIndex?.limit} check={!version && !!quizIndex}>
       <div className="min-h-screen bg-gray text-white flex">
         <div className="max-w-[520px] px-14 py-9 hidden md:flex flex-col justify-between">
           <div>

@@ -14,9 +14,8 @@
  * limitations under the License.
  */
 
-import ReactPlayer from 'react-player';
-
 import { OViewer } from '@/components/MarkDown';
+import CustomVideoPlayer from '@/components/VideoPlayer/CustomVideoPlayer';
 
 // FIXME: 临时方案
 function resolveContent(rawContent) {
@@ -44,9 +43,8 @@ function LessonDetailView({ data = {} }) {
       {
         !!data.course_single_video_url &&
           <div className="w-full aspect-video mb-6">
-            <ReactPlayer
+            <CustomVideoPlayer
               url={data.course_single_video_url}
-              controls
               width="100%"
               height="100%"
             />

@@ -20,7 +20,7 @@ import BountyListAdapter from './BountyListAdapter';
 
 export async function Container({ searchParams }: { searchParams?: Record<string, any> }) {
   const page = searchParams?.page;
-  const order = searchParams?.order;
+  const order = searchParams?.order || 'latest';
   const labels = searchParams?.labels || '';
   const query = searchParams?.query || '';
   const status = searchParams?.status || '';

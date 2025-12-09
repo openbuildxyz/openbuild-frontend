@@ -18,8 +18,9 @@
 
 import { useNetwork, useSwitchNetwork, useAccount } from 'wagmi';
 
-import { BOUNTY_SUPPORTED_CHAIN } from '@/constants/chain';
 import { useBoundWallet } from '@/hooks/useBoundWallet';
+
+import { getChainId, isChainValid } from '#/domain/bounty/helper';
 
 function TipsContainer({children}) {
   return <div className="h-12 bg-[#E6E6E6] px-6 flex items-center fixed w-full z-[20] top-[72px]">
@@ -35,16 +36,15 @@ function TipsContainer({children}) {
 export function ChainNetworkTips () {
   const { chain } = useNetwork();
   const { address } = useAccount();
-  const SUPPORTED_CHAIN = BOUNTY_SUPPORTED_CHAIN();
   const { switchNetwork } = useSwitchNetwork();
   const bindWallet = useBoundWallet();
 
   return (
     !chain ? null :
-      chain && chain.id !== SUPPORTED_CHAIN ? <TipsContainer>
+      !isChainValid(chain) ? <TipsContainer>
         <>
           To use full functionality, please&nbsp;
-          <span className="underline font-bold cursor-pointer" onClick={() => switchNetwork?.(SUPPORTED_CHAIN)}>Switch Networks</span>
+          <span className="underline font-bold cursor-pointer" onClick={() => switchNetwork?.(getChainId())}>Switch Networks</span>
         </>
       </TipsContainer> : (
         bindWallet && bindWallet !== address ? <TipsContainer>The currently linked wallet address is a not bind wallet</TipsContainer> : null

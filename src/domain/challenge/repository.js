@@ -18,7 +18,7 @@ import { PAGE_SIZE } from '@/constants/config';
 import { merge } from '@/utils';
 import httpClient, { legacyClient, mergeMultipleResponses } from '@/utils/http';
 
-import { fetchPermission, fetchLessonDetail } from '../course/repository';
+import { fetchPermission, fetchLessonDetail, insertOne, updateOne, deleteOne, updateStatus } from '../course/repository';
 
 async function fetchList(params = {}) {
   const { sort, ...others } = params;
@@ -76,6 +76,10 @@ async function updateTransaction(id, data) {
   return httpClient.post(`/learn/general/course/challenges/${id}/permission/pay`, data);
 }
 
+async function updateApplicantStatus({ id, uid, status }) {
+  return httpClient.post(`/learn/creator/series/${id}/enrool/${uid}/status`, { status });
+}
+
 async function updateMultipleApplicantStatus(id, { userIds, status }) {
   return httpClient.post(`/learn/creator/series/${id}/batch/enrool/status`, { uids: userIds, status });
 }
@@ -94,10 +98,22 @@ async function updateEmailTemplate(id, { title, body }) {
   });
 }
 
+async function fetchManageableList(params = {}) {
+  const { sort, ...others } = params;
+
+  return legacyClient.get('/learn/creator/series', {
+    params: merge({ take: PAGE_SIZE }, others, {
+      series_type: 'challenges',
+      order: sort || 'latest',
+    }),
+  });
+}
+
 export {
   fetchList, fetchOne, enrollOne,
   fetchOneWithPermission, fetchLessonWithEntity, fetchRelatedCourse,
   fetchPublishedChallengeList, fetchEnrolledChallengeList,
-  updateTransaction, updateMultipleApplicantStatus,
+  updateTransaction, updateApplicantStatus, updateMultipleApplicantStatus,
   fetchEmailTemplate, updateEmailTemplate,
+  fetchManageableList, insertOne, updateOne, deleteOne, updateStatus,
 };

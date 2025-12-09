@@ -148,7 +148,6 @@ function AppliedBuilderListView({ data, bounty, onApprove }) {
               onClick={()=>onApprove(i)}
             >
               Approve
-              {/* {chain?.id !== BOUNTY_SUPPORTED_CHAIN() ? 'Switch' : ''} */}
             </Button>
           )}
           {i.status === -3 && 'Declined'}

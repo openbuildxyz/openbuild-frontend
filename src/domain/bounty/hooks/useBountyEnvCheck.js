@@ -14,13 +14,12 @@
  * limitations under the License.
  */
 
-import { BOUNTY_SUPPORTED_CHAIN } from '@/constants/chain';
-
 import useEnsureRightEnv from '../../auth/hooks/useEnsureRightEnv';
+import { getChainId } from '../helper';
 
 function useBountyEnvCheck() {
   return useEnsureRightEnv({
-    chainId: BOUNTY_SUPPORTED_CHAIN(),
+    chainId: getChainId(),
     autoConnect: true,
     walletRequired: true,
   }).wrap;

@@ -21,8 +21,6 @@ import { toast } from 'react-toastify';
 import { useAccount, useSwitchNetwork } from 'wagmi';
 
 import { Button } from '@/components/Button';
-import { NFT_SUPPORTED_CHAIN } from '@/constants/chain';
-import { contracts } from '@/constants/contract';
 import { formatTime } from '@/utils/date';
 
 import { useMediaUrl, useUser } from '#/state/application/hooks';
@@ -37,14 +35,13 @@ export default function MyReputationItem({ dataSource, onNotConnected, onMint })
   const [mintLoading, setMintLoading] = useState(null);
   const mediaUrl = useMediaUrl();
 
-  const { wrap } = useEnsureRightEnv({ chainId: NFT_SUPPORTED_CHAIN(), autoConnect: true, walletRequired: true });
+  const { wrap } = useEnsureRightEnv({ chainId: dataSource.mint_chain_id, autoConnect: true, walletRequired: true });
 
   const mint = wrap(async ({ id, mint_chain_id }) => {
     setMintLoading(id);
     await mintNft({
       id,
       chainId: mint_chain_id,
-      contract: contracts[NFT_SUPPORTED_CHAIN()].nft,
       address,
       userId: user?.base.user_id,
     })

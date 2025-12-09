@@ -16,7 +16,7 @@
 
 import { fetchOne } from '#/domain/challenge/repository';
 
-import ChallengeEmailTemplatePage from './ChallengeEmailTemplatePage';
+import PageAdapter from './PageAdapter';
 
 async function EmailTemplatePage({ params: { type, id } }) {
   if (type !== 'challenges') {
@@ -25,7 +25,7 @@ async function EmailTemplatePage({ params: { type, id } }) {
 
   const { data } = await fetchOne(id);
 
-  return <ChallengeEmailTemplatePage data={data} />;
+  return <PageAdapter data={data} />;
 }
 
 export default EmailTemplatePage;

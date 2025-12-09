@@ -17,7 +17,6 @@
 // import CareerIcon from 'public/images/svg/folder.svg'
 import ChallengesIcon from 'public/images/svg/challenges.svg';
 import CoursesIcon from 'public/images/svg/courses.svg';
-import DiscordIcon from 'public/images/svg/discord-outlined.svg';
 import GithubIcon from 'public/images/svg/github_l.svg';
 import LinkedInIcon from 'public/images/svg/linkedin-outlined.svg';
 import GrowthPathIcon from 'public/images/svg/path.svg';
@@ -140,13 +139,6 @@ export const APP_NAVS = [
         link: 'https://twitter.com/OpenBuildxyz',
         slug: 'community',
         icon: TwitterIcon,
-      },
-      {
-        desc: 'Join the community, make friends, and get more surprise!',
-        link: 'https://discord.gg/cbmteR7yRN',
-        slug: 'community',
-        icon: DiscordIcon,
-        name: 'Discord',
       },
       {
         desc: 'Talk is cheap, show me the code!',

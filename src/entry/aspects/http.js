@@ -20,8 +20,8 @@ import httpClient, { legacyClient } from '@/utils/http';
 
 let alreadySet = false;
 
-function handleResponse(res) {
-  if (!res.success) {
+function handleResponse(res, config) {
+  if (!res.success && config.noToast !== true) {
     toast.error(res.message);
   }
 
