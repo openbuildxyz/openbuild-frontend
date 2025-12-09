@@ -536,7 +536,7 @@ export default function AboutMain() {
               <div className="flex w-full absolute bottom-0 left-0 right-0">
                 <Image src={findus3} alt="findus-bg-3" className="w-full" />
                 <h3 className="font-bold text-[20px]/[24px] md:text-[22px]/[26px] xl:text-[26px]/[29px] text-[#801C1C] absolute left-4 right-10 bottom-4 md:bottom-5 xl:bottom-6">
-                  Social media
+                  Social Media
                 </h3>
               </div>
             </div>
