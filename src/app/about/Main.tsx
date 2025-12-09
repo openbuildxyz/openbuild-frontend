@@ -38,10 +38,10 @@ import findusContributor from 'public/images/about/findus-contributor.png';
 import findusHand from 'public/images/about/findus-hand.png';
 import findusSocialMediaArrow from 'public/images/about/findus-social-media-arrow.svg';
 import QRCode from 'public/images/about/qrcode.png'; // Placeholder
-import Service1 from 'public/images/about/service-1.png';
-import Service2 from 'public/images/about/service-2.png';
-import Service3 from 'public/images/about/service-3.png';
-import Service4 from 'public/images/about/service-4.png';
+import Service1 from 'public/images/about/service-5.png';
+import Service2 from 'public/images/about/service-6.png';
+import Service3 from 'public/images/about/service-7.png';
+import Service4 from 'public/images/about/service-8.png';
 import GithubIcon from 'public/images/svg/github_p.svg';
 import { useEffect, useRef } from 'react';
 
