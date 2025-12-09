@@ -62,7 +62,7 @@ export default function AboutMain() {
       title: 'Developers\' Education & Growth',
       items: [
         'Online Workshop / AMA',
-        'In-depth Tech Articles/Interviews',
+        'In-depth Tech Articles / Interviews',
         'Online Bootcamp & Quiz',
         'Local Community Ops',
         'DevRel Consultant',
@@ -80,14 +80,14 @@ export default function AboutMain() {
     {
       id: 3,
       title: 'Ecosystem Projects Growth',
-      items: ['Bounties & Grants Ops', 'Talent & Projects Database', 'Open-Source Project Incubation'],
+      items: ['Bounties / Grants Ops', 'Talent / Projects Database', 'Open-Source Project Incubation'],
       image: Service3,
       link: '#',
     },
     {
       id: 4,
       title: 'Developer Ops Platform & Tools',
-      items: ['Education & Bounty Platform', 'Developer Data Analytics Platform', 'DevPlaza', 'Infrastructure Support'],
+      items: ['Education / Bounty Platform', 'Developer Data Analytics Platform', 'DevPlaza', 'Infrastructure Support'],
       image: Service4,
       link: '#',
     },
@@ -212,7 +212,7 @@ export default function AboutMain() {
           </div>
 
           <p className="max-w-[385px] mx-auto mb-9 text-[16px]/[18px] opacity-80">
-            Backed by among the most influential developer and open-source communities in China.
+            Backed by some of the most influential developer and open-source communities in China.
           </p>
 
           <div className="flex justify-center items-center mb-14">
@@ -248,7 +248,7 @@ export default function AboutMain() {
       {/* We're working on Section */}
       <div className="pt-7 pb-[60px]">
         <div className="max-w-[1680px] mx-auto px-6 md:px-11">
-          <h2 className="text-[42px]/[52px] font-extrabold text-center mb-6">We&apos;re working on</h2>
+          <h2 className="text-[42px]/[52px] font-extrabold text-center mb-6">What We Build With Developers</h2>
           <p className="text-center mb-9 max-w-2xl mx-auto text-[26px]/[36px]">
             Explore our services, witness our success stories, and join us to{' '}
             <span className="font-extrabold">build the next milestone together.</span>
@@ -337,7 +337,7 @@ export default function AboutMain() {
           <h2 className="font-extrabold text-[42px]/[42px] text-center mb-9">Our Open-Source Ecosystem</h2>
           <div className="text-center mb-9">
             <a href="#" className="text-[16px]/[20px] inline-flex items-center gap-3.5">
-              For more projects, please visit <ArrowRight size={24} />{' '}
+              Explore More Projects <ArrowRight size={24} />{' '}
               <a
                 href="https://openbuildxyz.github.io/eco/"
                 className="underline font-bold text-[20px]/[20px] tracking-[-0.4px]"
@@ -432,7 +432,7 @@ export default function AboutMain() {
                 }}
               >
                 <p className="text-[16px]/[22px] md:text-[18px]/[24px] xl:text-[20px]/[26px] font-medium mb-2 mb-6 md:mb-7 xl:mb-9">
-                  For business cooperation, please contact us.
+                  For partnerships or collaboration inquiries, reach us at:
                 </p>
                 <a
                   href="mailto:build@openbuild.xyz"
@@ -550,7 +550,7 @@ export default function AboutMain() {
                 }}
               >
                 <div className="text-[16px]/[20px] md:text-[18px]/[22px] xl:text-[20px]/[24px]">
-                  <span className="text-gray-500">If you want to</span> participate in co-construction
+                  <span className="text-gray-500">If you want to</span> contribute or co-build with us
                 </div>
                 <div className="md:w-[calc(100%-20px)] md:h-auto w-[241px] h-[137px] absolute left-[10px] top-[60px] md:top-[64px] xl:top-[74px]">
                   <Image
