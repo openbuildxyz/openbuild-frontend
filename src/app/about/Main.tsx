@@ -256,7 +256,7 @@ export default function AboutMain() {
           <p className="text-center text-[16px]/[20px] mb-[56px] flex justify-center gap-3.5">
             Let&apos;s discuss the next big thing in Web3. <ArrowRight size={24} />{' '}
             <a
-              href="https://calendly.com/openbuild/30min?month=2025-12"
+              href="https://calendly.com/openbuild/30min"
               className="underline font-bold text-[20px]/[20px] tracking-[-0.4px]"
               target="_black"
             >

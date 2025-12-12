@@ -11,7 +11,7 @@
     "presetup": "npm run env",
     "setup": "cross-env cp .env.example .env.local && npx auth secret",
     "predev": "npm run env",
-    "dev": "cross-env NEXT_PUBLIC_DOMAIN_ENV=development next dev -p 3000",
+    "dev": "cross-env NEXT_PUBLIC_DOMAIN_ENV=development next dev -p 3020",
     "build": "next build",
     "build:test": "NODE_ENV=test NEXT_PUBLIC_DOMAIN_ENV=test next build",
     "prestart": "npm run env",
