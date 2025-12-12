@@ -87,7 +87,7 @@ export default function AboutMain() {
     {
       id: 4,
       title: 'Developer Ops Platform & Tools',
-      items: ['Education / Bounty Platform', 'Developer Data Analytics Platform', 'DevPlaza', 'Infrastructure Support'],
+      items: ['Education / Bounty Platform', 'Developer Data Analytics Platform', 'DevPlaza', 'Infrastructure Support', 'Validators'],
       image: Service4,
       link: '#',
     },
@@ -184,7 +184,7 @@ export default function AboutMain() {
 
         <div className="relative z-10 mx-auto px-4 md:px-8 text-center">
           <p className="text-[18px]/[20px] mb-4">About OpenBuild</p>
-          <h1 className="text-[56px]/[64px] font-extrabold mb-9">Bridge Web2 to Web3</h1>
+          <h1 className="text-[56px]/[64px] font-extrabold mb-9">Bridging Web2 and Web3</h1>
           <p className="max-w-2xl mx-auto mb-7 text-[22px]/[28px] font-bold">
             OpenBuild is the Biggest Web3 Open-Source Community in Asia.
           </p>
@@ -250,8 +250,7 @@ export default function AboutMain() {
         <div className="max-w-[1680px] mx-auto px-6 md:px-11">
           <h2 className="text-[42px]/[52px] font-extrabold text-center mb-6">What We Build With Developers</h2>
           <p className="text-center mb-9 max-w-2xl mx-auto text-[26px]/[36px]">
-            Explore our services, witness our success stories, and join us to{' '}
-            <span className="font-extrabold">build the next milestone together.</span>
+            Discover what we do, hear our stories, and be part of our journey to the next milestone.
           </p>
           <p className="text-center text-[16px]/[20px] mb-[56px] flex justify-center gap-3.5">
             Let&apos;s discuss the next big thing in Web3. <ArrowRight size={24} />{' '}
