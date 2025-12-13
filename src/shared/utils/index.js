@@ -83,7 +83,7 @@ export function HTMLDecode(text) {
   if (typeof text !== 'string') {
     return String(text);
   }
-  var arrEntities= { 'lt':'<', 'gt':'>' };
+  const arrEntities= { 'lt':'<', 'gt':'>' };
   return text.replace(/&(lt|gt);/ig,function(all,t){
     return arrEntities[t];
   });

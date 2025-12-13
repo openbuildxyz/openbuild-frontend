@@ -58,6 +58,7 @@ function FileUpload({
       upload(file, intent)
         .then(res => {
           onChange(res.data);
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           uploadRef.current!.value = '';
         })
         .finally(() => onUploading(false));

@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+
 import clsx from 'clsx';
 import { useState, useRef } from 'react';
 

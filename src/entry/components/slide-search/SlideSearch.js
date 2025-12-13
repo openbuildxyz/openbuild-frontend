@@ -113,8 +113,6 @@ function SlideSearch({ type, children }) {
                   size="sm"
                   onClick={() => router.replace(pathname + '?' + createQueryString('labels', t.id.toString(), new URLSearchParams(searchParams)))}
                   key={`learn-filter-${i.name}-${t.name}-${k}`}
-
-                  variant="outlined"
                   className={clsx(
                     'flex border rounded text-sm justify-center items-center px-2 py-1 mr-2 mb-2 border-gray-600 transition-all duration-300 hover:text-gray hover:!border-gray hover:!bg-gradient-l-r hover:opacity-100',
                     {

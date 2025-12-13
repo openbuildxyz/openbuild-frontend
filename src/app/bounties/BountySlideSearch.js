@@ -161,7 +161,6 @@ function BountyFilter() {
                   size="sm"
                   onClick={() => router.replace(`${pathname}?${createQueryString(i.name.toLowerCase(), t.key, new URLSearchParams(searchParams))}`)}
                   key={`learn-filter-${i.name}-${t.name}-${k}`}
-                  variant="outlined"
                   className={clsx(
                     'flex border text-sm rounded justify-center items-center px-2 py-1 mr-2 mb-2 border-gray-600 transition-all duration-300 hover:text-gray hover:!border-gray hover:!bg-gradient-l-r hover:opacity-100',
                     {
