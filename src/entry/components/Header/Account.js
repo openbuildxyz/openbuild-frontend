@@ -190,7 +190,7 @@ function Account() {
           <button
             type="button"
             onClick={() => setIsURPopupOpen(true)}
-            className="p-0 m-0 border-none bg-transparent shadow-none outline-none focus:outline-none focus:ring-0 flex items-center"
+            className="p-0 m-0 border-none bg-transparent shadow-none outline-none focus:outline-none focus:ring-0 flex items-center max-md:hidden"
           >
             <Image
               src="/images/UR-card-5.png"
