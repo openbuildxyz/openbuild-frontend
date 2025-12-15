@@ -20,7 +20,7 @@ import { useSession, signOut } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useSearchParams, useRouter } from 'next/navigation';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useAccount, useDisconnect } from 'wagmi';
 
 import { Button } from '@/components/Button';
@@ -44,12 +44,53 @@ function Account() {
   const { status } = useSession();
   const mediaUrl = useMediaUrl();
   const [isURPopupOpen, setIsURPopupOpen] = useState(false);
+  const UR_POPUP_SHOWN_KEY = 'urCardPopupShownOnce';
+  const prevStatusRef = useRef(status);
 
   useEffect(() => {
     if (!isConnected && window.localStorage.getItem('signType') === 'wallet') {
       window.localStorage.removeItem('signType');
     }
   }, [isConnected]);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const wasUnauthenticated = prevStatusRef.current === 'unauthenticated';
+    if (wasUnauthenticated && status === 'authenticated' && !window.localStorage.getItem(UR_POPUP_SHOWN_KEY)) {
+      window.localStorage.setItem(UR_POPUP_SHOWN_KEY, `${Date.now()}`);
+    }
+    prevStatusRef.current = status;
+  }, [status]);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const isAuthPage =
+      pathname?.includes('/signin') ||
+      pathname?.includes('/signup') ||
+      pathname?.includes('/login') ||
+      pathname?.includes('/register');
+
+    const tsRaw = window.localStorage.getItem(UR_POPUP_SHOWN_KEY);
+    const ts = tsRaw ? parseInt(tsRaw, 10) : null;
+    const now = Date.now();
+    const withinWindow = !!ts && now - ts <= 10000;
+    let timerId;
+
+    if (status === 'authenticated' && ts && withinWindow && !isAuthPage) {
+      const autoCloseMs = 5000;
+      setIsURPopupOpen(true);
+      timerId = setTimeout(() => {
+        setIsURPopupOpen(false);
+      }, autoCloseMs);
+    } else {
+      setIsURPopupOpen(false);
+    }
+
+    return () => {
+      if (timerId) clearTimeout(timerId);
+    };
+  }, [status, pathname]);
 
   const bindWallet = useMemo(() => {
     return info?.binds.find(f => f.auth_user_bind_type === 'wallet')?.auth_user_bind_key;
