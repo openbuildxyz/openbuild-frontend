@@ -146,20 +146,19 @@ function Account() {
       )}
       {status === 'unauthenticated' && (
         <div className="flex gap-2">
-          <Button 
-            size="sm" 
-            className="w-[116px] h-9 p-0 flex justify-center items-center gap-2 bg-gradient-to-r from-[#41b8e7] to-[#db89fd] hover:from-[#3da8d7] hover:to-[#d079ed] text-white border-none max-md:h-7 max-md:w-7 max-md:!min-w-[28px]"
+          <button
+            type="button"
             onClick={() => setIsURPopupOpen(true)}
+            className="p-0 m-0 border-none bg-transparent shadow-none outline-none focus:outline-none focus:ring-0 flex items-center"
           >
-            <Image 
-              src="/images/UR.png" 
-              alt="UR" 
-              width={20} 
-              height={20} 
-              className="max-md:w-4 max-md:h-4 rounded-md"
+            <Image
+              src="/images/UR-card-5.png"
+              alt="Get UR"
+              width={232}
+              height={80}
+              className="h-9 w-auto max-md:h-7"
             />
-            <span className="max-md:hidden">Get UR</span>
-          </Button>
+          </button>
           <Link href={`/signin?from=${sourceFrom}`} className="flex-1 md:flex-initial">
             <Button size="sm" className="min-w-9 w-[108px] h-9 p-0 flex justify-center max-md:h-7 max-md:w-7 max-md:!min-w-[28px]">
               <MeIcon />

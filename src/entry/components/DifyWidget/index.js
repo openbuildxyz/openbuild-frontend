@@ -19,8 +19,6 @@
 import Image from 'next/image';
 import { useState } from 'react';
 
-import { Button } from '@/components/Button';
-
 import { URCardPopup } from '../Header/URCardPopup';
 
 function DifyWidget() {
@@ -65,13 +63,13 @@ function DifyWidget() {
         <Image src="/cat.svg" alt="Chat icon" width={64} height={64} />
       </button>
 
-      <Button
-        size="sm"
-        className="fixed bottom-24 right-8 z-50 h-10 w-10 p-0 bg-gradient-to-r from-[#41b8e7] to-[#db89fd] hover:from-[#3da8d7] hover:to-[#d079ed] text-white border-none"
+      <button
+        type="button"
         onClick={() => setIsURPopupOpen(true)}
+        className="fixed bottom-24 right-8 z-50 h-10 w-10 p-0 border-none bg-transparent shadow-none outline-none focus:outline-none focus:ring-0 hover:opacity-90 hover:scale-110 transition-transform duration-200"
       >
-        UR
-      </Button>
+        <Image src="/images/UR-card-6.png" alt="UR" width={80} height={80} className="h-10 w-10" />
+      </button>
 
       <URCardPopup open={isURPopupOpen} closeModal={() => setIsURPopupOpen(false)} />
     </>

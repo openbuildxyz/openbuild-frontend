@@ -66,14 +66,20 @@ export function URCardPopup({ open, closeModal }) {
           <span className="font-semibold text-[#1a1a1a]">30days</span>
         </p>
 
-        <Image
-          src="/images/UR-card-4.png"
-          alt="UR Card CTA"
-          width={640}
-          height={80}
-          sizes="348px"
-          className="self-center w-[348px] max-md:w-[300px] h-auto"
-        />
+        <button
+          type="button"
+          onClick={() => window.open('https://ur.app/', '_blank')}
+          className="self-center p-0 m-0 border-none bg-transparent shadow-none outline-none focus:outline-none focus:ring-0 hover:opacity-95 hover:scale-105 transition-transform duration-200"
+        >
+          <Image
+            src="/images/UR-card-4.png"
+            alt="UR Card CTA"
+            width={640}
+            height={80}
+            sizes="348px"
+            className="w-[348px] max-md:w-[300px] h-auto"
+          />
+        </button>
       </div>
     </Modal>
   );
