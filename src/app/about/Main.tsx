@@ -183,7 +183,6 @@ export default function AboutMain() {
         </div>
 
         <div className="relative z-10 mx-auto px-4 md:px-8 text-center">
-          <p className="text-[18px]/[20px] mb-4">About OpenBuild</p>
           <h1 className="text-[56px]/[64px] font-extrabold mb-9">Bridging Web2 and Web3</h1>
           <p className="max-w-2xl mx-auto mb-7 text-[22px]/[28px] font-bold">
             OpenBuild is the Biggest Web3 Open-Source Community in Asia.
