@@ -50,10 +50,10 @@ import StartOnOpenBuild from '#/entry/components/StartOnOpenBuild';
 export default function AboutMain() {
   // Use static paths to ensure these community icons stay present after hydration in production.
   const communities = [
-    '/images/about/communities-1.png',
-    '/images/about/communities-2.png',
-    '/images/about/communities-3.png',
-    '/images/about/communities-4.png',
+    { src: '/images/about/communities-1.png', href: 'https://rustcc.cn/', label: 'RustCC' },
+    { src: '/images/about/communities-2.png', href: 'https://pychina.org/', label: 'PyChina' },
+    { src: '/images/about/communities-3.png', href: 'https://segmentfault.com/', label: 'SegmentFault' },
+    { src: '/images/about/communities-4.png', href: 'https://kaiyuanshe.cn/', label: 'Kaiyuanshe' },
   ];
 
   const services = [
@@ -195,18 +195,21 @@ export default function AboutMain() {
 
           {/* Icons */}
           <div className="flex justify-center items-center mb-4">
-            {communities.map((img, i) => (
-              <div
-                key={i}
-                className="rounded-full border-1 p-3.5 bg-white relative"
+            {communities.map((community, i) => (
+              <a
+                key={community.href}
+                href={community.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-full border-1 p-2.5 bg-white relative inline-flex items-center justify-center"
                 style={{
                   borderColor: 'rgba(26, 26, 26, 0.12)',
-                  marginLeft: i > 0 ? '-14px' : '0',
+                  marginLeft: i > 0 ? '-10px' : '0',
                   zIndex: i + 1,
                 }}
               >
-                <Image src={img} alt={`Community ${i + 1}`} width={24} height={24} />
-              </div>
+                <Image src={community.src} alt={community.label} width={32} height={32} />
+              </a>
             ))}
           </div>
 
