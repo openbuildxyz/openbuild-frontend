@@ -18,7 +18,6 @@
 
 import Image from 'next/image';
 
-import { Button } from '@/components/Button';
 import { Modal } from '@/components/Modal';
 
 export function URCardPopup({ open, closeModal }) {
@@ -67,14 +66,14 @@ export function URCardPopup({ open, closeModal }) {
           <span className="font-semibold text-[#1a1a1a]">30days</span>
         </p>
 
-        <Button
-          size="sm"
-          className="self-center w-[348px] max-md:w-[300px] h-9 max-md:h-[40px] p-0 flex justify-center items-center gap-2 bg-gradient-to-r from-[#41B8E7] to-[#DB89FD] hover:from-[#3da8d7] hover:to-[#d079ed] text-white border-none"
-          onClick={() => window.open('https://ur.app/', '_blank')}
-        >
-          <Image src="/images/UR.png" alt="UR" width={20} height={40} className="max-md:w-4 max-md:h-4 rounded-md" />
-          <span className="max-md:text-[14px]">Get UR</span>
-        </Button>
+        <Image
+          src="/images/UR-card-4.png"
+          alt="UR Card CTA"
+          width={640}
+          height={80}
+          sizes="348px"
+          className="self-center w-[348px] max-md:w-[300px] h-auto"
+        />
       </div>
     </Modal>
   );
