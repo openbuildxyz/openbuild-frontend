@@ -27,14 +27,36 @@ export function URCardPopup({ open, closeModal }) {
       isOpen={open}
       closeModal={closeModal}
       title=""
-      className="!max-w-[396px] max-md:!max-w-[340px] !min-h-[406px] max-md:!min-h-[380px] !p-6 max-md:!p-4 flex justify-center"
+      className="relative !w-[380px] !h-[369px] max-md:!w-[340px] max-md:!h-[340px] !p-0 flex flex-col overflow-hidden !rounded-3xl"
     >
-      <div className="flex flex-col items-left">
-        <div className="mb-8 max-md:mb-6">
-          <Image src="/images/UR-card.png" alt="UR Card" width={0} height={150} sizes="100vw" className="rounded-2xl w-auto max-md:h-[120px]" />
-        </div>
+      <button
+        type="button"
+        aria-label="Close"
+        onClick={closeModal}
+        className="absolute -right-4 -top-3 z-10 max-md:-right-3 max-md:-top-2 bg-white rounded-full p-0 border-0 shadow-sm hover:bg-white focus:outline-none focus:ring-0 active:bg-white"
+      >
+        <Image src="/images/UR-close.svg" alt="Close modal" width={32} height={32} className="max-md:w-7 max-md:h-7" />
+      </button>
 
-        <h2 className="text-[20px] max-md:text-[18px] font-bold text-[#1a1a1a] mb-3 max-md:mb-2 leading-6 max-md:leading-5" style={{ fontFamily: 'Nunito Sans' }}>
+      <div className="bg-[#F4F4F4] px-6 pt-6 pb-[30px] max-md:px-4 max-md:pt-4 max-md:pb-[20px] flex justify-center rounded-t-3xl">
+        <Image
+          src="/images/UR-card-2.png"
+          alt="UR Card"
+          width={320}
+          height={172}
+          sizes="320px"
+          className="rounded-2xl w-[320px] h-[172px] max-md:w-[280px] max-md:h-[150px] -mt-14 max-md:-mt-10"
+        />
+      </div>
+
+      <div className="bg-white px-6 pb-6 pt-4 max-md:px-4 max-md:pt-3 max-md:pb-4 flex flex-col items-left rounded-b-3xl">
+        <Image
+          src="/images/UR-card-3.png"
+          alt="UR Card mini"
+          width={145}
+          height={24}
+        />
+        <h2 className="text-[20px] max-md:text-[18px] font-bold text-[#1a1a1a] mt-2 mb-3 max-md:mt-2 max-md:mb-2 leading-6 max-md:leading-5" style={{ fontFamily: 'Nunito Sans' }}>
           Freedom and Efficiency in every
           <br />
           transaction
@@ -47,10 +69,10 @@ export function URCardPopup({ open, closeModal }) {
 
         <Button
           size="sm"
-          className="w-[348px] max-md:w-[300px] h-9 max-md:h-[40px] p-0 flex justify-center items-center gap-2 bg-gradient-to-r from-[#41B8E7] to-[#DB89FD] hover:from-[#3da8d7] hover:to-[#d079ed] text-white border-none"
+          className="self-center w-[348px] max-md:w-[300px] h-9 max-md:h-[40px] p-0 flex justify-center items-center gap-2 bg-gradient-to-r from-[#41B8E7] to-[#DB89FD] hover:from-[#3da8d7] hover:to-[#d079ed] text-white border-none"
           onClick={() => window.open('https://ur.app/', '_blank')}
         >
-          <Image src="/images/UR.png" alt="UR" width={20} height={20} className="max-md:w-4 max-md:h-4 rounded-md" />
+          <Image src="/images/UR.png" alt="UR" width={20} height={40} className="max-md:w-4 max-md:h-4 rounded-md" />
           <span className="max-md:text-[14px]">Get UR</span>
         </Button>
       </div>
