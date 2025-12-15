@@ -75,21 +75,12 @@ function Account() {
     const ts = tsRaw ? parseInt(tsRaw, 10) : null;
     const now = Date.now();
     const withinWindow = !!ts && now - ts <= 10000;
-    let timerId;
 
     if (status === 'authenticated' && ts && withinWindow && !isAuthPage) {
-      const autoCloseMs = 5000;
       setIsURPopupOpen(true);
-      timerId = setTimeout(() => {
-        setIsURPopupOpen(false);
-      }, autoCloseMs);
     } else {
       setIsURPopupOpen(false);
     }
-
-    return () => {
-      if (timerId) clearTimeout(timerId);
-    };
   }, [status, pathname]);
 
   const bindWallet = useMemo(() => {
