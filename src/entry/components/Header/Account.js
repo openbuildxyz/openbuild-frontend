@@ -181,14 +181,21 @@ function Account() {
           <button
             type="button"
             onClick={() => setIsURPopupOpen(true)}
-            className="p-0 m-0 border-none bg-transparent shadow-none outline-none focus:outline-none focus:ring-0 flex items-center max-md:hidden"
+            className="p-0 m-0 border-none bg-transparent shadow-none outline-none focus:outline-none focus:ring-0 flex items-center"
           >
             <Image
               src="/images/UR-card-5.png"
               alt="Get UR"
               width={232}
               height={80}
-              className="h-9 w-auto max-md:h-7"
+              className="h-9 w-auto max-md:hidden"
+            />
+            <Image
+              src="/images/UR-card-6.png"
+              alt="Get UR"
+              width={80}
+              height={80}
+              className="hidden max-md:block h-7 w-auto"
             />
           </button>
           <Link href={`/signin?from=${sourceFrom}`} className="flex-1 md:flex-initial">

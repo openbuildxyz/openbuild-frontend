@@ -32,7 +32,7 @@ function Navs({data}) {
   const pathname = usePathname();
   const hidden = useHeaderAndFooterDisplay();
   const [openMenu, setOpenMenu] = useState(false);
-
+  const [openCollapse, setOpenCollapse] = useState(null);
   const [fullHeader, setFullHeader] = useState(true);
 
   useEffect(() => {
@@ -43,12 +43,18 @@ function Navs({data}) {
     }
   }, [pathname]);
 
+  useEffect(() => {
+    if (!openMenu) {
+      setOpenCollapse(null);
+    }
+  }, [openMenu]);
+
   // console.log(data)
 
   return (
     <header
       className={
-        clsx('sticky bg-white z-50 items-center rounded-lg border-[rgba(26,26,26,0.06)]', {
+        clsx('sticky relative bg-white z-50 items-center rounded-lg border-[rgba(26,26,26,0.06)]', {
           hidden,
           'flex': !hidden,
           'md:border md:mt-4 md:mx-11 md:top-4 top-0 px-4 py-3 h-[64px]': !fullHeader,
@@ -81,10 +87,23 @@ function Navs({data}) {
                   </li>
                 </Link> : (
                   <div key={`header-menu-${k}`} className="collapse">
-                    <input type="radio" name={`my-accordion-${k}`} checked="checked" readOnly />
-                    <div className="collapse-title collapse-title-sm min-h-0 h-14 font-bold flex justify-between items-center">
+                    <input
+                      type="checkbox"
+                      name={`my-accordion-${k}`}
+                      checked={openCollapse === k}
+                      onChange={() => setOpenCollapse(prev => prev === k ? null : k)}
+                      className="min-h-0"
+                    />
+                    <div
+                      className="collapse-title collapse-title-sm min-h-0 h-14 font-bold flex justify-between items-center cursor-pointer"
+                      onClick={() => setOpenCollapse(prev => prev === k ? null : k)}
+                    >
                       {i.name}
-                      <ChevronDownIcon className="h-4 w-4 opacity-60" />
+                      <ChevronDownIcon
+                        className={clsx('h-4 w-4 opacity-60 transition-transform', {
+                          '-rotate-90': openCollapse !== k,
+                        })}
+                      />
                     </div>
                     <div className="collapse-content no-p">
                       <ul className="z-[1] menu p-2">
@@ -105,7 +124,10 @@ function Navs({data}) {
           </ul>
         </div>
       </div>
-      <Link href="/" className="flex sm:mr-12 max-md:flex-1 max-md:justify-center">
+      <Link
+        href="/"
+        className="flex sm:mr-12 max-md:absolute max-md:left-1/2 max-md:top-1/2 max-md:-translate-x-1/2 max-md:-translate-y-1/2 max-md:justify-center"
+      >
         <Image className="h-6 w-auto md:h-[36px]" src={Logo} alt="" />
         <span
           className="text-xs border-gray ml-2 rounded-md border-1 h-4 w-9 inline-block text-center"
@@ -153,7 +175,7 @@ function Navs({data}) {
             )
         )}
       </nav>
-      <div>
+      <div className="ml-auto">
         <Account />
       </div>
 
