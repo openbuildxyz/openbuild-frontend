@@ -68,7 +68,7 @@ export function URCardPopup({ open, closeModal }) {
 
         <button
           type="button"
-          onClick={() => window.open('https://ur.app/', '_blank')}
+          onClick={() => window.open('https://get.ur.app/login?code=whvcn8', '_blank')}
           className="self-center p-0 m-0 border-none bg-transparent shadow-none outline-none focus:outline-none focus:ring-0 hover:opacity-95 hover:scale-105 transition-transform duration-200"
         >
           <Image
