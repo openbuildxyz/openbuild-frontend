@@ -54,12 +54,16 @@ export function URCardPopup({ open, closeModal }) {
           className="text-[20px] max-md:text-[18px] font-bold text-[#1a1a1a] mt-2 mb-3 max-md:mt-2 max-md:mb-2 leading-6 max-md:leading-5"
           style={{ fontFamily: 'Nunito Sans' }}
         >
-          Securely manage your crypto and fiat in one bank account with zero off-ramp fees and low-cost FX.
+          What makes UR special
         </h2>
 
         <p className="text-[#484848] max-md:text-[14px] mb-8 max-md:mb-6" style={{ fontFamily: 'Nunito Sans' }}>
-          By <span className="font-semibold text-[#1a1a1a]">UR</span> · Deadline{' '}
-          <span className="font-semibold text-[#1a1a1a]">30days</span>
+          Securely manage your crypto and fiat in one bank account with zero off-ramp fees and low-cost FX.
+        </p>
+
+        <p className="text-[#484848] max-md:text-[14px] mb-8 max-md:mb-6" style={{ fontFamily: 'Nunito Sans' }}>
+          By <span className="font-semibold text-[#1a1a1a]">UR</span> · Offer valid{' '}
+          <span className="font-semibold text-[#1a1a1a]">until Jan 6, 2026</span>
         </p>
 
         <button
