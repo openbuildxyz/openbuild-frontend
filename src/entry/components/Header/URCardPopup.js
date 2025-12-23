@@ -58,7 +58,7 @@ export function URCardPopup({ open, closeModal }) {
         </h2>
 
         <p className="text-[#484848] max-md:text-[14px] mb-8 max-md:mb-6" style={{ fontFamily: 'Nunito Sans' }}>
-          Securely manage your crypto and fiat in one bank account with zero off-ramp fees and low-cost FX.
+          Securely manage your crypto and fiat in one account with zero off-ramp fees and low-cost FX.
         </p>
 
         <p className="text-[#484848] max-md:text-[14px] mb-8 max-md:mb-6" style={{ fontFamily: 'Nunito Sans' }}>
