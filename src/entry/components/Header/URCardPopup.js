@@ -50,18 +50,15 @@ export function URCardPopup({ open, closeModal }) {
 
       <div className="bg-white px-6 pb-6 pt-4 max-md:px-4 max-md:pt-3 max-md:pb-4 flex flex-col items-left rounded-b-3xl">
         <Image src="/images/UR-card-3.svg" alt="UR Card mini" width={161} height={24} />
-        <h2
-          className="text-[20px] max-md:text-[18px] font-bold text-[#1a1a1a] mt-2 mb-3 max-md:mt-2 max-md:mb-2 leading-6 max-md:leading-5"
-          style={{ fontFamily: 'Nunito Sans' }}
-        >
+        <h2 className="text-[20px] max-md:text-[18px] font-bold text-[#1a1a1a] mt-2 mb-3 max-md:mt-2 max-md:mb-2 leading-6 max-md:leading-5">
           What makes UR special
         </h2>
 
-        <p className="text-[#484848] max-md:text-[14px] mb-8 max-md:mb-6" style={{ fontFamily: 'Nunito Sans' }}>
+        <p className="text-[#484848] max-md:text-[14px] mb-8 max-md:mb-6">
           Securely manage your crypto and fiat in one account with zero off-ramp fees and low-cost FX.
         </p>
 
-        <p className="text-[#484848] max-md:text-[14px] mb-8 max-md:mb-6" style={{ fontFamily: 'Nunito Sans' }}>
+        <p className="text-[#484848] max-md:text-[14px] mb-8 max-md:mb-6">
           By <span className="font-semibold text-[#1a1a1a]">UR</span> · Offer valid{' '}
           <span className="font-semibold text-[#1a1a1a]">until Jan 6, 2026</span>
         </p>
