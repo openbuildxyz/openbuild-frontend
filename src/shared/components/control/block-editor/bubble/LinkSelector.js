@@ -27,7 +27,7 @@ export function isValidUrl(url) {
   try {
     new URL(url);
     return true;
-  } catch (_e) {
+  } catch {
     return false;
   }
 }
@@ -37,7 +37,7 @@ export function getUrlFromString(str) {
     if (str.includes('.') && !str.includes(' ')) {
       return new URL(`https://${str}`).toString();
     }
-  } catch (_e) {
+  } catch {
     return null;
   }
 }

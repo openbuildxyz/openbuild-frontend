@@ -104,7 +104,7 @@ export function QuizComponents({ id, version, data }) {
           <QuizCore quiz={quiz} setQuiz={setQuiz} page={page} submitData={submitData} marked={!!version} />
           <div className="absolute bottom-0 md:bottom-14 max-md:left-0 max-md:right-0 md:flex md:items-center md:justify-between md:w-[680px]">
             <div className="flex items-center max-md:justify-center max-md:mb-4">
-              <progress class="progress w-56" value={_progress.toFixed(0)} max="100" />
+              <progress className="progress w-56" value={_progress.toFixed(0)} max="100" />
               <span className="text-xs ml-2">{_progress.toFixed(0)}%</span>
             </div>
             <div className="flex items-center max-md:h-24 max-md:px-6 max-md:shadow-[0_-4px_14px_rgba(0,0,0,0.08)]">

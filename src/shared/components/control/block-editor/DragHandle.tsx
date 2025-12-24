@@ -37,6 +37,7 @@ function DragHandle() {
   const getDragHandlePos = () => {
     if (!editor) return null;
 
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const { left, top } = refs.reference.current!.getBoundingClientRect();
     // https://github.com/NiclasDev63/tiptap-extension-global-drag-handle/blob/3c327114aa54293392369c6c5bb311f2eabc50bd/src/index.ts#L84-L95
     // add 50px to the left and 1px to the top to make sure the position is inside the editor

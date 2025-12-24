@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+/* eslint-disable react/no-unknown-property */
+
 import React from 'react';
 
 export const GoogleIcon = props => {
@@ -1757,8 +1759,8 @@ export const DownloadIcon = props => {
   return (
     <svg {...props} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path fillRule="evenodd" clipRule="evenodd" d="M12 14.5L6 8.49999H9.99995V3H14V8.49999H18L12 14.5Z" stroke="#1A1A1A" strokeLinecap="round" strokeLinejoin="round"/>
-      <path d="M21 18.5H3" stroke="#1A1A1A" stroke-linecap="round"/>
-      <path d="M17 22H7" stroke="#1A1A1A" stroke-linecap="round"/>
+      <path d="M21 18.5H3" stroke="#1A1A1A" strokeLinecap="round"/>
+      <path d="M17 22H7" stroke="#1A1A1A" strokeLinecap="round"/>
     </svg>
 
   );
