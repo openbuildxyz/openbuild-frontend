@@ -38,7 +38,14 @@ function DatePlace({ data, showTicket = false }) {
         </div>
         <div className="h-4">
           <p className="text-sm text-gray">
-            {formatTime(data.challenges_extra.course_challenges_extra_start_date * 1000, 'MMM DD')}–{formatTime(data.challenges_extra.course_challenges_extra_end_date * 1000, 'DD')}, {formatTime(data.challenges_extra.course_challenges_extra_start_date * 1000, 'YYYY')}
+            {Math.floor(data.challenges_extra.course_challenges_extra_start_date / 86400) === Math.floor(data.challenges_extra.course_challenges_extra_end_date / 86400) ?
+              `${formatTime(data.challenges_extra.course_challenges_extra_start_date * 1000, 'MMM DD, YYYY')}`
+              :
+              formatTime(data.challenges_extra.course_challenges_extra_start_date * 1000, 'YYYY/MM') === formatTime(data.challenges_extra.course_challenges_extra_end_date * 1000, 'YYYY/MM') ?
+                `${formatTime(data.challenges_extra.course_challenges_extra_start_date * 1000, 'MMM DD')}–${formatTime(data.challenges_extra.course_challenges_extra_end_date * 1000, 'DD')}, ${formatTime(data.challenges_extra.course_challenges_extra_start_date * 1000, 'YYYY')}`
+                :
+                `${formatTime(data.challenges_extra.course_challenges_extra_start_date * 1000, 'MMM DD')}–${formatTime(data.challenges_extra.course_challenges_extra_end_date * 1000, 'MMM DD')}, ${formatTime(data.challenges_extra.course_challenges_extra_end_date * 1000, 'YYYY')}`
+            }
             {data.challenges_extra.course_challenges_extra_time_zone?.label && <span className="text-xs h-4 py-[2px]"> {data.challenges_extra.course_challenges_extra_time_zone.label.substring(0, 12).replace(':00', '')}</span>}
           </p>
         </div>
