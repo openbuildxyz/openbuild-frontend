@@ -38,9 +38,8 @@ function DatePlace({ data, showTicket = false }) {
         </div>
         <div className="h-4">
           <p className="text-sm text-gray">
-            {formatTime(data.challenges_extra.course_challenges_extra_start_date * 1000, 'YYYY/MM/DD')} -{' '}
-            {formatTime(data.challenges_extra.course_challenges_extra_end_date * 1000, 'MM/DD')}
-            {data.challenges_extra.course_challenges_extra_time_zone?.label?.substr(0, 11) && <span className="text-xs h-4 py-[2px]">{data.challenges_extra.course_challenges_extra_time_zone?.label?.substr(0, 11)}</span>}
+            {formatTime(data.challenges_extra.course_challenges_extra_start_date * 1000, 'MMM DD')}–{formatTime(data.challenges_extra.course_challenges_extra_end_date * 1000, 'DD')}, {formatTime(data.challenges_extra.course_challenges_extra_start_date * 1000, 'YYYY')}
+            {data.challenges_extra.course_challenges_extra_time_zone?.label && <span className="text-xs h-4 py-[2px]"> {data.challenges_extra.course_challenges_extra_time_zone.label.substring(0, 12).replace(':00', '')}</span>}
           </p>
         </div>
       </div>
@@ -54,9 +53,10 @@ function DatePlace({ data, showTicket = false }) {
             data?.challenges_extra.course_challenges_extra_online ?
               'Online'
               :
-              data?.challenges_extra.course_challenges_extra_country ?
+              data?.challenges_extra.course_challenges_extra_city ?
+                data?.challenges_extra.course_challenges_extra_city + ', ' +
                 countries.find(f => f.code === data?.challenges_extra.course_challenges_extra_country)?.name
-            + ', ' + data?.challenges_extra.course_challenges_extra_city : ''
+                : countries.find(f => f.code === data?.challenges_extra.course_challenges_extra_country)?.name
           }
           {showTicket && <Image onClick={() => setOpen(true)} height={12} src={TicketPic} alt="" className="cursor-pointer" />}
         </p>
