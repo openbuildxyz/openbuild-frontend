@@ -20,7 +20,7 @@ import clsx from 'clsx';
 import Link from 'next/link';
 
 import BrandLogo from '@/components/brand-logo';
-import { GithubSolidIcon, TwitterIcon, YoutobeIcon, LinkedInFilled, SubstackFilled } from '@/components/Icons';
+import { GithubSolidIcon, TwitterIcon, YoutobeIcon, LinkedInFilled, SubstackFilled, XiaohongshuIcon, BilibiliIcon } from '@/components/Icons';
 import { useFooterDisplay } from '@/hooks/useHeaderAndFooterDisplay';
 import { getCopyrightText } from '@/utils/app';
 
@@ -94,6 +94,14 @@ const menus = [
       {
         name: 'Substack',
         link: 'https://openbuildxyz.substack.com',
+      },
+      {
+        name: 'Xiaohongshu',
+        link: 'https://www.xiaohongshu.com/user/profile/642161b400000000110200c2',
+      },
+      {
+        name: 'Bilibili',
+        link: 'https://space.bilibili.com/483336099',
       },
     ],
   },
@@ -171,6 +179,20 @@ export function Footer() {
               className="transition-all duration-300 hover:text-green"
             >
               <SubstackFilled />
+            </Link>
+            <Link
+              href="https://space.bilibili.com/483336099"
+              target={'_blank'}
+              className="transition-all duration-300 hover:text-green"
+            >
+              <BilibiliIcon />
+            </Link>
+            <Link
+              href="https://www.xiaohongshu.com/user/profile/642161b400000000110200c2"
+              target={'_blank'}
+              className="transition-all duration-300 hover:text-green"
+            >
+              <XiaohongshuIcon />
             </Link>
           </div>
         </div>
