@@ -17,12 +17,14 @@
 'use client';
 
 import { Header } from '../../components/Header';
+import WeChatBrowserNotice from '../../components/WeChatBrowserNotice';
 import { Footer } from './Footer';
 import { LayoutModals } from './LayoutModals';
 
 function DefaultLayout({ children }) {
   return (
     <div className="text-gray">
+      <WeChatBrowserNotice />
       <Header />
       <div className="relative flex-1 bg-[#F8F8F8]">{children}</div>
       <Footer />
