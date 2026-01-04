@@ -171,7 +171,7 @@ function ButtonGroup({
         )}
         {permission?.course_user_permission_status === 1 && type === 'challenges' && (
           <Button disabled fullWidth className={'flex-1'}>
-            Applied
+            Completed
           </Button>
         )}
         {(permission?.course_user_permission_status === 2 || permission?.course_user_permission_status === 4) && (

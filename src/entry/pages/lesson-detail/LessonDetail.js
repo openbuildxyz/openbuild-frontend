@@ -23,7 +23,7 @@ function LessonDetailPage({ collection, data, lessonData }) {
   const lessonId = lessonData?.base.course_single_id;
 
   return courseId && lessonId && (
-    <div className="px-6 lg:flex">
+    <div className="px-6 lg:flex lg:items-start">
       <LessonList courseLink={`${collection.link}/${courseId}`} data={data} singleId={lessonId} />
       <Content collection={collection} id={courseId} single={lessonData} menuData={data} />
       <PostTime id={lessonId} />

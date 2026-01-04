@@ -57,7 +57,7 @@ function LessonList({ courseLink, data, singleId }) {
   return show ? (
     <div
       className={clsx(
-        'h-fit pt-9 transition-all !duration-500 max-lg:fixed max-lg:top-[85px] max-lg:left-0 max-lg:z-20 max-lg:h-[100%] max-lg:w-full max-lg:bg-white max-lg:px-4 max-lg:pt-4 lg:sticky lg:top-0',
+        'h-fit pt-9 transition-all !duration-500 max-lg:fixed max-lg:top-[85px] max-lg:left-0 max-lg:z-20 max-lg:h-[100%] max-lg:w-full max-lg:bg-white max-lg:px-4 max-lg:pt-4 lg:sticky lg:top-[73px] lg:h-[calc(100vh-73px)] lg:overflow-y-auto',
         {
           'w-[376px] pr-14' : menuToggleStatus,
           'w-[0px] pr-0' : !menuToggleStatus,
