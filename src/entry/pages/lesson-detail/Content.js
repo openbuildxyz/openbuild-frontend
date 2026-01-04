@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import clsx from 'clsx';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useMemo } from 'react';
@@ -24,6 +25,7 @@ import { Share } from '@/components/Share';
 
 import { resolveChapter } from '#/domain/course/helper';
 import LessonDetailViewWidget from '#/domain/course/views/lesson-detail';
+import { useLessonMenuToggleStatus } from '#/state/application/hooks';
 import { updateLessonMenu } from '#/state/application/reducer';
 import { useAppDispatch } from '#/state/hooks';
 
@@ -33,6 +35,7 @@ import Menu from './Menu';
 function Content({ id, single, menuData, collection }) {
   const router = useRouter();
   const dispatch = useAppDispatch();
+  const menuToggleStatus = useLessonMenuToggleStatus();
 
   const bothSides = useMemo(() => {
     const currentIndex = menuData.courses.findIndex(element => element.base.course_single_id === single.base.course_single_id);
@@ -64,7 +67,12 @@ function Content({ id, single, menuData, collection }) {
   const currentCourseLink = resolveCourseLink();
 
   return !resolveChapter(chapterFromCourse, single?.base.course_single_content).isLock ? (
-    <div className="flex-1 pt-[30px] lg:border-l lg:border-gray-400 lg:px-14">
+    <div
+      className={clsx(
+        'flex-1 pt-[30px]',
+        menuToggleStatus ? 'lg:border-l lg:border-gray-400 lg:px-14' : 'lg:pr-14'
+      )}
+    >
       <div className="mb-2 items-center justify-between lg:flex">
         <p className="items-center text-sm text-gray-200 lg:flex">
           <span onClick={() => router.push(collection.link)} className="cursor-pointer hover:underline">

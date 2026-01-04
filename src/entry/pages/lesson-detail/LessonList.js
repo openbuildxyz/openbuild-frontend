@@ -57,10 +57,10 @@ function LessonList({ courseLink, data, singleId }) {
   return show ? (
     <div
       className={clsx(
-        'h-fit pt-9 transition-all !duration-500 max-lg:fixed max-lg:top-[85px] max-lg:left-0 max-lg:z-20 max-lg:h-[100%] max-lg:w-full max-lg:bg-white max-lg:px-4 max-lg:pt-4 lg:sticky lg:top-[73px] lg:h-[calc(100vh-73px)] lg:overflow-y-auto',
+        'relative h-fit pt-9 transition-all !duration-500 max-lg:fixed max-lg:top-[85px] max-lg:left-0 max-lg:z-20 max-lg:h-[100%] max-lg:w-full max-lg:bg-white max-lg:px-4 max-lg:pt-4 lg:sticky lg:top-[73px]',
         {
-          'w-[376px] pr-14' : menuToggleStatus,
-          'w-[0px] pr-0' : !menuToggleStatus,
+          'w-[376px]': menuToggleStatus,
+          'w-[0px]': !menuToggleStatus,
         }
       )}
     >
@@ -72,14 +72,21 @@ function LessonList({ courseLink, data, singleId }) {
           <XMarkIcon className="block h-4 w-4" />
         </div>
       </div>
-      <div style={{ height: '-webkit-fill-available' }} className="max-lg:mb-[140px] max-lg:overflow-auto max-lg:pl-2">
-        <div onClick={() => dispatch(updateLessonMenuToggleStatus(!menuToggleStatus))} className={clsx('absolute z-10 left-[-18px] top-[18px] w-9 h-9 transition-all !duration-500 border border-gray-400 rounded-full flex items-center justify-center bg-[#F8F8F8] cursor-pointer', {
-          'left-[358px]': menuToggleStatus,
-          'left-[-18px]': !menuToggleStatus,
-        })}>
+      {menuToggleStatus && (
+        <div
+          onClick={() => dispatch(updateLessonMenuToggleStatus(!menuToggleStatus))}
+          className={clsx(
+            'absolute z-10 left-[40px] top-[28px] w-9 h-9 transition-all !duration-500 border border-gray-400 rounded-full flex items-center justify-center bg-[#F8F8F8] cursor-pointer max-lg:hidden',
+            {
+              'lg:left-[calc(100%+12px)]': menuToggleStatus,
+            }
+          )}
+        >
           <ChevronDoubleLeftIcon className={clsx('h-[14px] w-[14px] opacity-40 transition-all !duration-500', { 'rotate-180': !menuToggleStatus })} />
         </div>
-        {menuToggleStatus && <div>
+      )}
+      <div style={{ height: '-webkit-fill-available' }} className="max-lg:mb-[140px] max-lg:overflow-auto max-lg:pl-2 lg:!h-[calc(100vh-73px)] lg:overflow-y-auto">
+        {menuToggleStatus && <div className="lg:pr-6">
           <div className="flex justify-between items-center mb-[33px]">
             <progress className="progress w-[270px] bg-[#e9e9e9]" value={_progNum} max="100">90</progress>
             <span className="text-xs">{_progNum}%</span>
