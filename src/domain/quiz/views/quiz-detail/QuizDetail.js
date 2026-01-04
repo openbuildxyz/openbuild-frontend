@@ -71,6 +71,7 @@ function QuizDetailView({ quizId }) {
     const nowSeconds = now / 1000;
 
     let content = 'Challenge now';
+    let disabled = false;
 
     let handleClick = () => {
       setCheckLimit(true);
@@ -84,12 +85,13 @@ function QuizDetailView({ quizId }) {
         content = 'Waiting to start';
         handleClick = noop;
       } else if (end_time > 0 && nowSeconds > end_time) {
-        content = 'End';
+        content = 'Closed';
         handleClick = noop;
+        disabled = true;
       }
     }
 
-    return { content, handleClick };
+    return { content, handleClick, disabled };
   }, [data]);
 
   return (
@@ -138,6 +140,7 @@ function QuizDetailView({ quizId }) {
         <Button
           className="mt-4 md:mt-6 mb-9 md:mb-10 !font-bold px-[64px] !text-base max-md:w-full"
           onClick={challengeButtonProps.handleClick}
+          disabled={challengeButtonProps.disabled}
         >
           {challengeButtonProps.content}
         </Button>
