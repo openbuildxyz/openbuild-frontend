@@ -31,6 +31,8 @@ function ChapterSection({ type, data, id }) {
   const list = useMemo(() => {
     return reducerList(data);
   }, [data]);
+  const permissionStatus = data?.permission?.course_user_permission_status;
+  const isAccessRestricted = !data?.permission || ![1, 2, 4].includes(permissionStatus);
 
   const calcChapterTimes = (arr, type) => {
     let total = 0;
@@ -101,10 +103,10 @@ function ChapterSection({ type, data, id }) {
                   <div
                     onClick={e => {
                       e.stopPropagation();
-                      if (j.isLock && j.isCheck) {
-                        toast.info('This content access requires registration or approval. Contact the course publisher for more information.');
+                      if (j.isLock && (j.isCheck || isAccessRestricted)) {
+                        toast.info('This content access requires registration or approval.');
                       } else if (j.isLock && !j.isCheck) {
-                        toast.info('The content has not been made public, please contact the publisher');
+                        toast.info('This course has not yet been released, please wait.');
                       } else {
                         router.push(`/learn/${type}/${id}/${j.base.course_single_id}`);
                       }

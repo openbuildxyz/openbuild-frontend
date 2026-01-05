@@ -32,6 +32,7 @@ import { useAppDispatch } from '#/state/hooks';
 function LessonList({ courseLink, data, singleId }) {
   const dispatch = useAppDispatch();
   const show = useLessonMenu();
+  console.log('LessonList analytics:', data?.analytics);
 
   const list = useMemo(() => {
     return reducerList(data);
@@ -47,10 +48,12 @@ function LessonList({ courseLink, data, singleId }) {
     } else if (data.analytics.analytice_estimated_time === 0) {
       return 0;
     } else {
-      return new BigNumber(data.analytics.analytice_user_time)
-        .div(data.analytics.analytice_estimated_time)
-        .times(100)
-        .toFixed(0);
+      return Number(
+        new BigNumber(data.analytics.analytice_user_time)
+          .div(data.analytics.analytice_estimated_time)
+          .times(100)
+          .toFixed(0)
+      );
     }
   }, [data.analytics]);
 
@@ -85,9 +88,9 @@ function LessonList({ courseLink, data, singleId }) {
       </div>
       <div style={{ height: '-webkit-fill-available' }} className="max-lg:mb-[140px] max-lg:overflow-auto max-lg:pl-2 lg:!h-[calc(100vh-73px)] lg:overflow-y-auto">
         {menuToggleStatus && <div className="lg:pr-6">
-          <div className="flex justify-between items-center gap-3 mb-[33px]">
-            <progress className="progress w-[270px] bg-[#e9e9e9]" value={_progNum} max="100">90</progress>
-            <span className="text-xs">{_progNum}%</span>
+          <div className="flex items-center gap-1 lg:gap-3 mb-[33px]">
+            <progress className="progress flex-1 min-w-0 bg-[#e9e9e9]" value={_progNum} max="100">{_progNum}</progress>
+            <span className="text-xs shrink-0">{_progNum}%</span>
           </div>
           {list.map((i, k) => (
             <div key={`lesson-step-${k}`} className="mb-8">
@@ -100,7 +103,7 @@ function LessonList({ courseLink, data, singleId }) {
                     onClick={() => {
                       !isNotLg && dispatch(updateLessonMenu(false));
                       if (j.isLock) {
-                        toast.info('The content has not been made public, please contact the publisher');
+                        toast.info('This course has not yet been released, please wait.');
                       } else {
                         router.push(`${courseLink}/${j.base.course_single_id}`);
                       }

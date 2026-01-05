@@ -155,7 +155,7 @@ function ButtonGroup({
             onClick={() => {
               if (data?.courses?.length > 0) {
                 if (data.courses[0].base.course_single_content === '') {
-                  toast.info('The content has not been made public, please contact the publisher');
+                  toast.info('This course has not yet been released, please wait.');
                 } else {
                   router.push(`/learn/${type}/${data.base.course_series_id}/${data.courses[0].base.course_single_id}`);
                 }
