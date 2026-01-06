@@ -454,7 +454,7 @@ export default function AboutMain() {
             <div className="bg-[#E8755A] rounded-[24px] flex flex-col items-center relative w-full max-w-[295px] md:max-w-none md:w-full xl:w-[295px] h-[350px] overflow-hidden xl:mx-[18px]">
               <div className="absolute md:w-[calc(100%-42px)] w-[253px] top-[24px] left-[21px] right-[21px]">
                 <a
-                  href="https://space.bilibili.com/483336099?spm_id_from=333.337.0.0"
+                  href="https://space.bilibili.com/483336099"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group cursor-pointer flex items-start justify-between pt-3 md:pt-4 px-4 md:px-5 xl:px-6 bg-white rounded-xl h-[255px] w-full"
@@ -494,7 +494,7 @@ export default function AboutMain() {
                   />
                 </a>
                 <a
-                  href="https://www.xiaohongshu.com/user/profile/642161b400000000110200c2?xsec_token=ABHZPYxxvFeGh6YzcDH9vyOYRUg1Joz9zAxOuzbnQAa_I%3D&xsec_source=pc_search"
+                  href="https://www.xiaohongshu.com/user/profile/642161b400000000110200c2"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group cursor-pointer flex items-start justify-between pt-3 md:pt-4 px-4 md:px-5 xl:px-6 bg-white rounded-xl h-[255px] absolute top-[108px] w-full"

@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import BilibiliIcon from 'public/images/svg/bilibili2.svg';
 // import CareerIcon from 'public/images/svg/folder.svg'
 import ChallengesIcon from 'public/images/svg/challenges.svg';
 import CoursesIcon from 'public/images/svg/courses.svg';
@@ -24,6 +25,8 @@ import QuizIcon from 'public/images/svg/quiz.svg';
 import SubstackIcon from 'public/images/svg/substack-outlined.svg';
 import TelegramIcon from 'public/images/svg/telegram.svg';
 import TwitterIcon from 'public/images/svg/twitter_l.svg';
+import XiaohongshuIcon from 'public/images/svg/xiaohongshu2.svg';
+import YouTubeIcon from 'public/images/svg/youtube2.svg';
 // import BountyIcon from 'public/images/svg/bounty.svg'
 // import ShillingIcon from 'public/images/svg/shilling.svg'
 
@@ -167,6 +170,27 @@ export const APP_NAVS = [
         slug: 'community',
         icon: SubstackIcon,
         name: 'Substack',
+      },
+      {
+        desc: 'Follow us for activities, stories, and community highlights!',
+        link: 'https://www.xiaohongshu.com/user/profile/642161b400000000110200c2',
+        slug: 'community',
+        icon: XiaohongshuIcon,
+        name: 'Xiaohongshu',
+      },
+      {
+        desc: 'Watch videos and read activity updates on Bilibili!',
+        link: 'https://space.bilibili.com/483336099',
+        slug: 'community',
+        icon: BilibiliIcon,
+        name: 'Bilibili',
+      },
+      {
+        desc: 'Subscribe for videos YouTube!',
+        link: 'https://www.youtube.com/@openbuildxyz',
+        slug: 'community',
+        icon: YouTubeIcon,
+        name: 'YouTube',
       },
     ],
   },
