@@ -109,7 +109,7 @@ export default function AboutMain() {
     {
       name: 'DevPlaza',
       description: 'Open-source development framework for rapidly building localized Web3 community platforms',
-      url: 'github.com/openbuildxyz/devplaza',
+      url: 'https://github.com/phoouze/devplaza',
       icon: EcosystemDP,
     },
     {
