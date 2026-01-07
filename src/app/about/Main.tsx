@@ -342,7 +342,7 @@ export default function AboutMain() {
             <a href="#" className="text-[16px]/[20px] inline-flex items-center gap-3.5">
               Explore More Projects <ArrowRight size={24} />{' '}
               <a
-                href="https://openbuildxyz.github.io/eco/"
+                href="https://openbuildxyz.github.io/eco/projects/"
                 className="underline font-bold text-[20px]/[20px] tracking-[-0.4px]"
                 target="_blank"
               >
