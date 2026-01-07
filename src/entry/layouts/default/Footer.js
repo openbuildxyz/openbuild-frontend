@@ -144,7 +144,7 @@ export function Footer() {
             </a>
           </div>
           <p className="mb-4 text-sm">Follow us</p>
-          <div className={clsx(mediasLinkStyle, mediasStyle, 'flex w-[227px] justify-between max-md:mb-9')}>
+          <div className={clsx(mediasLinkStyle, mediasStyle, 'flex w-[227px] gap-1 max-md:mb-9')}>
             <Link
               href="https://github.com/openbuildxyz"
               target={'_blank'}
