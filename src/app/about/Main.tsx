@@ -52,8 +52,8 @@ export default function AboutMain() {
   const communities = [
     { src: '/images/about/communities-1.png', href: 'https://rustcc.cn/', label: 'RustCC' },
     { src: '/images/about/communities-2.png', href: 'https://pychina.org/', label: 'PyChina' },
-    { src: '/images/about/communities-3.png', href: 'https://segmentfault.com/', label: 'SegmentFault' },
-    { src: '/images/about/communities-4.png', href: 'https://kaiyuanshe.cn/', label: 'Kaiyuanshe' },
+    { src: '/images/about/communities-3.png', href: 'https://kaiyuanshe.cn/', label: 'Kaiyuanshe' },
+    { src: '/images/about/communities-4.png', href: 'https://segmentfault.com/', label: 'SegmentFault' },
   ];
 
   const services = [
