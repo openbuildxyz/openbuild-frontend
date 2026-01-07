@@ -318,12 +318,14 @@ export default function AboutMain() {
                       borderColor: 'rgba(26, 26, 26, 0.06)',
                     }}
                   >
-                    <div
-                      className="flex items-center justify-between text-[18px]/[20px] font-bold tracking-[-0.36px] opacity-50 cursor-not-allowed"
-                      onClick={e => e.preventDefault()}
+                    <a
+                      href={service.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-between text-[18px]/[20px] font-bold tracking-[-0.36px] hover:opacity-80"
                     >
                       More <ArrowUpRight size={24} />
-                    </div>
+                    </a>
                   </div>
                 </div>
               </div>
