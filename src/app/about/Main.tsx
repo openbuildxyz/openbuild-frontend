@@ -68,28 +68,28 @@ export default function AboutMain() {
         'DevRel Consultant',
       ],
       image: Service1,
-      link: 'https://www.notion.so/openbuildxyz/2b5f8dcc319080d7ad4cc0732b241609?v=2b5f8dcc319080fba191000cd433880d',
+      link: 'https://www.notion.so/openbuildxyz/2b5f8dcc319080d7ad4cc0732b241609',
     },
     {
       id: 2,
       title: 'Community Influence & Events',
       items: ['IRL Meetup / Workshop / Conference', 'IRL / URL Hackathon', 'IRL Hackerhouse'],
       image: Service2,
-      link: 'https://www.notion.so/openbuildxyz/2b5f8dcc319080d3bf49e9a1b3b483b8?v=2b5f8dcc3190804caa93000cf9f6dfb8',
+      link: 'https://www.notion.so/openbuildxyz/2b5f8dcc319080d3bf49e9a1b3b483b8',
     },
     {
       id: 3,
       title: 'Ecosystem Projects Growth',
       items: ['Bounties / Grants Ops', 'Talent / Projects Database', 'Open-Source Project Incubation'],
       image: Service3,
-      link: 'https://www.notion.so/openbuildxyz/2b5f8dcc319080a3b96cc43209b8f41c?v=2b5f8dcc3190804d9d19000cc1984789',
+      link: 'https://www.notion.so/openbuildxyz/2b5f8dcc319080a3b96cc43209b8f41c',
     },
     {
       id: 4,
       title: 'Developer Ops Platform & Tools',
       items: ['Education / Bounty Platform', 'Developer Data Analytics Platform', 'DevPlaza', 'Infrastructure Support', 'Validators'],
       image: Service4,
-      link: 'https://www.notion.so/openbuildxyz/2b5f8dcc319080c9b800f0b5b88447a0?v=2b5f8dcc3190807bbb24000c9dea0838',
+      link: 'https://www.notion.so/openbuildxyz/2b5f8dcc319080c9b800f0b5b88447a0',
     },
   ];
 
