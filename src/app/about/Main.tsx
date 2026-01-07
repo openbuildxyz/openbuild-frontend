@@ -233,10 +233,10 @@ export default function AboutMain() {
             }}
           >
             {[
-              { num: '35K+', label: 'Registered Devs' },
+              { num: '37K+', label: 'Registered Devs' },
               { num: '500K+', label: 'Developers Pool' },
               { num: '50K+', label: 'Followers' },
-              { num: '40+', label: 'Partners' },
+              { num: '100+', label: 'Partners' },
             ].map((stat, i) => (
               <div key={i} className="text-center">
                 <div className="text-[46px]/[56px] tracking-[-0.92px] mb-2 font-extrabold">{stat.num}</div>
