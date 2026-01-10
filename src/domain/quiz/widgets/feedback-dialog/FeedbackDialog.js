@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-import { ModalCloseIcon } from '@/components/Icons';
 import { Modal } from '@/components/Modal';
 
 import FeedbackDetail from './FeedbackDetail';
@@ -23,9 +22,14 @@ import FeedbackScore from './FeedbackScore';
 
 function FeedbackDialog({ result = {}, openModal, setOpenModal, quiz = {} }) {
   return (
-    <Modal isOpen={openModal} closeModal={() => setOpenModal(false)} container mode="base">
+    <Modal
+      isOpen={openModal}
+      closeModal={() => setOpenModal(false)}
+      container
+      mode="base"
+      closeExplicitly
+    >
       <div >
-        <ModalCloseIcon onClick={() => setOpenModal(false)} className="absolute top-[-48px] md:top-[-32px] right-0 md:right-[-32px] cursor-pointer" />
         <div className="p-6">
           <FeedbackScore score={result.score} passed={!!result.pass} />
           <hr className="border-dashed border-gray-600 mt-10" />

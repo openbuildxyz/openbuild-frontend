@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
@@ -28,6 +28,7 @@ import style from './style.module.scss';
 function FeedbackForm({ result, quiz }) {
   const [loading, setLoading] = useState(false);
   const { register, handleSubmit } = useForm();
+  const router = useRouter();
 
   const onSubmit = async data => {
     setLoading(true);
@@ -35,6 +36,7 @@ function FeedbackForm({ result, quiz }) {
       .then(res => {
         if (res.code === 200) {
           toast.success('Wallet updated');
+          router.push(`/quiz/${result.quiz_id || quiz?.id}`);
         } else {
           toast.error(res.message);
         }
@@ -61,10 +63,9 @@ function FeedbackForm({ result, quiz }) {
         <ol>
           <li>Thanks for your participation, our rewards distribution rules are based on your rank. High rank participants will receive their corresponding rewards.</li>
           {quiz.reward_rule && <li>{quiz.reward_rule}</li>}
-          <li>If any problems come to you during the process, please don’t hesitate to contact our assistant <span style={{ fontWeight: 'bold', color: '#1a1a1a', textDecoration: 'underline' }}>todoright</span> to get a hand.</li>
+          {/* <li>If any problems come to you during the process, please don’t hesitate to contact our assistant <span style={{ fontWeight: 'bold', color: '#1a1a1a', textDecoration: 'underline' }}>todoright</span> to get a hand.</li> */}
         </ol>
       </div>
-      <Link className={style['FeedbackForm-link']} href={`/quiz/${quiz.id}`}>Re-practice</Link>
     </form>
   );
 }
