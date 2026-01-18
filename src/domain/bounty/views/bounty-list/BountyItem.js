@@ -18,7 +18,6 @@ import Link from 'next/link';
 
 import Avatar from '@/components/Avatar';
 import { ArrowRightLineIcon } from '@/components/Icons';
-import Image from '@/components/Image';
 import { fromNow } from '@/utils/date';
 
 import { useConfig } from '#/state/application/hooks';
@@ -30,53 +29,61 @@ function BountyItem({ data }) {
   const filters = config?.find(f => f.config_id === 1)?.config_value['bounty'];
   const ecosystem = filters?.find(f => f.name === 'Ecosystem')?.labels.find(f => f.id === data.ecosystem);
 
+  // 根据状态确定顶部边框颜色
+  const getBorderColor = (status) => {
+    if (status === 3) return 'border-t-[#17C489]'; // Recruiting - 绿色
+    if (status > 6 && status < 24) return 'border-t-[#D672EF]'; // Building - 紫色
+    if (status === 30 || status === 24 || status === 20) return 'border-t-[#82ADD8]'; // Completed/Closed - 蓝色
+    return 'border-t-[#D1D5DB]';
+  };
+
   return (
     <Link
       href={`/bounties/${data.id}`}
       className={`
-        group flex flex-col relative cursor-pointer overflow-hidden rounded-2xl
-        bg-gradient-to-b ${ data.status === 3 ? 'from-[#E5E5FE] to-[#FFFFFF]' : 'bg-white'}
-        py-4 transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-2 [&>div]:px-4
+        group flex flex-col relative cursor-pointer overflow-hidden rounded-xl
+        bg-white border border-[#E5E7EB] border-t-[3px] ${getBorderColor(data.status)}
+        transition-all duration-300 ease-in-out hover:shadow-xl hover:-translate-y-1
       `}
     >
-      <div>
-        <Image className="mb-4 bg-neutral-300 rounded-full object-cover" width={80} height={80} src={ecosystem?.img} alt={ecosystem?.name} />
-        <h5 className="mb-2 text-lg line-clamp-2">
-          <span className="relative top-[2px]">{data.title}</span>
-        </h5>
-      </div>
-      <div className="flex-1">
-        <div className="mb-4 max-h-10 text-sm opacity-80 line-clamp-2">
-          <p>{data.summary}</p>
-        </div>
-        <div className="flex items-center gap-2">
-          <div className="flex items-center">
-            <StatusBadge status={data.status} />
-          </div>
+      {/* 顶部状态标签区域 */}
+      <div className="px-6 pt-5 pb-4">
+        <div className="flex items-center gap-2 flex-wrap">
+          <StatusBadge status={data.status} />
+          {/* 这里可以添加其他标签，如 Front-end, Part-time 等 */}
         </div>
       </div>
-      <hr className="mt-6 mb-4 border-gray-400" />
-      <div className="flex items-center justify-between">
-        <p className="text-sm">Reward</p>
-        <div className="text-right">
-          <div className="flex items-center justify-end text-sm">
-            <strong className="text-lg">${data.amount / 100}</strong>
-          </div>
+
+      {/* 标题和描述 */}
+      <div className="px-6 pb-4 flex-1 min-h-[162px]">
+        <h3 className="mb-2 text-[24px] font-extrabold line-clamp-2 leading-[26px]">
+          {data.title}
+        </h3>
+        <p className="text-[16px] font-normal line-clamp-2 leading-[20px] opacity-80">
+          {data.summary}
+        </p>
+      </div>
+
+      {/* Bounty Amount */}
+      <div className="px-6 py-6 border-t border-[#1a1a1a0f]">
+        <div className="flex items-center justify-between">
+          <span className="text-[14px] font-bold leading-[24px]">Bounty Amount</span>
+          <span className="text-[20px] font-extrabold text-[#111827] leading-[24px]">${data.amount / 100}</span>
         </div>
       </div>
-      <hr className="my-4 border-gray-400" />
-      <div className="flex items-center">
-        <div className="flex flex-1 items-center truncate">
-          <Avatar className="mr-4" size={48} user={data?.employer_user} />
-          <div className="text-xs text-gray-50">
-            <p className="truncate">
-              {fromNow(data.created_at * 1000)} by{' '}
-              <a href={`/u/${data.employer_user?.user_handle}`} className="truncate font-bold text-gray underline">{data.employer_user?.user_nick_name}</a>
-            </p>
+
+      {/* 底部发布者信息 */}
+      <div className="p-6 border-t border-[#1a1a1a0f]">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2 flex-1 min-w-0">
+            <Avatar size={24} user={data?.employer_user} />
+            <div className="text-[14px] leading-[24px] truncate text-[#00000066]">
+              <span className="text-gray">By {data.employer_user?.user_nick_name}</span>
+              <span className="mx-1">·</span>
+              <span>{fromNow(data.created_at * 1000)}</span>
+            </div>
           </div>
-        </div>
-        <div>
-          <ArrowRightLineIcon className="h-6 w-6" />
+          <ArrowRightLineIcon className="h-5 w-5 flex-shrink-0 -rotate-45" />
         </div>
       </div>
     </Link>
