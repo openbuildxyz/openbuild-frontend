@@ -20,17 +20,18 @@ import Avatar from '@/components/Avatar';
 import { ArrowRightLineIcon } from '@/components/Icons';
 import { fromNow } from '@/utils/date';
 
-import { useConfig } from '#/state/application/hooks';
-
 import StatusBadge from './StatusBadge';
 
+// import { useConfig } from '#/state/application/hooks';
+
+
 function BountyItem({ data }) {
-  const config = useConfig();
-  const filters = config?.find(f => f.config_id === 1)?.config_value['bounty'];
-  const ecosystem = filters?.find(f => f.name === 'Ecosystem')?.labels.find(f => f.id === data.ecosystem);
+  // const config = useConfig();
+  // const filters = config?.find(f => f.config_id === 1)?.config_value['bounty'];
+  // const ecosystem = filters?.find(f => f.name === 'Ecosystem')?.labels.find(f => f.id === data.ecosystem);
 
   // 根据状态确定顶部边框颜色
-  const getBorderColor = (status) => {
+  const getBorderColor = status => {
     if (status === 3) return 'border-t-[#17C489]'; // Recruiting - 绿色
     if (status > 6 && status < 24) return 'border-t-[#D672EF]'; // Building - 紫色
     if (status === 30 || status === 24 || status === 20) return 'border-t-[#82ADD8]'; // Completed/Closed - 蓝色
