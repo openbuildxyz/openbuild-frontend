@@ -32,7 +32,7 @@ export function ListSkeleton() {
           </div>
         </div>
       </div>
-      <div className="mb-9 mt-6 grid gap-5 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 3xl:grid-cols-5">
+      <div className="mb-9 mt-3.5 grid gap-5 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 3xl:grid-cols-5">
         {new Array(10).fill(',').map((i, k) => (
           <div
             key={`ListSkeleton-${k}`}

@@ -20,8 +20,8 @@ import React, { forwardRef } from 'react';
 import type { InputProps } from '@nextui-org/input';
 
 const styles = {
-  input: [ 'bg-transparent', 'placeholder:opacity-40', 'ml-1' ],
-  innerWrapper: 'border border-gray-600 hover:border-gray h-12 text-sm px-3 rounded',
+  input: [ 'bg-transparent', 'placeholder:opacity-40', 'ml-0.5' ],
+  innerWrapper: 'border border-gray-600 hover:border-gray h-12 text-sm px-4 rounded',
   inputWrapper: [ 'shadow-none' ],
 };
 
@@ -39,6 +39,10 @@ const MyInput = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProps>((
       ...styles,
     },
   });
+
+  console.log({
+    ...getInputProps()
+  })
 
   const innerWrapper = React.useMemo(() => {
     if (startContent) {
