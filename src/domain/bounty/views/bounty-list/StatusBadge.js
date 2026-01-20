@@ -17,33 +17,29 @@
 const badgeList = [
   {
     label: 'Recruiting',
-    emoji: '🧱',
-    textColor: 'text-[#807DFB]',
-    bgColor: 'bg-[#807DFB]',
-    borderColor: 'border-[#807DFB]',
+    textColor: 'text-[#17C489]',
+    bgColor: 'bg-[rgba(23,196,137,0.08)]',
+    borderColor: 'border-[#17C489]',
     isMatched: status => status === 3,
   },
   {
     label: 'Building',
-    emoji: '🔫',
-    textColor: 'text-[#00C475]',
-    bgColor: 'bg-[#01DB83]',
-    borderColor: 'border-[#01DB83]',
+    textColor: 'text-[#D672EF]',
+    bgColor: 'bg-[rgba(214,114,239,0.08)]',
+    borderColor: 'border-[#D672EF]',
     isMatched: status => status > 6 && status < 24,
   },
   {
     label: 'Completed',
-    emoji: '🔚',
     textColor: 'text-[#82ADD8]',
-    bgColor: 'bg-[#82ADD8]',
+    bgColor: 'bg-[rgba(130,173,216,0.08)]',
     borderColor: 'border-[#82ADD8]',
     isMatched: status => status === 30,
   },
   {
-    label: 'Termination',
-    emoji: '🔚',
+    label: 'Closed',
     textColor: 'text-[#82ADD8]',
-    bgColor: 'bg-[#82ADD8]',
+    bgColor: 'bg-[rgba(130,173,216,0.08)]',
     borderColor: 'border-[#82ADD8]',
     isMatched: status => status === 24 || status === 20,
   },
@@ -53,14 +49,9 @@ function StatusBadge({ status }) {
   const badge = badgeList.find(({ isMatched }) => isMatched(status));
 
   return badge && (
-    <div className={`inline-flex items-center gap-2 p-[3px] ${badge.bgColor} bg-opacity-10 rounded-full`}>
-      <span className={`size-6 text-xs rounded-full text-center leading-[22px] border-1 ${badge.borderColor}`}>
-        {badge.emoji}
-      </span>
-      <span className={`text-xs font-semibold ${badge.textColor} font-nunito leading-[12px] text-left pr-2`}>
-        {badge.label}
-      </span>
-    </div>
+    <span className={`inline-flex items-center px-2 py-1.5 rounded-[6px] text-xs leading-[12px] border ${badge.textColor} ${badge.bgColor} ${badge.borderColor}`}>
+      {badge.label}
+    </span>
   );
 }
 

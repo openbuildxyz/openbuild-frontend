@@ -25,7 +25,7 @@ type BasicSearchProps = {
 
 function BasicSearch({ className }: BasicSearchProps) {
   return (
-    <div className={clsx('flex items-center', className)}>
+    <div className={clsx('flex items-center gap-4 w-full justify-end flex-col md:flex-row', className)}>
       <SearchFilter />
       <SortFilter />
     </div>
