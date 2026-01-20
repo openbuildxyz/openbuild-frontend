@@ -23,6 +23,7 @@ import 'github-markdown-css/github-markdown-light.css';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import 'aos/dist/aos.css';
+import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
 import { GoogleAnalytics } from '@/components/GoogleAnalytics';
@@ -109,6 +110,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <ClientEntry config={{ static: getAppConfig(), dynamic: config }}>
           <DefaultLayout>{children}</DefaultLayout>
         </ClientEntry>
+        <Analytics />
         <GoogleAnalytics />
         <SpeedInsights />
       </body>
