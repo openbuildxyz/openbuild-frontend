@@ -43,6 +43,7 @@ import ZhangWenchaoImg from 'public/images/home/zhang-wenchao.png';
 import LeeMmaiImg from 'public/images/home/LeeMmai.jpg';
 import VCNelsonZImg from 'public/images/home/VCNelson_Z.jpeg';
 import x142yImg from 'public/images/home/142y.jpg';
+import ouraiImg from 'public/images/home/ourai.jpg';
 /* eslint-enable */
 
 import { SvgIcon } from '@/components/Image';
@@ -68,6 +69,7 @@ const IMAGE_MAP = {
   'qiuqiu': QiuqiuImg,
   'BZvYnd5k': BZvYnd5kImg,
   'lilittlekang': LilittlekangImg,
+  'ourai': ouraiImg,
   
   // GitHub mappings (for fallback)
   'lispking': KingImg,
@@ -160,6 +162,7 @@ const DATAS = [
   { name: 'Kang', x: 'kk860755', github: 'Ritakang0451', title: 'BuilderHero', handle: 'lilittlekang' },
   { name: 'WenChao', x: 'wenchao_zh', github: 'zhang-wenchao', title: 'BuilderHero', handle: null },
   { name: '142y', x: '14222y', github: '142y', title: 'BuilderHero', handle: null },
+  { name: 'Ourai', x: 'fxxkol', github: 'ourai', title: 'Anti-chaos Engineer, Indie Developer', handle: 'ourai' },
 ].map(item => ({
   ...item,
   picture: getImage(item.handle, item.github, item.x),
