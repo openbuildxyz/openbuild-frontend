@@ -70,7 +70,6 @@ const IMAGE_MAP = {
   'BZvYnd5k': BZvYnd5kImg,
   'lilittlekang': LilittlekangImg,
   'ourai': ouraiImg,
-  
   // GitHub mappings (for fallback)
   'lispking': KingImg,
   'wfnuser': WfnuserImg,
@@ -94,7 +93,6 @@ const IMAGE_MAP = {
   'Ritakang0451': LilittlekangImg,
   'zhang-wenchao': ZhangWenchaoImg,
   'LeeMaimai': LeeMmaiImg,
-  
   // X/Twitter mappings (for fallback)
   'lispking': KingImg,
   'weriaolilun': WfnuserImg,
