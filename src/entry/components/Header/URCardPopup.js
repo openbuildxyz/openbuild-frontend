@@ -49,7 +49,6 @@ export function URCardPopup({ open, closeModal }) {
       </div>
 
       <div className="bg-white px-6 pb-6 pt-4 max-md:px-4 max-md:pt-3 max-md:pb-4 flex flex-col items-left rounded-b-3xl">
-        <Image src="/images/UR-card-3.svg" alt="UR Card mini" width={161} height={24} />
         <h2 className="text-[20px] max-md:text-[18px] font-bold text-[#1a1a1a] mt-2 mb-3 max-md:mt-2 max-md:mb-2 leading-6 max-md:leading-5">
           What makes UR special
         </h2>
