@@ -38,7 +38,7 @@ function SortFilter() {
     return searchParams?.get('order') || null;
   }, [searchParams]);
   return (
-    <div className="w-[180px] ml-2">
+    <div className="w-full md:w-[206px]">
       <ReactSelect
         isClearable
         isSearchable={false}

@@ -40,7 +40,7 @@ function SearchFilter() {
   }, 300);
 
   return (
-    <div className="max-w-[180px]">
+    <div className="w-full md:max-w-[360px]">
       <Input
         defaultValue={searchParams.get('query')?.toString()}
         type="search"

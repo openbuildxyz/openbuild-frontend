@@ -61,11 +61,11 @@ export function OPagination({ page, pageSize = PAGE_SIZE, total, changeCallback 
 
   return total > 0 ? (
     <div className="flex justify-end">
-      <div className="flex mt-5 md:mt-4">
+      <div className="flex">
         {
           currentPage > 1 && <Button
-            variant="light"
-            className="mr-2 h-9"
+            variant="text"
+            className="mr-2 h-9 underline"
             disabled={currentPage <= 1}
             onClick={() => change(currentPage > 1 && currentPage - 1)}
           >
@@ -80,9 +80,9 @@ export function OPagination({ page, pageSize = PAGE_SIZE, total, changeCallback 
           onChange={page => change(page)}
         />
         <Button
-          variant="light"
+          variant="text"
           disabled={currentPage >= totalPage}
-          className="ml-2 h-9"
+          className="ml-2 h-9 underline"
           onClick={() => change(currentPage < totalPage && currentPage + 1)}
         >
           Next

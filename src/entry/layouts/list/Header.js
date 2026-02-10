@@ -20,7 +20,7 @@ import { ArrowRightIcon } from '@/components/Icons';
 
 function Header({ title, desc, link, linkText }) {
   return (
-    <div className="pt-6 pb-6 text-center">
+    <div className="pt-9 pb-9 text-center">
       <h1 className="text-[24px] font-bold leading-[32px] md:text-[36px] md:leading-[42px]">{title}</h1>
       <div className="mt-2 flex justify-center flex-col text-[13px] opacity-80 md:flex-row md:items-center md:text-[15px]">
         <p>{desc}</p>
