@@ -29,7 +29,7 @@ function BountyListView({
     <>
       <div
         className={clsx(
-          'mb-9 mt-6 grid gap-5 md:grid-cols-3',
+          'mb-9 mt-3.5 grid gap-5 md:grid-cols-3',
           className
         )}
       >
