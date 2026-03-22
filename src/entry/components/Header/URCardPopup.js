@@ -57,11 +57,6 @@ export function URCardPopup({ open, closeModal }) {
           Securely manage your crypto and fiat in one account with zero off-ramp fees and low-cost FX.
         </p>
 
-        <p className="text-[#484848] max-md:text-[14px] mb-8 max-md:mb-6">
-          By <span className="font-semibold text-[#1a1a1a]">UR</span> · Offer valid{' '}
-          <span className="font-semibold text-[#1a1a1a]">until Jan 6, 2026</span>
-        </p>
-
         <button
           type="button"
           onClick={() => window.open('https://get.ur.app/login?code=whvcn8', '_blank')}
