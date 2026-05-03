@@ -39,6 +39,7 @@ function readyPartnersData() {
     />});
   }
   for (let i = 1; i <= 20; i++) {
+    if (i === 14) continue;
     partnersData.University.push({ ele: <NextImage
       className="max-w-[160px] max-h-[40px]"
       width={160}
