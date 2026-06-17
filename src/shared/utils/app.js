@@ -24,12 +24,38 @@ function resolveConfigValue(valueFromEnv, defaultValue, resolve) {
   return isFunction(resolve) ? resolve(valueFromEnv) : valueFromEnv;
 }
 
+function resolvePublicConfigValue(publicValueFromEnv, valueFromEnv, defaultValue, resolve) {
+  return resolveConfigValue(
+    publicValueFromEnv === undefined ? valueFromEnv : publicValueFromEnv,
+    defaultValue,
+    resolve,
+  );
+}
+
 const appConfig = {
   devPlaza: {
     enabled: resolveConfigValue(process.env.OB_DEVPLAZA_ENABLED, true, value => value !== 'false'),
   },
   aiAgent: {
     enabled: resolveConfigValue(process.env.OB_AIAGENT_ENABLED, true, value => value !== 'false'),
+  },
+  assistant: {
+    enabled: resolvePublicConfigValue(
+      process.env.NEXT_PUBLIC_OB_ASSISTANT_ENABLED,
+      process.env.OB_ASSISTANT_ENABLED,
+      false,
+      value => value === 'true',
+    ),
+    path: resolvePublicConfigValue(
+      process.env.NEXT_PUBLIC_OB_ASSISTANT_PATH,
+      process.env.OB_ASSISTANT_PATH,
+      '/assistant',
+    ),
+    difyUrl: resolvePublicConfigValue(
+      process.env.NEXT_PUBLIC_OB_DIFY_CHATBOT_URL,
+      process.env.OB_DIFY_CHATBOT_URL,
+      'https://ai.openbuild.xyz/chatbot/IjylvCt33JZvfyRF',
+    ),
   },
 };
 

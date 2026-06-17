@@ -19,11 +19,16 @@
 import Image from 'next/image';
 import { useState } from 'react';
 
+import useAppConfig from '@/hooks/useAppConfig';
+
 import { URCardPopup } from '../Header/URCardPopup';
 
 function DifyWidget() {
   const [showFrame, setShowFrame] = useState(false);
   const [isURPopupOpen, setIsURPopupOpen] = useState(false);
+  const aiAgentEnabled = useAppConfig('aiAgent.enabled');
+  const assistant = useAppConfig('assistant');
+  const chatUrl = assistant?.enabled ? assistant.path : assistant?.difyUrl;
 
   const handleToggleFrame = () => {
     setShowFrame(!showFrame);
@@ -31,7 +36,7 @@ function DifyWidget() {
 
   return (
     <>
-      {showFrame && (
+      {aiAgentEnabled && showFrame && (
         <div className="fixed inset-0 bg-black/50 z-40 flex items-center justify-center">
           <div className="w-full h-full max-w-4xl max-h-[80vh] bg-white dark:bg-gray-800 rounded-lg shadow-xl overflow-hidden relative">
             <button
@@ -49,19 +54,21 @@ function DifyWidget() {
               </svg>
             </button>
             <iframe
-              src="https://ai.openbuild.xyz/chatbot/IjylvCt33JZvfyRF"
+              src={chatUrl}
               className="w-full h-full min-h-[600px] border-none"
             />
           </div>
         </div>
       )}
 
-      <button
-        onClick={handleToggleFrame}
-        className="fixed bottom-6 right-6 z-50 hover:opacity-80 transition-all transform hover:scale-110"
-      >
-        <Image src="/cat.svg" alt="Chat icon" width={64} height={64} />
-      </button>
+      {aiAgentEnabled && (
+        <button
+          onClick={handleToggleFrame}
+          className="fixed bottom-6 right-6 z-50 hover:opacity-80 transition-all transform hover:scale-110"
+        >
+          <Image src="/cat.svg" alt="Chat icon" width={64} height={64} />
+        </button>
+      )}
 
       <button
         type="button"
