@@ -37,7 +37,7 @@ const appConfig = {
     enabled: resolveConfigValue(process.env.OB_DEVPLAZA_ENABLED, true, value => value !== 'false'),
   },
   aiAgent: {
-    enabled: resolveConfigValue(process.env.OB_AIAGENT_ENABLED, true, value => value !== 'false'),
+    enabled: resolveConfigValue(process.env.OB_AIAGENT_ENABLED, false, value => value === 'true'),
   },
   assistant: {
     enabled: resolvePublicConfigValue(
