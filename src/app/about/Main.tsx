@@ -233,7 +233,7 @@ export default function AboutMain() {
             }}
           >
             {[
-              { num: '37K+', label: 'Registered Devs' },
+              { num: '40K+', label: 'Registered Devs' },
               { num: '500K+', label: 'Developers Pool' },
               { num: '50K+', label: 'Followers' },
               { num: '100+', label: 'Partners' },
