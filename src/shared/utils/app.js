@@ -54,7 +54,7 @@ const appConfig = {
     difyUrl: resolvePublicConfigValue(
       process.env.NEXT_PUBLIC_OB_DIFY_CHATBOT_URL,
       process.env.OB_DIFY_CHATBOT_URL,
-      'https://ai.openbuild.xyz/chatbot/IjylvCt33JZvfyRF',
+      '',
     ),
   },
 };

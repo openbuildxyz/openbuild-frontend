@@ -29,6 +29,7 @@ function DifyWidget() {
   const aiAgentEnabled = useAppConfig('aiAgent.enabled');
   const assistant = useAppConfig('assistant');
   const chatUrl = assistant?.enabled ? assistant.path : assistant?.difyUrl;
+  const chatEntryEnabled = aiAgentEnabled && chatUrl;
 
   const handleToggleFrame = () => {
     setShowFrame(!showFrame);
@@ -36,7 +37,7 @@ function DifyWidget() {
 
   return (
     <>
-      {aiAgentEnabled && showFrame && (
+      {chatEntryEnabled && showFrame && (
         <div className="fixed inset-0 bg-black/50 z-40 flex items-center justify-center">
           <div className="w-full h-full max-w-4xl max-h-[80vh] bg-white dark:bg-gray-800 rounded-lg shadow-xl overflow-hidden relative">
             <button
@@ -61,7 +62,7 @@ function DifyWidget() {
         </div>
       )}
 
-      {aiAgentEnabled && (
+      {chatEntryEnabled && (
         <button
           onClick={handleToggleFrame}
           className="fixed bottom-6 right-6 z-50 hover:opacity-80 transition-all transform hover:scale-110"
